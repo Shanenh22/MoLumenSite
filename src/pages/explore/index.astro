@@ -4,15 +4,28 @@ import { photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
-const sections = [
+const foundations = [
   ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart actually is, and how its pieces fit together. Start here.'],
-  ['The Planets', '/explore/planets/', 'Ten drives every chart contains — from the Sun’s purpose to Pluto’s transformations.'],
+  ['The Big Three', '/explore/the-big-three/', 'Sun, Moon, and rising — what each one really governs.'],
+  ['Elements & Modalities', '/explore/elements-and-modalities/', 'The two grids that generate all twelve signs.'],
+  ['The Planets', '/explore/planets/', 'Ten drives every chart contains — the Sun’s purpose to Pluto’s transformations.'],
   ['The 12 Signs', '/explore/signs/', 'Styles of expression: how each sign colors the planets within it.'],
   ['The 12 Houses', '/explore/houses/', 'Areas of experience: where in life each part of your chart plays out.'],
   ['Aspects', '/explore/aspects/', 'The geometry of the chart: how planets support, strain, and balance each other.'],
+];
+const timing = [
   ['Transits', '/explore/transits/', 'How the moving sky activates your chart — the astrology of timing.'],
+  ['Retrogrades', '/explore/retrogrades/', 'What retrograde motion is, and what it honestly isn’t.'],
+  ['Eclipses', '/explore/eclipses/', 'Why they come in seasons, and what they actually mark.'],
+  ['The Lunar Nodes', '/explore/lunar-nodes/', 'The growth axis — and why eclipses happen there.'],
+  ['Moon Phases', '/explore/moon-phases/', 'Working with the 29.5-day cycle, without the rulebook.'],
+  ['The Saturn Return', '/explore/saturn-return/', 'What arrives around 29 and 58 — minus the doom.'],
+];
+const life = [
   ['Relationship Astrology', '/explore/relationships/', 'Synastry and composite charts: how two people’s charts interact.'],
   ['Personal Purpose', '/explore/personal-purpose/', 'What a chart can (and can’t) say about vocation and direction.'],
+  ['Questions to Bring', '/explore/questions-to-bring/', 'The questions that make a reading genuinely useful.'],
+  ['Common Misconceptions', '/explore/misconceptions/', 'Twelve things people believe that astrologers don’t.'],
   ['Glossary', '/explore/glossary/', 'Plain-language definitions for every term on this site.'],
 ];
 ---
@@ -47,17 +60,62 @@ const sections = [
   </section>
 
   <section class="section">
-    <div class="container grid grid--3">
-      {
-        sections.map(([title, href, desc]) => (
-          <article class="card">
-            <h2 style="font-size: var(--text-xl); margin: 0;">
-              <a href={href}>{title}</a>
-            </h2>
-            <p style="margin: 0;">{desc}</p>
-          </article>
-        ))
-      }
+    <div class="container">
+      <p class="eyebrow">Foundations</p>
+      <h2>How a chart is built</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {
+          foundations.map(([title, href, desc]) => (
+            <article class="card">
+              <h3 style="font-size: var(--text-lg); margin: 0;">
+                <a href={href}>{title}</a>
+              </h3>
+              <p style="margin: 0;">{desc}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Timing</p>
+      <h2>How the sky moves</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {
+          timing.map(([title, href, desc]) => (
+            <article class="card">
+              <h3 style="font-size: var(--text-lg); margin: 0;">
+                <a href={href}>{title}</a>
+              </h3>
+              <p style="margin: 0;">{desc}</p>
+            </article>
+          ))
+        }
+      </div>
+      <p style="margin-top: var(--space-6);">
+        <a href="/current-sky/the-sky-in-2026/">What's shifting in the sky this year →</a>
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Living with it</p>
+      <h2>Astrology in practice</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {
+          life.map(([title, href, desc]) => (
+            <article class="card">
+              <h3 style="font-size: var(--text-lg); margin: 0;">
+                <a href={href}>{title}</a>
+              </h3>
+              <p style="margin: 0;">{desc}</p>
+            </article>
+          ))
+        }
+      </div>
     </div>
   </section>
 

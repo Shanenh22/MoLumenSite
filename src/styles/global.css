@@ -1240,15 +1240,17 @@ details.faq .faq__body {
 }
 
 /* Icon value row (moodboard style) */
+/* Compact on mobile: 3 across, icon + label only. Full detail from 768px. */
 .value-row {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--space-8) var(--space-4);
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-4) var(--space-2);
   text-align: center;
 }
 @media (min-width: 768px) {
   .value-row {
     grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-8) var(--space-4);
   }
 }
 @media (min-width: 1024px) {
@@ -1262,11 +1264,19 @@ details.faq .faq__body {
   align-items: center;
   gap: var(--space-2);
 }
+.value p {
+  display: none;
+}
+@media (min-width: 768px) {
+  .value p {
+    display: block;
+  }
+}
 .value .value__icon {
   display: grid;
   place-content: center;
-  width: 76px;
-  height: 76px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: var(--bg-alt);
   border: 1px solid rgb(176 141 69 / 0.4);
@@ -1287,14 +1297,36 @@ details.faq .faq__body {
   border-color: rgb(15 110 107 / 0.35);
   color: var(--color-teal);
 }
+@media (min-width: 768px) {
+  .value .value__icon {
+    width: 76px;
+    height: 76px;
+  }
+}
 .value h3 {
   font-family: var(--font-sans);
-  font-size: var(--text-sm);
+  font-size: 0.72rem;
+  line-height: 1.25;
   font-weight: 700;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.08em;
   text-transform: uppercase;
   margin: 0;
   color: var(--ink);
+}
+@media (min-width: 768px) {
+  .value h3 {
+    font-size: var(--text-sm);
+    letter-spacing: 0.12em;
+  }
+}
+/* The value band is a supporting strip, not a full section */
+.section--strip {
+  padding-block: var(--space-8);
+}
+@media (min-width: 768px) {
+  .section--strip {
+    padding-block: var(--space-12);
+  }
 }
 .value p {
   font-size: var(--text-sm);

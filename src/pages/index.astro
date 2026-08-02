@@ -83,13 +83,13 @@ const values = [
   </section>
 
   <!-- Value row (icon strip) -->
-  <section class="section">
+  <section class="section section--strip">
     <div class="container">
       <div class="value-row value-row--6">
         {
           values.map(([icon, title, desc]) => (
             <div class="value">
-              <span class="value__icon"><Icon name={icon as any} size={34} /></span>
+              <span class="value__icon"><Icon name={icon as any} size={26} /></span>
               <h3>{title}</h3>
               <p>{desc}</p>
             </div>

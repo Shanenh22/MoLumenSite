@@ -63,6 +63,13 @@ Environment: Astro 5.18.2 static build, 100 pages. Tests run in the development 
 Gold is retained as a decorative-only accent (dividers, portrait frame, logo mark) — it no longer
 carries any text or button label, which is what made the old buttons read as muddy brown.
 
+## Content expansion (2026-08-02)
+10 new pages: the big three, elements & modalities, retrogrades, eclipses, lunar nodes, moon
+phases, Saturn return, misconceptions, questions to bring, and The Sky in 2026. Explore hub
+restructured into Foundations / Timing / In Practice. Site now 112 pages.
+axe WCAG 2.2 AA on all new pages: **0 violations**. 0 broken links. See
+docs/research/content-strategy.md for the research basis and the next recommended round.
+
 ## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)

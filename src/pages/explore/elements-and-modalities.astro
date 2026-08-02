@@ -1,0 +1,129 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Elements & Modalities', href: '/explore/elements-and-modalities/' },
+];
+---
+
+<BaseLayout
+  title="Elements and Modalities — the two grids behind the zodiac"
+  description="Fire, earth, air, and water; cardinal, fixed, and mutable. The two organizing systems that explain why the twelve signs behave the way they do — learn them once, use them forever."
+  path="/explore/elements-and-modalities/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Elements and modalities</h1>
+        <p class="lede">The twelve signs aren't twelve unrelated personalities. They're the product of two simple grids crossed with each other — and once you see the grids, the whole zodiac becomes memorable.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.signs.src}
+        alt={scenes.signs.alt}
+        width={scenes.signs.width}
+        height={scenes.signs.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Two questions, twelve answers</h2>
+      <p>
+        Every sign answers two questions: <em>what is it made of</em> (its element) and
+        <em>how does it move</em> (its modality). Four elements times three modalities produces
+        exactly twelve combinations — and each combination occurs precisely once. Aries is the only
+        cardinal fire sign in existence. That's not a coincidence; it's the architecture.
+      </p>
+
+      <h2>The four elements: temperament</h2>
+      <p>Elements describe what a sign is fundamentally interested in.</p>
+      <ul>
+        <li>
+          <strong>Fire</strong> (Aries, Leo, Sagittarius) — spirit, action, faith. Fire signs move
+          toward what excites them and generate their own momentum. They warm rooms and occasionally
+          scorch them.
+        </li>
+        <li>
+          <strong>Earth</strong> (Taurus, Virgo, Capricorn) — substance, usefulness, results. Earth
+          signs trust what can be measured, built, and maintained. Patient, sometimes to the point
+          of immovability.
+        </li>
+        <li>
+          <strong>Air</strong> (Gemini, Libra, Aquarius) — thought, exchange, perspective. Air signs
+          process life by talking and comparing, and they need distance in order to see clearly.
+        </li>
+        <li>
+          <strong>Water</strong> (Cancer, Scorpio, Pisces) — feeling, bonding, depth. Water signs
+          read a room before anyone speaks and merge with what they love. Boundaries are the
+          lifelong assignment.
+        </li>
+      </ul>
+      <p>
+        Elements that share a quality get along easily: fire and air both energize outward, earth
+        and water both draw inward. This is the geometry behind
+        <a href="/explore/aspects/trine/">trines</a>, which connect signs of the same element.
+      </p>
+
+      <h2>The three modalities: motion</h2>
+      <p>
+        Modalities describe <em>when in a season</em> a sign falls, which turns out to describe how
+        it operates.
+      </p>
+      <ul>
+        <li>
+          <strong>Cardinal</strong> (Aries, Cancer, Libra, Capricorn) — the signs that begin each
+          season. Cardinal energy initiates: it starts things, takes the lead, and sets direction.
+        </li>
+        <li>
+          <strong>Fixed</strong> (Taurus, Leo, Scorpio, Aquarius) — the signs at each season's
+          height. Fixed energy sustains: it holds, deepens, commits, and resists being moved.
+        </li>
+        <li>
+          <strong>Mutable</strong> (Gemini, Virgo, Sagittarius, Pisces) — the signs that close each
+          season. Mutable energy adapts: it distributes, adjusts, translates, and lets go.
+        </li>
+      </ul>
+      <p>
+        Signs sharing a modality sit at hard angles to one another, which is why
+        <a href="/explore/aspects/square/">squares</a> and
+        <a href="/explore/aspects/opposition/">oppositions</a> so often feel like a clash of
+        approach rather than a clash of values.
+      </p>
+
+      <h2>Putting the grids to work</h2>
+      <p>
+        Read any sign as its two coordinates and you can reconstruct its behavior without
+        memorizing a list. Scorpio is fixed water: feeling that commits absolutely and refuses to
+        move. Gemini is mutable air: thought that circulates and adapts. Capricorn is cardinal
+        earth: initiative applied to building something durable.
+      </p>
+      <p>
+        The same lens works on a whole chart. Count the elements and modalities across all ten
+        planets and a temperament emerges — a chart heavy in fixed signs will hold a course through
+        anything and hate changing it; a chart with almost no earth may have brilliant ideas and a
+        strained relationship with logistics. This is one of the first things an astrologer notices,
+        and it's available to you the moment you have your chart in front of you.
+      </p>
+      <p>
+        Next: <a href="/explore/signs/">the twelve signs one by one</a>, or
+        <a href="/explore/aspects/">how aspects work</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Want your own chart read this way?"
+    body="A natal reading starts with exactly this kind of pattern-reading — then connects it to your real decisions."
+    buttonLabel="See the readings"
+    buttonHref="/readings/"
+  />
+</BaseLayout>

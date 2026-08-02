@@ -1,0 +1,148 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Common Misconceptions', href: '/explore/misconceptions/' },
+];
+---
+
+<BaseLayout
+  title="Common Misconceptions About Astrology"
+  description="Twelve things people believe about astrology that working astrologers don't — from sun signs and 'the 13th sign' to fate, prediction, and what a chart can honestly do."
+  path="/explore/misconceptions/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Common misconceptions</h1>
+        <p class="lede">Some of the most confident claims about astrology — from both fans and critics — aren't things practicing astrologers actually hold. Here are the ones worth clearing up.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.approachPhilosophy.src}
+        alt={scenes.approachPhilosophy.alt}
+        width={scenes.approachPhilosophy.width}
+        height={scenes.approachPhilosophy.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>"Astrology says your sun sign determines your personality"</h2>
+      <p>
+        No practicing astrologer works this way. Your Sun is one placement out of ten planets across
+        twelve houses, and sun-sign columns exist because they're the only thing that can be written
+        for a mass audience without a birth time. Two people who share a Sun sign can have almost
+        nothing else in common astrologically.
+        <a href="/explore/the-big-three/">The big three</a> is a better starting frame, and the full
+        chart is better still.
+      </p>
+
+      <h2>"The dates shifted — I'm not really my sign"</h2>
+      <p>
+        This one resurfaces every few years. It refers to precession: the slow wobble of Earth's axis
+        that has moved the constellations out of alignment with the seasonal calendar since the
+        zodiac was defined. But Western astrology uses the <strong>tropical</strong> zodiac, which is
+        anchored to the equinoxes and solstices — to the seasons, not to the constellations. Nothing
+        shifted, because Western astrology was never measuring the constellations in the first
+        place. (Sidereal systems, used in Vedic astrology, do track the constellations — a different
+        method with its own internal consistency, not a correction to this one.)
+      </p>
+
+      <h2>"There's a thirteenth sign"</h2>
+      <p>
+        Ophiuchus is a real constellation the Sun passes through. It has never been part of the
+        tropical zodiac, which divides the year into twelve equal 30° segments regardless of how big
+        the background constellations are. Twelve equal divisions is the system's design, not an
+        oversight.
+      </p>
+
+      <h2>"Astrology predicts the future"</h2>
+      <p>
+        Astrology describes conditions and timing — which themes are active, when windows open,
+        where friction is likely. It does not deliver events. Anyone promising you a definite future
+        has left the tradition for something else, and usually wants money for it. There is fate and
+        there is choice, and a reading exists to help you tell them apart.
+      </p>
+
+      <h2>"A hard aspect means something bad will happen"</h2>
+      <p>
+        <a href="/explore/aspects/square/">Squares</a> and
+        <a href="/explore/aspects/opposition/">oppositions</a> describe tension between two drives,
+        not misfortune. Some of the most capable people you know built their competence on exactly
+        that friction. The "easy" aspects have their own risk — talent that never got used because
+        nothing forced the issue.
+      </p>
+
+      <h2>"Astrologers believe planets emit rays that control us"</h2>
+      <p>
+        Very few do. The mainstream position treats the chart as a symbolic map that correlates with
+        patterns in a life, not as a causal mechanism. You don't need a physical theory to use a map,
+        and no serious practitioner claims Mars is beaming aggression at you from 140 million miles
+        away.
+      </p>
+
+      <h2>"Compatibility can be judged from two sun signs"</h2>
+      <p>
+        "Never date a Scorpio" is entertainment. Actual
+        <a href="/explore/relationships/">relationship astrology</a> compares two full charts —
+        every planet against every planet — and the results are far more specific and far less
+        prescriptive. Charts describe dynamics; people decide what to do about them.
+      </p>
+
+      <h2>"Retrograde periods are dangerous"</h2>
+      <p>
+        <a href="/explore/retrogrades/">Retrograde motion</a> is an optical effect of orbital
+        geometry, and the traditional reading is review, not disaster. Mercury retrograde does not
+        break appliances. It surfaces things that were rushed.
+      </p>
+
+      <h2>"You need to believe in it for it to work"</h2>
+      <p>
+        You don't need to believe anything. Plenty of clients treat a chart as a structured way to
+        think about their own patterns — a reflective tool rather than an oracle. Skepticism is
+        welcome in a reading and frequently makes it better.
+      </p>
+
+      <h2>"Astrology is a religion"</h2>
+      <p>
+        It isn't, and it doesn't require or exclude one. Practitioners and clients come from every
+        faith background and none.
+      </p>
+
+      <h2>"If your chart says it, you're stuck with it"</h2>
+      <p>
+        Every placement can be lived a dozen ways. A chart shows raw material and tendency; how you
+        work with it stays with you. Determinism is the single most common misunderstanding, and it's
+        the one worth arguing about hardest — because a fatalistic reading isn't just inaccurate, it
+        does harm.
+      </p>
+
+      <h2>"Astrology can tell me whether I'm sick, or what to do with my money"</h2>
+      <p>
+        It cannot, and an ethical astrologer will say so and refer you on. Readings are not medical,
+        psychological, legal, or financial services. See the
+        <a href="/disclaimer/">disclaimer</a> for exactly where the lines are.
+      </p>
+      <p>
+        If a claim you've encountered isn't covered here, <a href="/contact/">ask</a> — honest
+        questions are welcome, including hostile ones.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Curious enough to see the real thing?"
+    body="A reading is a conversation, not a performance — bring your skepticism along with your questions."
+    buttonLabel="How readings work"
+    buttonHref="/how-readings-work/"
+  />
+</BaseLayout>

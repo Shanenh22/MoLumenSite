@@ -1,0 +1,124 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Saturn Return', href: '/explore/saturn-return/' },
+];
+---
+
+<BaseLayout
+  title="The Saturn Return — what it is and when yours arrives"
+  description="Saturn takes about 29.5 years to circle the zodiac, so it returns to its birth position around ages 29 and 58. What that transit actually asks of you — without the doom."
+  path="/explore/saturn-return/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>The Saturn return</h1>
+        <p class="lede">Around age 29, and again near 58, Saturn comes back to the exact spot it occupied when you were born. It has a reputation. Some of it is earned; most of the panic isn't.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.duskMountains.src}
+        alt={scenes.duskMountains.alt}
+        width={scenes.duskMountains.width}
+        height={scenes.duskMountains.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>The mechanics, first</h2>
+      <p>
+        <a href="/explore/planets/saturn/">Saturn</a> takes approximately 29.5 years to travel the
+        full zodiac. That means at roughly ages 29–30 it arrives back at the degree it held on the
+        day you were born — your first Saturn return. A second follows near 58–59, and a rare third
+        near 88.
+      </p>
+      <p>
+        Because the timing depends on your own chart rather than a calendar, two people born the
+        same year can hit theirs a year or more apart. And because Saturn stations retrograde
+        annually, the return often arrives in two or three passes across a year or so rather than a
+        single date — which is why it's experienced as a season rather than an event.
+      </p>
+
+      <h2>What the transit tends to ask</h2>
+      <p>
+        Saturn's business is structure, responsibility, limits, and earned authority. A return is
+        the moment that business comes due in whatever area of life Saturn occupies in your chart.
+        In practice it usually looks like a review: which of these commitments are actually mine,
+        and which did I inherit or drift into?
+      </p>
+      <p>
+        Common territory in a first return — careers that were chosen at twenty-two and no longer
+        fit, relationships that either deepen into genuine commitment or end, moves toward or away
+        from family, and the general and uncomfortable arrival of adulthood as something you're
+        responsible for rather than something happening to you. Second returns tend to ask the same
+        questions about legacy, retirement, and what the remaining decades are for.
+      </p>
+
+      <h2>The part the internet gets wrong</h2>
+      <p>
+        Saturn returns are widely described as catastrophic. That framing sells and it isn't
+        accurate. What actually characterizes the transit is <em>weight</em>: things feel more
+        consequential, and half-built structures show their cracks. If a job, a relationship, or a
+        story about yourself was already unsound, Saturn is the season it becomes undeniable. If
+        it's sound, the same transit tends to formalize it — this is a common period for marriages,
+        professional qualifications, first homes, and taking a title you've been doing the work of
+        for years.
+      </p>
+      <p>
+        In other words: the transit doesn't decide the outcome. It removes the option of continuing
+        to not decide.
+      </p>
+
+      <h2>How to work with it</h2>
+      <ul>
+        <li>
+          <strong>Find the house.</strong> Saturn's house placement tells you which arena is up for
+          review — money, partnership, vocation, home. That's where the effort belongs.
+        </li>
+        <li>
+          <strong>Do the unglamorous thing.</strong> Saturn responds to consistent small payments
+          far better than to dramatic gestures. The boring habit maintained for a year is the whole
+          technique.
+        </li>
+        <li>
+          <strong>Expect to feel your age.</strong> That's not a failure state. Authority is what
+          Saturn hands over on the other side, and it isn't given to people who avoided the work.
+        </li>
+        <li>
+          <strong>Don't manufacture a crisis.</strong> Some Saturn returns are quiet. If yours is,
+          nothing is wrong with you or your chart.
+        </li>
+      </ul>
+
+      <h2>When is mine?</h2>
+      <p>
+        You need your birth date to find Saturn's natal position, and your birth time to know which
+        house it's activating. If you're between about 28 and 31, or 57 and 60, you're in the window
+        — and the specific timing, house, and aspects are exactly what a
+        <a href="/readings/solar-return/">timing-focused reading</a> is for.
+      </p>
+      <p>
+        Related: <a href="/explore/transits/">how transits work</a> and
+        <a href="/explore/planets/saturn/">Saturn in the chart</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="In your Saturn return window?"
+    body="A reading can locate the exact house, the timing of each pass, and what the season is actually asking of you."
+    buttonLabel="See the readings"
+    buttonHref="/readings/"
+  />
+</BaseLayout>

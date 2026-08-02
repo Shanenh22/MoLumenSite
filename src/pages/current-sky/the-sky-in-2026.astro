@@ -1,0 +1,172 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { photos } from '../../config/images';
+const crumbs = [
+  { label: 'Current Sky', href: '/current-sky/' },
+  { label: 'The Sky in 2026', href: '/current-sky/the-sky-in-2026/' },
+];
+---
+
+<BaseLayout
+  title="The Sky in 2026 — a landmark year of planetary shifts"
+  description="2026 moved four slow planets into new signs: Neptune and Saturn into Aries, Uranus into Gemini, Jupiter into Leo, plus a nodal shift. Verified dates and what each change opens."
+  path="/current-sky/the-sky-in-2026/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">The bigger picture</p>
+        <h1>The sky in 2026</h1>
+        <p class="lede">
+          Most years, the slow planets stay put. 2026 moved four of them — and changed the lunar
+          nodes on top. If this year has felt like the furniture rearranging, that's because it
+          did.
+        </p>
+      </div>
+      <img
+        class="hero__img hero__img--portrait"
+        src={photos.skyReal2.src}
+        alt={photos.skyReal2.alt}
+        width={photos.skyReal2.width}
+        height={photos.skyReal2.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Why this year is unusual</h2>
+      <p>
+        The outer planets set the background conditions of an era. Because they move slowly —
+        Saturn takes about 29 years to circle the zodiac, Uranus 84, Neptune 165 — their sign
+        changes are rare, and when several land in the same twelve months, the whole texture of the
+        period shifts. That's 2026.
+      </p>
+
+      <h2>The year's major ingresses</h2>
+      <table>
+        <caption class="visually-hidden">Planetary sign changes in 2026</caption>
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Shift</th>
+            <th scope="col">Stays until</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">January 26</th>
+            <td>Neptune enters Aries (from Pisces, where it had been since 2011)</td>
+            <td>2039</td>
+          </tr>
+          <tr>
+            <th scope="row">February 13</th>
+            <td>Saturn enters Aries (from Pisces, since 2023)</td>
+            <td>2028</td>
+          </tr>
+          <tr>
+            <th scope="row">February 20</th>
+            <td>Saturn conjunct Neptune at 0° Aries</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <th scope="row">April 25</th>
+            <td>Uranus enters Gemini (from Taurus, since 2018)</td>
+            <td>2033</td>
+          </tr>
+          <tr>
+            <th scope="row">June 19</th>
+            <td>Chiron enters Taurus</td>
+            <td>—</td>
+          </tr>
+          <tr>
+            <th scope="row">June 30</th>
+            <td>Jupiter enters Leo (from Cancer)</td>
+            <td>July 2027</td>
+          </tr>
+          <tr>
+            <th scope="row">July 26</th>
+            <td>North Node enters Aquarius, South Node enters Leo</td>
+            <td>2028</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="card__meta">
+        Dates verified against two independent astrological ephemerides, August 2026. Positions are
+        astronomy; the reading below is interpretation.
+      </p>
+
+      <h2>Saturn and Neptune together in Aries</h2>
+      <p>
+        The headline. Two planets with opposite jobs — <a href="/explore/planets/saturn/">Saturn</a>
+        builds structure and insists on limits;
+        <a href="/explore/planets/neptune/">Neptune</a> dissolves boundaries and reaches for the
+        ideal — met at the very first degree of the zodiac in February. Conjunctions of these two
+        occur roughly every 36 years, and this one landed at a symbolic starting line.
+      </p>
+      <p>
+        The interpretive theme, held loosely: <em>where does the dream have to meet the drawing
+        board?</em> Aries is the sign of beginnings and self-assertion, so the question tends to
+        arrive personally — what are you actually going to build out of the thing you've been
+        imagining? Both planets are currently retrograde and will re-cross this territory, so the
+        conversation isn't finished.
+      </p>
+
+      <h2>Uranus into Gemini</h2>
+      <p>
+        <a href="/explore/planets/uranus/">Uranus</a> hadn't been in Gemini since the 1940s. Gemini
+        governs information, language, movement, and exchange; Uranus disrupts and reinvents
+        whatever it touches. The obvious modern read is a period of upheaval in how we communicate
+        and what we consider knowledge — but the more useful personal question is which house of
+        <em>your</em> chart it now occupies, because that's where you can expect the unexpected for
+        the next seven years.
+      </p>
+
+      <h2>Jupiter into Leo</h2>
+      <p>
+        <a href="/explore/planets/jupiter/">Jupiter</a> spends about a year per sign, so this is the
+        fastest-moving of the year's shifts and the most immediately usable. Jupiter expands what it
+        touches, and Leo's territory is heart, creativity, and being genuinely seen. Through July
+        2027, the house Leo rules in your chart is the one where doors tend to open more easily —
+        provided you show up to them.
+      </p>
+
+      <h2>The nodes to Leo–Aquarius</h2>
+      <p>
+        In late July the <a href="/explore/lunar-nodes/">lunar nodes</a> moved onto the
+        Leo–Aquarius axis, which relocates <a href="/explore/eclipses/">eclipse seasons</a> to those
+        two signs into 2028. Symbolically it's an axis about the individual heart and the collective
+        good — self-expression and community, the one and the many. Practically, it means the pair
+        of houses ruled by Leo and Aquarius in your chart are under review for the next year and a
+        half.
+      </p>
+
+      <h2>What to do with all this</h2>
+      <p>
+        Very little of it is actionable in the abstract. A sign change matters to you in proportion
+        to what it touches in your chart — which house it lands in, and whether it aspects anything
+        of yours. For one person Uranus in Gemini is a career upheaval; for another it's seven years
+        of unexpected learning; for a third it barely registers.
+      </p>
+      <p>
+        That specificity is the entire argument for a personal reading over a forecast. If you want
+        the general picture, keep an eye on the
+        <a href="/current-sky/">Current Sky timeline</a>. If you want yours, that's what a
+        <a href="/readings/solar-return/">solar return</a> or
+        <a href="/readings/monthly-transits/">monthly transit reading</a> is for.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Where do these shifts land in your chart?"
+    body="Same sky, twelve different answers. A reading maps this year's changes onto your own houses."
+    buttonLabel="See the readings"
+    buttonHref="/readings/"
+  />
+</BaseLayout>

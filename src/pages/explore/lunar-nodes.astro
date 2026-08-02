@@ -1,0 +1,109 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Lunar Nodes', href: '/explore/lunar-nodes/' },
+];
+---
+
+<BaseLayout
+  title="The Lunar Nodes — the North and South Node axis"
+  description="The lunar nodes are where the Moon's orbit crosses the Sun's apparent path. Astrologers read them as a growth axis: familiar gifts reaching toward unfamiliar development."
+  path="/explore/lunar-nodes/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>The lunar nodes</h1>
+        <p class="lede">Not planets, not bodies — two mathematical points where two orbits cross. They're also where eclipses happen, and one of astrology's most useful ideas about growth.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.chartDetail.src}
+        alt={scenes.chartDetail.alt}
+        width={scenes.chartDetail.width}
+        height={scenes.chartDetail.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>What they physically are</h2>
+      <p>
+        The Moon orbits Earth on a plane tilted about five degrees from the plane of Earth's orbit
+        around the Sun. Two tilted circles intersect at exactly two points. Those are the lunar
+        nodes: the <strong>North Node</strong>, where the Moon crosses going north, and the
+        <strong>South Node</strong>, where it crosses going south. They're always exactly opposite
+        each other, so they form an axis rather than two independent placements.
+      </p>
+      <p>
+        The nodes drift backwards through the zodiac, completing a full circuit in about 18.6 years
+        — which means they change sign roughly every 18 to 19 months, and everyone experiences a
+        "nodal return" around ages 18–19, 37, 55–56, and 74.
+      </p>
+      <p>
+        They're also the reason <a href="/explore/eclipses/">eclipses</a> exist: an eclipse is
+        simply a new or full moon that lands near a node.
+      </p>
+
+      <h2>How astrologers read them</h2>
+      <p>
+        The nodes are read as a growth axis. The <strong>South Node</strong> describes what comes
+        easily — inherited competence, well-worn instincts, the behavior you fall back on under
+        pressure. It's genuine skill, and it's also where you can hide, because doing what you're
+        already good at is comfortable.
+      </p>
+      <p>
+        The <strong>North Node</strong> sits directly opposite and describes the unfamiliar
+        development that stretches you. It rarely feels natural. Most people describe their North
+        Node territory as slightly awkward, mildly intimidating, and quietly compelling — which is
+        a fair description of growth generally.
+      </p>
+      <p>
+        A common misreading treats the South Node as something to abandon. The more useful framing
+        in practice is <em>rebalancing</em>: your South Node gifts are the resources you bring to
+        North Node territory, not baggage to discard. A person with a South Node in Virgo and North
+        Node in Pisces doesn't stop being precise; they learn to hold precision more loosely, and
+        the precision is what makes their compassion useful.
+      </p>
+
+      <h2>Signs versus houses</h2>
+      <p>
+        The node's <em>sign</em> describes the style of the stretch; the <em>house</em> describes the
+        arena where it plays out — and the house, as always, depends on your
+        <a href="/explore/the-big-three/">rising sign and therefore your exact birth time</a>. The
+        nodes are one of the placements where the difference is most noticeable: North Node in
+        Aquarius in the tenth house is a public, vocational assignment; the same sign in the fourth
+        house is a private, domestic one.
+      </p>
+
+      <h2>The collective layer</h2>
+      <p>
+        Because the nodes move slowly, everyone alive shares the same nodal sign axis for about
+        eighteen months at a time. That gives a whole period a shared theme — and it's why eclipse
+        seasons over those months keep returning to the same two signs. Whatever pair of houses that
+        axis occupies in your chart is under an extended review for the duration.
+      </p>
+      <p>
+        Related: <a href="/explore/eclipses/">eclipses</a>,
+        <a href="/explore/transits/">transits and timing</a>, and
+        <a href="/explore/personal-purpose/">what a chart says about purpose</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Where does your nodal axis fall?"
+    body="Sign, house, and the aspects to it — the specifics are what make the growth axis actionable."
+    buttonLabel="About the Natal Reading"
+    buttonHref="/readings/natal/"
+  />
+</BaseLayout>

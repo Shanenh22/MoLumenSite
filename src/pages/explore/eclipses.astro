@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Eclipses', href: '/explore/eclipses/' },
+];
+---
+
+<BaseLayout
+  title="Eclipses in Astrology — what they mark and how often"
+  description="Solar and lunar eclipses occur in pairs a few times a year near the lunar nodes. What astrologers read into them, why they run in 18-month cycles, and how to hold them without dread."
+  path="/explore/eclipses/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Eclipses</h1>
+        <p class="lede">Eclipses are new and full moons with the volume turned up. They arrive in seasons, follow an 18-year rhythm, and mark chapters rather than verdicts.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.currentSkyWide.src}
+        alt={scenes.currentSkyWide.alt}
+        width={scenes.currentSkyWide.width}
+        height={scenes.currentSkyWide.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>What makes a moon an eclipse</h2>
+      <p>
+        A <a href="/explore/glossary/#new-moon">new moon</a> happens every month when the Moon
+        passes between Earth and Sun. Most months it passes slightly above or below, because the
+        Moon's orbit is tilted about five degrees from the plane of Earth's orbit. But twice a year,
+        the alignment lands near one of the two points where those planes intersect — the
+        <a href="/explore/lunar-nodes/">lunar nodes</a> — and the shadows line up. A new moon there
+        becomes a solar eclipse; a full moon there becomes a lunar eclipse.
+      </p>
+      <p>
+        Because the geometry requires that alignment, eclipses cluster: they come in
+        <strong>eclipse seasons</strong> of roughly a month, about twice a year, usually two or
+        three eclipses at a time. In 2026, for instance, the seasons fell in February–March and
+        August, each pairing a solar and a lunar eclipse two weeks apart.
+      </p>
+
+      <h2>The cycles worth knowing</h2>
+      <ul>
+        <li>
+          <strong>Roughly every 6 months</strong> — a new eclipse season arrives.
+        </li>
+        <li>
+          <strong>Roughly every 18–19 months</strong> — the nodes change sign, so eclipses move to a
+          new pair of opposite signs and a new pair of houses in your chart.
+        </li>
+        <li>
+          <strong>Roughly every 18–19 years</strong> — the whole pattern repeats in the same signs
+          (the Saros rhythm). Astrologers often look back to what was happening 19 years ago for the
+          thematic rhyme.
+        </li>
+      </ul>
+
+      <h2>What astrologers read into them</h2>
+      <p>
+        The traditional reading is acceleration. Eclipses tend to correspond with chapters that turn
+        faster than usual: things conclude, arrive, or become undeniable in the houses the eclipse
+        touches. Solar eclipses, being new moons, lean toward beginnings and openings; lunar
+        eclipses, being full moons, lean toward culminations and releases.
+      </p>
+      <p>
+        The honest caveat: eclipse effects are frequently overstated. Not every eclipse coincides
+        with a life event, plenty of them pass without incident, and their reputation for calamity
+        is a modern media inheritance rather than a technical claim. What is reliably true is that
+        the axis being eclipsed — say the Leo–Aquarius axis while the nodes sit there — describes
+        which pair of life areas is under revision for the eighteen months or so that the nodes
+        remain.
+      </p>
+
+      <h2>How to hold an eclipse season</h2>
+      <ul>
+        <li>
+          <strong>Don't force decisions.</strong> The common counsel is to let eclipse periods
+          reveal rather than to act aggressively into them. Information tends to still be arriving.
+        </li>
+        <li>
+          <strong>Watch the houses, not the headlines.</strong> An eclipse in your career house and
+          an eclipse in your home house describe entirely different seasons, in the same sky.
+        </li>
+        <li>
+          <strong>Give it a fortnight.</strong> Eclipse pairs work as a unit; what opens at the
+          solar eclipse often resolves near the lunar one two weeks later.
+        </li>
+        <li>
+          <strong>Skip the dread.</strong> Eclipses are ordinary astronomy on a predictable
+          schedule. They mark change, which is the one constant your chart was always going to
+          contain.
+        </li>
+      </ul>
+      <p>
+        See <a href="/current-sky/">the current eclipse dates</a>, or read about
+        <a href="/explore/lunar-nodes/">the lunar nodes</a> that make them possible.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Which houses do your eclipses fall in?"
+    body="That's a chart question, not a calendar question — and it changes what an eclipse season means for you."
+    buttonLabel="See the readings"
+    buttonHref="/readings/"
+  />
+</BaseLayout>

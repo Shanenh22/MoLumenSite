@@ -1,0 +1,138 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Questions to Bring', href: '/explore/questions-to-bring/' },
+];
+---
+
+<BaseLayout
+  title="Questions to Bring to an Astrology Reading"
+  description="The questions that make a reading genuinely useful — how to shape them, examples by life area, and the ones no astrologer should answer."
+  path="/explore/questions-to-bring/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Questions to bring to a reading</h1>
+        <p class="lede">A good question is most of a good reading. Here's how to shape one, dozens of examples to borrow, and the handful worth leaving at the door.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.prepareReading.src}
+        alt={scenes.prepareReading.alt}
+        width={scenes.prepareReading.width}
+        height={scenes.prepareReading.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>What makes a question work</h2>
+      <p>
+        The best questions are specific, honest, and about something you can actually act on. The
+        difference is usually one degree of concreteness:
+      </p>
+      <ul>
+        <li><em>"Tell me about my career"</em> → <strong>"Why does every job start well and sour in year two?"</strong></li>
+        <li><em>"What about love?"</em> → <strong>"I keep choosing unavailable people. What's that pattern about?"</strong></li>
+        <li><em>"Will I be successful?"</em> → <strong>"What kind of work would actually suit me, given how I'm built?"</strong></li>
+        <li><em>"Is this a good year?"</em> → <strong>"I'm deciding between staying and moving in the spring. What's the timing picture?"</strong></li>
+      </ul>
+      <p>
+        Notice that the improved versions are answerable. They describe a real situation and leave
+        the decision with you — which is exactly the territory a chart can speak to.
+      </p>
+
+      <h2>By area of life</h2>
+      <h3>Self-understanding</h3>
+      <ul>
+        <li>What are the patterns I keep repeating without meaning to?</li>
+        <li>Which of my strengths am I underusing?</li>
+        <li>Where does my chart suggest I'm hardest on myself?</li>
+        <li>What's the difference between what I want and what I was taught to want?</li>
+      </ul>
+      <h3>Work and vocation</h3>
+      <ul>
+        <li>What conditions does my work need — autonomy, depth, audience, structure?</li>
+        <li>Is the restlessness I feel about this job, or about something bigger?</li>
+        <li>What does my chart say about working for myself versus within an organization?</li>
+        <li>I've been offered a change. What should I be weighing that I'm not?</li>
+      </ul>
+      <h3>Relationships</h3>
+      <ul>
+        <li>What do I actually need in a partnership, as opposed to what I look for?</li>
+        <li>Why does this particular dynamic keep recurring?</li>
+        <li>How do the two of us handle conflict differently, and where does that catch?</li>
+        <li>What helps each of us feel secure?</li>
+      </ul>
+      <h3>Timing and transitions</h3>
+      <ul>
+        <li>What season am I in, and roughly how long does it run?</li>
+        <li>Are there windows in the next year that favor this decision?</li>
+        <li>Is this a moment to push or a moment to consolidate?</li>
+        <li>What's the larger arc this year belongs to?</li>
+      </ul>
+      <h3>Meaning and direction</h3>
+      <ul>
+        <li>What is my chart pointing me toward that I keep avoiding?</li>
+        <li>Where do my easy gifts and my growth edge actually meet?</li>
+        <li>What would "living this chart well" look like in practice?</li>
+      </ul>
+
+      <h2>Questions to leave at the door</h2>
+      <p>
+        Not because they're forbidden, but because no honest astrologer can answer them and the
+        attempt does damage:
+      </p>
+      <ul>
+        <li>
+          <strong>Anything asking for a guaranteed outcome.</strong> "Will I get the job" has no
+          reliable astrological answer. "What's the picture around this application, and what can I
+          influence" does.
+        </li>
+        <li>
+          <strong>Medical, legal, or financial verdicts.</strong> Those belong with licensed
+          professionals, and you should be referred rather than answered.
+        </li>
+        <li>
+          <strong>Questions about a third party's private life.</strong> Reading someone's chart to
+          learn their secrets isn't insight, it's surveillance — and consent matters.
+        </li>
+        <li>
+          <strong>Death timing.</strong> Refused as a matter of ethics across the profession.
+        </li>
+        <li>
+          <strong>"Just tell me what to do."</strong> Understandable, and still the one thing a
+          reading shouldn't do. The choice is the part that's yours.
+        </li>
+      </ul>
+
+      <h2>Bring two or three</h2>
+      <p>
+        Ten questions in an hour produces ten shallow answers. Two or three real ones — the sort you
+        actually lie awake with — leave room for the conversation to go somewhere. Write them down
+        beforehand; the good ones often arrive while you're writing.
+      </p>
+      <p>
+        More in <a href="/prepare-for-your-reading/">preparing for your reading</a> and
+        <a href="/how-readings-work/">what to expect</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Got your questions?"
+    body="That's the hard part done. Choose a reading and bring them along."
+    buttonLabel="See the readings"
+    buttonHref="/readings/"
+  />
+</BaseLayout>
