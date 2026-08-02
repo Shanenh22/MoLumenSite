@@ -1,0 +1,56 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Life Changes Astrological Consultation",
+  "shortName": "Life Changes",
+  "slug": "life-changes",
+  "purpose": "New job, new home, a change of direction — when life is in motion, this reading shows which areas are being influenced and the themes emerging in the transition.",
+  "method": "Current-sky transits to your natal chart, focused on the transition at hand. You direct the focus in advance through the intake form.",
+  "bestFor": [
+    "A move, career change, or shift in direction already underway or under consideration",
+    "Understanding the emerging themes of a transition",
+    "Clients who've had a natal reading and are in a season of change"
+  ],
+  "notFor": [
+    "A first reading — the natal reading comes first",
+    "Ongoing month-by-month guidance — that's Monthly Personal Transits"
+  ],
+  "durationMinutes": 60,
+  "durationLabel": "1 hour",
+  "price": 130,
+  "priceConfirmed": true,
+  "audience": "established",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Prior natal reading with Mo",
+    "The transition you're navigating, via the intake form"
+  ],
+  "includes": [
+    "The interactions of the current sky with your natal chart",
+    "Which areas of your life are being influenced, and how",
+    "The emerging themes of your transition"
+  ],
+  "deliverables": [
+    "Recording of the session"
+  ],
+  "preparation": [
+    "Name the change you're navigating and what decisions sit inside it"
+  ],
+  "bookingEventId": "life-changes",
+  "related": [
+    "solar-return",
+    "quick-check-in",
+    "monthly-transits"
+  ],
+  "relatedLearn": [
+    "/explore/transits/",
+    "/explore/personal-purpose/"
+  ]
+}

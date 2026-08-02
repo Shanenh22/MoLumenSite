@@ -9,7 +9,9 @@ const services = (await getCollection('services')).sort(
 );
 const crumbs = [{ label: 'Readings', href: '/readings/' }];
 const priceCell = (s: (typeof services)[0]) =>
-  s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : 'Confirmed at booking';
+  s.data.priceConfirmed && s.data.price
+    ? (s.data.priceLabel ?? `$${s.data.price}`)
+    : 'Confirmed at booking';
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -27,7 +29,7 @@ const schema = [
 
 <BaseLayout
   title="Astrology Readings"
-  description="Natal, timing, relationship, horary, and advanced astrology readings with Mo Lumen — every session includes a recording and your chart. Compare readings and book online."
+  description="Natal chart, relationship, solar return, life changes, and monthly transit readings with Mo Lumen — open pricing, recordings included. Compare readings and book online."
   path="/readings/"
   breadcrumbs={crumbs}
   schema={schema}
@@ -38,9 +40,10 @@ const schema = [
       <p class="eyebrow">Readings</p>
       <h1>Astrology readings with Mo</h1>
       <p class="lede">
-        Five readings, one approach: your chart connected directly to your real life — decisions,
-        relationships, timing — by a certified astrologer with a classical lens and a practical
-        streak. Every live session includes a recording and your chart.
+        One approach for wherever you are: your chart connected directly to your real life —
+        decisions, relationships, timing — by a certified astrologer with a classical lens and a
+        practical streak. New clients start with the natal reading; established clients have a
+        whole menu of follow-ups, from a yearly solar return to a 30-minute check-in.
       </p>
     </div>
   </section>
@@ -141,8 +144,8 @@ const schema = [
         </tbody>
       </table>
       <p class="card__meta">
-        Final prices are being confirmed with Mo and will be listed here before launch. Every
-        price is always shown before you pay.
+        Prices as currently listed on Mo's scheduler. Every price is always shown again before
+        you pay. Readings marked "established clients" follow an initial natal reading with Mo.
       </p>
     </div>
   </section>

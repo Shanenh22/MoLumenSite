@@ -1,0 +1,53 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Quick Check-In — One Topic",
+  "shortName": "Quick Check-In",
+  "slug": "quick-check-in",
+  "purpose": "One area of life suddenly chaotic — or one place you want to grow? Thirty focused minutes on how your astrological influences are affecting that single topic.",
+  "method": "A single-topic transit consultation: you name the area in the intake form; Mo examines how current influences are affecting it and how to use them to make more positive choices.",
+  "bestFor": [
+    "Existing clients with one specific area that needs attention now",
+    "A sudden bout of chaos in one part of life",
+    "Guidance for growth in one named area"
+  ],
+  "notFor": [
+    "Multiple topics or the whole chart — book Want More Clarity or a natal follow-up instead",
+    "New clients — the Natal Chart Reading comes first"
+  ],
+  "durationMinutes": 30,
+  "durationLabel": "30 minutes",
+  "price": 60,
+  "priceConfirmed": true,
+  "audience": "established",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Existing client relationship",
+    "Your one topic, written out in the appointment form"
+  ],
+  "includes": [
+    "Your one topic, examined through your chart's current influences",
+    "How to use those influences to make more positive choices"
+  ],
+  "deliverables": [
+    "Recording of the session"
+  ],
+  "preparation": [
+    "Write your topic out clearly in the intake form — specific beats broad"
+  ],
+  "bookingEventId": "quick-check-in",
+  "related": [
+    "want-more-clarity",
+    "life-changes"
+  ],
+  "relatedLearn": [
+    "/explore/transits/"
+  ]
+}

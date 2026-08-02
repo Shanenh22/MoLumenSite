@@ -23,14 +23,14 @@
   {
     "id": "no-birth-time",
     "question": "What if I don't know my birth time?",
-    "answer": "You still have options. Tell me when booking: we can work with a chart focused on what doesn't depend on the exact time, or — for a single pressing question — a horary reading needs no birth data at all.",
+    "answer": "You still have options. Tell me when booking: an unknown birth time limits some techniques (especially houses and the rising sign), but plenty of the chart doesn't depend on it, and we can shape the reading around what's solid. If you can, hunt down the time first — the preparation page shows exactly where to look.",
     "scope": "global",
     "order": 4
   },
   {
     "id": "which-reading",
     "question": "Which reading should I start with?",
-    "answer": "If it's your first reading, start with the natal chart reading — everything else builds on it. If you have one urgent question, horary. If you're weighing timing on a decision, the transit reading. The Reading Finder walks you through it in under a minute.",
+    "answer": "New clients start with the Natal Chart Reading — 60 or 90 minutes, your choice — because everything else builds on it. Couples and close pairs can start with the Relationship Consultation. If you've already had your natal reading with Mo, the follow-ups open up: Want More Clarity for depth, Solar Return near your birthday, Life Changes when things are moving, Monthly Transits for ongoing timing, or a Quick Check-In for one urgent topic. The Reading Finder walks you through it in under a minute.",
     "scope": "global",
     "order": 5
   },

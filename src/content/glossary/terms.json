@@ -155,11 +155,11 @@
   {
     "id": "horary",
     "term": "Horary Astrology",
-    "definition": "A traditional branch that answers one specific question from a chart cast for the moment the question is asked and understood. Requires no birth data.",
+    "definition": "A traditional branch that answers one specific question from a chart cast for the moment the question is asked. Requires no birth data. Mo holds a Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology.",
     "related": [
       "traditional astrology"
     ],
-    "learnLink": "/readings/horary/"
+    "learnLink": "/credentials/"
   },
   {
     "id": "house",
@@ -329,7 +329,7 @@
     "related": [
       "natal"
     ],
-    "learnLink": "/readings/transit/"
+    "learnLink": "/readings/solar-return/"
   },
   {
     "id": "station",

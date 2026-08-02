@@ -1,0 +1,57 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Solar Return Reading",
+  "shortName": "Solar Return",
+  "slug": "solar-return",
+  "purpose": "Your yearly reading: when the Sun returns to its birth position near your birthday, the rest of the sky has moved — new patterns, new themes, a new year to navigate.",
+  "method": "Solar return chart interpretation layered over your natal chart: the emerging themes of your personal year ahead. You direct the focus in advance through the intake form.",
+  "bestFor": [
+    "An annual check-in around your birthday",
+    "Clients who've had a natal reading and want the year ahead mapped",
+    "Framing the coming year's themes while there's still time to use them"
+  ],
+  "notFor": [
+    "A first reading — start with the Natal Chart Reading; this builds on it"
+  ],
+  "durationMinutes": 60,
+  "durationLabel": "1 hour",
+  "price": 130,
+  "priceConfirmed": true,
+  "audience": "established",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Prior natal reading with Mo",
+    "Your focus for the year, via the intake form"
+  ],
+  "includes": [
+    "Your solar return chart and its new patterns and relationships",
+    "The emerging themes of your personal year",
+    "How the year's chart converses with your natal promise"
+  ],
+  "deliverables": [
+    "Recording of the session",
+    "Your solar return chart"
+  ],
+  "preparation": [
+    "Book near your birthday for best effect",
+    "Note the areas of life you most want the year read for"
+  ],
+  "bookingEventId": "solar-return",
+  "related": [
+    "life-changes",
+    "monthly-transits",
+    "want-more-clarity"
+  ],
+  "relatedLearn": [
+    "/explore/transits/",
+    "/current-sky/"
+  ]
+}

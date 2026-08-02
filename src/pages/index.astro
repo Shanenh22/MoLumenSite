@@ -19,7 +19,7 @@ const fmt = (d: Date) =>
 
 <BaseLayout
   title="Home"
-  description="Clarifying astrology readings with a classical lens — practical, candid, and warm. Book a natal, relationship, timing, or horary reading with Mo Lumen."
+  description="Clarifying astrology readings with a classical lens — practical, candid, and warm. Book a natal chart, relationship, solar return, or transit reading with Mo Lumen."
   path="/"
 >
   <!-- 2. Hero -->
@@ -87,11 +87,11 @@ const fmt = (d: Date) =>
   <section class="section">
     <div class="container">
       <p class="eyebrow">Readings</p>
-      <h2>Five readings, one approach</h2>
+      <h2>One approach, wherever you are</h2>
       <p class="lede">
         Your chart, connected directly to your real life — by a certified astrologer with a
-        classical lens and a practical streak. Every live session includes a recording and your
-        chart.
+        classical lens and a practical streak. Start with a natal reading; return for the year
+        ahead, life's transitions, or a monthly one-on-one.
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-8);">
         {
@@ -104,7 +104,9 @@ const fmt = (d: Date) =>
               <p>{s.data.purpose}</p>
               <p style="margin-top: auto;">
                 {s.data.priceConfirmed && s.data.price ? (
-                  <span class="price">${s.data.price}</span>
+                  <span class="price" style="font-size: var(--text-lg);">
+                    {s.data.priceLabel ?? `$${s.data.price}`}
+                  </span>
                 ) : (
                   <span class="price--unconfirmed">Pricing shown at booking — final list in review</span>
                 )}

@@ -11,7 +11,10 @@ const bySlug = Object.fromEntries(
       name: s.data.name,
       slug: s.data.slug,
       duration: s.data.durationLabel,
-      price: s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : 'confirmed at booking',
+      price:
+        s.data.priceConfirmed && s.data.price
+          ? (s.data.priceLabel ?? `$${s.data.price}`)
+          : 'confirmed at booking',
       birth:
         s.data.birthDataRequired === 'none'
           ? 'No birth data needed'
@@ -27,7 +30,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
 <BaseLayout
   title="Reading Finder — which astrology reading fits you?"
-  description="Answer three quick questions in plain language and find the astrology reading that fits your situation. No account, no stored answers, no pressure."
+  description="Answer two quick questions in plain language and find the astrology reading that fits your situation. No account, no stored answers, no pressure."
   path="/reading-finder/"
   breadcrumbs={crumbs}
 >
@@ -37,8 +40,8 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       <p class="eyebrow">A little help choosing</p>
       <h1>Find your reading</h1>
       <p class="lede">
-        Three questions, plain language, and a suggestion at the end. Nothing you answer here is
-        stored or sent anywhere — and you're always welcome to choose any reading you like.
+        Two quick questions, plain language, and a suggestion at the end. Nothing you answer here
+        is stored or sent anywhere — and you're always welcome to choose any reading you like.
       </p>
     </div>
   </section>
@@ -47,54 +50,64 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     <div class="container" style="max-width: 46rem;">
       <div class="finder" data-finder data-services={JSON.stringify(bySlug)}>
         <form>
-          <div data-step="1">
+          <div data-step="who">
             <fieldset>
-              <legend>What best describes your situation?</legend>
+              <legend>Have you had a reading with Mo before?</legend>
               <label class="choice"
-                ><input type="radio" name="q1" value="self" required />
-                <span>I want to understand myself and my life patterns more deeply</span></label
+                ><input type="radio" name="who" value="new" required />
+                <span>No — this would be my first reading with Mo</span></label
               >
               <label class="choice"
-                ><input type="radio" name="q1" value="timing" />
-                <span>Things are shifting and I want to understand this season and its timing</span></label
-              >
-              <label class="choice"
-                ><input type="radio" name="q1" value="relationship" />
-                <span>My question is about a specific relationship</span></label
-              >
-              <label class="choice"
-                ><input type="radio" name="q1" value="question" />
-                <span>I have one specific, pressing question</span></label
+                ><input type="radio" name="who" value="established" />
+                <span>Yes — I've had my natal reading and I'm back for more</span></label
               >
             </fieldset>
           </div>
-          <div data-step="2" hidden>
+
+          <div data-step="new-need" hidden>
             <fieldset>
-              <legend>Have you had a professional reading before?</legend>
+              <legend>What brings you here?</legend>
               <label class="choice"
-                ><input type="radio" name="q2" value="first" />
-                <span>Never — this would be my first</span></label
+                ><input type="radio" name="new-need" value="deep" />
+                <span>I want to understand myself and my life patterns — the full picture</span></label
               >
               <label class="choice"
-                ><input type="radio" name="q2" value="returning" />
-                <span>Yes, and I want what's current rather than a re-introduction</span></label
+                ><input type="radio" name="new-need" value="essentials" />
+                <span>I'm curious and want a solid first look without the longest session</span></label
               >
               <label class="choice"
-                ><input type="radio" name="q2" value="advanced" />
-                <span>Several — I'm ready to go beyond the standard planets</span></label
+                ><input type="radio" name="new-need" value="relationship" />
+                <span>It's about a relationship between two people</span></label
               >
             </fieldset>
           </div>
-          <div data-step="3" hidden>
+
+          <div data-step="est-need" hidden>
             <fieldset>
-              <legend>Do you have accurate birth information available?</legend>
+              <legend>What do you need right now?</legend>
               <label class="choice"
-                ><input type="radio" name="q3" value="yes" />
-                <span>Yes — date, time, and place (or I can get them)</span></label
+                ><input type="radio" name="est-need" value="deeper" />
+                <span>To go deeper into parts of my chart or what's ahead</span></label
               >
               <label class="choice"
-                ><input type="radio" name="q3" value="no" />
-                <span>No — my birth time is unknown or unreliable</span></label
+                ><input type="radio" name="est-need" value="year" />
+                <span>My year ahead — it's near my birthday</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="est-need" value="change" />
+                <span>I'm navigating a change: job, home, direction</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="est-need" value="monthly" />
+                <span>Ongoing guidance — a monthly rhythm sounds right</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="est-need" value="one-topic" />
+                <span>One specific topic that needs attention now</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="est-need" value="relationship" />
+                <span>A relationship between two people</span></label
               >
             </fieldset>
           </div>
@@ -103,7 +116,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
             <button type="button" class="btn btn--ghost" data-back hidden>Back</button>
             <button type="button" class="btn btn--primary" data-next>Next</button>
             <button type="button" class="btn btn--ghost" data-restart hidden>Start over</button>
-            <span class="finder__progress" data-progress>Question 1 of 3</span>
+            <span class="finder__progress" data-progress>Question 1 of 2</span>
           </div>
         </form>
 
@@ -111,11 +124,12 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
         <noscript>
           <p>
-            The finder needs JavaScript — but the
-            <a href="/readings/">reading comparison</a> answers the same question at a glance:
-            first reading → Natal; timing → Transit; two people → Relationship; one urgent
-            question or no birth time → Horary; beyond the standard planets → Further Out in the
-            Sky.
+            The finder needs JavaScript — but choosing is simple: first reading with Mo → the
+            <a href="/readings/natal/">Natal Chart Reading</a> (60 or 90 minutes); two people →
+            the <a href="/readings/relationship/">Relationship Consultation</a>. Already an
+            established client? See the follow-ups on the
+            <a href="/readings/">readings page</a>: Want More Clarity, Solar Return, Life
+            Changes, Monthly Transits, or a Quick Check-In.
           </p>
         </noscript>
       </div>
@@ -131,85 +145,102 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
   const root = document.querySelector<HTMLElement>('[data-finder]');
   if (root) {
     const services = JSON.parse(root.dataset.services || '{}');
-    const steps = [...root.querySelectorAll<HTMLElement>('[data-step]')];
+    const stepEls: Record<string, HTMLElement> = {};
+    root.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => {
+      stepEls[el.dataset.step!] = el;
+    });
     const backBtn = root.querySelector<HTMLButtonElement>('[data-back]')!;
     const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]')!;
     const restartBtn = root.querySelector<HTMLButtonElement>('[data-restart]')!;
     const progress = root.querySelector<HTMLElement>('[data-progress]')!;
     const result = root.querySelector<HTMLElement>('[data-result]')!;
     const form = root.querySelector('form')!;
-    let step = 0;
+    let path: string[] = ['who'];
 
-    const track = (event: string, params: Record<string, string> = {}) => {
-      // Analytics adapter: only whitelisted, non-personal params.
+    const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).gtag?.('event', event, params);
-    };
     track('reading_finder_start');
 
-    function answer(name: string): string | null {
-      const el = form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`);
-      return el ? el.value : null;
+    const answer = (name: string) =>
+      form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? null;
+
+    function nextStepId(): string | null {
+      const current = path[path.length - 1];
+      if (current === 'who') return answer('who') === 'established' ? 'est-need' : 'new-need';
+      return null; // second answer produces the result
     }
 
     function recommend(): { primary: string; alt: string | null; why: string } {
-      const q1 = answer('q1'),
-        q2 = answer('q2'),
-        q3 = answer('q3');
-      if (q3 === 'no' && q1 !== 'question')
+      const who = answer('who');
+      if (who === 'new') {
+        const need = answer('new-need');
+        if (need === 'relationship')
+          return {
+            primary: 'relationship',
+            alt: 'natal',
+            why: "The Relationship Consultation reads both natal charts together — affinities, frictions, and how each of you communicates and feels cared for. Both people's presence is preferred. (If it's really about your own patterns in relationships, the natal reading goes there too.)",
+          };
+        if (need === 'essentials')
+          return {
+            primary: 'natal',
+            alt: null,
+            why: "Every client relationship with Mo starts at the natal chart — and the 60-minute option gives you a solid first look at $150. If you already know you'll have lots of questions, the 90-minute session gives the conversation room to breathe.",
+          };
         return {
-          primary: 'horary',
-          alt: 'natal',
-          why: 'Without a reliable birth time, a horary reading gives you a direct, well-grounded answer to a specific question — no birth data needed. (If you can recover your birth time later, the natal reading opens everything up.)',
+          primary: 'natal',
+          alt: null,
+          why: 'The 90-minute Natal Chart Reading is the full tour: your whole chart, its patterns and connections, and what the current sky is stirring — with room for your questions throughout. It\'s the foundation every other reading builds on.',
         };
-      if (q1 === 'question')
+      }
+      const need = answer('est-need');
+      if (need === 'year')
         return {
-          primary: 'horary',
-          alt: q3 === 'yes' ? 'natal' : null,
-          why: 'One clear, pressing question is exactly what horary astrology was built for: a chart cast for the question itself, judged by traditional rules, answered in writing.',
+          primary: 'solar-return',
+          alt: 'monthly-transits',
+          why: 'The Solar Return Reading is the yearly check-in: when the Sun returns to its birth position, the rest of the sky has moved, and your new year has its own themes. Book it near your birthday.',
         };
-      if (q1 === 'relationship')
+      if (need === 'change')
         return {
-          primary: 'synastry',
-          alt: 'natal',
-          why: 'A relationship reading looks at both charts — how each person activates the other, and what the connection itself is asking for.',
+          primary: 'life-changes',
+          alt: 'want-more-clarity',
+          why: "The Life Changes Consultation reads the current sky against your natal chart, focused on the transition you're in — which areas are being influenced, and the themes emerging.",
         };
-      if (q1 === 'timing')
+      if (need === 'monthly')
         return {
-          primary: q2 === 'first' ? 'natal' : 'transit',
-          alt: q2 === 'first' ? 'transit' : 'natal',
-          why:
-            q2 === 'first'
-              ? 'Timing questions are transit territory — but a first reading lands best when the natal foundation comes first. Many people book the natal reading now and a transit reading at the next decision point.'
-              : 'The transit reading maps what this season is about, what the next year holds, and when to act.',
+          primary: 'monthly-transits',
+          alt: 'solar-return',
+          why: "Monthly Personal Transits is a standing 30-minute Zoom each month on how the month's movements resonate with your chart specifically — individualized, not a general forecast.",
         };
-      if (q2 === 'advanced')
+      if (need === 'one-topic')
         return {
-          primary: 'further-out-in-the-sky',
-          alt: 'transit',
-          why: "You've done the foundations — Further Out in the Sky is Mo's signature deep-dive beyond the standard planets, into themes ordinary readings never touch.",
+          primary: 'quick-check-in',
+          alt: 'want-more-clarity',
+          why: 'The Quick Check-In takes one named topic — the suddenly-chaotic area, or the one place you want to grow — and spends thirty focused minutes on how your current influences are affecting it.',
         };
-      if (q2 === 'returning')
+      if (need === 'relationship')
         return {
-          primary: 'transit',
-          alt: 'natal',
-          why: "Since you've had a proper reading before, the transit reading picks up where you are now: current activations and the year ahead.",
+          primary: 'relationship',
+          alt: null,
+          why: "The Relationship Consultation reads both natal charts together — affinities, frictions, communication styles, and what helps each of you feel secure. Both people's presence is preferred.",
         };
       return {
-        primary: 'natal',
-        alt: null,
-        why: "The natal reading is the foundation: your whole chart, your whole story, connected to what's happening in your life right now.",
+        primary: 'want-more-clarity',
+        alt: 'quick-check-in',
+        why: "Want More Clarity is exactly this: a full hour to go deeper into parts of your chart or future aspects — $100 if it's within three months of your natal reading, $130 after.",
       };
     }
 
-    function show(i: number) {
-      steps.forEach((s, idx) => (s.hidden = idx !== i));
-      form.hidden = false;
+    function show(stepId: string) {
+      Object.values(stepEls).forEach((el) => (el.hidden = true));
+      stepEls[stepId].hidden = false;
       result.hidden = true;
-      backBtn.hidden = i === 0;
-      restartBtn.hidden = i === 0;
-      nextBtn.textContent = i === steps.length - 1 ? 'Show my suggestion' : 'Next';
-      progress.textContent = `Question ${i + 1} of ${steps.length}`;
-      steps[i].querySelector<HTMLInputElement>('input')?.focus();
+      nextBtn.hidden = false;
+      const idx = path.indexOf(stepId);
+      backBtn.hidden = idx === 0;
+      restartBtn.hidden = idx === 0;
+      nextBtn.textContent = stepId === 'who' ? 'Next' : 'Show my suggestion';
+      progress.textContent = `Question ${idx + 1} of 2`;
+      stepEls[stepId].querySelector<HTMLInputElement>('input')?.focus();
     }
 
     function showResult() {
@@ -218,7 +249,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       const a = alt ? services[alt] : null;
       track('reading_finder_complete', { recommendation: primary });
       track('reading_recommendation_view', { service: primary });
-      form.hidden = true;
+      Object.values(stepEls).forEach((el) => (el.hidden = true));
       result.hidden = false;
       backBtn.hidden = false;
       restartBtn.hidden = false;
@@ -229,7 +260,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         <p>${why}</p>
         <dl class="factlist">
           <dt>Length</dt><dd>${p.duration}</dd>
-          <dt>Price</dt><dd>${p.price.startsWith('$') ? p.price : 'Final price ' + p.price}</dd>
+          <dt>Price</dt><dd>${p.price}</dd>
           <dt>You'll need</dt><dd>${p.birth}</dd>
         </dl>
         <p>
@@ -243,27 +274,33 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     }
 
     nextBtn.addEventListener('click', () => {
-      const current = steps[step];
-      const name = current.querySelector('input')!.name;
+      const current = path[path.length - 1];
+      const name = stepEls[current].querySelector('input')!.name;
       if (!answer(name)) {
-        current.querySelector<HTMLInputElement>('input')?.focus();
+        stepEls[current].querySelector<HTMLInputElement>('input')?.focus();
         progress.textContent = 'Please choose an option to continue';
         return;
       }
-      if (step < steps.length - 1) show(++step);
-      else showResult();
+      const next = nextStepId();
+      if (next) {
+        path.push(next);
+        show(next);
+      } else {
+        showResult();
+      }
     });
     backBtn.addEventListener('click', () => {
       if (!result.hidden) {
-        nextBtn.hidden = false;
-        show(step);
-      } else if (step > 0) show(--step);
+        show(path[path.length - 1]);
+      } else if (path.length > 1) {
+        path.pop();
+        show(path[path.length - 1]);
+      }
     });
     restartBtn.addEventListener('click', () => {
       form.reset();
-      step = 0;
-      nextBtn.hidden = false;
-      show(0);
+      path = ['who'];
+      show('who');
     });
   }
 </script>

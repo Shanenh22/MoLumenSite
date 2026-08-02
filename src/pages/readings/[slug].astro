@@ -65,7 +65,7 @@ const schema: object[] = [
         <dd>
           {
             s.priceConfirmed && s.price ? (
-              <span class="price">${s.price}</span>
+              <span class="price">{s.priceLabel ?? `$${s.price}`}</span>
             ) : (
               <span class="price--unconfirmed">
                 Final price is being confirmed — shown clearly before you book.
@@ -73,15 +73,25 @@ const schema: object[] = [
             )
           }
         </dd>
-        <dt>Format</dt>
+        <dt>Length</dt>
         <dd>{s.durationLabel}</dd>
         <dt>Where</dt>
         <dd>{s.format.join(' · ')}</dd>
+        <dt>For</dt>
+        <dd>
+          {
+            s.audience === 'new'
+              ? 'New clients — no prior reading needed'
+              : s.audience === 'established'
+                ? 'Established clients — after a natal reading with Mo'
+                : 'New and returning clients'
+          }
+        </dd>
         <dt>Birth data</dt>
         <dd>
           {
             s.birthDataRequired === 'none'
-              ? 'Not needed — that’s the point of horary'
+              ? 'Not needed'
               : s.birthDataRequired === 'both'
                 ? 'Date, time, and place for both people'
                 : 'Your date, exact time, and place of birth'
@@ -90,6 +100,23 @@ const schema: object[] = [
         <dt>Afterward</dt>
         <dd>{s.deliverables.join(' + ')}</dd>
       </dl>
+
+      {
+        s.options.length > 0 && (
+          <div class="grid grid--2" style="margin-bottom: var(--space-8);">
+            {s.options.map((o) => (
+              <div class="card">
+                <h2 style="font-size: var(--text-lg); margin: 0;">{o.label}</h2>
+                <p class="card__meta" style="margin: 0;">
+                  {o.durationLabel}
+                </p>
+                <p class="price" style="margin: 0;">${o.price}</p>
+                {o.note && <p style="margin: 0;">{o.note}</p>}
+              </div>
+            ))}
+          </div>
+        )
+      }
 
       <div class="grid grid--2">
         <div class="prose flow">

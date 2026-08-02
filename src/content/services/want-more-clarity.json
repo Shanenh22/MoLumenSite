@@ -1,0 +1,70 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Want More Clarity — Follow-Up Reading",
+  "shortName": "More Clarity",
+  "slug": "want-more-clarity",
+  "purpose": "Go deeper into parts of your chart or future aspects after your natal reading — a full hour to delve into whatever you'd like to discuss.",
+  "method": "A focused follow-up session on your natal chart and upcoming aspects, directed entirely by what you want to explore further.",
+  "bestFor": [
+    "Established clients whose natal reading opened doors worth walking through",
+    "Going deeper on specific placements, patterns, or future aspects",
+    "Questions that surfaced after the recording sank in"
+  ],
+  "notFor": [
+    "New clients — the Natal Chart Reading comes first"
+  ],
+  "durationMinutes": 60,
+  "durationLabel": "1 hour",
+  "price": 100,
+  "priceConfirmed": true,
+  "priceLabel": "$100 within 3 months of your reading · $130 after",
+  "options": [
+    {
+      "label": "Within 3 months of your natal reading",
+      "durationLabel": "1 hour",
+      "price": 100,
+      "bookingEventId": "clarity-3mo"
+    },
+    {
+      "label": "More than 3 months after",
+      "durationLabel": "1 hour",
+      "price": 130,
+      "bookingEventId": "clarity"
+    }
+  ],
+  "audience": "established",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Prior natal reading with Mo",
+    "The parts of your chart or aspects you want to explore"
+  ],
+  "includes": [
+    "A deeper dive into the part(s) of your chart you choose",
+    "Future aspects examined in detail",
+    "Your questions, at whatever depth you want to take them"
+  ],
+  "deliverables": [
+    "Recording of the session"
+  ],
+  "preparation": [
+    "Re-listen to your natal recording and note what you want more of"
+  ],
+  "bookingEventId": "clarity",
+  "related": [
+    "natal",
+    "quick-check-in",
+    "monthly-transits"
+  ],
+  "relatedLearn": [
+    "/explore/aspects/",
+    "/explore/houses/"
+  ]
+}

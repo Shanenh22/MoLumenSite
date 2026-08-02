@@ -2,8 +2,8 @@
 
 Blockers are marked ⛔ (launch cannot happen without them); everything else has a safe default the build proceeds with.
 
-1. ⛔ **Canonical service list.** Live site: Natal, Solar Return, Life Changes, Relationship. Mo1 prototype: Natal, Transit, Synastry (Relationship), Horary, Further Out in the Sky, Gift. Which list is current? Default until answered: Mo1 list, since it is the newer owner-built direction.
-2. ⛔ **Real prices per service.** Mo1's $225/$185/$245/$125/$205 are labeled placeholders. Site will not display unlabeled prices until confirmed.
+1. ✅ RESOLVED 2026-08-02 — canonical service list confirmed from the live Acuity scheduler (9 appointment types → 7 service pages). See docs/research/service-inventory.md.
+2. ✅ RESOLVED 2026-08-02 — real prices confirmed and live on the site ($60–$275).
 3. ⛔ **Cancellation / rescheduling windows** (e.g., free reschedule ≥24h?). Only a 30-day refund clause exists in the current ToS.
 4. ⛔ **Cal.com + Stripe accounts** — owner must create/connect; we supply exact setup steps in docs/integrations/calcom-stripe.md. Confirm migration away from Acuity.
 5. **Credential currency**: NCGR-PAA Level 3 status today? OPA/NCGR-DFW roles current? (About page dates from ~2023.)

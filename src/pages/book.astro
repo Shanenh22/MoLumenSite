@@ -13,7 +13,10 @@ const serviceData = Object.fromEntries(
     {
       name: s.data.name,
       duration: s.data.durationLabel,
-      price: s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : null,
+      price:
+        s.data.priceConfirmed && s.data.price
+          ? (s.data.priceLabel ?? `$${s.data.price}`)
+          : null,
       event: s.data.bookingEventId,
     },
   ])
@@ -56,7 +59,10 @@ const serviceData = Object.fromEntries(
                   />
                   <span>
                     <strong>{s.data.name}</strong> — {s.data.durationLabel}
-                    {s.data.priceConfirmed && s.data.price ? ` · $${s.data.price}` : ''}
+                    {s.data.priceConfirmed && s.data.price
+                      ? ` · ${s.data.priceLabel ?? `$${s.data.price}`}`
+                      : ''}
+                    {s.data.audience === 'established' ? ' · established clients' : ''}
                     <br />
                     <a href={`/readings/${s.data.slug}/`}>Details</a>
                   </span>

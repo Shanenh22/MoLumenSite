@@ -1,49 +1,79 @@
 {
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
   "name": "Natal Chart Reading",
   "shortName": "Natal",
   "slug": "natal",
-  "purpose": "Your whole chart, your whole story — who you are, the patterns you live, and what the sky is stirring right now.",
-  "method": "Full natal chart interpretation with a classical lens: planets, signs, houses, aspects, and current transits to the natal chart.",
+  "purpose": "Your whole birth chart, interpreted with you — the positions and connections of the planets, and what the current sky is stirring in your life right now.",
+  "method": "Full natal chart interpretation with a classical lens, including current-sky transits to your natal chart. You direct the focus in advance through the intake form, and you can be as interactive as you wish.",
   "bestFor": [
-    "A first professional reading — the real thing, not an app summary",
-    "A crossroads in career, relationship, or identity that wants a wider lens",
-    "Knowing your 'big three' and suspecting there's much more in the chart (there is)"
+    "New clients — this is the reading that starts everything",
+    "A first professional reading: the real thing, not an app summary",
+    "A crossroads in career, relationship, or identity that wants a wider lens"
   ],
   "notFor": [
-    "A single yes-or-no question — a horary reading answers that directly",
-    "Two people's compatibility — that's a relationship reading"
+    "Existing clients wanting a follow-up — Want More Clarity or a Quick Check-In fits better",
+    "Two people's compatibility — that's the Relationship Consultation"
   ],
   "durationMinutes": 90,
-  "durationLabel": "90 minutes",
-  "price": null,
-  "priceConfirmed": false,
-  "currency": "USD",
-  "format": ["Zoom", "Phone", "In person in DFW, by inquiry"],
+  "durationLabel": "60 or 90 minutes — your choice",
+  "price": 150,
+  "priceConfirmed": true,
+  "priceLabel": "$150 (60 min) · $200 (90 min)",
+  "options": [
+    {
+      "label": "90 minutes — the full tour",
+      "durationLabel": "1 hour 30 minutes",
+      "price": 200,
+      "bookingEventId": "natal-90",
+      "note": "Recommended for first readings: room for the whole chart and your questions."
+    },
+    {
+      "label": "60 minutes — the essentials",
+      "durationLabel": "1 hour",
+      "price": 150,
+      "bookingEventId": "natal-60"
+    }
+  ],
+  "audience": "new",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
   "birthDataRequired": "self",
   "intakeRequirements": [
     "Birth date",
     "Exact birth time (birth certificate if possible)",
     "Birth city and country",
-    "Your main questions or areas of focus"
+    "The focus you want, via the intake form after booking"
   ],
   "includes": [
-    "A guided tour of your Sun, Moon, rising, and full planetary picture",
-    "Dominant life themes: vocation signals, relationship patterns, underused gifts",
-    "What the current sky is activating in your chart right now",
-    "Space for your questions throughout — a conversation, not a lecture"
+    "Interpretation of the positions and connections of the planets in your birth chart",
+    "How the current sky interacts with your natal chart — what's being influenced now",
+    "Your chosen focus, set in advance through the intake form",
+    "As much interaction as you want — tailor the conversation to your needs"
   ],
-  "deliverables": ["Recording of the session", "A copy of your natal chart"],
+  "deliverables": [
+    "Recording of the session",
+    "A copy of your natal chart"
+  ],
   "preparation": [
     "Confirm your birth time from a birth certificate if you can",
-    "Bring two or three real questions you're living with",
-    "Find a quiet spot and give yourself a few unhurried minutes afterward"
+    "Bring two or three real questions you're living with"
   ],
-  "cancellationPolicy": "See the booking policy — to be confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy — to be confirmed by owner.",
-  "bookingEventId": "natal",
-  "related": ["transit", "synastry"],
-  "relatedLearn": ["/explore/birth-chart-basics/", "/explore/planets/", "/explore/houses/"],
-  "featured": true,
-  "available": true,
-  "ownerReview": true
+  "bookingEventId": "natal-90",
+  "related": [
+    "want-more-clarity",
+    "solar-return",
+    "relationship"
+  ],
+  "relatedLearn": [
+    "/explore/birth-chart-basics/",
+    "/explore/planets/",
+    "/explore/houses/"
+  ],
+  "featured": true
 }

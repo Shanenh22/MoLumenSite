@@ -1,0 +1,60 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Relationship Astrology Consultation",
+  "shortName": "Relationship",
+  "slug": "relationship",
+  "purpose": "Both natal charts, examined together — an honest gauge of compatibility: where affinity flows, where friction lives, and how each of you communicates and feels cared for.",
+  "method": "Synastry analysis of the interaction between both natal charts: areas of affinity and inharmonious areas highlighted and discussed, including each person's communication style and what makes each feel secure.",
+  "bestFor": [
+    "Any two people seeking to bond in a constructive way — couples, partners, close pairs",
+    "Understanding why the connection feels the way it feels",
+    "Decreasing the effects of obstacles you already sense"
+  ],
+  "notFor": [
+    "A verdict on whether to stay or go — the charts describe dynamics; the choice remains yours",
+    "Reading someone's chart without their knowledge — both parties' presence is preferred"
+  ],
+  "durationMinutes": 90,
+  "durationLabel": "1 hour 30 minutes",
+  "price": 275,
+  "priceConfirmed": true,
+  "audience": "any",
+  "format": [
+    "Zoom",
+    "Phone"
+  ],
+  "birthDataRequired": "both",
+  "intakeRequirements": [
+    "Birth date, exact time, and place for both people",
+    "The relationship context and your questions",
+    "Both parties' presence preferred"
+  ],
+  "includes": [
+    "The interaction between both natal charts — a gauge of compatibility",
+    "Areas of affinity and inharmonious areas, highlighted and discussed",
+    "How each person prefers to communicate, and what makes each feel cared for and secure",
+    "Constructive ways to bond and reduce the effect of obstacles"
+  ],
+  "deliverables": [
+    "Recording of the session",
+    "Copies of the charts discussed"
+  ],
+  "preparation": [
+    "Gather accurate birth data for both people — ideally from birth certificates",
+    "Come together if you can; both parties' presence is preferred"
+  ],
+  "bookingEventId": "relationship",
+  "related": [
+    "natal",
+    "quick-check-in"
+  ],
+  "relatedLearn": [
+    "/explore/relationships/",
+    "/explore/aspects/"
+  ],
+  "featured": true
+}

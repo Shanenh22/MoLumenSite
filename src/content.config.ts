@@ -14,8 +14,21 @@ const services = defineCollection({
     notFor: z.array(z.string()),
     durationMinutes: z.number().nullable(), // null = written/async
     durationLabel: z.string(),
-    price: z.number().nullable(), // null until owner confirms (risk-log #1)
+    price: z.number().nullable(), // base/lowest price; null until owner confirms
     priceConfirmed: z.boolean().default(false), // unconfirmed prices render with a visible label
+    priceLabel: z.string().optional(), // display override, e.g. "$150 (60 min) · $200 (90 min)"
+    options: z
+      .array(
+        z.object({
+          label: z.string(), // e.g. "90 minutes — the full tour"
+          durationLabel: z.string(),
+          price: z.number(),
+          bookingEventId: z.string().default(""),
+          note: z.string().optional(),
+        }),
+      )
+      .default([]), // variants of the same reading (e.g. 60/90-minute natal)
+    audience: z.enum(["new", "established", "any"]).default("any"), // who may book
     currency: z.string().default("USD"),
     format: z.array(z.string()), // e.g. ["Zoom", "Phone", "In person (DFW, by inquiry)"]
     birthDataRequired: z.enum(["none", "self", "both"]),

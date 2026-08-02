@@ -1,0 +1,54 @@
+{
+  "currency": "USD",
+  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "ownerReview": true,
+  "available": true,
+  "name": "Monthly Personal Transits — 1-on-1",
+  "shortName": "Monthly Transits",
+  "slug": "monthly-transits",
+  "purpose": "A standing 30-minute Zoom each month on how the month's planetary movements resonate with your personal chart — individualized, not a general forecast.",
+  "method": "Monthly transits read against your natal chart, one-on-one. This is personal and individualized — not the same general listing of transits posted publicly.",
+  "bestFor": [
+    "Established clients who want ongoing, personal timing guidance",
+    "Turning the monthly sky into decisions calibrated to your chart",
+    "A rhythm of reflection — same time, every month"
+  ],
+  "notFor": [
+    "New clients — a Natal Chart Reading comes first so there's a chart relationship to build on"
+  ],
+  "durationMinutes": 30,
+  "durationLabel": "30 minutes, monthly",
+  "price": 75,
+  "priceConfirmed": true,
+  "priceLabel": "$75 per monthly session",
+  "audience": "established",
+  "format": [
+    "Zoom"
+  ],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Prior natal reading with Mo",
+    "What's on your plate this month"
+  ],
+  "includes": [
+    "How this month's planetary movements interact with your chart specifically",
+    "Timing worth knowing before you schedule your month",
+    "Continuity — each month builds on the last"
+  ],
+  "deliverables": [
+    "Recording of each session"
+  ],
+  "preparation": [
+    "Bring your month: plans, decisions, and anything already feeling loud"
+  ],
+  "bookingEventId": "monthly-transits",
+  "related": [
+    "solar-return",
+    "quick-check-in"
+  ],
+  "relatedLearn": [
+    "/explore/transits/",
+    "/current-sky/"
+  ]
+}
