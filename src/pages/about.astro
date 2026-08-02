@@ -1,0 +1,102 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+import { site } from '../config/site';
+const crumbs = [{ label: 'About Mo', href: '/about/' }];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Person',
+    name: 'Maureen "Mo" Lumen',
+    jobTitle: 'Astrologer',
+    url: `${site.url}/about/`,
+    worksFor: { '@type': 'ProfessionalService', name: site.name, url: site.url },
+    memberOf: [
+      { '@type': 'Organization', name: 'National Council for Geocosmic Research (NCGR)' },
+      { '@type': 'Organization', name: 'Organization for Professional Astrologers (OPA)' },
+      { '@type': 'Organization', name: 'International Society for Astrological Research (ISAR)' },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="About Mo — astrologer, teacher, writer"
+  description="Meet Maureen 'Mo' Lumen: a modern-day astrologer with a classical lens. Certified in horary astrology, NCGR-PAA examined, OPA board member — and a former science teacher who believes there is fate and there is choice."
+  path="/about/"
+  breadcrumbs={crumbs}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">About</p>
+      <h1>Hello! I'm Maureen … a.k.a. Mo</h1>
+      <p class="lede">Astrologer. Teacher. Writer. I am your interpreter of the language of the planets.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <p>
+          Life is a many-faceted journey, and the ancient wisdom of astrology shines light on our
+          paths. I believe your resonance with the heavens influences your choices about
+          everything — where you live, what you do, who you keep close, and what moves you. My work
+          is to help you see those patterns clearly, so you can actively choose what suits you
+          best.
+        </p>
+        <p>
+          I came to astrology the long way, and I wouldn't trade the route. I've run businesses. I
+          taught natural sciences from middle school through college, which is why my readings
+          sound more like a good class than a mystical performance — I like things explained
+          properly. I've weathered real losses and done real healing, and along the way picked up
+          practices from tarot to reiki, plus a lifelong habit of making things with my hands:
+          painting, jewelry, glass.
+        </p>
+        <p>
+          All of it comes with me into the reading room. Clients tell me I'm a great listener and
+          deeply intuitive; I'd add that I'm practical to a fault. Astrology, as I practice it, is
+          a modern conversation through a classical lens — traditional technique, present-tense
+          life.
+        </p>
+        <blockquote>Knowledge brings insight. Insight brings power. Power brings freedom.</blockquote>
+        <p>
+          That's the heart of it. There is fate and there is choice — and a good reading helps you
+          tell the difference.
+        </p>
+        <h2>Can't live without</h2>
+        <ul>
+          <li><strong>Family</strong> — birth family, chosen family, and the family we create.</li>
+          <li><strong>Nature</strong> — especially the ocean, where I'm most at peace and most alive.</li>
+          <li><strong>Learning</strong> — something new, every single day.</li>
+          <li><strong>Travel</strong> — other cultures are other ways of seeing.</li>
+        </ul>
+      </div>
+      <aside class="flow">
+        <div class="card">
+          <h2 style="font-size: var(--text-lg); margin: 0;">Training & credentials</h2>
+          <ul style="margin: 0; padding-left: 1.1em;">
+            <li>Practitioner's Certificate in Horary Astrology — School of Traditional Astrology (STA)</li>
+            <li>NCGR-PAA Level 1 and Level 2 certification exams passed; Level 3 in progress</li>
+            <li>Board member & treasurer, Organization for Professional Astrologers (OPA)</li>
+            <li>Treasurer, NCGR-DFW chapter</li>
+            <li>Member: NCGR, OPA, and ISAR</li>
+          </ul>
+          <p style="margin: 0;"><a href="/credentials/">More on training & ethics →</a></p>
+        </div>
+        <div class="card">
+          <h2 style="font-size: var(--text-lg); margin: 0;">My approach</h2>
+          <p style="margin: 0;">
+            Practical and inspiring. Candid and compassionate. Intuitive and skillful. Read about
+            <a href="/approach/">how I work and what I believe astrology is for</a>.
+          </p>
+        </div>
+        <p class="card__meta">Photo of Mo to be placed here — original requested from owner.</p>
+      </aside>
+    </div>
+  </section>
+
+  <CTABand heading="Ready to work together?" body="Choose a reading, or start with the Reading Finder — I'll meet you and your chart there." />
+</BaseLayout>

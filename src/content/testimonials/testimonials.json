@@ -1,1 +1,10 @@
-[]
+[
+  {
+    "id": "placeholder-1",
+    "quote": "Approved testimonial needed — supplied by owner before launch.",
+    "attribution": "Pending",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "DEV PLACEHOLDER. Never render in production."
+  }
+]

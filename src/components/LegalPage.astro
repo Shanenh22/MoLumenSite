@@ -1,0 +1,45 @@
+---
+import { getEntry, render } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+interface Props {
+  id: string;
+  path: string;
+  label: string;
+}
+const { id, path, label } = Astro.props;
+const entry = await getEntry('legal', id);
+if (!entry) throw new Error(`Missing legal content: ${id}`);
+const { Content } = await render(entry);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const crumbs = [{ label, href: path }];
+const needsReview = entry.data.reviewStatus === 'attorney-review-required';
+---
+
+<BaseLayout title={entry.data.title} description={entry.data.description} path={path} breadcrumbs={crumbs}>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Policies</p>
+      <h1>{entry.data.title}</h1>
+      <p class="card__meta">Last updated {fmt(entry.data.updatedDate)}</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container prose flow">
+      {
+        needsReview && (
+          <div class="callout callout--review">
+            <p style="margin: 0;">
+              This document is a working draft prepared for professional legal review. It has not
+              yet been reviewed by an attorney and may change.
+            </p>
+          </div>
+        )
+      }
+      <Content />
+    </div>
+  </section>
+</BaseLayout>

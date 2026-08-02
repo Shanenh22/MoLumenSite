@@ -1,0 +1,45 @@
+{
+  "name": "Horary Reading — One Question",
+  "shortName": "Horary",
+  "slug": "horary",
+  "purpose": "One clear, pressing question answered directly using traditional horary technique. No birth data needed.",
+  "method": "Traditional horary astrology: a chart cast for the moment the question is received and judged by classical rules. Mo holds a Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology.",
+  "bestFor": [
+    "A single, well-defined question you genuinely care about",
+    "Situations where birth data is unavailable or unreliable",
+    "A direct answer rather than a wide-ranging conversation"
+  ],
+  "notFor": [
+    "Broad self-understanding — that's the natal reading's territory",
+    "Frivolous or repeated askings of the same question — horary works best asked once, sincerely",
+    "Medical, legal, or financial verdicts — astrology informs perspective, not professional advice"
+  ],
+  "durationMinutes": null,
+  "durationLabel": "Written judgment, delivered within a week",
+  "price": null,
+  "priceConfirmed": false,
+  "currency": "USD",
+  "format": ["Written reading delivered by email"],
+  "birthDataRequired": "none",
+  "intakeRequirements": [
+    "Your question, stated as clearly as you can",
+    "Brief background: what's happened, what's at stake, what you can act on"
+  ],
+  "includes": [
+    "The horary chart cast for your question",
+    "A written judgment in plain language: the answer, the reasoning, and the conditions around it",
+    "What the chart suggests you can do about it"
+  ],
+  "deliverables": ["Written judgment with the chart, by email"],
+  "preparation": [
+    "Sit with your question until it's specific — 'Will the house sale go through?' works better than 'What about my living situation?'"
+  ],
+  "cancellationPolicy": "See the booking policy — to be confirmed by owner.",
+  "reschedulingPolicy": "Not applicable — written reading.",
+  "bookingEventId": "horary",
+  "related": ["natal", "transit"],
+  "relatedLearn": ["/explore/birth-chart-basics/", "/explore/glossary/"],
+  "featured": false,
+  "available": true,
+  "ownerReview": true
+}

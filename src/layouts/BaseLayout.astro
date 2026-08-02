@@ -1,0 +1,117 @@
+---
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import '../styles/global.css';
+
+export interface Breadcrumb {
+  label: string;
+  href: string;
+}
+interface Props {
+  title: string;
+  description: string;
+  /** Path beginning and ending with '/'; used for canonical URL. */
+  path: string;
+  breadcrumbs?: Breadcrumb[];
+  ogType?: 'website' | 'article';
+  publishedDate?: Date;
+  updatedDate?: Date;
+  /** Extra JSON-LD objects for this page. */
+  schema?: object[];
+  noindex?: boolean;
+}
+const {
+  title,
+  description,
+  path,
+  breadcrumbs = [],
+  ogType = 'website',
+  publishedDate,
+  updatedDate,
+  schema = [],
+  noindex = false,
+} = Astro.props;
+
+const canonical = new URL(path, site.url).href;
+const fullTitle = path === '/' ? `${site.name} — ${site.tagline}` : `${title} | ${site.name}`;
+const ogImage = new URL('/og-default.svg', site.url).href;
+
+const baseSchema: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: site.name,
+    url: site.url,
+    email: site.email,
+    description: site.description,
+    founder: { '@type': 'Person', name: 'Maureen "Mo" Lumen', jobTitle: 'Astrologer' },
+    sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: site.name,
+    url: site.url,
+  },
+];
+if (breadcrumbs.length > 0) {
+  baseSchema.push({
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [{ label: 'Home', href: '/' }, ...breadcrumbs].map((c, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: c.label,
+      item: new URL(c.href, site.url).href,
+    })),
+  });
+}
+const allSchema = [...baseSchema, ...schema];
+const ga4Id = site.integrations.ga4Id;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Current Sky & Articles`} href="/rss.xml" />
+    <meta name="theme-color" content="#1e2a45" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+    <script type="application/ld+json" set:html={JSON.stringify(allSchema)} />
+    {
+      ga4Id && (
+        <>
+          <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+          <script
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4Id}',{anonymize_ip:true});`}
+          />
+        </>
+      )
+    }
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

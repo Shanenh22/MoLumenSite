@@ -1,0 +1,49 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { signs } from '../../../data/signs';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The 12 Signs', href: '/explore/signs/' },
+];
+---
+
+<BaseLayout
+  title="The 12 Zodiac Signs — styles of expression"
+  description="The twelve zodiac signs are styles, not verdicts: how planets express themselves. Elements, modalities, rulers, and honest strengths and growth edges for every sign."
+  path="/explore/signs/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>The 12 signs</h1>
+      <p class="lede">
+        Signs are styles of expression — the "how" of the chart. You aren't just one sign; every
+        chart contains all twelve, each coloring whatever planets and houses fall within it. The
+        signs organize by element (fire, earth, air, water) and modality (cardinal, fixed,
+        mutable) — two grids worth learning once, useful forever.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      {
+        signs.map((s) => (
+          <article class="card">
+            <span class="glyph" aria-hidden="true">{s.glyph}</span>
+            <h2 style="font-size: var(--text-xl); margin: 0;">
+              <a href={`/explore/signs/${s.slug}/`}>{s.name}</a>
+            </h2>
+            <p class="card__meta">
+              {s.element} · {s.modality} · ruled by {s.ruler}
+            </p>
+            <p style="margin: 0;">{s.keywords.join(' · ')}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

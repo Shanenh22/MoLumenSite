@@ -1,0 +1,56 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CTABand from '../../../components/CTABand.astro';
+import { houses } from '../../../data/houses';
+
+export function getStaticPaths() {
+  return houses.map((h) => ({ params: { slug: h.slug }, props: { house: h } }));
+}
+const { house: h } = Astro.props;
+const i = houses.findIndex((x) => x.slug === h.slug);
+const prev = houses[(i + houses.length - 1) % houses.length];
+const next = houses[(i + 1) % houses.length];
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The 12 Houses', href: '/explore/houses/' },
+  { label: h.name, href: `/explore/houses/${h.slug}/` },
+];
+---
+
+<BaseLayout
+  title={`The ${h.name} — meaning in the birth chart`}
+  description={`The ${h.name.toLowerCase()} in astrology (${h.traditionalName}): what it covers, and what planets there mean.`}
+  path={`/explore/houses/${h.slug}/`}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">The 12 Houses</p>
+      <h1>{h.name}</h1>
+      <p class="lede">{h.traditionalName}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>The arena</h2>
+      <p>{h.arena}</p>
+      <h2>What it covers</h2>
+      <ul>{h.covers.map((c) => <li>{c}</li>)}</ul>
+      <h2>Planets here</h2>
+      <p>{h.planetsHere}</p>
+      <p>
+        Which sign begins this house — and which planets occupy it — depends on your exact birth
+        time. <a href="/explore/birth-chart-basics/">Here's why.</a>
+      </p>
+      <nav aria-label="More houses" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+        <a href={`/explore/houses/${prev.slug}/`}>← {prev.name}</a>
+        <a href={`/explore/houses/${next.slug}/`}>{next.name} →</a>
+      </nav>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

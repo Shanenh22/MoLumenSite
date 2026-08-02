@@ -1,1 +1,382 @@
-[]
+[
+  {
+    "id": "ascendant",
+    "term": "Ascendant (Rising Sign)",
+    "definition": "The zodiac sign crossing the eastern horizon at your moment of birth. It sets the whole house structure of your chart and describes the way you meet the world — which is why an accurate birth time matters so much.",
+    "related": [
+      "rising sign",
+      "first house"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "aspect",
+    "term": "Aspect",
+    "definition": "A meaningful geometric angle between two planets or points in a chart, describing how their functions interact — fusing, supporting, straining, or balancing each other.",
+    "related": [
+      "conjunction",
+      "square",
+      "trine"
+    ],
+    "learnLink": "/explore/aspects/"
+  },
+  {
+    "id": "birth-chart",
+    "term": "Birth Chart (Natal Chart)",
+    "definition": "A map of the sky calculated for the exact date, time, and place of your birth, showing every planet's position by sign and house. The foundational document of Western astrology.",
+    "related": [
+      "natal astrology",
+      "ascendant"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "big-three",
+    "term": "Big Three",
+    "definition": "Shorthand for your Sun sign, Moon sign, and rising sign — the three placements most people learn first. A real chart holds far more, but these three sketch the outline.",
+    "related": [
+      "ascendant",
+      "luminaries"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "cardinal",
+    "term": "Cardinal Signs",
+    "definition": "Aries, Cancer, Libra, and Capricorn — the signs that begin each season. Cardinal energy initiates: it starts things.",
+    "related": [
+      "fixed",
+      "mutable",
+      "modality"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "composite-chart",
+    "term": "Composite Chart",
+    "definition": "A chart created from the mathematical midpoints of two people's charts, read as a portrait of the relationship itself — a third entity with its own character.",
+    "related": [
+      "synastry"
+    ],
+    "learnLink": "/explore/relationships/"
+  },
+  {
+    "id": "conjunction",
+    "term": "Conjunction",
+    "definition": "An aspect of 0°: two planets occupying the same place, blending their functions into one combined force.",
+    "related": [
+      "aspect"
+    ],
+    "learnLink": "/explore/aspects/conjunction/"
+  },
+  {
+    "id": "cusp",
+    "term": "Cusp",
+    "definition": "The boundary line where one house or sign ends and the next begins. 'Born on the cusp' popularly refers to birthdays near a sign change — though the Sun is always in exactly one sign at any given moment.",
+    "related": [
+      "house"
+    ],
+    "learnLink": "/explore/houses/"
+  },
+  {
+    "id": "degree",
+    "term": "Degree",
+    "definition": "The zodiac is a 360° circle divided into twelve 30° signs. A planet's degree pinpoints where in a sign it sits — e.g., 9°40′ Pisces.",
+    "related": [
+      "zodiac"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "descendant",
+    "term": "Descendant",
+    "definition": "The point opposite the Ascendant, marking the seventh-house cusp. It describes what you seek — and sometimes only recognize — in partners.",
+    "related": [
+      "ascendant",
+      "seventh house"
+    ],
+    "learnLink": "/explore/houses/seventh-house/"
+  },
+  {
+    "id": "eclipse",
+    "term": "Eclipse",
+    "definition": "A new moon (solar eclipse) or full moon (lunar eclipse) occurring near the Moon's nodes. Astrologically, eclipses mark accelerated chapters of change along the houses they touch — significant, not sinister.",
+    "related": [
+      "lunation",
+      "nodes"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "element",
+    "term": "Element",
+    "definition": "The four temperaments of the signs: Fire (spirited), Earth (practical), Air (mental), Water (feeling). Each element holds three signs.",
+    "related": [
+      "modality"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "ephemeris",
+    "term": "Ephemeris",
+    "definition": "A table of planetary positions over time — the reference astrologers use to know where everything was, is, or will be.",
+    "related": [
+      "transit"
+    ],
+    "learnLink": "/explore/glossary/"
+  },
+  {
+    "id": "fixed",
+    "term": "Fixed Signs",
+    "definition": "Taurus, Leo, Scorpio, and Aquarius — the signs at each season's height. Fixed energy sustains: it holds, deepens, and finishes.",
+    "related": [
+      "cardinal",
+      "mutable"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "full-moon",
+    "term": "Full Moon",
+    "definition": "The Moon opposite the Sun — maximum illumination. In practice: culminations, results coming to light, and emotional high tide. A natural review point in the lunar cycle.",
+    "related": [
+      "new-moon",
+      "lunation"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "glyph",
+    "term": "Glyph",
+    "definition": "The written symbol for a planet, sign, or aspect — the shorthand alphabet of a chart.",
+    "related": [],
+    "learnLink": "/explore/glossary/"
+  },
+  {
+    "id": "horary",
+    "term": "Horary Astrology",
+    "definition": "A traditional branch that answers one specific question from a chart cast for the moment the question is asked and understood. Requires no birth data.",
+    "related": [
+      "traditional astrology"
+    ],
+    "learnLink": "/readings/horary/"
+  },
+  {
+    "id": "house",
+    "term": "House",
+    "definition": "One of twelve divisions of the chart representing areas of life — identity, money, communication, home, and so on. Planets act through the houses they occupy.",
+    "related": [
+      "cusp",
+      "house system"
+    ],
+    "learnLink": "/explore/houses/"
+  },
+  {
+    "id": "house-system",
+    "term": "House System",
+    "definition": "A method for dividing the chart into houses (Placidus, whole sign, Porphyry, and others). Astrologers differ on preference; the houses' meanings remain the same.",
+    "related": [
+      "house"
+    ],
+    "learnLink": "/explore/houses/"
+  },
+  {
+    "id": "ingress",
+    "term": "Ingress",
+    "definition": "A planet's entry into a new sign — the start of a new tone for that planet's function, lasting until the next ingress.",
+    "related": [
+      "transit"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "luminaries",
+    "term": "Luminaries",
+    "definition": "The Sun and Moon — the two lights. Astrology counts them among the planets for convenience, and gives them pride of place.",
+    "related": [
+      "big-three"
+    ],
+    "learnLink": "/explore/planets/"
+  },
+  {
+    "id": "lunation",
+    "term": "Lunation",
+    "definition": "A complete new-moon-to-new-moon cycle, about 29.5 days — or, loosely, any new or full moon event.",
+    "related": [
+      "new-moon",
+      "full-moon"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "midheaven",
+    "term": "Midheaven (MC)",
+    "definition": "The highest point of the chart and cusp of the tenth house — your public direction: career, reputation, and what you climb toward.",
+    "related": [
+      "tenth house"
+    ],
+    "learnLink": "/explore/houses/tenth-house/"
+  },
+  {
+    "id": "modality",
+    "term": "Modality (Quality)",
+    "definition": "How a sign moves: cardinal (initiating), fixed (sustaining), or mutable (adapting). Each modality holds four signs.",
+    "related": [
+      "element"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "mutable",
+    "term": "Mutable Signs",
+    "definition": "Gemini, Virgo, Sagittarius, and Pisces — the signs that close each season. Mutable energy adapts: it distributes, adjusts, and releases.",
+    "related": [
+      "cardinal",
+      "fixed"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "natal",
+    "term": "Natal",
+    "definition": "Belonging to the birth chart. A 'natal Mars in Leo' is where Mars stood when you were born, as distinct from where it travels now.",
+    "related": [
+      "birth-chart",
+      "transit"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "new-moon",
+    "term": "New Moon",
+    "definition": "The Moon conjunct the Sun — the dark of the moon and the seed point of a fresh lunar cycle. A natural moment for setting intentions.",
+    "related": [
+      "full-moon",
+      "lunation"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "nodes",
+    "term": "Lunar Nodes",
+    "definition": "The two points where the Moon's path crosses the Sun's apparent path. The North and South Nodes are read as a growth axis: familiar gifts (South) reaching toward unfamiliar development (North). Eclipses occur near them.",
+    "related": [
+      "eclipse"
+    ],
+    "learnLink": "/explore/glossary/"
+  },
+  {
+    "id": "orb",
+    "term": "Orb",
+    "definition": "The allowance, in degrees, within which an aspect is considered active. A trine at 118° is 'in orb' by 2°. Tighter orbs, stronger aspects.",
+    "related": [
+      "aspect"
+    ],
+    "learnLink": "/explore/aspects/"
+  },
+  {
+    "id": "retrograde",
+    "term": "Retrograde",
+    "definition": "The apparent backward motion of a planet from Earth's viewpoint — an optical effect of orbital geometry, not a reversal in space. Astrologically: a season to review, revise, and reconsider that planet's themes rather than force them forward.",
+    "related": [
+      "station",
+      "transit"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "rising-sign",
+    "term": "Rising Sign",
+    "definition": "Everyday name for the Ascendant — the sign rising in the east at your birth.",
+    "related": [
+      "ascendant"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  },
+  {
+    "id": "ruler",
+    "term": "Rulership",
+    "definition": "The traditional assignment of each sign to a planetary 'ruler' whose nature it shares — Mars rules Aries, the Moon rules Cancer, and so on. Rulerships let one placement speak for another.",
+    "related": [
+      "sign"
+    ],
+    "learnLink": "/explore/planets/"
+  },
+  {
+    "id": "sect",
+    "term": "Sect",
+    "definition": "In traditional astrology, the day/night division of a chart. Some planets function more constructively by day (Sun, Jupiter, Saturn), others by night (Moon, Venus, Mars).",
+    "related": [
+      "traditional astrology"
+    ],
+    "learnLink": "/explore/glossary/"
+  },
+  {
+    "id": "sign",
+    "term": "Zodiac Sign",
+    "definition": "One of twelve 30° divisions of the zodiac, each lending its style of expression to planets within it.",
+    "related": [
+      "zodiac",
+      "element",
+      "modality"
+    ],
+    "learnLink": "/explore/signs/"
+  },
+  {
+    "id": "solar-return",
+    "term": "Solar Return",
+    "definition": "A chart cast for the moment the Sun returns to its exact natal position each year — read as a portrait of your personal year ahead. The origin of 'many happy returns.'",
+    "related": [
+      "natal"
+    ],
+    "learnLink": "/readings/transit/"
+  },
+  {
+    "id": "station",
+    "term": "Station",
+    "definition": "The moment a planet appears to stand still before changing direction (stationing retrograde or direct). Stationing planets are considered emphatic — their themes turn up loud.",
+    "related": [
+      "retrograde"
+    ],
+    "learnLink": "/current-sky/"
+  },
+  {
+    "id": "synastry",
+    "term": "Synastry",
+    "definition": "Relationship astrology's core technique: overlaying two charts to see how each person's planets aspect the other's.",
+    "related": [
+      "composite-chart"
+    ],
+    "learnLink": "/explore/relationships/"
+  },
+  {
+    "id": "transit",
+    "term": "Transit",
+    "definition": "The current position of a planet, especially as it forms aspects to your natal chart. Transits are the weather your chart is living through.",
+    "related": [
+      "natal",
+      "ephemeris"
+    ],
+    "learnLink": "/explore/transits/"
+  },
+  {
+    "id": "traditional-astrology",
+    "term": "Traditional / Classical Astrology",
+    "definition": "The pre-modern body of technique — including horary, sect, and classical rulerships — revived in recent decades. Mo works with a classical lens: traditional methods, modern conversation.",
+    "related": [
+      "horary",
+      "sect"
+    ],
+    "learnLink": "/approach/"
+  },
+  {
+    "id": "zodiac",
+    "term": "Zodiac",
+    "definition": "The band of sky along the Sun's apparent yearly path, divided into twelve signs. Western astrology uses the tropical zodiac, anchored to the seasons rather than the constellations.",
+    "related": [
+      "sign",
+      "degree"
+    ],
+    "learnLink": "/explore/birth-chart-basics/"
+  }
+]

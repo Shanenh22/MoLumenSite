@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+const crumbs = [{ label: 'Guides', href: '/guides/' }];
+---
+
+<BaseLayout
+  title="Downloadable Guides — coming later"
+  description="Downloadable astrology guides from Mo Lumen are in development, starting with 'Reading the Road Ahead.' Join the newsletter to receive them as they're released."
+  path="/guides/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">In development</p>
+      <h1>Guides</h1>
+      <p class="lede">
+        Short, practical, beautifully-made references — written to be used, not just downloaded.
+        The first is in progress now.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <h2>First up</h2>
+        <p>
+          <strong>Reading the Road Ahead</strong> — how an astrology reading helps you recognize
+          opportunities before they arrive: seasons, windows, and the practical art of noticing
+          doors while they're still opening. Free to newsletter subscribers on release.
+        </p>
+        <p>
+          Others under consideration: a birth-time hunting checklist, a lunation-cycle workbook,
+          and a plain-language preparation guide for first readings.
+        </p>
+      </div>
+      <div class="card flow">
+        <h2 id="guide-interest" style="font-size: var(--text-xl); margin: 0;">Get them first</h2>
+        <p style="margin: 0;">Guides are delivered through the newsletter as they're released.</p>
+        <NewsletterForm source="guides-interest" labelledby="guide-interest" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

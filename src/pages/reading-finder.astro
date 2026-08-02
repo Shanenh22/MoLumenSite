@@ -1,0 +1,269 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const services = await getCollection('services');
+const bySlug = Object.fromEntries(
+  services.map((s) => [
+    s.data.slug,
+    {
+      name: s.data.name,
+      slug: s.data.slug,
+      duration: s.data.durationLabel,
+      price: s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : 'confirmed at booking',
+      birth:
+        s.data.birthDataRequired === 'none'
+          ? 'No birth data needed'
+          : s.data.birthDataRequired === 'both'
+            ? 'Birth data for both people'
+            : 'Your birth date, time, and place',
+      purpose: s.data.purpose,
+    },
+  ])
+);
+const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
+---
+
+<BaseLayout
+  title="Reading Finder — which astrology reading fits you?"
+  description="Answer three quick questions in plain language and find the astrology reading that fits your situation. No account, no stored answers, no pressure."
+  path="/reading-finder/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">A little help choosing</p>
+      <h1>Find your reading</h1>
+      <p class="lede">
+        Three questions, plain language, and a suggestion at the end. Nothing you answer here is
+        stored or sent anywhere — and you're always welcome to choose any reading you like.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 46rem;">
+      <div class="finder" data-finder data-services={JSON.stringify(bySlug)}>
+        <form>
+          <div data-step="1">
+            <fieldset>
+              <legend>What best describes your situation?</legend>
+              <label class="choice"
+                ><input type="radio" name="q1" value="self" required />
+                <span>I want to understand myself and my life patterns more deeply</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q1" value="timing" />
+                <span>Things are shifting and I want to understand this season and its timing</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q1" value="relationship" />
+                <span>My question is about a specific relationship</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q1" value="question" />
+                <span>I have one specific, pressing question</span></label
+              >
+            </fieldset>
+          </div>
+          <div data-step="2" hidden>
+            <fieldset>
+              <legend>Have you had a professional reading before?</legend>
+              <label class="choice"
+                ><input type="radio" name="q2" value="first" />
+                <span>Never — this would be my first</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q2" value="returning" />
+                <span>Yes, and I want what's current rather than a re-introduction</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q2" value="advanced" />
+                <span>Several — I'm ready to go beyond the standard planets</span></label
+              >
+            </fieldset>
+          </div>
+          <div data-step="3" hidden>
+            <fieldset>
+              <legend>Do you have accurate birth information available?</legend>
+              <label class="choice"
+                ><input type="radio" name="q3" value="yes" />
+                <span>Yes — date, time, and place (or I can get them)</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="q3" value="no" />
+                <span>No — my birth time is unknown or unreliable</span></label
+              >
+            </fieldset>
+          </div>
+
+          <div class="finder__controls">
+            <button type="button" class="btn btn--ghost" data-back hidden>Back</button>
+            <button type="button" class="btn btn--primary" data-next>Next</button>
+            <button type="button" class="btn btn--ghost" data-restart hidden>Start over</button>
+            <span class="finder__progress" data-progress>Question 1 of 3</span>
+          </div>
+        </form>
+
+        <div data-result hidden aria-live="polite"></div>
+
+        <noscript>
+          <p>
+            The finder needs JavaScript — but the
+            <a href="/readings/">reading comparison</a> answers the same question at a glance:
+            first reading → Natal; timing → Transit; two people → Relationship; one urgent
+            question or no birth time → Horary; beyond the standard planets → Further Out in the
+            Sky.
+          </p>
+        </noscript>
+      </div>
+      <p class="card__meta" style="margin-top: var(--space-4);">
+        The suggestion is exactly that — a suggestion. Every reading is open to you, and
+        <a href="/contact/">Mo is happy to advise</a> if you're torn.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-finder]');
+  if (root) {
+    const services = JSON.parse(root.dataset.services || '{}');
+    const steps = [...root.querySelectorAll<HTMLElement>('[data-step]')];
+    const backBtn = root.querySelector<HTMLButtonElement>('[data-back]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const restartBtn = root.querySelector<HTMLButtonElement>('[data-restart]')!;
+    const progress = root.querySelector<HTMLElement>('[data-progress]')!;
+    const result = root.querySelector<HTMLElement>('[data-result]')!;
+    const form = root.querySelector('form')!;
+    let step = 0;
+
+    const track = (event: string, params: Record<string, string> = {}) => {
+      // Analytics adapter: only whitelisted, non-personal params.
+      (window as any).gtag?.('event', event, params);
+    };
+    track('reading_finder_start');
+
+    function answer(name: string): string | null {
+      const el = form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`);
+      return el ? el.value : null;
+    }
+
+    function recommend(): { primary: string; alt: string | null; why: string } {
+      const q1 = answer('q1'),
+        q2 = answer('q2'),
+        q3 = answer('q3');
+      if (q3 === 'no' && q1 !== 'question')
+        return {
+          primary: 'horary',
+          alt: 'natal',
+          why: 'Without a reliable birth time, a horary reading gives you a direct, well-grounded answer to a specific question — no birth data needed. (If you can recover your birth time later, the natal reading opens everything up.)',
+        };
+      if (q1 === 'question')
+        return {
+          primary: 'horary',
+          alt: q3 === 'yes' ? 'natal' : null,
+          why: 'One clear, pressing question is exactly what horary astrology was built for: a chart cast for the question itself, judged by traditional rules, answered in writing.',
+        };
+      if (q1 === 'relationship')
+        return {
+          primary: 'synastry',
+          alt: 'natal',
+          why: 'A relationship reading looks at both charts — how each person activates the other, and what the connection itself is asking for.',
+        };
+      if (q1 === 'timing')
+        return {
+          primary: q2 === 'first' ? 'natal' : 'transit',
+          alt: q2 === 'first' ? 'transit' : 'natal',
+          why:
+            q2 === 'first'
+              ? 'Timing questions are transit territory — but a first reading lands best when the natal foundation comes first. Many people book the natal reading now and a transit reading at the next decision point.'
+              : 'The transit reading maps what this season is about, what the next year holds, and when to act.',
+        };
+      if (q2 === 'advanced')
+        return {
+          primary: 'further-out-in-the-sky',
+          alt: 'transit',
+          why: "You've done the foundations — Further Out in the Sky is Mo's signature deep-dive beyond the standard planets, into themes ordinary readings never touch.",
+        };
+      if (q2 === 'returning')
+        return {
+          primary: 'transit',
+          alt: 'natal',
+          why: "Since you've had a proper reading before, the transit reading picks up where you are now: current activations and the year ahead.",
+        };
+      return {
+        primary: 'natal',
+        alt: null,
+        why: "The natal reading is the foundation: your whole chart, your whole story, connected to what's happening in your life right now.",
+      };
+    }
+
+    function show(i: number) {
+      steps.forEach((s, idx) => (s.hidden = idx !== i));
+      form.hidden = false;
+      result.hidden = true;
+      backBtn.hidden = i === 0;
+      restartBtn.hidden = i === 0;
+      nextBtn.textContent = i === steps.length - 1 ? 'Show my suggestion' : 'Next';
+      progress.textContent = `Question ${i + 1} of ${steps.length}`;
+      steps[i].querySelector<HTMLInputElement>('input')?.focus();
+    }
+
+    function showResult() {
+      const { primary, alt, why } = recommend();
+      const p = services[primary];
+      const a = alt ? services[alt] : null;
+      track('reading_finder_complete', { recommendation: primary });
+      track('reading_recommendation_view', { service: primary });
+      form.hidden = true;
+      result.hidden = false;
+      backBtn.hidden = false;
+      restartBtn.hidden = false;
+      nextBtn.hidden = true;
+      progress.textContent = 'Suggestion ready';
+      result.innerHTML = `
+        <h2>Our suggestion: ${p.name}</h2>
+        <p>${why}</p>
+        <dl class="factlist">
+          <dt>Length</dt><dd>${p.duration}</dd>
+          <dt>Price</dt><dd>${p.price.startsWith('$') ? p.price : 'Final price ' + p.price}</dd>
+          <dt>You'll need</dt><dd>${p.birth}</dd>
+        </dl>
+        <p>
+          <a class="btn btn--primary" href="/book/?service=${p.slug}">Book this reading</a>
+          <a class="btn btn--ghost" href="/readings/${p.slug}/">Full details</a>
+        </p>
+        ${a ? `<p>Also worth a look: <a href="/readings/${a.slug}/">${a.name}</a> — ${a.purpose}</p>` : ''}
+        <p>And remember — you're welcome to choose any reading. This is your call.</p>`;
+      result.querySelector('h2')?.setAttribute('tabindex', '-1');
+      (result.querySelector('h2') as HTMLElement)?.focus();
+    }
+
+    nextBtn.addEventListener('click', () => {
+      const current = steps[step];
+      const name = current.querySelector('input')!.name;
+      if (!answer(name)) {
+        current.querySelector<HTMLInputElement>('input')?.focus();
+        progress.textContent = 'Please choose an option to continue';
+        return;
+      }
+      if (step < steps.length - 1) show(++step);
+      else showResult();
+    });
+    backBtn.addEventListener('click', () => {
+      if (!result.hidden) {
+        nextBtn.hidden = false;
+        show(step);
+      } else if (step > 0) show(--step);
+    });
+    restartBtn.addEventListener('click', () => {
+      form.reset();
+      step = 0;
+      nextBtn.hidden = false;
+      show(0);
+    });
+  }
+</script>

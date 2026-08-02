@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { houses } from '../../../data/houses';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The 12 Houses', href: '/explore/houses/' },
+];
+---
+
+<BaseLayout
+  title="The 12 Houses — areas of experience"
+  description="The twelve houses of the birth chart map areas of life: identity, money, communication, home, creativity, work, partnership, and more. A plain-language guide to each."
+  path="/explore/houses/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>The 12 houses</h1>
+      <p class="lede">
+        Houses are the "where" of the chart — twelve arenas of experience, from your body and your
+        bank account to your partnerships and your dreams. Their layout depends on your exact
+        birth time, which is why astrologers keep asking for it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      {
+        houses.map((h) => (
+          <article class="card">
+            <span class="glyph" aria-hidden="true">{h.number}</span>
+            <h2 style="font-size: var(--text-lg); margin: 0;">
+              <a href={`/explore/houses/${h.slug}/`}>{h.name}</a>
+            </h2>
+            <p class="card__meta">{h.traditionalName}</p>
+            <p style="margin: 0;">{h.covers[0]}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

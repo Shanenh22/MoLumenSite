@@ -1,0 +1,69 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+const crumbs = [{ label: 'Approach', href: '/approach/' }];
+---
+
+<BaseLayout
+  title="My Approach — a classical lens, a practical streak"
+  description="How Mo Lumen practices astrology: traditional technique in modern conversation, agency over fatalism, candor with compassion, and perspective instead of prediction."
+  path="/approach/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">How I work</p>
+      <h1>A modern-day astrologer with a classical lens</h1>
+      <p class="lede">
+        What you can expect from a reading with me — and what I'll never do in one.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Fate and choice, both</h2>
+      <p>
+        Life is a continuous journey whose story unfolds as written in the stars — and yet: there
+        is fate, and there is choice. The chart describes conditions, seasons, and tendencies. It
+        does not cast your vote, take your job, or choose your partner. I practice astrology as a
+        tool of perspective, timing, and pattern recognition, always in service of your agency,
+        never as a verdict delivered from above.
+      </p>
+      <h2>Classical technique, modern conversation</h2>
+      <p>
+        My training runs through the traditional side of the craft — horary astrology by
+        certificate, classical rulerships, techniques with centuries of practice behind them —
+        held to account by a science teacher's respect for method. In the room, none of that
+        becomes jargon. You'll get clear explanations, real examples from your own life, and
+        answers to every "but why?" you can produce.
+      </p>
+      <h2>Candor with compassion</h2>
+      <p>
+        I'll tell you what I see, including the parts that ask something of you. Difficult
+        placements aren't punishments; as Alan Oken put it, the sugar is consciousness — awareness
+        is what turns a hard aspect into a skill. Expect honesty delivered kindly, and kindness
+        that doesn't dodge the truth.
+      </p>
+      <h2>What I won't do</h2>
+      <ul>
+        <li>No fear-based predictions, doom timelines, or "the stars say you must."</li>
+        <li>No guarantees of outcomes — anyone promising certainty is selling something.</li>
+        <li>No medical, psychological, legal, or financial advice; those belong with licensed professionals, and I'll say so.</li>
+        <li>No pressure, ever — not to book, rebook, believe, or continue.</li>
+      </ul>
+      <h2>Ethics, in practice</h2>
+      <p>
+        Your birth data and everything you share in a session are treated as confidential and
+        sensitive. I follow the ethical standards of the professional organizations I belong to
+        and serve — NCGR, OPA, and ISAR — and readings are for adults 18 and over. The
+        <a href="/disclaimer/">disclaimer</a> and <a href="/privacy/">privacy policy</a> spell out
+        the details in plain language.
+      </p>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

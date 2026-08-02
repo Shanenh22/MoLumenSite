@@ -1,0 +1,71 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CTABand from '../../../components/CTABand.astro';
+import { signs } from '../../../data/signs';
+
+export function getStaticPaths() {
+  return signs.map((s) => ({ params: { slug: s.slug }, props: { sign: s } }));
+}
+const { sign: s } = Astro.props;
+const i = signs.findIndex((x) => x.slug === s.slug);
+const prev = signs[(i + signs.length - 1) % signs.length];
+const next = signs[(i + 1) % signs.length];
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The 12 Signs', href: '/explore/signs/' },
+  { label: s.name, href: `/explore/signs/${s.slug}/` },
+];
+---
+
+<BaseLayout
+  title={`${s.name} — meaning in the birth chart`}
+  description={`${s.name} in astrology (${s.element}, ${s.modality}, ruled by ${s.ruler}): style, strengths, growth edges, and what ${s.name} placements mean in a chart.`}
+  path={`/explore/signs/${s.slug}/`}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">The 12 Signs</p>
+      <h1><span aria-hidden="true">{s.glyph}</span> {s.name}</h1>
+      <p class="lede">{s.keywords.join(' · ')}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <dl class="factlist">
+        <dt>Element</dt><dd>{s.element}</dd>
+        <dt>Modality</dt><dd>{s.modality}</dd>
+        <dt>Ruled by</dt><dd>{s.ruler}</dd>
+        <dt>Sun season</dt><dd>{s.dates}</dd>
+      </dl>
+      <h2>The style</h2>
+      <p>{s.style}</p>
+      <h2>Strengths</h2>
+      <p>{s.strengths}</p>
+      <h2>The growth edge</h2>
+      <p>{s.watchFor}</p>
+      <h2>In relationship</h2>
+      <p>{s.inRelationship}</p>
+      <div class="callout">
+        <p style="margin: 0;">
+          <strong>Remember:</strong> "being {s.name}" usually means the Sun was there when you were
+          born — one placement among many. Your Moon, rising, and every planet each take a sign of
+          their own. That's why sun-sign descriptions fit loosely: the chart is the tailored
+          version.
+        </p>
+      </div>
+      <nav aria-label="More signs" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+        <a href={`/explore/signs/${prev.slug}/`}>← {prev.name}</a>
+        <a href={`/explore/signs/${next.slug}/`}>{next.name} →</a>
+      </nav>
+    </div>
+  </section>
+
+  <CTABand
+    heading={`More than your ${s.name} placements`}
+    body="A reading looks at the whole chart — every sign, every planet, working together."
+  />
+</BaseLayout>

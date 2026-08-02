@@ -1,0 +1,164 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../config/site';
+
+export async function getStaticPaths() {
+  const services = await getCollection('services');
+  return services.map((s) => ({ params: { slug: s.data.slug }, props: { service: s } }));
+}
+const { service } = Astro.props;
+const s = service.data;
+const all = await getCollection('services');
+const related = all.filter((x) => s.related.includes(x.data.slug));
+const faqs = (await getCollection('faqs'))
+  .filter((f) => f.data.scope === 'global' || f.data.scope === s.slug)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 4);
+const crumbs = [
+  { label: 'Readings', href: '/readings/' },
+  { label: s.shortName, href: `/readings/${s.slug}/` },
+];
+const schema: object[] = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: s.name,
+    description: s.purpose,
+    provider: { '@type': 'ProfessionalService', name: site.name, url: site.url },
+    ...(s.priceConfirmed && s.price
+      ? {
+          offers: {
+            '@type': 'Offer',
+            price: s.price,
+            priceCurrency: s.currency,
+            availability: 'https://schema.org/InStock',
+          },
+        }
+      : {}),
+  },
+];
+---
+
+<BaseLayout
+  title={s.name}
+  description={`${s.purpose} ${s.durationLabel}. Book online with Mo Lumen Astrology.`}
+  path={`/readings/${s.slug}/`}
+  breadcrumbs={crumbs}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Readings</p>
+      <h1>{s.name}</h1>
+      <p class="lede">{s.purpose}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <dl class="factlist">
+        <dt>Investment</dt>
+        <dd>
+          {
+            s.priceConfirmed && s.price ? (
+              <span class="price">${s.price}</span>
+            ) : (
+              <span class="price--unconfirmed">
+                Final price is being confirmed — shown clearly before you book.
+              </span>
+            )
+          }
+        </dd>
+        <dt>Format</dt>
+        <dd>{s.durationLabel}</dd>
+        <dt>Where</dt>
+        <dd>{s.format.join(' · ')}</dd>
+        <dt>Birth data</dt>
+        <dd>
+          {
+            s.birthDataRequired === 'none'
+              ? 'Not needed — that’s the point of horary'
+              : s.birthDataRequired === 'both'
+                ? 'Date, time, and place for both people'
+                : 'Your date, exact time, and place of birth'
+          }
+        </dd>
+        <dt>Afterward</dt>
+        <dd>{s.deliverables.join(' + ')}</dd>
+      </dl>
+
+      <div class="grid grid--2">
+        <div class="prose flow">
+          <h2>This reading is for you if…</h2>
+          <ul>{s.bestFor.map((b) => <li>{b}</li>)}</ul>
+          <h2>It's probably not the fit if…</h2>
+          <ul>{s.notFor.map((b) => <li>{b}</li>)}</ul>
+          <h2>How it works</h2>
+          <p>{s.method}</p>
+        </div>
+        <div class="prose flow">
+          <h2>What you'll get</h2>
+          <ul>{s.includes.map((b) => <li>{b}</li>)}</ul>
+          <h2>How to prepare</h2>
+          <ul>{s.preparation.map((b) => <li>{b}</li>)}</ul>
+          <p>
+            More in <a href="/prepare-for-your-reading/">prepare for your reading</a> and the
+            <a href="/booking-policy/">booking policy</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {
+    faqs.length > 0 && (
+      <section class="section section--alt">
+        <div class="container prose">
+          <h2>Common questions</h2>
+          {faqs.map((f) => (
+            <details class="faq">
+              <summary>{f.data.question}</summary>
+              <div class="faq__body">
+                <p>{f.data.answer}</p>
+              </div>
+            </details>
+          ))}
+          <p>
+            <a href="/frequently-asked-questions/">All frequently asked questions →</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  {
+    related.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <h2>Where people go from here</h2>
+          <div class="grid grid--2" style="margin-top: var(--space-6);">
+            {related.map((r) => (
+              <article class="card">
+                <h3 style="margin: 0;">
+                  <a href={`/readings/${r.data.slug}/`}>{r.data.name}</a>
+                </h3>
+                <p style="margin: 0;">{r.data.purpose}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <CTABand
+    heading={`Ready for your ${s.shortName.toLowerCase()} reading?`}
+    body="Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay."
+    buttonLabel="Book This Reading"
+    buttonHref={`/book/?service=${s.slug}`}
+  />
+</BaseLayout>

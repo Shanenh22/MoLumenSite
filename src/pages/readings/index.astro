@@ -1,0 +1,168 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => Number(b.data.featured) - Number(a.data.featured)
+);
+const crumbs = [{ label: 'Readings', href: '/readings/' }];
+const priceCell = (s: (typeof services)[0]) =>
+  s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : 'Confirmed at booking';
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Astrology Readings with Mo Lumen',
+    itemListElement: services.map((s, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      name: s.data.name,
+      url: `https://molumen.com/readings/${s.data.slug}/`,
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Astrology Readings"
+  description="Natal, timing, relationship, horary, and advanced astrology readings with Mo Lumen — every session includes a recording and your chart. Compare readings and book online."
+  path="/readings/"
+  breadcrumbs={crumbs}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Readings</p>
+      <h1>Astrology readings with Mo</h1>
+      <p class="lede">
+        Five readings, one approach: your chart connected directly to your real life — decisions,
+        relationships, timing — by a certified astrologer with a classical lens and a practical
+        streak. Every live session includes a recording and your chart.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--3">
+        {
+          services.map((s) => (
+            <article class="card">
+              <h2 style="font-size: var(--text-xl); margin: 0;">
+                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
+              </h2>
+              <p class="card__meta">{s.data.durationLabel}</p>
+              <p>{s.data.purpose}</p>
+              <p style="margin-top: auto; margin-bottom: 0;">
+                <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
+              </p>
+            </article>
+          ))
+        }
+        <article class="card" style="background: var(--bg-alt);">
+          <h2 style="font-size: var(--text-xl); margin: 0;">Not sure which fits?</h2>
+          <p>
+            Answer three quick questions and get a suggestion — or start with the natal reading,
+            the foundation everything else builds on.
+          </p>
+          <p style="margin: 0;"><a class="btn btn--primary" href="/reading-finder/">Reading Finder</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>Compare readings at a glance</h2>
+
+      <!-- Mobile: stacked cards -->
+      <div class="compare-cards">
+        {
+          services.map((s) => (
+            <article class="card">
+              <h3 style="margin: 0;">{s.data.shortName}</h3>
+              <dl class="factlist" style="margin: 0; padding: var(--space-4);">
+                <dt>Best for</dt>
+                <dd>{s.data.bestFor[0]}</dd>
+                <dt>Length</dt>
+                <dd>{s.data.durationLabel}</dd>
+                <dt>Birth data</dt>
+                <dd>
+                  {s.data.birthDataRequired === 'none'
+                    ? 'Not needed'
+                    : s.data.birthDataRequired === 'both'
+                      ? 'Both people'
+                      : 'Date, time, place'}
+                </dd>
+                <dt>Price</dt>
+                <dd>{priceCell(s)}</dd>
+              </dl>
+              <a href={`/readings/${s.data.slug}/`}>Full details →</a>
+            </article>
+          ))
+        }
+      </div>
+
+      <!-- Desktop: accessible table -->
+      <table class="compare-table">
+        <caption class="visually-hidden">Comparison of all readings</caption>
+        <thead>
+          <tr>
+            <th scope="col">Reading</th>
+            <th scope="col">Best for</th>
+            <th scope="col">Length</th>
+            <th scope="col">Birth data</th>
+            <th scope="col">Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {
+            services.map((s) => (
+              <tr>
+                <th scope="row">
+                  <a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a>
+                </th>
+                <td>{s.data.bestFor[0]}</td>
+                <td>{s.data.durationLabel}</td>
+                <td>
+                  {s.data.birthDataRequired === 'none'
+                    ? 'Not needed'
+                    : s.data.birthDataRequired === 'both'
+                      ? 'Both people'
+                      : 'Yes'}
+                </td>
+                <td>{priceCell(s)}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+      <p class="card__meta">
+        Final prices are being confirmed with Mo and will be listed here before launch. Every
+        price is always shown before you pay.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/readings/gift/">Gift a reading</a></h2>
+        <p style="margin: 0;">A reading makes a remarkable gift — here's how it works.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/how-readings-work/">What to expect</a></h2>
+        <p style="margin: 0;">Every step from booking to recording, explained.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/frequently-asked-questions/">Reading FAQs</a></h2>
+        <p style="margin: 0;">Honest answers to the questions everyone asks.</p>
+      </article>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

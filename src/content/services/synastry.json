@@ -1,0 +1,45 @@
+{
+  "name": "Relationship Reading",
+  "shortName": "Relationship",
+  "slug": "synastry",
+  "purpose": "How two people fit — the ease, the friction, and what the connection is asking of each of you.",
+  "method": "Synastry and composite chart analysis for any significant pair: partners, family members, friends, business partners.",
+  "bestFor": [
+    "Couples wanting to understand their dynamic more honestly",
+    "A new or prospective partnership — romantic or business",
+    "A long-standing relationship whose patterns you'd like to see clearly"
+  ],
+  "notFor": [
+    "A verdict on whether to stay or go — the charts describe dynamics; the choice remains yours",
+    "Reading someone's chart without their knowledge — bring questions, not surveillance"
+  ],
+  "durationMinutes": 90,
+  "durationLabel": "90 minutes",
+  "price": null,
+  "priceConfirmed": false,
+  "currency": "USD",
+  "format": ["Zoom", "Phone"],
+  "birthDataRequired": "both",
+  "intakeRequirements": [
+    "Birth date, exact time, and place for both people",
+    "The relationship context and your questions"
+  ],
+  "includes": [
+    "Synastry: how each chart activates the other",
+    "The composite chart: the relationship as its own entity",
+    "Strengths to lean on, frictions to name, and themes the connection keeps raising"
+  ],
+  "deliverables": ["Recording of the session", "Copies of the charts discussed"],
+  "preparation": [
+    "Gather accurate birth data for both people — ideally from birth certificates",
+    "Both people attending is welcome but not required"
+  ],
+  "cancellationPolicy": "See the booking policy — to be confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — to be confirmed by owner.",
+  "bookingEventId": "synastry",
+  "related": ["natal", "horary"],
+  "relatedLearn": ["/explore/relationships/", "/explore/aspects/"],
+  "featured": false,
+  "available": true,
+  "ownerReview": true
+}

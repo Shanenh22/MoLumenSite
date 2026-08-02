@@ -1,0 +1,77 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
+const sections = [
+  ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart actually is, and how its pieces fit together. Start here.'],
+  ['The Planets', '/explore/planets/', 'Ten drives every chart contains — from the Sun’s purpose to Pluto’s transformations.'],
+  ['The 12 Signs', '/explore/signs/', 'Styles of expression: how each sign colors the planets within it.'],
+  ['The 12 Houses', '/explore/houses/', 'Areas of experience: where in life each part of your chart plays out.'],
+  ['Aspects', '/explore/aspects/', 'The geometry of the chart: how planets support, strain, and balance each other.'],
+  ['Transits', '/explore/transits/', 'How the moving sky activates your chart — the astrology of timing.'],
+  ['Relationship Astrology', '/explore/relationships/', 'Synastry and composite charts: how two people’s charts interact.'],
+  ['Personal Purpose', '/explore/personal-purpose/', 'What a chart can (and can’t) say about vocation and direction.'],
+  ['Glossary', '/explore/glossary/', 'Plain-language definitions for every term on this site.'],
+];
+---
+
+<BaseLayout
+  title="Explore Astrology — learn the real thing"
+  description="A free, plain-language astrology education hub by Mo Lumen: birth chart basics, planets, signs, houses, aspects, transits, and relationship astrology — no doom, no jargon."
+  path="/explore/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Learn</p>
+      <h1>Explore astrology</h1>
+      <p class="lede">
+        Astrology is a language, and languages are learnable. These pages teach it the way I do in
+        readings: plain words first, technical terms second, and your own agency at the center of
+        every interpretation. Welcome to the study — take your time.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      {
+        sections.map(([title, href, desc]) => (
+          <article class="card">
+            <h2 style="font-size: var(--text-xl); margin: 0;">
+              <a href={href}>{title}</a>
+            </h2>
+            <p style="margin: 0;">{desc}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <div class="flow">
+        <h2>Prefer to learn by doing?</h2>
+        <p>
+          The <a href="/tools/explore-your-chart/">Explore Your Chart</a> tool lets you click
+          around an interactive chart wheel and see how planets, signs, and houses combine — no
+          birth data needed.
+        </p>
+      </div>
+      <div class="flow">
+        <h2>Prefer to watch?</h2>
+        <p>
+          Mo teaches on <a href="/videos/">YouTube and Instagram</a> — short, clear videos on the
+          current sky and the fundamentals.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Reading about charts is good. Sitting with yours is better."
+    body="When you're ready to see how all of this lives in your own chart, that's what readings are for."
+  />
+</BaseLayout>

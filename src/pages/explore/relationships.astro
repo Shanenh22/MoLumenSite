@@ -1,0 +1,70 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Relationship Astrology', href: '/explore/relationships/' },
+];
+---
+
+<BaseLayout
+  title="Relationship Astrology — synastry and composite charts"
+  description="How relationship astrology works: synastry overlays two birth charts; the composite chart describes the relationship itself. What compatibility can and cannot mean."
+  path="/explore/relationships/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>Relationship astrology</h1>
+      <p class="lede">
+        Two people, two charts — and two honest questions: how do these charts activate each
+        other, and what is the relationship itself asking for?
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Synastry: the overlay</h2>
+      <p>
+        Synastry lays one chart over the other and reads the aspects between them. Your Moon on
+        their Venus: affection flows easily. Their Saturn square your Sun: they steady you — and
+        sometimes dampen you — and the relationship will keep renegotiating that line. Synastry
+        excels at explaining <em>why it feels the way it feels</em>: the instant ease, the
+        recurring argument that is somehow always the same argument.
+      </p>
+      <h2>The composite: the third thing</h2>
+      <p>
+        A composite chart is built from the midpoints of both charts, and read as the relationship
+        itself — a third entity with its own character, needs, and seasons. Couples often
+        recognize it instantly: "that's not quite me, and not quite them — that's <em>us</em>."
+      </p>
+      <h2>What compatibility isn't</h2>
+      <p>
+        No chart pairing is doomed, and none is guaranteed. "Hard" synastry builds some of the
+        most durable partnerships — friction, honestly handled, becomes traction. What the charts
+        genuinely offer is a precise vocabulary for the dynamics: where ease lives, where the work
+        is, and what the work is <em>about</em>. Whether to do the work remains what it always
+        was — a choice two people make.
+      </p>
+      <h2>Beyond romance</h2>
+      <p>
+        The same techniques read any significant pair: business partners, parent and child,
+        siblings, close friends. Anywhere two lives are intertwined, the charts have something
+        useful to say. That's the territory of the
+        <a href="/readings/synastry/">relationship reading</a> — which, for the record, requires
+        both people's birth data brought in good faith.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Two charts, one conversation"
+    body="The relationship reading looks at synastry and composite together — for couples, families, friends, and business partners."
+    buttonLabel="About the Relationship Reading"
+    buttonHref="/readings/synastry/"
+  />
+</BaseLayout>

@@ -1,0 +1,52 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CTABand from '../../../components/CTABand.astro';
+import { aspects } from '../../../data/aspects';
+
+export function getStaticPaths() {
+  return aspects.map((a) => ({ params: { slug: a.slug }, props: { aspect: a } }));
+}
+const { aspect: a } = Astro.props;
+const i = aspects.findIndex((x) => x.slug === a.slug);
+const prev = aspects[(i + aspects.length - 1) % aspects.length];
+const next = aspects[(i + 1) % aspects.length];
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Aspects', href: '/explore/aspects/' },
+  { label: a.name, href: `/explore/aspects/${a.slug}/` },
+];
+---
+
+<BaseLayout
+  title={`The ${a.name} — aspect meaning in astrology`}
+  description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature}`}
+  path={`/explore/aspects/${a.slug}/`}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Aspects</p>
+      <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
+      <p class="lede">{a.angle} — {a.nature}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>The relationship</h2>
+      <p>{a.relationship}</p>
+      <h2>How it feels to live with</h2>
+      <p>{a.livedExperience}</p>
+      <h2>Working with it</h2>
+      <p>{a.workingWithIt}</p>
+      <nav aria-label="More aspects" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+        <a href={`/explore/aspects/${prev.slug}/`}>← {prev.name}</a>
+        <a href={`/explore/aspects/${next.slug}/`}>{next.name} →</a>
+      </nav>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

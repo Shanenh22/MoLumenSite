@@ -1,0 +1,44 @@
+---
+/**
+ * Reusable newsletter signup. Posts to MailerLite when
+ * PUBLIC_MAILERLITE_FORM_ID is configured; otherwise degrades to a
+ * mailto: action so the site never shows a dead form.
+ * The `source` value is used only for analytics (no personal data).
+ */
+import { site } from '../config/site';
+interface Props {
+  source: string;
+  dark?: boolean;
+  labelledby?: string;
+}
+const { source, labelledby } = Astro.props;
+const formId = site.integrations.mailerliteFormId;
+const action = formId
+  ? `https://assets.mailerlite.com/jsonp/${formId.split(':')[0] ?? ''}/forms/${formId.split(':')[1] ?? formId}/subscribe`
+  : `mailto:${site.email}?subject=${encodeURIComponent('Newsletter signup')}`;
+const inputId = `nl-email-${source}`;
+---
+
+<form
+  class="newsletter-form"
+  method="post"
+  action={action}
+  data-newsletter
+  data-source={source}
+  aria-labelledby={labelledby}
+>
+  <label class="visually-hidden" for={inputId}>Email address</label>
+  <input
+    id={inputId}
+    type="email"
+    name="fields[email]"
+    autocomplete="email"
+    required
+    placeholder="you@example.com"
+  />
+  <button class="btn btn--gold" type="submit">Sign me up</button>
+  <p style="flex-basis: 100%; font-size: var(--text-sm); margin: 0;">
+    By subscribing you agree to receive emails from {site.name}. Unsubscribe anytime. See the
+    <a href="/privacy/">privacy policy</a>.
+  </p>
+</form>

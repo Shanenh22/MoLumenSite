@@ -1,0 +1,179 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import { site } from '../config/site';
+
+const services = (await getCollection('services')).filter((s) => s.data.available);
+const calUser = site.integrations.calcomUsername;
+const crumbs = [{ label: 'Book a Reading', href: '/book/' }];
+const serviceData = Object.fromEntries(
+  services.map((s) => [
+    s.data.slug,
+    {
+      name: s.data.name,
+      duration: s.data.durationLabel,
+      price: s.data.priceConfirmed && s.data.price ? `$${s.data.price}` : null,
+      event: s.data.bookingEventId,
+    },
+  ])
+);
+---
+
+<BaseLayout
+  title="Book a Reading"
+  description="Choose your reading, pick a time in your own time zone, and pay securely online. Booking with Mo Lumen Astrology takes about two minutes."
+  path="/book/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Let's meet</p>
+      <h1>Book a reading</h1>
+      <p class="lede">
+        I'd love to connect you with the life-enhancing tool of astrology. Choose a reading below —
+        times display in your own time zone, payment is secure, and you'll get confirmation,
+        preparation notes, and a reminder by email.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="grid grid--2" style="align-items: start;">
+        <div class="flow">
+          <h2>Choose your reading</h2>
+          <div data-booking-services>
+            {
+              services.map((s, i) => (
+                <label class="choice" style="display: flex;">
+                  <input
+                    type="radio"
+                    name="booking-service"
+                    value={s.data.slug}
+                    checked={i === 0}
+                  />
+                  <span>
+                    <strong>{s.data.name}</strong> — {s.data.durationLabel}
+                    {s.data.priceConfirmed && s.data.price ? ` · $${s.data.price}` : ''}
+                    <br />
+                    <a href={`/readings/${s.data.slug}/`}>Details</a>
+                  </span>
+                </label>
+              ))
+            }
+          </div>
+          <div class="callout">
+            <p style="margin: 0;">
+              <strong>Before you book:</strong> live readings need your birth date, exact time, and
+              place — <a href="/prepare-for-your-reading/">here's why and how to find them</a>.
+              Booking means you accept the <a href="/booking-policy/">booking policy</a>
+              (cancellation, rescheduling, and recording details).
+            </p>
+          </div>
+        </div>
+
+        <div class="flow">
+          <h2>Pick a time</h2>
+          <div data-booking-embed data-cal-user={calUser} data-services={JSON.stringify(serviceData)}>
+            {
+              calUser ? (
+                <p class="card__meta">Loading the calendar…</p>
+              ) : (
+                <div class="card">
+                  <p>
+                    <strong>Online scheduling is being set up.</strong> Until it's live, email Mo
+                    directly and she'll find a time with you:
+                  </p>
+                  <p style="margin: 0;">
+                    <a class="btn btn--primary" href={`mailto:${site.email}?subject=Booking%20a%20reading`}>
+                      Email {site.email}
+                    </a>
+                  </p>
+                </div>
+              )
+            }
+          </div>
+          <p class="card__meta">
+            Scheduling and payment are handled securely by Cal.com and Stripe. If the calendar
+            doesn't load,
+            <a
+              data-booking-fallback
+              href={calUser ? `https://cal.com/${calUser}` : `mailto:${site.email}`}
+              rel="noopener"
+              >open the booking page directly</a
+            >.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>What happens after you book</h2>
+      <ol class="grid grid--3" style="list-style: none; padding: 0;">
+        {
+          [
+            ['Right away', 'Confirmation email with your session link and a calendar invite.'],
+            ['Before we meet', 'Preparation notes and a reminder — nothing to study, just how to get the most from your hour.'],
+            ['Afterward', 'Your recording and chart, plus rescheduling links if life intervenes.'],
+          ].map(([t, d]) => (
+            <li class="card" style="gap: var(--space-2);">
+              <h3 style="margin: 0; font-size: var(--text-lg);">{t}</h3>
+              <p style="margin: 0;">{d}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Booking embed loader: reads ?service= from URL, syncs the radio list,
+  // and lazily loads the Cal.com embed only when configured & interacted.
+  const wrap = document.querySelector<HTMLElement>('[data-booking-embed]');
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="booking-service"]');
+  const fallback = document.querySelector<HTMLAnchorElement>('[data-booking-fallback]');
+  const track = (event: string, params: Record<string, string> = {}) =>
+    (window as any).gtag?.('event', event, params);
+
+  const params = new URLSearchParams(location.search);
+  const requested = params.get('service');
+  if (requested) {
+    radios.forEach((r) => (r.checked = r.value === requested));
+  }
+  track('booking_start');
+
+  const calUser = wrap?.dataset.calUser;
+  const services = JSON.parse(wrap?.dataset.services || '{}');
+
+  function currentSlug(): string {
+    const checked = document.querySelector<HTMLInputElement>('input[name="booking-service"]:checked');
+    return checked?.value || Object.keys(services)[0];
+  }
+
+  function mountEmbed() {
+    if (!wrap || !calUser) return;
+    const slug = currentSlug();
+    const event = services[slug]?.event || slug;
+    const url = `https://cal.com/${calUser}/${event}?embed=true&theme=light`;
+    wrap.innerHTML = '';
+    const iframe = document.createElement('iframe');
+    iframe.src = url;
+    iframe.title = `Schedule: ${services[slug]?.name || 'reading'}`;
+    iframe.style.cssText = 'width:100%;min-height:620px;border:0;border-radius:16px;';
+    iframe.loading = 'lazy';
+    wrap.appendChild(iframe);
+    if (fallback) fallback.href = `https://cal.com/${calUser}/${event}`;
+    track('booking_embed_open', { service: slug });
+  }
+
+  if (calUser) {
+    mountEmbed();
+    radios.forEach((r) => r.addEventListener('change', mountEmbed));
+  }
+  fallback?.addEventListener('click', () => track('booking_external_fallback'));
+</script>

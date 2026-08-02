@@ -1,0 +1,162 @@
+---
+import { primaryNav, ctaNav } from '../config/navigation';
+const current = Astro.url.pathname;
+---
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a class="brand" href="/">Mo <span>Lumen</span> Astrology</a>
+
+    <nav class="nav-desktop" aria-label="Primary">
+      <ul>
+        {
+          primaryNav.map((group) =>
+            group.children ? (
+              <li data-nav-group>
+                <button type="button" aria-expanded="false">
+                  {group.label}
+                  <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
+                    <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
+                  </svg>
+                </button>
+                <ul class="submenu">
+                  {group.children.map((link) => (
+                    <li>
+                      <a href={link.href} aria-current={current === link.href ? 'page' : undefined}>
+                        {link.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </li>
+            ) : (
+              <li>
+                <a href={group.href} aria-current={current === group.href ? 'page' : undefined}>
+                  {group.label}
+                </a>
+              </li>
+            )
+          )
+        }
+      </ul>
+    </nav>
+
+    <a class="btn btn--gold header-cta" href={ctaNav.href}>{ctaNav.label}</a>
+
+    <button class="nav-toggle" type="button" aria-haspopup="dialog" data-open-mobile-nav>
+      <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">
+        <path d="M0 1h20M0 7h20M0 13h20" stroke="currentColor" stroke-width="2" />
+      </svg>
+      Menu
+    </button>
+  </div>
+
+  <dialog class="mobile-nav" aria-label="Site navigation">
+    <div class="mobile-nav__inner">
+      <div class="mobile-nav__top">
+        <a class="brand" href="/">Mo <span>Lumen</span> Astrology</a>
+        <button class="nav-toggle" type="button" data-close-mobile-nav>
+          <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
+            <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2" />
+          </svg>
+          Close
+        </button>
+      </div>
+      <nav aria-label="Mobile">
+        <ul>
+          {
+            primaryNav.map((group, i) =>
+              group.children ? (
+                <li>
+                  <button
+                    type="button"
+                    class="mobile-group"
+                    aria-expanded="false"
+                    aria-controls={`mnav-${i}`}
+                  >
+                    {group.label}
+                    <svg width="14" height="14" viewBox="0 0 10 10" aria-hidden="true">
+                      <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
+                    </svg>
+                  </button>
+                  <ul class="submenu-mobile" id={`mnav-${i}`} hidden>
+                    {group.children.map((link) => (
+                      <li>
+                        <a href={link.href}>{link.label}</a>
+                      </li>
+                    ))}
+                  </ul>
+                </li>
+              ) : (
+                <li>
+                  <a href={group.href}>{group.label}</a>
+                </li>
+              )
+            )
+          }
+        </ul>
+      </nav>
+      <a class="btn btn--gold mobile-nav__book" href={ctaNav.href}>{ctaNav.label}</a>
+    </div>
+  </dialog>
+</header>
+
+<script>
+  // Desktop dropdowns: click to toggle, Escape/outside-click to close.
+  const groups = document.querySelectorAll<HTMLElement>('[data-nav-group]');
+  groups.forEach((li) => {
+    const btn = li.querySelector('button')!;
+    btn.addEventListener('click', () => {
+      const open = li.dataset.open === 'true';
+      groups.forEach((g) => {
+        g.dataset.open = 'false';
+        g.querySelector('button')!.setAttribute('aria-expanded', 'false');
+      });
+      li.dataset.open = String(!open);
+      btn.setAttribute('aria-expanded', String(!open));
+    });
+  });
+  document.addEventListener('click', (e) => {
+    if (!(e.target as Element).closest('[data-nav-group]')) {
+      groups.forEach((g) => {
+        g.dataset.open = 'false';
+        g.querySelector('button')!.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      groups.forEach((g) => {
+        g.dataset.open = 'false';
+        g.querySelector('button')!.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // Mobile nav uses <dialog>: native focus trap, Escape handling, backdrop.
+  const dialog = document.querySelector<HTMLDialogElement>('.mobile-nav');
+  const opener = document.querySelector<HTMLButtonElement>('[data-open-mobile-nav]');
+  if (dialog && opener) {
+    opener.addEventListener('click', () => {
+      dialog.showModal();
+      document.documentElement.style.overflow = 'hidden';
+    });
+    dialog.addEventListener('close', () => {
+      document.documentElement.style.overflow = '';
+      opener.focus();
+    });
+    dialog.querySelector('[data-close-mobile-nav]')?.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('click', (e) => {
+      if (e.target === dialog) dialog.close(); // backdrop click
+    });
+    dialog.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dialog.close()));
+    dialog.querySelectorAll<HTMLButtonElement>('.mobile-group').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const expanded = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!expanded));
+        const panel = document.getElementById(btn.getAttribute('aria-controls')!);
+        if (panel) panel.hidden = expanded;
+      });
+    });
+  }
+</script>

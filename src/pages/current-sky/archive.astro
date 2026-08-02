@@ -1,0 +1,50 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+
+const events = (await getCollection('skyEvents')).sort(
+  (a, b) => b.data.start.valueOf() - a.data.start.valueOf()
+);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const crumbs = [
+  { label: 'Current Sky', href: '/current-sky/' },
+  { label: 'Archive', href: '/current-sky/archive/' },
+];
+---
+
+<BaseLayout
+  title="Current Sky Archive"
+  description="Every sky event and lunation letter from Mo Lumen Astrology, past and upcoming, in one chronological archive."
+  path="/current-sky/archive/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Everything, chronologically</p>
+      <h1>Current Sky archive</h1>
+      <p class="lede">All sky events and lunation letters, newest first.</p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <ol class="timeline">
+        {
+          events.map((e) => (
+            <li>
+              <span class="event-type">{e.data.eventType}</span>
+              <h2 style="font-size: var(--text-lg); margin: var(--space-1) 0;">
+                <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
+              </h2>
+              <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+  <CTABand />
+</BaseLayout>

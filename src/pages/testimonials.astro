@@ -1,0 +1,70 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+
+const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
+const isDev = import.meta.env.DEV;
+const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
+---
+
+<BaseLayout
+  title="Testimonials"
+  description="What clients say about readings with Mo Lumen Astrology."
+  path="/testimonials/"
+  breadcrumbs={crumbs}
+  noindex={approved.length === 0}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Kind words</p>
+      <h1>Testimonials</h1>
+      <p class="lede">
+        Every testimonial here is genuine, published with permission, and attributed the way the
+        client chose.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        approved.length > 0 ? (
+          <div class="grid grid--2">
+            {approved.map((t) => (
+              <blockquote style="margin: 0;">
+                {t.data.quote}
+                <footer class="card__meta" style="margin-top: var(--space-3);">
+                  — {t.data.attribution}
+                  {t.data.service ? `, ${t.data.service} reading` : ''}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        ) : (
+          <div class="prose flow">
+            <p>
+              Client testimonials are being gathered — with each client's explicit permission —
+              and will appear here soon. In the meantime, the best way to get a feel for a reading
+              is <a href="/how-readings-work/">the step-by-step walkthrough</a> or
+              <a href="/videos/">Mo's videos</a>.
+            </p>
+            {isDev && (
+              <div class="callout callout--review">
+                <p style="margin: 0;">
+                  DEV NOTE: no approved testimonials in
+                  src/content/testimonials/testimonials.json. Placeholders are never rendered in
+                  production; this page is noindexed until real testimonials exist.
+                </p>
+              </div>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,144 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+import { site } from '../config/site';
+
+const videos = (await getCollection('videos')).sort(
+  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
+);
+const categories = [
+  ['current-sky', 'Current Sky'],
+  ['astrology-basics', 'Astrology Basics'],
+  ['relationships', 'Relationships'],
+  ['personal-purpose', 'Personal Purpose'],
+] as const;
+const crumbs = [{ label: 'Videos', href: '/videos/' }];
+const ig = site.integrations.instagramHandle;
+---
+
+<BaseLayout
+  title="Videos — watch Mo teach"
+  description="Mo Lumen's astrology videos from YouTube and Instagram: current sky updates, astrology basics, relationships, and personal purpose."
+  path="/videos/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Watch & learn</p>
+      <h1>Videos</h1>
+      <p class="lede">
+        Short, clear, and doom-free: Mo on the current sky and the fundamentals, from YouTube and
+        Instagram.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        videos.length > 0 ? (
+          <>
+            <div class="filter-bar" role="group" aria-label="Filter videos by category" data-video-filters>
+              <button type="button" aria-pressed="true" data-filter="all">All</button>
+              {categories.map(([key, label]) => (
+                <button type="button" aria-pressed="false" data-filter={key}>{label}</button>
+              ))}
+            </div>
+            <div class="grid grid--2">
+              {videos.map((v) => (
+                <article class="card" data-video-category={v.data.category}>
+                  {v.data.platform === 'youtube' ? (
+                    <button
+                      type="button"
+                      class="video-facade"
+                      data-video-id={v.data.externalId}
+                      aria-label={`Play video: ${v.data.title}`}
+                    >
+                      <img
+                        src={v.data.thumbnail || `https://i.ytimg.com/vi/${v.data.externalId}/hqdefault.jpg`}
+                        alt=""
+                        loading="lazy"
+                        width="480"
+                        height="270"
+                      />
+                      <span class="play" aria-hidden="true">
+                        <span>
+                          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                        </span>
+                      </span>
+                    </button>
+                  ) : (
+                    <a
+                      class="video-facade"
+                      href={v.data.externalId}
+                      rel="noopener"
+                      target="_blank"
+                      data-instagram-link
+                      style="display: grid; place-content: center; color: var(--color-ivory); text-decoration: none;"
+                    >
+                      <span>Watch on Instagram ↗ (opens instagram.com)</span>
+                    </a>
+                  )}
+                  <h2 style="font-size: var(--text-lg); margin: 0;">{v.data.title}</h2>
+                  <p style="margin: 0;">{v.data.description}</p>
+                </article>
+              ))}
+            </div>
+          </>
+        ) : (
+          <div class="prose flow">
+            <p>
+              The video library is being connected — Mo's channel and video list are being
+              confirmed. Meanwhile, you'll find her on
+              <a href={`https://www.instagram.com/${ig}/`} rel="noopener">Instagram ↗</a> (opens
+              instagram.com).
+            </p>
+            <div class="callout callout--review">
+              <p style="margin: 0;">
+                Owner action: supply YouTube channel/video IDs and Instagram video URLs in
+                src/content/videos/videos.json (see docs/add-a-video.md).
+              </p>
+            </div>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>
+
+<script>
+  // Video facades: load YouTube (privacy-enhanced) only on user interaction.
+  document.querySelectorAll<HTMLButtonElement>('[data-video-id]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const id = btn.dataset.videoId!;
+      (window as any).gtag?.('event', 'video_play', { video_id: id, platform: 'youtube' });
+      const wrap = document.createElement('div');
+      wrap.className = 'video-wrap';
+      wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
+      btn.replaceWith(wrap);
+      wrap.querySelector('iframe')?.focus();
+    });
+  });
+  document.querySelectorAll('[data-instagram-link]').forEach((a) =>
+    a.addEventListener('click', () =>
+      (window as any).gtag?.('event', 'video_platform_open', { platform: 'instagram' })
+    )
+  );
+  const bar = document.querySelector<HTMLElement>('[data-video-filters]');
+  if (bar) {
+    const buttons = bar.querySelectorAll<HTMLButtonElement>('button');
+    const cards = document.querySelectorAll<HTMLElement>('[data-video-category]');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter!;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        cards.forEach((c) => (c.hidden = f !== 'all' && c.dataset.videoCategory !== f));
+      })
+    );
+  }
+</script>

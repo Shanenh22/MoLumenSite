@@ -31,8 +31,9 @@
   --border: var(--color-stone);
 
   /* -- type -- */
-  --font-serif: 'Fraunces', 'Georgia', serif; /* self-hosted, OFL — see fonts note */
-  --font-sans: 'Source Sans 3', 'Segoe UI', system-ui, sans-serif;
+  --font-serif:
+    "Fraunces", "Georgia", serif; /* self-hosted, OFL — see fonts note */
+  --font-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --text-sm: 0.875rem;
   --text-lg: clamp(1.15rem, 1.1rem + 0.4vw, 1.35rem);

@@ -1,0 +1,45 @@
+{
+  "name": "Transit & Timing Reading",
+  "shortName": "Transit",
+  "slug": "transit",
+  "purpose": "What this season of your life is about, what's coming over the next year, and when to act.",
+  "method": "Current and upcoming transits to your natal chart, with classical timing techniques to map the year ahead.",
+  "bestFor": [
+    "You've had a natal reading and want what's current, not a re-introduction",
+    "A decision with timing attached: a move, a launch, a change",
+    "An annual check-in on the year ahead"
+  ],
+  "notFor": [
+    "A first-ever reading — the natal reading builds the foundation this one stands on",
+    "One urgent question — consider a horary reading"
+  ],
+  "durationMinutes": 75,
+  "durationLabel": "60–75 minutes",
+  "price": null,
+  "priceConfirmed": false,
+  "currency": "USD",
+  "format": ["Zoom", "Phone"],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Birth date, exact time, and place",
+    "What decisions or seasons you want timed"
+  ],
+  "includes": [
+    "The major transits shaping this chapter of your life",
+    "A month-by-month sense of the year ahead: what opens, what asks patience",
+    "Practical windows: when to push, when to plant, when to rest"
+  ],
+  "deliverables": ["Recording of the session", "Your transit calendar highlights"],
+  "preparation": [
+    "Note the decisions you're weighing and their earliest possible dates",
+    "A prior natal reading with Mo is recommended first"
+  ],
+  "cancellationPolicy": "See the booking policy — to be confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — to be confirmed by owner.",
+  "bookingEventId": "transit",
+  "related": ["natal", "horary"],
+  "relatedLearn": ["/explore/transits/", "/current-sky/"],
+  "featured": false,
+  "available": true,
+  "ownerReview": true
+}

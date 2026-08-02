@@ -1,0 +1,72 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CTABand from '../../../components/CTABand.astro';
+import { site } from '../../../config/site';
+
+export async function getStaticPaths() {
+  const events = await getCollection('skyEvents');
+  return events.map((e) => ({
+    params: { slug: e.id.replace(/\.mdx?$/, '') },
+    props: { event: e },
+  }));
+}
+const { event } = Astro.props;
+const { Content } = await render(event);
+const e = event.data;
+const slug = event.id.replace(/\.mdx?$/, '');
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const crumbs = [
+  { label: 'Current Sky', href: '/current-sky/' },
+  { label: e.title, href: `/current-sky/events/${slug}/` },
+];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: e.title,
+    datePublished: e.start.toISOString(),
+    author: { '@type': 'Person', name: 'Mo Lumen' },
+    publisher: { '@type': 'Organization', name: site.name },
+  },
+];
+---
+
+<BaseLayout
+  title={e.title}
+  description={e.summary}
+  path={`/current-sky/events/${slug}/`}
+  breadcrumbs={crumbs}
+  ogType="article"
+  publishedDate={e.start}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{e.eventType}{e.sign ? ` · ${e.sign}` : ''}</p>
+        <h1>{e.title}</h1>
+        <p class="card__meta">
+          {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by Mo Lumen
+        </p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container prose flow">
+        <Content />
+        <hr />
+        <p class="card__meta">
+          Astronomical data: {e.sourceNote} Interpretive notes are Mo's perspective — astrology
+          offers perspective, not certainty, and your choices remain your own.
+        </p>
+      </div>
+    </section>
+  </article>
+  <CTABand
+    heading="What does this stir in your chart?"
+    body="Sky events land differently for every chart. A reading connects the current sky to yours."
+  />
+</BaseLayout>

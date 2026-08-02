@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { aspects } from '../../../data/aspects';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Aspects', href: '/explore/aspects/' },
+];
+---
+
+<BaseLayout
+  title="Aspects — the geometry of the chart"
+  description="Aspects are meaningful angles between planets: conjunction, sextile, square, trine, opposition. Learn what each one means — and why 'hard' aspects build your best skills."
+  path="/explore/aspects/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>Aspects</h1>
+      <p class="lede">
+        Aspects are relationships between chart factors — the angles planets make to one another.
+        They tell you which of your drives cooperate, which argue, and which are fused for life.
+        One reframe before you start: "hard" aspects aren't bad. They're engines.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      {
+        aspects.map((a) => (
+          <article class="card">
+            <span class="glyph" aria-hidden="true">{a.glyph}</span>
+            <h2 style="font-size: var(--text-xl); margin: 0;">
+              <a href={`/explore/aspects/${a.slug}/`}>{a.name}</a>
+            </h2>
+            <p class="card__meta">{a.angle}</p>
+            <p style="margin: 0;">{a.nature}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

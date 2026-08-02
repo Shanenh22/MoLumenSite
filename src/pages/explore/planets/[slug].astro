@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import CTABand from '../../../components/CTABand.astro';
+import { planets } from '../../../data/planets';
+
+export function getStaticPaths() {
+  return planets.map((p) => ({ params: { slug: p.slug }, props: { planet: p } }));
+}
+const { planet: p } = Astro.props;
+const i = planets.findIndex((x) => x.slug === p.slug);
+const prev = planets[(i + planets.length - 1) % planets.length];
+const next = planets[(i + 1) % planets.length];
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The Planets', href: '/explore/planets/' },
+  { label: p.name, href: `/explore/planets/${p.slug}/` },
+];
+---
+
+<BaseLayout
+  title={`${p.name} in Astrology — meaning in the birth chart`}
+  description={`${p.name} in astrology: ${p.drive.slice(0, 140)}`}
+  path={`/explore/planets/${p.slug}/`}
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">The Planets</p>
+      <h1><span aria-hidden="true">{p.glyph}</span> {p.name}</h1>
+      <p class="lede">{p.drive}</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <dl class="factlist">
+        <dt>Travels the zodiac in</dt>
+        <dd>{p.cycle}</dd>
+        <dt>Rules</dt>
+        <dd>{p.rules}</dd>
+      </dl>
+      <h2>In your chart</h2>
+      <p>{p.inYourChart}</p>
+      <h2>When it leads</h2>
+      <p>{p.whenItLeads}</p>
+      <h2>Working with it</h2>
+      <p>{p.workingWithIt}</p>
+      <p>
+        How this plays out depends on its <a href="/explore/signs/">sign</a>, its
+        <a href="/explore/houses/">house</a>, and its <a href="/explore/aspects/">aspects</a> —
+        that's the work of a real chart reading.
+      </p>
+      <nav aria-label="More planets" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+        <a href={`/explore/planets/${prev.slug}/`}>← {prev.name}</a>
+        <a href={`/explore/planets/${next.slug}/`}>{next.name} →</a>
+      </nav>
+    </div>
+  </section>
+
+  <CTABand
+    heading={`Curious how your ${p.name.replace('The ', '')} works?`}
+    body="A natal reading places every planet in your chart — sign, house, and aspects — in one conversation."
+    buttonLabel="About the Natal Reading"
+    buttonHref="/readings/natal/"
+  />
+</BaseLayout>

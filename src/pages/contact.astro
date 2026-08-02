@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import { site } from '../config/site';
+const crumbs = [{ label: 'Contact', href: '/contact/' }];
+---
+
+<BaseLayout
+  title="Contact Mo"
+  description="Get in touch with Mo Lumen Astrology — questions about readings, bookings, or anything astrological. Mo reads every message."
+  path="/contact/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Say hello</p>
+      <h1>Get in touch</h1>
+      <p class="lede">
+        If you have any questions — or you just want to learn more about my astrology readings —
+        email me. I read every message myself.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="flow">
+        <h2>Email</h2>
+        <p>
+          <a
+            class="btn btn--primary"
+            href={`mailto:${site.email}?subject=${encodeURIComponent('I want to know more about...')}`}
+            data-contact-email>{site.email}</a
+          >
+        </p>
+        <p>
+          Booking questions? The <a href="/frequently-asked-questions/">FAQs</a> answer most
+          things; the <a href="/book/">booking page</a> handles scheduling directly.
+        </p>
+        <h2>Elsewhere</h2>
+        <p>
+          <a href={site.social.instagram} rel="noopener">Instagram ↗</a> ·
+          <a href={site.social.facebook} rel="noopener">Facebook ↗</a>
+        </p>
+        <p class="card__meta">
+          Please don't send birth data by email unless Mo has asked for it as part of a booked
+          reading — it's sensitive information and deserves a proper home.
+        </p>
+      </div>
+      <div class="card flow">
+        <h2 id="contact-newsletter" style="font-size: var(--text-xl); margin: 0;">
+          Prefer a slower hello?
+        </h2>
+        <p style="margin: 0;">
+          The monthly newsletter is a fine way to get to know Mo's work before reaching out.
+        </p>
+        <NewsletterForm source="contact" labelledby="contact-newsletter" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  document
+    .querySelector('[data-contact-email]')
+    ?.addEventListener('click', () => (window as any).gtag?.('event', 'contact_submit'));
+</script>

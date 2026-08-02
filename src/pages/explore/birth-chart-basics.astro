@@ -1,0 +1,99 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Birth Chart Basics', href: '/explore/birth-chart-basics/' },
+];
+---
+
+<BaseLayout
+  title="Birth Chart Basics — how a natal chart works"
+  description="A birth chart is a map of the sky at your moment of birth. Learn what it contains — planets, signs, houses, aspects — and how astrologers read it, in plain language."
+  path="/explore/birth-chart-basics/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Start here</p>
+      <h1>Birth chart basics</h1>
+      <p class="lede">
+        A birth chart — or natal chart — is a map of the sky calculated for the exact date, time,
+        and place you were born. Everything else in astrology builds on it.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>What a chart actually is</h2>
+      <p>
+        Stand where you were born, at the moment you were born, and photograph the whole sky —
+        including the half below the horizon. Note where every planet sits against the zodiac, and
+        which part of the sky was rising in the east. That snapshot, drawn as a circular map, is
+        your birth chart. It is entirely astronomical in its data and entirely interpretive in its
+        use: astrologers read the arrangement as a portrait of your patterns, capacities, and
+        seasons.
+      </p>
+      <h2>The four building blocks</h2>
+      <p>Every chart combines the same four vocabularies:</p>
+      <ul>
+        <li>
+          <strong><a href="/explore/planets/">Planets</a> are drives</strong> — the "what" of the
+          chart. The Moon is your need for safety; Mars is your will to act; Saturn is your
+          drive to master. Everyone has all ten.
+        </li>
+        <li>
+          <strong><a href="/explore/signs/">Signs</a> are styles</strong> — the "how." A planet in
+          Aries acts directly; the same planet in Pisces acts by feel. Signs color, they don't
+          cause.
+        </li>
+        <li>
+          <strong><a href="/explore/houses/">Houses</a> are arenas</strong> — the "where." The
+          twelve houses map areas of life: identity, money, communication, home, creativity, work,
+          partnership, and so on.
+        </li>
+        <li>
+          <strong><a href="/explore/aspects/">Aspects</a> are relationships</strong> — the
+          "how they interact." Angles between planets show which drives cooperate, which argue,
+          and which fuse.
+        </li>
+      </ul>
+      <p>
+        One sentence holds the whole grammar: <em>a planet (drive) in a sign (style) in a house
+        (arena), aspecting other planets (relationships)</em>. Every chart interpretation you'll
+        ever hear is that sentence, elaborated.
+      </p>
+      <h2>Why your birth time matters</h2>
+      <p>
+        The rising sign — the zodiac sign on the eastern horizon at your birth — anchors the
+        twelve houses, and it changes roughly every two hours. Two people born the same day in the
+        same city, hours apart, share most planet-in-sign placements but live them in completely
+        different arenas. This is why astrologers ask for your exact birth time, and why a birth
+        certificate beats family memory. No time?
+        <a href="/prepare-for-your-reading/">There are honest workarounds.</a>
+      </p>
+      <h2>What a chart is not</h2>
+      <p>
+        A chart is not a verdict, a fortune, or a personality prison. It describes tendencies and
+        seasons — the raw material and the weather — never the choices you'll make with them.
+        Identical charts belong to different lives, because charts don't live lives. People do.
+      </p>
+      <h2>Where to go next</h2>
+      <p>
+        Click through the <a href="/tools/explore-your-chart/">interactive chart explorer</a> to
+        see the wheel in action, or start with <a href="/explore/planets/">the planets</a> — the
+        chart's cast of characters.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Want this explained through your chart?"
+    body="A natal reading is exactly that: your chart, your patterns, your questions — ninety minutes, recorded."
+    buttonLabel="About the Natal Reading"
+    buttonHref="/readings/natal/"
+  />
+</BaseLayout>

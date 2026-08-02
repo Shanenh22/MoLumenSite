@@ -1,0 +1,62 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import CTABand from '../components/CTABand.astro';
+
+const faqs = (await getCollection('faqs'))
+  .filter((f) => f.data.scope === 'global')
+  .sort((a, b) => a.data.order - b.data.order);
+const crumbs = [{ label: 'FAQs', href: '/frequently-asked-questions/' }];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.data.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.data.answer },
+    })),
+  },
+];
+---
+
+<BaseLayout
+  title="Frequently Asked Questions"
+  description="Honest answers about astrology readings with Mo Lumen: what happens in a session, birth times, accuracy, preparation, recordings, and what astrology can and cannot do."
+  path="/frequently-asked-questions/"
+  breadcrumbs={crumbs}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Good questions</p>
+      <h1>Frequently asked questions</h1>
+      <p class="lede">
+        The questions everyone asks — answered the way Mo answers them: candidly.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      {
+        faqs.map((f) => (
+          <details class="faq">
+            <summary>{f.data.question}</summary>
+            <div class="faq__body">
+              <p>{f.data.answer}</p>
+            </div>
+          </details>
+        ))
+      }
+      <p style="margin-top: var(--space-8);">
+        Didn't find your question? <a href="/contact/">Ask Mo directly</a> — she reads every
+        message.
+      </p>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

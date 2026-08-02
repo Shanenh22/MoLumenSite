@@ -1,0 +1,199 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { signs } from '../../data/signs';
+import { houses } from '../../data/houses';
+import { planets } from '../../data/planets';
+
+const crumbs = [{ label: 'Explore Your Chart', href: '/tools/explore-your-chart/' }];
+
+// Precompute wheel geometry (server-side; static SVG).
+const cx = 300, cy = 300;
+const rOuter = 290, rSignInner = 240, rHouseInner = 150;
+const rad = (deg: number) => ((deg - 90) * Math.PI) / 180;
+const pt = (r: number, deg: number) => [cx + r * Math.cos(rad(deg)), cy + r * Math.sin(rad(deg))];
+function ringSeg(rIn: number, rOut: number, a0: number, a1: number) {
+  const [x0o, y0o] = pt(rOut, a0), [x1o, y1o] = pt(rOut, a1);
+  const [x0i, y0i] = pt(rIn, a0), [x1i, y1i] = pt(rIn, a1);
+  return `M ${x0o.toFixed(1)} ${y0o.toFixed(1)} A ${rOut} ${rOut} 0 0 1 ${x1o.toFixed(1)} ${y1o.toFixed(1)} L ${x1i.toFixed(1)} ${y1i.toFixed(1)} A ${rIn} ${rIn} 0 0 0 ${x0i.toFixed(1)} ${y0i.toFixed(1)} Z`;
+}
+const signSegs = signs.map((s, i) => {
+  const a0 = i * 30, a1 = (i + 1) * 30;
+  const [lx, ly] = pt((rOuter + rSignInner) / 2, a0 + 15);
+  return { ...s, d: ringSeg(rSignInner, rOuter, a0, a1), lx, ly };
+});
+const houseSegs = houses.map((h, i) => {
+  const a0 = i * 30, a1 = (i + 1) * 30;
+  const [lx, ly] = pt((rSignInner + rHouseInner) / 2, a0 + 15);
+  return { ...h, d: ringSeg(rHouseInner, rSignInner, a0, a1), lx, ly };
+});
+
+const explainData = {
+  planets: Object.fromEntries(
+    planets.map((p) => [p.slug, { name: p.name, glyph: p.glyph, text: p.drive, link: `/explore/planets/${p.slug}/` }])
+  ),
+  signs: Object.fromEntries(
+    signSegs.map((s) => [s.slug, { name: s.name, glyph: s.glyph, text: s.style, link: `/explore/signs/${s.slug}/` }])
+  ),
+  houses: Object.fromEntries(
+    houseSegs.map((h) => [h.slug, { name: h.name, glyph: String(h.number), text: h.arena, link: `/explore/houses/${h.slug}/` }])
+  ),
+};
+---
+
+<BaseLayout
+  title="Explore Your Chart — interactive birth chart tour"
+  description="An interactive, educational chart wheel: click any sign, house, or planet to learn what it means. No birth data required — this is a teaching tool, not a reading."
+  path="/tools/explore-your-chart/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Free interactive tool</p>
+      <h1>Explore your chart</h1>
+      <p class="lede">
+        This is the anatomy of a birth chart: signs on the outer ring, houses inside them, planets
+        listed alongside. Select anything — click, tap, or Tab and Enter — and it explains itself.
+      </p>
+      <p class="hero__reassure">
+        This tool is educational: it doesn't calculate your personal chart and never asks for
+        birth information. It's how charts work, not what yours says.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container chart-explorer" data-explorer data-content={JSON.stringify(explainData)}>
+      <div>
+        <svg
+          class="chart-wheel"
+          viewBox="0 0 600 600"
+          role="group"
+          aria-label="Interactive chart wheel: 12 signs in the outer ring, 12 houses in the inner ring"
+        >
+          {
+            signSegs.map((s) => (
+              <path
+                class="seg"
+                d={s.d}
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                aria-label={`${s.name}, sign`}
+                data-kind="signs"
+                data-key={s.slug}
+              />
+            ))
+          }
+          {
+            houseSegs.map((h) => (
+              <path
+                class="seg"
+                d={h.d}
+                tabindex="0"
+                role="button"
+                aria-pressed="false"
+                aria-label={`${h.name}, house`}
+                data-kind="houses"
+                data-key={h.slug}
+                style="fill: var(--color-ivory);"
+              />
+            ))
+          }
+          {signSegs.map((s) => (
+            <text x={s.lx} y={s.ly} text-anchor="middle" dominant-baseline="central" font-size="22">
+              {s.glyph}
+            </text>
+          ))}
+          {houseSegs.map((h) => (
+            <text x={h.lx} y={h.ly} text-anchor="middle" dominant-baseline="central" font-size="16">
+              {h.number}
+            </text>
+          ))}
+          <circle cx="300" cy="300" r="150" fill="var(--color-parchment)" stroke="var(--color-brown)" stroke-width="0.6" />
+          <text x="300" y="292" text-anchor="middle" font-size="15">Signs outside:</text>
+          <text x="300" y="312" text-anchor="middle" font-size="15">styles. Houses inside: arenas.</text>
+        </svg>
+        <div class="filter-bar" role="group" aria-label="Planets — select one to learn its drive">
+          {
+            planets.map((p) => (
+              <button type="button" data-kind="planets" data-key={p.slug} aria-pressed="false">
+                <span aria-hidden="true">{p.glyph}</span> {p.name.replace('The ', '')}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="explorer-panel" aria-live="polite" data-panel>
+        <p class="eyebrow">How to use this</p>
+        <h2 style="font-size: var(--text-xl);">Pick any piece of the chart</h2>
+        <p>
+          <strong>Planets are drives</strong> — what part of you is acting. <strong>Signs are
+          styles</strong> — how it acts. <strong>Houses are arenas</strong> — where in life it
+          plays out. <strong><a href="/explore/aspects/">Aspects</a></strong> are how drives relate
+          to each other.
+        </p>
+        <p>
+          In a real chart, each planet lands in one sign and one house — a sentence like "Mars
+          (drive to act) in Taurus (steadily) in the 10th house (career)." Select pieces here to
+          build the vocabulary.
+        </p>
+        <p class="card__meta">
+          Ready for the real thing? A <a href="/readings/natal/">natal reading</a> is your actual
+          chart, read with you.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    heading="This is the grammar. Your chart is the poem."
+    body="When you want your own placements read — not the general meanings — that's a natal reading."
+    buttonLabel="About the Natal Reading"
+    buttonHref="/readings/natal/"
+  />
+</BaseLayout>
+
+<script>
+  const root = document.querySelector<HTMLElement>('[data-explorer]');
+  if (root) {
+    const content = JSON.parse(root.dataset.content || '{}');
+    const panel = root.querySelector<HTMLElement>('[data-panel]')!;
+    const targets = root.querySelectorAll<HTMLElement>('[data-kind][data-key]');
+    let started = false;
+    const track = (event: string, params: Record<string, string> = {}) =>
+      (window as any).gtag?.('event', event, params);
+
+    function select(el: HTMLElement) {
+      if (!started) {
+        started = true;
+        track('chart_explorer_start');
+      }
+      targets.forEach((t) => t.setAttribute('aria-pressed', 'false'));
+      el.setAttribute('aria-pressed', 'true');
+      const kind = el.dataset.kind!, key = el.dataset.key!;
+      const item = content[kind]?.[key];
+      if (!item) return;
+      track('chart_explorer_interaction', { kind, key });
+      const kindLabel =
+        kind === 'planets' ? 'Planet — a drive' : kind === 'signs' ? 'Sign — a style' : 'House — an arena';
+      panel.innerHTML = `
+        <p class="eyebrow">${kindLabel}</p>
+        <h2 style="font-size: var(--text-xl);"><span aria-hidden="true">${item.glyph}</span> ${item.name}</h2>
+        <p>${item.text}</p>
+        <p><a href="${item.link}">Read the full ${item.name} page →</a></p>`;
+    }
+    targets.forEach((el) => {
+      el.addEventListener('click', () => select(el));
+      el.addEventListener('keydown', (e) => {
+        if ((e as KeyboardEvent).key === 'Enter' || (e as KeyboardEvent).key === ' ') {
+          e.preventDefault();
+          select(el);
+        }
+      });
+    });
+  }
+</script>

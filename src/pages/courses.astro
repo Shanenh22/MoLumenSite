@@ -1,0 +1,53 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+const crumbs = [{ label: 'Courses', href: '/courses/' }];
+---
+
+<BaseLayout
+  title="Courses — coming later"
+  description="Astrology courses from Mo Lumen — a teacher by profession before she was an astrologer — are in development. Join the interest list to hear first."
+  path="/courses/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">In development</p>
+      <h1>Courses</h1>
+      <p class="lede">
+        Before astrology, Mo taught natural sciences from middle school to college — teaching is
+        her first profession, not a sideline. Courses that bring that classroom skill to the chart
+        are being developed carefully, and none is for sale until it's genuinely ready.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <h2>What's being considered</h2>
+        <ul>
+          <li>Recorded foundations: the birth chart from zero, at your own pace</li>
+          <li>Live small-group classes, taught the way Mo reads — conversationally</li>
+          <li>Short topic intensives on timing, lunations, and horary basics</li>
+        </ul>
+        <p>
+          No launch dates, no countdowns, no pre-orders — when something opens, the interest list
+          hears first, with full details and prices.
+        </p>
+        <p>
+          Meanwhile, Mo's teaching style is on display for free across
+          <a href="/explore/">Explore Astrology</a> and <a href="/videos/">the videos</a>.
+        </p>
+      </div>
+      <div class="card flow">
+        <h2 id="course-interest" style="font-size: var(--text-xl); margin: 0;">Interest list</h2>
+        <p style="margin: 0;">
+          Join the newsletter and you're on it — course news arrives there first.
+        </p>
+        <NewsletterForm source="courses-interest" labelledby="course-interest" />
+      </div>
+    </div>
+  </section>
+</BaseLayout>

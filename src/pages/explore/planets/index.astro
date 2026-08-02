@@ -1,0 +1,46 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import { planets } from '../../../data/planets';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'The Planets', href: '/explore/planets/' },
+];
+---
+
+<BaseLayout
+  title="The Planets — ten drives every chart contains"
+  description="In astrology, planets are functions or drives: the Sun's purpose, the Moon's needs, Mercury's mind, Mars's will, Saturn's mastery. Learn all ten in plain language."
+  path="/explore/planets/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>The planets</h1>
+      <p class="lede">
+        Think of the planets as drives — functions every person carries. You don't "have" a good
+        or bad Mars; you have a Mars, and it works in a particular style, in a particular arena of
+        your life. Here's the whole cast.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2">
+      {
+        planets.map((p) => (
+          <article class="card">
+            <span class="glyph" aria-hidden="true">{p.glyph}</span>
+            <h2 style="font-size: var(--text-xl); margin: 0;">
+              <a href={`/explore/planets/${p.slug}/`}>{p.name}</a>
+            </h2>
+            <p class="card__meta">Through the zodiac: {p.cycle}</p>
+            <p style="margin: 0;">{p.drive}</p>
+          </article>
+        ))
+      }
+    </div>
+  </section>
+</BaseLayout>

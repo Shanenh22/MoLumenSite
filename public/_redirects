@@ -1,0 +1,31 @@
+# Legacy molumen.com (Squarespace) URLs → new site. 301 permanent.
+# Keep in sync with docs/research/url-inventory-redirect-map.md.
+
+/services-2            /readings/                 301
+/appointments          /book/                     301
+/blog                  /current-sky/archive/      301
+/blog/new-moon-in-pisces-3knsx-ty3bb   /current-sky/events/2025-02-27-pisces-new-moon/   301
+/blog/new-moon-in-aqaurius-3knsx       /current-sky/archive/                             301
+/blog/new-moon-in-sagittarius          /current-sky/archive/                             301
+/blog/scorpio-new-moon-november-2024   /current-sky/events/2024-11-01-scorpio-new-moon/  301
+/blog/libra-new-moon-october-2024-eclipse  /current-sky/archive/                         301
+/blog/virgo-new-moon-september-2024    /current-sky/archive/                             301
+/blog/category/*       /current-sky/archive/      301
+/blog/tag/*            /current-sky/archive/      301
+/terms-1               /terms/                    301
+/cookies-2             /privacy/                  301
+/newsletter-landing    /newsletter/               301
+/newsletter-landing-copy /newsletter/             301
+/waitlist              /courses/                  301
+/sales-page            /readings/                 301
+/lead-generation       /newsletter/               301
+/bonus-pages           /                          301
+/thank-you             /                          301
+/coming-soon-copy      /                          301
+/home-copy-of-mo-lumen /                          301
+/instagram-landing     /videos/                   301
+/instagram-landing-copy /videos/                  301
+/404-copy              /404/                      301
+/privacy-copy          /privacy/                  301
+/terms-copy            /terms/                    301
+/site-credit-copy      /                          301

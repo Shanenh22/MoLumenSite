@@ -1,0 +1,54 @@
+---
+import { footerNav } from '../config/navigation';
+import { site } from '../config/site';
+import NewsletterForm from './NewsletterForm.astro';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <p class="brand" style="color: var(--color-ivory); font-size: 1.3rem;">
+          Mo <span style="color: var(--color-gold-soft);">Lumen</span> Astrology
+        </p>
+        <p style="max-width: 34ch; color: var(--color-stone);">
+          {site.description}
+        </p>
+        <p>
+          <a href={`mailto:${site.email}`}>{site.email}</a><br />
+          <a href={site.social.instagram} rel="noopener">Instagram</a> ·
+          <a href={site.social.facebook} rel="noopener">Facebook</a>
+        </p>
+        <h2 id="footer-newsletter">The Sky This Month — free newsletter</h2>
+        <p style="color: var(--color-stone); max-width: 38ch;">
+          What's moving overhead, what it means, and one practical thing to do about it. No spam,
+          ever.
+        </p>
+        <NewsletterForm source="footer" dark labelledby="footer-newsletter" />
+      </div>
+      {
+        Object.entries(footerNav).map(([heading, links]) => (
+          <nav aria-label={`Footer: ${heading}`}>
+            <h3>{heading}</h3>
+            <ul>
+              {links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        ))
+      }
+    </div>
+    <div class="footer-legal">
+      <p>
+        © {year}
+        {site.legalName}. Astrology offers perspective, not certainty — see the
+        <a href="/disclaimer/">disclaimer</a>. Readings are not medical, psychological, legal, or
+        financial advice. For adults 18+.
+      </p>
+    </div>
+  </div>
+</footer>

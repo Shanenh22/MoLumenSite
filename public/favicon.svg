@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <rect width="64" height="64" rx="14" fill="#1e2a45"/>
+  <!-- crescent -->
+  <path d="M40 12a20 20 0 1 0 0 40 16.5 16.5 0 0 1-9.5-30A16.6 16.6 0 0 1 40 12z" fill="#faf6ee"/>
+  <!-- star -->
+  <path d="M44 22l1.8 4.6 4.6 1.8-4.6 1.8L44 34.8l-1.8-4.6-4.6-1.8 4.6-1.8z" fill="#b08d45"/>
+  <circle cx="24" cy="46" r="1.6" fill="#b08d45"/>
+  <circle cx="49" cy="43" r="1.2" fill="#c8ab6e"/>
+</svg>

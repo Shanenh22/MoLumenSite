@@ -1,0 +1,47 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../config/site';
+const crumbs = [
+  { label: 'Readings', href: '/readings/' },
+  { label: 'Gift a Reading', href: '/readings/gift/' },
+];
+---
+
+<BaseLayout
+  title="Gift a Reading"
+  description="Give someone an astrology reading with Mo Lumen — a gift of perspective. How gift readings work, from purchase to the recipient's session."
+  path="/readings/gift/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">A different kind of gift</p>
+      <h1>Gift a reading</h1>
+      <p class="lede">
+        A reading is a remarkable gift: an unhurried hour of full attention, a new way of seeing
+        oneself, and a recording to keep. Here's how gifting works.
+      </p>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container prose flow">
+      <h2>How it works</h2>
+      <ol>
+        <li>Choose the reading you'd like to give — for a first reading, the <a href="/readings/natal/">natal reading</a> is the classic choice.</li>
+        <li>Email Mo at <a href={`mailto:${site.email}?subject=Gift%20reading`}>{site.email}</a> with the reading and your recipient's name; she'll arrange payment and send you a gift confirmation to share.</li>
+        <li>Your recipient books their own time and shares their own birth details privately — birth data stays between them and Mo.</li>
+      </ol>
+      <div class="callout">
+        <p style="margin: 0;">
+          <strong>One honest note:</strong> readings work best invited, not imposed. The best gift
+          readings go to people who've been curious on their own. (Streamlined gift vouchers are
+          coming with the new booking system — for owner confirmation.)
+        </p>
+      </div>
+    </div>
+  </section>
+  <CTABand heading="Questions about gifting?" body="Email Mo and she'll walk you through it." buttonLabel="Contact Mo" buttonHref="/contact/" />
+</BaseLayout>

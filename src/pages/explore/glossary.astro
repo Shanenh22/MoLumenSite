@@ -1,0 +1,60 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+
+const terms = (await getCollection('glossary')).sort((a, b) =>
+  a.data.term.localeCompare(b.data.term)
+);
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Glossary', href: '/explore/glossary/' },
+];
+---
+
+<BaseLayout
+  title="Astrology Glossary — plain-language definitions"
+  description="Every astrology term used on this site, defined in plain language: ascendant, aspects, houses, lunations, retrogrades, synastry, transits, and more."
+  path="/explore/glossary/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Reference</p>
+      <h1>Glossary</h1>
+      <p class="lede">
+        Every term on this site, defined the way Mo defines things: plainly. {terms.length} terms
+        and growing.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose">
+      <dl>
+        {
+          terms.map((t) => (
+            <div id={t.data.id} style="margin-bottom: var(--space-6);">
+              <dt style="font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600;">
+                {t.data.term}
+              </dt>
+              <dd style="margin: var(--space-2) 0 0;">
+                {t.data.definition}
+                {t.data.learnLink && (
+                  <>
+                    {' '}
+                    <a href={t.data.learnLink}>Learn more →</a>
+                  </>
+                )}
+              </dd>
+            </div>
+          ))
+        }
+      </dl>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>

@@ -1,0 +1,67 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+const crumbs = [{ label: 'Newsletter', href: '/newsletter/' }];
+---
+
+<BaseLayout
+  title="The Sky This Month — free newsletter"
+  description="Mo Lumen's free monthly letter: what's moving overhead, what it means, and one practical thing to do about it. Plus a free guide on using readings to recognize opportunities."
+  path="/newsletter/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Free, monthly, five minutes</p>
+      <h1>The Sky This Month</h1>
+      <p class="lede">
+        Once a month, Mo writes you the sky: what's moving overhead, what it tends to mean, and
+        one practical thing to do about it. No doom, no spam, unsubscribe anytime.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="flow">
+        <h2 id="nl-signup">Join the list</h2>
+        <NewsletterForm source="newsletter-page" labelledby="nl-signup" />
+        <p class="card__meta">
+          Your email is used for this newsletter only — never sold, never shared. Marketing
+          consent is always separate from booking. See the <a href="/privacy/">privacy policy</a>.
+        </p>
+      </div>
+      <div class="card flow">
+        <p class="eyebrow">Subscriber guide — in progress</p>
+        <h2 style="font-size: var(--text-xl); margin: 0;">
+          Reading the Road Ahead: how a reading helps you recognize opportunities before they
+          arrive
+        </h2>
+        <p>
+          A short, practical guide to astrology's most useful trick: knowing which season you're
+          in, so you notice doors while they're still opening. Subscribers will receive it as soon
+          as it's released — it's being finished now, and we'd rather ship it right than fast.
+        </p>
+        <div class="callout callout--review" style="margin: 0;">
+          <p style="margin: 0;">
+            Owner action: guide file not yet supplied. Copy above deliberately avoids promising
+            immediate delivery. Outline in docs/lead-magnet-outline.md.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container prose flow">
+      <h2>What subscribers get</h2>
+      <ul>
+        <li><strong>The monthly letter</strong> — the sky ahead, in Mo's plain, warm, agency-first voice.</li>
+        <li><strong>Lunation letters</strong> — new moon and eclipse guidance by rising sign.</li>
+        <li><strong>First word</strong> on new offerings, courses, and guides — no pressure attached.</li>
+      </ul>
+    </div>
+  </section>
+</BaseLayout>

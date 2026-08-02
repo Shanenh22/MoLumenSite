@@ -1,0 +1,68 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../config/site';
+
+export async function getStaticPaths() {
+  const articles = (await getCollection('articles')).filter((a) => !a.data.draft);
+  return articles.map((a) => ({
+    params: { slug: a.id.replace(/\.mdx?$/, '') },
+    props: { article: a },
+  }));
+}
+const { article } = Astro.props;
+const { Content } = await render(article);
+const a = article.data;
+const slug = article.id.replace(/\.mdx?$/, '');
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const crumbs = [
+  { label: 'Articles', href: '/articles/' },
+  { label: a.title, href: `/articles/${slug}/` },
+];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: a.title,
+    description: a.description,
+    datePublished: a.publishDate.toISOString(),
+    ...(a.updatedDate ? { dateModified: a.updatedDate.toISOString() } : {}),
+    author: { '@type': 'Person', name: 'Mo Lumen' },
+    publisher: { '@type': 'Organization', name: site.name },
+  },
+];
+---
+
+<BaseLayout
+  title={a.title}
+  description={a.description}
+  path={`/articles/${slug}/`}
+  breadcrumbs={crumbs}
+  ogType="article"
+  publishedDate={a.publishDate}
+  updatedDate={a.updatedDate}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article>
+    <section class="hero">
+      <div class="container">
+        <p class="eyebrow">{a.category}</p>
+        <h1>{a.title}</h1>
+        <p class="card__meta">
+          By Mo Lumen · {fmt(a.publishDate)}
+          {a.updatedDate ? ` · Updated ${fmt(a.updatedDate)}` : ''}
+        </p>
+      </div>
+    </section>
+    <section class="section">
+      <div class="container prose flow">
+        <Content />
+      </div>
+    </section>
+  </article>
+  <CTABand />
+</BaseLayout>

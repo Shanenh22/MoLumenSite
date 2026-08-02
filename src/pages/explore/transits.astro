@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Transits', href: '/explore/transits/' },
+];
+---
+
+<BaseLayout
+  title="Transits — the astrology of timing"
+  description="Transits are the moving sky's aspects to your birth chart — astrology's timing technique. Learn how transits work, what retrogrades really mean, and how to use timing well."
+  path="/explore/transits/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">Explore Astrology</p>
+      <h1>Transits: the astrology of timing</h1>
+      <p class="lede">
+        Your birth chart is the fixed map; the sky keeps moving. Transits are what happens when
+        today's planets form aspects to your natal ones — astrology's way of describing seasons,
+        windows, and weather.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>The weather metaphor, taken seriously</h2>
+      <p>
+        A transit doesn't make anything happen, any more than rain makes you cancel a picnic — it
+        creates conditions in which some choices flow and others fight the current. Saturn
+        crossing your Midheaven describes a season when career asks for structure and delivers
+        earned results; what you build in it is entirely yours. Perspective, not prophecy.
+      </p>
+      <h2>Fast and slow weather</h2>
+      <p>
+        The Moon crosses your whole chart every month — its transits are moods, gone by dinner.
+        Mercury, Venus, and the Sun mark weeks; Mars, seasons. The slow outer planets — Jupiter
+        through Pluto — define the chapters: Jupiter's roughly twelve-year cycle of growth,
+        Saturn's twenty-nine-year curriculum (the famous Saturn returns near ages 29 and 58),
+        and the once-per-lifetime visits of Uranus, Neptune, and Pluto to any given point.
+        The slower the planet, the deeper the season.
+      </p>
+      <h2>About retrogrades</h2>
+      <p>
+        Retrograde motion is an optical effect — no planet ever backs up in space. Astrologically,
+        a retrograde is a review season for that planet's themes: re-check, revise, reconsider,
+        reconnect. Mercury retrograde, roughly three times a year, earns its reputation mostly by
+        exposing what was rushed. It is a terrible scapegoat and a decent editor.
+        <a href="/current-sky/">See what's retrograde right now.</a>
+      </p>
+      <h2>Using timing well</h2>
+      <p>
+        The practical questions a transit reading answers: What is this season for? What's coming
+        in the next year, and when are the windows? Which decisions are better made now, and which
+        gain from waiting? That's the territory of the
+        <a href="/readings/transit/">transit &amp; timing reading</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand
+    heading="What season are you in?"
+    body="A transit reading maps your next year — what's active, what's coming, and when to act."
+    buttonLabel="About the Transit Reading"
+    buttonHref="/readings/transit/"
+  />
+</BaseLayout>

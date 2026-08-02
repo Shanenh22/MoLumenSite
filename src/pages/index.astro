@@ -1,34 +1,288 @@
 ---
-/**
- * Placeholder homepage — proves the toolchain end-to-end.
- * The real homepage (brief §9) is built in Phase 3.
- */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import CTABand from '../components/CTABand.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 import { site } from '../config/site';
-import '../styles/tokens.css';
+
+const services = (await getCollection('services')).sort(
+  (a, b) => Number(b.data.featured) - Number(a.data.featured)
+);
+const testimonials = (await getCollection('testimonials')).filter((t) => t.data.approved);
+const skyEvents = (await getCollection('skyEvents'))
+  .filter((e) => e.data.start >= new Date())
+  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
+  .slice(0, 3);
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>{site.name} — staging scaffold</title>
-    <meta name="description" content={site.description} />
-  </head>
-  <body style="font-family: var(--font-sans); background: var(--bg); color: var(--ink); margin: 0;">
-    <main
-      style="min-height: 100vh; display: grid; place-content: center; text-align: center; padding: var(--space-8);"
-    >
-      <h1 style="font-family: var(--font-serif); font-size: var(--text-3xl); margin: 0;">
-        {site.name}
-      </h1>
-      <p style="color: var(--ink-soft); font-size: var(--text-lg); max-width: 40ch;">
-        {site.description}
+<BaseLayout
+  title="Home"
+  description="Clarifying astrology readings with a classical lens — practical, candid, and warm. Book a natal, relationship, timing, or horary reading with Mo Lumen."
+  path="/"
+>
+  <!-- 2. Hero -->
+  <section class="hero hero--home">
+    <div class="container">
+      <p class="eyebrow">Mo Lumen Astrology</p>
+      <h1 style="max-width: 18ch;">See yourself in a new light.</h1>
+      <p class="lede">
+        I'm Mo — astrologer, teacher, and interpreter of the language of the planets. A reading
+        with me is a warm, candid conversation that connects your birth chart to your real life:
+        your decisions, your relationships, your timing. There is fate, and there is choice.
       </p>
-      <p style="font-size: var(--text-sm); color: var(--accent-ink);">
-        Staging scaffold — Phase 3 build in progress. Not for public release.
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="/reading-finder/">Find Your Reading</a>
+        <a class="btn btn--ghost" href="/about/">Meet Mo</a>
+      </div>
+      <p class="hero__reassure">
+        No belief required. No doom, no scare tactics — just perspective you can use.
       </p>
-    </main>
-  </body>
-</html>
+    </div>
+  </section>
+
+  <!-- 3. Recognition -->
+  <section class="section">
+    <div class="container">
+      <h2 style="max-width: 24ch;">You don't need to know astrology. You just need a real question.</h2>
+      <div class="grid grid--2" style="margin-top: var(--space-8);">
+        <div class="flow">
+          <p>
+            Maybe you're at a crossroads — a career that fits worse each year, a relationship
+            asking to be understood, a decision whose timing matters. Maybe you know your sun sign
+            and suspect there's far more to the story. Or maybe you simply want an honest hour to
+            think about your life with someone who's paying full attention.
+          </p>
+          <p>
+            That's what a reading is for. Your birth chart is a map of patterns you've been living
+            all along — seeing them clearly is the first step to choosing what suits you best.
+          </p>
+        </div>
+        <div class="flow">
+          <blockquote style="margin: 0;">
+            Knowledge brings insight. Insight brings power. Power brings freedom.
+          </blockquote>
+          <p class="card__meta">— the idea at the center of Mo's practice</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 4. Reading Finder invitation -->
+  <section class="section section--alt">
+    <div class="container center flow">
+      <p class="eyebrow">Not sure where to start?</p>
+      <h2>Answer three questions. Get a suggestion.</h2>
+      <p class="lede" style="margin-inline: auto;">
+        The Reading Finder asks what brings you here and points you to the reading that fits —
+        in plain language, no astrology vocabulary required. You're always free to choose any
+        reading you like.
+      </p>
+      <p><a class="btn btn--primary" href="/reading-finder/">Try the Reading Finder</a></p>
+    </div>
+  </section>
+
+  <!-- 5. Readings preview -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Readings</p>
+      <h2>Five readings, one approach</h2>
+      <p class="lede">
+        Your chart, connected directly to your real life — by a certified astrologer with a
+        classical lens and a practical streak. Every live session includes a recording and your
+        chart.
+      </p>
+      <div class="grid grid--3" style="margin-top: var(--space-8);">
+        {
+          services.map((s) => (
+            <article class="card">
+              <h3>
+                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
+              </h3>
+              <p class="card__meta">{s.data.durationLabel}</p>
+              <p>{s.data.purpose}</p>
+              <p style="margin-top: auto;">
+                {s.data.priceConfirmed && s.data.price ? (
+                  <span class="price">${s.data.price}</span>
+                ) : (
+                  <span class="price--unconfirmed">Pricing shown at booking — final list in review</span>
+                )}
+              </p>
+            </article>
+          ))
+        }
+        <article class="card" style="background: var(--bg-alt);">
+          <h3><a href="/readings/">Compare all readings</a></h3>
+          <p>
+            Side-by-side prices, lengths, and best-for guidance — plus gift readings and FAQs.
+          </p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6. About preview -->
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <div class="flow">
+        <p class="eyebrow">About Mo</p>
+        <h2>Astrologer. Teacher. Writer.</h2>
+        <p>
+          Hello — I'm Maureen, a.k.a. Mo: a modern-day astrologer with a classical lens. Before
+          astrology I ran businesses and taught natural sciences from middle school through
+          college, and I bring both to the chart: practical grounding and a teacher's knack for
+          making complex things clear.
+        </p>
+        <p>
+          I hold a Practitioner's Certificate in Horary Astrology from the School of Traditional
+          Astrology, have passed NCGR-PAA Level 1 and 2 certification exams, and serve on the
+          board of the Organization for Professional Astrologers.
+        </p>
+        <p>
+          <a class="btn btn--ghost" href="/about/">Meet Mo</a>
+        </p>
+      </div>
+      <div class="flow">
+        <div class="callout" style="margin: 0;">
+          <p style="margin: 0;">
+            <strong>Practical and inspiring. Candid and compassionate. Intuitive and skillful.</strong>
+            That's the reading I aim to give — every single time.
+          </p>
+        </div>
+        <p class="card__meta">
+          Photo of Mo to be placed here — original image requested from owner.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 7. How a reading works -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">How it works</p>
+      <h2>From booking to insight, in six easy steps</h2>
+      <ol class="grid grid--3" style="list-style: none; padding: 0; margin-top: var(--space-8); counter-reset: step;">
+        {
+          [
+            ['Choose', 'Pick a reading — or let the Reading Finder suggest one.'],
+            ['Schedule', 'Choose a time that works; times show in your own time zone.'],
+            ['Pay', 'Pay securely online when you book. No surprises later.'],
+            ['Share', 'Send your birth details and questions through the intake form.'],
+            ['Prepare', "You'll get simple preparation notes — nothing to study."],
+            ['Meet', 'We talk, one-on-one. You leave with a recording and your chart.'],
+          ].map(([t, d], i) => (
+            <li class="card" style="gap: var(--space-2);">
+              <span class="glyph" aria-hidden="true">{i + 1}</span>
+              <h3 style="margin: 0;">{t}</h3>
+              <p style="margin: 0;">{d}</p>
+            </li>
+          ))
+        }
+      </ol>
+      <p style="margin-top: var(--space-6);">
+        <a href="/how-readings-work/">Everything to expect, step by step →</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- 8. Trust / testimonials -->
+  {
+    testimonials.length > 0 && (
+      <section class="section section--alt">
+        <div class="container">
+          <p class="eyebrow">Kind words</p>
+          <h2>What clients say</h2>
+          <div class="grid grid--2" style="margin-top: var(--space-8);">
+            {testimonials.map((t) => (
+              <blockquote style="margin: 0;">
+                {t.data.quote}
+                <footer class="card__meta" style="margin-top: var(--space-3);">
+                  — {t.data.attribution}
+                </footer>
+              </blockquote>
+            ))}
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  <!-- 9 & 10. Explore Your Chart + Current Sky -->
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <article class="card">
+        <p class="eyebrow">Free tool</p>
+        <h3><a href="/tools/explore-your-chart/">Explore Your Chart</a></h3>
+        <p>
+          An interactive tour of how a birth chart actually works — planets as drives, signs as
+          styles, houses as arenas of life. No birth data needed; it's education, not a reading.
+        </p>
+        <p><a class="btn btn--ghost" href="/tools/explore-your-chart/">Open the explorer</a></p>
+      </article>
+      <article class="card">
+        <p class="eyebrow">The sky right now</p>
+        <h3><a href="/current-sky/">Current Sky</a></h3>
+        {
+          skyEvents.length > 0 ? (
+            <ul style="padding-left: 1.1em;">
+              {skyEvents.map((e) => (
+                <li>
+                  <strong>{fmt(e.data.start)}</strong> —{' '}
+                  <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p>What's moving overhead and what it tends to mean.</p>
+          )
+        }
+        <p><a class="btn btn--ghost" href="/current-sky/">See the full timeline</a></p>
+      </article>
+    </div>
+  </section>
+
+  <!-- 11 & 12. Learning pathways + video -->
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Learn astrology</p>
+      <h2>Curious how it all fits together?</h2>
+      <div class="grid grid--4" style="margin-top: var(--space-8);">
+        {
+          [
+            ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart is and how to read one.'],
+            ['The 12 Signs', '/explore/signs/', 'Styles of expression, from Aries to Pisces.'],
+            ['The Planets', '/explore/planets/', 'Ten drives every chart contains.'],
+            ['Videos', '/videos/', "Mo on YouTube and Instagram — watch and learn."],
+          ].map(([t, href, d]) => (
+            <article class="card">
+              <h3 style="font-size: var(--text-lg);">
+                <a href={href}>{t}</a>
+              </h3>
+              <p style="margin: 0;">{d}</p>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- 13. Newsletter -->
+  <section class="section section--alt">
+    <div class="container" style="max-width: 42rem;">
+      <p class="eyebrow">Free newsletter</p>
+      <h2 id="home-newsletter">The Sky This Month</h2>
+      <p>
+        Once a month: what's moving overhead, what it means, and one practical thing to do about
+        it. Written by Mo, read in five minutes, unsubscribe anytime.
+      </p>
+      <NewsletterForm source="homepage" labelledby="home-newsletter" />
+    </div>
+  </section>
+
+  <!-- 14. Calm final invitation -->
+  <CTABand
+    heading="Whenever you're ready, the sky's not going anywhere."
+    body="Take your time. Read, explore, watch — and when a real question forms, I'd love to meet you and your chart."
+  />
+</BaseLayout>

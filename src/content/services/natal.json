@@ -1,0 +1,49 @@
+{
+  "name": "Natal Chart Reading",
+  "shortName": "Natal",
+  "slug": "natal",
+  "purpose": "Your whole chart, your whole story — who you are, the patterns you live, and what the sky is stirring right now.",
+  "method": "Full natal chart interpretation with a classical lens: planets, signs, houses, aspects, and current transits to the natal chart.",
+  "bestFor": [
+    "A first professional reading — the real thing, not an app summary",
+    "A crossroads in career, relationship, or identity that wants a wider lens",
+    "Knowing your 'big three' and suspecting there's much more in the chart (there is)"
+  ],
+  "notFor": [
+    "A single yes-or-no question — a horary reading answers that directly",
+    "Two people's compatibility — that's a relationship reading"
+  ],
+  "durationMinutes": 90,
+  "durationLabel": "90 minutes",
+  "price": null,
+  "priceConfirmed": false,
+  "currency": "USD",
+  "format": ["Zoom", "Phone", "In person in DFW, by inquiry"],
+  "birthDataRequired": "self",
+  "intakeRequirements": [
+    "Birth date",
+    "Exact birth time (birth certificate if possible)",
+    "Birth city and country",
+    "Your main questions or areas of focus"
+  ],
+  "includes": [
+    "A guided tour of your Sun, Moon, rising, and full planetary picture",
+    "Dominant life themes: vocation signals, relationship patterns, underused gifts",
+    "What the current sky is activating in your chart right now",
+    "Space for your questions throughout — a conversation, not a lecture"
+  ],
+  "deliverables": ["Recording of the session", "A copy of your natal chart"],
+  "preparation": [
+    "Confirm your birth time from a birth certificate if you can",
+    "Bring two or three real questions you're living with",
+    "Find a quiet spot and give yourself a few unhurried minutes afterward"
+  ],
+  "cancellationPolicy": "See the booking policy — to be confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy — to be confirmed by owner.",
+  "bookingEventId": "natal",
+  "related": ["transit", "synastry"],
+  "relatedLearn": ["/explore/birth-chart-basics/", "/explore/planets/", "/explore/houses/"],
+  "featured": true,
+  "available": true,
+  "ownerReview": true
+}

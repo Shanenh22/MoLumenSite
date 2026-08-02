@@ -1,0 +1,147 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+
+const now = new Date();
+const events = (await getCollection('skyEvents'))
+  .filter((e) => (e.data.end ?? e.data.start) >= now || e.data.start >= now)
+  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+const types = [...new Set(events.map((e) => e.data.eventType))];
+const typeLabels: Record<string, string> = {
+  lunation: 'New & Full Moons',
+  eclipse: 'Eclipses',
+  retrograde: 'Retrogrades',
+  ingress: 'Ingresses',
+  aspect: 'Aspects',
+  other: 'Other',
+};
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const monthKey = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', year: 'numeric', timeZone: 'UTC' });
+const byMonth = new Map<string, typeof events>();
+for (const e of events) {
+  const k = monthKey(e.data.start);
+  if (!byMonth.has(k)) byMonth.set(k, []);
+  byMonth.get(k)!.push(e);
+}
+const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
+---
+
+<BaseLayout
+  title="Current Sky — what's happening overhead"
+  description="A verified timeline of what's moving in the sky: new and full moons, eclipses, and retrogrades — with dates, signs, and Mo Lumen's plain-language notes on each."
+  path="/current-sky/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container">
+      <p class="eyebrow">The sky right now</p>
+      <h1>Current sky</h1>
+      <p class="lede">
+        What's moving overhead, when, and what it tends to mean. Dates and positions are verified
+        astronomy; the interpretive notes are Mo's, and your choices are your own.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="filter-bar" role="group" aria-label="Filter events by type" data-sky-filters>
+        <button type="button" aria-pressed="true" data-filter="all">All events</button>
+        {
+          types.map((t) => (
+            <button type="button" aria-pressed="false" data-filter={t}>
+              {typeLabels[t] ?? t}
+            </button>
+          ))
+        }
+      </div>
+      <p class="visually-hidden" aria-live="polite" data-sky-status></p>
+
+      {
+        [...byMonth.entries()].map(([month, monthEvents]) => (
+          <section data-month>
+            <h2>{month}</h2>
+            <ol class="timeline" style="margin-bottom: var(--space-8);">
+              {monthEvents.map((e) => (
+                <li data-event-type={e.data.eventType}>
+                  <span class="event-type">{typeLabels[e.data.eventType] ?? e.data.eventType}</span>
+                  <h3 style="margin: var(--space-1) 0;">
+                    <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
+                  </h3>
+                  <p class="card__meta" style="margin: 0 0 var(--space-2);">
+                    {fmt(e.data.start)}
+                    {e.data.end ? ` – ${fmt(e.data.end)}` : ''}
+                    {e.data.sign ? ` · ${e.data.sign}` : ''}
+                  </p>
+                  <p style="margin: 0;">{e.data.summary}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        ))
+      }
+      {events.length === 0 && <p>New sky events are being added — check back shortly.</p>}
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <div class="flow">
+        <h2>From the archive</h2>
+        <p>
+          Past lunation letters — including the essays that started this practice's writing life —
+          live in the <a href="/current-sky/archive/">Current Sky archive</a>.
+        </p>
+        <p>
+          New to these terms? Start with <a href="/explore/transits/">how transits work</a>, or
+          look anything up in the <a href="/explore/glossary/">glossary</a>.
+        </p>
+      </div>
+      <div class="flow">
+        <h2 id="sky-newsletter">Get this in your inbox</h2>
+        <p>The Sky This Month: one email, once a month, five minutes to read.</p>
+        <NewsletterForm source="current-sky" labelledby="sky-newsletter" />
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Wondering what this sky means for your chart?"
+    body="General sky-weather is here for everyone. What it activates in your chart is a transit reading."
+    buttonLabel="About the Transit Reading"
+    buttonHref="/readings/transit/"
+  />
+</BaseLayout>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-sky-filters]');
+  if (bar) {
+    const buttons = bar.querySelectorAll<HTMLButtonElement>('button');
+    const items = document.querySelectorAll<HTMLElement>('[data-event-type]');
+    const months = document.querySelectorAll<HTMLElement>('[data-month]');
+    const status = document.querySelector<HTMLElement>('[data-sky-status]');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const filter = btn.dataset.filter!;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let shown = 0;
+        items.forEach((li) => {
+          const show = filter === 'all' || li.dataset.eventType === filter;
+          li.hidden = !show;
+          if (show) shown++;
+        });
+        months.forEach((m) => {
+          m.hidden = [...m.querySelectorAll<HTMLElement>('[data-event-type]')].every((li) => li.hidden);
+        });
+        if (status) status.textContent = `${shown} event${shown === 1 ? '' : 's'} shown`;
+        (window as any).gtag?.('event', 'current_sky_filter', { filter });
+      })
+    );
+  }
+</script>

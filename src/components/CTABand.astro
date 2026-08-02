@@ -1,0 +1,24 @@
+---
+interface Props {
+  heading?: string;
+  body?: string;
+  buttonLabel?: string;
+  buttonHref?: string;
+}
+const {
+  heading = 'Ready to see your chart in a new light?',
+  body = 'Sessions are one-on-one with Mo. Choose a reading, pick a time, and come with your questions.',
+  buttonLabel = 'Book a Reading',
+  buttonHref = '/book/',
+} = Astro.props;
+---
+
+<section class="section section--dark center">
+  <div class="container flow">
+    <h2>{heading}</h2>
+    <p class="lede" style="margin-inline: auto; color: var(--color-stone);">{body}</p>
+    <p>
+      <a class="btn btn--gold" href={buttonHref}>{buttonLabel}</a>
+    </p>
+  </div>
+</section>
