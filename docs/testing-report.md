@@ -1,0 +1,36 @@
+# Testing Report — staging build (2026-08-02)
+
+Environment: Astro 5.18.2 static build, 100 pages. Tests run in the development container (Chromium via Playwright).
+
+## Automated
+| Check | Result |
+|---|---|
+| `astro check` (TypeScript + templates) | 0 errors, 0 warnings |
+| Production build | 100/100 pages, no errors |
+| Internal link validation (script over dist/) | 0 broken links |
+| Console errors (home, readings, natal, finder, explorer, sky, about, book) | none |
+| Mobile horizontal overflow at 375px | none |
+| Sitemap generation | sitemap-index.xml present |
+| RSS | /rss.xml valid, 15 items |
+
+## Interactive
+| Test | Result |
+|---|---|
+| Reading Finder full flow (3 questions → result) | Pass — correct recommendation, focus moves to result |
+| Reading Finder no-JS | Pass — noscript fallback with comparison guidance |
+| Mobile nav open/close, Escape, backdrop click | Pass (native dialog: focus trap + scroll lock) |
+| Chart explorer select (mouse) | Pass |
+| Current Sky filters | Pass |
+| Video facade | Not yet testable — awaiting real video IDs |
+| Booking embed | Fallback state verified; live embed awaits Cal.com account |
+
+## Still to run before launch (needs staging URL / owner inputs)
+- Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
+- Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)
+- Redirect testing against Cloudflare (curl -I each row of _redirects)
+- Social metadata preview (opengraph.xyz) once staging URL exists
+- Real booking end-to-end with Stripe test mode
+- pa11y-ci/axe run against staging
+
+## Known gaps (owner inputs)
+Prices unconfirmed · no approved testimonials · no photos of Mo · no video IDs · booking policy windows unconfirmed · legal drafts await attorney review · lead magnet file not yet produced.
