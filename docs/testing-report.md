@@ -24,7 +24,16 @@ Environment: Astro 5.18.2 static build, 100 pages. Tests run in the development 
 | Video facade | Not yet testable — awaiting real video IDs |
 | Booking embed | Fallback state verified; live embed awaits Cal.com account |
 
-## Still to run before launch (needs staging URL / owner inputs)
+## Staging verification (2026-08-02, https://molumen.shanenh.workers.dev/)
+| Check | Result |
+|---|---|
+| Homepage renders with styles, nav, services, prices | Pass |
+| /readings/ shows all 7 services with confirmed prices | Pass |
+| Legacy redirect /services-2 → /readings/ | Pass (301 followed) |
+| Unknown URL returns 404 status | Pass |
+| sitemap-index.xml served | Pass |
+
+## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)
 - Redirect testing against Cloudflare (curl -I each row of _redirects)

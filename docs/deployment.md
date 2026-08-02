@@ -1,15 +1,24 @@
-# Deployment — Cloudflare Pages
+# Deployment — Cloudflare (Workers static assets)
 
-## One-time setup (staging)
-1. Push this repo to GitHub.
-2. Cloudflare dashboard → Workers & Pages → Create → Pages → Connect to Git → select the repo.
-3. Build settings: framework **Astro**; build command `npm run build`; output directory `dist`.
-4. Environment variables (Settings → Environment variables): set `PUBLIC_SITE_URL` to the `*.pages.dev` URL for preview, and the production URL for production. Add other `PUBLIC_*` vars from `.env.example` as integrations go live.
-5. Deploy. Every push to `main` auto-deploys; pull requests get preview URLs.
+**Live setup (2026-08-02):** the repo deploys through Cloudflare's Workers Git integration
+using `wrangler.jsonc` (static assets from `dist/`, custom 404). Staging URL:
+https://molumen.shanenh.workers.dev/
+
+## Settings in use
+- Build command: `npm run build` · Deploy command: `npx wrangler deploy` · Path: `/`
+- Non-production branches build with `npx wrangler versions upload` (preview deploys).
+- Every push to `main` auto-deploys staging.
+
+## Environment variables
+Do **not** set `PUBLIC_SITE_URL` for staging — canonicals should keep pointing at
+https://molumen.com so search engines never treat the workers.dev URL as the real site.
+Set `PUBLIC_SITE_URL=https://molumen.com` (plus the other `PUBLIC_*` vars from
+`.env.example` as integrations go live) only when configuring the production domain.
 
 ## Environments
-- **Staging** = the `*.pages.dev` URL (or a `staging.` subdomain). Review happens here.
-- **Production** = molumen.com, attached only after approval — see docs/domain-migration.md.
+- **Staging** = https://molumen.shanenh.workers.dev/ — review happens here.
+- **Production** = molumen.com, attached to this same Worker as a custom domain only after
+  approval — see docs/domain-migration.md.
 
 ## Redirects
 `public/_redirects` ships with the build; Cloudflare Pages applies it automatically. Test after each deploy: `curl -I https://<site>/services-2` should return 301 → `/readings/`.
