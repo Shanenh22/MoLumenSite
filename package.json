@@ -1,0 +1,26 @@
+{
+  "name": "molumen-website",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Mo Lumen Astrology — static site built with Astro, deployed on Cloudflare Pages.",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test:links": "linkinator ./dist --recurse --silent",
+    "test:a11y": "pa11y-ci"
+  },
+  "dependencies": {
+    "astro": "^5.0.0"
+  },
+  "devDependencies": {
+    "@astrojs/check": "^0.9.0",
+    "prettier": "^3.0.0",
+    "prettier-plugin-astro": "^0.14.0",
+    "typescript": "^5.5.0"
+  }
+}

@@ -1,0 +1,34 @@
+---
+/**
+ * Placeholder homepage — proves the toolchain end-to-end.
+ * The real homepage (brief §9) is built in Phase 3.
+ */
+import { site } from '../config/site';
+import '../styles/tokens.css';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>{site.name} — staging scaffold</title>
+    <meta name="description" content={site.description} />
+  </head>
+  <body style="font-family: var(--font-sans); background: var(--bg); color: var(--ink); margin: 0;">
+    <main
+      style="min-height: 100vh; display: grid; place-content: center; text-align: center; padding: var(--space-8);"
+    >
+      <h1 style="font-family: var(--font-serif); font-size: var(--text-3xl); margin: 0;">
+        {site.name}
+      </h1>
+      <p style="color: var(--ink-soft); font-size: var(--text-lg); max-width: 40ch;">
+        {site.description}
+      </p>
+      <p style="font-size: var(--text-sm); color: var(--accent-ink);">
+        Staging scaffold — Phase 3 build in progress. Not for public release.
+      </p>
+    </main>
+  </body>
+</html>

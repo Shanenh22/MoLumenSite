@@ -1,0 +1,15 @@
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
+
+# environment — never commit secrets
+.env
+.env.*
+!.env.example
+
+# logs & OS noise
+npm-debug.log*
+.DS_Store
