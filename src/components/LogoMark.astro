@@ -1,33 +1,69 @@
 ---
 /**
- * Renders the Mo Lumen logo (references the #ml-logo symbol injected by
- * BaseLayout). Color comes from currentColor — set via the parent or the
- * `tone` prop. Aspect ratio of the artwork is 1200:704.
+ * Mo Lumen Astrology logo lockup, redesigned for legibility:
+ * a sunburst mark (echoing the owner's original logo artwork) beside
+ * "Mo Lumen" in the brand serif with ASTROLOGY letter-spaced beneath.
+ * Text is real HTML — crisp and readable at every size.
  */
 interface Props {
-  width?: number;
+  /** Overall height in px of the lockup */
+  height?: number;
   tone?: 'ink' | 'gold' | 'ivory';
-  label?: string;
   class?: string;
 }
-const { width = 170, tone = 'ink', label = 'Mo Lumen Astrology', class: className } = Astro.props;
-const height = Math.round(width * (704 / 1200));
-const colors = {
-  ink: 'var(--accent-ink)',
-  gold: 'var(--color-gold-soft)',
-  ivory: 'var(--color-ivory)',
+const { height = 48, tone = 'ink', class: className } = Astro.props;
+
+const tones = {
+  ink: { text: 'var(--ink)', sub: 'var(--accent-ink)', mark: 'var(--color-gold)' },
+  gold: { text: 'var(--color-ivory)', sub: 'var(--color-gold-soft)', mark: 'var(--color-gold-soft)' },
+  ivory: { text: 'var(--color-ivory)', sub: 'var(--color-stone)', mark: 'var(--color-ivory)' },
 };
+const t = tones[tone];
+
+// Sunburst: irregular radiating rays around an open center, like the
+// original artwork. Precomputed (deterministic) so the SVG is static.
+const rays: string[] = [];
+const N = 24;
+const lengths = [10, 6, 8, 5, 9, 6, 10, 5, 7, 9, 5, 8];
+for (let i = 0; i < N; i++) {
+  const a = (i / N) * Math.PI * 2 - Math.PI / 2;
+  const r0 = 13;
+  const r1 = r0 + lengths[i % lengths.length];
+  const x0 = 32 + r0 * Math.cos(a), y0 = 32 + r0 * Math.sin(a);
+  const x1 = 32 + r1 * Math.cos(a), y1 = 32 + r1 * Math.sin(a);
+  rays.push(`M ${x0.toFixed(1)} ${y0.toFixed(1)} L ${x1.toFixed(1)} ${y1.toFixed(1)}`);
+}
+const mark = rays.join(' ');
+const markSize = height;
+const nameSize = Math.round(height * 0.44);
+const subSize = Math.max(9, Math.round(height * 0.2));
 ---
 
-<svg
-  class={className}
-  width={width}
-  height={height}
-  viewBox="0 0 1200 704"
-  style={`color: ${colors[tone]};`}
-  role={label ? 'img' : undefined}
-  aria-label={label || undefined}
-  aria-hidden={label ? undefined : 'true'}
+<span
+  class:list={['logo-lockup', className]}
+  style={`display: inline-flex; align-items: center; gap: ${Math.round(height * 0.18)}px;`}
 >
-  <use href="#ml-logo"></use>
-</svg>
+  <svg
+    width={markSize}
+    height={markSize}
+    viewBox="0 0 64 64"
+    aria-hidden="true"
+    style={`color: ${t.mark}; flex: none;`}
+  >
+    <path d={mark} stroke="currentColor" stroke-width="1.8" stroke-linecap="round" fill="none"
+    ></path>
+    <circle cx="41" cy="24" r="1.7" fill="currentColor"></circle>
+  </svg>
+  <span style="display: flex; flex-direction: column; line-height: 1.05;">
+    <span
+      style={`font-family: var(--font-serif); font-weight: 600; font-size: ${nameSize}px; color: ${t.text}; letter-spacing: 0.01em; white-space: nowrap;`}
+    >
+      Mo Lumen
+    </span>
+    <span
+      style={`font-family: var(--font-sans); font-weight: 600; font-size: ${subSize}px; color: ${t.sub}; letter-spacing: 0.34em; text-transform: uppercase; margin-top: 2px; white-space: nowrap;`}
+    >
+      Astrology
+    </span>
+  </span>
+</span>
