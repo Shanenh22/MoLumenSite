@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import Layers from '../../../components/Layers.astro';
 import { aspects } from '../../../data/aspects';
 
 export function getStaticPaths() {
@@ -19,8 +20,8 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`The ${a.name} — aspect meaning in astrology`}
-  description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature}`}
+  title={`The ${a.name} — aspect meaning, angle, and orb`}
+  description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature} Traditional and modern readings, typical orbs, and how to work with it.`}
   path={`/explore/aspects/${a.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -35,12 +36,45 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
+      <h2>At a glance</h2>
+      <table class="ref-table">
+        <caption class="visually-hidden">Attributes of the {a.name}</caption>
+        <tbody>
+          <tr><th scope="row">Exact angle</th><td>{a.degrees}°</td></tr>
+          <tr><th scope="row">Typical orb</th><td>{a.typicalOrb}</td></tr>
+          <tr><th scope="row">Sign relationship</th><td>{a.signRelationship}</td></tr>
+          <tr><th scope="row">Nature</th><td>{a.nature}</td></tr>
+        </tbody>
+      </table>
+      <p class="card__meta">
+        Orb is the allowance within which an aspect still counts. There is no universal standard —
+        orbs vary by astrologer, by school, and by the planets involved. Tighter aspects are
+        stronger.
+      </p>
+
       <h2>The relationship</h2>
       <p>{a.relationship}</p>
+
+      <Layers kind="traditional"><p>{a.traditional}</p></Layers>
+      <Layers kind="modern"><p>{a.modern}</p></Layers>
+      <Layers kind="mo"><p>{a.mo}</p></Layers>
+      <Layers kind="misconception"><p>{a.misconception}</p></Layers>
+
       <h2>How it feels to live with</h2>
       <p>{a.livedExperience}</p>
       <h2>Working with it</h2>
       <p>{a.workingWithIt}</p>
+
+      <div class="callout">
+        <p style="margin: 0;">
+          <strong>Applying or separating?</strong> An aspect is <em>applying</em> when the faster
+          planet is still moving toward exactness, and <em>separating</em> once it has passed.
+          Traditional astrology treats applying aspects as the ones still to unfold, and separating
+          ones as already spent — a distinction that matters a great deal in
+          <a href="/explore/transits/">timing work</a>.
+        </p>
+      </div>
+
       <nav aria-label="More aspects" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/aspects/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/aspects/${next.slug}/`}>{next.name} →</a>

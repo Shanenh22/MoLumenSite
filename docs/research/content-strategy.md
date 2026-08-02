@@ -45,6 +45,47 @@ retrograding within Aries; Uranus within Gemini; Jupiter within Leo). Recorded o
 a visible verification note. **No interpretive claim is presented as fact, and no date was
 published from a single source.**
 
+## Round 2 — reference-library depth (2026-08-02, later same day)
+
+The 39 backbone pages (12 signs, 10 planets, 12 houses, 5 aspects) were ~300-word stubs — the
+site's weakest asset and precisely what large competitors do best. Rebuilt as structured
+reference articles averaging 520–660 words each, with a differentiator no major competitor
+offers: **explicit epistemic labeling**.
+
+### The labeling system
+`src/components/Layers.astro` renders six visually distinct block types, applied throughout the
+reference library:
+
+| Label | Meaning |
+|---|---|
+| Astronomical fact | Verifiable physical claim (orbital periods, geometry, motion) |
+| Traditional view | Pre-modern convention (Hellenistic/medieval), stated as convention |
+| Modern view | 20th-century psychological astrology |
+| Mo's synthesis | Her own practice and point of view, clearly owned |
+| Where astrologers differ | Live disagreements between schools, named honestly |
+| Common misconception | What people wrongly believe, corrected |
+
+A reader always knows which kind of claim they are reading. This is the single strongest
+trust signal available to an astrology site and it costs nothing to maintain, because the
+labels are structural rather than editorial (no "last reviewed" dates to go stale).
+
+### Structural data added
+Signs now carry polarity, traditional and modern rulers, exaltation/detriment/fall, opposite
+sign, glyph etymology, season, and an "at work" application. Planets carry orbital cycle,
+retrograde frequency, sect, classification, full dignities, and planetary joy. Houses carry
+angularity, natural sign and ruler, Latin name, opposite house, and joy. Aspects carry exact
+degrees, typical orb ranges, and sign relationship.
+
+### New reference pages (round 2)
+Essential dignities (with the full Ptolemaic table, cross-verified), the four angles, house
+systems compared, chart patterns, schools and traditions, and a nine-step **Start Here**
+curriculum for beginners.
+
+**Why dignities matter competitively:** traditional dignity is core to Mo's actual training
+(STA horary certificate) and is almost entirely absent from mainstream astrology sites, which
+inherited the 20th-century psychological turn away from it. It is genuine expertise the
+competition structurally cannot copy without retraining.
+
 ## Recommended next round (not yet built)
 
 1. **Chart-shape and dominance page** — stelliums, chart rulers, element balance. Natural

@@ -1,0 +1,120 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import Layers from '../../components/Layers.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Schools & Traditions', href: '/explore/schools/' },
+];
+---
+
+<BaseLayout
+  title="Schools and Traditions in Astrology"
+  description="Hellenistic, medieval, modern psychological, evolutionary, and Vedic astrology — how the major approaches differ, and why knowing which one you're getting matters."
+  path="/explore/schools/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Schools and traditions</h1>
+        <p class="lede">Astrology is not one method. Knowing which tradition an astrologer works in tells you more about what your reading will be like than almost anything else.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.approachPhilosophy.src}
+        alt={scenes.approachPhilosophy.alt}
+        width={scenes.approachPhilosophy.width}
+        height={scenes.approachPhilosophy.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Why this page exists</h2>
+      <p>
+        Most astrology writing online presents itself as simply "astrology," as though there were a
+        single agreed body of technique. There isn't. Two competent astrologers can look at the same
+        chart and produce different readings because they are using different systems — different
+        house divisions, different planets, different assumptions about what a chart is for. That is
+        worth understanding before you book anything.
+      </p>
+
+      <h2>Hellenistic astrology (roughly 1st century BCE – 7th century CE)</h2>
+      <p>
+        The origin of most Western technique, developed in Greco-Roman Egypt. Uses the seven visible
+        planets, whole sign houses, <a href="/explore/dignities/">essential dignities</a>, sect
+        (whether a chart is diurnal or nocturnal), and timing methods such as annual profections and
+        zodiacal releasing. Largely lost to the Western world for centuries, and substantially
+        recovered since the 1990s through translation projects — which is why it feels simultaneously
+        ancient and new.
+      </p>
+
+      <h2>Medieval and Renaissance astrology</h2>
+      <p>
+        The Hellenistic material transmitted through Persian and Arabic astrologers — Māshāʾallāh,
+        Abū Maʿshar, and others — then into Latin Europe. Highly technical, heavy on dignity, lots and
+        elaborate prediction. This lineage produced <strong>horary astrology</strong>, which answers a
+        specific question from a chart cast for the moment it is asked. Mo holds a Practitioner's
+        Certificate in horary from the School of Traditional Astrology, which is why the classical
+        material appears throughout this site.
+      </p>
+
+      <h2>Modern psychological astrology (20th century)</h2>
+      <p>
+        Emerging from Alan Leo's popularization and later Dane Rudhyar's humanistic approach and
+        Jungian influence, this is the astrology most people have encountered. It shifted the
+        question from "what will happen" to "who is this person becoming," incorporated the newly
+        discovered outer planets, and largely set aside dignity and prediction in favour of character
+        and growth.
+      </p>
+
+      <h2>Evolutionary astrology</h2>
+      <p>
+        A late-20th-century development placing Pluto and the lunar nodes at the centre, reading the
+        chart as a soul's developmental trajectory. Explicitly incorporates reincarnation as a working
+        premise, which some clients want and others emphatically do not — worth clarifying in advance.
+      </p>
+
+      <h2>Vedic (Jyotish) astrology</h2>
+      <p>
+        A separate and continuous Indian tradition, not a variant of the Western one. It uses the
+        <em>sidereal</em> zodiac, anchored to the constellations rather than the seasons, so most
+        planetary positions differ by roughly 24° from a Western chart — often placing planets in
+        the previous sign. It has its own house logic, its own timing system (dashas), and its own
+        extensive literature. A Vedic reading is a different discipline, not a second opinion.
+      </p>
+
+      <Layers kind="mo">
+        <p>
+          I describe myself as a modern astrologer with a classical lens, and that phrase is precise
+          rather than decorative. I use traditional technique — dignity, sect, rulership, horary
+          method — inside a modern conversation about your actual life and your actual choices. The
+          old material gives structure and specificity; the modern frame keeps your agency at the
+          centre where it belongs. <a href="/approach/">More on how I work.</a>
+        </p>
+      </Layers>
+
+      <h2>What to ask an astrologer</h2>
+      <ul>
+        <li>Which tradition do you primarily work in?</li>
+        <li>Which house system do you use, and why?</li>
+        <li>Do you use the modern outer planets, and do you use dignity?</li>
+        <li>Is prediction part of your practice, or is your focus character and timing?</li>
+      </ul>
+      <p>
+        None of these has a right answer. But an astrologer who can answer them clearly is one who
+        knows what they're doing — and that is a genuinely useful screening question. More in
+        <a href="/articles/how-to-choose-an-astrologer/">how to choose an astrologer</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand heading="A classical lens, a modern conversation" body="Traditional technique, present-tense life, your choices at the centre." buttonLabel="Read about Mo's approach" buttonHref="/approach/" />
+</BaseLayout>

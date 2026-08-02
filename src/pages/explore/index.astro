@@ -6,12 +6,17 @@ import CTABand from '../../components/CTABand.astro';
 const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
 const foundations = [
   ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart actually is, and how its pieces fit together. Start here.'],
+  ['The Four Angles', '/explore/angles/', 'Ascendant, Descendant, Midheaven, IC — the frame everything sits in.'],
   ['The Big Three', '/explore/the-big-three/', 'Sun, Moon, and rising — what each one really governs.'],
   ['Elements & Modalities', '/explore/elements-and-modalities/', 'The two grids that generate all twelve signs.'],
   ['The Planets', '/explore/planets/', 'Ten drives every chart contains — the Sun’s purpose to Pluto’s transformations.'],
   ['The 12 Signs', '/explore/signs/', 'Styles of expression: how each sign colors the planets within it.'],
   ['The 12 Houses', '/explore/houses/', 'Areas of experience: where in life each part of your chart plays out.'],
   ['Aspects', '/explore/aspects/', 'The geometry of the chart: how planets support, strain, and balance each other.'],
+  ['Chart Patterns', '/explore/chart-patterns/', 'Stelliums, grand trines, T-squares — configurations that define a chart.'],
+  ['Essential Dignities', '/explore/dignities/', 'The traditional measure of whether a planet can do its job.'],
+  ['House Systems', '/explore/house-systems/', 'Whole sign, Placidus, equal — what changes, and what does not.'],
+  ['Schools & Traditions', '/explore/schools/', 'Hellenistic to modern to Vedic — and what to ask an astrologer.'],
 ];
 const timing = [
   ['Transits', '/explore/transits/', 'How the moving sky activates your chart — the astrology of timing.'],
@@ -56,6 +61,18 @@ const life = [
         height={scenes.birthChartBasics.height}
         fetchpriority="high"
       />
+    </div>
+  </section>
+
+  <section class="section section--night center">
+    <div class="container flow" style="max-width: 44rem;">
+      <p class="eyebrow">New to all this?</p>
+      <h2>There's an order that makes this easy</h2>
+      <p class="lede" style="margin-inline: auto;">
+        Nine steps, about an hour of reading, no jargon left unexplained — the sequence I'd teach
+        it in if you were sitting across from me.
+      </p>
+      <p><a class="btn btn--accent" href="/start-here/">Start here</a></p>
     </div>
   </section>
 

@@ -1,0 +1,133 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import Layers from '../../components/Layers.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Chart Patterns', href: '/explore/chart-patterns/' },
+];
+---
+
+<BaseLayout
+  title="Chart Patterns — stelliums, grand trines, T-squares, and more"
+  description="Aspect configurations that shape a whole chart: stellium, grand trine, T-square, grand cross, yod, and chart shape. What each one concentrates, and how to read it."
+  path="/explore/chart-patterns/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Chart patterns</h1>
+        <p class="lede">Individual aspects describe a relationship between two planets. Patterns describe what happens when three or more lock together — and those tend to define a life.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.aspects.src}
+        alt={scenes.aspects.alt}
+        width={scenes.aspects.width}
+        height={scenes.aspects.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Why patterns matter more than single aspects</h2>
+      <p>
+        A chart with fifteen aspects is not a list of fifteen separate facts. Planets group into
+        configurations, and a configuration behaves as a unit — it concentrates energy, creates
+        recurring dynamics, and usually shows up as something a person is repeatedly known for.
+        Spotting the patterns first is how astrologers avoid drowning in detail.
+      </p>
+
+      <h2>The configurations</h2>
+      <h3>Stellium</h3>
+      <p>
+        Three or more planets clustered in one sign or house. Enormously concentrating: that sign's
+        style or that house's arena dominates the chart, sometimes at the expense of everything else.
+        People with stelliums are frequently described as intense or specialized — a great deal of
+        their chart is pointing at one place.
+      </p>
+      <h3>Grand trine</h3>
+      <p>
+        Three planets each <a href="/explore/aspects/trine/">trine</a> the others, forming an
+        equilateral triangle, usually within one element. Real talent, and the classic caution
+        applies doubled: a closed circuit of ease can become self-sufficient enough that nothing
+        ever pushes it into use. Grand trines often need an outside challenge to activate.
+      </p>
+      <h3>T-square</h3>
+      <p>
+        Two planets in <a href="/explore/aspects/opposition/">opposition</a>, both
+        <a href="/explore/aspects/square/">square</a> a third. One of the most common and most
+        productive patterns: persistent tension with a focal planet that carries the pressure. The
+        empty point opposite the focal planet is often where the resolution lives — the missing leg
+        a person has to consciously build.
+      </p>
+      <h3>Grand cross</h3>
+      <p>
+        Four planets forming two oppositions square to each other. Maximum tension, shared modality,
+        and considerable stamina — grand-cross charts often belong to people who carry a great deal
+        and don't fold. Also exhausting, and prone to feeling pulled in four directions at once.
+      </p>
+      <h3>Yod</h3>
+      <p>
+        Two planets in sextile, both forming 150° quincunx aspects to a third. Sometimes called the
+        "finger of fate." Reads as an awkward, insistent pressure toward the apex planet — two things
+        that get along easily, both demanding adjustment from a third that fits neither.
+      </p>
+      <h3>Kite</h3>
+      <p>
+        A grand trine with a fourth planet opposing one of its points. This is the grand trine's
+        outlet: the opposition supplies the pressure the closed triangle lacks, which often makes a
+        kite noticeably more productive than a grand trine alone.
+      </p>
+
+      <h2>Chart shape</h2>
+      <p>
+        Beyond aspects, the overall distribution of planets around the wheel says something. A chart
+        with everything crowded into a third of the circle (a <em>bundle</em>) describes a focused,
+        specialized life; one with planets spread evenly (a <em>splash</em>) describes breadth and
+        many interests; a <em>bowl</em> — everything in one half — often points at what's missing in
+        the empty half. These are broad-brush readings, but they're a fast orientation before any
+        detail work.
+      </p>
+
+      <Layers kind="mo">
+        <p>
+          I look for patterns before I look at individual placements, because they tell me where the
+          chart's weight sits. If someone has a T-square, that dynamic will come up in the reading
+          whether or not they mention it — it's usually the thing they've been managing their whole
+          life without a name for it.
+        </p>
+      </Layers>
+
+      <Layers kind="differs">
+        <p>
+          How tight an orb a pattern requires is not standardized. A grand trine with 9° orbs is
+          arguably not a grand trine at all. Astrologers who use wide orbs find patterns in nearly
+          every chart; those who use tight orbs find them rarely and weight them heavily. Ask which
+          approach you're getting.
+        </p>
+      </Layers>
+
+      <Layers kind="misconception">
+        <p>
+          That having a "difficult" pattern is bad news. T-squares and grand crosses correlate with
+          accomplishment at least as often as with hardship — the tension is what generates the
+          effort. What matters is whether the pattern has been given legitimate work to do.
+        </p>
+      </Layers>
+      <p>
+        Related: <a href="/explore/aspects/">the five major aspects</a> and
+        <a href="/explore/elements-and-modalities/">elements and modalities</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand heading="What pattern is running your chart?" body="Patterns are usually the first thing Mo names — and often the first thing that finally makes sense." buttonLabel="About the Natal Reading" buttonHref="/readings/natal/" />
+</BaseLayout>

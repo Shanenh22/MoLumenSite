@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import Layers from '../../../components/Layers.astro';
 import { signs } from '../../../data/signs';
 
 export function getStaticPaths() {
@@ -11,6 +12,7 @@ const { sign: s } = Astro.props;
 const i = signs.findIndex((x) => x.slug === s.slug);
 const prev = signs[(i + signs.length - 1) % signs.length];
 const next = signs[(i + 1) % signs.length];
+const opposite = signs.find((x) => x.name === s.opposite);
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'The 12 Signs', href: '/explore/signs/' },
@@ -19,8 +21,8 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`${s.name} — meaning in the birth chart`}
-  description={`${s.name} in astrology (${s.element}, ${s.modality}, ruled by ${s.ruler}): style, strengths, growth edges, and what ${s.name} placements mean in a chart.`}
+  title={`${s.name} — meaning, dignities, and how to read it`}
+  description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Traditional and modern readings, essential dignities, strengths, growth edges, and common misconceptions.`}
   path={`/explore/signs/${s.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -35,28 +37,55 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
-      <dl class="factlist">
-        <dt>Element</dt><dd>{s.element}</dd>
-        <dt>Modality</dt><dd>{s.modality}</dd>
-        <dt>Ruled by</dt><dd>{s.ruler}</dd>
-        <dt>Sun season</dt><dd>{s.dates}</dd>
-      </dl>
+      <h2>At a glance</h2>
+      <table class="ref-table">
+        <caption class="visually-hidden">Structural attributes of {s.name}</caption>
+        <tbody>
+          <tr><th scope="row">Element</th><td>{s.element}</td></tr>
+          <tr><th scope="row">Modality</th><td>{s.modality}</td></tr>
+          <tr><th scope="row">Polarity</th><td>{s.polarity}</td></tr>
+          <tr><th scope="row">Ruler</th><td>{s.ruler}{s.modernRuler ? ` (traditional) · ${s.modernRuler} (modern)` : ''}</td></tr>
+          {s.exaltation && <tr><th scope="row">Exaltation</th><td>{s.exaltation}</td></tr>}
+          <tr><th scope="row">Detriment</th><td>{s.detriment}</td></tr>
+          {s.fall && <tr><th scope="row">Fall</th><td>{s.fall}</td></tr>}
+          <tr><th scope="row">Opposite sign</th><td>{opposite ? <a href={`/explore/signs/${opposite.slug}/`}>{s.opposite}</a> : s.opposite}</td></tr>
+          <tr><th scope="row">Sun season</th><td>{s.dates}</td></tr>
+          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{s.glyph}</span> — {s.glyphMeaning}</td></tr>
+        </tbody>
+      </table>
+      <p class="card__meta">
+        Dignities follow the Ptolemaic tables used in traditional astrology — see
+        <a href="/explore/dignities/">essential dignities explained</a>.
+      </p>
+
       <h2>The style</h2>
       <p>{s.style}</p>
+      <p>{s.season}</p>
+
+      <Layers kind="traditional"><p>{s.traditional}</p></Layers>
+      <Layers kind="modern"><p>{s.modern}</p></Layers>
+      <Layers kind="mo"><p>{s.mo}</p></Layers>
+      {s.differs && <Layers kind="differs"><p>{s.differs}</p></Layers>}
+      <Layers kind="misconception"><p>{s.misconception}</p></Layers>
+
       <h2>Strengths</h2>
       <p>{s.strengths}</p>
       <h2>The growth edge</h2>
       <p>{s.watchFor}</p>
       <h2>In relationship</h2>
       <p>{s.inRelationship}</p>
+      <h2>At work</h2>
+      <p>{s.atWork}</p>
+
       <div class="callout">
         <p style="margin: 0;">
-          <strong>Remember:</strong> "being {s.name}" usually means the Sun was there when you were
-          born — one placement among many. Your Moon, rising, and every planet each take a sign of
-          their own. That's why sun-sign descriptions fit loosely: the chart is the tailored
-          version.
+          <strong>Remember:</strong> "being {s.name}" usually means the Sun was here when you were
+          born — one placement among many. Your Moon, rising, and every planet take a sign of their
+          own, which is why sun-sign descriptions fit loosely. See
+          <a href="/explore/the-big-three/">the big three</a>.
         </p>
       </div>
+
       <nav aria-label="More signs" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/signs/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/signs/${next.slug}/`}>{next.name} →</a>

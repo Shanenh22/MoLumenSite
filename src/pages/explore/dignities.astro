@@ -1,0 +1,151 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import Layers from '../../components/Layers.astro';
+import { scenes } from '../../config/images';
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Essential Dignities', href: '/explore/dignities/' },
+];
+---
+
+<BaseLayout
+  title="Essential Dignities — domicile, exaltation, detriment, and fall"
+  description="The traditional table of planetary strength: which planets are at home, exalted, in detriment, or in fall in each sign — and what it actually means for reading a chart."
+  path="/explore/dignities/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Essential dignities</h1>
+        <p class="lede">Traditional astrology asks a question modern astrology often skips: is this planet in a position to do its job well? The dignity tables are how it answers.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.chartDetail.src}
+        alt={scenes.chartDetail.alt}
+        width={scenes.chartDetail.width}
+        height={scenes.chartDetail.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <p>
+        A planet's <strong>essential dignity</strong> describes how well-placed it is by sign —
+        whether it can express its nature freely or has to work against the grain. It is one of the
+        oldest ideas in Western astrology and one of the most useful, and it largely fell out of
+        popular practice during the twentieth century. Mo works with it, which is why you'll see it
+        on every planet and sign page here.
+      </p>
+
+      <h2>The four essential dignities</h2>
+      <ul>
+        <li>
+          <strong>Domicile (rulership)</strong> — the planet is in its own sign. It is at home: it
+          has full access to its own resources and behaves most characteristically.
+        </li>
+        <li>
+          <strong>Exaltation</strong> — the planet is an honoured guest. Strong and well-regarded,
+          though in a slightly formal, borrowed way. Each exaltation has a specific degree of
+          maximum strength.
+        </li>
+        <li>
+          <strong>Detriment</strong> — the planet sits opposite its own sign. It is working away
+          from home, in conditions that don't suit its method.
+        </li>
+        <li>
+          <strong>Fall</strong> — opposite its exaltation. The planet is at its least supported;
+          traditional texts describe it as being without honour.
+        </li>
+      </ul>
+
+      <h2>The table</h2>
+      <div class="table-scroll" tabindex="0" role="region" aria-label="Essential dignities table, scrollable">
+      <table class="ref-table">
+        <caption>Essential dignities of the seven traditional planets (Ptolemaic degrees)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Planet</th>
+            <th scope="col">Domicile</th>
+            <th scope="col">Exaltation</th>
+            <th scope="col">Detriment</th>
+            <th scope="col">Fall</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">☉</span> Sun</th><td>Leo</td><td>Aries 19°</td><td>Aquarius</td><td>Libra</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">☽</span> Moon</th><td>Cancer</td><td>Taurus 3°</td><td>Capricorn</td><td>Scorpio</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">☿</span> Mercury</th><td>Gemini, Virgo</td><td>Virgo 15°</td><td>Sagittarius, Pisces</td><td>Pisces</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">♀</span> Venus</th><td>Taurus, Libra</td><td>Pisces 27°</td><td>Scorpio, Aries</td><td>Virgo</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">♂</span> Mars</th><td>Aries, Scorpio</td><td>Capricorn 28°</td><td>Libra, Taurus</td><td>Cancer</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">♃</span> Jupiter</th><td>Sagittarius, Pisces</td><td>Cancer 15°</td><td>Gemini, Virgo</td><td>Capricorn</td></tr>
+          <tr><th scope="row"><span class="glyph-cell" aria-hidden="true">♄</span> Saturn</th><td>Capricorn, Aquarius</td><td>Libra 21°</td><td>Cancer, Leo</td><td>Aries</td></tr>
+        </tbody>
+      </table>
+      </div>
+      <p class="card__meta">
+        The modern planets — Uranus, Neptune, and Pluto — have no traditional dignities, since the
+        system predates their discovery. Some modern astrologers assign them by analogy; traditional
+        practitioners do not.
+      </p>
+
+      <Layers kind="misconception">
+        <p>
+          That a planet in detriment or fall is "bad." It describes difficulty of expression, not
+          moral quality or doom — and some of the most interesting placements in a chart are planets
+          that had to work for their competence. A debilitated planet that a person has consciously
+          developed frequently outperforms a dignified one they've never thought about.
+        </p>
+      </Layers>
+
+      <h2>Why it changes a reading</h2>
+      <p>
+        Dignity gives you a way to weigh a chart rather than simply describe it. Two people can both
+        have Mars in the tenth house; if one has Mars in Capricorn (exalted) and the other has Mars
+        in Cancer (fall), those are meaningfully different capacities for sustained professional
+        drive. Without dignity you can only say "Mars in the tenth" twice.
+      </p>
+      <p>
+        It also gives structure to <em>rulership chains</em>. Every house is ruled by the planet
+        that governs the sign on its cusp, and that planet's own condition — including its dignity —
+        colours everything the house describes. This is the backbone of traditional chart judgment
+        and the reason
+        <a href="/readings/natal/">a classical reading</a> feels different from a purely
+        psychological one.
+      </p>
+
+      <Layers kind="differs">
+        <p>
+          Modern psychological astrology largely set dignity aside, on the grounds that it implies
+          judgment about people rather than description. Traditional and Hellenistic revival
+          practitioners consider it indispensable. Both positions are held by serious astrologers,
+          and it's a fair question to ask whoever is reading your chart.
+        </p>
+      </Layers>
+
+      <h2>Beyond the essentials</h2>
+      <p>
+        The full traditional system also includes <em>accidental dignity</em> — strength from
+        circumstance rather than sign: whether a planet is angular, direct or retrograde, fast or
+        slow, visible or hidden by the Sun's rays, and which house it occupies. And there are finer
+        divisions within each sign (terms, faces, and triplicity rulers) that add further gradation.
+        Those belong to a deeper study than a single page, but the four dignities above carry most
+        of the practical weight.
+      </p>
+      <p>
+        Related: <a href="/explore/planets/">the planets</a>,
+        <a href="/explore/signs/">the signs</a>, and
+        <a href="/explore/schools/">schools and traditions</a>.
+      </p>
+    </div>
+  </section>
+
+  <CTABand heading="Want your chart read with a classical lens?" body="Dignity, rulership, and sect are part of how Mo reads — not decoration." buttonLabel="About Mo's approach" buttonHref="/approach/" />
+</BaseLayout>

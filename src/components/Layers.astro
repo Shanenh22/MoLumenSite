@@ -1,0 +1,26 @@
+---
+/**
+ * Labeled knowledge blocks. Every reference page separates what is
+ * astronomy from what is convention from what is Mo's synthesis, so a
+ * reader always knows which kind of claim they're reading.
+ */
+interface Props {
+  kind: 'astronomy' | 'traditional' | 'modern' | 'mo' | 'differs' | 'misconception';
+  title?: string;
+}
+const { kind, title } = Astro.props;
+const meta = {
+  astronomy: { label: 'Astronomical fact', cls: 'layer--astro' },
+  traditional: { label: 'Traditional view', cls: 'layer--trad' },
+  modern: { label: 'Modern view', cls: 'layer--modern' },
+  mo: { label: "Mo's synthesis", cls: 'layer--mo' },
+  differs: { label: 'Where astrologers differ', cls: 'layer--differs' },
+  misconception: { label: 'Common misconception', cls: 'layer--misc' },
+}[kind];
+---
+
+<div class:list={['layer', meta.cls]}>
+  <p class="layer__label">{meta.label}</p>
+  {title && <h3 class="layer__title">{title}</h3>}
+  <div class="layer__body"><slot /></div>
+</div>

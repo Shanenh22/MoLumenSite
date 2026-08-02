@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import Layers from '../../../components/Layers.astro';
 import { planets } from '../../../data/planets';
 
 export function getStaticPaths() {
@@ -19,8 +20,8 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title={`${p.name} in Astrology — meaning in the birth chart`}
-  description={`${p.name} in astrology: ${p.drive.slice(0, 140)}`}
+  title={`${p.name} in Astrology — meaning, dignities, and cycle`}
+  description={`${p.name}: ${p.drive.slice(0, 120)} Traditional and modern readings, dignities, retrograde cycle, and how to work with it.`}
   path={`/explore/planets/${p.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -35,12 +36,34 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
-      <dl class="factlist">
-        <dt>Travels the zodiac in</dt>
-        <dd>{p.cycle}</dd>
-        <dt>Rules</dt>
-        <dd>{p.rules}</dd>
-      </dl>
+      <h2>At a glance</h2>
+      <table class="ref-table">
+        <caption class="visually-hidden">Attributes of {p.name}</caption>
+        <tbody>
+          <tr><th scope="row">Type</th><td>{p.classification}</td></tr>
+          <tr><th scope="row">Cycle</th><td>{p.cycle}</td></tr>
+          <tr><th scope="row">Retrograde</th><td>{p.retrograde}</td></tr>
+          {p.sect && <tr><th scope="row">Sect</th><td>{p.sect}</td></tr>}
+          <tr><th scope="row">Rules</th><td>{p.rules}</td></tr>
+          {p.exaltation && <tr><th scope="row">Exaltation</th><td>{p.exaltation}</td></tr>}
+          {p.detriment && <tr><th scope="row">Detriment</th><td>{p.detriment}</td></tr>}
+          {p.fall && <tr><th scope="row">Fall</th><td>{p.fall}</td></tr>}
+          {p.joy && <tr><th scope="row">Joy</th><td>{p.joy}</td></tr>}
+          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{p.glyph}</span> — {p.glyphMeaning}</td></tr>
+        </tbody>
+      </table>
+      <p class="card__meta">
+        Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables —
+        see <a href="/explore/dignities/">essential dignities</a>. "Joy" is the house a planet was
+        traditionally happiest in.
+      </p>
+
+      <Layers kind="traditional"><p>{p.traditional}</p></Layers>
+      <Layers kind="modern"><p>{p.modern}</p></Layers>
+      <Layers kind="mo"><p>{p.mo}</p></Layers>
+      {p.differs && <Layers kind="differs"><p>{p.differs}</p></Layers>}
+      <Layers kind="misconception"><p set:html={p.misconception} /></Layers>
+
       <h2>In your chart</h2>
       <p>{p.inYourChart}</p>
       <h2>When it leads</h2>
@@ -52,6 +75,7 @@ const crumbs = [
         <a href="/explore/houses/">house</a>, and its <a href="/explore/aspects/">aspects</a> —
         that's the work of a real chart reading.
       </p>
+
       <nav aria-label="More planets" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/planets/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/planets/${next.slug}/`}>{next.name} →</a>

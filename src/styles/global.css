@@ -1448,3 +1448,129 @@ blockquote {
   height: 1em;
   flex: none;
 }
+
+/* ============================================================
+   Knowledge layers — epistemic labeling on reference pages
+   ============================================================ */
+.layer {
+  border: var(--border-hairline);
+  border-inline-start: 4px solid var(--color-stone);
+  border-radius: var(--radius-md);
+  padding: var(--space-4) var(--space-6);
+  margin-block: var(--space-5, 1.25rem);
+  background: var(--surface);
+}
+.layer__label {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  margin: 0 0 var(--space-2);
+  color: var(--ink-soft);
+}
+.layer__title {
+  font-size: var(--text-lg);
+  margin: 0 0 var(--space-2);
+}
+.layer__body > :last-child {
+  margin-bottom: 0;
+}
+.layer--astro {
+  border-inline-start-color: var(--color-blue-muted);
+  background: rgb(91 110 143 / 0.06);
+}
+.layer--astro .layer__label {
+  color: #435377;
+}
+.layer--trad {
+  border-inline-start-color: var(--color-gold);
+  background: rgb(176 141 69 / 0.07);
+}
+.layer--trad .layer__label {
+  color: #6f5626;
+}
+.layer--modern {
+  border-inline-start-color: var(--color-teal);
+  background: var(--color-teal-tint);
+}
+.layer--modern .layer__label {
+  color: var(--color-teal);
+}
+.layer--mo {
+  border-inline-start-color: var(--color-clay);
+  background: rgb(178 106 76 / 0.07);
+}
+.layer--mo .layer__label {
+  color: var(--clay-ink);
+}
+.layer--differs,
+.layer--misc {
+  border-inline-start-color: var(--color-brown);
+  background: var(--bg-alt);
+}
+.layer--differs .layer__label,
+.layer--misc .layer__label {
+  color: var(--color-brown);
+}
+
+/* Reference fact table (dignities etc.) */
+.ref-table {
+  font-size: 0.95rem;
+}
+.ref-table th[scope="row"] {
+  white-space: nowrap;
+}
+.glyph-cell {
+  font-size: 1.15em;
+  color: var(--accent-ink);
+}
+
+/* Learning path steps */
+.path-step {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: var(--space-4);
+  align-items: start;
+  padding: var(--space-4) 0;
+  border-bottom: var(--border-hairline);
+}
+.path-step__num {
+  display: grid;
+  place-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--color-teal-tint);
+  border: 1px solid rgb(15 110 107 / 0.3);
+  color: var(--color-teal);
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+}
+.path-step h3 {
+  margin: 0 0 var(--space-1);
+  font-size: var(--text-lg);
+}
+.path-step p {
+  margin: 0;
+}
+.path-step .card__meta {
+  margin-top: var(--space-1);
+}
+
+/* Wide reference tables scroll horizontally on small screens rather than
+   forcing the page to. Focusable so keyboard users can reach the scroll. */
+.table-scroll {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-bottom: var(--space-6);
+}
+.table-scroll:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+.table-scroll table {
+  margin-bottom: 0;
+  min-width: 34rem;
+}

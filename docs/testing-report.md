@@ -70,6 +70,14 @@ restructured into Foundations / Timing / In Practice. Site now 112 pages.
 axe WCAG 2.2 AA on all new pages: **0 violations**. 0 broken links. See
 docs/research/content-strategy.md for the research basis and the next recommended round.
 
+## Content round 2 (2026-08-02)
+Reference library rebuilt: 39 backbone pages deepened from ~300-word stubs to 520–660 words
+each with epistemic labeling (astronomy / traditional / modern / Mo / where schools differ /
+misconception). Six new reference pages plus a nine-step Start Here curriculum. Site now
+**118 pages, ~71,000 words**. axe WCAG 2.2 AA across 16 representative pages: 0 violations.
+0 broken links. 0px overflow down to 320px (wide dignity table uses an accessible scroll
+region).
+
 ## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)

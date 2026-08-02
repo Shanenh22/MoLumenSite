@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import Layers from '../../../components/Layers.astro';
 import { houses } from '../../../data/houses';
 
 export function getStaticPaths() {
@@ -11,16 +12,22 @@ const { house: h } = Astro.props;
 const i = houses.findIndex((x) => x.slug === h.slug);
 const prev = houses[(i + houses.length - 1) % houses.length];
 const next = houses[(i + 1) % houses.length];
+const opposite = houses.find((x) => x.name === h.opposite);
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'The 12 Houses', href: '/explore/houses/' },
   { label: h.name, href: `/explore/houses/${h.slug}/` },
 ];
+const angularityNote = {
+  Angular: 'Angular houses (1, 4, 7, 10) sit on the chart\'s four corners and are the most active — planets here show up strongly in a life.',
+  Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are about consolidation — holding and building on what the angular house began.',
+  Cadent: 'Cadent houses (3, 6, 9, 12) precede the angles and are about processing, learning, and distribution. Traditionally considered weaker, though modern practice disputes that.',
+}[h.angularity];
 ---
 
 <BaseLayout
   title={`The ${h.name} — meaning in the birth chart`}
-  description={`The ${h.name.toLowerCase()} in astrology (${h.traditionalName}): what it covers, and what planets there mean.`}
+  description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it governs, its traditional and modern readings, and what planets there mean.`}
   path={`/explore/houses/${h.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -35,16 +42,37 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
+      <h2>At a glance</h2>
+      <table class="ref-table">
+        <caption class="visually-hidden">Attributes of the {h.name}</caption>
+        <tbody>
+          <tr><th scope="row">Traditional name</th><td>{h.latin}</td></tr>
+          <tr><th scope="row">Angularity</th><td>{h.angularity}</td></tr>
+          <tr><th scope="row">Natural sign</th><td>{h.naturalSign}</td></tr>
+          <tr><th scope="row">Natural ruler</th><td>{h.naturalRuler}</td></tr>
+          <tr><th scope="row">Opposite house</th><td>{opposite ? <a href={`/explore/houses/${opposite.slug}/`}>{h.opposite}</a> : h.opposite}</td></tr>
+          {h.joy && <tr><th scope="row">Planetary joy</th><td>{h.joy}</td></tr>}
+        </tbody>
+      </table>
+      <p class="card__meta">{angularityNote}</p>
+
       <h2>The arena</h2>
       <p>{h.arena}</p>
       <h2>What it covers</h2>
       <ul>{h.covers.map((c) => <li>{c}</li>)}</ul>
+
+      <Layers kind="traditional"><p>{h.traditional}</p></Layers>
+      <Layers kind="modern"><p>{h.modern}</p></Layers>
+      <Layers kind="mo"><p>{h.mo}</p></Layers>
+
       <h2>Planets here</h2>
       <p>{h.planetsHere}</p>
       <p>
         Which sign begins this house — and which planets occupy it — depends on your exact birth
-        time. <a href="/explore/birth-chart-basics/">Here's why.</a>
+        time, and on the <a href="/explore/house-systems/">house system</a> your astrologer uses.
+        <a href="/explore/birth-chart-basics/">Here's why.</a>
       </p>
+
       <nav aria-label="More houses" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/houses/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/houses/${next.slug}/`}>{next.name} →</a>
