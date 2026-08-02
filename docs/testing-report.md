@@ -33,6 +33,17 @@ Environment: Astro 5.18.2 static build, 100 pages. Tests run in the development 
 | Unknown URL returns 404 status | Pass |
 | sitemap-index.xml served | Pass |
 
+## Accessibility & design audit (2026-08-02, post-redesign)
+| Check | Result |
+|---|---|
+| axe-core WCAG 2.0/2.1/2.2 A+AA, 13 representative pages | **0 violations** (after fixes below) |
+| Horizontal overflow at 320/360/375/390/430px | 0px at every width |
+| Fixed: night-band gold buttons inherited gold link color (unreadable "Book a Reading") | `.section--night a.btn--*` explicit colors |
+| Fixed: footer prose links indistinguishable from text (WCAG 1.4.1) | underlined |
+| Fixed: gold accent text 3.96–4.13:1 on tinted backgrounds | `--accent-ink` darkened to #6f5626 (≥4.9:1) |
+| Fixed: decorative logo SVG announced with empty label | aria-hidden when unlabeled |
+| Logo | Owner PNG traced to optimized SVG symbol (14KB, one copy/page, currentColor) — crisp at all sizes |
+
 ## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)

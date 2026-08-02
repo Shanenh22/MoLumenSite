@@ -2,6 +2,7 @@
 import { footerNav } from '../config/navigation';
 import { site } from '../config/site';
 import NewsletterForm from './NewsletterForm.astro';
+import LogoMark from './LogoMark.astro';
 const year = new Date().getFullYear();
 ---
 
@@ -9,8 +10,8 @@ const year = new Date().getFullYear();
   <div class="container">
     <div class="footer-grid">
       <div>
-        <p class="brand" style="color: var(--color-ivory); font-size: 1.3rem;">
-          Mo <span style="color: var(--color-gold-soft);">Lumen</span> Astrology
+        <p style="margin: 0 0 var(--space-4);">
+          <LogoMark width={190} tone="gold" />
         </p>
         <p style="max-width: 34ch; color: var(--color-stone);">
           {site.description}

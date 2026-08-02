@@ -1,0 +1,33 @@
+---
+/**
+ * Renders the Mo Lumen logo (references the #ml-logo symbol injected by
+ * BaseLayout). Color comes from currentColor — set via the parent or the
+ * `tone` prop. Aspect ratio of the artwork is 1200:704.
+ */
+interface Props {
+  width?: number;
+  tone?: 'ink' | 'gold' | 'ivory';
+  label?: string;
+  class?: string;
+}
+const { width = 170, tone = 'ink', label = 'Mo Lumen Astrology', class: className } = Astro.props;
+const height = Math.round(width * (704 / 1200));
+const colors = {
+  ink: 'var(--accent-ink)',
+  gold: 'var(--color-gold-soft)',
+  ivory: 'var(--color-ivory)',
+};
+---
+
+<svg
+  class={className}
+  width={width}
+  height={height}
+  viewBox="0 0 1200 704"
+  style={`color: ${colors[tone]};`}
+  role={label ? 'img' : undefined}
+  aria-label={label || undefined}
+  aria-hidden={label ? undefined : 'true'}
+>
+  <use href="#ml-logo"></use>
+</svg>

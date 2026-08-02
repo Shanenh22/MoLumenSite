@@ -26,7 +26,7 @@
   --ink-soft: #47536e; /* on ivory: 7.0:1 */
   --ink-on-dark: var(--color-ivory);
   --accent: var(--color-gold);
-  --accent-ink: #8a6d31; /* gold dark enough for text on ivory: 4.6:1 */
+  --accent-ink: #6f5626; /* gold dark enough for small text on tinted parchment: >=4.9:1 */
   --link: #3f5378; /* on ivory: 7.6:1 */
   --border: var(--color-stone);
 

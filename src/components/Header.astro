@@ -1,6 +1,7 @@
 ---
 import { primaryNav, ctaNav } from '../config/navigation';
 import Icon from './Icon.astro';
+import LogoMark from './LogoMark.astro';
 const current = Astro.url.pathname;
 const navIcons: Record<string, string> = {
   Readings: 'chart',
@@ -13,7 +14,9 @@ const navIcons: Record<string, string> = {
 
 <header class="site-header">
   <div class="container site-header__inner">
-    <a class="brand" href="/">Mo <span>Lumen</span> Astrology</a>
+    <a class="brand" href="/" aria-label="Mo Lumen Astrology — home">
+      <LogoMark width={158} tone="ink" label="" />
+    </a>
 
     <nav class="nav-desktop" aria-label="Primary">
       <ul>
@@ -62,7 +65,9 @@ const navIcons: Record<string, string> = {
   <dialog class="mobile-nav" aria-label="Site navigation">
     <div class="mobile-nav__inner">
       <div class="mobile-nav__top">
-        <a class="brand" href="/">Mo <span>Lumen</span> Astrology</a>
+        <a class="brand" href="/" aria-label="Mo Lumen Astrology — home">
+          <LogoMark width={150} tone="gold" label="" />
+        </a>
         <button class="nav-toggle" type="button" data-close-mobile-nav>
           <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true">
             <path d="M2 2l12 12M14 2L2 14" stroke="currentColor" stroke-width="2" />
