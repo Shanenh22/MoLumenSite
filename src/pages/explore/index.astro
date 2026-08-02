@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
@@ -23,8 +24,9 @@ const sections = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Learn</p>
       <h1>Explore astrology</h1>
       <p class="lede">
@@ -32,6 +34,15 @@ const sections = [
         readings: plain words first, technical terms second, and your own agency at the center of
         every interpretation. Welcome to the study — take your time.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.birthChartBasics.src}
+        alt={scenes.birthChartBasics.alt}
+        width={scenes.birthChartBasics.width}
+        height={scenes.birthChartBasics.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

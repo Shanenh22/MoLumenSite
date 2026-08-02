@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import { site } from '../config/site';
@@ -13,14 +14,24 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Say hello</p>
       <h1>Get in touch</h1>
       <p class="lede">
         If you have any questions — or you just want to learn more about my astrology readings —
         email me. I read every message myself.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.aboutMo.src}
+        alt={scenes.aboutMo.alt}
+        width={scenes.aboutMo.width}
+        height={scenes.aboutMo.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

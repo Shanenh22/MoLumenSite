@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import { site } from '../../config/site';
@@ -16,14 +17,24 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">A different kind of gift</p>
       <h1>Gift a reading</h1>
       <p class="lede">
         A reading is a remarkable gift: an unhurried hour of full attention, a new way of seeing
         oneself, and a recording to keep. Here's how gifting works.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.natal.src}
+        alt={scenes.natal.alt}
+        width={scenes.natal.width}
+        height={scenes.natal.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

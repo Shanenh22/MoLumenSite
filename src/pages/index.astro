@@ -1,9 +1,9 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
-import CTABand from '../components/CTABand.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import { site } from '../config/site';
+import Icon from '../components/Icon.astro';
+import { photos, scenes } from '../config/images';
 
 const services = (await getCollection('services')).sort(
   (a, b) => Number(b.data.featured) - Number(a.data.featured)
@@ -15,6 +15,34 @@ const skyEvents = (await getCollection('skyEvents'))
   .slice(0, 3);
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
+
+const serviceIcons: Record<string, string> = {
+  natal: 'chart',
+  relationship: 'people',
+  'solar-return': 'sun',
+  'life-changes': 'mountains',
+  'want-more-clarity': 'spark',
+  'monthly-transits': 'moon',
+  'quick-check-in': 'clock',
+};
+const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
+  natal: scenes.natal,
+  relationship: scenes.relationship,
+  'solar-return': scenes.solarReturn,
+  'life-changes': scenes.lifeChanges,
+  'want-more-clarity': scenes.moreClarity,
+  'monthly-transits': scenes.monthlyTransits,
+  'quick-check-in': scenes.quickCheckIn,
+};
+
+const values = [
+  ['spark', 'Insight', 'See the patterns with clarity'],
+  ['choice', 'Empowerment', 'Make choices aligned with your truth'],
+  ['heart', 'Compassion', 'A safe space to be fully yourself'],
+  ['leaf', 'Growth', 'Navigate change and step into possibility'],
+  ['sun', 'Practical Wisdom', 'Grounded guidance for real life'],
+  ['compass', 'Your Unique Path', 'Honoring your story, your timing, your way'],
+] as const;
 ---
 
 <BaseLayout
@@ -22,69 +50,98 @@ const fmt = (d: Date) =>
   description="Clarifying astrology readings with a classical lens — practical, candid, and warm. Book a natal chart, relationship, solar return, or transit reading with Mo Lumen."
   path="/"
 >
-  <!-- 2. Hero -->
-  <section class="hero hero--home">
+  <!-- Hero: night workspace photograph + real photo of Mo -->
+  <section class="hero hero--home" style={`--hero-image: url('${scenes.heroWorkspace.src}');`}>
     <div class="container">
-      <p class="eyebrow">Mo Lumen Astrology</p>
-      <h1 style="max-width: 18ch;">See yourself in a new light.</h1>
-      <p class="lede">
-        I'm Mo — astrologer, teacher, and interpreter of the language of the planets. A reading
-        with me is a warm, candid conversation that connects your birth chart to your real life:
-        your decisions, your relationships, your timing. There is fate, and there is choice.
-      </p>
-      <div class="hero__actions">
-        <a class="btn btn--primary" href="/reading-finder/">Find Your Reading</a>
-        <a class="btn btn--ghost" href="/about/">Meet Mo</a>
+      <div>
+        <p class="eyebrow">✦ Mo Lumen Astrology</p>
+        <h1 style="max-width: 14ch;">See yourself in a new light.</h1>
+        <p class="lede">
+          Insightful. Empowering. Personal. I'm Mo — astrologer, teacher, and interpreter of the
+          language of the planets. A reading with me connects your birth chart to your real life:
+          your decisions, your relationships, your timing.
+        </p>
+        <div class="hero__actions">
+          <a class="btn btn--gold" href="/reading-finder/">Find Your Reading</a>
+          <a class="btn btn--ghost" href="/about/">Meet Mo</a>
+        </div>
+        <p class="hero__reassure">
+          No belief required. No doom, no scare tactics — just perspective you can use.
+        </p>
       </div>
-      <p class="hero__reassure">
-        No belief required. No doom, no scare tactics — just perspective you can use.
-      </p>
+      <figure class="hero__portrait">
+        <img
+          src={photos.moHome.src}
+          alt={photos.moHome.alt}
+          width={photos.moHome.width}
+          height={photos.moHome.height}
+          fetchpriority="high"
+        />
+        <figcaption>Mo — astrologer, teacher, writer</figcaption>
+      </figure>
     </div>
   </section>
 
-  <!-- 3. Recognition -->
+  <!-- Value row (icon strip) -->
   <section class="section">
     <div class="container">
-      <h2 style="max-width: 24ch;">You don't need to know astrology. You just need a real question.</h2>
-      <div class="grid grid--2" style="margin-top: var(--space-8);">
-        <div class="flow">
-          <p>
-            Maybe you're at a crossroads — a career that fits worse each year, a relationship
-            asking to be understood, a decision whose timing matters. Maybe you know your sun sign
-            and suspect there's far more to the story. Or maybe you simply want an honest hour to
-            think about your life with someone who's paying full attention.
-          </p>
-          <p>
-            That's what a reading is for. Your birth chart is a map of patterns you've been living
-            all along — seeing them clearly is the first step to choosing what suits you best.
-          </p>
-        </div>
-        <div class="flow">
-          <blockquote style="margin: 0;">
-            Knowledge brings insight. Insight brings power. Power brings freedom.
-          </blockquote>
-          <p class="card__meta">— the idea at the center of Mo's practice</p>
-        </div>
+      <div class="value-row value-row--6">
+        {
+          values.map(([icon, title, desc]) => (
+            <div class="value">
+              <span class="value__icon"><Icon name={icon as any} size={34} /></span>
+              <h3>{title}</h3>
+              <p>{desc}</p>
+            </div>
+          ))
+        }
       </div>
     </div>
   </section>
 
-  <!-- 4. Reading Finder invitation -->
-  <section class="section section--alt">
-    <div class="container center flow">
-      <p class="eyebrow">Not sure where to start?</p>
-      <h2>Answer three questions. Get a suggestion.</h2>
+  <!-- Map, not mandate — night band -->
+  <section class="section section--night center">
+    <div class="container flow" style="max-width: 46rem;">
+      <div class="divider"><Icon name="star" size={18} /></div>
+      <h2 style="font-size: var(--text-3xl);">Astrology is a map, not a mandate.</h2>
       <p class="lede" style="margin-inline: auto;">
-        The Reading Finder asks what brings you here and points you to the reading that fits —
-        in plain language, no astrology vocabulary required. You're always free to choose any
-        reading you like.
+        You are the author of your life. There is fate and there is choice — a good reading helps
+        you tell the difference, and knowledge brings insight, insight brings power, power brings
+        freedom.
       </p>
-      <p><a class="btn btn--primary" href="/reading-finder/">Try the Reading Finder</a></p>
     </div>
   </section>
 
-  <!-- 5. Readings preview -->
+  <!-- Recognition -->
   <section class="section">
+    <div class="container feature-split">
+      <div class="flow">
+        <p class="eyebrow">Why people come</p>
+        <h2 style="max-width: 22ch;">You don't need to know astrology. You just need a real question.</h2>
+        <p>
+          Maybe you're at a crossroads — a career that fits worse each year, a relationship asking
+          to be understood, a decision whose timing matters. Maybe you know your sun sign and
+          suspect there's far more to the story. Or maybe you simply want an honest hour to think
+          about your life with someone who's paying full attention.
+        </p>
+        <p>
+          That's what a reading is for. Your birth chart is a map of patterns you've been living
+          all along — seeing them clearly is the first step to choosing what suits you best.
+        </p>
+        <p><a class="btn btn--primary" href="/reading-finder/">Try the Reading Finder</a></p>
+      </div>
+      <img
+        src={scenes.chartDetail.src}
+        alt={scenes.chartDetail.alt}
+        width={scenes.chartDetail.width}
+        height={scenes.chartDetail.height}
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <!-- Readings preview -->
+  <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">Readings</p>
       <h2>One approach, wherever you are</h2>
@@ -95,38 +152,53 @@ const fmt = (d: Date) =>
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-8);">
         {
-          services.map((s) => (
-            <article class="card">
-              <h3>
-                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
+          services.slice(0, 3).map((s) => {
+            const im = serviceImages[s.data.slug];
+            return (
+              <article class:list={['card', 'card--img', { 'card--featured': s.data.featured }]}>
+                {im && <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />}
+                <div class="card__body">
+                  <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl);">
+                    <span style="color: var(--accent-ink);"><Icon name={serviceIcons[s.data.slug] as any} size={24} /></span>
+                    <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
+                  </h3>
+                  <p class="card__meta" style="margin: 0;">{s.data.durationLabel}</p>
+                  <p style="margin: 0;">{s.data.purpose}</p>
+                  <p class="price" style="margin-top: auto;">
+                    {s.data.priceLabel ?? (s.data.price ? `$${s.data.price}` : '')}
+                  </p>
+                </div>
+              </article>
+            );
+          })
+        }
+      </div>
+      <div class="grid grid--4" style="margin-top: var(--space-6);">
+        {
+          services.slice(3).map((s) => (
+            <article class="card" style="gap: var(--space-2);">
+              <span style="color: var(--accent-ink);">
+                <Icon name={serviceIcons[s.data.slug] as any} size={26} />
+              </span>
+              <h3 style="font-size: var(--text-lg); margin: 0;">
+                <a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a>
               </h3>
-              <p class="card__meta">{s.data.durationLabel}</p>
-              <p>{s.data.purpose}</p>
-              <p style="margin-top: auto;">
-                {s.data.priceConfirmed && s.data.price ? (
-                  <span class="price" style="font-size: var(--text-lg);">
-                    {s.data.priceLabel ?? `$${s.data.price}`}
-                  </span>
-                ) : (
-                  <span class="price--unconfirmed">Pricing shown at booking — final list in review</span>
-                )}
+              <p class="card__meta" style="margin: 0;">
+                {s.data.durationLabel} · {s.data.priceLabel ?? `$${s.data.price}`}
               </p>
             </article>
           ))
         }
-        <article class="card" style="background: var(--bg-alt);">
-          <h3><a href="/readings/">Compare all readings</a></h3>
-          <p>
-            Side-by-side prices, lengths, and best-for guidance — plus gift readings and FAQs.
-          </p>
-        </article>
       </div>
+      <p style="margin-top: var(--space-6);">
+        <a href="/readings/">Compare all readings side by side →</a>
+      </p>
     </div>
   </section>
 
-  <!-- 6. About preview -->
-  <section class="section section--alt">
-    <div class="container grid grid--2">
+  <!-- About preview -->
+  <section class="section">
+    <div class="container feature-split feature-split--rev">
       <div class="flow">
         <p class="eyebrow">About Mo</p>
         <h2>Astrologer. Teacher. Writer.</h2>
@@ -143,39 +215,41 @@ const fmt = (d: Date) =>
         </p>
         <p>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
+          <a class="btn btn--ghost" href="/credentials/">Credentials</a>
         </p>
       </div>
-      <div class="flow">
-        <div class="callout" style="margin: 0;">
-          <p style="margin: 0;">
-            <strong>Practical and inspiring. Candid and compassionate. Intuitive and skillful.</strong>
-            That's the reading I aim to give — every single time.
-          </p>
-        </div>
-        <p class="card__meta">
-          Photo of Mo to be placed here — original image requested from owner.
-        </p>
-      </div>
+      <img
+        class="img-portrait"
+        src={photos.moShelf.src}
+        alt={photos.moShelf.alt}
+        width={photos.moShelf.width}
+        height={photos.moShelf.height}
+        loading="lazy"
+        style="max-width: 420px; justify-self: center;"
+      />
     </div>
   </section>
 
-  <!-- 7. How a reading works -->
-  <section class="section">
+  <!-- How it works -->
+  <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">How it works</p>
       <h2>From booking to insight, in six easy steps</h2>
-      <ol class="grid grid--3" style="list-style: none; padding: 0; margin-top: var(--space-8); counter-reset: step;">
+      <ol class="grid grid--3" style="list-style: none; padding: 0; margin-top: var(--space-8);">
         {
           [
-            ['Choose', 'Pick a reading — or let the Reading Finder suggest one.'],
-            ['Schedule', 'Choose a time that works; times show in your own time zone.'],
-            ['Pay', 'Pay securely online when you book. No surprises later.'],
-            ['Share', 'Send your birth details and questions through the intake form.'],
-            ['Prepare', "You'll get simple preparation notes — nothing to study."],
-            ['Meet', 'We talk, one-on-one. You leave with a recording and your chart.'],
-          ].map(([t, d], i) => (
+            ['calendar', 'Choose', 'Pick a reading — or let the Reading Finder suggest one.'],
+            ['clock', 'Schedule', 'Choose a time that works; times show in your own time zone.'],
+            ['star', 'Pay', 'Pay securely online when you book. No surprises later.'],
+            ['letter', 'Share', 'Send your birth details and questions through the intake form.'],
+            ['book', 'Prepare', "You'll get simple preparation notes — nothing to study."],
+            ['people', 'Meet', 'We talk, one-on-one. You leave with a recording and your chart.'],
+          ].map(([icon, t, d], i) => (
             <li class="card" style="gap: var(--space-2);">
-              <span class="glyph" aria-hidden="true">{i + 1}</span>
+              <span style="display: flex; align-items: center; gap: var(--space-3); color: var(--accent-ink);">
+                <Icon name={icon as any} size={26} />
+                <span class="eyebrow" style="margin: 0;">Step {i + 1}</span>
+              </span>
               <h3 style="margin: 0;">{t}</h3>
               <p style="margin: 0;">{d}</p>
             </li>
@@ -188,10 +262,9 @@ const fmt = (d: Date) =>
     </div>
   </section>
 
-  <!-- 8. Trust / testimonials -->
   {
     testimonials.length > 0 && (
-      <section class="section section--alt">
+      <section class="section">
         <div class="container">
           <p class="eyebrow">Kind words</p>
           <h2>What clients say</h2>
@@ -210,21 +283,12 @@ const fmt = (d: Date) =>
     )
   }
 
-  <!-- 9 & 10. Explore Your Chart + Current Sky -->
-  <section class="section section--alt">
+  <!-- Current Sky + Explorer — night band -->
+  <section class="section section--night">
     <div class="container grid grid--2">
-      <article class="card">
-        <p class="eyebrow">Free tool</p>
-        <h3><a href="/tools/explore-your-chart/">Explore Your Chart</a></h3>
-        <p>
-          An interactive tour of how a birth chart actually works — planets as drives, signs as
-          styles, houses as arenas of life. No birth data needed; it's education, not a reading.
-        </p>
-        <p><a class="btn btn--ghost" href="/tools/explore-your-chart/">Open the explorer</a></p>
-      </article>
-      <article class="card">
+      <div class="flow">
         <p class="eyebrow">The sky right now</p>
-        <h3><a href="/current-sky/">Current Sky</a></h3>
+        <h2>Current Sky</h2>
         {
           skyEvents.length > 0 ? (
             <ul style="padding-left: 1.1em;">
@@ -240,25 +304,42 @@ const fmt = (d: Date) =>
           )
         }
         <p><a class="btn btn--ghost" href="/current-sky/">See the full timeline</a></p>
-      </article>
+      </div>
+      <div class="flow">
+        <p class="eyebrow">Free interactive tool</p>
+        <h2>Explore Your Chart</h2>
+        <p>
+          An interactive tour of how a birth chart actually works — planets as drives, signs as
+          styles, houses as arenas. No birth data needed; it's education, not a reading.
+        </p>
+        <p><a class="btn btn--gold" href="/tools/explore-your-chart/">Open the explorer</a></p>
+      </div>
     </div>
   </section>
 
-  <!-- 11 & 12. Learning pathways + video -->
+  <!-- Photo mosaic + learning pathways -->
   <section class="section">
-    <div class="container">
-      <p class="eyebrow">Learn astrology</p>
-      <h2>Curious how it all fits together?</h2>
-      <div class="grid grid--4" style="margin-top: var(--space-8);">
+    <div class="container flow">
+      <div class="mosaic">
+        {
+          [scenes.planets, scenes.signs, scenes.currentSkyWide, scenes.duskMountains].map((im) => (
+            <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />
+          ))
+        }
+      </div>
+      <div class="grid grid--4" style="margin-top: var(--space-6);">
         {
           [
-            ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart is and how to read one.'],
-            ['The 12 Signs', '/explore/signs/', 'Styles of expression, from Aries to Pisces.'],
-            ['The Planets', '/explore/planets/', 'Ten drives every chart contains.'],
-            ['Videos', '/videos/', "Mo on YouTube and Instagram — watch and learn."],
-          ].map(([t, href, d]) => (
-            <article class="card">
-              <h3 style="font-size: var(--text-lg);">
+            ['book', 'Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart is and how to read one.'],
+            ['star', 'The 12 Signs', '/explore/signs/', 'Styles of expression, Aries to Pisces.'],
+            ['planet', 'The Planets', '/explore/planets/', 'Ten drives every chart contains.'],
+            ['video', 'Videos', '/videos/', 'Mo on YouTube and Instagram.'],
+          ].map(([icon, t, href, d]) => (
+            <article class="card" style="gap: var(--space-2);">
+              <span style="color: var(--accent-ink);">
+                <Icon name={icon as any} size={26} />
+              </span>
+              <h3 style="font-size: var(--text-lg); margin: 0;">
                 <a href={href}>{t}</a>
               </h3>
               <p style="margin: 0;">{d}</p>
@@ -269,22 +350,38 @@ const fmt = (d: Date) =>
     </div>
   </section>
 
-  <!-- 13. Newsletter -->
+  <!-- Newsletter -->
   <section class="section section--alt">
-    <div class="container" style="max-width: 42rem;">
-      <p class="eyebrow">Free newsletter</p>
-      <h2 id="home-newsletter">The Sky This Month</h2>
-      <p>
-        Once a month: what's moving overhead, what it means, and one practical thing to do about
-        it. Written by Mo, read in five minutes, unsubscribe anytime.
-      </p>
-      <NewsletterForm source="homepage" labelledby="home-newsletter" />
+    <div class="container feature-split">
+      <div class="flow">
+        <p class="eyebrow">Free newsletter</p>
+        <h2 id="home-newsletter">The Sky This Month</h2>
+        <p>
+          Once a month: what's moving overhead, what it means, and one practical thing to do about
+          it. Written by Mo, read in five minutes, unsubscribe anytime.
+        </p>
+        <NewsletterForm source="homepage" labelledby="home-newsletter" />
+      </div>
+      <img
+        src={scenes.newsletterLetters.src}
+        alt={scenes.newsletterLetters.alt}
+        width={scenes.newsletterLetters.width}
+        height={scenes.newsletterLetters.height}
+        loading="lazy"
+      />
     </div>
   </section>
 
-  <!-- 14. Calm final invitation -->
-  <CTABand
-    heading="Whenever you're ready, the sky's not going anywhere."
-    body="Take your time. Read, explore, watch — and when a real question forms, I'd love to meet you and your chart."
-  />
+  <!-- Final invitation -->
+  <section class="section section--night center">
+    <div class="container flow">
+      <div class="divider"><Icon name="moon" size={20} /></div>
+      <h2>Whenever you're ready, the sky's not going anywhere.</h2>
+      <p class="lede" style="margin-inline: auto;">
+        Take your time. Read, explore, watch — and when a real question forms, I'd love to meet
+        you and your chart.
+      </p>
+      <p><a class="btn btn--gold" href="/book/">Book a Reading</a></p>
+    </div>
+  </section>
 </BaseLayout>

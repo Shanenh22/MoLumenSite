@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../config/site';
@@ -30,8 +31,9 @@ const serviceData = Object.fromEntries(
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Let's meet</p>
       <h1>Book a reading</h1>
       <p class="lede">
@@ -39,6 +41,15 @@ const serviceData = Object.fromEntries(
         times display in your own time zone, payment is secure, and you'll get confirmation,
         preparation notes, and a reminder by email.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.chartDetail.src}
+        alt={scenes.chartDetail.alt}
+        width={scenes.chartDetail.width}
+        height={scenes.chartDetail.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

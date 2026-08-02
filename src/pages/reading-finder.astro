@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
@@ -35,14 +36,24 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">A little help choosing</p>
       <h1>Find your reading</h1>
       <p class="lede">
         Two quick questions, plain language, and a suggestion at the end. Nothing you answer here
         is stored or sent anywhere — and you're always welcome to choose any reading you like.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.moreClarity.src}
+        alt={scenes.moreClarity.alt}
+        width={scenes.moreClarity.width}
+        height={scenes.moreClarity.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

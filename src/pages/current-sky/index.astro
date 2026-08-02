@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../../config/images';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
@@ -38,14 +39,24 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">The sky right now</p>
       <h1>Current sky</h1>
       <p class="lede">
         What's moving overhead, when, and what it tends to mean. Dates and positions are verified
         astronomy; the interpretive notes are Mo's, and your choices are your own.
       </p>
+      </div>
+      <img
+        class="hero__img hero__img--portrait"
+        src={photos.skyReal2.src}
+        alt={photos.skyReal2.alt}
+        width={photos.skyReal2.width}
+        height={photos.skyReal2.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../../config/images';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
@@ -22,11 +23,21 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Everything, chronologically</p>
       <h1>Current Sky archive</h1>
       <p class="lede">All sky events and lunation letters, newest first.</p>
+      </div>
+      <img
+        class="hero__img hero__img--portrait"
+        src={photos.skyReal1.src}
+        alt={photos.skyReal1.alt}
+        width={photos.skyReal1.width}
+        height={photos.skyReal1.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

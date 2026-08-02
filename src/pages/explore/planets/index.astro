@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { planets } from '../../../data/planets';
 const crumbs = [
@@ -15,8 +16,9 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Explore Astrology</p>
       <h1>The planets</h1>
       <p class="lede">
@@ -24,6 +26,15 @@ const crumbs = [
         or bad Mars; you have a Mars, and it works in a particular style, in a particular arena of
         your life. Here's the whole cast.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.planets.src}
+        alt={scenes.planets.alt}
+        width={scenes.planets.width}
+        height={scenes.planets.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

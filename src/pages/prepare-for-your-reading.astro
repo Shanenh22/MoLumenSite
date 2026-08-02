@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Prepare for Your Reading', href: '/prepare-for-your-reading/' }];
@@ -12,13 +13,23 @@ const crumbs = [{ label: 'Prepare for Your Reading', href: '/prepare-for-your-re
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Get the most from your hour</p>
       <h1>Prepare for your reading</h1>
       <p class="lede">
         Ten minutes of preparation makes a reading noticeably richer. Here's exactly what helps.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.prepareReading.src}
+        alt={scenes.prepareReading.alt}
+        width={scenes.prepareReading.width}
+        height={scenes.prepareReading.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

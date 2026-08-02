@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { aspects } from '../../../data/aspects';
 const crumbs = [
@@ -15,8 +16,9 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Explore Astrology</p>
       <h1>Aspects</h1>
       <p class="lede">
@@ -24,6 +26,15 @@ const crumbs = [
         They tell you which of your drives cooperate, which argue, and which are fused for life.
         One reframe before you start: "hard" aspects aren't bad. They're engines.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.aspects.src}
+        alt={scenes.aspects.alt}
+        width={scenes.aspects.width}
+        height={scenes.aspects.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

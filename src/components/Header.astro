@@ -1,6 +1,14 @@
 ---
 import { primaryNav, ctaNav } from '../config/navigation';
+import Icon from './Icon.astro';
 const current = Astro.url.pathname;
+const navIcons: Record<string, string> = {
+  Readings: 'chart',
+  'Explore Astrology': 'book',
+  'Current Sky': 'moon',
+  Videos: 'video',
+  'About Mo': 'sun',
+};
 ---
 
 <header class="site-header">
@@ -74,7 +82,10 @@ const current = Astro.url.pathname;
                     aria-expanded="false"
                     aria-controls={`mnav-${i}`}
                   >
-                    {group.label}
+                    <span class="mobile-nav__label">
+                      <span class="nav-icon"><Icon name={navIcons[group.label] as any} size={22} /></span>
+                      {group.label}
+                    </span>
                     <svg width="14" height="14" viewBox="0 0 10 10" aria-hidden="true">
                       <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
                     </svg>
@@ -89,7 +100,12 @@ const current = Astro.url.pathname;
                 </li>
               ) : (
                 <li>
-                  <a href={group.href}>{group.label}</a>
+                  <a href={group.href}>
+                    <span class="mobile-nav__label">
+                      <span class="nav-icon"><Icon name={navIcons[group.label] as any} size={22} /></span>
+                      {group.label}
+                    </span>
+                  </a>
                 </li>
               )
             )

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Approach', href: '/approach/' }];
@@ -12,13 +13,23 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">How I work</p>
       <h1>A modern-day astrologer with a classical lens</h1>
       <p class="lede">
         What you can expect from a reading with me — and what I'll never do in one.
       </p>
+      </div>
+      <img
+        class="hero__img hero__img--portrait"
+        src={photos.moApproach.src}
+        alt={photos.moApproach.alt}
+        width={photos.moApproach.width}
+        height={photos.moApproach.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

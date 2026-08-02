@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
@@ -21,8 +22,9 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">By rising sign</p>
       <h1>Horoscopes</h1>
       <p class="lede">
@@ -30,6 +32,15 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
         lunation lands in your chart and what it invites. Read by your <em>rising</em> sign for
         best fit (sun sign works too).
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.currentSkyWide.src}
+        alt={scenes.currentSkyWide.alt}
+        width={scenes.currentSkyWide.width}
+        height={scenes.currentSkyWide.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

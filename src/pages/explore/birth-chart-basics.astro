@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [
@@ -15,14 +16,24 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Start here</p>
       <h1>Birth chart basics</h1>
       <p class="lede">
         A birth chart — or natal chart — is a map of the sky calculated for the exact date, time,
         and place you were born. Everything else in astrology builds on it.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.chartDetail.src}
+        alt={scenes.chartDetail.alt}
+        width={scenes.chartDetail.width}
+        height={scenes.chartDetail.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

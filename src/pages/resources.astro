@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Resources', href: '/resources/' }];
@@ -12,11 +13,21 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Start anywhere</p>
       <h1>Resources</h1>
       <p class="lede">Everything free on this site, gathered in one place.</p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.duskMountains.src}
+        alt={scenes.duskMountains.alt}
+        width={scenes.duskMountains.width}
+        height={scenes.duskMountains.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

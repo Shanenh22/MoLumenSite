@@ -4,6 +4,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import { site } from '../../config/site';
+import { scenes } from '../../config/images';
+
+const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
+  natal: scenes.natal,
+  relationship: scenes.relationship,
+  'solar-return': scenes.solarReturn,
+  'life-changes': scenes.lifeChanges,
+  'want-more-clarity': scenes.moreClarity,
+  'monthly-transits': scenes.monthlyTransits,
+  'quick-check-in': scenes.quickCheckIn,
+};
 
 export async function getStaticPaths() {
   const services = await getCollection('services');
@@ -50,11 +61,25 @@ const schema: object[] = [
   schema={schema}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Readings</p>
-      <h1>{s.name}</h1>
-      <p class="lede">{s.purpose}</p>
+      <div>
+        <p class="eyebrow">Readings</p>
+        <h1>{s.name}</h1>
+        <p class="lede">{s.purpose}</p>
+      </div>
+      {
+        serviceImages[s.slug] && (
+          <img
+            class="hero__img"
+            src={serviceImages[s.slug].src}
+            alt={serviceImages[s.slug].alt}
+            width={serviceImages[s.slug].width}
+            height={serviceImages[s.slug].height}
+            fetchpriority="high"
+          />
+        )
+      }
     </div>
   </section>
 

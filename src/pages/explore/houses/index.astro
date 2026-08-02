@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { houses } from '../../../data/houses';
 const crumbs = [
@@ -15,8 +16,9 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Explore Astrology</p>
       <h1>The 12 houses</h1>
       <p class="lede">
@@ -24,6 +26,15 @@ const crumbs = [
         bank account to your partnerships and your dreams. Their layout depends on your exact
         birth time, which is why astrologers keep asking for it.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.houses.src}
+        alt={scenes.houses.alt}
+        width={scenes.houses.width}
+        height={scenes.houses.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

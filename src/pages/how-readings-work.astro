@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'How Readings Work', href: '/how-readings-work/' }];
@@ -12,14 +13,24 @@ const crumbs = [{ label: 'How Readings Work', href: '/how-readings-work/' }];
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">What to expect</p>
       <h1>How readings work</h1>
       <p class="lede">
         If you've never had a professional reading, here's the whole thing demystified — from the
         moment you book to the recording in your inbox.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.readingProcess.src}
+        alt={scenes.readingProcess.alt}
+        width={scenes.readingProcess.width}
+        height={scenes.readingProcess.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

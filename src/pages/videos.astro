@@ -1,5 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
+import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
@@ -25,14 +26,24 @@ const ig = site.integrations.instagramHandle;
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Watch & learn</p>
       <h1>Videos</h1>
       <p class="lede">
         Short, clear, and doom-free: Mo on the current sky and the fundamentals, from YouTube and
         Instagram.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.videosStudio.src}
+        alt={scenes.videosStudio.alt}
+        width={scenes.videosStudio.width}
+        height={scenes.videosStudio.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

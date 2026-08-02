@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { photos, scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import { signs } from '../../../data/signs';
 const crumbs = [
@@ -15,8 +16,9 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
+      <div>
       <p class="eyebrow">Explore Astrology</p>
       <h1>The 12 signs</h1>
       <p class="lede">
@@ -25,6 +27,15 @@ const crumbs = [
         signs organize by element (fire, earth, air, water) and modality (cardinal, fixed,
         mutable) — two grids worth learning once, useful forever.
       </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.signs.src}
+        alt={scenes.signs.alt}
+        width={scenes.signs.width}
+        height={scenes.signs.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
