@@ -1,0 +1,12 @@
+{
+  // Cloudflare Workers deploy config (static assets).
+  // Used by the Cloudflare Git integration: build `npm run build`,
+  // deploy `npx wrangler deploy`. See docs/deployment.md.
+  "name": "molumen",
+  "compatibility_date": "2026-08-02",
+  "assets": {
+    "directory": "./dist",
+    // Serve our custom 404 page for unknown routes.
+    "not_found_handling": "404-page"
+  }
+}
