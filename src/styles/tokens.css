@@ -17,6 +17,14 @@
   --color-brown: #6b5644;
   --color-blush: #e8d5c8;
 
+  /* -- fresh accent family (WCAG-verified) -- */
+  --color-teal: #0f6e6b; /* CTA on light: white text 6.06:1 */
+  --color-teal-deep: #0b5a58; /* hover */
+  --color-teal-ink: #0d6360; /* teal text on ivory: 6.6:1 */
+  --color-aqua: #2ec4b6; /* CTA on dark: navy text 6.6:1, vs navy bg 6.6:1 */
+  --color-aqua-soft: #4fd1c5;
+  --color-teal-tint: #e4f0ef; /* chip surface */
+
   /* -- color: semantic aliases (AA-checked pairings) -- */
   --bg: var(--color-ivory);
   --bg-alt: var(--color-parchment);
@@ -25,9 +33,10 @@
   --ink: var(--color-navy); /* on ivory: 12.9:1 */
   --ink-soft: #47536e; /* on ivory: 7.0:1 */
   --ink-on-dark: var(--color-ivory);
-  --accent: var(--color-gold);
+  --accent: var(--color-teal);
+  --accent-warm: var(--color-gold);
   --accent-ink: #6f5626; /* gold dark enough for small text on tinted parchment: >=4.9:1 */
-  --link: #3f5378; /* on ivory: 7.6:1 */
+  --link: var(--color-teal-ink); /* on ivory: 6.6:1 */
   --border: var(--color-stone);
 
   /* -- type -- */
@@ -75,7 +84,7 @@
   --ease: cubic-bezier(0.2, 0, 0.2, 1);
 
   /* -- focus (never removed) -- */
-  --focus-ring: 2px solid var(--color-gold);
+  --focus-ring: 3px solid var(--color-teal);
   --focus-offset: 2px;
 
   /* -- breakpoints (reference; used in media queries) --

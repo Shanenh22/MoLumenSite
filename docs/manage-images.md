@@ -21,3 +21,8 @@ Pages reference the registry, never raw paths, so swapping an image is a one-lin
 Mo_2 → homepage hero (`mo-home`) · Mo_3 → about (`mo-about`) · Mo_1 → homepage about preview
 (`mo-shelf`) · Mo_4 → credentials · Mo_5 → approach · hero-workspace → homepage hero background ·
 real sky photos → Current Sky pages · each reading has its own scene image.
+
+## Color system (2026-08-02)
+Buttons and interactive accents use the teal family (`--color-teal` on light, `--color-aqua` on
+dark); gold is decorative only. All values are contrast-verified — see docs/testing-report.md
+before substituting any color.

@@ -62,7 +62,7 @@ const values = [
           your decisions, your relationships, your timing.
         </p>
         <div class="hero__actions">
-          <a class="btn btn--gold" href="/reading-finder/">Find Your Reading</a>
+          <a class="btn btn--accent" href="/reading-finder/">Find Your Reading</a>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
         </div>
         <p class="hero__reassure">
@@ -159,7 +159,7 @@ const values = [
                 {im && <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />}
                 <div class="card__body">
                   <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl);">
-                    <span style="color: var(--accent-ink);"><Icon name={serviceIcons[s.data.slug] as any} size={24} /></span>
+                    <span style="color: var(--color-teal);"><Icon name={serviceIcons[s.data.slug] as any} size={24} /></span>
                     <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
                   </h3>
                   <p class="card__meta" style="margin: 0;">{s.data.durationLabel}</p>
@@ -177,7 +177,7 @@ const values = [
         {
           services.slice(3).map((s) => (
             <article class="card" style="gap: var(--space-2);">
-              <span style="color: var(--accent-ink);">
+              <span style="color: var(--color-teal);">
                 <Icon name={serviceIcons[s.data.slug] as any} size={26} />
               </span>
               <h3 style="font-size: var(--text-lg); margin: 0;">
@@ -312,7 +312,7 @@ const values = [
           An interactive tour of how a birth chart actually works — planets as drives, signs as
           styles, houses as arenas. No birth data needed; it's education, not a reading.
         </p>
-        <p><a class="btn btn--gold" href="/tools/explore-your-chart/">Open the explorer</a></p>
+        <p><a class="btn btn--accent" href="/tools/explore-your-chart/">Open the explorer</a></p>
       </div>
     </div>
   </section>
@@ -336,7 +336,7 @@ const values = [
             ['video', 'Videos', '/videos/', 'Mo on YouTube and Instagram.'],
           ].map(([icon, t, href, d]) => (
             <article class="card" style="gap: var(--space-2);">
-              <span style="color: var(--accent-ink);">
+              <span style="color: var(--color-teal);">
                 <Icon name={icon as any} size={26} />
               </span>
               <h3 style="font-size: var(--text-lg); margin: 0;">
@@ -381,7 +381,7 @@ const values = [
         Take your time. Read, explore, watch — and when a real question forms, I'd love to meet
         you and your chart.
       </p>
-      <p><a class="btn btn--gold" href="/book/">Book a Reading</a></p>
+      <p><a class="btn btn--accent" href="/book/">Book a Reading</a></p>
     </div>
   </section>
 </BaseLayout>

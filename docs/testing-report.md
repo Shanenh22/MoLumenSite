@@ -44,6 +44,25 @@ Environment: Astro 5.18.2 static build, 100 pages. Tests run in the development 
 | Fixed: decorative logo SVG announced with empty label | aria-hidden when unlabeled |
 | Logo | Owner PNG traced to optimized SVG symbol (14KB, one copy/page, currentColor) — crisp at all sizes |
 
+## Accessibility & color audit — round 2 (2026-08-02, post-teal palette)
+| Check | Result |
+|---|---|
+| axe-core WCAG 2.0/2.1/2.2 A+AA — **40 pages**, every page type incl. legal, 404, article, sky event | **0 violations** |
+| Same audit at 390px mobile (6 pages) + mobile nav open | **0 violations** |
+| Rendered button contrast, every variant in real context | all ≥ 6.06:1 |
+| Horizontal overflow 320/360/375/390/430px | 0px |
+
+**Accent palette (replaces the bronze/gold CTA):**
+| Token | Value | Use | Contrast |
+|---|---|---|---|
+| `--color-teal` | `#0f6e6b` | primary CTA on light | white text **6.06:1** |
+| `--color-aqua` | `#2ec4b6` | CTA on night/photo sections | navy text **6.6:1**, vs navy bg **6.6:1** |
+| `--color-teal-ink` | `#0d6360` | body links on ivory | **6.6:1** |
+| `--color-teal-tint` | `#e4f0ef` | eyebrow chips, event chips | teal text **5.2:1** |
+
+Gold is retained as a decorative-only accent (dividers, portrait frame, logo mark) — it no longer
+carries any text or button label, which is what made the old buttons read as muddy brown.
+
 ## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)
