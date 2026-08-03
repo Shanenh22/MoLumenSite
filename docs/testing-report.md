@@ -204,6 +204,27 @@ credential and a glossary term.
 **No attorney has reviewed these documents.** See `docs/legal-review-status.md` for what that leaves
 exposed and which three clauses actually matter.
 
+## Staging deploy verified (2026-08-03)
+
+Workers Builds stalled at "Initialize build environment" — a stage before the repo is cloned, so no
+change in this repository could cause or fix it. Staging was brought current by deploying manually
+with Wrangler (see `docs/deploy-staging-manually.md`).
+
+Verified live on `molumen.shanenh.workers.dev` after that deploy: `/llms.txt` serves the generated
+file with all seven real readings and prices; the footer Site group shows Resources, Courses and
+Guides; `/booking-policy/` shows the 48-hour window with no placeholders, no review banner and no
+horary section; `/privacy/` carries the California and UK/EEA sections; `/accessibility/` states the
+automated-testing limitation and declines to claim compliance; `/readings/natal/` shows all four
+Q&A pairs and both prices; `/book/` lists all seven readings at the correct prices; and `/articles`
+still redirects to `/blog/`.
+
+**Correction to the audit's CRITICAL finding.** The audit reported edge caching serving stale HTML,
+inferred from the bare `/` URL returning older markup than `/?cachebust=`. That is retracted.
+Cloudflare's documented default for static assets is already `max-age=0, must-revalidate`, and the
+audit tool was later caught returning a cached 404 for `/llms.txt` long after it had deployed — the
+anomaly was the fetch tool's per-URL cache, not Cloudflare's. `public/_headers` is retained for the
+security headers and for immutable caching of hashed assets, not as a stale-HTML fix.
+
 ## Still to run before launch (needs owner inputs)
 
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost

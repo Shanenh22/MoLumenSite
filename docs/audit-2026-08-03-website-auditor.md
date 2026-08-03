@@ -57,14 +57,27 @@ Measured, three fetches:
 | `GET /?v=audit2`                | Site group **without** Resources / Courses / Guides | commit `4cc54b8`                         |
 | local `dist/index.html`         | Site group **with** Resources / Courses / Guides    | commit `3199d98`                         |
 
-Two distinct problems. First, the latest commit has not deployed — staging is at least one commit
-behind, so the orphan-page fix pushed earlier today is not live. Second, and more concerning for
-production, the bare `/` URL returned materially older HTML than the same URL with a query string
-appended. [Likely] That is edge caching serving stale HTML, because there is no `_headers` file and
-therefore no explicit `Cache-Control` policy for HTML documents.
+Two distinct problems were reported here. **One of them was wrong, and is corrected below.**
 
-The second problem is the one that matters after launch. Static assets are content-hashed and can
-cache forever; HTML documents cannot, or visitors keep seeing an old site after Mo publishes.
+First, and confirmed: the latest commit had not deployed. Cloudflare Workers Builds was stalling —
+later observed hanging at "Initialize build environment," a stage that runs before the repository is
+even cloned. Staging was eventually brought current by deploying manually with Wrangler.
+
+Second, and **retracted**: the bare `/` URL appeared to return materially older HTML than the same
+URL with a query string appended, which was read as edge caching serving stale HTML. That inference
+does not survive scrutiny. Cloudflare's documented default for static asset responses is already
+`Cache-Control: public, max-age=0, must-revalidate`, so HTML was never being cached aggressively at
+the edge. The far likelier explanation is the audit tool's own per-URL fetch cache: the same tool was
+later caught returning a cached 404 for `/llms.txt` well after that file had successfully deployed.
+Appending a query string produced a different URL and therefore a cache miss, which is exactly the
+pattern observed.
+
+The `public/_headers` file added in response is still worth keeping, but for different reasons than
+originally stated: it adds security headers the site had none of (`X-Content-Type-Options`,
+`Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`, `X-Frame-Options`) and sets
+long-lived immutable caching on content-hashed `/_astro/*` assets, which genuinely improves repeat
+visits over the `max-age=0` default. It is not, as claimed, a fix for stale HTML — there was no
+stale HTML to fix.
 
 **Fix — `public/_headers`:**
 
