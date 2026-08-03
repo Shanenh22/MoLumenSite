@@ -3,6 +3,7 @@ title: "How to Choose an Astrologer (Including Whether to Choose Me)"
 description: "Astrology is unregulated, which makes choosing well your job. Seven honest criteria for picking an astrologer — training, ethics, style — from someone with skin in the game."
 publishDate: 2026-08-02
 category: "Choosing a Reading"
+heroImage: "approachPhilosophy"
 tags: ["choosing an astrologer", "ethics", "readings"]
 ownerReview: true
 ---

@@ -3,15 +3,16 @@
 
 /services-2            /readings/                 301
 /appointments          /book/                     301
-/blog                  /current-sky/archive/      301
 /blog/new-moon-in-pisces-3knsx-ty3bb   /current-sky/events/2025-02-27-pisces-new-moon/   301
 /blog/new-moon-in-aqaurius-3knsx       /current-sky/archive/                             301
 /blog/new-moon-in-sagittarius          /current-sky/archive/                             301
 /blog/scorpio-new-moon-november-2024   /current-sky/events/2024-11-01-scorpio-new-moon/  301
 /blog/libra-new-moon-october-2024-eclipse  /current-sky/archive/                         301
 /blog/virgo-new-moon-september-2024    /current-sky/archive/                             301
-/blog/category/*       /current-sky/archive/      301
-/blog/tag/*            /current-sky/archive/      301
+/blog/category/*       /blog/                     301
+/blog/tag/*            /blog/                     301
+/articles              /blog/                     301
+/articles/*            /blog/:splat               301
 /terms-1               /terms/                    301
 /cookies-2             /privacy/                  301
 /newsletter-landing    /newsletter/               301

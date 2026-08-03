@@ -78,6 +78,18 @@ misconception). Six new reference pages plus a nine-step Start Here curriculum. 
 0 broken links. 0px overflow down to 320px (wide dignity table uses an accessible scroll
 region).
 
+## Blog section (2026-08-02)
+`/blog/` added to primary navigation and footer. `/articles/` folded in (one home for Mo's
+writing, not two) with redirects. Category filtering, hero images, related posts, Blog +
+BlogPosting schema, RSS updated. Desktop nav verified single-row at 1024–1600px with the new
+item; axe WCAG 2.2 AA clean; 0px overflow at 320/390px.
+
+**Caught during this round:** several earlier `navigation.ts` edits had silently failed because
+Prettier had converted the file to double quotes while the edits used single quotes. The nav is
+now authored directly rather than patched, and Start Here / Big Three / Dignities / Saturn Return
+entries are present as intended. Worth re-verifying nav contents visually after any future
+scripted edit.
+
 ## Still to run before launch (needs owner inputs)
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost
 - Full keyboard-only manual pass and screen-reader spot-check (NVDA/VoiceOver)

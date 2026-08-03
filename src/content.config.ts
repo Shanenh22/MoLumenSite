@@ -47,8 +47,9 @@ const services = defineCollection({
   }),
 });
 
-const articles = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/articles" }),
+/** Mo's blog: essays, guides, and anything she writes that isn't a dated sky event. */
+const blog = defineCollection({
+  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/blog" }),
   schema: z.object({
     title: z.string(),
     description: z.string(),
@@ -56,6 +57,9 @@ const articles = defineCollection({
     updatedDate: z.coerce.date().optional(),
     category: z.string(),
     tags: z.array(z.string()).default([]),
+    /** Key from src/config/images.ts `scenes` — optional; a default is used if omitted. */
+    heroImage: z.string().optional(),
+    featured: z.boolean().default(false),
     related: z.array(z.string()).default([]),
     draft: z.boolean().default(false),
     ownerReview: z.boolean().default(true),
@@ -205,7 +209,7 @@ const guides = defineCollection({
 
 export const collections = {
   services,
-  articles,
+  blog,
   skyEvents,
   videos,
   glossary,

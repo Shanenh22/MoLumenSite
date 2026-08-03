@@ -11,9 +11,7 @@ const esc = (s: string) =>
 
 export const GET: APIRoute = async () => {
   const skyEvents = await getCollection("skyEvents");
-  const articles = (await getCollection("articles")).filter(
-    (a) => !a.data.draft,
-  );
+  const posts = (await getCollection("blog")).filter((a) => !a.data.draft);
 
   const items = [
     ...skyEvents.map((e) => ({
@@ -22,10 +20,10 @@ export const GET: APIRoute = async () => {
       link: `${site.url}/current-sky/events/${e.id.replace(/\.mdx?$/, "")}/`,
       pubDate: e.data.start,
     })),
-    ...articles.map((a) => ({
+    ...posts.map((a) => ({
       title: a.data.title,
       description: a.data.description,
-      link: `${site.url}/articles/${a.id.replace(/\.mdx?$/, "")}/`,
+      link: `${site.url}/blog/${a.id.replace(/\.mdx?$/, "")}/`,
       pubDate: a.data.publishDate,
     })),
   ]
@@ -34,7 +32,7 @@ export const GET: APIRoute = async () => {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>${esc(site.name)} — Current Sky &amp; Articles</title>
+<title>${esc(site.name)} — Current Sky &amp; Blog</title>
 <link>${site.url}</link>
 <description>${esc(site.description)}</description>
 <language>en-us</language>

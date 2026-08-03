@@ -3,6 +3,7 @@ title: "What an Astrology Reading Can — and Can't — Do for You"
 description: "An honest accounting from a working astrologer: what readings genuinely offer (perspective, pattern, timing) and what no ethical astrologer will promise you."
 publishDate: 2026-08-02
 category: "Understanding Readings"
+heroImage: "readingProcess"
 tags: ["readings", "expectations", "ethics"]
 ownerReview: true
 ---

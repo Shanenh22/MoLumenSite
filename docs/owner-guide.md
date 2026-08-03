@@ -16,7 +16,7 @@ Change a file → commit → Cloudflare Pages rebuilds and deploys automatically
 |---|---|
 | Change a price or service detail | docs/add-a-service.md |
 | Add/remove a sky event | docs/update-current-sky.md |
-| Publish an article | docs/add-an-article.md |
+| Publish a blog post | docs/add-a-blog-post.md |
 | Add a video | docs/add-a-video.md |
 | Edit menus/footer | docs/manage-navigation.md |
 | Add a testimonial | edit `src/content/testimonials/testimonials.json`; set `approved: true` only with the client's permission (unapproved entries never appear) |

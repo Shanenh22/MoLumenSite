@@ -1,0 +1,175 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import NewsletterForm from '../../components/NewsletterForm.astro';
+import { scenes } from '../../config/images';
+import { site } from '../../config/site';
+
+const posts = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+
+const categories = [...new Set(posts.map((p) => p.data.category))].sort();
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const slugOf = (id: string) => id.replace(/\.mdx?$/, '');
+const heroFor = (key?: string) =>
+  (key && (scenes as Record<string, (typeof scenes)['natal']>)[key]) || scenes.newsletterLetters;
+
+const crumbs = [{ label: 'Blog', href: '/blog/' }];
+const schema =
+  posts.length > 0
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'Blog',
+          name: `${site.name} — Blog`,
+          url: `${site.url}/blog/`,
+          blogPost: posts.slice(0, 10).map((p) => ({
+            '@type': 'BlogPosting',
+            headline: p.data.title,
+            datePublished: p.data.publishDate.toISOString(),
+            url: `${site.url}/blog/${slugOf(p.id)}/`,
+          })),
+        },
+      ]
+    : [];
+---
+
+<BaseLayout
+  title="Blog"
+  description="Essays and guides from Mo Lumen: astrology explained plainly, questions worth asking, and honest thinking about what a chart can and cannot do."
+  path="/blog/"
+  breadcrumbs={crumbs}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Writing</p>
+        <h1>Blog</h1>
+        <p class="lede">
+          Essays, guides, and thinking out loud — astrology explained plainly, questions worth
+          asking, and honest talk about what a chart can and cannot do.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.newsletterLetters.src}
+        alt={scenes.newsletterLetters.alt}
+        width={scenes.newsletterLetters.width}
+        height={scenes.newsletterLetters.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      {
+        posts.length > 0 ? (
+          <>
+            {categories.length > 1 && (
+              <div class="filter-bar" role="group" aria-label="Filter posts by category" data-blog-filters>
+                <button type="button" aria-pressed="true" data-filter="all">
+                  All posts
+                </button>
+                {categories.map((c) => (
+                  <button type="button" aria-pressed="false" data-filter={c}>
+                    {c}
+                  </button>
+                ))}
+              </div>
+            )}
+            <p class="visually-hidden" aria-live="polite" data-blog-status />
+
+            <div class="grid grid--3">
+              {posts.map((p) => {
+                const im = heroFor(p.data.heroImage);
+                return (
+                  <article class="card card--img" data-post-category={p.data.category}>
+                    <img src={im.src} alt="" width={im.width} height={im.height} loading="lazy" />
+                    <div class="card__body">
+                      <p class="card__meta" style="margin: 0;">
+                        {fmt(p.data.publishDate)} · {p.data.category}
+                      </p>
+                      <h2 style="font-size: var(--text-xl); margin: 0;">
+                        <a href={`/blog/${slugOf(p.id)}/`}>{p.data.title}</a>
+                      </h2>
+                      <p style="margin: 0;">{p.data.description}</p>
+                      <p style="margin-top: auto; margin-bottom: 0;">
+                        <a href={`/blog/${slugOf(p.id)}/`}>Read the post →</a>
+                      </p>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
+          </>
+        ) : (
+          <div class="prose flow">
+            <h2>Posts are on their way</h2>
+            <p>
+              Mo's writing is being gathered and will appear here shortly. In the meantime, the
+              <a href="/explore/">Explore Astrology</a> library and the
+              <a href="/current-sky/">Current Sky</a> letters are full of reading.
+            </p>
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container feature-split">
+      <div class="flow">
+        <p class="eyebrow">Never miss one</p>
+        <h2 id="blog-newsletter">New posts, by email</h2>
+        <p>
+          The Sky This Month carries new writing as it's published, alongside what's moving
+          overhead. One email a month, five minutes to read.
+        </p>
+        <NewsletterForm source="blog" labelledby="blog-newsletter" />
+        <p class="card__meta">
+          Prefer a reader? <a href="/rss.xml">Subscribe by RSS</a>.
+        </p>
+      </div>
+      <div class="flow">
+        <h2>Also worth reading</h2>
+        <ul>
+          <li><a href="/current-sky/">Current Sky</a> — dated lunations, eclipses, and retrogrades</li>
+          <li><a href="/horoscopes/">Horoscopes</a> — rising-sign guidance with each lunation</li>
+          <li><a href="/start-here/">Start Here</a> — the nine-step beginner path</li>
+          <li><a href="/explore/">Explore Astrology</a> — the full reference library</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <CTABand />
+</BaseLayout>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-blog-filters]');
+  if (bar) {
+    const buttons = bar.querySelectorAll<HTMLButtonElement>('button');
+    const cards = document.querySelectorAll<HTMLElement>('[data-post-category]');
+    const status = document.querySelector<HTMLElement>('[data-blog-status]');
+    buttons.forEach((btn) =>
+      btn.addEventListener('click', () => {
+        const f = btn.dataset.filter!;
+        buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        let shown = 0;
+        cards.forEach((c) => {
+          const show = f === 'all' || c.dataset.postCategory === f;
+          c.hidden = !show;
+          if (show) shown++;
+        });
+        if (status) status.textContent = `${shown} post${shown === 1 ? '' : 's'} shown`;
+      })
+    );
+  }
+</script>

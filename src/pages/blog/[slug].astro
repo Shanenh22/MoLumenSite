@@ -1,0 +1,132 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import { site } from '../../config/site';
+import { scenes } from '../../config/images';
+
+export async function getStaticPaths() {
+  const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.id.replace(/\.mdx?$/, '') },
+    props: { post },
+  }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const d = post.data;
+const slug = post.id.replace(/\.mdx?$/, '');
+
+const all = (await getCollection('blog'))
+  .filter((p) => !p.data.draft)
+  .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
+const related = all
+  .filter((p) => p.id !== post.id)
+  .sort((a, b) => Number(b.data.category === d.category) - Number(a.data.category === d.category))
+  .slice(0, 2);
+
+const fmt = (dt: Date) =>
+  dt.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const hero =
+  (d.heroImage && (scenes as Record<string, (typeof scenes)['natal']>)[d.heroImage]) ||
+  scenes.newsletterLetters;
+const crumbs = [
+  { label: 'Blog', href: '/blog/' },
+  { label: d.title, href: `/blog/${slug}/` },
+];
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: d.title,
+    description: d.description,
+    datePublished: d.publishDate.toISOString(),
+    ...(d.updatedDate ? { dateModified: d.updatedDate.toISOString() } : {}),
+    author: { '@type': 'Person', name: 'Mo Lumen', url: `${site.url}/about/` },
+    publisher: { '@type': 'Organization', name: site.name },
+    mainEntityOfPage: `${site.url}/blog/${slug}/`,
+  },
+];
+---
+
+<BaseLayout
+  title={d.title}
+  description={d.description}
+  path={`/blog/${slug}/`}
+  breadcrumbs={crumbs}
+  ogType="article"
+  publishedDate={d.publishDate}
+  updatedDate={d.updatedDate}
+  schema={schema}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <article>
+    <section class="hero hero--split">
+      <div class="container">
+        <div>
+          <p class="eyebrow">{d.category}</p>
+          <h1>{d.title}</h1>
+          <p class="lede">{d.description}</p>
+          <p class="card__meta">
+            By <a href="/about/">Mo Lumen</a> · {fmt(d.publishDate)}
+            {d.updatedDate ? ` · Updated ${fmt(d.updatedDate)}` : ''}
+          </p>
+        </div>
+        <img
+          class="hero__img"
+          src={hero.src}
+          alt=""
+          width={hero.width}
+          height={hero.height}
+          fetchpriority="high"
+        />
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container prose flow">
+        <Content />
+        {
+          d.tags.length > 0 && (
+            <p style="margin-top: var(--space-8);">
+              {d.tags.map((t) => (
+                <span class="tag" style="margin-right: var(--space-2);">
+                  {t}
+                </span>
+              ))}
+            </p>
+          )
+        }
+      </div>
+    </section>
+  </article>
+
+  {
+    related.length > 0 && (
+      <section class="section section--alt">
+        <div class="container">
+          <h2>More from the blog</h2>
+          <div class="grid grid--2" style="margin-top: var(--space-6);">
+            {related.map((p) => (
+              <article class="card">
+                <p class="card__meta" style="margin: 0;">
+                  {fmt(p.data.publishDate)} · {p.data.category}
+                </p>
+                <h3 style="margin: 0;">
+                  <a href={`/blog/${p.id.replace(/\.mdx?$/, '')}/`}>{p.data.title}</a>
+                </h3>
+                <p style="margin: 0;">{p.data.description}</p>
+              </article>
+            ))}
+          </div>
+          <p style="margin-top: var(--space-6);">
+            <a href="/blog/">All posts →</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <CTABand />
+</BaseLayout>
