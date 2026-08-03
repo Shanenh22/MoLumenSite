@@ -1,6 +1,6 @@
 # Mo Lumen Astrology — Website
 
-Complete rebuild of [molumen.com](https://molumen.com/): a static, fast, accessible Astro site deployed on Cloudflare Pages, replacing the current Squarespace site once staging is approved by the owner.
+Complete rebuild of [molumen.com](https://molumen.com/): a static, fast, accessible Astro site deployed on Cloudflare Workers (static assets, via `wrangler.jsonc`), replacing the current Squarespace site once staging is approved by the owner.
 
 ## Status
 
@@ -15,7 +15,7 @@ The live molumen.com is untouched; nothing deploys to the production domain with
 | `docs/plan/`            | Architecture (sitemap, nav, content models, components, tokens, flows, image plan) and **open-questions.md — owner action items** |
 | `docs/integrations/`    | Cal.com + Stripe, GA4 (MailerLite added in Phase 3)                                                                               |
 | `src/config/`           | Site facts, navigation, integrations — the owner-editable configuration layer                                                     |
-| `src/content/`          | Content collections: services, articles, sky events, videos, glossary, testimonials, FAQs, legal                                  |
+| `src/content/`          | Content collections: services, blog, sky events, explore, videos, glossary, testimonials, FAQs, courses, guides, legal            |
 | `src/styles/tokens.css` | Design tokens (single source of truth)                                                                                            |
 | `scripts/`              | Audit tooling — structure/SEO, Lighthouse, axe (see `docs/auditing.md`)                                                           |
 
