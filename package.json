@@ -14,6 +14,7 @@
     "format:check": "prettier --check .",
     "test:links": "linkinator ./dist --recurse --silent",
     "test:a11y": "pa11y-ci",
+    "audit:install": "npm install --no-save lighthouse playwright",
     "audit": "node scripts/audit.mjs",
     "audit:a11y": "node scripts/axe-sweep.mjs",
     "audit:lh": "node scripts/lh-audit.mjs"
@@ -25,9 +26,6 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
     "axe-core": "^4.12.1",
-    "lighthouse": "^13.4.1",
-    "playwright": "^1.62.1",
-    "potrace": "^2.1.8",
     "prettier": "^3.0.0",
     "prettier-plugin-astro": "^0.14.0",
     "svgo": "^4.0.2",

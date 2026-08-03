@@ -3,6 +3,26 @@
 Four scripts in `scripts/` check the built site. They all read `dist/`, so run a build first.
 None of them touch the live site, and none require network access.
 
+Lighthouse and Playwright are **not** in `package.json` on purpose. They are roughly 190MB of
+install that the Cloudflare build has no use for — measured: a clean install is 210MB and 296
+packages without them, 399MB and 359 packages with, and that is before Playwright downloads
+browsers.
+
+They were removed on 2026-08-03 because staging stopped deploying, and `3199d98` — the first commit
+that failed to deploy — was also the first commit that added lighthouse to `devDependencies`. The
+preceding commit deployed fine and already had Playwright. That correlation is strong but it is not
+a confirmed diagnosis: nobody has read the Cloudflare build log. If the deploy is still stuck after
+this change, the cause is elsewhere and the build log is the next place to look.
+
+Install them only when you actually want to audit:
+
+```
+npm run audit:install    # once per machine: lighthouse + playwright, not saved to package.json
+```
+
+`scripts/audit.mjs` needs nothing extra and always runs. The other three print a clear message
+telling you to run `audit:install` rather than dying on a module-not-found stack trace.
+
 ```
 npm run build
 node scripts/audit.mjs        # structure, SEO metadata, internal link graph

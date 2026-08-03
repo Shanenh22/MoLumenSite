@@ -1,8 +1,26 @@
 import http from "http";
 import fs from "fs";
 import path from "path";
-import lighthouse from "lighthouse";
-import { launch } from "chrome-launcher";
+/**
+ * lighthouse / playwright / chrome-launcher are deliberately NOT in
+ * package.json. They are ~150MB of install that the Cloudflare build does not
+ * need, and having lighthouse there broke the deploy. Install on demand:
+ *   npm run audit:install
+ */
+async function requireTool(name) {
+  try {
+    return await import(name);
+  } catch {
+    console.error(
+      `\n[audit] "${name}" is not installed.\n` +
+        `        Audit tools are kept out of package.json so the deploy stays lean.\n` +
+        `        Run:  npm run audit:install\n`,
+    );
+    process.exit(1);
+  }
+}
+const lighthouse = (await requireTool("lighthouse")).default;
+const { launch } = await requireTool("chrome-launcher");
 const root = process.env.DIST || "./dist"; // run from repo root: node scripts/lh-audit.mjs
 const types = {
   ".html": "text/html",

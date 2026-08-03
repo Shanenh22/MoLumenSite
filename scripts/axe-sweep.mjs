@@ -3,7 +3,25 @@
  * representative page sample at both mobile and desktop widths.
  * Usage: node axe-sweep.mjs   (expects `npx http-server dist` style server on :4321)
  */
-import { chromium } from "playwright";
+/**
+ * lighthouse / playwright / chrome-launcher are deliberately NOT in
+ * package.json. They are ~150MB of install that the Cloudflare build does not
+ * need, and having lighthouse there broke the deploy. Install on demand:
+ *   npm run audit:install
+ */
+async function requireTool(name) {
+  try {
+    return await import(name);
+  } catch {
+    console.error(
+      `\n[audit] "${name}" is not installed.\n` +
+        `        Audit tools are kept out of package.json so the deploy stays lean.\n` +
+        `        Run:  npm run audit:install\n`,
+    );
+    process.exit(1);
+  }
+}
+const { chromium } = await requireTool("playwright");
 import { readFileSync } from "node:fs";
 import http from "node:http";
 import { createReadStream, statSync } from "node:fs";
