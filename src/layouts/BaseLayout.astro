@@ -34,7 +34,24 @@ const {
 } = Astro.props;
 
 const canonical = new URL(path, site.url).href;
-const fullTitle = path === '/' ? `${site.name} — ${site.tagline}` : `${title} | ${site.name}`;
+
+/** Keep titles under ~60 chars so search results don't truncate mid-word. */
+function buildTitle(t: string): string {
+  if (path === '/') return `${site.name} — ${site.tagline}`;
+  const full = `${t} | ${site.name}`;
+  if (full.length <= 60) return full;
+  const short = `${t} | Mo Lumen`;
+  if (short.length <= 60) return short;
+  return t.length <= 60 ? t : t.slice(0, 57).replace(/\s+\S*$/, '') + '…';
+}
+/** Clamp meta descriptions to ~155 chars at a word boundary. */
+function clampDesc(d: string): string {
+  const t = d.replace(/\s+/g, ' ').trim();
+  if (t.length <= 158) return t;
+  return t.slice(0, 155).replace(/[\s,;:—-]+\S*$/, '') + '…';
+}
+const fullTitle = buildTitle(title);
+const metaDescription = clampDesc(description);
 const ogImage = new URL('/og-default.svg', site.url).href;
 
 const baseSchema: object[] = [
@@ -77,7 +94,7 @@ const ga4Id = site.integrations.ga4Id;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>{fullTitle}</title>
-    <meta name="description" content={description} />
+    <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
@@ -87,7 +104,7 @@ const ga4Id = site.integrations.ga4Id;
     <meta name="theme-color" content="#1e2a45" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
-    <meta property="og:description" content={description} />
+    <meta property="og:description" content={metaDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content={ogType} />
     <meta property="og:image" content={ogImage} />

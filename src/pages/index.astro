@@ -71,7 +71,9 @@ const values = [
       </div>
       <figure class="hero__portrait">
         <img
-          src={photos.moHome.src}
+          src="/images/mo-home-760.webp"
+          srcset="/images/mo-home-420.webp 420w, /images/mo-home-760.webp 760w, /images/mo-home.webp 1000w"
+          sizes="(min-width: 900px) 380px, 100vw"
           alt={photos.moHome.alt}
           width={photos.moHome.width}
           height={photos.moHome.height}
@@ -85,6 +87,7 @@ const values = [
   <!-- Value row (icon strip) -->
   <section class="section section--strip">
     <div class="container">
+      <h2 class="visually-hidden">What a reading offers</h2>
       <div class="value-row value-row--6">
         {
           values.map(([icon, title, desc]) => (
@@ -220,7 +223,9 @@ const values = [
       </div>
       <img
         class="img-portrait"
-        src={photos.moShelf.src}
+        src="/images/mo-shelf-760.webp"
+        srcset="/images/mo-shelf-420.webp 420w, /images/mo-shelf-760.webp 760w"
+        sizes="(min-width: 900px) 420px, 100vw"
         alt={photos.moShelf.alt}
         width={photos.moShelf.width}
         height={photos.moShelf.height}

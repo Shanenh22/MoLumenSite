@@ -70,6 +70,9 @@ export const footerNav: Record<string, NavLink[]> = {
   ],
   Site: [
     { label: "About Mo", href: "/about/" },
+    { label: "Resources", href: "/resources/" },
+    { label: "Courses", href: "/courses/" },
+    { label: "Guides", href: "/guides/" },
     { label: "Testimonials", href: "/testimonials/" },
     { label: "Newsletter", href: "/newsletter/" },
     { label: "Contact", href: "/contact/" },

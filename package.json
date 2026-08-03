@@ -12,7 +12,10 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:links": "linkinator ./dist --recurse --silent",
-    "test:a11y": "pa11y-ci"
+    "test:a11y": "pa11y-ci",
+    "audit": "node scripts/audit.mjs",
+    "audit:a11y": "node scripts/axe-sweep.mjs",
+    "audit:lh": "node scripts/lh-audit.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
@@ -21,6 +24,7 @@
   "devDependencies": {
     "@astrojs/check": "^0.9.0",
     "axe-core": "^4.12.1",
+    "lighthouse": "^13.4.1",
     "playwright": "^1.62.1",
     "potrace": "^2.1.8",
     "prettier": "^3.0.0",
