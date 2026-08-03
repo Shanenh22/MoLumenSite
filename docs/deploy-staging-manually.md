@@ -40,6 +40,42 @@ cd $HOME\OneDrive\Desktop\MoLumenSite
 git pull
 ```
 
+## If PowerShell blocks npm
+
+On a default Windows install, PowerShell refuses to run npm's wrapper script:
+
+```
+npm : File C:\Program Files\nodejs\npm.ps1 cannot be loaded because running
+scripts is disabled on this system.
+```
+
+Node is fine; only the PowerShell shim is blocked. Two ways past it that change nothing on your
+machine — pick either:
+
+**Use the `.cmd` shims.** PowerShell runs these as ordinary programs, so the policy doesn't apply.
+Append `.cmd` to `npm` and `npx` in every command below:
+
+```powershell
+npm.cmd ci
+npm.cmd run build
+npx.cmd wrangler login
+npx.cmd wrangler deploy
+```
+
+**Or use Command Prompt instead.** Press Start, type `cmd`, open it, and the commands work
+unmodified:
+
+```
+cd %USERPROFILE%\OneDrive\Desktop\MoLumenSite
+npm ci
+```
+
+There is also the option of relaxing the policy for your own account with
+`Set-ExecutionPolicy -Scope CurrentUser -ExecutionPolicy RemoteSigned`. That works, and it is what
+most Node developers on Windows end up doing, but it is a change to a security setting on your
+machine and it is not needed for this — the two options above accomplish the same thing with nothing
+left behind. Only do it if you want npm to work normally in PowerShell from now on.
+
 ## 2. Install dependencies
 
 ```powershell
