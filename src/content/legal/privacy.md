@@ -1,44 +1,191 @@
 ---
 title: "Privacy Policy"
-description: "How Mo Lumen Astrology collects, uses, and protects your information — including why birth data is treated as sensitive and never sold or shared."
-updatedDate: 2026-08-02
-reviewStatus: attorney-review-required
+description: "How Mo Lumen Astrology collects, uses, and protects your information — including why birth data is treated as sensitive, never sold, and never added to analytics."
+updatedDate: 2026-08-03
+reviewStatus: owner-approved
 ---
-
-**Draft for attorney review — based on the current molumen.com policy (last updated February 14, 2023), rewritten for the new site. Not yet legally reviewed.**
 
 ## The short version
 
-We collect only what we need, we treat your birth information as sensitive, and we never sell or lease your personal information to anyone. Marketing email is always opt-in and always cancelable.
+We collect only what a reading actually requires. Your birth information is treated as sensitive
+personal data and is used for one purpose: preparing and delivering your reading. We do not sell,
+lease, or trade personal information. Marketing email is always opt-in, always separate from
+booking, and always cancelable in one click. If you want a copy of what we hold, or want it deleted,
+email mo@molumen.com and we will do it.
 
-## Information you give us
+## Who we are
 
-**Booking and intake information.** When you book a reading you provide contact details and — for most readings — your birth date, exact birth time, and birthplace, along with your questions. This information is used solely to prepare and deliver your reading. **Birth data is never sold, leased, or shared with third parties**, never used for marketing, and never added to analytics.
+Mo Lumen Astrology is a one-astrologer consulting practice operated by Maureen "Mo" Lumen, based in
+the Dallas–Fort Worth area of Texas, United States. Readings are delivered remotely by video and
+phone, and in person in the DFW area by arrangement. Mo is the person who receives your information
+and the person who answers when you write about it. There is no data team behind her; there is her.
 
-**Newsletter signup.** Your email address, used only to send the newsletter you asked for. Every email includes an unsubscribe link, and marketing consent is always separate from booking.
+Contact for anything in this policy: mo@molumen.com.
 
-## Information collected automatically
+## What we collect, and why
 
-Like most websites, our hosting and analytics may record standard technical data: browser type, operating system, and IP address. If Google Analytics is enabled, it is configured without any personal identifiers, and we never send names, emails, birth data, or intake answers to it.
+### Information you give us when you book
 
-## Third-party services
+Booking a reading requires your name and email address, and — for most readings — your birth date,
+your exact birth time, and your birthplace. Many clients also send the questions they want to bring.
 
-Scheduling and payment are handled by Cal.com and Stripe; email delivery by MailerLite; video embeds by YouTube (privacy-enhanced mode); hosting by Cloudflare Pages. Each processes data under its own privacy policy, and we choose privacy-respecting configurations where offered. We do not control these services and encourage you to review their policies.
+Birth data is the reason astrology works at all, and it is also unusually personal: an exact birth
+time and place identifies a person more precisely than most things people are asked to hand over.
+We treat it accordingly.
+
+**Birth data is used only to cast and interpret your chart.** It is never sold, leased, or shared
+with third parties. It is never used for marketing. It is never sent to analytics. It is never
+placed in a web address, and it is never stored in this website's code or in your browser's storage
+— the chart tools on this site do their work in your browser and forget it when you close the tab.
+
+### Information you give us when you write to us
+
+If you email us or use the contact form, we receive whatever you choose to send, and we keep it as
+long as needed to answer you and to keep a record of the conversation.
+
+### Newsletter
+
+If you subscribe, we store your email address and the fact that you asked for the newsletter. That
+is all. Every issue has an unsubscribe link, unsubscribing is immediate, and newsletter consent is
+never bundled into booking.
+
+### Information collected automatically
+
+Our host records standard server data such as IP address, browser type, and pages requested, which
+is ordinary for any website and is used for security and to keep the site running.
+
+If website analytics are enabled, they are configured to record page views and general navigation
+only, with no personal identifiers. Names, email addresses, birth data, and intake answers are never
+sent to analytics under any configuration. IP addresses are anonymised where the analytics provider
+supports it.
 
 ## Cookies
 
-This site itself sets no tracking cookies. Embedded services (booking calendar, video players — loaded only when you use them) may set their own; your browser's settings control cookie behavior, and declining them may limit those embedded features only.
+This website sets no advertising cookies and no cross-site tracking cookies of its own.
 
-## Your rights
+Embedded third-party features — the booking calendar and video players — may set their own cookies,
+and they load only when you interact with them. If you never open the booking calendar or press play
+on a video, those cookies are never set. Your browser's settings control cookie behaviour; blocking
+them affects only those embedded features, never your ability to read the site.
 
-You may request a copy of the personal information we hold about you, ask us to correct it, or ask us to delete it, at any time, by emailing mo@molumen.com. EU residents may additionally lodge complaints with their data protection authority.
+## Who else touches your data
 
-## Retention
+We use a small number of established providers, each processing data under its own privacy policy
+and its own obligations to us:
 
-Booking records are kept as required for business and tax purposes; birth data is retained only as part of your reading records and deleted on request.
+| Provider   | What it handles                                 | Why                                  |
+| ---------- | ----------------------------------------------- | ------------------------------------ |
+| Cal.com    | Scheduling, appointment details, intake answers | Booking and calendar management      |
+| Stripe     | Payment processing                              | Taking payment securely              |
+| MailerLite | Newsletter email addresses                      | Sending the newsletter you asked for |
+| Cloudflare | Website hosting and delivery                    | Serving this site                    |
+| YouTube    | Video playback, in privacy-enhanced mode        | Showing videos when you press play   |
 
-## Changes
+**Mo never sees or stores your full card number.** Payment card details go directly to Stripe and
+are never held by this practice.
 
-Material changes to this policy will be posted here with a new "updated" date.
+We choose the more privacy-protective configuration wherever a provider offers one. We do not
+control these companies, and we encourage you to read their policies. We do not sell or share your
+personal information with anyone for their own marketing purposes.
 
-*Contact: mo@molumen.com*
+## How long we keep things
+
+Booking and payment records are kept for as long as tax, accounting, and business-records
+obligations require, and no longer than necessary after that.
+
+Birth data and reading notes are kept as part of your client record so that follow-up readings can
+build on earlier work — which is often the point of a follow-up. If you would rather we did not keep
+it, say so and we will delete it.
+
+Newsletter subscriptions are kept until you unsubscribe. Correspondence is kept as long as it is
+useful for answering you and maintaining a record.
+
+Anything you ask us to delete is deleted, except where we are legally required to retain it — a
+payment record needed for tax purposes, for example. If that exception applies to your request, we
+will tell you which record it is and why, rather than simply refusing.
+
+## Your rights over your information
+
+Whoever you are and wherever you live, you may ask us to:
+
+- **See** what personal information we hold about you
+- **Correct** anything that is wrong
+- **Delete** it
+- **Send you a copy** in a portable format
+- **Stop** using it for a particular purpose, including marketing
+
+Email mo@molumen.com. We aim to respond within thirty days. There is no charge, and asking will
+never affect the service you receive.
+
+A practice this size falls below the thresholds that trigger most consumer privacy statutes. We
+extend these rights to everyone anyway, because it is the right way to treat people's information,
+not because a threshold forces it.
+
+### If you are in California
+
+Under the California Consumer Privacy Act as amended by the CPRA, California residents have the
+right to know what personal information is collected, used, and disclosed; to delete it; to correct
+it; to opt out of its sale or sharing; and to limit the use of sensitive personal information. You
+also have the right not to be treated differently for exercising any of these rights.
+
+Two things worth stating plainly. **We do not sell or share personal information**, as those terms
+are defined in the CCPA, which is why there is no "Do Not Sell or Share My Personal Information"
+link on this site — there is nothing to opt out of. And your birth data qualifies as sensitive
+personal information: we use it only for the purpose you provided it for, which is exactly the
+limitation the statute exists to secure.
+
+You may designate an authorised agent to make a request for you; we will ask for reasonable proof of
+that authorisation.
+
+### If you are in the United Kingdom or the European Economic Area
+
+Under the UK GDPR and the EU GDPR you have the rights of access, rectification, erasure,
+restriction, portability, and objection, and the right to withdraw consent at any time without
+affecting the lawfulness of processing carried out before you withdrew it.
+
+Our legal bases for processing are:
+
+- **Contract** — booking details and birth data, because we cannot deliver a reading you have paid
+  for without them
+- **Consent** — the newsletter, and any use of your words as a testimonial, which we ask for
+  separately and in writing every time
+- **Legitimate interests** — keeping the site secure and functioning, and keeping ordinary business
+  records, balanced against your own interests and rights
+
+Because this practice is based in the United States, information you send is processed there. Where
+a provider moves data internationally, they do so under the safeguards set out in their own terms,
+such as Standard Contractual Clauses.
+
+If you think we have handled your information badly, please tell us first — we would rather fix it
+than have you find out from a regulator. You also have the right to complain to your national
+supervisory authority, or to the Information Commissioner's Office in the United Kingdom.
+
+## Children
+
+This site and these services are for adults aged 18 and over. We do not knowingly collect
+information from children. If you believe a child has given us information, email mo@molumen.com and
+we will delete it.
+
+## Testimonials
+
+Client words appear on this site only with explicit, specific written permission, given after the
+reading, and only in the form the client approved. No testimonial is published from a private
+message, a review site, or a conversation without asking. Permission can be withdrawn at any time,
+and the testimonial comes down.
+
+## Security
+
+Payments are handled by Stripe and never pass through this website. The site is served over HTTPS
+throughout, with security headers set at the edge. Client records are kept in access-controlled
+accounts. No system is perfectly secure and we will not claim otherwise — but birth data is never
+published, never sold, and never used for anything except your reading.
+
+## Changes to this policy
+
+If this policy changes materially, the updated version will be posted here with a new date at the
+top, and significant changes will be described rather than quietly slipped in. The date at the top
+of this page is the date of the current version.
+
+## Questions
+
+Email mo@molumen.com. A person reads it.

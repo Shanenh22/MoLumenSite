@@ -1574,3 +1574,24 @@ blockquote {
   margin-bottom: 0;
   min-width: 34rem;
 }
+
+/* Booking service picker.
+   The seven radios are wrapped in a fieldset so the option set has a
+   programmatic name (WCAG 1.3.1 / technique H71) — a screen reader user
+   tabbing in hears "Choose your reading" as the group, not just the
+   individual options. The reset below keeps the original visual design:
+   fieldset ships with a border, padding and a min-width that would
+   otherwise break the surrounding grid. */
+fieldset[data-booking-services] {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+fieldset[data-booking-services] > legend {
+  padding: 0;
+  width: 100%;
+}
+fieldset[data-booking-services] > legend > h2 {
+  margin-top: 0;
+}

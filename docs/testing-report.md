@@ -160,6 +160,50 @@ accessibility testing catches roughly a third to a half of real barriers — the
 pass and screen-reader spot-check listed below are still required, and no automated result
 here should be described as proof of legal compliance.
 
+## Audit fixes round 1 — AEO / GEO / Schema / ADA (2026-08-03)
+
+Items 1–6 of `docs/audit-2026-08-03-website-auditor.md` implemented.
+
+| Signal                                               | Before         | After                                             |
+| ---------------------------------------------------- | -------------- | ------------------------------------------------- |
+| Pages with `dateModified` / `datePublished`          | 19 / 118 (16%) | **117 / 117 (100%)**                              |
+| Pages with `FAQPage` schema                          | 1              | **8** (28 previously unmarked Q&A pairs)          |
+| Pages with `Article` / `BlogPosting` schema          | 18             | **87**                                            |
+| `llms.txt`                                           | 404            | **present, generated from the real service list** |
+| Security headers / HTML cache policy                 | none           | **`public/_headers`**                             |
+| Booking radio group with programmatic name           | no             | **yes (`fieldset` + `legend`)**                   |
+| `Person` entity with `url` / `sameAs` / `knowsAbout` | no             | **yes**                                           |
+
+Dates come from git history via `scripts/gen-page-dates.mjs`, wired to npm `prebuild`. Nothing is
+invented: static pages take the last commit date of their own file, dynamic route families take the
+newest of their template and data file, content frontmatter always wins, and a route git cannot date
+ships with no date rather than a fabricated one. The generated map is committed so a shallow clone
+on the build host cannot wipe it.
+
+Reference and editorial pages emit `Article`; service, booking and legal pages emit `WebPage`
+instead, because calling a booking page an article would be a misdescription.
+
+**Regression check after all changes:** 118 pages build clean, `astro check` 0 errors, 0 broken
+internal links across 235 URLs, axe-core 0 violations across 20 pages × 2 viewports, Lighthouse
+mobile 99–100 and desktop 100 on all six page types, CLS 0.000 throughout.
+
+**Not yet done** — items 7 and 8 from the audit: question-format headings on the 13 sign pages, and
+visible source citations on the reference library. Both touch published wording and are held for
+Mo's review. Zero of 118 pages currently cite a source.
+
+## Legal documents rewritten (2026-08-03)
+
+All five expanded and every `[OWNER CONFIRM]` placeholder resolved; review banners removed at the
+owner side's request. Privacy now covers CCPA/CPRA and GDPR/UK-GDPR. Booking policy states a
+48-hour window with credit inside it. Terms name Texas / Collin County.
+
+Also corrected: the booking policy documented a horary email reading service that does not exist,
+and `/how-readings-work/` implied the same in prose. Both removed — horary remains only as a
+credential and a glossary term.
+
+**No attorney has reviewed these documents.** See `docs/legal-review-status.md` for what that leaves
+exposed and which three clauses actually matter.
+
 ## Still to run before launch (needs owner inputs)
 
 - Lighthouse on Cloudflare staging (target ≥90/95/95/95) — run on real hosting, not localhost

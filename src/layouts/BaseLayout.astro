@@ -1,5 +1,6 @@
 ---
 import { site } from '../config/site';
+import pageDates from '../data/page-dates.json';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import '../styles/global.css';
@@ -54,6 +55,41 @@ const fullTitle = buildTitle(title);
 const metaDescription = clampDesc(description);
 const ogImage = new URL('/og-default.svg', site.url).href;
 
+/**
+ * Real last-modified date for this route, from git history via
+ * scripts/gen-page-dates.mjs. An explicit updatedDate prop (content
+ * frontmatter) always wins. If neither exists the page ships without a date —
+ * we never invent one.
+ */
+function resolveModified(): string | null {
+  if (updatedDate) return updatedDate.toISOString();
+  const exact = (pageDates.exact as Record<string, string>)[path];
+  if (exact) return exact;
+  const families = Object.entries(pageDates.prefix as Record<string, string>)
+    .filter(([p]) => path.startsWith(p))
+    .sort((a, b) => b[0].length - a[0].length);
+  return families.length ? families[0][1] : null;
+}
+const dateModified = resolveModified();
+
+/** Mo as a resolvable entity — engines cite sources they can attribute. */
+const moPerson = {
+  '@type': 'Person',
+  name: 'Maureen "Mo" Lumen',
+  jobTitle: 'Astrologer',
+  url: new URL('/about/', site.url).href,
+  sameAs: [site.social.instagram, site.social.facebook, site.social.youtube].filter(Boolean),
+  knowsAbout: [
+    'Astrology',
+    'Natal chart interpretation',
+    'Traditional astrology',
+    'Horary astrology',
+    'Electional astrology',
+    'Astrological transits',
+  ],
+  worksFor: { '@type': 'ProfessionalService', name: site.name, url: site.url },
+};
+
 const baseSchema: object[] = [
   {
     '@context': 'https://schema.org',
@@ -62,16 +98,66 @@ const baseSchema: object[] = [
     url: site.url,
     email: site.email,
     description: site.description,
-    founder: { '@type': 'Person', name: 'Maureen "Mo" Lumen', jobTitle: 'Astrologer' },
-    sameAs: [site.social.instagram, site.social.facebook].filter(Boolean),
+    areaServed: [
+      { '@type': 'AdministrativeArea', name: 'Worldwide (online)' },
+      { '@type': 'City', name: 'Dallas–Fort Worth, Texas (in person, by arrangement)' },
+    ],
+    founder: moPerson,
+    employee: moPerson,
+    sameAs: [site.social.instagram, site.social.facebook, site.social.youtube].filter(Boolean),
   },
   {
     '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: site.name,
     url: site.url,
+    publisher: { '@type': 'Organization', name: site.name, url: site.url },
   },
 ];
+
+/**
+ * Reference and editorial pages get an Article so their freshness and
+ * authorship are machine-readable. Skipped where the page already supplies its
+ * own article-ish type (blog posts emit BlogPosting) and on transactional or
+ * legal pages, where Article would be a misdescription.
+ */
+const ARTICLE_PREFIXES = ['/explore/', '/start-here/', '/current-sky/', '/horoscopes/', '/approach/'];
+const suppliesOwnArticle = JSON.stringify(schema).includes('"BlogPosting"')
+  || JSON.stringify(schema).includes('"Article"');
+if (
+  dateModified &&
+  !suppliesOwnArticle &&
+  ARTICLE_PREFIXES.some((p) => path === p || path.startsWith(p))
+) {
+  baseSchema.push({
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: title,
+    description: metaDescription,
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    author: moPerson,
+    publisher: { '@type': 'Organization', name: site.name, url: site.url },
+    dateModified,
+    ...(publishedDate ? { datePublished: publishedDate.toISOString() } : {}),
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+  });
+} else if (dateModified && !suppliesOwnArticle) {
+  // Service, booking and legal pages are not articles — describing them as one
+  // would be a lie to the crawler. They still deserve a freshness signal, so
+  // they get a WebPage node carrying the same real date.
+  baseSchema.push({
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    name: title,
+    description: metaDescription,
+    url: canonical,
+    dateModified,
+    inLanguage: 'en-US',
+    isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+    ...(path === '/' ? {} : { publisher: { '@type': 'Organization', name: site.name, url: site.url } }),
+  });
+}
 if (breadcrumbs.length > 0) {
   baseSchema.push({
     '@context': 'https://schema.org',
@@ -110,7 +196,7 @@ const ga4Id = site.integrations.ga4Id;
     <meta property="og:image" content={ogImage} />
     <meta name="twitter:card" content="summary_large_image" />
     {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
-    {updatedDate && <meta property="article:modified_time" content={updatedDate.toISOString()} />}
+    {dateModified && <meta property="article:modified_time" content={dateModified} />}
     <script type="application/ld+json" set:html={JSON.stringify(allSchema)} />
     {
       ga4Id && (

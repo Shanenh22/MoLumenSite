@@ -57,8 +57,8 @@ const serviceData = Object.fromEntries(
     <div class="container">
       <div class="grid grid--2" style="align-items: start;">
         <div class="flow">
-          <h2>Choose your reading</h2>
-          <div data-booking-services>
+          <fieldset data-booking-services>
+            <legend><h2>Choose your reading</h2></legend>
             {
               services.map((s, i) => (
                 <label class="choice" style="display: flex;">
@@ -80,7 +80,7 @@ const serviceData = Object.fromEntries(
                 </label>
               ))
             }
-          </div>
+          </fieldset>
           <div class="callout">
             <p style="margin: 0;">
               <strong>Before you book:</strong> live readings need your birth date, exact time, and

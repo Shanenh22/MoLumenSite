@@ -23,20 +23,20 @@ measurements, not static estimates, and the served HTML/CSS/JS is byte-identical
 
 The one thing that does **not** transfer is real-world performance timing. Local numbers exclude
 Cloudflare's edge, the visitor's network and device, and the third-party scripts (Cal.com, GA4,
-MailerLite) that are not yet wired in. Performance is therefore labelled *Measured (local)* — a
+MailerLite) that are not yet wired in. Performance is therefore labelled _Measured (local)_ — a
 regression baseline, not a field prediction.
 
 ## Overall: 7 categories scored, 1 critical operational issue, 6 quick wins
 
-| Category | Score | Basis |
-|---|---|---|
-| SEO | 9/10 | Measured |
-| AEO | 6/10 | Measured |
-| GEO | 4/10 | Measured |
-| Schema / Structured Data | 8/10 | Measured |
-| ADA / WCAG 2.2 AA | 9/10 | Measured (local render) |
-| UI/UX | 9/10 | Measured (local render) |
-| Code Quality / Performance | 9/10 | Measured (local) |
+| Category                   | Score | Basis                   |
+| -------------------------- | ----- | ----------------------- |
+| SEO                        | 9/10  | Measured                |
+| AEO                        | 6/10  | Measured                |
+| GEO                        | 4/10  | Measured                |
+| Schema / Structured Data   | 8/10  | Measured                |
+| ADA / WCAG 2.2 AA          | 9/10  | Measured (local render) |
+| UI/UX                      | 9/10  | Measured (local render) |
+| Code Quality / Performance | 9/10  | Measured (local)        |
 
 Per the rubric these are deliberately not averaged. The site is strong where conventional audits
 look and weak where AI-era audits look, and a single number would hide exactly that.
@@ -50,12 +50,12 @@ means nobody has actually reviewed the current site.
 
 Measured, three fetches:
 
-| Request | Footer state | Corresponds to |
-|---|---|---|
-| `GET /` | "Articles" link, "Policies" group | a build from before the blog restructure |
-| `GET /?cachebust=audit20260803` | "Writing" group with Blog | commit `4cc54b8` |
-| `GET /?v=audit2` | Site group **without** Resources / Courses / Guides | commit `4cc54b8` |
-| local `dist/index.html` | Site group **with** Resources / Courses / Guides | commit `3199d98` |
+| Request                         | Footer state                                        | Corresponds to                           |
+| ------------------------------- | --------------------------------------------------- | ---------------------------------------- |
+| `GET /`                         | "Articles" link, "Policies" group                   | a build from before the blog restructure |
+| `GET /?cachebust=audit20260803` | "Writing" group with Blog                           | commit `4cc54b8`                         |
+| `GET /?v=audit2`                | Site group **without** Resources / Courses / Guides | commit `4cc54b8`                         |
+| local `dist/index.html`         | Site group **with** Resources / Courses / Guides    | commit `3199d98`                         |
 
 Two distinct problems. First, the latest commit has not deployed — staging is at least one commit
 behind, so the orphan-page fix pushed earlier today is not live. Second, and more concerning for
@@ -107,7 +107,7 @@ checks holds it at 9.
 **Issue — staging is fully crawlable and indexable.** `robots.txt` on `molumen.shanenh.workers.dev`
 returns `User-agent: * / Allow: /`. Canonical tags point to `molumen.com`, which will usually cause
 Google to consolidate, but "usually" is doing real work in that sentence, and right now `molumen.com`
-serves the *old Squarespace site* — so the canonical target and the canonical content disagree.
+serves the _old Squarespace site_ — so the canonical target and the canonical content disagree.
 
 **Fix — make staging noindex without touching production.** In `astro.config.mjs`, drive robots from
 the deploy target:
@@ -115,7 +115,7 @@ the deploy target:
 ```js
 // astro.config.mjs
 export default defineConfig({
-  site: process.env.PUBLIC_SITE_URL ?? 'https://molumen.com',
+  site: process.env.PUBLIC_SITE_URL ?? "https://molumen.com",
   integrations: [
     sitemap(),
     // ...
@@ -148,16 +148,16 @@ used throughout, which the rubric credits. But **only 1 of 118 pages has FAQPage
 site contains **38 genuine question-and-answer pairs across 8 pages** — 28 of them completely
 unmarked.
 
-| Page | Q&A pairs | FAQPage schema |
-|---|---|---|
-| `/frequently-asked-questions/` | 10 | yes |
-| `/readings/natal/` | 4 | **no** |
-| `/readings/relationship/` | 4 | **no** |
-| `/readings/solar-return/` | 4 | **no** |
-| `/readings/life-changes/` | 4 | **no** |
-| `/readings/monthly-transits/` | 4 | **no** |
-| `/readings/quick-check-in/` | 4 | **no** |
-| `/readings/want-more-clarity/` | 4 | **no** |
+| Page                           | Q&A pairs | FAQPage schema |
+| ------------------------------ | --------- | -------------- |
+| `/frequently-asked-questions/` | 10        | yes            |
+| `/readings/natal/`             | 4         | **no**         |
+| `/readings/relationship/`      | 4         | **no**         |
+| `/readings/solar-return/`      | 4         | **no**         |
+| `/readings/life-changes/`      | 4         | **no**         |
+| `/readings/monthly-transits/`  | 4         | **no**         |
+| `/readings/quick-check-in/`    | 4         | **no**         |
+| `/readings/want-more-clarity/` | 4         | **no**         |
 
 The questions already written are exactly the ones people type into search and ask assistants:
 "Can astrology predict my future?", "Why do you need my exact birth time?", "What if I don't know
@@ -230,13 +230,13 @@ it is also the one where the gap between ambition and implementation is widest.
 The rubric's 3–5 band is "no explicit AI-crawler blocking but no freshness signals, no citations, no
 llms.txt." Measured against it:
 
-| Signal | Rubric expectation | Measured |
-|---|---|---|
-| AI crawlers unblocked | required for 9–10 | **pass** — `robots.txt` allows all agents |
-| Entity attribution with `sameAs` | required for 9–10 | **partial** — ProfessionalService has `sameAs`; Mo as a Person does not |
-| `datePublished` / `dateModified` | required for 9–10 | **fail** — 19 of 118 pages (16%); **99 pages carry no date at all** |
-| Outbound citations to authoritative sources | required for 9–10 | **fail** — **0 of 118 pages** have a single outbound citation |
-| `llms.txt` | required for 9–10 | **fail** — returns 404 |
+| Signal                                      | Rubric expectation | Measured                                                                |
+| ------------------------------------------- | ------------------ | ----------------------------------------------------------------------- |
+| AI crawlers unblocked                       | required for 9–10  | **pass** — `robots.txt` allows all agents                               |
+| Entity attribution with `sameAs`            | required for 9–10  | **partial** — ProfessionalService has `sameAs`; Mo as a Person does not |
+| `datePublished` / `dateModified`            | required for 9–10  | **fail** — 19 of 118 pages (16%); **99 pages carry no date at all**     |
+| Outbound citations to authoritative sources | required for 9–10  | **fail** — **0 of 118 pages** have a single outbound citation           |
+| `llms.txt`                                  | required for 9–10  | **fail** — returns 404                                                  |
 
 Crawler access and partial entity attribution lift it above a pure 3. Everything else fails.
 
@@ -288,7 +288,7 @@ const reference = defineCollection({
   schema: z.object({
     title: z.string(),
     description: z.string(),
-    updated: z.coerce.date(),   // <- add
+    updated: z.coerce.date(), // <- add
     // ...
   }),
 });
@@ -350,7 +350,12 @@ identity links, so no engine can resolve "Mo Lumen" to a real astrologer:
     "https://www.instagram.com/mo.lumen/",
     "https://www.facebook.com/profile.php?id=100094534962856"
   ],
-  "knowsAbout": ["Astrology", "Natal chart interpretation", "Horary astrology", "Traditional astrology"],
+  "knowsAbout": [
+    "Astrology",
+    "Natal chart interpretation",
+    "Horary astrology",
+    "Traditional astrology"
+  ],
   "worksFor": { "@type": "ProfessionalService", "name": "Mo Lumen Astrology" }
 }
 ```
@@ -407,14 +412,14 @@ That meets the rubric's 9–10 condition ("zero axe-core critical/serious violat
 as 9 rather than 10 for two reasons.
 
 **Reported and rejected:** `static_audit.py` flagged "7 form fields with no associated label" on
-`/book/`. This is a **false positive** — the seven radios use *implicit* labels (`<label
+`/book/`. This is a **false positive** — the seven radios use _implicit_ labels (`<label
 class="choice"><input type="radio"> …</label>`), which satisfies WCAG 1.3.1 and which axe passes.
 The script only checks `for`/`id` pairing and `aria-*`.
 
 **But investigating it surfaced a real defect that axe did not flag.** The radio group has no
 programmatic group label — measured: zero `<fieldset>`, zero `<legend>`, zero `role="radiogroup"` on
 that page. The visible `<h2>Choose your reading</h2>` is not associated with the group, so a screen
-reader user tabbing in hears each option's name but never learns what the set is *for*. WCAG 1.3.1,
+reader user tabbing in hears each option's name but never learns what the set is _for_. WCAG 1.3.1,
 Technique H71.
 
 **Fix — `src/pages/book.astro`:**
@@ -474,14 +479,14 @@ seven-option choice with no programmatic grouping.
 
 Lighthouse against the production build, six page types, mobile and desktop:
 
-| Page | Mobile P / A11y / BP / SEO | LCP | Desktop |
-|---|---|---|---|
-| Homepage | 99 / 100 / 100 / 100 | 2.3s | 100 across, LCP 0.5s |
-| Readings hub | 99 / 100 / 100 / 100 | 2.1s | 100 across, LCP 0.5s |
-| Natal service | 99 / 100 / 100 / 100 | 2.0s | 100 across, LCP 0.4s |
-| Sign page | 100 / 100 / 100 / 100 | 1.1s | 100 across, LCP 0.3s |
-| Blog | 99 / 100 / 100 / 100 | 2.2s | 100 across, LCP 0.6s |
-| Start Here | 99 / 100 / 100 / 100 | 2.3s | 100 across, LCP 0.5s |
+| Page          | Mobile P / A11y / BP / SEO | LCP  | Desktop              |
+| ------------- | -------------------------- | ---- | -------------------- |
+| Homepage      | 99 / 100 / 100 / 100       | 2.3s | 100 across, LCP 0.5s |
+| Readings hub  | 99 / 100 / 100 / 100       | 2.1s | 100 across, LCP 0.5s |
+| Natal service | 99 / 100 / 100 / 100       | 2.0s | 100 across, LCP 0.4s |
+| Sign page     | 100 / 100 / 100 / 100      | 1.1s | 100 across, LCP 0.3s |
+| Blog          | 99 / 100 / 100 / 100       | 2.2s | 100 across, LCP 0.6s |
+| Start Here    | 99 / 100 / 100 / 100       | 2.3s | 100 across, LCP 0.5s |
 
 TBT 0–10ms throughout, CLS 0.000 throughout. Doctype and charset present, no deprecated tags, all
 images dimensioned.
@@ -495,12 +500,12 @@ measured TBT of 0ms independently confirms nothing is blocking.
 **Real issue — 112 inline `style=` attributes on the homepage** (35 on a service page, 22 on a sign
 page). The rubric penalises more than 10. They are almost all trivial repeated declarations:
 
-| Count | Declaration |
-|---|---|
-| 32 | `margin: 0;` |
-| 14 | `gap: var(--space-2);` |
-| 11 | `color: var(--color-teal);` |
-| 8 | `font-size: var(--text-lg); margin: 0;` |
+| Count | Declaration                             |
+| ----- | --------------------------------------- |
+| 32    | `margin: 0;`                            |
+| 14    | `gap: var(--space-2);`                  |
+| 11    | `color: var(--color-teal);`             |
+| 8     | `font-size: var(--text-lg); margin: 0;` |
 
 Low severity for correctness — but they make a strict Content-Security-Policy impossible without
 `unsafe-inline`, which defeats most of the point of having one.
@@ -508,17 +513,44 @@ Low severity for correctness — but they make a strict Content-Security-Policy 
 **Fix — replace with utility classes in `src/styles/tokens.css`:**
 
 ```css
-.m-0     { margin: 0; }
-.mt-6    { margin-top: var(--space-6); }
-.mt-auto { margin-top: auto; }
-.mi-auto { margin-inline: auto; }
-.text-lg { font-size: var(--text-lg); }
-.text-xl { font-size: var(--text-xl); }
-.c-teal  { color: var(--color-teal); }
-.c-accent{ color: var(--accent-ink); }
-.row     { display: flex; align-items: center; gap: var(--space-3); }
-.row-sm  { display: flex; align-items: center; gap: var(--space-2); }
-.stack   { display: flex; flex-direction: column; }
+.m-0 {
+  margin: 0;
+}
+.mt-6 {
+  margin-top: var(--space-6);
+}
+.mt-auto {
+  margin-top: auto;
+}
+.mi-auto {
+  margin-inline: auto;
+}
+.text-lg {
+  font-size: var(--text-lg);
+}
+.text-xl {
+  font-size: var(--text-xl);
+}
+.c-teal {
+  color: var(--color-teal);
+}
+.c-accent {
+  color: var(--accent-ink);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+.row-sm {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+.stack {
+  display: flex;
+  flex-direction: column;
+}
 ```
 
 Then add the CSP to `public/_headers` once inline styles are gone:
@@ -541,17 +573,17 @@ the token sheet per route would cost more in maintainability than it returns. No
 
 Ordered by impact × effort, per the skill's instruction, not by category.
 
-| # | Action | Effort | Impact |
-|---|---|---|---|
-| 1 | Confirm Cloudflare built commit `3199d98`; add `public/_headers` with HTML `must-revalidate` + security headers | 10 min | **Critical** — nothing else is reviewable until staging is current, and stale HTML breaks every future content update |
-| 2 | Emit `FAQPage` schema on the 7 service pages (28 Q&A pairs already written) | 20 min | **High** — the single largest AEO gain available; zero new content required |
-| 3 | Add `public/llms.txt` | 10 min | Medium — cheap, and the site's structure is unusually well suited to it |
-| 4 | Add `Article` schema with real `dateModified` to the 99 undated pages | 45 min | **High** — fixes the largest GEO signal gap and the Schema type gap in one change |
-| 5 | `<fieldset>` + `<legend>` on the booking radio group | 5 min | Medium — real WCAG 1.3.1 defect on the conversion page |
-| 6 | Expand `Person` schema with `sameAs`, `url`, `knowsAbout` | 10 min | Medium — lets engines resolve Mo to a real, citable person |
-| 7 | Rewrite the 13 sign pages' section headings as questions | 1–2 hrs | **High** — highest-volume query class on the site, currently the least extractable |
-| 8 | Add visible `Sources` sections to reference pages | 3–4 hrs | **High** for GEO and for integrity — currently 0 of 118 pages cite anything |
-| 9 | Replace 112 inline styles with utility classes, then enable CSP | 2 hrs | Low-medium — maintainability and security posture, not user-visible |
+| #   | Action                                                                                                          | Effort  | Impact                                                                                                                |
+| --- | --------------------------------------------------------------------------------------------------------------- | ------- | --------------------------------------------------------------------------------------------------------------------- |
+| 1   | Confirm Cloudflare built commit `3199d98`; add `public/_headers` with HTML `must-revalidate` + security headers | 10 min  | **Critical** — nothing else is reviewable until staging is current, and stale HTML breaks every future content update |
+| 2   | Emit `FAQPage` schema on the 7 service pages (28 Q&A pairs already written)                                     | 20 min  | **High** — the single largest AEO gain available; zero new content required                                           |
+| 3   | Add `public/llms.txt`                                                                                           | 10 min  | Medium — cheap, and the site's structure is unusually well suited to it                                               |
+| 4   | Add `Article` schema with real `dateModified` to the 99 undated pages                                           | 45 min  | **High** — fixes the largest GEO signal gap and the Schema type gap in one change                                     |
+| 5   | `<fieldset>` + `<legend>` on the booking radio group                                                            | 5 min   | Medium — real WCAG 1.3.1 defect on the conversion page                                                                |
+| 6   | Expand `Person` schema with `sameAs`, `url`, `knowsAbout`                                                       | 10 min  | Medium — lets engines resolve Mo to a real, citable person                                                            |
+| 7   | Rewrite the 13 sign pages' section headings as questions                                                        | 1–2 hrs | **High** — highest-volume query class on the site, currently the least extractable                                    |
+| 8   | Add visible `Sources` sections to reference pages                                                               | 3–4 hrs | **High** for GEO and for integrity — currently 0 of 118 pages cite anything                                           |
+| 9   | Replace 112 inline styles with utility classes, then enable CSP                                                 | 2 hrs   | Low-medium — maintainability and security posture, not user-visible                                                   |
 
 Items 1–6 total roughly two hours and move AEO from 6 toward 8, GEO from 4 toward 7, Schema to 9–10
 and ADA to a clean 10 on the automated floor. Items 7 and 8 are the ones that decide whether the
@@ -563,7 +595,7 @@ of truth, the whole point.
 Real-world Core Web Vitals from the Cloudflare edge on real devices. Any effect from Cal.com, GA4 or
 MailerLite, none of which are wired in yet — all three will change the performance and privacy
 picture. Keyboard-only navigation and screen-reader behaviour, which need a person. Whether alt text
-is *appropriate* rather than merely present. Whether the astrological content is *correct*, which is
+is _appropriate_ rather than merely present. Whether the astrological content is _correct_, which is
 Mo's review to make, not an auditor's.
 
 No claim of legal or WCAG compliance is made anywhere in this report.

@@ -12,18 +12,20 @@ This site is built so you (Mo/Shane) can update everything that changes often by
 Change a file → commit → Cloudflare Pages rebuilds and deploys automatically (~1 minute).
 
 ## Common tasks
-| Task | See |
-|---|---|
-| Change a price or service detail | docs/add-a-service.md |
-| Add/remove a sky event | docs/update-current-sky.md |
-| Publish a blog post | docs/add-a-blog-post.md |
-| Add a video | docs/add-a-video.md |
-| Edit menus/footer | docs/manage-navigation.md |
-| Add a testimonial | edit `src/content/testimonials/testimonials.json`; set `approved: true` only with the client's permission (unapproved entries never appear) |
-| Edit a policy page | edit the matching file in `src/content/legal/`; change `reviewStatus` once attorney-approved to remove the draft banner |
-| Deploy / go live | docs/deployment.md, docs/domain-migration.md |
+
+| Task                             | See                                                                                                                                         |
+| -------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------- |
+| Change a price or service detail | docs/add-a-service.md                                                                                                                       |
+| Add/remove a sky event           | docs/update-current-sky.md                                                                                                                  |
+| Publish a blog post              | docs/add-a-blog-post.md                                                                                                                     |
+| Add a video                      | docs/add-a-video.md                                                                                                                         |
+| Edit menus/footer                | docs/manage-navigation.md                                                                                                                   |
+| Add a testimonial                | edit `src/content/testimonials/testimonials.json`; set `approved: true` only with the client's permission (unapproved entries never appear) |
+| Edit a policy page               | edit the matching file in `src/content/legal/`; change `reviewStatus` once attorney-approved to remove the draft banner                     |
+| Deploy / go live                 | docs/deployment.md, docs/domain-migration.md                                                                                                |
 
 ## Rules the site enforces for you
+
 - Services with `priceConfirmed: false` show "pricing confirmed at booking" instead of a number — no accidental fake prices.
 - Testimonials with `approved: false` never render in production.
 - Legal pages marked `attorney-review-required` display a draft banner.

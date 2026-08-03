@@ -6,6 +6,7 @@
   "description": "Mo Lumen Astrology — static site built with Astro, deployed on Cloudflare Pages.",
   "scripts": {
     "dev": "astro dev",
+    "prebuild": "node scripts/gen-page-dates.mjs",
     "build": "astro build",
     "preview": "astro preview",
     "check": "astro check",

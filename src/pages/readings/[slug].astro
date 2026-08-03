@@ -51,6 +51,20 @@ const schema: object[] = [
       : {}),
   },
 ];
+
+// The Q&A already rendered below is real, owner-written content; mark it up so
+// answer engines and AI search can quote it instead of guessing.
+if (faqs.length > 0) {
+  schema.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.data.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.data.answer },
+    })),
+  });
+}
 ---
 
 <BaseLayout
