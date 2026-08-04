@@ -35,6 +35,9 @@ const crumbs = [
   { label: 'Blog', href: '/blog/' },
   { label: d.title, href: `/blog/${slug}/` },
 ];
+/** Reading time from the real word count at 220 wpm, rounded up. */
+const readingMinutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
+
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -68,10 +71,12 @@ const schema = [
           <p class="eyebrow">{d.category}</p>
           <h1>{d.title}</h1>
           <p class="lede">{d.description}</p>
-          <p class="card__meta">
-            By <a href="/about/">Mo Lumen</a> · {fmt(d.publishDate)}
-            {d.updatedDate ? ` · Updated ${fmt(d.updatedDate)}` : ''}
-          </p>
+          <ul class="hero__meta" aria-label="Article details">
+            <li>{fmt(d.publishDate)}</li>
+            <li>{readingMinutes} min read</li>
+            {d.updatedDate && <li>Updated {fmt(d.updatedDate)}</li>}
+          </ul>
+          <p class="card__meta">By <a href="/about/">Mo Lumen</a></p>
         </div>
         <img
           class="hero__img"

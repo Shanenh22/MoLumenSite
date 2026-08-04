@@ -32,11 +32,32 @@ const PAGES = [
   "/book/",
   "/readings/",
   "/readings/natal/",
+  "/readings/gift/",
   "/explore/",
   "/explore/signs/aries/",
+  "/explore/signs/",
+  "/explore/dignities/",
+  "/current-sky/",
+  "/current-sky/the-sky-in-2026/",
+  "/current-sky/archive/",
   "/blog/",
+  "/blog/what-is-a-transit/",
   "/about/",
+  "/approach/",
+  "/credentials/",
   "/testimonials/",
+  "/contact/",
+  "/newsletter/",
+  "/videos/",
+  "/start-here/",
+  "/how-readings-work/",
+  "/prepare-for-your-reading/",
+  "/reading-finder/",
+  "/resources/",
+  "/courses/",
+  "/guides/",
+  "/horoscopes/",
+  "/privacy/",
 ];
 const browser = await chromium.launch({
   executablePath: "/opt/pw-browsers/chromium",
@@ -51,14 +72,16 @@ for (const vp of [
   });
   const page = await ctx.newPage();
   console.log(`\n${vp.n} (${vp.w}x${vp.h})`);
-  console.log(`  ${"page".padEnd(26)} hero-h   % of fold   h1     body`);
+  console.log(`  ${"page".padEnd(30)} hero-h   %fold   img-h`);
   for (const p of PAGES) {
     await page.goto(`http://localhost:${PORT}${p}`, { waitUntil: "load" });
     const m = await page.evaluate(() => {
       const hero = document.querySelector(".hero");
       const h1 = document.querySelector("h1");
+      const img = document.querySelector(".hero__img, .hero__portrait img");
       return {
         hero: hero ? Math.round(hero.getBoundingClientRect().height) : 0,
+        img: img ? Math.round(img.getBoundingClientRect().height) : 0,
         h1: h1 ? getComputedStyle(h1).fontSize : "-",
         body: getComputedStyle(document.body).fontSize,
       };
@@ -66,7 +89,7 @@ for (const vp of [
     const pct = Math.round((m.hero / vp.h) * 100);
     const flag = pct > 70 ? "  <-- over 70% of the fold" : "";
     console.log(
-      `  ${p.padEnd(26)} ${String(m.hero).padStart(5)}px  ${String(pct).padStart(4)}%      ${m.h1.padStart(7)} ${m.body}${flag}`,
+      `  ${p.padEnd(30)} ${String(m.hero).padStart(5)}px  ${String(pct).padStart(4)}%  ${String(m.img).padStart(5)}px${flag}`,
     );
   }
   await ctx.close();

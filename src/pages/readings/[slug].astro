@@ -81,6 +81,25 @@ if (faqs.length > 0) {
         <p class="eyebrow">Readings</p>
         <h1>{s.name}</h1>
         <p class="lede">{s.purpose}</p>
+        {/* Real data from the service record — duration, price, formats, and
+            who may book. Never invented; priceLabel only renders when the
+            price is confirmed. */}
+        <ul class="hero__meta" aria-label="At a glance">
+          <li>{s.durationLabel}</li>
+          {s.priceConfirmed && (s.priceLabel || s.price) && (
+            <li class="hero__meta--price">{s.priceLabel ?? `$${s.price}`}</li>
+          )}
+          {s.format.slice(0, 2).map((f) => (
+            <li>{f}</li>
+          ))}
+          {s.audience === 'established' && <li>Established clients</li>}
+        </ul>
+        <p class="hero__cta">
+          <a class="btn btn--accent" href={`/book/?service=${s.bookingEventId}`}>
+            Book this reading
+          </a>
+          <a class="btn btn--ghost" href="/reading-finder/">Not sure? Find your reading</a>
+        </p>
       </div>
       {
         serviceImages[s.slug] && (

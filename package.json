@@ -20,7 +20,8 @@
     "audit:lh": "node scripts/lh-audit.mjs",
     "test:booking": "node scripts/test-booking-embed.mjs",
     "shot": "node scripts/shot.mjs",
-    "measure:heroes": "node scripts/measure-heroes.mjs"
+    "measure:heroes": "node scripts/measure-heroes.mjs",
+    "check:contrast": "node scripts/check-contrast.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
