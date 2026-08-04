@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, scenes } from '../../config/images';
+import { photos, ocean } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [
@@ -28,10 +28,11 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.duskMountains.src}
-        alt={scenes.duskMountains.alt}
-        width={scenes.duskMountains.width}
-        height={scenes.duskMountains.height}
+        src={ocean.floatingInTrust.src}
+        alt={ocean.floatingInTrust.alt}
+        width={ocean.floatingInTrust.width}
+        height={ocean.floatingInTrust.height}
+        style="object-position: center 22%;"
         fetchpriority="high"
       />
     </div>

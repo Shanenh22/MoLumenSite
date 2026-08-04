@@ -1950,7 +1950,28 @@ fieldset.booking-group > legend span {
   z-index: -2;
 }
 /* Scrim. Heavier on the text side so the copy always sits on deep navy,
-   lighter across the rest so the photograph still reads. */
+   lighter across the rest so the photograph still reads.
+
+   The stops are measured, not chosen. .container is 70rem and the text column
+   inside it is capped at 46rem, so on a 1440px viewport the h1 and lede boxes
+   end at roughly 62% of the width — and a box's right edge counts even where
+   the words stop short of it, because that is where a bright pixel can land
+   behind a descender.
+
+   Alpha at that 62% mark is therefore the number that matters. Composited over
+   a pure white pixel:
+
+       alpha 0.62  ->  rgb(110,117,133)  ->  4.3:1   fails
+       alpha 0.70  ->  rgb(92,99,117)    ->  5.5:1
+       alpha 0.80  ->  rgb(69,77,97)     ->  7.4:1
+
+   The previous ramp (0.9 at 40%, 0.52 at 66%) interpolated to about 0.58 there,
+   which was fine for the muted studio photographs it was built against and
+   failed the moment brighter imagery arrived: /explore/schools/ measured 4.12:1
+   with ocean-meeting-waves behind it, and /explore/eclipses/ sat on exactly
+   4.50. Holding 0.8 out to 62% before the fall-off puts every hero at 5:1 or
+   better with the photograph still legible across the right third.
+   Re-run npm run check:hero-contrast after touching any of this. */
 .hero--split::before {
   content: "";
   position: absolute;
@@ -1960,9 +1981,10 @@ fieldset.booking-group > legend span {
     linear-gradient(
       100deg,
       rgb(22 32 58 / 0.95) 0%,
-      rgb(22 32 58 / 0.9) 40%,
-      rgb(22 32 58 / 0.52) 66%,
-      rgb(22 32 58 / 0.2) 100%
+      rgb(22 32 58 / 0.93) 44%,
+      rgb(22 32 58 / 0.8) 62%,
+      rgb(22 32 58 / 0.44) 80%,
+      rgb(22 32 58 / 0.18) 100%
     ),
     linear-gradient(to top, rgb(22 32 58 / 0.4), transparent 60%);
 }
@@ -2185,5 +2207,154 @@ fieldset.booking-group > legend span {
 @media (prefers-reduced-motion: reduce) {
   .choice--book.is-recommended {
     box-shadow: 0 0 0 2px var(--color-teal);
+  }
+}
+
+/* ============================================================
+   Interlude — full-bleed image band inside a long page
+   ============================================================
+   Reference pages had one image each (the hero) and then nothing,
+   so everything below the fold read as an unbroken text column
+   while the homepage alternated bands. This is the pause.
+
+   Same architecture as .hero--split: a real <img> filling the
+   band at z-index -2, a scrim at -1, normal-flow content painting
+   above both without needing a stacking context of its own.
+
+   The difference is the scrim. .hero--split uses a 100deg
+   directional gradient because its text sits in a left column and
+   the photograph is meant to read on the right — which is exactly
+   why it needed a separate mobile override once the column went
+   full-width. Interlude text is a centred column at every width,
+   so the scrim is UNIFORM: text lands on the same alpha wherever
+   the column falls, and there is no breakpoint at which it drifts
+   into a lighter stop.
+
+   The floor alpha is 0.72. Against a pure white pixel that
+   composites to rgb(87,94,113), which is 5.9:1 under ivory text —
+   so this band cannot fail 4.5:1 no matter how bright the
+   photograph behind it is. That headroom is the point; do not
+   trade it away to make an image read more clearly.
+   `npm run check:hero-contrast` measures it.
+   ============================================================ */
+.interlude {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  padding-block: var(--space-16);
+  min-block-size: 20rem;
+  background: var(--color-navy-deep);
+}
+.interlude__img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  max-inline-size: none;
+  max-block-size: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 45%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: -2;
+}
+.interlude::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgb(22 32 58 / 0.86) 0%,
+    rgb(22 32 58 / 0.72) 42%,
+    rgb(22 32 58 / 0.72) 58%,
+    rgb(22 32 58 / 0.9) 100%
+  );
+}
+/* Sparse gold star field, matching the night bands. */
+.interlude::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(
+      1.6px 1.6px at 14% 22%,
+      rgb(200 171 110 / 0.9),
+      transparent
+    ),
+    radial-gradient(
+      1.4px 1.4px at 78% 16%,
+      rgb(250 246 238 / 0.7),
+      transparent
+    ),
+    radial-gradient(2px 2px at 46% 78%, rgb(200 171 110 / 0.7), transparent),
+    radial-gradient(1.5px 1.5px at 90% 62%, rgb(79 209 197 / 0.6), transparent),
+    radial-gradient(1.4px 1.4px at 26% 88%, rgb(250 246 238 / 0.5), transparent);
+}
+/* Deliberately NOT positioned — see the note in Interlude.astro. */
+.interlude .container {
+  display: block;
+}
+.interlude__body {
+  max-inline-size: 44rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.interlude h2 {
+  color: var(--color-ivory);
+  font-size: var(--text-3xl);
+  text-wrap: balance;
+}
+.interlude h2::after {
+  content: "";
+  display: block;
+  inline-size: 4.5rem;
+  block-size: 3px;
+  margin: var(--space-3) auto 0;
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    rgb(200 171 110 / 0.15),
+    var(--color-gold-soft),
+    rgb(200 171 110 / 0.15)
+  );
+}
+.interlude .lede {
+  color: rgb(250 246 238 / 0.92);
+  margin-inline: auto;
+}
+.interlude p {
+  color: rgb(250 246 238 / 0.9);
+}
+.interlude .eyebrow {
+  color: var(--color-aqua-soft);
+  background: rgb(46 196 182 / 0.16);
+  border-color: rgb(46 196 182 / 0.45);
+}
+.interlude .btn--ghost {
+  color: var(--color-ivory);
+  border-color: rgb(250 246 238 / 0.5);
+}
+.interlude .btn--ghost:hover {
+  background: rgb(250 246 238 / 0.1);
+  color: var(--color-ivory);
+}
+@media (max-width: 899px) {
+  .interlude {
+    padding-block: var(--space-12);
+    min-block-size: 0;
+  }
+  .interlude h2 {
+    font-size: var(--text-2xl);
+  }
+  .interlude .lede {
+    font-size: var(--text-base);
   }
 }

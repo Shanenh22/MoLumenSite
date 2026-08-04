@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { ocean } from '../../config/images';
+import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Moon Phases', href: '/explore/moon-phases/' },
@@ -25,10 +26,10 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.monthlyTransits.src}
-        alt={scenes.monthlyTransits.alt}
-        width={scenes.monthlyTransits.width}
-        height={scenes.monthlyTransits.height}
+        src={ocean.seaStackMoonrise.src}
+        alt={ocean.seaStackMoonrise.alt}
+        width={ocean.seaStackMoonrise.width}
+        height={ocean.seaStackMoonrise.height}
         fetchpriority="high"
       />
     </div>
@@ -90,6 +91,19 @@ const crumbs = [
         </p>
       </div>
 
+    </div>
+  </section>
+
+  <Interlude
+    image={ocean.currents}
+    eyebrow="One month at a time"
+    heading="If a practice makes you calmer and more deliberate, it's working."
+    body="Set an intention at the new moon, check the friction at the first quarter, look honestly at results at the full, clear the decks at the last. That is the whole practice."
+  />
+
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>Making it personal</h2>
       <p>
         The general cycle affects everyone loosely. It becomes specific when you know which

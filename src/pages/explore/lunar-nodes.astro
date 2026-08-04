@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Lunar Nodes', href: '/explore/lunar-nodes/' },
@@ -25,10 +25,11 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.chartDetail.src}
-        alt={scenes.chartDetail.alt}
-        width={scenes.chartDetail.width}
-        height={scenes.chartDetail.height}
+        src={ocean.whaleTailStars.src}
+        alt={ocean.whaleTailStars.alt}
+        width={ocean.whaleTailStars.width}
+        height={ocean.whaleTailStars.height}
+        style="object-position: center 76%;"
         fetchpriority="high"
       />
     </div>

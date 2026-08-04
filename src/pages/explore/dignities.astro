@@ -3,7 +3,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import Layers from '../../components/Layers.astro';
-import { scenes } from '../../config/images';
+import { scenes, ocean } from '../../config/images';
+import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Essential Dignities', href: '/explore/dignities/' },
@@ -130,6 +131,19 @@ const crumbs = [
         </p>
       </Layers>
 
+    </div>
+  </section>
+
+  <Interlude
+    image={ocean.coralReefBlueHour}
+    eyebrow="Traditional practice"
+    heading="Is this planet in a position to do its job well?"
+    body="Dignity gives you a way to weigh a chart rather than simply describe it — the difference between saying “Mars in the tenth” twice and saying something true about each."
+  />
+
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>Beyond the essentials</h2>
       <p>
         The full traditional system also includes <em>accidental dignity</em> — strength from

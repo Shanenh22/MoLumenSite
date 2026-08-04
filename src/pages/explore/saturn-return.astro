@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Saturn Return', href: '/explore/saturn-return/' },
@@ -25,10 +25,11 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.duskMountains.src}
-        alt={scenes.duskMountains.alt}
-        width={scenes.duskMountains.width}
-        height={scenes.duskMountains.height}
+        src={ocean.solitaryBuoy.src}
+        alt={ocean.solitaryBuoy.alt}
+        width={ocean.solitaryBuoy.width}
+        height={ocean.solitaryBuoy.height}
+        style="transform: scaleX(-1);"
         fetchpriority="high"
       />
     </div>
