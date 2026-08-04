@@ -70,16 +70,24 @@ export const footerNav: Record<string, NavLink[]> = {
   ],
   Site: [
     { label: "About Mo", href: "/about/" },
+    { label: "Testimonials", href: "/testimonials/" },
     { label: "Resources", href: "/resources/" },
     { label: "Courses", href: "/courses/" },
     { label: "Guides", href: "/guides/" },
-    { label: "Testimonials", href: "/testimonials/" },
-    { label: "Newsletter", href: "/newsletter/" },
     { label: "Contact", href: "/contact/" },
-    { label: "Privacy", href: "/privacy/" },
-    { label: "Terms", href: "/terms/" },
-    { label: "Disclaimer", href: "/disclaimer/" },
-    { label: "Booking Policy", href: "/booking-policy/" },
-    { label: "Accessibility", href: "/accessibility/" },
   ],
 };
+
+/**
+ * Policy links render as an inline row in the footer's bottom bar, not as a
+ * fifth column. Twelve stacked links in one column made the footer enormous
+ * and buried the pages people actually want.
+ */
+export const policyNav: NavLink[] = [
+  { label: "Privacy", href: "/privacy/" },
+  { label: "Terms", href: "/terms/" },
+  { label: "Disclaimer", href: "/disclaimer/" },
+  { label: "Booking Policy", href: "/booking-policy/" },
+  { label: "Accessibility", href: "/accessibility/" },
+  { label: "Newsletter", href: "/newsletter/" },
+];

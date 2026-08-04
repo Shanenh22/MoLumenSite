@@ -44,6 +44,27 @@ const bookables = services.flatMap((s) =>
       ]
 );
 const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
+
+/**
+ * Split by who may book. A first-time visitor should see the three readings
+ * actually open to them, not scan nine and work out which say "established
+ * clients". Same radio group name across both fieldsets, so it stays one
+ * choice.
+ */
+const firstReadings = bookables.filter((b) => b.audience !== 'established');
+const returningReadings = bookables.filter((b) => b.audience === 'established');
+const groups = [
+  {
+    legend: 'Your first reading with Mo',
+    note: 'Open to everyone. Start here if you have not had a reading before.',
+    items: firstReadings,
+  },
+  {
+    legend: 'For returning clients',
+    note: 'These follow on from a natal reading you have already had.',
+    items: returningReadings,
+  },
+].filter((g) => g.items.length > 0);
 ---
 
 <BaseLayout
@@ -79,23 +100,45 @@ const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
     <div class="container">
       <div class="grid grid--2" style="align-items: start;">
         <div class="flow">
-          <fieldset data-booking-services data-services={JSON.stringify(serviceData)}>
-            <legend><h2>Choose your reading</h2></legend>
+          <h2>Choose your reading</h2>
+          <div class="booking-groups" data-booking-services data-services={JSON.stringify(serviceData)}>
             {
-              bookables.map((b, i) => (
-                <label class="choice" style="display: flex;">
-                  <input type="radio" name="booking-service" value={b.key} checked={i === 0} />
-                  <span>
-                    <strong>{b.name}</strong> — {b.duration}
-                    {b.price ? ` · ${b.price}` : ''}
-                    {b.audience === 'established' ? ' · established clients' : ''}
-                    <br />
-                    <a href={`/readings/${b.service}/`}>Details</a>
-                  </span>
-                </label>
+              groups.map((g) => (
+                <fieldset class="booking-group">
+                  <legend>
+                    {g.legend}
+                    <span>{g.note}</span>
+                  </legend>
+                  <div class="booking-list">
+                    {g.items.map((b) => (
+                      <label class="choice choice--book">
+                        <input
+                          type="radio"
+                          name="booking-service"
+                          value={b.key}
+                          checked={b.key === firstReadings[0]?.key}
+                        />
+                        <span class="choice__body">
+                          <span class="choice__name">{b.name}</span>
+                          <span class="choice__meta">
+                            <span class="choice__tag">{b.duration}</span>
+                            <a class="choice__details" href={`/readings/${b.service}/`}>
+                              Details
+                            </a>
+                          </span>
+                        </span>
+                        {b.price && <span class="choice__price">{b.price}</span>}
+                      </label>
+                    ))}
+                  </div>
+                </fieldset>
               ))
             }
-          </fieldset>
+          </div>
+        </div>
+
+        <div class="flow">
+          <BookingEmbed calUser={calUser} services={serviceData} />
           <div class="callout">
             <p style="margin: 0;">
               <strong>Before you book:</strong> live readings need your birth date, exact time, and
@@ -104,10 +147,6 @@ const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
               (cancellation, rescheduling, and recording details).
             </p>
           </div>
-        </div>
-
-        <div class="flow">
-          <BookingEmbed calUser={calUser} services={serviceData} />
         </div>
       </div>
     </div>

@@ -1,5 +1,5 @@
 ---
-import { footerNav } from '../config/navigation';
+import { footerNav, policyNav } from '../config/navigation';
 import { site } from '../config/site';
 import NewsletterForm from './NewsletterForm.astro';
 import LogoMark from './LogoMark.astro';
@@ -44,6 +44,15 @@ const year = new Date().getFullYear();
       }
     </div>
     <div class="footer-legal">
+      <nav aria-label="Policies">
+        <ul class="footer-policies">
+          {policyNav.map((link) => (
+            <li>
+              <a href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
       <p>
         © {year}
         {site.legalName}. Astrology offers perspective, not certainty — see the

@@ -13,3 +13,6 @@ node_modules/
 # logs & OS noise
 npm-debug.log*
 .DS_Store
+
+# Screenshots from scripts/shot.mjs — local review only
+shots/
