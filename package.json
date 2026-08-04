@@ -14,14 +14,15 @@
     "format:check": "prettier --check .",
     "test:links": "linkinator ./dist --recurse --silent",
     "test:a11y": "pa11y-ci",
-    "audit:install": "npm install --no-save lighthouse playwright",
+    "audit:install": "npm install --no-save lighthouse playwright pngjs",
     "audit": "node scripts/audit.mjs",
     "audit:a11y": "node scripts/axe-sweep.mjs",
     "audit:lh": "node scripts/lh-audit.mjs",
     "test:booking": "node scripts/test-booking-embed.mjs",
     "shot": "node scripts/shot.mjs",
     "measure:heroes": "node scripts/measure-heroes.mjs",
-    "check:contrast": "node scripts/check-contrast.mjs"
+    "check:contrast": "node scripts/check-contrast.mjs",
+    "check:hero-contrast": "node scripts/check-hero-contrast.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
