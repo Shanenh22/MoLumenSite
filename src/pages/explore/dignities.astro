@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import Layers from '../../components/Layers.astro';
-import { scenes, ocean } from '../../config/images';
+import { celestial, scenes, ocean } from '../../config/images';
 import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -69,6 +70,13 @@ const crumbs = [
         </li>
       </ul>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.hourglass} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The table</h2>
       <div class="table-scroll" tabindex="0" role="region" aria-label="Essential dignities table, scrollable">
       <table class="ref-table">

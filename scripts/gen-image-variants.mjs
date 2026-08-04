@@ -31,7 +31,12 @@
 import { readdirSync, statSync } from "node:fs";
 import { join } from "node:path";
 import sharp from "sharp";
-import { VARIANT_WIDTHS, ocean, scenes } from "../src/config/images.ts";
+import {
+  VARIANT_WIDTHS,
+  celestial,
+  ocean,
+  scenes,
+} from "../src/config/images.ts";
 
 const DIR = "public/images";
 /**
@@ -46,8 +51,12 @@ const WIDTHS = VARIANT_WIDTHS;
 const QUALITY = 78;
 const force = process.argv.includes("--force");
 
-/** Band images only: every hero and interlude draws from these two registries. */
-const sources = [...Object.values(scenes), ...Object.values(ocean)];
+/** Band images only: every hero, interlude and SeaBreak draws from these. */
+const sources = [
+  ...Object.values(scenes),
+  ...Object.values(ocean),
+  ...Object.values(celestial),
+];
 
 const kb = (n) => `${Math.round(n / 1024)}KB`;
 let written = 0,

@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
+import SeaBreak from '../../../components/SeaBreak.astro';
+import { bandFor } from '../../../config/images';
 import { planets } from '../../../data/planets';
 
 export function getStaticPaths() {
@@ -17,6 +19,10 @@ const crumbs = [
   { label: 'The Planets', href: '/explore/planets/' },
   { label: p.name, href: `/explore/planets/${p.slug}/` },
 ];
+/* These pages carried no image at all before. Slug-derived so each planet keeps
+   its own pair, stable across builds. */
+const heroImage = bandFor(p.slug);
+const breakImage = bandFor(p.slug, 5);
 ---
 
 <BaseLayout
@@ -26,11 +32,23 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">The Planets</p>
-      <h1><span aria-hidden="true">{p.glyph}</span> {p.name}</h1>
-      <p class="lede">{p.drive}</p>
+      <div>
+        <p class="eyebrow">The Planets</p>
+        <h1><span aria-hidden="true">{p.glyph}</span> {p.name}</h1>
+        <p class="lede">{p.drive}</p>
+      </div>
+      <img
+        class="hero__img"
+        src={heroImage.src}
+        srcset={heroImage.srcset}
+        sizes="100vw"
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -57,13 +75,24 @@ const crumbs = [
         see <a href="/explore/dignities/">essential dignities</a>. "Joy" is the house a planet was
         traditionally happiest in.
       </p>
+    </div>
+  </section>
 
+  <SeaBreak image={breakImage} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <Layers kind="traditional"><p>{p.traditional}</p></Layers>
       <Layers kind="modern"><p>{p.modern}</p></Layers>
       <Layers kind="mo"><p>{p.mo}</p></Layers>
       {p.differs && <Layers kind="differs"><p>{p.differs}</p></Layers>}
       <Layers kind="misconception"><p set:html={p.misconception} /></Layers>
 
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>In your chart</h2>
       <p>{p.inYourChart}</p>
       <h2>When it leads</h2>

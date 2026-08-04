@@ -361,3 +361,121 @@ committing and put back anything you did not mean to change.
 Related: `git status` on this repo lists files as modified that have no content diff at all.
 `core.autocrlf` is `true` and there is no `.gitattributes`, so anything Prettier rewrites comes back
 with LF against a CRLF working tree. `git diff --stat` is the honest view; `git status` is not.
+
+## Making the internal pages immersive (2026-08-04)
+
+### What was actually wrong, measured
+
+The brief was "the internal pages are a wall of text — make them soothing." The numbers, taken from
+the built output rather than by eye:
+
+- **64 of 129 pages carried no image at all.** Every sign, planet, house, aspect and sky-event page
+  had no hero image, no body art, nothing. They used `.hero` rather than `.hero--split`, which is
+  why the previous ocean pass never touched them and why `check:hero-contrast` had never heard of
+  them.
+- **51 more had only a hero.** So ~115 pages were pure text below the fold.
+- A reference page was **one `<section>` holding every heading**, and `.flow > * + *` gives every
+  sibling the same 1rem gap — so an `h2` opening a new idea sat as close to the paragraph above it
+  as two paragraphs of the same thought. Nothing for the eye to catch on for 1000px of scroll.
+
+### The system
+
+Not 129 one-off edits. Four pieces, and 74 of the pages are reached through seven `[slug].astro`
+templates:
+
+- **`src/components/SeaBreak.astro`** — a short full-bleed ocean band. Two variants, and _the
+  difference between them is the scrim, not the height_. `--rest` carries no text, so there is no
+  contrast obligation and the scrim is deliberately light (0.30 floor) — a band you cannot see
+  through is just a dark stripe, which is the opposite of the point. `--quote` carries a line and
+  jumps to the same 0.72 floor `.interlude` uses.
+- **Prose rhythm** — real space before each `h2` plus a small teal tide-line, so sections separate.
+  These rules are written `.prose.flow > h2` because they have to out-specify `.flow > * + *`.
+- **`.section--sea`** — a soft ocean wash, alternated down a page so the background breathes.
+- **`oceanFor(slug)` in `src/config/images.ts`** — a deterministic picker. Twelve sign pages needed
+  twelve _different_ images without twelve judgement calls, and the choice must be stable across
+  builds or screenshot diffs and contrast runs become meaningless.
+
+Signs, planets, houses, aspects and sky events were also converted to `hero--split`, which is what
+gave 54 previously image-less pages an immersive opening.
+
+Every `line` on a band is still drawn from copy already on that page. They are pull-quotes, not new
+claims — the `<Interlude>` rule, unchanged.
+
+### Two things that were tried and removed
+
+**A scroll-reveal fade.** It looked right in principle and rendered the bands as blank white gaps in
+the very first screenshot — the images are `loading="lazy"`, so a band that had not been scrolled to
+had nothing in it, and `opacity: 0` meant it never appeared. This is the same trap already recorded
+above about lazy images and screenshots, arrived at from a different direction. Hiding content
+behind a script to make it feel calmer is a bad trade; it is gone.
+
+**An "On this page" sidebar nav.** Deliberately deferred, not forgotten. It is the strongest
+remaining answer to "easy to navigate" and it would fill the dead desktop margin, but doing it
+without layout shift needs the headings known at build time, and they are inline in 62 files.
+
+### check:hero-contrast no longer has a hand-written page list
+
+This mattered more than the cosmetics. The list named 27 pages; this work added roughly ninety
+text-over-photo blocks, none of which would have been measured. **A contrast check whose coverage
+depends on somebody remembering to append a path is a check that silently shrinks.** It now scans
+`dist` for `.hero--split`, `.interlude` and `.seabreak--quote` and measures whatever is really
+there, printing the page count so a drop in coverage is visible rather than silent.
+
+`.seabreak--rest` is excluded on purpose: nothing sits on it, so there is no ratio to measure.
+
+### Verified state
+
+`astro check` 0 errors, 129 pages. **Hero contrast: 118 pages discovered, every block above 4.5:1,
+worst 5.14:1** (was 27 pages checked). axe 0 violations across 20 pages x 2 viewports.
+`check:contrast` all pass. Audit clean on 13 checks (`/videos/` still the one thin page). Booking
+18/18, finder 11/11.
+
+## Imagery of people — Shane's decision, 2026-08-04
+
+Shane supplied a second image set (celestial and metaphorical rather than ocean: a bowl of moon
+phases, an hourglass, a tide pool holding a galaxy, a lighthouse, a moth at the full moon, and
+others). Four of them contain a person or a pair of hands — a woman seen from behind at an open
+door, weathered hands holding a seed, hands stitching constellations, a hand holding a key.
+
+Those four are the same category this file previously said to hold back. **Shane was asked directly
+and approved using them on 2026-08-04.** So the no-invented-portraits rule is about generated
+pictures presented _as Mo_, not about any human presence in decorative art.
+
+What that does and does not change:
+
+- It does **not** relax any other rule. Alt text still describes only what is in the frame, never
+  implies who took the picture, and never implies the figure is Mo. Still no captions, credits or
+  locations. Still nothing of this kind on `/about/` or `/credentials/`, where proximity to Mo's
+  real biography is what would make a reader draw the wrong conclusion.
+- `ocean-waterline.webp` and `ocean-releasing-water.webp` were **not** named in that approval, so
+  they stay unregistered until Shane says otherwise. The reasoning above probably extends to them —
+  ask, do not assume.
+- Mo has still not seen any of this. Her sign-off remains outstanding, as it does for the
+  testimonials.
+
+All nineteen are registered as `celestial` in `src/config/images.ts` and their variants are built.
+
+### These are placed by meaning, not by hash
+
+The ocean set is decorative and interchangeable, so `bandFor()` hashes a slug into it and the
+result means nothing in particular. The celestial set is different — it has real subject matter, so
+placing it at random would waste it and, worse, would invite a reader to find significance that was
+never intended. Where a page has an honest match it is placed by hand:
+
+| page                           | image                           | why                            |
+| ------------------------------ | ------------------------------- | ------------------------------ |
+| `/explore/saturn-return/`      | cracked sphere repaired in gold | breaks, then rebuilds          |
+| `/explore/moon-phases/`        | moon phases in a water bowl     | literal                        |
+| `/explore/angles/`             | a figure at an open doorway     | the Ascendant is a threshold   |
+| `/explore/house-systems/`      | a ring of many keys             | many keys, one lock            |
+| `/explore/schools/`            | a paper boat at a river fork    | the tradition divides          |
+| `/explore/birth-chart-basics/` | a tide pool holding a galaxy    | the whole sky in one small map |
+| `/explore/chart-patterns/`     | constellations being stitched   | pattern made by hand           |
+| `/explore/retrogrades/`        | a coat on an empty chair        | the backward look              |
+
+`bandFor()` now draws from ocean **plus** celestial, which is why the pool comment says the order of
+that array is fixed: it is hashed into, so reordering it silently reshuffles the band on seventy-four
+pages.
+
+**Nothing from the celestial set appears on `/about/` or `/credentials/`**, and the build is checked
+for it. That is the one placement rule that is not aesthetic.

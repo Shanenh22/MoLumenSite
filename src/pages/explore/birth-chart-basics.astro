@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, scenes } from '../../config/images';
+import SeaBreak from '../../components/SeaBreak.astro';
+import { celestial, ocean, photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [
@@ -79,6 +80,13 @@ const crumbs = [
         (arena), aspecting other planets (relationships)</em>. Every chart interpretation you'll
         ever hear is that sentence, elaborated.
       </p>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.galaxyTidepool} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>Why your birth time matters</h2>
       <p>
         The rising sign — the zodiac sign on the eastern horizon at your birth — anchors the

@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { photos, scenes } from '../config/images';
+import SeaBreak from '../components/SeaBreak.astro';
+import { celestial, ocean, photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Prepare for Your Reading', href: '/prepare-for-your-reading/' }];
@@ -53,6 +54,13 @@ const crumbs = [{ label: 'Prepare for Your Reading', href: '/prepare-for-your-re
         (the rising sign and houses depend on it), but much of the chart doesn't, and we can
         shape the reading around what's solid.
       </p>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.clearedTable} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>3. Bring real questions</h2>
       <p>
         Two or three genuine questions beat ten vague ones. The best questions are the ones you

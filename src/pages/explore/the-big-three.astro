@@ -2,6 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -61,7 +62,13 @@ const crumbs = [
         something that lasts. Read more about
         <a href="/explore/planets/sun/">the Sun in astrology</a>.
       </p>
+    </div>
+  </section>
 
+  <SeaBreak image={ocean.lightRays} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The Moon: your needs</h2>
       <p>
         The Moon moves fast — through the whole zodiac in about 27 days, roughly two and a half days
@@ -77,7 +84,16 @@ const crumbs = [
         your life, not a contradiction to resolve. See
         <a href="/explore/planets/moon/">the Moon in astrology</a>.
       </p>
+    </div>
+  </section>
 
+  <SeaBreak
+    image={ocean.seaStackMoonrise}
+    line="Where the Sun is public, the Moon is private."
+  />
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>The rising sign: your threshold</h2>
       <p>
         The rising sign — or Ascendant — is the zodiac sign that was climbing over the eastern
@@ -101,6 +117,11 @@ const crumbs = [
         </p>
       </div>
 
+    </div>
+  </section>
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>Reading them together</h2>
       <p>
         The useful move is not to collect three labels but to notice how they interact. A Leo Sun

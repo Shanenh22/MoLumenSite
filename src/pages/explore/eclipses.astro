@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Eclipses', href: '/explore/eclipses/' },
@@ -70,6 +71,13 @@ const crumbs = [
         </li>
       </ul>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.distanceUnderEclipse} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>What astrologers read into them</h2>
       <p>
         The traditional reading is acceleration. Eclipses tend to correspond with chapters that turn

@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import Layers from '../../components/Layers.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Schools & Traditions', href: '/explore/schools/' },
@@ -77,6 +78,13 @@ const crumbs = [
         and growth.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.paperBoat} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>Evolutionary astrology</h2>
       <p>
         A late-20th-century development placing Pluto and the lunar nodes at the centre, reading the

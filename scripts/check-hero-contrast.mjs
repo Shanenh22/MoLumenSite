@@ -9,7 +9,7 @@
  */
 import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { createReadStream, statSync } from "node:fs";
+import { createReadStream, readFileSync, readdirSync, statSync } from "node:fs";
 import { extname, join } from "node:path";
 import { PNG } from "pngjs";
 
@@ -38,49 +38,51 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(PORT, r));
 
 /**
- * Every page carrying text over a photograph. Two groups:
+ * Text-over-photo blocks. Each is sampled independently.
  *
- *  1. the original ten heroes, one per distinct hero treatment;
- *  2. the reference pages that took ocean imagery on 2026-08-04 — brighter
- *     photographs than anything the scrim had been measured against, which is
- *     exactly why they belong in here rather than being assumed fine.
- *
- * Pages with an .interlude band are listed too; the sampler walks every
- * matching block on a page, so one entry covers both a hero and a band.
+ * `.seabreak--rest` is deliberately absent: nothing sits on it, so there is no
+ * ratio to measure. `.seabreak--quote` carries a line and is very much included.
  */
-const PAGES = [
-  // original set
-  "/current-sky/",
-  "/readings/natal/",
-  "/about/",
-  "/blog/",
-  "/book/",
-  "/credentials/",
-  "/approach/",
-  "/videos/",
-  "/contact/",
-  // ocean heroes
-  "/start-here/",
-  "/explore/",
-  "/explore/angles/",
-  "/explore/the-big-three/",
-  "/explore/transits/",
-  "/explore/retrogrades/",
-  "/explore/moon-phases/",
-  "/explore/eclipses/",
-  "/explore/lunar-nodes/",
-  "/explore/saturn-return/",
-  "/explore/house-systems/",
-  "/explore/chart-patterns/",
-  "/explore/personal-purpose/",
-  "/explore/schools/",
-  // interlude bands (hero unchanged, band is new)
-  "/explore/misconceptions/",
-  "/explore/dignities/",
-  "/explore/questions-to-bring/",
-];
-/** Text-over-photo blocks. Each is sampled independently. */
-const BLOCK_SELECTOR = ".hero--split, .interlude";
+const BLOCK_SELECTOR = ".hero--split, .interlude, .seabreak--quote";
+
+/**
+ * Which pages to check — discovered from the built output, not listed here.
+ *
+ * This list used to be hand-maintained, and it was wrong: it named ten pages at
+ * a time when nineteen more had text over a photograph, so the check passed
+ * while pages it had never heard of went unmeasured. Then the ocean work added
+ * bands to fifteen more and the list had to be edited again. A contrast check
+ * whose coverage depends on somebody remembering to append a path is a check
+ * that silently shrinks.
+ *
+ * So: scan dist for the block classes and measure whatever is actually there.
+ * Adding a band to a new page now puts it in this run automatically, and the
+ * count is printed so a sudden drop in coverage is visible rather than silent.
+ */
+function discoverPages() {
+  const found = [];
+  const classRe = /class="[^"]*\b(hero--split|interlude|seabreak--quote)\b/;
+  const walk = (dir) => {
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) walk(full);
+      else if (entry.name.endsWith(".html")) {
+        if (!classRe.test(readFileSync(full, "utf8"))) continue;
+        const url =
+          "/" +
+          full
+            .replace(/\\/g, "/")
+            .replace(/^dist\//, "")
+            .replace(/index\.html$/, "")
+            .replace(/\.html$/, "");
+        found.push(url);
+      }
+    }
+  };
+  walk("dist");
+  return found.sort();
+}
+const PAGES = discoverPages();
 const lum = ([r, g, b]) => {
   const f = (v) => {
     v /= 255;
@@ -98,6 +100,10 @@ const browser = await chromium.launch({
   executablePath: chromiumPath(),
 });
 let fails = 0;
+console.log(
+  `Discovered ${PAGES.length} page(s) with text over a photograph.` +
+    " A sharp fall in this number means coverage was lost, not that the site got safer.",
+);
 for (const vp of [
   { n: "desktop", w: 1440, h: 900 },
   { n: "mobile", w: 390, h: 844 },

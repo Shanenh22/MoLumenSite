@@ -1,9 +1,10 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import Layers from '../../components/Layers.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'The Angles', href: '/explore/angles/' },
@@ -74,6 +75,13 @@ const crumbs = [
         toward over a working life.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.threshold} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The Imum Coeli (IC) — the fourth house cusp</h2>
       <p>
         Directly opposite the Midheaven — <em>Imum Coeli</em>, "bottom of the sky," the point

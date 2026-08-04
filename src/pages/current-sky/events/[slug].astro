@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import SeaBreak from '../../../components/SeaBreak.astro';
+import { bandFor } from '../../../config/images';
 import { site } from '../../../config/site';
 
 export async function getStaticPaths() {
@@ -22,6 +24,9 @@ const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: e.title, href: `/current-sky/events/${slug}/` },
 ];
+/* Fifteen sky-event pages carried no image at all. */
+const heroImage = bandFor(slug);
+const breakImage = bandFor(slug, 5);
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -75,19 +80,37 @@ const schema = [
 >
   <Breadcrumbs crumbs={crumbs} />
   <article>
-    <section class="hero">
+    <section class="hero hero--split">
       <div class="container">
-        <p class="eyebrow">{e.eventType}{e.sign ? ` · ${e.sign}` : ''}</p>
-        <h1>{e.title}</h1>
-        <p class="card__meta">
-          {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by Mo Lumen
-        </p>
+        <div>
+          <p class="eyebrow">{e.eventType}{e.sign ? ` · ${e.sign}` : ''}</p>
+          <h1>{e.title}</h1>
+          <p class="card__meta">
+            {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by Mo Lumen
+          </p>
+        </div>
+        <img
+          class="hero__img"
+          src={heroImage.src}
+          srcset={heroImage.srcset}
+          sizes="100vw"
+          alt={heroImage.alt}
+          width={heroImage.width}
+          height={heroImage.height}
+          fetchpriority="high"
+        />
       </div>
     </section>
     <section class="section">
       <div class="container prose flow">
         <Content />
-        <hr />
+      </div>
+    </section>
+
+    <SeaBreak image={breakImage} />
+
+    <section class="section section--sea">
+      <div class="container prose flow">
         <p class="card__meta">
           Astronomical data: {e.sourceNote} Interpretive notes are Mo's perspective — astrology
           offers perspective, not certainty, and your choices remain your own.

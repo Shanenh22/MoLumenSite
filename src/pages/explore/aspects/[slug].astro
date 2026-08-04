@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
+import SeaBreak from '../../../components/SeaBreak.astro';
+import { bandFor } from '../../../config/images';
 import { aspects } from '../../../data/aspects';
 
 export function getStaticPaths() {
@@ -17,6 +19,9 @@ const crumbs = [
   { label: 'Aspects', href: '/explore/aspects/' },
   { label: a.name, href: `/explore/aspects/${a.slug}/` },
 ];
+/* No image at all on these five before. */
+const heroImage = bandFor(a.slug);
+const breakImage = bandFor(a.slug, 5);
 ---
 
 <BaseLayout
@@ -26,11 +31,23 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Aspects</p>
-      <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
-      <p class="lede">{a.angle} — {a.nature}</p>
+      <div>
+        <p class="eyebrow">Aspects</p>
+        <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
+        <p class="lede">{a.angle} — {a.nature}</p>
+      </div>
+      <img
+        class="hero__img"
+        src={heroImage.src}
+        srcset={heroImage.srcset}
+        sizes="100vw"
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -52,6 +69,13 @@ const crumbs = [
         stronger.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={breakImage} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The relationship</h2>
       <p>{a.relationship}</p>
 
@@ -60,6 +84,11 @@ const crumbs = [
       <Layers kind="mo"><p>{a.mo}</p></Layers>
       <Layers kind="misconception"><p>{a.misconception}</p></Layers>
 
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>How it feels to live with</h2>
       <p>{a.livedExperience}</p>
       <h2>Working with it</h2>

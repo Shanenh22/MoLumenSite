@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
+import SeaBreak from '../../../components/SeaBreak.astro';
+import { bandFor } from '../../../config/images';
 import { signs } from '../../../data/signs';
 
 export function getStaticPaths() {
@@ -18,6 +20,11 @@ const crumbs = [
   { label: 'The 12 Signs', href: '/explore/signs/' },
   { label: s.name, href: `/explore/signs/${s.slug}/` },
 ];
+/* Twelve sign pages shipped with no image at all — hero included — so each one
+   was a title, a table and 900 words of column. The slug picks both bands so
+   they stay stable per sign and differ from each other. */
+const heroImage = bandFor(s.slug);
+const breakImage = bandFor(s.slug, 5);
 ---
 
 <BaseLayout
@@ -27,11 +34,23 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">The 12 Signs</p>
-      <h1><span aria-hidden="true">{s.glyph}</span> {s.name}</h1>
-      <p class="lede">{s.keywords.join(' · ')}</p>
+      <div>
+        <p class="eyebrow">The 12 Signs</p>
+        <h1><span aria-hidden="true">{s.glyph}</span> {s.name}</h1>
+        <p class="lede">{s.keywords.join(' · ')}</p>
+      </div>
+      <img
+        class="hero__img"
+        src={heroImage.src}
+        srcset={heroImage.srcset}
+        sizes="100vw"
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -57,7 +76,13 @@ const crumbs = [
         Dignities follow the Ptolemaic tables used in traditional astrology — see
         <a href="/explore/dignities/">essential dignities explained</a>.
       </p>
+    </div>
+  </section>
 
+  <SeaBreak image={breakImage} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The style</h2>
       <p>{s.style}</p>
       <p>{s.season}</p>
@@ -68,6 +93,11 @@ const crumbs = [
       {s.differs && <Layers kind="differs"><p>{s.differs}</p></Layers>}
       <Layers kind="misconception"><p>{s.misconception}</p></Layers>
 
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>Strengths</h2>
       <p>{s.strengths}</p>
       <h2>The growth edge</h2>

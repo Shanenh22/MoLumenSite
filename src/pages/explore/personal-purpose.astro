@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, ocean } from '../../config/images';
+import SeaBreak from '../../components/SeaBreak.astro';
+import { celestial, photos, ocean } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [
@@ -70,6 +71,13 @@ const crumbs = [
           not. Dread and vocation are neighbors more often than you'd think.
         </li>
       </ul>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.stairway} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>What the chart doesn't do</h2>
       <p>
         It doesn't choose for you, and it doesn't rescue you from choosing. Several livelihoods

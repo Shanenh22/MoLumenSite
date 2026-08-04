@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -76,6 +77,13 @@ const crumbs = [
         worth finishing, letting go of what isn't, and clearing space before the next new moon.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.moonPhasesInWater} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>Using it without over-using it</h2>
       <p>
         The lunar cycle is a useful container precisely because it's short. A month is long enough

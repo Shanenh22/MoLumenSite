@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Saturn Return', href: '/explore/saturn-return/' },
@@ -68,6 +69,13 @@ const crumbs = [
         questions about legacy, retirement, and what the remaining decades are for.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.kintsugi} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The part the internet gets wrong</h2>
       <p>
         Saturn returns are widely described as catastrophic. That framing sells and it isn't

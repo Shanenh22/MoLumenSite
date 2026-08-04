@@ -3,8 +3,9 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import { site } from '../../config/site';
-import { scenes } from '../../config/images';
+import { bandFor, scenes } from '../../config/images';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
@@ -35,6 +36,10 @@ const crumbs = [
   { label: 'Blog', href: '/blog/' },
   { label: d.title, href: `/blog/${slug}/` },
 ];
+/* A post is one <Content /> block, so there is no seam inside it to break. The
+   band goes between the article and the related posts, where the reader has
+   finished and is deciding what next. */
+const breakImage = bandFor(slug, 3);
 /** Reading time from the real word count at 220 wpm, rounded up. */
 const readingMinutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
 
@@ -109,6 +114,8 @@ const schema = [
       </div>
     </section>
   </article>
+
+  <SeaBreak image={breakImage} />
 
   {
     related.length > 0 && (

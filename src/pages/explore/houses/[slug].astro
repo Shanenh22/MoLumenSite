@@ -3,6 +3,8 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
+import SeaBreak from '../../../components/SeaBreak.astro';
+import { bandFor } from '../../../config/images';
 import { houses } from '../../../data/houses';
 
 export function getStaticPaths() {
@@ -23,6 +25,10 @@ const angularityNote = {
   Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are about consolidation — holding and building on what the angular house began.',
   Cadent: 'Cadent houses (3, 6, 9, 12) precede the angles and are about processing, learning, and distribution. Traditionally considered weaker, though modern practice disputes that.',
 }[h.angularity];
+/* No image at all on these twelve before. Slug-derived so each house keeps its
+   own pair, stable across builds. */
+const heroImage = bandFor(h.slug);
+const breakImage = bandFor(h.slug, 5);
 ---
 
 <BaseLayout
@@ -32,11 +38,23 @@ const angularityNote = {
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">The 12 Houses</p>
-      <h1>{h.name}</h1>
-      <p class="lede">{h.traditionalName}</p>
+      <div>
+        <p class="eyebrow">The 12 Houses</p>
+        <h1>{h.name}</h1>
+        <p class="lede">{h.traditionalName}</p>
+      </div>
+      <img
+        class="hero__img"
+        src={heroImage.src}
+        srcset={heroImage.srcset}
+        sizes="100vw"
+        alt={heroImage.alt}
+        width={heroImage.width}
+        height={heroImage.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -60,11 +78,22 @@ const angularityNote = {
       <p>{h.arena}</p>
       <h2>What it covers</h2>
       <ul>{h.covers.map((c) => <li>{c}</li>)}</ul>
+    </div>
+  </section>
 
+  <SeaBreak image={breakImage} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <Layers kind="traditional"><p>{h.traditional}</p></Layers>
       <Layers kind="modern"><p>{h.modern}</p></Layers>
       <Layers kind="mo"><p>{h.mo}</p></Layers>
 
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>Planets here</h2>
       <p>{h.planetsHere}</p>
       <p>

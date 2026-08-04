@@ -4,7 +4,8 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import { site } from '../../config/site';
-import { scenes } from '../../config/images';
+import SeaBreak from '../../components/SeaBreak.astro';
+import { bandFor, scenes } from '../../config/images';
 
 const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
   natal: scenes.natal,
@@ -24,6 +25,9 @@ const { service } = Astro.props;
 const s = service.data;
 const all = await getCollection('services');
 const related = all.filter((x) => s.related.includes(x.data.slug));
+/* A breath between the detail of the reading and the questions people ask about
+   it. Slug-derived so each service keeps its own. */
+const breakImage = bandFor(s.slug, 7);
 const faqs = (await getCollection('faqs'))
   .filter((f) => f.data.scope === 'global' || f.data.scope === s.slug)
   .sort((a, b) => a.data.order - b.data.order)
@@ -201,6 +205,8 @@ if (faqs.length > 0) {
       </div>
     </div>
   </section>
+
+  <SeaBreak image={breakImage} />
 
   {
     faqs.length > 0 && (

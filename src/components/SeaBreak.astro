@@ -1,0 +1,72 @@
+---
+/**
+ * SeaBreak — a short full-bleed ocean band used as a *rest* inside a long page.
+ *
+ * The problem it solves: 115 of 129 pages carried no imagery below the fold, so
+ * everything under the hero was an unbroken column of text. `<Interlude>` already
+ * existed for this, but it is a tall band that requires a heading and a pull-quote,
+ * which makes it a per-page authoring job and too heavy to use more than once.
+ * SeaBreak is the lightweight sibling: drop it between two sections and the page
+ * exhales.
+ *
+ * Two variants, and the difference between them is the scrim, not the height:
+ *
+ *  - **rest** (no `line`) — the scrim is deliberately LIGHT (0.30 floor). Nothing
+ *    sits on top of it, so there is no contrast requirement to satisfy, and the
+ *    photograph is actually legible as a photograph. This is the whole point: a
+ *    band you cannot see through is just a dark stripe.
+ *  - **quote** (with `line`) — the scrim jumps to the 0.72 floor that `.interlude`
+ *    uses, which composites to 5.9:1 against a pure white pixel. Do not lighten it
+ *    to make an image read better; change the image instead. `npm run check:hero-contrast`
+ *    samples this band, and it is not advisory.
+ *
+ * A `line` must be drawn from copy that already exists on the page it sits in.
+ * These are pull-quotes, not new claims — same rule as `<Interlude>`. Never add a
+ * caption, credit, or location: see the provenance note in src/config/images.ts.
+ *
+ * `position` and `flip` exist because the band is much wider than 3:2, so
+ * `object-fit: cover` crops vertically only — a band reads as empty when the
+ * subject sits outside the visible horizontal slice, not when the image is dark.
+ */
+import type { SiteImage } from '../config/images';
+
+interface Props {
+  image: SiteImage;
+  /** A sentence already present on this page. Omit for a purely visual rest. */
+  line?: string;
+  /** object-position Y, e.g. '72%', when the subject is low or high in the frame. */
+  position?: string;
+  /** Mirror horizontally when the subject sits on the less visible side. */
+  flip?: boolean;
+}
+const { image, line, position, flip } = Astro.props;
+
+const style = [
+  position ? `object-position: center ${position}` : null,
+  flip ? 'transform: scaleX(-1)' : null,
+]
+  .filter(Boolean)
+  .join('; ');
+---
+
+<aside class:list={['seabreak', line ? 'seabreak--quote' : 'seabreak--rest']}>
+  <img
+    class="seabreak__img"
+    src={image.src}
+    srcset={image.srcset}
+    sizes="100vw"
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    loading="lazy"
+    decoding="async"
+    style={style || undefined}
+  />
+  {
+    line && (
+      <div class="container">
+        <p class="seabreak__line">{line}</p>
+      </div>
+    )
+  }
+</aside>

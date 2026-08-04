@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { photos, scenes } from '../config/images';
+import SeaBreak from '../components/SeaBreak.astro';
+import { celestial, ocean, photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Approach', href: '/approach/' }];
@@ -57,6 +58,13 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
         becomes jargon. You'll get clear explanations, real examples from your own life, and
         answers to every "but why?" you can produce.
       </p>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.galaxyTidepool} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>Candor with compassion</h2>
       <p>
         I'll tell you what I see, including the parts that ask something of you. Difficult

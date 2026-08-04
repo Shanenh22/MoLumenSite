@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, scenes } from '../../config/images';
+import SeaBreak from '../../components/SeaBreak.astro';
+import { celestial, ocean, photos, scenes } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [
@@ -55,6 +56,13 @@ const crumbs = [
         itself — a third entity with its own character, needs, and seasons. Couples often
         recognize it instantly: "that's not quite me, and not quite them — that's <em>us</em>."
       </p>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.clearedTable} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>What compatibility isn't</h2>
       <p>
         No chart pairing is doomed, and none is guaranteed. "Hard" synastry builds some of the

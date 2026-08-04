@@ -13,11 +13,14 @@
  *  - No photo credits or location captions, because none were supplied.
  *  - Two of the sixteen are deliberately absent from this file:
  *    ocean-waterline.webp (a woman in a white dress standing in the surf) and
- *    ocean-releasing-water.webp (a close-up of a pair of cupped hands). On an
- *    astrologer's site a lone woman by the sea will be read as Mo whichever way
- *    she faces, and that is the inference the no-invented-portraits rule exists
- *    to prevent. Shane held both back on 2026-08-04. Do not register them
- *    without asking him again.
+ *    ocean-releasing-water.webp (a close-up of a pair of cupped hands). Shane
+ *    held both back on 2026-08-04.
+ *
+ *    Later that day he approved a different set that does contain people and
+ *    hands, which established that the no-invented-portraits rule is about
+ *    pictures presented *as Mo*, not about human presence in decorative art.
+ *    That reasoning probably extends to these two — but they were not named in
+ *    that approval, so they stay out until he says so. Ask; do not infer.
  */
 export interface SiteImage {
   src: string;
@@ -338,3 +341,177 @@ export const ocean = {
     1024,
   ),
 } as const;
+
+/**
+ * Celestial and metaphorical imagery, supplied by Shane on 2026-08-04. Same
+ * provenance rules as the ocean set — nineteen identical 1536x1024 renders, so
+ * treat them as stock or generated art, describe only what is inside the frame,
+ * and never add a caption, credit or location.
+ *
+ * Four of these contain a person or a pair of hands (01, 03, 10, 20). Shane was
+ * asked about exactly that and approved them on 2026-08-04: the
+ * no-invented-portraits rule is about pictures presented *as Mo*, not about any
+ * human presence in decorative art. Two consequences still bind:
+ *
+ *  - Alt text never implies the figure is Mo, and never implies who took the
+ *    picture. "A person seen from behind" — not "a woman looking out", and
+ *    certainly not a name.
+ *  - Keep them off `/about/` and `/credentials/`. Proximity to Mo's real
+ *    biography is what would make a reader draw the wrong conclusion, which is
+ *    the actual risk the rule exists to prevent.
+ *
+ * Unlike the ocean set these carry real subject matter, so they are placed by
+ * meaning rather than by hash wherever a page has a genuine one: moon phases on
+ * `/explore/moon-phases/`, a repaired sphere on `/explore/saturn-return/`, a
+ * threshold on `/explore/angles/`. Where no honest match exists, they fall into
+ * the shared rotation and mean nothing in particular — which is fine, and is
+ * also the only claim being made about them.
+ */
+export const celestial = {
+  threshold: band(
+    "01-threshold-of-choice",
+    "A person seen from behind in an open doorway, looking out at a vast star-filled sky from a lamplit room",
+    1536,
+    1024,
+  ),
+  moonPhasesInWater: band(
+    "02-moon-phases-in-water",
+    "A shallow ceramic bowl of water holding a ring of moon phases, a fingertip touching the surface",
+    1536,
+    1024,
+  ),
+  mendingConstellation: band(
+    "03-mending-the-constellation",
+    "Two hands stitching glowing constellation lines into dark quilted cloth with gold thread",
+    1536,
+    1024,
+  ),
+  platform: band(
+    "04-platform-of-transition",
+    "An empty railway platform at dusk with a single suitcase, a large moon low over the tracks",
+    1536,
+    1024,
+  ),
+  distanceUnderEclipse: band(
+    "05-distance-under-eclipse",
+    "Two wooden chairs facing each other across open grassland beneath an eclipsed crescent",
+    1536,
+    1024,
+  ),
+  seedlings: band(
+    "06-seedlings-under-planets",
+    "Seedlings rising from dark soil inside a derelict glasshouse, planets and moons visible through the panes",
+    1536,
+    1024,
+  ),
+  lighthouse: band(
+    "07-guidance-through-cosmic-fog",
+    "A lighthouse on a dark cliff casting its beam into a star-filled sky above the sea",
+    1536,
+    1024,
+  ),
+  kintsugi: band(
+    "08-kintsugi-night-sky",
+    "A cracked porcelain sphere repaired with gold, the opening revealing a starfield inside",
+    1536,
+    1024,
+  ),
+  keys: band(
+    "10-keys-to-possible-futures",
+    "A ring of antique keys on dark velvet, one key held between finger and thumb",
+    1536,
+    1024,
+  ),
+  galaxyTidepool: band(
+    "11-galaxy-tidepool",
+    "A tide pool at night holding the reflection of a spiral galaxy, shells and anemones around its rim",
+    1536,
+    1024,
+  ),
+  moth: band(
+    "12-fragile-transformation",
+    "A pale moth newly emerged beside its empty cocoon, a full moon out of focus behind",
+    1536,
+    1024,
+  ),
+  stairway: band(
+    "13-stairway-of-becoming",
+    "A curving stone staircase open to a starry sky at dusk, a folded throw left on one step",
+    1536,
+    1024,
+  ),
+  emptyChair: band(
+    "14-traces-of-absence",
+    "A coat and a star-flecked blanket over an empty chair beside a window onto the night sky",
+    1536,
+    1024,
+  ),
+  clearedTable: band(
+    "15-family-constellation",
+    "An overhead view of a cleared dinner table, candle still burning among folded napkins and glasses",
+    1536,
+    1024,
+  ),
+  paperBoat: band(
+    "16-paper-boat-at-the-fork",
+    "A lit paper boat on a river dividing in two, the Milky Way overhead",
+    1536,
+    1024,
+  ),
+  afterTheStorm: band(
+    "17-first-breath-after-the-storm",
+    "A window with rain and lightning on one side and a clear starry sky through the open pane, curtain lifting",
+    1536,
+    1024,
+  ),
+  hourglass: band(
+    "18-time-becoming-roots",
+    "An hourglass whose falling sand becomes stars above and roots below",
+    1536,
+    1024,
+  ),
+  horses: band(
+    "19-freedom-under-a-comet",
+    "Three horses running across a shallow salt flat beneath a comet at dusk",
+    1536,
+    1024,
+  ),
+  inheritedLight: band(
+    "20-inherited-light",
+    "Weathered hands cupping a seed pod that holds a crescent moon and stars, a child's hand reaching toward it",
+    1536,
+    1024,
+  ),
+} as const;
+
+/**
+ * The shared decorative pool. Ocean first, celestial second — order is fixed
+ * because `bandFor()` hashes into this array and a reordering would silently
+ * reshuffle the band on seventy-four pages.
+ */
+const oceanList = [...Object.values(ocean), ...Object.values(celestial)];
+
+/**
+ * A stable ocean image for a template-generated page.
+ *
+ * Seventy-four of this site's pages come from seven `[slug].astro` templates —
+ * twelve signs, twelve houses, ten planets, five aspects, fifteen sky events,
+ * thirteen posts, seven readings. Hand-picking a band image for each would be
+ * seventy-four judgement calls, and hard-coding one would make all twelve sign
+ * pages identical again, which was the original complaint.
+ *
+ * So the slug picks the image. Same slug, same picture, every build — the choice
+ * is stable across deploys, which matters because a band that shuffled on each
+ * build would make screenshot diffs and contrast runs meaningless.
+ *
+ * `offset` lets one page take a second, different band without repeating itself.
+ *
+ * This is decorative placement only. It asserts nothing about the image and the
+ * image asserts nothing about the page — read the provenance note at the top of
+ * this file before doing anything cleverer with it.
+ */
+export function bandFor(key: string, offset = 0): SiteImage {
+  let h = 0;
+  for (let i = 0; i < key.length; i++) h = (h * 31 + key.charCodeAt(i)) >>> 0;
+  return oceanList[(h + offset) % oceanList.length];
+}

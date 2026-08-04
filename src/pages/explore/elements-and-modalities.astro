@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { celestial, ocean, scenes } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Elements & Modalities', href: '/explore/elements-and-modalities/' },
@@ -75,6 +76,13 @@ const crumbs = [
         <a href="/explore/aspects/trine/">trines</a>, which connect signs of the same element.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.seedlings} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The three modalities: motion</h2>
       <p>
         Modalities describe <em>when in a season</em> a sign falls, which turns out to describe how

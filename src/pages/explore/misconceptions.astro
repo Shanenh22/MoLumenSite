@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes, ocean } from '../../config/images';
+import { celestial, scenes, ocean } from '../../config/images';
 import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -60,6 +61,13 @@ const crumbs = [
         method with its own internal consistency, not a correction to this one.)
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.afterTheStorm} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>"There's a thirteenth sign"</h2>
       <p>
         Ophiuchus is a real constellation the Sun passes through. It has never been part of the

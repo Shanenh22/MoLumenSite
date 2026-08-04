@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { ocean } from '../../config/images';
+import { celestial, ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Retrogrades', href: '/explore/retrogrades/' },
@@ -64,6 +65,13 @@ const crumbs = [
         work done in haste during these periods gets revisited.
       </p>
 
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.emptyChair} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The ones you'll actually notice</h2>
       <h3>Mercury — roughly three times a year, about three weeks each</h3>
       <p>

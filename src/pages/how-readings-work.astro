@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { photos, scenes } from '../config/images';
+import SeaBreak from '../components/SeaBreak.astro';
+import { celestial, ocean, photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'How Readings Work', href: '/how-readings-work/' }];
@@ -57,6 +58,13 @@ const crumbs = [{ label: 'How Readings Work', href: '/how-readings-work/' }];
         personal information: they're used to prepare your reading and never sold, shared, or used
         for anything else. See the <a href="/privacy/">privacy policy</a>.
       </p>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.lighthouse} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
       <h2>The session itself</h2>
       <p>
         We meet one-on-one over Zoom or phone (in person in DFW can sometimes be arranged). I'll

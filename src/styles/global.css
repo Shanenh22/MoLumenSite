@@ -2358,3 +2358,153 @@ fieldset.booking-group > legend span {
     font-size: var(--text-base);
   }
 }
+
+/* ============================================================
+   Immersion layer — added 2026-08-04
+   Ocean rest bands, prose rhythm, section washes, gentle reveal.
+
+   The problem being solved: 115 of 129 pages carried no image below the fold,
+   and a reference page was one <section> holding every h2 in a single flat
+   column. The hero was immersive and everything under it read like a document.
+   Nothing here changes a word of copy; it changes the pace at which the copy
+   arrives.
+   ============================================================ */
+
+/* ---------- SeaBreak: a short full-bleed ocean rest ---------- */
+.seabreak {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  background: var(--color-navy-deep);
+}
+.seabreak__img {
+  position: absolute;
+  inset: 0;
+  inline-size: 100%;
+  block-size: 100%;
+  max-inline-size: none;
+  max-block-size: none;
+  aspect-ratio: auto;
+  object-fit: cover;
+  object-position: center 45%;
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  z-index: -2;
+}
+.seabreak::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+}
+
+/* Rest: nothing sits on this band, so the scrim exists only to seat it against
+   the page and keep the seam from the sections above and below. It is
+   deliberately light -- a band you cannot see through is just a dark stripe,
+   which is the opposite of the point. No text means no contrast obligation. */
+.seabreak--rest {
+  min-block-size: 11rem;
+}
+.seabreak--rest::before {
+  background: linear-gradient(
+    180deg,
+    rgb(22 32 58 / 0.34) 0%,
+    rgb(22 32 58 / 0.12) 34%,
+    rgb(22 32 58 / 0.12) 66%,
+    rgb(22 32 58 / 0.36) 100%
+  );
+}
+
+/* Quote: the moment a line lands on the photograph the contrast floor applies.
+   0.72 is the same floor .interlude uses and composites to 5.9:1 against a pure
+   white pixel. Do not lighten it to make an image read better -- change the
+   image. check:hero-contrast samples this block. */
+.seabreak--quote {
+  min-block-size: 17rem;
+  padding-block: var(--space-12);
+}
+.seabreak--quote::before {
+  background: linear-gradient(
+    180deg,
+    rgb(22 32 58 / 0.84) 0%,
+    rgb(22 32 58 / 0.72) 40%,
+    rgb(22 32 58 / 0.72) 60%,
+    rgb(22 32 58 / 0.86) 100%
+  );
+}
+.seabreak__line {
+  max-width: 46ch;
+  margin-inline: auto;
+  text-align: center;
+  font-family: var(--font-serif);
+  font-size: var(--text-xl);
+  line-height: 1.45;
+  color: rgb(250 246 238 / 0.95);
+  text-wrap: balance;
+}
+@media (max-width: 899px) {
+  .seabreak--rest {
+    min-block-size: 8rem;
+  }
+  .seabreak--quote {
+    min-block-size: 0;
+    padding-block: var(--space-8);
+  }
+  .seabreak__line {
+    font-size: var(--text-lg);
+  }
+}
+
+/* ---------- prose rhythm ----------
+   .flow gives every sibling the same 1rem gap, so an h2 opening a new idea sat
+   as close to the paragraph above it as two paragraphs of the same thought.
+   Every section looked identical and the eye had nothing to catch on.
+   .prose.flow beats .flow > * + * on specificity, which is why these land. */
+.prose.flow > h2 {
+  margin-top: var(--space-16);
+}
+.prose.flow > h2:first-child {
+  margin-top: 0;
+}
+.prose.flow > h3 {
+  margin-top: var(--space-8);
+}
+.prose.flow > p + p {
+  margin-top: var(--space-5);
+}
+/* A small tide-line under each section heading. Left-aligned rather than
+   centred so it reads as the start of something, not a separator. */
+.prose.flow > h2::before {
+  content: "";
+  display: block;
+  inline-size: 3.25rem;
+  block-size: 2px;
+  margin-block-end: var(--space-4);
+  border-radius: 2px;
+  background: linear-gradient(
+    90deg,
+    var(--color-teal),
+    rgb(46 196 182 / 0.12)
+  );
+}
+
+/* ---------- section washes ----------
+   A page alternates .section / .section--sea so the background breathes between
+   ideas instead of holding one flat cream for 1000px of scroll. */
+.section--sea {
+  background:
+    radial-gradient(
+      58rem 30rem at 10% -12%,
+      rgb(46 196 182 / 0.1),
+      transparent 62%
+    ),
+    radial-gradient(
+      50rem 28rem at 94% 110%,
+      rgb(91 110 143 / 0.13),
+      transparent 60%
+    ),
+    var(--bg);
+}
