@@ -2122,3 +2122,41 @@ fieldset.booking-group > legend span {
     padding: 3px 10px;
   }
 }
+
+/* --- portrait card ---
+   Photographs of a person belong in the content, at a size where the face is
+   whole. Behind a hero scrim a portrait gets cropped to a fragment — half a
+   face, mouth cut off — which is what happened on /about/, /approach/ and
+   /credentials/ when heroes became photographic bands. */
+.portrait-card {
+  margin: 0;
+}
+.portrait-card img {
+  inline-size: 100%;
+  block-size: auto;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgb(176 141 69 / 0.5);
+  box-shadow: 0 14px 36px rgb(30 42 69 / 0.16);
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+  object-position: center top;
+}
+.portrait-card figcaption {
+  margin-top: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+/* Float-style inline portrait for pages whose body is a single prose column. */
+.portrait-card--inline {
+  float: inline-end;
+  inline-size: min(280px, 38%);
+  margin: 0 0 var(--space-5) var(--space-6);
+}
+@media (max-width: 640px) {
+  .portrait-card--inline {
+    float: none;
+    inline-size: 100%;
+    max-inline-size: 320px;
+    margin: 0 0 var(--space-5);
+  }
+}

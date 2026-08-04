@@ -38,11 +38,11 @@ const schema = [
       <p class="lede">Astrologer. Teacher. Writer. I am your interpreter of the language of the planets.</p>
       </div>
       <img
-        class="hero__img hero__img--portrait"
-        src={photos.moAbout.src}
-        alt={photos.moAbout.alt}
-        width={photos.moAbout.width}
-        height={photos.moAbout.height}
+        class="hero__img"
+        src={scenes.readingProcess.src}
+        alt={scenes.readingProcess.alt}
+        width={scenes.readingProcess.width}
+        height={scenes.readingProcess.height}
         fetchpriority="high"
       />
     </div>
@@ -50,6 +50,16 @@ const schema = [
 
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">
+      <figure class="portrait-card">
+        <img
+          src={photos.moAbout.src}
+          alt={photos.moAbout.alt}
+          width={photos.moAbout.width}
+          height={photos.moAbout.height}
+          loading="lazy"
+        />
+        <figcaption>Maureen &ldquo;Mo&rdquo; Lumen — astrologer, teacher, writer</figcaption>
+      </figure>
       <div class="prose flow">
         <p>
           Life is a many-faceted journey, and the ancient wisdom of astrology shines light on our

@@ -23,11 +23,11 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
       </p>
       </div>
       <img
-        class="hero__img hero__img--portrait"
-        src={photos.moApproach.src}
-        alt={photos.moApproach.alt}
-        width={photos.moApproach.width}
-        height={photos.moApproach.height}
+        class="hero__img"
+        src={scenes.approachPhilosophy.src}
+        alt={scenes.approachPhilosophy.alt}
+        width={scenes.approachPhilosophy.width}
+        height={scenes.approachPhilosophy.height}
         fetchpriority="high"
       />
     </div>
@@ -35,6 +35,10 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
 
   <section class="section">
     <div class="container prose flow">
+      <figure class="portrait-card portrait-card--inline">
+        <img src={photos.moApproach.src} alt={photos.moApproach.alt} width={photos.moApproach.width} height={photos.moApproach.height} loading="lazy" />
+        <figcaption>Mo Lumen in her studio</figcaption>
+      </figure>
       <h2>Fate and choice, both</h2>
       <p>
         Life is a continuous journey whose story unfolds as written in the stars — and yet: there
