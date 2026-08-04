@@ -4,6 +4,7 @@ import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../config/site';
+import BookingEmbed from '../components/BookingEmbed.astro';
 
 const services = (await getCollection('services')).filter((s) => s.data.available);
 const calUser = site.integrations.calcomUsername;
@@ -19,6 +20,11 @@ const serviceData = Object.fromEntries(
           ? (s.data.priceLabel ?? `$${s.data.price}`)
           : null,
       event: s.data.bookingEventId,
+      options: s.data.options.map((o) => ({
+        label: o.label,
+        price: o.price,
+        event: o.bookingEventId || s.data.bookingEventId,
+      })),
     },
   ])
 );
@@ -57,7 +63,7 @@ const serviceData = Object.fromEntries(
     <div class="container">
       <div class="grid grid--2" style="align-items: start;">
         <div class="flow">
-          <fieldset data-booking-services>
+          <fieldset data-booking-services data-services={JSON.stringify(serviceData)}>
             <legend><h2>Choose your reading</h2></legend>
             {
               services.map((s, i) => (
@@ -92,36 +98,7 @@ const serviceData = Object.fromEntries(
         </div>
 
         <div class="flow">
-          <h2>Pick a time</h2>
-          <div data-booking-embed data-cal-user={calUser} data-services={JSON.stringify(serviceData)}>
-            {
-              calUser ? (
-                <p class="card__meta">Loading the calendar…</p>
-              ) : (
-                <div class="card">
-                  <p>
-                    <strong>Online scheduling is being set up.</strong> Until it's live, email Mo
-                    directly and she'll find a time with you:
-                  </p>
-                  <p style="margin: 0;">
-                    <a class="btn btn--primary" href={`mailto:${site.email}?subject=Booking%20a%20reading`}>
-                      Email {site.email}
-                    </a>
-                  </p>
-                </div>
-              )
-            }
-          </div>
-          <p class="card__meta">
-            Scheduling and payment are handled securely by Cal.com and Stripe. If the calendar
-            doesn't load,
-            <a
-              data-booking-fallback
-              href={calUser ? `https://cal.com/${calUser}` : `mailto:${site.email}`}
-              rel="noopener"
-              >open the booking page directly</a
-            >.
-          </p>
+          <BookingEmbed calUser={calUser} services={serviceData} />
         </div>
       </div>
     </div>
@@ -148,49 +125,4 @@ const serviceData = Object.fromEntries(
   </section>
 </BaseLayout>
 
-<script>
-  // Booking embed loader: reads ?service= from URL, syncs the radio list,
-  // and lazily loads the Cal.com embed only when configured & interacted.
-  const wrap = document.querySelector<HTMLElement>('[data-booking-embed]');
-  const radios = document.querySelectorAll<HTMLInputElement>('input[name="booking-service"]');
-  const fallback = document.querySelector<HTMLAnchorElement>('[data-booking-fallback]');
-  const track = (event: string, params: Record<string, string> = {}) =>
-    (window as any).gtag?.('event', event, params);
 
-  const params = new URLSearchParams(location.search);
-  const requested = params.get('service');
-  if (requested) {
-    radios.forEach((r) => (r.checked = r.value === requested));
-  }
-  track('booking_start');
-
-  const calUser = wrap?.dataset.calUser;
-  const services = JSON.parse(wrap?.dataset.services || '{}');
-
-  function currentSlug(): string {
-    const checked = document.querySelector<HTMLInputElement>('input[name="booking-service"]:checked');
-    return checked?.value || Object.keys(services)[0];
-  }
-
-  function mountEmbed() {
-    if (!wrap || !calUser) return;
-    const slug = currentSlug();
-    const event = services[slug]?.event || slug;
-    const url = `https://cal.com/${calUser}/${event}?embed=true&theme=light`;
-    wrap.innerHTML = '';
-    const iframe = document.createElement('iframe');
-    iframe.src = url;
-    iframe.title = `Schedule: ${services[slug]?.name || 'reading'}`;
-    iframe.style.cssText = 'width:100%;min-height:620px;border:0;border-radius:16px;';
-    iframe.loading = 'lazy';
-    wrap.appendChild(iframe);
-    if (fallback) fallback.href = `https://cal.com/${calUser}/${event}`;
-    track('booking_embed_open', { service: slug });
-  }
-
-  if (calUser) {
-    mountEmbed();
-    radios.forEach((r) => r.addEventListener('change', mountEmbed));
-  }
-  fallback?.addEventListener('click', () => track('booking_external_fallback'));
-</script>

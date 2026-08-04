@@ -1595,3 +1595,52 @@ fieldset[data-booking-services] > legend {
 fieldset[data-booking-services] > legend > h2 {
   margin-top: 0;
 }
+
+/* Booking pane: option pickers, the interaction-gated Cal.com embed, and its
+   fallbacks. The embed is not loaded until the visitor presses the button, so
+   the reserved min-height below is what stops the page jumping when it is. */
+.booking-options {
+  border: 1px solid var(--color-rule);
+  border-radius: 12px;
+  padding: var(--space-3) var(--space-4);
+  margin: 0 0 var(--space-4);
+  min-width: 0;
+}
+.booking-options > legend {
+  padding: 0 var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+}
+.booking-embed__prompt {
+  border: 1px solid var(--color-rule);
+  border-radius: 16px;
+  padding: var(--space-5);
+  background: var(--color-parchment);
+}
+.booking-embed__prompt > p:first-child {
+  margin-top: 0;
+}
+.booking-embed__pending {
+  gap: var(--space-3);
+}
+[data-cal-mount] {
+  border-radius: 16px;
+  overflow: hidden;
+}
+[data-cal-mount]:not(:empty) {
+  min-height: 620px;
+  margin-top: var(--space-4);
+}
+[data-cal-mount].is-loading {
+  color: var(--color-stone);
+  font-size: var(--text-sm);
+  padding: var(--space-4) 0;
+}
+.booking-pane__note {
+  margin-top: var(--space-4);
+}
+@media (max-width: 640px) {
+  [data-cal-mount]:not(:empty) {
+    min-height: 540px;
+  }
+}

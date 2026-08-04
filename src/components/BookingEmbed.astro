@@ -1,0 +1,280 @@
+---
+/**
+ * Cal.com booking embed.
+ *
+ * Three deliberate choices:
+ *
+ * 1. The embed loads ONLY when the visitor asks for it. Cal.com's script is a
+ *    third party; loading it on page view would put a tracker-capable script on
+ *    the page for everyone who merely reads the booking page, and would cost
+ *    the LCP/CLS numbers the rest of the site works to protect. Same pattern as
+ *    the video embeds.
+ * 2. Nothing sensitive is ever put in the embed URL. No birth date, no birth
+ *    time, no birthplace, no name, no email. Those are collected by Cal.com's
+ *    own intake form over HTTPS. The project brief forbids birth data in URLs
+ *    and this is the one component where it would be tempting.
+ * 3. It degrades in three steps: inline embed → direct Cal.com link in a new
+ *    tab → plain email to Mo. Every step is reachable by keyboard, and the
+ *    email path is visible before anything loads, because referral clients
+ *    often prefer it.
+ */
+import { site } from '../config/site';
+
+interface ServiceOption {
+  label: string;
+  price: number;
+  event: string;
+}
+interface ServiceEntry {
+  name: string;
+  duration: string;
+  price: string | null;
+  event: string;
+  options: ServiceOption[];
+}
+
+interface Props {
+  calUser: string;
+  services: Record<string, ServiceEntry>;
+}
+const { calUser, services } = Astro.props;
+const configured = calUser.trim().length > 0;
+const entries = Object.entries(services);
+---
+
+<div class="booking-pane">
+  <h2 id="pick-a-time">Pick a time</h2>
+
+  {
+    /* Per-service option pickers. All are rendered; the script shows only the
+       one matching the selected reading. Doing it server-side keeps the markup
+       real for no-JS visitors rather than templating it in the browser. */
+  }
+  {
+    entries
+      .filter(([, s]) => s.options.length > 1)
+      .map(([slug, s]) => (
+        <fieldset class="booking-options" data-options-for={slug} hidden>
+          <legend>Length and price — {s.name}</legend>
+          {s.options.map((o, i) => (
+            <label class="choice">
+              <input
+                type="radio"
+                name={`booking-option-${slug}`}
+                value={o.event}
+                checked={i === 0}
+              />
+              <span>
+                {o.label} — <strong>${o.price}</strong>
+              </span>
+            </label>
+          ))}
+        </fieldset>
+      ))
+  }
+
+  {
+    configured ? (
+      <div class="booking-embed" data-embed-root data-cal-user={calUser}>
+        <div class="booking-embed__prompt" data-embed-prompt>
+          <p>
+            Choose your reading on the left, then load the calendar to see Mo's available times in
+            your own time zone. Payment is taken at booking.
+          </p>
+          <button class="btn btn--accent" type="button" data-load-embed aria-controls="cal-mount">
+            Show available times
+          </button>
+          <p class="card__meta" style="margin-top: var(--space-3);">
+            Loads Cal.com, which handles scheduling and payment. Nothing loads until you press the
+            button.
+          </p>
+        </div>
+        <div id="cal-mount" data-cal-mount aria-live="polite" />
+      </div>
+    ) : (
+      <div class="card booking-embed__pending">
+        <p>
+          <strong>Online scheduling is being set up.</strong> Until it's live, email Mo and she'll
+          find a time with you — usually within a day.
+        </p>
+        <p style="margin: 0;">
+          <a class="btn btn--accent" href={`mailto:${site.email}?subject=Booking%20a%20reading`}>
+            Email {site.email}
+          </a>
+        </p>
+      </div>
+    )
+  }
+
+  <p class="card__meta booking-pane__note">
+    {configured && (
+      <>
+        If the calendar doesn't load,{' '}
+        <a data-booking-fallback href={`https://cal.com/${calUser}`} rel="noopener" target="_blank">
+          open the booking page in a new tab
+        </a>
+        .{' '}
+      </>
+    )}
+    Prefer to talk first? Referral clients often do — just <a href={`mailto:${site.email}`}>email Mo</a>{' '}
+    and she'll take it from there.
+  </p>
+</div>
+
+<script>
+  type Svc = {
+    name: string;
+    event: string;
+    options: { label: string; price: number; event: string }[];
+  };
+
+  const root = document.querySelector<HTMLElement>('[data-embed-root]');
+  const optionSets = document.querySelectorAll<HTMLFieldSetElement>('[data-options-for]');
+  const radios = document.querySelectorAll<HTMLInputElement>('input[name="booking-service"]');
+  const fallback = document.querySelector<HTMLAnchorElement>('[data-booking-fallback]');
+  const servicesEl = document.querySelector<HTMLElement>('[data-services]');
+  const services: Record<string, Svc> = JSON.parse(servicesEl?.dataset.services || '{}');
+  const calUser = root?.dataset.calUser || '';
+
+  const track = (event: string, params: Record<string, string> = {}) =>
+    (window as any).gtag?.('event', event, params);
+
+  function selectedSlug(): string {
+    const checked = document.querySelector<HTMLInputElement>(
+      'input[name="booking-service"]:checked',
+    );
+    return checked?.value || Object.keys(services)[0] || '';
+  }
+
+  /** The Cal.com event slug for the current reading, honouring the length/price
+   *  choice when the reading has more than one. */
+  function selectedEvent(): string {
+    const slug = selectedSlug();
+    const opt = document.querySelector<HTMLInputElement>(
+      `input[name="booking-option-${slug}"]:checked`,
+    );
+    return opt?.value || services[slug]?.event || slug;
+  }
+
+  /** Show only the option picker belonging to the selected reading. */
+  function syncOptionSets() {
+    const slug = selectedSlug();
+    optionSets.forEach((fs) => {
+      fs.hidden = fs.dataset.optionsFor !== slug;
+    });
+  }
+
+  function updateFallback() {
+    if (fallback && calUser) fallback.href = `https://cal.com/${calUser}/${selectedEvent()}`;
+  }
+
+  let calLoaded = false;
+
+  function loadCalScript(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if ((window as any).Cal) return resolve();
+      const s = document.createElement('script');
+      s.src = 'https://app.cal.com/embed/embed.js';
+      s.async = true;
+      s.onload = () => resolve();
+      s.onerror = () => reject(new Error('Cal.com embed script failed to load'));
+      document.head.appendChild(s);
+    });
+  }
+
+  function showEmbedFailure(mount: HTMLElement) {
+    mount.innerHTML = '';
+    const p = document.createElement('p');
+    p.className = 'card__meta';
+    p.textContent = 'The calendar could not load. ';
+    const a = document.createElement('a');
+    a.href = calUser ? `https://cal.com/${calUser}/${selectedEvent()}` : 'mailto:mo@molumen.com';
+    a.target = '_blank';
+    a.rel = 'noopener';
+    a.textContent = 'Open the booking page in a new tab';
+    p.appendChild(a);
+    mount.appendChild(p);
+    track('booking_embed_failed', { service: selectedSlug() });
+  }
+
+  async function mountEmbed() {
+    const mount = document.querySelector<HTMLElement>('[data-cal-mount]');
+    const prompt = document.querySelector<HTMLElement>('[data-embed-prompt]');
+    if (!mount || !calUser) return;
+
+    mount.classList.add('is-loading');
+    mount.textContent = 'Loading available times…';
+
+    try {
+      await loadCalScript();
+    } catch {
+      showEmbedFailure(mount);
+      return;
+    }
+
+    const Cal = (window as any).Cal;
+    if (typeof Cal !== 'function') {
+      showEmbedFailure(mount);
+      return;
+    }
+
+    mount.innerHTML = '';
+    try {
+      Cal('init', { origin: 'https://cal.com' });
+      Cal('inline', {
+        elementOrSelector: '[data-cal-mount]',
+        calLink: `${calUser}/${selectedEvent()}`,
+        layout: 'month_view',
+      });
+      // Match the site's accent so the calendar doesn't read as a bolted-on
+      // third-party widget.
+      Cal('ui', {
+        theme: 'light',
+        styles: { branding: { brandColor: '#0f6e6b' } },
+        hideEventTypeDetails: false,
+        layout: 'month_view',
+      });
+    } catch {
+      showEmbedFailure(mount);
+      return;
+    }
+
+    calLoaded = true;
+    if (prompt) prompt.hidden = true;
+    mount.classList.remove('is-loading');
+    track('booking_embed_open', { service: selectedSlug() });
+
+    // If Cal never renders anything, don't leave the visitor staring at a box.
+    window.setTimeout(() => {
+      if (mount.childElementCount === 0) showEmbedFailure(mount);
+    }, 10000);
+  }
+
+  // Pre-select a reading from ?service= (set by the CTAs on service pages).
+  const requested = new URLSearchParams(location.search).get('service');
+  if (requested && services[requested]) {
+    radios.forEach((r) => (r.checked = r.value === requested));
+  }
+
+  syncOptionSets();
+  updateFallback();
+  track('booking_start');
+
+  radios.forEach((r) =>
+    r.addEventListener('change', () => {
+      syncOptionSets();
+      updateFallback();
+      if (calLoaded) mountEmbed(); // reload the calendar for the new reading
+    }),
+  );
+
+  optionSets.forEach((fs) =>
+    fs.addEventListener('change', () => {
+      updateFallback();
+      if (calLoaded) mountEmbed();
+    }),
+  );
+
+  document.querySelector('[data-load-embed]')?.addEventListener('click', () => void mountEmbed());
+  fallback?.addEventListener('click', () => track('booking_external_fallback'));
+</script>

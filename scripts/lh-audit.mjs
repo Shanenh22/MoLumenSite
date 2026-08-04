@@ -60,6 +60,7 @@ const pages = [
   ["/explore/signs/scorpio/", "Sign page"],
   ["/blog/", "Blog"],
   ["/start-here/", "Start Here"],
+  ["/book/", "Book (Cal embed)"],
 ];
 for (const [url, label] of pages) {
   for (const formFactor of ["mobile", "desktop"]) {
