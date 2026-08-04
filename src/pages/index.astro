@@ -8,7 +8,6 @@ import { photos, scenes } from '../config/images';
 const services = (await getCollection('services')).sort(
   (a, b) => Number(b.data.featured) - Number(a.data.featured)
 );
-const testimonials = (await getCollection('testimonials')).filter((t) => t.data.approved);
 const skyEvents = (await getCollection('skyEvents'))
   .filter((e) => e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
@@ -266,27 +265,6 @@ const values = [
       </p>
     </div>
   </section>
-
-  {
-    testimonials.length > 0 && (
-      <section class="section">
-        <div class="container">
-          <p class="eyebrow">Kind words</p>
-          <h2>What clients say</h2>
-          <div class="grid grid--2" style="margin-top: var(--space-8);">
-            {testimonials.map((t) => (
-              <blockquote style="margin: 0;">
-                {t.data.quote}
-                <footer class="card__meta" style="margin-top: var(--space-3);">
-                  — {t.data.attribution}
-                </footer>
-              </blockquote>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
 
   <!-- Current Sky + Explorer — night band -->
   <section class="section section--night">

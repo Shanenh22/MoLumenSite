@@ -753,7 +753,7 @@ details.faq .faq__body {
 
 /* ---------- hero ---------- */
 .hero {
-  padding-block: var(--space-16) var(--space-12);
+  padding-block: var(--space-12) var(--space-8);
   background:
     radial-gradient(
       60rem 30rem at 85% -10%,
@@ -789,11 +789,38 @@ details.faq .faq__body {
   justify-self: center;
 }
 
+/* On phones the hero stacks, so text height and image height add up. Measured
+   at 68-143% of the viewport before this; a hero should not consume the whole
+   fold. Shorter padding, a wider crop, and a capped image height. */
+@media (max-width: 899px) {
+  .hero {
+    padding-block: var(--space-8) var(--space-6);
+  }
+  .hero--home {
+    padding-block: var(--space-8) var(--space-6);
+  }
+  .hero--split .container {
+    gap: var(--space-5);
+  }
+  .hero__img {
+    aspect-ratio: 16 / 9;
+    max-height: 42vh;
+  }
+  .hero__img--portrait {
+    aspect-ratio: 3 / 2;
+    max-height: 38vh;
+    max-width: 100%;
+  }
+  .hero .lede {
+    font-size: var(--text-base);
+  }
+}
+
 /* Immersive homepage hero: photographic night workspace */
 .hero--home {
   position: relative;
   isolation: isolate;
-  padding-block: var(--space-24) var(--space-16);
+  padding-block: var(--space-16) var(--space-12);
   border-bottom: 0;
   background: var(--color-navy-deep);
   color: var(--color-ivory);
@@ -1830,12 +1857,32 @@ fieldset.booking-group > legend span {
   }
 }
 
-/* Keep the calendar column in view while the list is scrolled — the two
-   columns are very unequal in height and the right one was leaving a large
-   dead area on desktop. */
-@media (min-width: 900px) {
-  .booking-pane {
-    position: sticky;
-    top: var(--space-6);
+/* No sticky positioning here. It was added to fill dead space in the right
+   column, but a sticky pane followed by sibling content can paint over that
+   content as it scrolls up behind — which is what was reported on /book/,
+   both before and after the calendar loads. The dead space is now filled by
+   the before-you-book callout, so the sticky bought nothing worth that risk. */
+.booking-pane {
+  position: static;
+}
+
+/* Mobile homepage hero.
+   Must live at the end of this file: .hero__portrait is defined further up at
+   equal specificity, so an earlier media block loses on source order — which
+   is exactly what happened on the first attempt at this fix.
+   The portrait was 380px wide at 4/5, i.e. 475px tall, more than half a phone
+   screen before a word of text. */
+@media (max-width: 899px) {
+  .hero__portrait {
+    max-width: 190px;
+  }
+  .hero__portrait img {
+    aspect-ratio: 1 / 1;
+  }
+  .hero__portrait figcaption {
+    margin-top: var(--space-2);
+  }
+  .hero--home .hero__actions {
+    gap: var(--space-2);
   }
 }
