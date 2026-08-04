@@ -20,7 +20,10 @@ export const site = {
   },
   integrations: {
     ga4Id: import.meta.env.PUBLIC_GA4_ID ?? "",
-    calcomUsername: import.meta.env.PUBLIC_CALCOM_USERNAME ?? "",
+    // Cal.com handle — the part after cal.com/ in the booking URL. Not a
+    // secret: it appears in every booking link Mo shares. Kept here rather
+    // than in an env var so it cannot go missing from a build environment.
+    calcomUsername: import.meta.env.PUBLIC_CALCOM_USERNAME ?? "molumen",
     mailerliteFormId: import.meta.env.PUBLIC_MAILERLITE_FORM_ID ?? "",
     youtubeChannelId: import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ?? "",
     instagramHandle: import.meta.env.PUBLIC_INSTAGRAM_HANDLE ?? "mo.lumen",
