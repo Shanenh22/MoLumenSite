@@ -2,7 +2,7 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Eclipses', href: '/explore/eclipses/' },
@@ -25,10 +25,10 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.currentSkyWide.src}
-        alt={scenes.currentSkyWide.alt}
-        width={scenes.currentSkyWide.width}
-        height={scenes.currentSkyWide.height}
+        src={ocean.lightBreakingStorm.src}
+        alt={ocean.lightBreakingStorm.alt}
+        width={ocean.lightBreakingStorm.width}
+        height={ocean.lightBreakingStorm.height}
         fetchpriority="high"
       />
     </div>

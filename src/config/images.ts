@@ -2,6 +2,22 @@
  * Central image registry. All files live in public/images/ (WebP,
  * pre-optimized). Photos of Mo are real photographs supplied by the owner;
  * scene imagery is owner-supplied decorative art (no people).
+ *
+ * The `ocean` set is decorative imagery of unknown origin — all sixteen files
+ * arrived as identical 1536x1024 renders, which is consistent with stock or
+ * generated art rather than photographs anyone here took. Consequences, and
+ * they are not optional:
+ *
+ *  - Alt text describes only what is inside the frame. It never names a place,
+ *    never implies who made the picture, and never implies it depicts Mo.
+ *  - No photo credits or location captions, because none were supplied.
+ *  - Two of the sixteen are deliberately absent from this file:
+ *    ocean-waterline.webp (a woman in a white dress standing in the surf) and
+ *    ocean-releasing-water.webp (a close-up of a pair of cupped hands). On an
+ *    astrologer's site a lone woman by the sea will be read as Mo whichever way
+ *    she faces, and that is the inference the no-invented-portraits rule exists
+ *    to prevent. Shane held both back on 2026-08-04. Do not register them
+ *    without asking him again.
  */
 export interface SiteImage {
   src: string;
@@ -184,5 +200,96 @@ export const scenes = {
     "A warm study with astrological charts and candlelight",
     1200,
     800,
+  ),
+} as const;
+
+/**
+ * Decorative ocean imagery. Read the provenance note at the top of this file
+ * before adding, moving or re-captioning any of these.
+ */
+export const ocean = {
+  cliffsSeaFog: img(
+    "ocean-cliffs-sea-fog",
+    "Sea fog rolling over dark coastal cliffs above a grey ocean",
+    1536,
+    1024,
+  ),
+  coralReefBlueHour: img(
+    "ocean-coral-reef-blue-hour",
+    "A split view at the waterline: a coral reef below the surface, storm clouds above",
+    1537,
+    1023,
+  ),
+  currents: img(
+    "ocean-currents",
+    "Blue-green currents braiding together across the surface of open water",
+    1536,
+    1024,
+  ),
+  dawnWave: img(
+    "ocean-dawn-wave",
+    "A wave curling over in clear water as the sun rises behind it",
+    1536,
+    1024,
+  ),
+  floatingInTrust: img(
+    "ocean-floating-in-trust",
+    "A distant aerial view of one person floating on their back in wide open water at sunset",
+    1536,
+    1024,
+  ),
+  glassWave: img(
+    "ocean-glass-wave",
+    "A single wave curling over, lit like glass against a sunset horizon",
+    1536,
+    1024,
+  ),
+  lightBreakingStorm: img(
+    "ocean-light-breaking-storm",
+    "A shaft of sunlight breaking through storm cloud onto open sea",
+    1536,
+    1024,
+  ),
+  lightRays: img(
+    "ocean-light-rays",
+    "Sunbeams fanning down through clear turquoise water",
+    1536,
+    1024,
+  ),
+  meetingWaves: img(
+    "ocean-meeting-waves",
+    "Two waves converging into a single trough beneath a violet and gold sunset",
+    1536,
+    1024,
+  ),
+  ripplesSunset: img(
+    "ocean-ripples-sunset",
+    "Concentric ripples spreading outward from a single drop on still water at sunset",
+    1536,
+    1024,
+  ),
+  seaStackMoonrise: img(
+    "ocean-sea-stack-moonrise",
+    "A lone sea stack standing in calm water beneath a rising moon",
+    1536,
+    1024,
+  ),
+  shellsBeforeTide: img(
+    "ocean-shells-before-tide",
+    "Seashells arranged in a spiral on wet sand as the tide edges toward them",
+    1536,
+    1024,
+  ),
+  solitaryBuoy: img(
+    "ocean-solitary-buoy",
+    "A red buoy holding position on flat grey water under low cloud",
+    1536,
+    1024,
+  ),
+  whaleTailStars: img(
+    "ocean-whale-tail-stars",
+    "A whale's tail above dark water beneath a star-filled sky",
+    1536,
+    1024,
   ),
 } as const;

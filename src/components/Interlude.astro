@@ -1,0 +1,65 @@
+---
+/**
+ * Interlude — a full-bleed image band that breaks up a long reference page.
+ *
+ * Reference pages carried exactly one image each (the hero), so anything below
+ * the fold read as an unbroken column of text next to the homepage's alternating
+ * bands. This is the pause: a photograph, a scrim, and one line worth stopping on.
+ *
+ * The line is always drawn from copy that already exists on the page it sits in.
+ * Nothing here introduces a new claim, and it never carries a caption, credit or
+ * location — see the provenance note in src/config/images.ts.
+ *
+ * Structural notes, both load-bearing:
+ *  - The <img> is real markup, not a CSS background, so it keeps its alt text.
+ *    It is positioned to fill the band at z-index -2.
+ *  - Do NOT give .interlude .container a `position`. An absolutely-positioned
+ *    child resolves against its nearest positioned ancestor, so that change
+ *    shrinks the photograph to the container box instead of letting it fill the
+ *    band. The same trap is documented for .hero--split in global.css.
+ *
+ * Contrast is the whole risk. The scrim is uniform rather than directional, so
+ * text lands on the same alpha wherever the column falls — which is what makes
+ * the mobile case safe. Verify with `npm run check:hero-contrast`, which samples
+ * this band as well as the heroes.
+ */
+import type { SiteImage } from '../config/images';
+
+interface Props {
+  image: SiteImage;
+  eyebrow?: string;
+  heading: string;
+  body?: string;
+  linkLabel?: string;
+  linkHref?: string;
+}
+const { image, eyebrow, heading, body, linkLabel, linkHref } = Astro.props;
+---
+
+<section class="interlude">
+  <img
+    class="interlude__img"
+    src={image.src}
+    alt={image.alt}
+    width={image.width}
+    height={image.height}
+    loading="lazy"
+    decoding="async"
+  />
+  <div class="container">
+    <div class="interlude__body flow">
+      {eyebrow && <p class="eyebrow">{eyebrow}</p>}
+      <h2>{heading}</h2>
+      {body && <p class="lede">{body}</p>}
+      {
+        linkHref && linkLabel && (
+          <p>
+            <a class="btn btn--ghost" href={linkHref}>
+              {linkLabel}
+            </a>
+          </p>
+        )
+      }
+    </div>
+  </div>
+</section>

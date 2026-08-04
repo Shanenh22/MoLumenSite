@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, scenes } from '../../config/images';
+import { photos, ocean } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
@@ -55,10 +55,10 @@ const life = [
       </div>
       <img
         class="hero__img"
-        src={scenes.birthChartBasics.src}
-        alt={scenes.birthChartBasics.alt}
-        width={scenes.birthChartBasics.width}
-        height={scenes.birthChartBasics.height}
+        src={ocean.lightRays.src}
+        alt={ocean.lightRays.alt}
+        width={ocean.lightRays.width}
+        height={ocean.lightRays.height}
         fetchpriority="high"
       />
     </div>

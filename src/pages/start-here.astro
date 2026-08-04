@@ -3,7 +3,8 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
-import { scenes } from '../config/images';
+import { ocean } from '../config/images';
+import Interlude from '../components/Interlude.astro';
 
 const crumbs = [{ label: 'Start Here', href: '/start-here/' }];
 
@@ -85,10 +86,10 @@ const path = [
       </div>
       <img
         class="hero__img"
-        src={scenes.birthChartBasics.src}
-        alt={scenes.birthChartBasics.alt}
-        width={scenes.birthChartBasics.width}
-        height={scenes.birthChartBasics.height}
+        src={ocean.dawnWave.src}
+        alt={ocean.dawnWave.alt}
+        width={ocean.dawnWave.width}
+        height={ocean.dawnWave.height}
         fetchpriority="high"
       />
     </div>
@@ -111,6 +112,13 @@ const path = [
       </p>
     </div>
   </section>
+
+  <Interlude
+    image={ocean.lightRays}
+    eyebrow="No exam at the end"
+    heading="First time through, go in order."
+    body="About an hour of reading in total, and each step assumes the one before it. After that, wander — the pages keep, so come back to whichever one stopped making sense."
+  />
 
   <section class="section section--alt">
     <div class="container" style="max-width: 52rem;">

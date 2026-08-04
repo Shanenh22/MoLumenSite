@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { scenes, ocean } from '../../config/images';
+import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Common Misconceptions', href: '/explore/misconceptions/' },
@@ -82,6 +83,19 @@ const crumbs = [
         nothing forced the issue.
       </p>
 
+    </div>
+  </section>
+
+  <Interlude
+    image={ocean.lightBreakingStorm}
+    eyebrow="Worth being clear about"
+    heading="A chart describes tendencies, not verdicts."
+    body="Which is why a fatalistic reading is not merely inaccurate — it does harm. Most of what follows comes back to that one point."
+  />
+
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>"Astrologers believe planets emit rays that control us"</h2>
       <p>
         Very few do. The mainstream position treats the chart as a symbolic map that correlates with

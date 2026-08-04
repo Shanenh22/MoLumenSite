@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { photos, scenes } from '../../config/images';
+import { photos, ocean } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
+import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Transits', href: '/explore/transits/' },
@@ -29,10 +30,10 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.currentTransits.src}
-        alt={scenes.currentTransits.alt}
-        width={scenes.currentTransits.width}
-        height={scenes.currentTransits.height}
+        src={ocean.currents.src}
+        alt={ocean.currents.alt}
+        width={ocean.currents.width}
+        height={ocean.currents.height}
         fetchpriority="high"
       />
     </div>
@@ -56,6 +57,19 @@ const crumbs = [
         and the once-per-lifetime visits of Uranus, Neptune, and Pluto to any given point.
         The slower the planet, the deeper the season.
       </p>
+    </div>
+  </section>
+
+  <Interlude
+    image={ocean.dawnWave}
+    eyebrow="Timing"
+    heading="The slower the planet, the deeper the season."
+    body="A transit creates conditions in which some choices flow and others fight the current. What you build in one is entirely yours."
+  />
+
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>About retrogrades</h2>
       <p>
         Retrograde motion is an optical effect — no planet ever backs up in space. Astrologically,

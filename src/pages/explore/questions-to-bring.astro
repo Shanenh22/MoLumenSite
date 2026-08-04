@@ -2,7 +2,8 @@
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import { scenes } from '../../config/images';
+import { scenes, ocean } from '../../config/images';
+import Interlude from '../../components/Interlude.astro';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Questions to Bring', href: '/explore/questions-to-bring/' },
@@ -52,6 +53,19 @@ const crumbs = [
         the decision with you — which is exactly the territory a chart can speak to.
       </p>
 
+    </div>
+  </section>
+
+  <Interlude
+    image={ocean.ripplesSunset}
+    eyebrow="Before you book"
+    heading="A good question is most of a good reading."
+    body="Ten questions in an hour produces ten shallow answers. Two or three real ones — the sort you actually lie awake with — leave room for the conversation to go somewhere."
+  />
+
+
+  <section class="section">
+    <div class="container prose flow">
       <h2>By area of life</h2>
       <h3>Self-understanding</h3>
       <ul>

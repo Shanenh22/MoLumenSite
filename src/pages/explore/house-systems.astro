@@ -3,7 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import Layers from '../../components/Layers.astro';
-import { scenes } from '../../config/images';
+import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'House Systems', href: '/explore/house-systems/' },
@@ -26,10 +26,10 @@ const crumbs = [
       </div>
       <img
         class="hero__img"
-        src={scenes.houses.src}
-        alt={scenes.houses.alt}
-        width={scenes.houses.width}
-        height={scenes.houses.height}
+        src={ocean.coralReefBlueHour.src}
+        alt={ocean.coralReefBlueHour.alt}
+        width={ocean.coralReefBlueHour.width}
+        height={ocean.coralReefBlueHour.height}
         fetchpriority="high"
       />
     </div>
