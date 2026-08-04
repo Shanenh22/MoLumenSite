@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Chart Basics"
 tags: ["big three", "sun sign", "moon sign", "rising sign"]
 heroImage: "signs"
-draft: true
+draft: false
 ownerReview: true
 ---
 

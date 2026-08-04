@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Choosing a Reading"
 tags: ["readings", "expectations", "choosing"]
 heroImage: "readingProcess"
-draft: true
+draft: false
 ownerReview: true
 ---
 

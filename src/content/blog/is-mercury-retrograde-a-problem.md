@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Misconceptions"
 tags: ["mercury retrograde", "transits", "misconceptions"]
 heroImage: "currentTransits"
-draft: true
+draft: false
 ownerReview: true
 ---
 

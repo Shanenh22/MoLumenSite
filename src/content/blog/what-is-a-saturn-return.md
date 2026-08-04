@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Timing"
 tags: ["saturn return", "transits", "timing"]
 heroImage: "duskMountains"
-draft: true
+draft: false
 ownerReview: true
 ---
 

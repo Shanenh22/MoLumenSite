@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Understanding Readings"
 tags: ["relationships", "synastry", "compatibility"]
 heroImage: "relationship"
-draft: true
+draft: false
 ownerReview: true
 ---
 

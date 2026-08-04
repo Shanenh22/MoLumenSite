@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Technique"
 tags: ["house systems", "houses", "technique", "where astrologers differ"]
 heroImage: "houses"
-draft: true
+draft: false
 ownerReview: true
 ---
 

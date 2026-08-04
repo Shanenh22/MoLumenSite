@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Chart Basics"
 tags: ["birth time", "rising sign", "houses", "preparation"]
 heroImage: "birthChartBasics"
-draft: true
+draft: false
 ownerReview: true
 ---
 

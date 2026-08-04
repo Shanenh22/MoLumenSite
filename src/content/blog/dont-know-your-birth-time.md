@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Chart Basics"
 tags: ["birth time", "preparation", "rectification", "houses"]
 heroImage: "prepareReading"
-draft: true
+draft: false
 ownerReview: true
 ---
 

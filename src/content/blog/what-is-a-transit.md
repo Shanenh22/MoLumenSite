@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Timing"
 tags: ["transits", "timing", "outer planets", "technique"]
 heroImage: "currentSkyWide"
-draft: true
+draft: false
 ownerReview: true
 ---
 

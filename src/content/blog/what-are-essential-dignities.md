@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Technique"
 tags: ["dignities", "traditional astrology", "technique", "rulership"]
 heroImage: "planets"
-draft: true
+draft: false
 ownerReview: true
 ---
 

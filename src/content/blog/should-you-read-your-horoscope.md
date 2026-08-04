@@ -5,7 +5,7 @@ publishDate: 2026-08-04
 category: "Misconceptions"
 tags: ["horoscopes", "sun signs", "misconceptions", "media astrology"]
 heroImage: "newsletterLetters"
-draft: true
+draft: false
 ownerReview: true
 ---
 

@@ -17,6 +17,25 @@ const url = (p) =>
       .replace(/index\.html$/, "")
       .replace(/\\/g, "/")
   ).replace(/\/+/g, "/");
+/**
+ * Titles and descriptions are HTML-escaped in the built output, so an
+ * apostrophe is five characters (&#39;) rather than one. Measuring the escaped
+ * form over-counts and produced a false "title too long" on a title that is
+ * exactly 60. Decode before measuring anything by length.
+ */
+const decodeEntities = (s) =>
+  (s || "")
+    .replace(/&#(\d+);/g, (_, d) => String.fromCharCode(+d))
+    .replace(/&#x([0-9a-f]+);/gi, (_, h) =>
+      String.fromCharCode(parseInt(h, 16)),
+    )
+    .replace(/&quot;/g, '"')
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, "<")
+    .replace(/&gt;/g, ">")
+    .replace(/&nbsp;/g, " ")
+    .replace(/&amp;/g, "&");
+
 const get = (h, re) => {
   const m = h.match(re);
   return m ? m[1].trim() : null;
@@ -33,8 +52,8 @@ const rows = pages.map((p) => {
   const imgs = [...body.matchAll(/<img[^>]*>/g)].map((m) => m[0]);
   return {
     url: url(p),
-    title: get(h, /<title>([^<]*)<\/title>/),
-    desc: get(h, /<meta name="description" content="([^"]*)"/),
+    title: decodeEntities(get(h, /<title>([^<]*)<\/title>/)),
+    desc: decodeEntities(get(h, /<meta name="description" content="([^"]*)"/)),
     canonical: get(h, /<link rel="canonical" href="([^"]*)"/),
     noindex: /name="robots" content="noindex"/.test(h),
     h1: headings.filter((x) => x.lvl === 1).length,
