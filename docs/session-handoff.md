@@ -91,9 +91,12 @@ Run `npm run audit:install` first (installs lighthouse, playwright, pngjs withou
 | `npm run audit:lh`            | Lighthouse                                            |
 | `npm run shot /book/ /about/` | full-page screenshots into `shots/`                   |
 
-Last known-good state at commit `83e5dd5`: 129 pages, `astro check` clean, audit clean on 13
-checks, axe 0 violations, every hero above 4.5:1 at its worst pixel, booking 18/18, finder 11/11,
-Lighthouse 99–100 mobile / 100 desktop, CLS 0.
+Last known-good state at commit `74826a3` (branch `ocean-imagery-internal-pages`): 129 pages,
+`astro check` clean, audit clean on 13 checks, axe 0 violations, every hero and interlude band above
+4.5:1 at its worst pixel — 32 blocks × 2 viewports, worst 6.42:1 — booking 18/18, finder 11/11,
+Lighthouse 97–100 mobile / 100 desktop, CLS 0.
+
+Previous known-good was `83e5dd5`, where the worst desktop hero was 4.60:1.
 
 ## Vocabulary drift — the bug that will come back
 
