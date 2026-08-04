@@ -46,6 +46,23 @@ const bookables = services.flatMap((s) =>
 const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
 
 /**
+ * Service slug -> default event key.
+ *
+ * The Reading Finder recommends by SERVICE slug ("want-more-clarity") while
+ * the booking radios are keyed by Cal.com EVENT ("clarity-3mo"). Those two
+ * vocabularies diverged when multi-price readings became separate rows, and
+ * the old prefix match silently sent "want-more-clarity" to natal-90 — the
+ * $200 new-client reading — for anyone asking about a follow-up.
+ * Built from the data so it cannot drift again.
+ */
+const serviceToEvent = Object.fromEntries(
+  services.map((sv) => {
+    const first = bookables.find((b) => b.service === sv.data.slug);
+    return [sv.data.slug, first?.key ?? sv.data.bookingEventId];
+  })
+);
+
+/**
  * Split by who may book. A first-time visitor should see the three readings
  * actually open to them, not scan nine and work out which say "established
  * clients". Same radio group name across both fieldsets, so it stays one
@@ -101,7 +118,12 @@ const groups = [
       <div class="grid grid--2" style="align-items: start;">
         <div class="flow">
           <h2>Choose your reading</h2>
-          <div class="booking-groups" data-booking-services data-services={JSON.stringify(serviceData)}>
+          <div
+            class="booking-groups"
+            data-booking-services
+            data-services={JSON.stringify(serviceData)}
+            data-service-map={JSON.stringify(serviceToEvent)}
+          >
             {
               groups.map((g) => (
                 <fieldset class="booking-group">

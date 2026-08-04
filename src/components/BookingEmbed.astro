@@ -226,14 +226,47 @@ const configured = calUser.trim().length > 0;
     }, 15000);
   }
 
-  // Pre-select from ?service= (set by CTAs on the service pages). Accepts the
-  // event key, and falls back to the first choice belonging to a service slug.
+  /**
+   * Pre-select from ?service=, set by the Reading Finder and by the CTAs on
+   * service pages. Resolution order: exact event key, then the service->event
+   * map rendered by the page, then a prefix match as a last resort.
+   *
+   * The prefix match alone used to be the whole implementation, which sent
+   * ?service=want-more-clarity to natal-90 — a $200 new-client reading — for
+   * anyone who asked the finder about a follow-up.
+   */
+  const serviceMap: Record<string, string> = JSON.parse(
+    servicesEl?.dataset.serviceMap || '{}',
+  );
   const requested = new URLSearchParams(location.search).get('service');
   if (requested) {
-    const match = bookables[requested]
-      ? requested
-      : Object.keys(bookables).find((k) => k.startsWith(requested));
-    if (match) radios.forEach((r) => (r.checked = r.value === match));
+    const match =
+      (bookables[requested] && requested) ||
+      serviceMap[requested] ||
+      Object.keys(bookables).find((k) => k.startsWith(requested));
+    if (match) {
+      radios.forEach((r) => (r.checked = r.value === match));
+      const chosen = document.querySelector<HTMLInputElement>(
+        `input[name="booking-service"][value="${CSS.escape(match)}"]`,
+      );
+      const card = chosen?.closest('label');
+      if (card) {
+        // Six of the nine readings sit in the "returning clients" group below
+        // the fold. Selecting one silently looked, to the visitor, exactly
+        // like nothing had happened.
+        card.classList.add('is-recommended');
+        requestAnimationFrame(() => {
+          card.scrollIntoView({ block: 'center', behavior: 'smooth' });
+          chosen?.focus({ preventScroll: true });
+        });
+        radios.forEach((r) =>
+          r.addEventListener('change', () => card.classList.remove('is-recommended'), {
+            once: true,
+          }),
+        );
+      }
+      track('booking_preselected', { service: requested, event: match });
+    }
   }
 
   updateFallback();

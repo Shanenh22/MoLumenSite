@@ -22,7 +22,8 @@
     "shot": "node scripts/shot.mjs",
     "measure:heroes": "node scripts/measure-heroes.mjs",
     "check:contrast": "node scripts/check-contrast.mjs",
-    "check:hero-contrast": "node scripts/check-hero-contrast.mjs"
+    "check:hero-contrast": "node scripts/check-hero-contrast.mjs",
+    "test:finder": "node scripts/test-finder-handoff.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",
