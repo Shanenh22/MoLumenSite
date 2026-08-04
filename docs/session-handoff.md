@@ -99,12 +99,13 @@ suite died at browser launch before asserting anything. They share
 short version is that handing Playwright an explicit path to its _own_ default browser fails on
 Windows with `spawn UNKNOWN`, while passing nothing at all works on the identical binary.
 
-Last known-good state at commit `74826a3` (branch `ocean-imagery-internal-pages`): 129 pages,
-`astro check` clean, audit clean on 13 checks, axe 0 violations, every hero and interlude band above
-4.5:1 at its worst pixel — 32 blocks × 2 viewports, worst 6.42:1 — booking 18/18, finder 11/11,
-Lighthouse 97–100 mobile / 100 desktop, CLS 0.
+Last known-good state at commit `b420aa5` (`main`): 129 pages, `astro check` 0 errors, audit clean on
+13 checks, axe 0 violations, every hero and interlude band above 4.5:1 at its worst pixel — 32 blocks
+× 2 viewports, worst 5.75:1 — `check:contrast` all pass, booking 18/18, finder 11/11. Lighthouse was
+not re-run on this machine; the last figures are 97–100 mobile / 100 desktop, CLS 0, from `74826a3`.
 
-Previous known-good was `83e5dd5`, where the worst desktop hero was 4.60:1.
+Previous known-good was `74826a3`, measured in the Linux container: same suite, worst block 6.42:1.
+Before that, `83e5dd5`, where the worst desktop hero was 4.60:1.
 
 **A number in this file is only comparable to another number measured the same way.** The responsive
 image pass below re-ran `check:hero-contrast` on Windows and got a worst block of **5.75:1** where
