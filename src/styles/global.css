@@ -1661,3 +1661,19 @@ fieldset[data-booking-services] > legend > h2 {
   margin-block-start: 0.1rem;
   accent-color: var(--color-teal);
 }
+
+/* Trust-signal grid on /testimonials/ — cards stretch so the trailing link
+   sits on a common baseline regardless of body length. */
+.trust-grid .card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+.trust-grid .card__icon {
+  margin: 0;
+  color: var(--accent-ink);
+  line-height: 1;
+}
+.trust-grid .card h3 {
+  margin: 0;
+}

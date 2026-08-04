@@ -3,15 +3,69 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
+import Icon from '../components/Icon.astro';
 
 const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
 const isDev = import.meta.env.DEV;
 const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
+
+/**
+ * Until real, permissioned testimonials exist, this page leads with things a
+ * visitor can actually check. Every claim below is verifiable somewhere else on
+ * the site — credentials on /credentials/, terms in /booking-policy/, the
+ * "probably not the fit if" sections on each service page. Nothing here is a
+ * stand-in for a client's words, because a stand-in for a client's words is a
+ * fabricated testimonial.
+ */
+const signals = [
+  {
+    icon: 'chart' as const,
+    title: 'Training you can verify',
+    body: "A Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology, NCGR-PAA Levels 1 and 2 passed, and board service with OPA. Named schools, named examinations — the kind of thing you can look up rather than take on faith.",
+    href: '/credentials/',
+    linkText: 'See the credentials',
+  },
+  {
+    icon: 'book' as const,
+    title: 'The reasoning is published',
+    body: 'The reference library here separates what is astronomical fact from what is traditional doctrine, what is modern interpretation, and what is Mo\'s own synthesis — and says plainly where astrologers disagree. You can read how she thinks before you pay her to think about you.',
+    href: '/explore/',
+    linkText: 'Read the library',
+  },
+  {
+    icon: 'moon' as const,
+    title: 'The limits are stated up front',
+    body: 'Every reading page has a "this is probably not the fit if" section. The disclaimer lists what a reading will never be used for — no death predictions, no diagnoses, no telling you to leave a marriage. Knowing what someone refuses to sell you is worth more than a paragraph of praise.',
+    href: '/disclaimer/',
+    linkText: 'Read the disclaimer',
+  },
+  {
+    icon: 'letter' as const,
+    title: 'Terms that favour you',
+    body: 'Cancel or reschedule at least 48 hours ahead at no charge; inside that window the fee is held as credit rather than lost. If Mo has to cancel, you choose between rescheduling and a full refund. Every live reading is recorded and the recording is yours to keep.',
+    href: '/booking-policy/',
+    linkText: 'Read the booking policy',
+  },
+  {
+    icon: 'sun' as const,
+    title: 'Your information stays yours',
+    body: 'Birth data is used to prepare your reading and nothing else. It is never sold, never shared, never used for marketing, never sent to analytics, and never placed in a web address. Ask for it to be deleted and it is deleted.',
+    href: '/privacy/',
+    linkText: 'Read the privacy policy',
+  },
+  {
+    icon: 'video' as const,
+    title: 'Watch her work first',
+    body: 'The most honest preview of a reading is watching how someone actually explains a chart — the pace, the care, whether they hedge or state things plainly. Free, no booking, no email required.',
+    href: '/videos/',
+    linkText: 'Watch the videos',
+  },
+];
 ---
 
 <BaseLayout
   title="Testimonials"
-  description="What clients say about readings with Mo Lumen Astrology."
+  description="Every testimonial here is genuine and published with permission. Until clients have supplied them, here is what you can verify about readings with Mo Lumen instead."
   path="/testimonials/"
   breadcrumbs={crumbs}
   noindex={approved.length === 0}
@@ -22,16 +76,18 @@ const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
       <p class="eyebrow">Kind words</p>
       <h1>Testimonials</h1>
       <p class="lede">
-        Every testimonial here is genuine, published with permission, and attributed the way the
-        client chose.
+        Every testimonial here is genuine, published with the client's explicit permission, and
+        attributed the way that client chose. There are no exceptions to that, which is why this
+        page is sometimes shorter than a marketing team would like.
       </p>
     </div>
   </section>
 
-  <section class="section">
-    <div class="container">
-      {
-        approved.length > 0 ? (
+  {
+    approved.length > 0 && (
+      <section class="section">
+        <div class="container">
+          <h2 class="visually-hidden">What clients say</h2>
           <div class="grid grid--2">
             {approved.map((t) => (
               <blockquote style="margin: 0;">
@@ -43,23 +99,81 @@ const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
               </blockquote>
             ))}
           </div>
-        ) : (
-          <div class="prose flow">
-            <p>
-              Client testimonials are being gathered — with each client's explicit permission —
-              and will appear here soon. In the meantime, the best way to get a feel for a reading
-              is <a href="/how-readings-work/">the step-by-step walkthrough</a> or
-              <a href="/videos/">Mo's videos</a>.
+        </div>
+      </section>
+    )
+  }
+
+  {
+    approved.length === 0 && (
+      <section class="section">
+        <div class="container prose flow">
+          <h2>Why this page is empty</h2>
+          <p>
+            Mo's practice runs almost entirely on referral — people send their friends. That is the
+            most meaningful endorsement there is, and it is also the kind that never gets written
+            down, because nobody thinks to ask.
+          </p>
+          <p>
+            She is asking now. Real testimonials, with permission, will appear here as clients send
+            them. What will not appear here is anything written by someone who was not actually a
+            client. Fabricated testimonials are illegal in the United States, they are trivially
+            easy to write, and a practice built on referrals would be found out by its own clients
+            within a week.
+          </p>
+          <p>
+            So in the meantime, here is what you can check for yourself instead.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="section section--alt">
+    <div class="container">
+      <h2>What you can verify without taking anyone's word for it</h2>
+      <div class="grid grid--3 trust-grid">
+        {
+          signals.map((s) => (
+            <div class="card">
+              <p class="card__icon" aria-hidden="true">
+                <Icon name={s.icon} size={28} />
+              </p>
+              <h3>{s.title}</h3>
+              <p>{s.body}</p>
+              <p style="margin-top: auto;">
+                <a href={s.href}>{s.linkText}</a>
+              </p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>If you have had a reading with Mo</h2>
+      <p>
+        She would be glad to hear from you, and gladder still to publish it if you are happy for her
+        to. You decide how you are attributed — first name and last initial, first name only, or
+        simply "a client in Dallas." You can ask for it to come down at any time, for any reason,
+        and it will come down that day.
+      </p>
+      <p>
+        Email <a href="mailto:mo@molumen.com">mo@molumen.com</a>. A few honest sentences are worth
+        more than a paragraph of superlatives — what you came in with, what actually shifted, and
+        who you would send here.
+      </p>
+      {
+        isDev && (
+          <div class="callout callout--review">
+            <p style="margin: 0;">
+              DEV NOTE: no approved testimonials in
+              src/content/testimonials/testimonials.json. Placeholders never render; this page is
+              noindexed until at least one approved testimonial exists. See
+              docs/collecting-testimonials.md for the request email and the permission wording.
             </p>
-            {isDev && (
-              <div class="callout callout--review">
-                <p style="margin: 0;">
-                  DEV NOTE: no approved testimonials in
-                  src/content/testimonials/testimonials.json. Placeholders are never rendered in
-                  production; this page is noindexed until real testimonials exist.
-                </p>
-              </div>
-            )}
           </div>
         )
       }
