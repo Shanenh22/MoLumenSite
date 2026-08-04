@@ -20,58 +20,24 @@
  */
 import { site } from '../config/site';
 
-interface ServiceOption {
-  label: string;
-  price: number;
-  event: string;
-}
-interface ServiceEntry {
+interface Bookable {
+  key: string;
   name: string;
   duration: string;
   price: string | null;
   event: string;
-  options: ServiceOption[];
 }
 
 interface Props {
   calUser: string;
-  services: Record<string, ServiceEntry>;
+  services: Record<string, Bookable>;
 }
 const { calUser, services } = Astro.props;
 const configured = calUser.trim().length > 0;
-const entries = Object.entries(services);
 ---
 
 <div class="booking-pane">
   <h2 id="pick-a-time">Pick a time</h2>
-
-  {
-    /* Per-service option pickers. All are rendered; the script shows only the
-       one matching the selected reading. Doing it server-side keeps the markup
-       real for no-JS visitors rather than templating it in the browser. */
-  }
-  {
-    entries
-      .filter(([, s]) => s.options.length > 1)
-      .map(([slug, s]) => (
-        <fieldset class="booking-options" data-options-for={slug} hidden>
-          <legend>Length and price — {s.name}</legend>
-          {s.options.map((o, i) => (
-            <label class="choice">
-              <input
-                type="radio"
-                name={`booking-option-${slug}`}
-                value={o.event}
-                checked={i === 0}
-              />
-              <span>
-                {o.label} — <strong>${o.price}</strong>
-              </span>
-            </label>
-          ))}
-        </fieldset>
-      ))
-  }
 
   {
     configured ? (
@@ -122,64 +88,75 @@ const entries = Object.entries(services);
 </div>
 
 <script>
-  type Svc = {
-    name: string;
-    event: string;
-    options: { label: string; price: number; event: string }[];
-  };
+  type Bookable = { key: string; name: string; event: string };
 
   const root = document.querySelector<HTMLElement>('[data-embed-root]');
-  const optionSets = document.querySelectorAll<HTMLFieldSetElement>('[data-options-for]');
   const radios = document.querySelectorAll<HTMLInputElement>('input[name="booking-service"]');
   const fallback = document.querySelector<HTMLAnchorElement>('[data-booking-fallback]');
   const servicesEl = document.querySelector<HTMLElement>('[data-services]');
-  const services: Record<string, Svc> = JSON.parse(servicesEl?.dataset.services || '{}');
+  const bookables: Record<string, Bookable> = JSON.parse(servicesEl?.dataset.services || '{}');
   const calUser = root?.dataset.calUser || '';
 
   const track = (event: string, params: Record<string, string> = {}) =>
     (window as any).gtag?.('event', event, params);
 
-  function selectedSlug(): string {
+  function selectedKey(): string {
     const checked = document.querySelector<HTMLInputElement>(
       'input[name="booking-service"]:checked',
     );
-    return checked?.value || Object.keys(services)[0] || '';
+    return checked?.value || Object.keys(bookables)[0] || '';
   }
 
-  /** The Cal.com event slug for the current reading, honouring the length/price
-   *  choice when the reading has more than one. */
+  /** Cal.com event slug for the current choice. One radio == one event type. */
   function selectedEvent(): string {
-    const slug = selectedSlug();
-    const opt = document.querySelector<HTMLInputElement>(
-      `input[name="booking-option-${slug}"]:checked`,
-    );
-    return opt?.value || services[slug]?.event || slug;
-  }
-
-  /** Show only the option picker belonging to the selected reading. */
-  function syncOptionSets() {
-    const slug = selectedSlug();
-    optionSets.forEach((fs) => {
-      fs.hidden = fs.dataset.optionsFor !== slug;
-    });
+    const key = selectedKey();
+    return bookables[key]?.event || key;
   }
 
   function updateFallback() {
     if (fallback && calUser) fallback.href = `https://cal.com/${calUser}/${selectedEvent()}`;
   }
 
-  let calLoaded = false;
-
-  function loadCalScript(): Promise<void> {
-    return new Promise((resolve, reject) => {
-      if ((window as any).Cal) return resolve();
-      const s = document.createElement('script');
-      s.src = 'https://app.cal.com/embed/embed.js';
-      s.async = true;
-      s.onload = () => resolve();
-      s.onerror = () => reject(new Error('Cal.com embed script failed to load'));
-      document.head.appendChild(s);
-    });
+  /**
+   * Cal.com's official loader stub. This has to exist BEFORE embed.js runs:
+   * embed.js does not define `window.Cal` itself, it drains a queue that this
+   * stub creates. Loading the script on its own — which an earlier version of
+   * this file did — leaves `window.Cal` undefined and the calendar never
+   * appears. Taken from Cal.com's documented embed snippet.
+   */
+  function ensureCalLoader() {
+    (function (C: any, A: string, L: string) {
+      const p = (a: any, ar: any) => {
+        a.q.push(ar);
+      };
+      const d = C.document;
+      C.Cal =
+        C.Cal ||
+        function (...args: any[]) {
+          const cal = C.Cal;
+          if (!cal.loaded) {
+            cal.ns = {};
+            cal.q = cal.q || [];
+            d.head.appendChild(d.createElement('script')).src = A;
+            cal.loaded = true;
+          }
+          if (args[0] === L) {
+            const api: any = function (...a: any[]) {
+              p(api, a);
+            };
+            const namespace = args[1];
+            api.q = api.q || [];
+            if (typeof namespace === 'string') {
+              cal.ns[namespace] = api;
+              p(api, args);
+            } else {
+              p(cal, args);
+            }
+            return;
+          }
+          p(cal, args);
+        };
+    })(window as any, 'https://app.cal.com/embed/embed.js', 'init');
   }
 
   function showEmbedFailure(mount: HTMLElement) {
@@ -194,10 +171,13 @@ const entries = Object.entries(services);
     a.textContent = 'Open the booking page in a new tab';
     p.appendChild(a);
     mount.appendChild(p);
-    track('booking_embed_failed', { service: selectedSlug() });
+    track('booking_embed_failed', { service: selectedKey() });
   }
 
-  async function mountEmbed() {
+  let calLoaded = false;
+  let failureTimer = 0;
+
+  function mountEmbed() {
     const mount = document.querySelector<HTMLElement>('[data-cal-mount]');
     const prompt = document.querySelector<HTMLElement>('[data-embed-prompt]');
     if (!mount || !calUser) return;
@@ -205,13 +185,7 @@ const entries = Object.entries(services);
     mount.classList.add('is-loading');
     mount.textContent = 'Loading available times…';
 
-    try {
-      await loadCalScript();
-    } catch {
-      showEmbedFailure(mount);
-      return;
-    }
-
+    ensureCalLoader();
     const Cal = (window as any).Cal;
     if (typeof Cal !== 'function') {
       showEmbedFailure(mount);
@@ -222,7 +196,7 @@ const entries = Object.entries(services);
     try {
       Cal('init', { origin: 'https://cal.com' });
       Cal('inline', {
-        elementOrSelector: '[data-cal-mount]',
+        elementOrSelector: '#cal-mount',
         calLink: `${calUser}/${selectedEvent()}`,
         layout: 'month_view',
       });
@@ -242,39 +216,36 @@ const entries = Object.entries(services);
     calLoaded = true;
     if (prompt) prompt.hidden = true;
     mount.classList.remove('is-loading');
-    track('booking_embed_open', { service: selectedSlug() });
+    track('booking_embed_open', { service: selectedKey() });
 
-    // If Cal never renders anything, don't leave the visitor staring at a box.
-    window.setTimeout(() => {
+    // Cal renders asynchronously. Give it room, then check something arrived
+    // rather than leaving the visitor staring at an empty box.
+    window.clearTimeout(failureTimer);
+    failureTimer = window.setTimeout(() => {
       if (mount.childElementCount === 0) showEmbedFailure(mount);
-    }, 10000);
+    }, 15000);
   }
 
-  // Pre-select a reading from ?service= (set by the CTAs on service pages).
+  // Pre-select from ?service= (set by CTAs on the service pages). Accepts the
+  // event key, and falls back to the first choice belonging to a service slug.
   const requested = new URLSearchParams(location.search).get('service');
-  if (requested && services[requested]) {
-    radios.forEach((r) => (r.checked = r.value === requested));
+  if (requested) {
+    const match = bookables[requested]
+      ? requested
+      : Object.keys(bookables).find((k) => k.startsWith(requested));
+    if (match) radios.forEach((r) => (r.checked = r.value === match));
   }
 
-  syncOptionSets();
   updateFallback();
   track('booking_start');
 
   radios.forEach((r) =>
     r.addEventListener('change', () => {
-      syncOptionSets();
       updateFallback();
       if (calLoaded) mountEmbed(); // reload the calendar for the new reading
     }),
   );
 
-  optionSets.forEach((fs) =>
-    fs.addEventListener('change', () => {
-      updateFallback();
-      if (calLoaded) mountEmbed();
-    }),
-  );
-
-  document.querySelector('[data-load-embed]')?.addEventListener('click', () => void mountEmbed());
+  document.querySelector('[data-load-embed]')?.addEventListener('click', () => mountEmbed());
   fallback?.addEventListener('click', () => track('booking_external_fallback'));
 </script>

@@ -1644,3 +1644,20 @@ fieldset[data-booking-services] > legend > h2 {
     min-height: 540px;
   }
 }
+
+/* WCAG 2.2 2.5.8 Target Size (Minimum): radio and checkbox controls in choice
+   lists must be at least 24x24 CSS px. Surfaced when the natal 60/90 readings
+   became adjacent rows on /book/ — the browser default radio is ~13px, which
+   axe flags as a serious violation once two of them sit close together.
+   The wrapping <label> was always clickable; this makes the control itself
+   meet the criterion, which is what the rule measures. */
+.choice input[type="radio"],
+.choice input[type="checkbox"] {
+  inline-size: 24px;
+  block-size: 24px;
+  min-inline-size: 24px;
+  min-block-size: 24px;
+  flex: none;
+  margin-block-start: 0.1rem;
+  accent-color: var(--color-teal);
+}

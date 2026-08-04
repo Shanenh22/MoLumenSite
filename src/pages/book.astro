@@ -9,25 +9,41 @@ import BookingEmbed from '../components/BookingEmbed.astro';
 const services = (await getCollection('services')).filter((s) => s.data.available);
 const calUser = site.integrations.calcomUsername;
 const crumbs = [{ label: 'Book a Reading', href: '/book/' }];
-const serviceData = Object.fromEntries(
-  services.map((s) => [
-    s.data.slug,
-    {
-      name: s.data.name,
-      duration: s.data.durationLabel,
-      price:
-        s.data.priceConfirmed && s.data.price
-          ? (s.data.priceLabel ?? `$${s.data.price}`)
-          : null,
-      event: s.data.bookingEventId,
-      options: s.data.options.map((o) => ({
-        label: o.label,
-        price: o.price,
+/**
+ * One entry per Cal.com event type, not per service. Readings sold at more
+ * than one length (natal 60/90, the clarity follow-up) become separate
+ * choices in the list rather than hiding a second picker behind a selection —
+ * the price differs, so it is a different thing being bought.
+ */
+const bookables = services.flatMap((s) =>
+  s.data.options.length > 1
+    ? s.data.options.map((o) => ({
+        key: o.bookingEventId || s.data.bookingEventId,
+        service: s.data.slug,
+        name: `${s.data.shortName} — ${o.label}`,
+        duration: o.durationLabel,
+        price: s.data.priceConfirmed ? `$${o.price}` : null,
         event: o.bookingEventId || s.data.bookingEventId,
-      })),
-    },
-  ])
+        audience: s.data.audience,
+        note: o.note ?? '',
+      }))
+    : [
+        {
+          key: s.data.slug,
+          service: s.data.slug,
+          name: s.data.name,
+          duration: s.data.durationLabel,
+          price:
+            s.data.priceConfirmed && s.data.price
+              ? (s.data.priceLabel ?? `$${s.data.price}`)
+              : null,
+          event: s.data.bookingEventId,
+          audience: s.data.audience,
+          note: '',
+        },
+      ]
 );
+const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
 ---
 
 <BaseLayout
@@ -66,22 +82,15 @@ const serviceData = Object.fromEntries(
           <fieldset data-booking-services data-services={JSON.stringify(serviceData)}>
             <legend><h2>Choose your reading</h2></legend>
             {
-              services.map((s, i) => (
+              bookables.map((b, i) => (
                 <label class="choice" style="display: flex;">
-                  <input
-                    type="radio"
-                    name="booking-service"
-                    value={s.data.slug}
-                    checked={i === 0}
-                  />
+                  <input type="radio" name="booking-service" value={b.key} checked={i === 0} />
                   <span>
-                    <strong>{s.data.name}</strong> — {s.data.durationLabel}
-                    {s.data.priceConfirmed && s.data.price
-                      ? ` · ${s.data.priceLabel ?? `$${s.data.price}`}`
-                      : ''}
-                    {s.data.audience === 'established' ? ' · established clients' : ''}
+                    <strong>{b.name}</strong> — {b.duration}
+                    {b.price ? ` · ${b.price}` : ''}
+                    {b.audience === 'established' ? ' · established clients' : ''}
                     <br />
-                    <a href={`/readings/${s.data.slug}/`}>Details</a>
+                    <a href={`/readings/${b.service}/`}>Details</a>
                   </span>
                 </label>
               ))
