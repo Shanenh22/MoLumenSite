@@ -27,9 +27,39 @@ const schema = [
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: e.title,
+    description: e.summary,
     datePublished: e.start.toISOString(),
-    author: { '@type': 'Person', name: 'Mo Lumen' },
-    publisher: { '@type': 'Organization', name: site.name },
+    dateModified: (e.lastVerified ?? e.start).toISOString(),
+    author: { '@type': 'Person', name: 'Maureen "Mo" Lumen', url: `${site.url}/about/` },
+    publisher: { '@type': 'Organization', name: site.name, url: site.url },
+    mainEntityOfPage: `${site.url}/current-sky/events/${slug}/`,
+  },
+  /**
+   * These are dated astronomical events, so they are eligible for Event rich
+   * results — the surface that answers "when is the next full moon". Marked
+   * as online and free because that is what they are: the sky, visible to
+   * everyone, at no cost. Nothing here is a Mo Lumen product.
+   */
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Event',
+    name: e.title,
+    description: e.summary,
+    startDate: e.start.toISOString(),
+    endDate: e.start.toISOString(),
+    eventStatus: 'https://schema.org/EventScheduled',
+    eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
+    location: {
+      '@type': 'VirtualLocation',
+      url: `${site.url}/current-sky/events/${slug}/`,
+    },
+    image: new URL('/og-default.png', site.url).href,
+    isAccessibleForFree: true,
+    organizer: { '@type': 'Organization', name: site.name, url: site.url },
+    about: {
+      '@type': 'Thing',
+      name: e.sign ? `${e.eventType} in ${e.sign}` : e.eventType,
+    },
   },
 ];
 ---

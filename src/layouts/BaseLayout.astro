@@ -10,6 +10,8 @@ export interface Breadcrumb {
   href: string;
 }
 interface Props {
+  /** Absolute-from-root path to a raster share image, e.g. /images/natal-reading.webp */
+  shareImage?: string;
   title: string;
   description: string;
   /** Path beginning and ending with '/'; used for canonical URL. */
@@ -32,6 +34,7 @@ const {
   updatedDate,
   schema = [],
   noindex = false,
+  shareImage,
 } = Astro.props;
 
 const canonical = new URL(path, site.url).href;
@@ -53,7 +56,14 @@ function clampDesc(d: string): string {
 }
 const fullTitle = buildTitle(title);
 const metaDescription = clampDesc(description);
-const ogImage = new URL('/og-default.svg', site.url).href;
+/**
+ * Share image. Must be a raster format — Facebook, LinkedIn, X, WhatsApp and
+ * Slack all refuse to render an SVG og:image, so the previous og-default.svg
+ * meant every share of this site appeared with no picture at all.
+ * Pages that pass their own image use it; everything else gets the branded
+ * 1200x630 default.
+ */
+const ogImage = new URL(shareImage ?? '/og-default.png', site.url).href;
 
 /**
  * Real last-modified date for this route, from git history via
@@ -182,6 +192,13 @@ const ga4Id = site.integrations.ga4Id;
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
+    {site.verification.google && (
+      <meta name="google-site-verification" content={site.verification.google} />
+    )}
+    {site.verification.bing && <meta name="msvalidate.01" content={site.verification.bing} />}
+    {site.verification.pinterest && (
+      <meta name="p:domain_verify" content={site.verification.pinterest} />
+    )}
     {noindex && <meta name="robots" content="noindex" />}
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -194,6 +211,10 @@ const ga4Id = site.integrations.ga4Id;
     <meta property="og:url" content={canonical} />
     <meta property="og:type" content={ogType} />
     <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content={fullTitle} />
+    <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
     {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
     {dateModified && <meta property="article:modified_time" content={dateModified} />}
