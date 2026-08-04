@@ -25,7 +25,8 @@
     "check:hero-contrast": "node scripts/check-hero-contrast.mjs",
     "test:finder": "node scripts/test-finder-handoff.mjs",
     "seo:ping": "node scripts/ping-indexnow.mjs",
-    "og:generate": "node scripts/gen-og-image.mjs"
+    "og:generate": "node scripts/gen-og-image.mjs",
+    "images:variants": "node scripts/gen-image-variants.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.3",

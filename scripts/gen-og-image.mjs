@@ -1,4 +1,5 @@
 import { chromium } from "playwright";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { readFileSync } from "node:fs";
 const html = `<!doctype html><html><head><meta charset="utf-8"><style>
 @font-face{font-family:F;src:local("Georgia");}
@@ -40,7 +41,7 @@ ${Array.from({ length: 16 }, (_, i) => {
 <p>Clarifying astrology readings with a classical lens — practical, candid, and warm.</p>
 </div></body></html>`;
 const b = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 const p = await b.newPage({
   viewport: { width: 1200, height: 630 },

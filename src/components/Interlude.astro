@@ -40,6 +40,8 @@ const { image, eyebrow, heading, body, linkLabel, linkHref } = Astro.props;
   <img
     class="interlude__img"
     src={image.src}
+    srcset={image.srcset}
+    sizes="100vw"
     alt={image.alt}
     width={image.width}
     height={image.height}

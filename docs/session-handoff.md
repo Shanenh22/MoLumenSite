@@ -3,7 +3,7 @@
 Written 2026-08-04. Read this first if you are picking this repo up in a new session.
 
 Everything below is context that existed only in a conversation and would otherwise be lost. The
-code is in git; the *reasons* are here.
+code is in git; the _reasons_ are here.
 
 ## The hard rules, restated
 
@@ -56,11 +56,11 @@ installed together: `npm run audit:install`.
 **Cal.com's `embed.js` does not define `window.Cal`.** You must create the queue stub first. The
 official loader snippet is in `src/components/BookingEmbed.astro` — leave it alone.
 
-**Absolutely-positioned children resolve against the nearest *positioned* ancestor.** Making
+**Absolutely-positioned children resolve against the nearest _positioned_ ancestor.** Making
 `.hero--split .container` positioned shrinks the hero photo to the container box instead of letting
 it fill the band. There is a comment in `global.css` saying so. It is not an oversight.
 
-**CSS source order decides ties.** The mobile hero scrim override lives at the *end* of
+**CSS source order decides ties.** The mobile hero scrim override lives at the _end_ of
 `global.css` on purpose, with a comment. Moving it up loses it to a later equal-specificity rule.
 
 **axe cannot evaluate contrast of text over a photograph.** It reported zero violations while nine
@@ -90,6 +90,14 @@ Run `npm run audit:install` first (installs lighthouse, playwright, pngjs withou
 | `npm run test:finder`         | 11 Reading Finder → /book/ handoff cases              |
 | `npm run audit:lh`            | Lighthouse                                            |
 | `npm run shot /book/ /about/` | full-page screenshots into `shots/`                   |
+| `npm run images:variants`     | rebuilds the responsive copies of every band image    |
+
+**These scripts now run on Windows and macOS, not only in the Linux container.** Every one of them
+used to hard-code `executablePath: "/opt/pw-browsers/chromium"`, so on any other machine the entire
+suite died at browser launch before asserting anything. They share
+`scripts/lib/chromium-path.mjs` instead. Read the comment in that file before changing it — the
+short version is that handing Playwright an explicit path to its _own_ default browser fails on
+Windows with `spawn UNKNOWN`, while passing nothing at all works on the identical binary.
 
 Last known-good state at commit `74826a3` (branch `ocean-imagery-internal-pages`): 129 pages,
 `astro check` clean, audit clean on 13 checks, axe 0 violations, every hero and interlude band above
@@ -97,6 +105,14 @@ Last known-good state at commit `74826a3` (branch `ocean-imagery-internal-pages`
 Lighthouse 97–100 mobile / 100 desktop, CLS 0.
 
 Previous known-good was `83e5dd5`, where the worst desktop hero was 4.60:1.
+
+**A number in this file is only comparable to another number measured the same way.** The responsive
+image pass below re-ran `check:hero-contrast` on Windows and got a worst block of **5.75:1** where
+the container had reported 6.42:1. Nothing regressed: the same build measured with and without
+srcset produced an identical 5.75:1 minimum across all 64 block/viewport pairs. Chromium build and
+font rasterisation differ between machines, and the sampler reads pixels behind _rendered glyph
+boxes_, so the box moves a little. If you see a figure here you cannot reproduce, measure the
+before-state on your own machine before concluding anything broke.
 
 ## Vocabulary drift — the bug that will come back
 
@@ -287,9 +303,60 @@ Booking 18/18, finder 11/11. Lighthouse 97–100 mobile / 100 desktop, CLS 0. 12
 
 - Mo has not seen these. Shane approved publishing them as decorative imagery on 2026-08-04; Mo's
   own sign-off is still outstanding, as it is for the testimonials.
-- Hero images have no `srcset`. A phone downloads the full 1536px file. That was already true of
-  every hero on the site, so this work did not introduce it, but `/explore/transits/` went from a
-  45KB hero to a 165KB one and it is the largest single increase here.
+- ~~Hero images have no `srcset`.~~ **Done 2026-08-04** — see "Responsive band images" below.
 - The remaining scene images are still shared: `newsletter-letters.webp` covers four pages,
   `reading-process.webp` three. The funnel has the same duplication problem the reference library
   just had.
+
+## Responsive band images (2026-08-04)
+
+The follow-up the ocean pass left behind: every hero and interlude is one `<img>` stretched across
+100vw, and each shipped exactly one file at its authored width — 1536px for the ocean set, 1200px
+for the older scene art — no matter what was asking for it. `/explore/transits/` was the worst case
+at 161KB.
+
+`scripts/gen-image-variants.mjs` (`npm run images:variants`) now writes 640 / 960 / 1280 copies
+beside each source, and `band()` in `src/config/images.ts` attaches the matching `srcset`. The
+markup pairs it with `sizes="100vw"`. What a 2x phone actually fetches:
+
+| image                        | was   | now @960 | @640 |
+| ---------------------------- | ----- | -------- | ---- |
+| `ocean-shells-before-tide`   | 179KB | 84KB     | 44KB |
+| `birth-chart-basics`         | 181KB | 93KB     | 46KB |
+| `ocean-currents`             | 161KB | 73KB     | 37KB |
+| `reading-process`            | 156KB | 74KB     | 35KB |
+| `ocean-coral-reef-blue-hour` | 154KB | 83KB     | 47KB |
+
+Four things worth knowing before you touch this:
+
+1. **It covers all 44 band images, not just the ocean ones.** The gap was never specific to the
+   ocean work — every hero on the site had it. Fixing fourteen of them and leaving thirty would have
+   guaranteed a second pass over the same files.
+2. **`sharp` is not a new dependency.** Astro already ships it, so the generator imports it and
+   `package.json` is unchanged apart from the new script entry. Do not add it explicitly; that means
+   a lockfile regeneration, and `npm ci` fails hard on a mismatch.
+3. **`VARIANT_WIDTHS` is exported from `images.ts` and imported by the generator.** One list, two
+   consumers. If they ever disagreed the markup would advertise files nothing had written, and a
+   browser that picked one would show an empty band — which no check here would catch, because the
+   contrast sampler waits for `load` and a 404 fires `error`.
+4. **Portraits are deliberately excluded.** They are laid out at a fixed column width rather than
+   full-bleed, so they need their own `sizes`, and the three that matter already carry hand-written
+   srcsets in `index.astro`. They are also the only images that depict a real person.
+
+Verified: `astro check` 0 errors, 129 pages, audit clean on 13 checks (`/videos/` still the one thin
+page at 338 words), axe 0 violations across 20 pages × 2 viewports, `check:contrast` all pass,
+booking 18/18, finder 11/11. Hero contrast: 32 blocks × 2 viewports all pass, and — measured on the
+same machine, with and without srcset — an identical 5.75:1 worst case either way.
+
+### The trap this pass walked into
+
+`npm run format` is `prettier --write .`, and `.` is the whole repo. Running it after a source edit
+also reformatted 39 unrelated files: every `*emphasis*` in `docs/research/` became `_emphasis_`, and
+**`wrangler.jsonc` gained trailing commas**. That last one is a deploy config, in a repo whose worst
+outage came from a Wrangler behaviour change. All of it was reverted; the commit is only the 57
+files this work actually touched. Either format specific paths, or check `git diff --stat` before
+committing and put back anything you did not mean to change.
+
+Related: `git status` on this repo lists files as modified that have no content diff at all.
+`core.autocrlf` is `true` and there is no `.gitattributes`, so anything Prettier rewrites comes back
+with LF against a CRLF working tree. `git diff --stat` is the honest view; `git status` is not.

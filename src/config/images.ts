@@ -24,6 +24,8 @@ export interface SiteImage {
   alt: string;
   width: number;
   height: number;
+  /** Present on band images only — see `band()` below. */
+  srcset?: string;
 }
 const img = (
   name: string,
@@ -36,6 +38,49 @@ const img = (
   width,
   height,
 });
+
+/**
+ * Narrow copies that scripts/gen-image-variants.mjs writes for every band
+ * image. Exported so the generator and the srcset below cannot drift apart:
+ * one list, two consumers.
+ */
+export const VARIANT_WIDTHS = [640, 960, 1280];
+
+/**
+ * A full-bleed band image — every hero and every interlude.
+ *
+ * These stretch across 100vw, so a phone was fetching the full authored file
+ * (1536px for the ocean set) to paint a 390px band. `band()` attaches the
+ * srcset that lets the browser choose; the markup pairs it with sizes="100vw".
+ *
+ * Portraits deliberately do not go through here. They are laid out at a fixed
+ * column width rather than full-bleed, so they need their own `sizes`, and the
+ * three that matter already carry hand-written srcsets in index.astro.
+ *
+ * A width is only offered if it is genuinely smaller than the source: nothing
+ * here is ever upscaled, and the untouched original always ends the list as the
+ * widest candidate.
+ */
+const band = (
+  name: string,
+  alt: string,
+  width: number,
+  height: number,
+): SiteImage => {
+  const base = `/images/${name}`;
+  return {
+    src: `${base}.webp`,
+    alt,
+    width,
+    height,
+    srcset: [
+      ...VARIANT_WIDTHS.filter((w) => w < width).map(
+        (w) => `${base}-${w}.webp ${w}w`,
+      ),
+      `${base}.webp ${width}w`,
+    ].join(", "),
+  };
+};
 
 export const photos = {
   moHome: img(
@@ -68,134 +113,134 @@ export const photos = {
 } as const;
 
 export const scenes = {
-  heroWorkspace: img("hero-workspace", "", 1536, 1024),
-  natal: img(
+  heroWorkspace: band("hero-workspace", "", 1536, 1024),
+  natal: band(
     "natal-reading",
     "A hand-drawn natal chart beside a celestial journal and brass pen",
     1200,
     800,
   ),
-  relationship: img(
+  relationship: band(
     "relationship-reading",
     "Two mugs — midnight blue and warm clay — resting on overlapping birth charts",
     1200,
     800,
   ),
-  solarReturn: img(
+  solarReturn: band(
     "solar-return",
     "A sunlit chart wheel marking the return of the Sun",
     1200,
     800,
   ),
-  lifeChanges: img(
+  lifeChanges: band(
     "life-changes",
     "A winding road through open country at golden hour",
     1200,
     800,
   ),
-  monthlyTransits: img(
+  monthlyTransits: band(
     "monthly-transits",
     "A monthly calendar of moon phases beside a warm lamp",
     1200,
     800,
   ),
-  moreClarity: img(
+  moreClarity: band(
     "more-clarity",
     "A magnifying lens over the fine detail of a chart",
     1200,
     800,
   ),
-  quickCheckIn: img(
+  quickCheckIn: band(
     "quick-check-in",
     "A single candle and a small chart on a quiet desk",
     1200,
     800,
   ),
-  chartDetail: img(
+  chartDetail: band(
     "chart-detail",
     "Close detail of a hand-drawn astrological chart",
     1200,
     800,
   ),
-  birthChartBasics: img(
+  birthChartBasics: band(
     "birth-chart-basics",
     "A complete birth chart laid out with drawing tools",
     1200,
     800,
   ),
-  planets: img(
+  planets: band(
     "planets-library",
     "A row of miniature planets on brass stands along a mantel",
     1200,
     800,
   ),
-  signs: img(
+  signs: band(
     "signs-library",
     "Zodiac symbols illustrated across parchment",
     1200,
     800,
   ),
-  houses: img(
+  houses: band(
     "houses-library",
     "Twelve-part chart wheel in warm light",
     1200,
     800,
   ),
-  aspects: img(
+  aspects: band(
     "aspects-library",
     "Geometric aspect lines drawn between chart points",
     1200,
     800,
   ),
-  currentSkyWide: img(
+  currentSkyWide: band(
     "current-sky-wide",
     "A wide dusk sky with the first stars appearing",
     1200,
     800,
   ),
-  currentTransits: img(
+  currentTransits: band(
     "current-transits",
     "Planetary positions sketched across a sky map",
     1200,
     800,
   ),
-  duskMountains: img(
+  duskMountains: band(
     "dusk-mountains",
     "Layered mountain ridges under a fading sky",
     1200,
     800,
   ),
-  prepareReading: img(
+  prepareReading: band(
     "prepare-reading",
     "A notebook, warm tea, and quiet space prepared for a reading",
     1200,
     800,
   ),
-  readingProcess: img(
+  readingProcess: band(
     "reading-process",
     "A reading in progress: chart, notes, and warm light",
     1200,
     800,
   ),
-  newsletterLetters: img(
+  newsletterLetters: band(
     "newsletter-letters",
     "Hand-written letters with celestial stationery",
     1200,
     800,
   ),
-  videosStudio: img(
+  videosStudio: band(
     "videos-studio",
     "A cozy recording corner with microphone and star chart",
     1200,
     800,
   ),
-  approachPhilosophy: img(
+  approachPhilosophy: band(
     "approach-philosophy",
     "A telescope by a window at dusk",
     1200,
     800,
   ),
-  aboutMo: img(
+  aboutMo: band(
     "about-mo-placeholder",
     "A warm study with astrological charts and candlelight",
     1200,
@@ -208,85 +253,85 @@ export const scenes = {
  * before adding, moving or re-captioning any of these.
  */
 export const ocean = {
-  cliffsSeaFog: img(
+  cliffsSeaFog: band(
     "ocean-cliffs-sea-fog",
     "Sea fog rolling over dark coastal cliffs above a grey ocean",
     1536,
     1024,
   ),
-  coralReefBlueHour: img(
+  coralReefBlueHour: band(
     "ocean-coral-reef-blue-hour",
     "A split view at the waterline: a coral reef below the surface, storm clouds above",
     1537,
     1023,
   ),
-  currents: img(
+  currents: band(
     "ocean-currents",
     "Blue-green currents braiding together across the surface of open water",
     1536,
     1024,
   ),
-  dawnWave: img(
+  dawnWave: band(
     "ocean-dawn-wave",
     "A wave curling over in clear water as the sun rises behind it",
     1536,
     1024,
   ),
-  floatingInTrust: img(
+  floatingInTrust: band(
     "ocean-floating-in-trust",
     "A distant aerial view of one person floating on their back in wide open water at sunset",
     1536,
     1024,
   ),
-  glassWave: img(
+  glassWave: band(
     "ocean-glass-wave",
     "A single wave curling over, lit like glass against a sunset horizon",
     1536,
     1024,
   ),
-  lightBreakingStorm: img(
+  lightBreakingStorm: band(
     "ocean-light-breaking-storm",
     "A shaft of sunlight breaking through storm cloud onto open sea",
     1536,
     1024,
   ),
-  lightRays: img(
+  lightRays: band(
     "ocean-light-rays",
     "Sunbeams fanning down through clear turquoise water",
     1536,
     1024,
   ),
-  meetingWaves: img(
+  meetingWaves: band(
     "ocean-meeting-waves",
     "Two waves converging into a single trough beneath a violet and gold sunset",
     1536,
     1024,
   ),
-  ripplesSunset: img(
+  ripplesSunset: band(
     "ocean-ripples-sunset",
     "Concentric ripples spreading outward from a single drop on still water at sunset",
     1536,
     1024,
   ),
-  seaStackMoonrise: img(
+  seaStackMoonrise: band(
     "ocean-sea-stack-moonrise",
     "A lone sea stack standing in calm water beneath a rising moon",
     1536,
     1024,
   ),
-  shellsBeforeTide: img(
+  shellsBeforeTide: band(
     "ocean-shells-before-tide",
     "Seashells arranged in a spiral on wet sand as the tide edges toward them",
     1536,
     1024,
   ),
-  solitaryBuoy: img(
+  solitaryBuoy: band(
     "ocean-solitary-buoy",
     "A red buoy holding position on flat grey water under low cloud",
     1536,
     1024,
   ),
-  whaleTailStars: img(
+  whaleTailStars: band(
     "ocean-whale-tail-stars",
     "A whale's tail above dark water beneath a star-filled sky",
     1536,

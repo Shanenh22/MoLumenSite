@@ -23,6 +23,7 @@ async function requireTool(name) {
 }
 const { chromium } = await requireTool("playwright");
 import { readFileSync } from "node:fs";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import http from "node:http";
 import { createReadStream, statSync } from "node:fs";
 import { extname, join } from "node:path";
@@ -93,7 +94,7 @@ const VIEWPORTS = [
 ];
 
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 let total = 0;
 const rows = [];

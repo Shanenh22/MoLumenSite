@@ -8,6 +8,7 @@
  * cannot hide behind an average.
  */
 import http from "node:http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync } from "node:fs";
 import { extname, join } from "node:path";
 import { PNG } from "pngjs";
@@ -94,7 +95,7 @@ const ratio = (a, b) => {
 };
 
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 let fails = 0;
 for (const vp of [

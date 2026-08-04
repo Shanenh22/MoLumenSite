@@ -1,5 +1,6 @@
 /** Measures hero height and h1 size across page types, at desktop and mobile. */
 import http from "node:http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync } from "node:fs";
 import { extname, join } from "node:path";
 
@@ -60,7 +61,7 @@ const PAGES = [
   "/privacy/",
 ];
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 
 for (const vp of [

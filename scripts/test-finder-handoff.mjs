@@ -7,6 +7,7 @@
  * vocabularies drifted apart when multi-price readings became separate rows.
  */
 import http from "node:http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync } from "node:fs";
 import { extname, join } from "node:path";
 
@@ -51,7 +52,7 @@ const CASES = [
 ];
 
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 const page = await browser.newPage({ viewport: { width: 1280, height: 900 } });
 let fails = 0;

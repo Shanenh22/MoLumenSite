@@ -1,4 +1,5 @@
 import http from "http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import fs from "fs";
 import path from "path";
 import lighthouse from "lighthouse";
@@ -33,7 +34,7 @@ const srv = http.createServer((req, res) => {
 await new Promise((r) => srv.listen(4601, r));
 const chrome = await launch({
   chromeFlags: ["--headless", "--no-sandbox", "--disable-gpu"],
-  chromePath: "/opt/pw-browsers/chromium",
+  chromePath: chromiumPath(),
 });
 const r = await lighthouse("http://localhost:4601/", {
   port: chrome.port,

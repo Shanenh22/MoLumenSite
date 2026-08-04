@@ -5,6 +5,7 @@
  * reports the number, which is what you need when tuning a colour.
  */
 import http from "node:http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync } from "node:fs";
 import { extname, join } from "node:path";
 
@@ -33,7 +34,7 @@ const server = http.createServer((req, res) => {
 await new Promise((r) => server.listen(PORT, r));
 
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 

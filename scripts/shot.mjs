@@ -4,6 +4,7 @@
  * Usage: node scripts/shot.mjs /book/ /testimonials/
  */
 import http from "node:http";
+import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync, mkdirSync } from "node:fs";
 import { extname, join } from "node:path";
 
@@ -50,7 +51,7 @@ if (!pages.length) pages.push("/");
 mkdirSync("shots", { recursive: true });
 
 const browser = await chromium.launch({
-  executablePath: "/opt/pw-browsers/chromium",
+  executablePath: chromiumPath(),
 });
 for (const vp of [
   { name: "desktop", width: 1440, height: 1200 },
