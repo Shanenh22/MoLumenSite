@@ -1,10 +1,82 @@
 [
   {
-    "id": "placeholder-1",
-    "quote": "Approved testimonial needed — supplied by owner before launch.",
-    "attribution": "Pending",
+    "id": "claire-m-natal",
+    "quote": "Before my reading, I could recognize certain patterns in my life, but I didn't have the language to understand them. Mo connected the different parts of my chart in a way that felt clear, thoughtful, and deeply relevant to what I was experiencing. I left with greater self-understanding and a clearer sense of how I wanted to move forward.",
+    "attribution": "Claire M.",
     "service": "natal",
     "approved": false,
-    "permissionNote": "DEV PLACEHOLDER. Never render in production."
+    "permissionNote": "PENDING VERIFICATION — supplied 2026-08-04, provenance not yet established. Do not set approved:true until it is confirmed that this client wrote these words herself and gave permission to publish under this attribution. Replace this note with the date and method of that permission."
+  },
+  {
+    "id": "rachel-t-life-changes",
+    "quote": "I came to the session feeling uncertain about a major transition and hoping astrology might give me a definitive answer. Instead, Mo offered something much more useful: a compassionate perspective on the tensions, possibilities, and choices surrounding the situation. I never felt told what to do. I left feeling calmer, more grounded, and better able to trust my own judgment.",
+    "attribution": "Rachel T.",
+    "service": "life-changes",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "jennifer-l-natal",
+    "quote": "As someone completely new to astrology, I was worried I wouldn't understand the terminology or know what questions to ask. Mo made the entire experience approachable and connected everything back to my everyday life. The reading felt like a warm, thoughtful conversation—not a lecture—and I came away with insights I could actually use.",
+    "attribution": "Jennifer L.",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "laura-b-natal",
+    "quote": "Mo created such a calm and compassionate space. I felt comfortable asking questions, reflecting honestly, and exploring difficult patterns without ever feeling judged or placed into a box. The entire conversation felt supportive, respectful, and centered on what mattered most to me.",
+    "attribution": "Laura B.",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "natalie-s-natal",
+    "quote": "The reading was remarkably specific without ever feeling fatalistic. Mo helped me understand the patterns in my chart while continually honoring my ability to make my own choices. I came away with meaningful insights, practical questions to consider, and a much more nuanced understanding of myself.",
+    "attribution": "Natalie S.",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "amanda-r-relationship",
+    "quote": "My relationship reading helped me understand a dynamic that had been repeating for years. Mo approached the subject with honesty and compassion, without assigning blame or reducing either person to a chart placement. I left with a more nuanced understanding of the relationship, greater compassion for myself, and practical questions that continue to guide me.",
+    "attribution": "Amanda R.",
+    "service": "relationship",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "stephanie-k-solar-return",
+    "quote": "My solar return reading gave me a helpful framework for the year ahead. It felt less like a prediction and more like a thoughtful map of themes, priorities, and possibilities. I left feeling prepared to meet the coming year with greater awareness while remaining open to where life might lead.",
+    "attribution": "Stephanie K.",
+    "service": "solar-return",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "melissa-d-natal",
+    "quote": "I was impressed by how well prepared Mo was. She connected different parts of my chart into a coherent story while leaving plenty of room for my experiences, questions, and choices. The reading felt personal and carefully considered rather than generic.",
+    "attribution": "Melissa D.",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "erin-p-life-changes",
+    "quote": "The session helped me see that a challenging period wasn't meaningless or permanent. Mo gave me a grounded way to understand what I was moving through without minimizing how difficult it felt. I left feeling steadier, more curious, and better able to work with the season I'm in.",
+    "attribution": "Erin P.",
+    "service": "life-changes",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
+  },
+  {
+    "id": "danielle-h-natal",
+    "quote": "This was one of those conversations that continues unfolding afterward. I found myself returning to several of Mo's observations in the days and weeks that followed. Her warmth, clarity, and practical approach made the reading feel both deeply personal and genuinely useful.",
+    "attribution": "Danielle H.",
+    "service": "natal",
+    "approved": false,
+    "permissionNote": "PENDING VERIFICATION — see claire-m-natal."
   }
 ]
