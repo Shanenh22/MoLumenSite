@@ -1,0 +1,97 @@
+name: Build and deploy to Cloudflare
+ 
+# Replaces Cloudflare Workers Builds, which stalled at "Initialize build
+# environment" on 2026-08-03 — a stage that runs before the repository is even
+# cloned, so nothing in this repo could cause or fix it. GitHub Actions does the
+# same work (npm ci → astro build → wrangler deploy) somewhere we control.
+#
+# Requires two repository secrets, added in GitHub under
+# Settings → Secrets and variables → Actions:
+#   CLOUDFLARE_API_TOKEN   — Cloudflare token with "Edit Cloudflare Workers"
+#   CLOUDFLARE_ACCOUNT_ID  — from the Cloudflare dashboard URL or Workers page
+#
+# Until both exist this workflow fails fast with a clear message rather than
+# half-deploying.
+ 
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: # lets you re-run a deploy by hand from the Actions tab
+ 
+# A newer push supersedes an in-flight one rather than racing it.
+concurrency:
+  group: deploy-${{ github.ref }}
+  cancel-in-progress: true
+ 
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          # Full history, not a shallow clone: scripts/gen-page-dates.mjs reads
+          # git log to derive real dateModified values for every page. With
+          # depth 1 it finds nothing and pages fall back to committed dates.
+          fetch-depth: 0
+ 
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+ 
+      - name: Confirm deploy credentials are present
+        env:
+          API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: |
+          missing=""
+          [ -z "$API_TOKEN" ] && missing="$missing CLOUDFLARE_API_TOKEN"
+          [ -z "$ACCOUNT_ID" ] && missing="$missing CLOUDFLARE_ACCOUNT_ID"
+          if [ -n "$missing" ]; then
+            echo "::error::Missing repository secret(s):$missing"
+            echo "Add them under Settings → Secrets and variables → Actions."
+            echo "See docs/deploy-staging-manually.md for the interim manual path."
+            exit 1
+          fi
+          echo "Both secrets present."
+ 
+      - name: Install dependencies
+        run: npm ci
+ 
+      - name: Type-check
+        run: npm run check
+ 
+      - name: Build
+        run: npm run build
+ 
+      - name: Verify the build produced something sane
+        run: |
+          test -f dist/index.html || { echo "::error::dist/index.html missing"; exit 1; }
+          test -f dist/llms.txt   || { echo "::error::dist/llms.txt missing"; exit 1; }
+          test -f dist/_headers   || { echo "::error::dist/_headers missing"; exit 1; }
+          pages=$(find dist -name '*.html' | wc -l)
+          echo "Built $pages HTML pages."
+          if [ "$pages" -lt 100 ]; then
+            echo "::error::Only $pages pages built; expected 118+. Refusing to deploy a partial site."
+            exit 1
+          fi
+ 
+      - name: Deploy to Cloudflare Workers
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: deploy
+ 
+      - name: Confirm the deploy is live
+        run: |
+          sleep 10
+          code=$(curl -s -o /dev/null -w '%{http_code}' https://molumen.shanenh.workers.dev/llms.txt)
+          echo "GET /llms.txt → $code"
+          [ "$code" = "200" ] || echo "::warning::llms.txt returned $code — check the deploy manually."
+ 
+
+
