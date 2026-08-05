@@ -3,9 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-import SeaBreak from '../../components/SeaBreak.astro';
 import { site } from '../../config/site';
-import { bandFor, scenes } from '../../config/images';
+import { scenes } from '../../config/images';
 
 export async function getStaticPaths() {
   const posts = (await getCollection('blog')).filter((p) => !p.data.draft);
@@ -36,10 +35,12 @@ const crumbs = [
   { label: 'Blog', href: '/blog/' },
   { label: d.title, href: `/blog/${slug}/` },
 ];
-/* A post is one <Content /> block, so there is no seam inside it to break. The
-   band goes between the article and the related posts, where the reader has
-   finished and is deciding what next. */
-const breakImage = bandFor(slug, 3);
+/* No decorative band on a post, deliberately. One was tried and removed: a post
+   is a single <Content /> block with no seam inside it, so the band could only
+   land between the article and the related posts — decoration in the one place
+   the reader has already finished reading. Long-form prose wants an
+   uninterrupted column. The heading rhythm in `.prose.flow > h2` is what breaks
+   these pages up, and it costs nothing. */
 /** Reading time from the real word count at 220 wpm, rounded up. */
 const readingMinutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
 
@@ -114,8 +115,6 @@ const schema = [
       </div>
     </section>
   </article>
-
-  <SeaBreak image={breakImage} />
 
   {
     related.length > 0 && (

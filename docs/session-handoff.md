@@ -415,6 +415,32 @@ gave 54 previously image-less pages an immersive opening.
 Every `line` on a band is still drawn from copy already on that page. They are pull-quotes, not new
 claims — the `<Interlude>` rule, unchanged.
 
+### Where the bands do NOT go — Shane's call, 2026-08-04
+
+Blog posts and Current Sky event pages had a `<SeaBreak>` added and then **removed at Shane's
+request**. His words: immersive, not busy for no reason. He is right, and the reason is worth
+keeping because it is the rule for anything added here later.
+
+On an `/explore/` page a band sits **between two ideas** and is chosen for what the page is about —
+it does a job. On a blog post there is no seam: the body is one `<Content />` block, so the only
+place a band could go was between the finished article and the related-posts cards. On a sky-event
+page there is barely a body at all — three paragraphs and a source line. In both cases the image was
+picked by hash, so it was decoration with no relationship to the page, placed where nobody was still
+reading.
+
+**A long-form post does not want breaking up.** What breaks those pages up is the heading rhythm in
+`.prose.flow > h2` plus the bold lead-ins the posts already use, and both cost nothing.
+
+The test to apply before adding any device to a page: does it sit between two ideas, and does it
+have a reason to be that particular image? If not, leave the page alone.
+
+Sky-event heroes were also re-keyed at the same time. They had been hashed off the slug, so a page
+about an eclipse could open on an arbitrary wave — the same "picture for no reason" problem in a
+quieter form. Each `eventType` now has a small pool (`HERO_BY_TYPE`) and the slug picks within it,
+so the hero is always about the right kind of event **and** no two of the ten lunation pages look
+alike. A single image per type would have re-created the sibling-duplication problem this imagery
+work existed to fix.
+
 ### Two things that were tried and removed
 
 **A scroll-reveal fade.** It looked right in principle and rendered the bands as blank white gaps in

@@ -3,8 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
-import SeaBreak from '../../../components/SeaBreak.astro';
-import { bandFor } from '../../../config/images';
+import { bandFor, celestial, ocean, type SiteImage } from '../../../config/images';
 import { site } from '../../../config/site';
 
 export async function getStaticPaths() {
@@ -24,9 +23,38 @@ const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: e.title, href: `/current-sky/events/${slug}/` },
 ];
-/* Fifteen sky-event pages carried no image at all. */
-const heroImage = bandFor(slug);
-const breakImage = bandFor(slug, 5);
+/* Fifteen sky-event pages carried no image at all, so the hero earns its place.
+   A second decorative band below the article did not: these are short dated
+   notes — three paragraphs and a source line — and the only seam available was
+   between the note and its own citation. Tried and removed.
+
+   The hero is keyed to what the event actually is rather than hashed off the
+   slug, because a page about an eclipse opening on an arbitrary wave is the
+   same "picture for no reason" problem in a quieter form. Unknown types still
+   fall back to the hash, so adding an eventType to the schema cannot leave a
+   page without a hero.
+
+   A single image per type would mean all ten lunation pages opened on the same
+   picture, which is the sibling-duplication problem the imagery work existed to
+   fix. So each type gets a small pool and the slug picks within it: the hero is
+   always about the right kind of event, and no two lunations look alike. */
+const HERO_BY_TYPE: Record<string, SiteImage[]> = {
+  eclipse: [celestial.distanceUnderEclipse, ocean.lightBreakingStorm],
+  lunation: [
+    celestial.moonPhasesInWater,
+    ocean.seaStackMoonrise,
+    ocean.ripplesSunset,
+  ],
+  retrograde: [celestial.emptyChair, celestial.platform, ocean.currents],
+};
+function heroFor(): SiteImage {
+  const pool = HERO_BY_TYPE[e.eventType];
+  if (!pool) return bandFor(slug);
+  let h = 0;
+  for (let i = 0; i < slug.length; i++) h = (h * 31 + slug.charCodeAt(i)) >>> 0;
+  return pool[h % pool.length];
+}
+const heroImage = heroFor();
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -104,13 +132,7 @@ const schema = [
     <section class="section">
       <div class="container prose flow">
         <Content />
-      </div>
-    </section>
-
-    <SeaBreak image={breakImage} />
-
-    <section class="section section--sea">
-      <div class="container prose flow">
+        <hr />
         <p class="card__meta">
           Astronomical data: {e.sourceNote} Interpretive notes are Mo's perspective — astrology
           offers perspective, not certainty, and your choices remain your own.
