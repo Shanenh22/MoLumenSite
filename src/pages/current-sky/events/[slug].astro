@@ -114,8 +114,11 @@ const schema = [
         <div>
           <p class="eyebrow">{e.eventType}{e.sign ? ` · ${e.sign}` : ''}</p>
           <h1>{e.title}</h1>
+          {/* Same reasoning as the blog byline: a link to the training, not a
+              list of it. See the note in src/pages/blog/[slug].astro. */}
           <p class="card__meta">
-            {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by Mo Lumen
+            {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by
+            <a href="/about/">Mo Lumen</a> · <a href="/credentials/">how I trained</a>
           </p>
         </div>
         <img

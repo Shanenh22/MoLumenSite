@@ -83,7 +83,23 @@ const schema = [
             <li>{readingMinutes} min read</li>
             {d.updatedDate && <li>Updated {fmt(d.updatedDate)}</li>}
           </ul>
-          <p class="card__meta">By <a href="/about/">Mo Lumen</a></p>
+          {/*
+            A path to the credentials, not a recitation of them.
+
+            The E-E-A-T audit scored Expertise down because someone arriving on
+            a post from search sees a byline with nothing behind it — the
+            credentials are specific and verifiable but live on two pages they
+            have no reason to visit. The full credential block was removed from
+            article pages on purpose, because listing qualifications under every
+            article reads as gatekeeping to part of this audience.
+
+            So: four words and a link. The reader who wants to know who is
+            talking can find out in one click; the reader who doesn't is not
+            lectured. Do not grow this back into a list.
+          */}
+          <p class="card__meta">
+            By <a href="/about/">Mo Lumen</a> · <a href="/credentials/">how I trained</a>
+          </p>
         </div>
         <img
           class="hero__img"

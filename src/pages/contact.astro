@@ -51,6 +51,28 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
           Booking questions? The <a href="/frequently-asked-questions/">FAQs</a> answer most
           things; the <a href="/book/">booking page</a> handles scheduling directly.
         </p>
+        {/*
+          Where and how sessions happen, stated to the visitor rather than only
+          to search engines.
+
+          The E-E-A-T audit flagged that a reader had no way to tell where this
+          practice operates from, while the JSON-LD in BaseLayout already
+          asserts a service area. Only confirmed facts are stated here: every
+          service in src/content/services/*.json lists its format as Zoom or
+          Phone, so "online, book from anywhere" is safe.
+
+          Deliberately NOT stated: in-person sessions in Dallas–Fort Worth.
+          docs/plan/open-questions.md #9 records that as unresolved, and the
+          schema's "(in person, by arrangement)" claim needs Mo's answer before
+          it belongs in visitor-facing copy — or in the schema.
+        */}
+        <h2>Where I am</h2>
+        <p>
+          Readings happen over Zoom, or by phone if you'd rather not be on camera — so you can book
+          from anywhere, and you don't need to be near me. Times are shown in your own time zone
+          when you pick one.
+        </p>
+
         <h2>Elsewhere</h2>
         <p>
           <a href={site.social.instagram} rel="noopener">Instagram ↗</a> ·
@@ -66,7 +88,7 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
           Prefer a slower hello?
         </h2>
         <p style="margin: 0;">
-          The monthly newsletter is a fine way to get to know Mo's work before reaching out.
+          The monthly letter is a fine way to get a feel for how I work before you reach out.
         </p>
         <NewsletterForm source="contact" labelledby="contact-newsletter" />
       </div>

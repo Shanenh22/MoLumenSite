@@ -854,3 +854,75 @@ seventy-odd words in three columns is a wall.
 exactly the nine new heroes — all above 4.5:1, worst 5.14:1 site-wide and the new ones all between
 8.77:1 and 11.35:1. axe 0 violations. `check:contrast` pass. Finder 11/11, booking 18/18. Audit 0
 thin, 0 orphans, 0 missing alt.
+
+## Messaging & E-E-A-T audit, and the findings acted on (2026-08-05)
+
+Ran the `messaging-eeat-auditor` skill against the site. Scored **Messaging 8.0**, **E-E-A-T 6.7**,
+at the **elevated YMYL** tier — the rubric puts astrology alongside medical and financial advice,
+not because the subject is verifiable but because the content sits next to real life decisions, so
+every band is graded about a point stricter than a standard local business.
+
+`brand-guidelines` was loaded and deliberately **not applied**: it is Anthropic's identity (orange
+`#d97757`, Poppins/Lora), meant for Anthropic-branded artifacts. Applying it to a Mo Lumen
+deliverable would have been wrong. The audit artifact uses this project's own `tokens.css` palette.
+
+### The finding that mattered most
+
+E-E-A-T is not held back by writing quality. It is held back by one thing: **a skeptical visitor
+cannot confirm this business exists in the physical world.** No address, no phone, no service area,
+no third-party directory listing. Trustworthiness carries 40% of the composite.
+
+The sharpest form of it: the JSON-LD in `BaseLayout.astro` tells Google
+`Dallas–Fort Worth, Texas (in person, by arrangement)`, and the site never tells the reader. Telling
+a search engine something you do not tell a visitor is the wrong way round.
+
+### Fixed
+
+- **Entertainment classification is now declarative.** It read "Some jurisdictions require… where
+  that classification applies" — a description of a legal situation that never committed to one. A
+  reader could finish the sentence without knowing whether it applied to them. Both
+  `disclaimer.md` and `terms.md` now state it plainly and say it is applied everywhere rather than
+  case by case.
+- **Service area, to the extent it is confirmed.** `/contact/` now has a "Where I am" section
+  saying readings happen over Zoom or phone so you can book from anywhere. Every service in
+  `src/content/services/*.json` lists its format as Zoom or Phone, so that is safe to state.
+- **Homepage audience specificity.** The "why people come" paragraph opened with three separate
+  "maybe"s across five situations. It now describes one recognisable person — someone mid-decision
+  who has already exhausted everyone close to them.
+- **Last third-person slip**, on `/contact/`: "get to know Mo's work" → "get a feel for how I work".
+- **A path back to the credentials**, on blog posts and sky events: `· how I trained`, linking to
+  `/credentials/`. Four words and a link — **not** a re-introduction of the credential block that
+  was deliberately removed. Someone landing from search can find out who is talking in one click;
+  nobody is lectured. Do not grow this back into a list.
+
+### Deliberately NOT done, and why
+
+**In-person Dallas–Fort Worth sessions are not stated anywhere in visitor copy.**
+`docs/plan/open-questions.md` #9 records "still offered by inquiry?" as unresolved. Mo is
+demonstrably in DFW — she is treasurer of the NCGR-DFW chapter — but whether in-person is still
+offered is a different question, and the schema's `(in person, by arrangement)` claim needs her
+answer before it belongs in copy **or in the schema**. That is now the highest-value unanswered
+question on the site.
+
+### Still open, needing facts only Mo has
+
+- **Length of practice.** The site never says how long she has been reading charts. The top
+  Expertise band explicitly wants years of practice, and it is the cheapest point available on that
+  axis — absent purely because nobody wrote the number down. Do not estimate it.
+- **Legal entity name.** The footer publishes "Mo Lumen Astrological Services" on all 130 pages
+  while `site.ts` carries `// confirm with owner`. If the registered entity differs, every page
+  currently misstates it.
+- **Local licensing.** Several Texas municipalities license fortune-telling specifically. Flagged to
+  verify with the city and county, not asserted.
+- **Directory listings.** Board service at OPA and membership of NCGR/OPA/ISAR are real external
+  validation presented as unlinked assertions. Link them, and add the practitioner-directory line
+  only for organisations where Mo's listing is actually public.
+- **A worked example of a reading.** Testimonials say a reading was good; nothing shows the work.
+  Needs a real anonymised case from Mo — inventing one would breach the same rule that governs
+  testimonials.
+
+### Verified
+
+`astro check` 0 errors, 130 pages. Hero contrast 129 pages, all above 4.5:1. axe 0 violations.
+`check:contrast` pass. Finder 11/11, booking 18/18. Audit 0 thin, 0 orphans, 0 missing alt,
+descriptions all within range.

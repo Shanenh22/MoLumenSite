@@ -22,10 +22,10 @@ area by arrangement; written educational content; and a free newsletter. The rea
 offered, with their durations and prices, are listed on the [readings page](/readings/) and are the
 only readings we offer. Prices are shown before you pay and are the prices you pay.
 
-Astrology services are provided for perspective, reflection, timing, and education. Some
-jurisdictions require services of this kind to be classified as entertainment; where that
-classification applies, readings are provided on that basis. It does not change how seriously the
-work is taken on this end.
+Astrology services are provided for perspective, reflection, timing, and education, and for
+entertainment purposes. Some jurisdictions require services of this kind to carry that
+classification, and it is applied here everywhere rather than case by case. It does not change how
+seriously the work is taken on this end.
 
 ## What a reading is not
 

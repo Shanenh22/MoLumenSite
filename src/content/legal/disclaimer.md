@@ -62,9 +62,12 @@ real vulnerability meet, and where an honest practitioner declines.
 
 ## Legal classification
 
-Some jurisdictions require astrology services to be classified as entertainment. Where that
-classification applies, readings are provided on that basis. It does not change the care that goes
-into them, and it does not change anything stated above about what a reading is not.
+Readings are provided for entertainment purposes. Some jurisdictions require services of this kind
+to carry that classification, and I apply it everywhere rather than case by case — you should not
+have to work out which rules apply where you live in order to know what you are buying.
+
+It changes nothing about the care that goes into a session, and nothing stated above about what a
+reading is not.
 
 ## Educational content on this site
 
