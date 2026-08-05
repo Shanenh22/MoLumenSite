@@ -817,3 +817,40 @@ pass. Audit 0 thin, 0 orphans, 0 missing alt.
   trade was worth it. Nobody has looked yet.
 - The lead magnet ("Reading the Road Ahead") still does not exist, so there is still no bait rung
   below the $150 natal reading for a cold visitor.
+
+## Every hero has a photo now, and the quote cards are shared (2026-08-05)
+
+Shane flagged two pages with an imageless hero. A scan of the built output found **nine**, so all
+nine were done rather than the two that happened to get noticed:
+
+| page                           | image                             | why that one                            |
+| ------------------------------ | --------------------------------- | --------------------------------------- |
+| `/testimonials/`               | a cleared table, candle still lit | people were here, and have gone         |
+| `/tools/explore-your-chart/`   | a tide pool holding a galaxy      | the whole sky in one small readable map |
+| `/explore/glossary/`           | shells laid out in a spiral       | a collection put in order               |
+| `/frequently-asked-questions/` | sunbeams through water            | questions, answered clearly             |
+| the five legal pages           | a buoy holding position           | a fixed marker you can rely on          |
+
+The legal pages share one image on purpose — they are a set and should look like one. They are all
+rendered by `LegalPage.astro`, so that was a single edit covering five pages.
+
+**Keep this at zero.** `heroes WITHOUT a photo` is now 0 of 129. A page that ships with a bare
+`.hero` will look broken next to its neighbours rather than deliberately plain, because there is no
+longer any precedent for a plain one.
+
+### The blush blockquote, second occurrence
+
+The testimonials page was still rendering bare `<blockquote>` elements, which pick up the blush tint
+from the global rule and read as highlighted text rather than as somebody speaking — the same defect
+fixed on the homepage a commit earlier, in the one place it had not been looked at.
+
+Both surfaces now use the same `.quote-card` / `.quote-grid`, so they cannot drift apart again.
+`.quote-grid--wide` gives the testimonials page two columns instead of three, because nine quotes of
+seventy-odd words in three columns is a wall.
+
+### Verified
+
+`astro check` 0 errors, 130 pages. **Hero contrast: 129 pages discovered** — up from 120, which is
+exactly the nine new heroes — all above 4.5:1, worst 5.14:1 site-wide and the new ones all between
+8.77:1 and 11.35:1. axe 0 violations. `check:contrast` pass. Finder 11/11, booking 18/18. Audit 0
+thin, 0 orphans, 0 missing alt.

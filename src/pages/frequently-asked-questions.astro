@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { ocean } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 
@@ -29,13 +30,25 @@ const schema = [
   schema={schema}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Good questions</p>
-      <h1>Frequently asked questions</h1>
-      <p class="lede">
-        The questions everyone asks, answered the way I'd answer them if you rang me: candidly.
-      </p>
+      <div>
+        <p class="eyebrow">Good questions</p>
+        <h1>Frequently asked questions</h1>
+        <p class="lede">
+          The questions everyone asks, answered the way I'd answer them if you rang me: candidly.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={ocean.lightRays.src}
+        srcset={ocean.lightRays.srcset}
+        sizes="100vw"
+        alt={ocean.lightRays.alt}
+        width={ocean.lightRays.width}
+        height={ocean.lightRays.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

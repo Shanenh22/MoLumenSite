@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { celestial } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import { signs } from '../../data/signs';
@@ -49,18 +50,30 @@ const explainData = {
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Free interactive tool</p>
-      <h1>Explore your chart</h1>
-      <p class="lede">
-        This is the anatomy of a birth chart: signs on the outer ring, houses inside them, planets
-        listed alongside. Select anything — click, tap, or Tab and Enter — and it explains itself.
-      </p>
-      <p class="hero__reassure">
-        This tool is educational: it doesn't calculate your personal chart and never asks for
-        birth information. It's how charts work, not what yours says.
-      </p>
+      <div>
+        <p class="eyebrow">Free interactive tool</p>
+        <h1>Explore your chart</h1>
+        <p class="lede">
+          This is the anatomy of a birth chart: signs on the outer ring, houses inside them, planets
+          listed alongside. Select anything — click, tap, or Tab and Enter — and it explains itself.
+        </p>
+        <p class="hero__reassure">
+          This tool is educational: it doesn't calculate your personal chart and never asks for
+          birth information. It's how charts work, not what yours says.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={celestial.galaxyTidepool.src}
+        srcset={celestial.galaxyTidepool.srcset}
+        sizes="100vw"
+        alt={celestial.galaxyTidepool.alt}
+        width={celestial.galaxyTidepool.width}
+        height={celestial.galaxyTidepool.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 

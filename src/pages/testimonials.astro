@@ -4,6 +4,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import Icon from '../components/Icon.astro';
+import { celestial } from '../config/images';
 
 const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
 const isDev = import.meta.env.DEV;
@@ -79,15 +80,27 @@ const signals = [
   noindex={approved.length === 0}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Kind words</p>
-      <h1>Testimonials</h1>
-      <p class="lede">
-        Every testimonial here is genuine, published with the client's explicit permission, and
-        attributed the way that client chose. There are no exceptions to that, which is why this
-        page is sometimes shorter than a marketing team would like.
-      </p>
+      <div>
+        <p class="eyebrow">Kind words</p>
+        <h1>Testimonials</h1>
+        <p class="lede">
+          Every testimonial here is genuine, published with the client's explicit permission, and
+          attributed the way that client chose. There are no exceptions to that, which is why this
+          page is sometimes shorter than a marketing team would like.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={celestial.clearedTable.src}
+        srcset={celestial.clearedTable.srcset}
+        sizes="100vw"
+        alt={celestial.clearedTable.alt}
+        width={celestial.clearedTable.width}
+        height={celestial.clearedTable.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
@@ -96,15 +109,22 @@ const signals = [
       <section class="section">
         <div class="container">
           <h2 class="visually-hidden">What clients say</h2>
-          <div class="grid grid--2">
+          {/*
+            Same card treatment as the homepage. These were bare blockquotes,
+            which inherit a blush tint from the global rule and read as
+            highlighted text rather than as somebody speaking. The quote cards
+            are one component's worth of styling shared across both pages, so
+            the two surfaces can't drift apart again.
+          */}
+          <div class="quote-grid quote-grid--wide">
             {approved.map((t) => (
-              <blockquote style="margin: 0;">
-                {t.data.quote}
-                <footer class="card__meta" style="margin-top: var(--space-3);">
-                  — {t.data.attribution}
-                  {t.data.service ? `, ${t.data.service} reading` : ''}
-                </footer>
-              </blockquote>
+              <figure class="quote-card">
+                <blockquote>{t.data.quote}</blockquote>
+                <figcaption>
+                  {t.data.attribution}
+                  {t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}
+                </figcaption>
+              </figure>
             ))}
           </div>
         </div>

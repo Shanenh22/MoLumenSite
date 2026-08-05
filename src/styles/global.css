@@ -2720,3 +2720,11 @@ fieldset.booking-group > legend span {
 .assurances strong {
   color: var(--ink);
 }
+/* The testimonials page runs nine long quotes rather than three short ones, so
+   it takes two columns instead of three — the same card, given a readable
+   measure. Three columns of 80-word quotes is a wall. */
+@media (min-width: 900px) {
+  .quote-grid--wide {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

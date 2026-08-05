@@ -1,6 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { ocean } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
 interface Props {
@@ -26,11 +27,23 @@ const needsReview = entry.data.reviewStatus === 'attorney-review-required';
   updatedDate={entry.data.updatedDate}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Policies</p>
-      <h1>{entry.data.title}</h1>
-      <p class="card__meta">Last updated {fmt(entry.data.updatedDate)}</p>
+      <div>
+        <p class="eyebrow">Policies</p>
+        <h1>{entry.data.title}</h1>
+        <p class="card__meta">Last updated {fmt(entry.data.updatedDate)}</p>
+      </div>
+      <img
+        class="hero__img"
+        src={ocean.solitaryBuoy.src}
+        srcset={ocean.solitaryBuoy.srcset}
+        sizes="100vw"
+        alt={ocean.solitaryBuoy.alt}
+        width={ocean.solitaryBuoy.width}
+        height={ocean.solitaryBuoy.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
   <section class="section">

@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import { ocean } from '../../config/images';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 
@@ -20,14 +21,26 @@ const crumbs = [
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero">
+  <section class="hero hero--split">
     <div class="container">
-      <p class="eyebrow">Reference</p>
-      <h1>Glossary</h1>
-      <p class="lede">
-        Every term on this site, defined the way I define things: plainly. {terms.length} terms
-        and growing.
-      </p>
+      <div>
+        <p class="eyebrow">Reference</p>
+        <h1>Glossary</h1>
+        <p class="lede">
+          Every term on this site, defined the way I define things: plainly. {terms.length} terms
+          and growing.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={ocean.shellsBeforeTide.src}
+        srcset={ocean.shellsBeforeTide.srcset}
+        sizes="100vw"
+        alt={ocean.shellsBeforeTide.alt}
+        width={ocean.shellsBeforeTide.width}
+        height={ocean.shellsBeforeTide.height}
+        fetchpriority="high"
+      />
     </div>
   </section>
 
