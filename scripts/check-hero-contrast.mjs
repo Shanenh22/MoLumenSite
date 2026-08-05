@@ -43,7 +43,8 @@ await new Promise((r) => server.listen(PORT, r));
  * `.seabreak--rest` is deliberately absent: nothing sits on it, so there is no
  * ratio to measure. `.seabreak--quote` carries a line and is very much included.
  */
-const BLOCK_SELECTOR = ".hero--split, .interlude, .seabreak--quote";
+const BLOCK_SELECTOR =
+  ".hero--split, .hero--home, .interlude, .seabreak--quote";
 
 /**
  * Which pages to check — discovered from the built output, not listed here.
@@ -61,7 +62,15 @@ const BLOCK_SELECTOR = ".hero--split, .interlude, .seabreak--quote";
  */
 function discoverPages() {
   const found = [];
-  const classRe = /class="[^"]*\b(hero--split|interlude|seabreak--quote)\b/;
+  /**
+   * Must stay in step with BLOCK_SELECTOR above. They are separate because one
+   * is a CSS selector and the other matches raw HTML, and they have already
+   * drifted once: `.hero--home` was added to the selector and not to this
+   * regex, so the homepage silently stayed out of the run while the printed
+   * count looked unchanged. If you add a block class, add it in both places.
+   */
+  const classRe =
+    /class="[^"]*\b(hero--split|hero--home|interlude|seabreak--quote)\b/;
   const walk = (dir) => {
     for (const entry of readdirSync(dir, { withFileTypes: true })) {
       const full = join(dir, entry.name);
@@ -139,16 +148,57 @@ for (const vp of [
           // for every interlude band. Force instant scrolling first.
           document.documentElement.style.scrollBehavior = "auto";
           block.scrollIntoView({ block: "center", behavior: "instant" });
-          const els = [...block.querySelectorAll("h1, h2, .lede")];
+          /**
+           * Sampled text. `.hero__tagline` and `.hero__reassure` are here
+           * because they are real sentences sitting on a photograph, and both
+           * were previously unmeasured — the tagline is gold on a dark scrim,
+           * which is exactly the pairing most likely to fail quietly.
+           */
+          const els = [
+            ...block.querySelectorAll(
+              "h1, h2, .lede, .hero__tagline, .hero__reassure",
+            ),
+          ];
           if (!els.length) return null;
+          /**
+           * Each element carries its OWN colour.
+           *
+           * This used to read `getComputedStyle(els[0]).color` once and measure
+           * every box against it. That was fine while a block only ever held
+           * ivory headings and a stone lede, and wrong the moment one line
+           * differed — a gold tagline measured as though it were ivory reports a
+           * ratio that belongs to no text on the page, in either direction.
+           */
           const boxes = els.map((e) => {
             const b = e.getBoundingClientRect();
-            return { x: b.x, y: b.y, w: b.width, h: b.height };
+            const col = getComputedStyle(e)
+              .color.match(/[\d.]+/g)
+              .map(Number);
+            return {
+              x: b.x,
+              y: b.y,
+              w: b.width,
+              h: b.height,
+              fg: [col[0], col[1], col[2]],
+              tag: e.className || e.tagName.toLowerCase(),
+            };
           });
-          const col = getComputedStyle(els[0])
-            .color.match(/[\d.]+/g)
-            .map(Number);
-          return { boxes, fg: [col[0], col[1], col[2]] };
+          /**
+           * The site header is `position: sticky` with a near-ivory background,
+           * so once the page scrolls it floats over the hero. Centring a block
+           * taller than the viewport slides its heading underneath that header,
+           * and the sampler then reads the header's cream pixels and reports a
+           * heading at 1.13:1 that a visitor never sees obscured at all.
+           * Return where the header ends so sampling can start below it.
+           */
+          const header = document.querySelector(".site-header");
+          let headerBottom = 0;
+          if (header) {
+            const pos = getComputedStyle(header).position;
+            if (pos === "sticky" || pos === "fixed")
+              headerBottom = header.getBoundingClientRect().bottom;
+          }
+          return { boxes, headerBottom };
         },
         [BLOCK_SELECTOR, bi],
       );
@@ -202,25 +252,45 @@ for (const vp of [
         },
         [BLOCK_SELECTOR, bi],
       );
-      const buf = await page.screenshot({
-        clip: { x: 0, y: 0, width: vp.w, height: vp.h },
-      });
+      /**
+       * No `clip` here, deliberately.
+       *
+       * Playwright's clip is measured from the top-left of the PAGE, while
+       * `getBoundingClientRect` is measured from the top-left of the VIEWPORT.
+       * Those agree only while the page is unscrolled — which was true for every
+       * block on the site except one, so the mismatch stayed hidden. The
+       * homepage hero is taller than a phone viewport, so `scrollIntoView`
+       * genuinely scrolls, and the sampler then compared post-scroll boxes
+       * against a screenshot of the unscrolled top of the page. It reported the
+       * h1 at 1.13:1 against a cream pixel that is nowhere near it.
+       *
+       * A default screenshot is the viewport, in viewport coordinates, which is
+       * the same space the boxes are in.
+       */
+      const buf = await page.screenshot();
       const png = PNG.sync.read(buf);
       let worst = Infinity,
-        worstPx = null;
+        worstPx = null,
+        worstTag = "";
       for (const b of info.boxes) {
         const x0 = Math.max(0, Math.floor(b.x)),
           x1 = Math.min(png.width - 1, Math.ceil(b.x + b.w));
-        const y0 = Math.max(0, Math.floor(b.y)),
+        const y0 = Math.max(
+            0,
+            Math.floor(b.y),
+            Math.ceil(info.headerBottom ?? 0),
+          ),
           y1 = Math.min(png.height - 1, Math.ceil(b.y + b.h));
+        if (y1 < y0) continue; // entirely behind the sticky header
         for (let y = y0; y <= y1; y += 2) {
           for (let x = x0; x <= x1; x += 2) {
             const i = (png.width * y + x) << 2;
             const px = [png.data[i], png.data[i + 1], png.data[i + 2]];
-            const r = ratio(info.fg, px);
+            const r = ratio(b.fg, px);
             if (r < worst) {
               worst = r;
               worstPx = px;
+              worstTag = b.tag;
             }
           }
         }
@@ -231,8 +301,10 @@ for (const vp of [
       }
       const ok = worst >= 4.5;
       if (!ok) fails++;
+      // Naming the offending element matters: "1.13:1 somewhere in this hero"
+      // sends you hunting, "1.13:1 on .hero__reassure" sends you to the line.
       console.log(
-        `  ${label.padEnd(30)} worst ${worst.toFixed(2)}:1  bg rgb(${worstPx?.join(",")})  ${ok ? "PASS" : "FAIL"}`,
+        `  ${label.padEnd(30)} worst ${worst.toFixed(2)}:1  bg rgb(${worstPx?.join(",")})  ${ok ? "PASS" : `FAIL  <- ${worstTag}`}`,
       );
     }
     await page.reload();

@@ -619,3 +619,91 @@ pass. Booking 18/18, finder 11/11.
   page — it points at `/explore/sources/` instead. Swap both back once there is something to watch.
 - Exact clock times for sky events were never supplied. The build note claiming they were coming is
   gone; the dates and signs remain sourced and verified, which is what the pages actually assert.
+
+## Tagline, credentials, and a real mobile bug on the homepage (2026-08-05)
+
+### Credentials came back out
+
+Shane removed the credentials-forward material added earlier the same day: the hero line
+("Certified — and I'd rather you checked") and the `AuthorNote` block on every article page. His
+reasoning: a growing part of the astrology audience prefers younger and self-taught practitioners,
+and heavy credentialism reads to them as gatekeeping rather than reassurance.
+
+`src/components/AuthorNote.astro` is deleted, along with its CSS and the `.hero__verify` styles.
+
+**Authorship was not removed, and should not be.** Twenty-nine pages still carry a plain "by Mo
+Lumen" byline in their header, and the `author` field is still in the Article/BlogPosting JSON-LD on
+every post and sky event. That is the part search quality guidance actually weights; the recitation
+of certificates was additive. `/credentials/` still exists in full for anyone who goes looking.
+
+### New brand tagline
+
+`site.tagline` is now **"There is fate and there is choice."** — Shane's choice, and taken from Mo's
+own words on `/about/` rather than invented: _"There is fate and there is choice — and a good reading
+helps you tell the difference."_ The full sentence is the hero line; the short form is the tagline
+that appears in the homepage `<title>`.
+
+`"See yourself in a new light."` stays as the homepage h1. The tagline is the brand statement and the
+h1 is the invitation — they are allowed to differ, and both are hers.
+
+### Ocean imagery: left alone, deliberately
+
+Shane asked whether the ocean set should be swapped for astrological imagery, and decided against it
+for now. The measurement that informed it, for whoever revisits this:
+
+| set       | distinct images | page uses |
+| --------- | --------------- | --------- |
+| celestial | 19              | 82        |
+| ocean     | 14              | 61        |
+| scene art | 23              | 68        |
+
+The swap is already about 60% done — the celestial set carries more of the site than the ocean set
+does. The reason not to finish it mechanically: seventy-four pages draw from one shared pool via
+`bandFor()`. Dropping all fourteen ocean images takes that pool from 33 to 19 and makes repetition
+_worse_, not better. A full swap needs roughly 15–20 new images first.
+
+### The bug this uncovered — worth reading
+
+Adding a tagline to the homepage hero meant putting text on a photograph, so it needed
+`check:hero-contrast`. It turned out **the homepage had never been in that check at all**: the block
+selector matched `.hero--split`, and the homepage uses `.hero--home`.
+
+It was failing. On mobile, measured: **lede 2.48:1, reassurance line 3.20:1, tagline 2.89:1** — all
+under 4.5:1, on the most important page of the site, for an unknown length of time.
+
+The cause is the trap already documented above for `.hero--split`, in a second place nobody looked.
+`.hero--home::after` is a `100deg` gradient running 0.92 → 0.72 at 45% → **0.25 at the right edge**.
+That is fine on desktop, where the text sits in a left column and never reaches the transparent end.
+On mobile the column goes full-width and runs straight into it. `.hero--split` got a mobile override
+for exactly this reason; `.hero--home` never did. It has one now, at the end of `global.css`, using a
+**uniform vertical scrim** — because when text is full-width there is no width at which it can drift
+into a lighter stop. After: lede 6.35:1, reassurance 6.52:1, tagline 5.21:1.
+
+**The general lesson, again: the check only protects what it looks at.** Three separate coverage
+gaps were found in one sitting.
+
+### Three fixes to check:hero-contrast itself
+
+1. **`.hero--home` added** — to the block selector _and_ to the discovery regex. They are separate
+   (one is a CSS selector, one matches raw HTML) and they drifted immediately: adding it to only the
+   selector left the homepage out of the run while the printed page count looked unchanged. If you
+   add a block class, add it in both places.
+2. **Per-element foreground colour.** The sampler read `getComputedStyle(els[0]).color` once and
+   measured every box against it. Fine while a block held only ivory headings and a stone lede;
+   wrong the moment a gold tagline joined them. It now measures each element against its own colour,
+   and prints which element failed — "1.13:1 on `.hero__reassure`" sends you to the line, "1.13:1
+   somewhere in this hero" sends you hunting.
+3. **Sticky-header exclusion.** `.site-header` is `position: sticky` with a near-ivory background.
+   Centring a block taller than the viewport slides its heading underneath it, and the sampler read
+   the header's cream pixels — reporting the homepage h1 at 1.13:1 against a background no visitor
+   ever sees behind it. Sampling now starts below the header's bottom edge.
+
+`.hero__tagline` and `.hero__reassure` were also added to the sampled elements. Both are real
+sentences on a photograph and neither had ever been measured.
+
+### Verified state
+
+`astro check` 0 errors, 130 pages. **Hero contrast: 120 pages discovered** (up from 119 — the
+homepage), every block above 4.5:1, worst **5.14:1**. axe 0 violations across 20 pages × 2 viewports.
+`check:contrast` all pass. Audit: 0 thin pages, 0 orphans, 0 missing alt, 0 pages without exactly one
+h1. Booking 18/18, finder 11/11.

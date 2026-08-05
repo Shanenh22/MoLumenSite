@@ -2,7 +2,6 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
-import AuthorNote from '../../../components/AuthorNote.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
 import { bandFor } from '../../../config/images';
@@ -103,7 +102,6 @@ const breakImage = bandFor(h.slug, 5);
         <a href="/explore/birth-chart-basics/">Here's why.</a>
       </p>
 
-      <AuthorNote />
 
       <nav aria-label="More houses" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/houses/${prev.slug}/`}>← {prev.name}</a>

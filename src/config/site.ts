@@ -6,7 +6,22 @@
 export const site = {
   name: "Mo Lumen Astrology",
   legalName: "Mo Lumen Astrological Services", // confirm with owner (open-questions Q8)
-  tagline: "See yourself in a new light.",
+  /**
+   * Brand tagline. Chosen by Shane on 2026-08-05, and taken from Mo's own words
+   * on /about/ — "There is fate and there is choice, and a good reading helps
+   * you tell the difference" — rather than invented as a slogan.
+   *
+   * It replaced a credentials-forward line ("Certified — and I'd rather you
+   * checked"), which was removed deliberately: a growing part of the audience
+   * reads heavy credentialism as gatekeeping, and leading with it positioned Mo
+   * against that audience rather than alongside it. This line does the same
+   * trust work by stating a philosophy instead of a qualification.
+   *
+   * "See yourself in a new light." remains the homepage h1 — it is the warmer,
+   * benefit-led line and still does that job well. The tagline is the brand
+   * statement; the h1 is the invitation. They are allowed to differ.
+   */
+  tagline: "There is fate and there is choice.",
   description:
     "Clarifying astrology readings with a classical lens — practical, candid, and warm.",
   url: import.meta.env.PUBLIC_SITE_URL ?? "https://molumen.com",

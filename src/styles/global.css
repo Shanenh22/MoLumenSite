@@ -2520,64 +2520,6 @@ fieldset.booking-group > legend span {
     var(--bg);
 }
 
-/* ---------- author + credentials note ----------
-   Sits at the end of long reads and dated notes so a visitor arriving straight
-   from a search result sees who wrote it and what training stands behind it
-   without having to find /credentials/. Quiet by design: it is a provenance
-   footer, not a second call to action, so it never competes with the CTA band
-   below it. */
-.author-note {
-  border: var(--border-hairline);
-  border-inline-start: 3px solid var(--color-gold);
-  border-radius: var(--radius-md);
-  background: var(--surface);
-  padding: var(--space-5) var(--space-6);
-  margin-top: var(--space-12);
-}
-.author-note p {
-  margin: 0;
-}
-.author-note p + p {
-  margin-top: var(--space-2);
-}
-.author-note__name {
-  font-family: var(--font-serif);
-  font-weight: 600;
-  color: var(--ink);
-}
-.author-note__date,
-.author-note__creds {
-  font-size: var(--text-sm);
-  color: var(--ink-soft);
-}
-.author-note__creds {
-  display: block;
-  line-height: 1.55;
-}
-.author-note__verify {
-  font-size: var(--text-sm);
-  color: var(--ink-soft);
-}
-.author-note--compact {
-  padding: var(--space-4) var(--space-5);
-  margin-top: var(--space-8);
-}
-.author-note--compact .author-note__creds {
-  font-size: 0.82rem;
-}
-/* The doctrine labels ("Traditional view" / "Modern view") link to the sources
-   page. Styled to stay a quiet label rather than becoming a blue link in the
-   middle of a reference block — the underline only appears on interaction. */
-.layer__source {
-  color: inherit;
-  text-decoration: none;
-  border-bottom: 1px dotted currentColor;
-}
-.layer__source:hover,
-.layer__source:focus-visible {
-  text-decoration: underline;
-  border-bottom-color: transparent;
-}
 /* ---------- further reading ----------
    Links a reference page to the blog posts on the same subject. Deliberately
    understated: it is a signpost at the end of a page, not a promoted module. */
@@ -2606,26 +2548,50 @@ fieldset.booking-group > legend span {
   font-size: var(--text-sm);
   color: var(--ink-soft);
 }
-/* Credential line in the homepage hero. Quiet by design — it sits under the
-   reassurance line and must not compete with the two buttons above it, but it
-   is a link because "go and check" is the entire point of it. */
-.hero__verify {
-  margin-top: var(--space-4);
-  font-size: var(--text-sm);
-  max-width: 46ch;
-  line-height: 1.5;
-}
-.hero__verify a {
-  color: var(--color-stone);
-  text-decoration: none;
-  border-bottom: 1px solid rgb(200 171 110 / 0.45);
-  padding-bottom: 1px;
-}
-.hero__verify a strong {
+
+/* The brand tagline in the homepage hero. Set in the serif at a size that reads
+   as a statement rather than body copy, but kept quiet enough that the two
+   buttons above it remain the loudest thing on the fold. */
+.hero__tagline {
+  margin-top: var(--space-5);
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: var(--text-lg);
+  line-height: 1.45;
   color: var(--color-gold-soft);
+  max-width: 40ch;
+  text-wrap: balance;
 }
-.hero__verify a:hover,
-.hero__verify a:focus-visible {
-  color: var(--color-ivory);
-  border-bottom-color: var(--color-gold-soft);
+
+/* Mobile scrim for the homepage hero.
+   Lives at the END of this file for the same reason the .hero--split mobile
+   override does: it must beat the base `.hero--home::after` rule, which is
+   defined further up at equal specificity, and source order decides ties.
+
+   Why it is needed at all. The desktop scrim is a 100deg gradient running
+   0.92 -> 0.72 at 45% -> 0.25 at the right edge. That is correct on desktop,
+   where the text sits in a left column and never reaches the transparent end.
+   On mobile that column goes full-width, so the lede, the reassurance line and
+   the tagline all run into the 0.25 end and land on bare photograph. Measured
+   before this rule existed: lede 2.48:1, reassurance 3.20:1, tagline 2.89:1 —
+   all well under 4.5:1, on the most important page of the site.
+
+   It went unnoticed because check:hero-contrast only ever looked at
+   `.hero--split`; the homepage was never in the run. It is now.
+
+   The fix is the same one .interlude uses: when text is centred or full-width,
+   the scrim must be UNIFORM, not directional, so there is no width at which the
+   column drifts into a lighter stop. Floor is 0.72, which composites to about
+   5.9:1 against a pure white pixel. Do not lighten it to make the photograph
+   read more clearly — change the photograph instead. */
+@media (max-width: 899px) {
+  .hero--home::after {
+    background: linear-gradient(
+      180deg,
+      rgb(22 32 58 / 0.88) 0%,
+      rgb(22 32 58 / 0.78) 40%,
+      rgb(22 32 58 / 0.78) 62%,
+      rgb(22 32 58 / 0.9) 100%
+    );
+  }
 }
