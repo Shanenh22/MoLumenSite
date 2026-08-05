@@ -3,6 +3,13 @@
  * Labeled knowledge blocks. Every reference page separates what is
  * astronomy from what is convention from what is Mo's synthesis, so a
  * reader always knows which kind of claim they're reading.
+ *
+ * The two labels that assert a body of doctrine — "traditional" and "modern" —
+ * link to /explore/sources/, which names the texts each one rests on. Without
+ * that, "the ancients believed" is an authority claim a reader has no way to
+ * check, which is the opposite of authority. The other four labels don't link:
+ * astronomy needs no citation, and Mo's synthesis is explicitly one
+ * astrologer's opinion rather than a doctrine.
  */
 interface Props {
   kind: 'astronomy' | 'traditional' | 'modern' | 'mo' | 'differs' | 'misconception';
@@ -10,17 +17,31 @@ interface Props {
 }
 const { kind, title } = Astro.props;
 const meta = {
-  astronomy: { label: 'Astronomical fact', cls: 'layer--astro' },
-  traditional: { label: 'Traditional view', cls: 'layer--trad' },
-  modern: { label: 'Modern view', cls: 'layer--modern' },
-  mo: { label: "Mo's synthesis", cls: 'layer--mo' },
-  differs: { label: 'Where astrologers differ', cls: 'layer--differs' },
-  misconception: { label: 'Common misconception', cls: 'layer--misc' },
+  astronomy: { label: 'Astronomical fact', cls: 'layer--astro', sourced: false },
+  traditional: { label: 'Traditional view', cls: 'layer--trad', sourced: true },
+  modern: { label: 'Modern view', cls: 'layer--modern', sourced: true },
+  mo: { label: "Mo's synthesis", cls: 'layer--mo', sourced: false },
+  differs: { label: 'Where astrologers differ', cls: 'layer--differs', sourced: false },
+  misconception: { label: 'Common misconception', cls: 'layer--misc', sourced: false },
 }[kind];
 ---
 
 <div class:list={['layer', meta.cls]}>
-  <p class="layer__label">{meta.label}</p>
+  <p class="layer__label">
+    {
+      meta.sourced ? (
+        <a
+          class="layer__source"
+          href="/explore/sources/"
+          title="See which texts this rests on"
+        >
+          {meta.label}
+        </a>
+      ) : (
+        meta.label
+      )
+    }
+  </p>
   {title && <h3 class="layer__title">{title}</h3>}
   <div class="layer__body"><slot /></div>
 </div>

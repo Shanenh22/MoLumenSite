@@ -67,6 +67,19 @@ const values = [
         <p class="hero__reassure">
           No belief required. No doom, no scare tactics — just perspective you can use.
         </p>
+        {/*
+          Credentials at the fold, not buried on /about/.
+          Astrology is unregulated, so "certified" on its own is worth very
+          little — the differentiator is that mine are named, and that I ask you
+          to go and check them. That invitation is the marketing line, so it
+          belongs on the first screen rather than three clicks in.
+        */}
+        <p class="hero__verify">
+          <a href="/credentials/">
+            <strong>Certified — and I'd rather you checked.</strong> Horary certificate (STA),
+            NCGR-PAA Levels 1&nbsp;&amp;&nbsp;2, board member at OPA. All named, all verifiable.
+          </a>
+        </p>
       </div>
       <figure class="hero__portrait">
         <img
@@ -269,11 +282,23 @@ const values = [
   <!-- Current Sky + Explorer — night band -->
   <section class="section section--night">
     <div class="container grid grid--2">
+      {/*
+        Current Sky is the one thing here no comparable astrologer's site has: a
+        dated, sourced calendar of what is actually overhead, with rising-sign
+        guidance on every lunation. It was previously a bare list of links in
+        half a band. It now says what it is and what makes it different, because
+        an asset nobody understands is not an asset.
+      */}
       <div class="flow">
         <p class="eyebrow">The sky right now</p>
         <h2>Current Sky</h2>
+        <p>
+          Every lunation, eclipse and retrograde through the end of the year — dated, sourced, and
+          written up with guidance for <strong>all twelve rising signs</strong>. Free, no email
+          required.
+        </p>
         {
-          skyEvents.length > 0 ? (
+          skyEvents.length > 0 && (
             <ul style="padding-left: 1.1em;">
               {skyEvents.map((e) => (
                 <li>
@@ -282,11 +307,9 @@ const values = [
                 </li>
               ))}
             </ul>
-          ) : (
-            <p>What's moving overhead and what it tends to mean.</p>
           )
         }
-        <p><a class="btn btn--ghost" href="/current-sky/">See the full timeline</a></p>
+        <p><a class="btn btn--accent" href="/current-sky/">See the full timeline</a></p>
       </div>
       <div class="flow">
         <p class="eyebrow">Free interactive tool</p>

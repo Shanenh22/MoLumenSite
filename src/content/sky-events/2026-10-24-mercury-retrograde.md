@@ -15,4 +15,4 @@ ownerReview: true
 
 Mercury stations retrograde at 20° Scorpio, turning direct November 13 at 5° Scorpio — the same day Venus stations direct. The usual counsel applies: back up, double-check, re-read before sending, and leave margin around travel and contracts. Review is the assignment, not catastrophe.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

@@ -28,7 +28,7 @@ const signals = [
   {
     icon: 'book' as const,
     title: 'The reasoning is published',
-    body: 'The reference library here separates what is astronomical fact from what is traditional doctrine, what is modern interpretation, and what is Mo\'s own synthesis — and says plainly where astrologers disagree. You can read how she thinks before you pay her to think about you.',
+    body: 'The reference library separates what is astronomical fact from what is traditional doctrine, what is modern interpretation, and what is my own synthesis — and says plainly where astrologers disagree. You can read how I think before you pay me to think about you.',
     href: '/explore/',
     linkText: 'Read the library',
   },
@@ -42,7 +42,7 @@ const signals = [
   {
     icon: 'letter' as const,
     title: 'Terms that favour you',
-    body: 'Cancel or reschedule at least 48 hours ahead at no charge; inside that window the fee is held as credit rather than lost. If Mo has to cancel, you choose between rescheduling and a full refund. Every live reading is recorded and the recording is yours to keep.',
+    body: 'Cancel or reschedule at least 48 hours ahead at no charge; inside that window the fee is held as credit rather than lost. If I have to cancel, you choose between rescheduling and a full refund. Every live reading is recorded and the recording is yours to keep.',
     href: '/booking-policy/',
     linkText: 'Read the booking policy',
   },
@@ -53,12 +53,20 @@ const signals = [
     href: '/privacy/',
     linkText: 'Read the privacy policy',
   },
+  /*
+   * This card used to send people to /videos/ as "the most honest preview of a
+   * reading" — and /videos/ is empty until Mo films. Pointing a trust page at a
+   * blank page costs more than the card was earning, so it now points at the
+   * reference library, which genuinely does show how she reasons: the same
+   * separation of fact, doctrine and opinion she uses out loud in a session.
+   * Swap it back to /videos/ once there is something to watch.
+   */
   {
-    icon: 'video' as const,
-    title: 'Watch her work first',
-    body: 'The most honest preview of a reading is watching how someone actually explains a chart — the pace, the care, whether they hedge or state things plainly. Free, no booking, no email required.',
-    href: '/videos/',
-    linkText: 'Watch the videos',
+    icon: 'book' as const,
+    title: 'Read how I think first',
+    body: "The reference library separates astronomical fact from traditional doctrine from my own synthesis, names the classical texts it rests on, and says plainly where astrologers disagree. You can judge the reasoning before you pay for it. Free, no booking, no email required.",
+    href: '/explore/sources/',
+    linkText: 'See the sources',
   },
 ];
 ---
@@ -110,12 +118,12 @@ const signals = [
         <div class="container prose flow">
           <h2>Why this page is empty</h2>
           <p>
-            Mo's practice runs almost entirely on referral — people send their friends. That is the
+            My practice runs almost entirely on referral — people send their friends. That is the
             most meaningful endorsement there is, and it is also the kind that never gets written
             down, because nobody thinks to ask.
           </p>
           <p>
-            She is asking now. Real testimonials, with permission, will appear here as clients send
+            So I'm asking now. Real testimonials, with permission, will appear here as clients send
             them. What will not appear here is anything written by someone who was not actually a
             client. Fabricated testimonials are illegal in the United States, they are trivially
             easy to write, and a practice built on referrals would be found out by its own clients
@@ -153,12 +161,12 @@ const signals = [
 
   <section class="section">
     <div class="container prose flow">
-      <h2>If you have had a reading with Mo</h2>
+      <h2>If we've worked together</h2>
       <p>
-        She would be glad to hear from you, and gladder still to publish it if you are happy for her
-        to. You decide how you are attributed — first name and last initial, first name only, or
-        simply "a client in Dallas." You can ask for it to come down at any time, for any reason,
-        and it will come down that day.
+        I would be glad to hear from you, and gladder still to publish it if you're happy for me to.
+        You decide how you're attributed — first name and last initial, first name only, or simply
+        "a client in Dallas." You can ask for it to come down at any time, for any reason, and it
+        will come down that day.
       </p>
       <p>
         Email <a href="mailto:mo@molumen.com">mo@molumen.com</a>. A few honest sentences are worth

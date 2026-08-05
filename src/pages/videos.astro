@@ -102,19 +102,28 @@ const ig = site.integrations.instagramHandle;
             </div>
           </>
         ) : (
+          /*
+            Empty-state copy, written for a visitor rather than for the build.
+            It used to carry an "Owner action:" note naming a JSON file and a
+            docs path — a construction note left on a public page, which reads as
+            an unfinished site rather than a practice that hasn't filmed yet.
+            The instructions for adding videos live in docs/add-a-video.md, which
+            is where they belong. Delete this branch entirely once videos.json
+            has entries; the page renders the real library above automatically.
+          */
           <div class="prose flow">
             <p>
-              The video library is being connected — Mo's channel and video list are being
-              confirmed. Meanwhile, you'll find her on
+              I'm still filming for this page, so there's nothing to watch here yet — I'd rather
+              show you nothing than pad it out.
+            </p>
+            <p>
+              In the meantime, the closest thing to watching me work is reading how I think:
+              <a href="/explore/">the reference library</a> separates what's astronomical fact from
+              traditional doctrine from my own synthesis, and says plainly where astrologers
+              disagree. You can also find me on
               <a href={`https://www.instagram.com/${ig}/`} rel="noopener">Instagram ↗</a> (opens
               instagram.com).
             </p>
-            <div class="callout callout--review">
-              <p style="margin: 0;">
-                Owner action: supply YouTube channel/video IDs and Instagram video URLs in
-                src/content/videos/videos.json (see docs/add-a-video.md).
-              </p>
-            </div>
           </div>
         )
       }

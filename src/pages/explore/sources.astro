@@ -1,0 +1,186 @@
+---
+/**
+ * Where the traditional material on this site comes from.
+ *
+ * Every reference page separates "traditional view" from "modern view" from
+ * "Mo's synthesis" — a genuinely rigorous structure that was, until this page
+ * existed, unattributed. Naming a doctrine's source is the difference between
+ * "astrologers have always said" and a claim a reader can go and check, which is
+ * the whole basis of the authority this site asks for.
+ *
+ * Every text listed here is a real, published, findable work. Nothing is
+ * paraphrased into existence, and nothing claims Mo has personally studied a
+ * given edition — the page describes the canon the material follows, which is
+ * what is actually true.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import SeaBreak from '../../components/SeaBreak.astro';
+import AuthorNote from '../../components/AuthorNote.astro';
+import { celestial, ocean } from '../../config/images';
+
+const crumbs = [
+  { label: 'Explore Astrology', href: '/explore/' },
+  { label: 'Sources', href: '/explore/sources/' },
+];
+---
+
+<BaseLayout
+  title="Sources — where the traditional material comes from"
+  description="The classical and modern texts behind the traditional astrology on this site: Ptolemy, Dorotheus, Valens, Bonatti, Lilly, and the scholars who recovered them. Named so you can check them."
+  path="/explore/sources/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Where this comes from</h1>
+        <p class="lede">
+          Every reference page here separates the traditional view from the modern one and from my
+          own synthesis. This page names what the traditional column actually rests on, so you can
+          go and read it yourself rather than take my word for it.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={ocean.cliffsSeaFog.src}
+        srcset={ocean.cliffsSeaFog.srcset}
+        sizes="100vw"
+        alt={ocean.cliffsSeaFog.alt}
+        width={ocean.cliffsSeaFog.width}
+        height={ocean.cliffsSeaFog.height}
+        style="transform: scaleX(-1)"
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <h2>Why I bother naming them</h2>
+      <p>
+        Astrology has a bad habit of saying "the ancients believed" and leaving it there. It sounds
+        authoritative and it can't be checked, which is the opposite of authority. When a page here
+        says <em>traditional view</em>, it means a specific body of technique written down by
+        specific people, most of whom you can read in English translation.
+      </p>
+      <p>
+        I'll also say plainly what this page is not: a claim that older is truer. The traditional
+        material and the modern material disagree in places, and where they do, the reference pages
+        say so rather than quietly picking a winner.
+      </p>
+
+      <h2>The Hellenistic foundation</h2>
+      <p>
+        Nearly everything recognisable as Western astrology — houses, aspects, dignities, sect —
+        was assembled in the Greek-speaking Mediterranean between roughly the first century BCE and
+        the fourth century CE.
+      </p>
+      <ul>
+        <li>
+          <strong>Dorotheus of Sidon, <em>Carmen Astrologicum</em></strong> (1st century CE) — the
+          earliest substantially surviving systematic handbook. The source of much of what is still
+          taught about triplicity rulers and timing.
+        </li>
+        <li>
+          <strong>Claudius Ptolemy, <em>Tetrabiblos</em></strong> (2nd century CE) — the most
+          influential single text in the tradition. The dignity tables this site calls "Ptolemaic"
+          are his, and they remained the backbone of Western practice for well over a millennium.
+        </li>
+        <li>
+          <strong>Vettius Valens, <em>Anthology</em></strong> (2nd century CE) — a working
+          astrologer's casebook rather than a theory text, and the reason we know what Hellenistic
+          practice actually looked like in use.
+        </li>
+        <li>
+          <strong>Firmicus Maternus, <em>Mathesis</em></strong> (4th century CE) — the major Latin
+          compendium, which carried the Hellenistic material westward.
+        </li>
+      </ul>
+
+      <h2>Persian and medieval transmission</h2>
+      <ul>
+        <li>
+          <strong>Abu Ma'shar</strong> (9th century) — central to the transmission of Hellenistic
+          astrology into Arabic scholarship, and from there back into Latin Europe.
+        </li>
+        <li>
+          <strong>Guido Bonatti, <em>Liber Astronomiae</em></strong> (13th century) — the great
+          medieval synthesis, and a standard reference for horary and electional technique.
+        </li>
+      </ul>
+
+      <h2>The English horary tradition</h2>
+      <p>
+        This is the strand I'm formally trained in, so I'll be specific about it.
+      </p>
+      <ul>
+        <li>
+          <strong>William Lilly, <em>Christian Astrology</em></strong> (1647) — the foundational
+          English-language text on horary, and still the reference practitioners argue with. My
+          Practitioner's Certificate in Horary Astrology is from the
+          <a href="https://www.sta.co/" rel="noopener" target="_blank">School of Traditional Astrology</a>,
+          which teaches within this lineage.
+        </li>
+      </ul>
+
+      <h2>How the old material became available again</h2>
+      <p>
+        Most of these texts were unavailable in usable English translation until surprisingly
+        recently. If you have wondered why "traditional astrology" seems to have appeared out of
+        nowhere in the last few decades, this is why — it is a recovery, not an invention.
+      </p>
+      <ul>
+        <li>
+          <strong>Project Hindsight</strong> (from 1993) — the translation project, associated with
+          Robert Hand, Robert Schmidt and Robert Zoller, that put Hellenistic and medieval sources
+          into modern astrologers' hands.
+        </li>
+        <li>
+          <strong>Chris Brennan, <em>Hellenistic Astrology: The Study of Fate and Fortune</em></strong>
+          (2017) — the standard modern scholarly overview of the Hellenistic system.
+        </li>
+        <li>
+          <strong>Deborah Houlding</strong> — modern scholarship on house meanings and horary
+          method, widely used in the traditional revival.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <SeaBreak image={celestial.keys} />
+
+  <section class="section section--sea">
+    <div class="container prose flow">
+      <h2>Where modern practice comes from instead</h2>
+      <p>
+        When a page here says <em>modern view</em>, it generally means the psychological turn
+        astrology took in the twentieth century — Alan Leo's reframing of the chart as character
+        rather than fate, and later Dane Rudhyar's humanistic astrology, which recast the chart as a
+        map of becoming rather than a fixed verdict.
+      </p>
+      <p>
+        The three outer planets belong to this era for the obvious reason that nobody could see them
+        before it: Uranus was found in 1781, Neptune in 1846, Pluto in 1930. Any statement about
+        what they "rule" is necessarily modern, and the reference pages label it that way.
+      </p>
+
+      <h2>And when it's just me</h2>
+      <p>
+        <em>Mo's synthesis</em> means exactly that — my own reading, formed from the above and from
+        the charts I've actually sat with. It's labelled separately because you deserve to know when
+        you're reading a tradition and when you're reading one astrologer's opinion.
+      </p>
+
+      <AuthorNote />
+    </div>
+  </section>
+
+  <CTABand
+    heading="Prefer to see it working?"
+    body="A reading is where all of this stops being reference material and starts being about your life."
+  />
+</BaseLayout>

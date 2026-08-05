@@ -3,6 +3,8 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
+import RisingSignGuidance from '../../../components/RisingSignGuidance.astro';
+import AuthorNote from '../../../components/AuthorNote.astro';
 import { bandFor, celestial, ocean, type SiteImage } from '../../../config/images';
 import { site } from '../../../config/site';
 
@@ -134,11 +136,14 @@ const schema = [
         <Content />
         <hr />
         <p class="card__meta">
-          Astronomical data: {e.sourceNote} Interpretive notes are Mo's perspective — astrology
-          offers perspective, not certainty, and your choices remain your own.
+          Astronomical data: {e.sourceNote} The interpretation is mine — astrology offers
+          perspective, not certainty, and your choices remain your own.
         </p>
+        <AuthorNote variant="compact" />
       </div>
     </section>
+
+    <RisingSignGuidance eventType={e.eventType} title={e.title} sign={e.sign} />
   </article>
   <CTABand
     heading="What does this stir in your chart?"

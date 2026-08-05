@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import FurtherReading from '../../components/FurtherReading.astro';
 import SeaBreak from '../../components/SeaBreak.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
@@ -131,8 +132,9 @@ const crumbs = [
         <a href="/explore/houses/">the twelve houses</a>, and
         <a href="/explore/schools/">schools and traditions</a>.
       </p>
+      <FurtherReading />
     </div>
   </section>
 
-  <CTABand heading="Curious which system fits your chart?" body="Mo will tell you what she's using, and why — and look at more than one when it matters." buttonLabel="See the readings" buttonHref="/readings/" />
+  <CTABand heading="Curious which system fits your chart?" body="I'll always tell you which system I'm using and why — and look at more than one when it matters." buttonLabel="See the readings" buttonHref="/readings/" />
 </BaseLayout>

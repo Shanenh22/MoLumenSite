@@ -2,6 +2,7 @@
 import { getCollection } from 'astro:content';
 import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FurtherReading from '../components/FurtherReading.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
@@ -28,9 +29,9 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
       <p class="eyebrow">By rising sign</p>
       <h1>Horoscopes</h1>
       <p class="lede">
-        With each new moon and eclipse, Mo writes guidance for all twelve rising signs — where the
-        lunation lands in your chart and what it invites. Read by your <em>rising</em> sign for
-        best fit (sun sign works too).
+        With each new moon and eclipse I write guidance for all twelve rising signs — where the
+        lunation lands in your chart and what that part of life tends to ask. Read by your
+        <em>rising</em> sign for the best fit; your Sun sign works too, it just fits more loosely.
       </p>
       </div>
       <img
@@ -75,6 +76,7 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
       <h2 id="horo-newsletter">New lunation letters, by email</h2>
       <p>The Sky This Month delivers each letter as it's written.</p>
       <NewsletterForm source="horoscopes" labelledby="horo-newsletter" />
+      <FurtherReading />
     </div>
   </section>
   <CTABand />

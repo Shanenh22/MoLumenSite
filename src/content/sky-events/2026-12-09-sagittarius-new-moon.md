@@ -14,4 +14,4 @@ ownerReview: true
 
 The Sagittarius new moon opens the year's last full lunar cycle: aim, meaning, and the bigger picture. Saturn and Neptune both station direct within days — the sky's long pauses ending as the year does.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

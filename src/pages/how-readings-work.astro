@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import FurtherReading from '../components/FurtherReading.astro';
 import SeaBreak from '../components/SeaBreak.astro';
 import { celestial, ocean, photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
@@ -91,6 +92,7 @@ const crumbs = [{ label: 'How Readings Work', href: '/how-readings-work/' }];
         Readings also make a remarkable gift — see <a href="/readings/gift/">gift readings</a> for
         how that works.
       </p>
+      <FurtherReading />
     </div>
   </section>
 

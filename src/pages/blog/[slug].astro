@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
+import AuthorNote from '../../components/AuthorNote.astro';
 import { site } from '../../config/site';
 import { scenes } from '../../config/images';
 
@@ -112,6 +113,7 @@ const schema = [
             </p>
           )
         }
+        <AuthorNote dateline={`Published ${fmt(d.publishDate)}`} />
       </div>
     </section>
   </article>

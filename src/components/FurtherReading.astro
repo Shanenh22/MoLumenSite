@@ -1,0 +1,34 @@
+---
+/**
+ * "Keep reading" — links from a reference page to the matching blog posts.
+ *
+ * Self-locating: it looks its own page up in src/data/further-reading.ts and
+ * renders nothing when there is no genuine subject match, so it can be dropped
+ * into a template without deciding anything at the call site.
+ *
+ * This exists because nine of thirteen posts had fewer than three inbound links.
+ * The reference library and the blog were covering the same ground without
+ * acknowledging each other.
+ */
+import { furtherReading } from '../data/further-reading';
+
+const path = Astro.url.pathname;
+// Tolerate a missing trailing slash so the lookup can't silently miss.
+const posts = furtherReading[path] ?? furtherReading[`${path}/`] ?? [];
+---
+
+{
+  posts.length > 0 && (
+    <aside class="further" aria-labelledby="further-heading">
+      <h2 id="further-heading" class="further__heading">Keep reading</h2>
+      <ul class="further__list">
+        {posts.map((p) => (
+          <li>
+            <a href={`/blog/${p.slug}/`}>{p.title}</a>
+            <span class="further__note">{p.note}</span>
+          </li>
+        ))}
+      </ul>
+    </aside>
+  )
+}

@@ -14,4 +14,4 @@ ownerReview: true
 
 A total solar eclipse new moon in Leo — the most emphatic fresh start of the season. Eclipses accelerate change along the house axis they touch; this one asks Leo questions about heart, creativity, and being seen.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

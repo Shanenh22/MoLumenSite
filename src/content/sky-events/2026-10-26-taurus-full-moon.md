@@ -14,4 +14,4 @@ ownerReview: true
 
 The Taurus full moon lands mid-retrograde-season: a culmination around money, security, and the body — steady Taurus light in an intense Scorpio-season sky.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

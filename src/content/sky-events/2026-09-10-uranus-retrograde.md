@@ -15,4 +15,4 @@ ownerReview: true
 
 Uranus begins its annual five-month retrograde at 5° Gemini, backing up to 1° by February 8, 2027. Outer-planet retrogrades are subtle for most people day to day — themes of rethinking, rewiring, and revising how you communicate get an interior review.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

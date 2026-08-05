@@ -1,0 +1,74 @@
+---
+/**
+ * Rising-sign guidance for a lunation or eclipse — all twelve signs.
+ *
+ * `/horoscopes/` promises this with every new moon and eclipse. Before this
+ * component the promise was unkept: the page said Mo writes for all twelve
+ * rising signs, and clicking any lunation gave two general sentences. A claim a
+ * reader can disprove in one click is worse than a smaller honest one.
+ *
+ * The house placement is calculated with whole-sign houses rather than written
+ * out twelve times per event — see the long note in src/data/lunation-guidance.ts
+ * for why that is honest rather than a shortcut. The method is stated on the
+ * page itself, in plain words, so nobody is led to believe each paragraph was
+ * composed for that specific lunation.
+ *
+ * Renders nothing at all for retrogrades and ingresses: they have no lunation
+ * sign, so there is no house to count to.
+ */
+import { guidanceForEvent, ordinal } from '../data/lunation-guidance';
+
+interface Props {
+  eventType: string;
+  title: string;
+  sign?: string;
+}
+const { eventType, title, sign } = Astro.props;
+const guidance = guidanceForEvent(eventType, title, sign);
+const isEclipse = eventType === 'eclipse';
+---
+
+{
+  guidance.length > 0 && (
+    <section class="section section--sea" id="by-rising-sign">
+      <div class="container">
+        <div class="prose flow" style="margin-bottom: var(--space-8);">
+          <h2>What this asks of you, by rising sign</h2>
+          <p>
+            Find your <strong>rising sign</strong> below — that is the one this is written for.
+            If you don't know it, it comes from your exact birth time, and
+            <a href="/prepare-for-your-reading/"> here's how to track it down</a>. Reading your Sun
+            sign instead still works; it just fits a little more loosely.
+          </p>
+          <p class="card__meta">
+            I use <a href="/explore/house-systems/">whole-sign houses</a>, so the sign this
+            {isEclipse ? ' eclipse ' : ' lunation '}falls in lands in the same house for everyone
+            who shares a rising sign. What you'll read below is that house, and what it tends to
+            ask — not a prediction of what will happen to you. Astrology is a tool like a mirror or
+            a planner. Your choices stay yours.
+          </p>
+        </div>
+
+        <div class="grid grid--3">
+          {guidance.map((g) => (
+            <article class="card">
+              <p class="card__meta" style="margin: 0;">
+                {ordinal(g.house)} house — {g.arena}
+              </p>
+              <h3 style="font-size: var(--text-lg); margin: 0;">
+                <a href={`/explore/signs/${g.slug}/`}>{g.sign} rising</a>
+              </h3>
+              <p style="margin: 0;">{g.text}</p>
+            </article>
+          ))}
+        </div>
+
+        <p class="card__meta" style="margin-top: var(--space-6);">
+          Want to know how this lands in your chart specifically — which planets it touches, and
+          what it activates that a rising sign alone can't tell you? That's what a
+          <a href="/readings/monthly-transits/"> personal transits reading</a> is for.
+        </p>
+      </div>
+    </section>
+  )
+}

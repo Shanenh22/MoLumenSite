@@ -519,3 +519,103 @@ pages.
 
 **Nothing from the celestial set appears on `/about/` or `/credentials/`**, and the build is checked
 for it. That is the one placement rule that is not aesthetic.
+
+## E-E-A-T and voice pass (2026-08-05)
+
+Prompted by a strategy review of the live site. The full memo is not in the repo; what mattered is
+below.
+
+### The seam problem, closed
+
+Four kinds of build note were visible to visitors on the live site: the "Photo of Mo to be placed
+here" line on `/about/`, an "Owner action: supply YouTube channel/video IDs" callout on `/videos/`,
+an "Owner action: guide file not yet supplied" callout on `/newsletter/`, and an "(owner review)"
+italic on thirteen `/current-sky/events/` pages. All removed. Where the underlying content genuinely
+does not exist yet — video — the page now says so in Mo's own voice and points at something real
+instead of describing the build.
+
+**The lesson worth keeping: a note addressed to the owner has no business rendering in `<main>`.**
+Owner instructions belong in `docs/`, which is where they now are. `isDev &&` is the right guard if
+something truly must appear during development, as `/testimonials/` already does correctly.
+
+### `/horoscopes/` now keeps its promise
+
+The page said Mo writes guidance for all twelve rising signs with each lunation. Clicking any
+lunation gave two general sentences. That is the worst class of trust problem on a site like this:
+a claim the reader can disprove in one click.
+
+`src/data/lunation-guidance.ts` fixes it by **calculating** rather than fabricating. In whole-sign
+houses — the system `/explore/house-systems/` already documents as the classical default — a
+lunation's sign falls in a fixed house per rising sign. A Virgo new moon is the 6th house for Aries
+rising and the 1st for Virgo rising, always. That is arithmetic. The interpretation is then written
+once per house per phase (12 x 3 = 36 passages) rather than twelve times per event forever.
+
+Why that trade is right: a one-person practice cannot sustain twelve fresh paragraphs per lunation,
+and the version that quietly stops being written is worse than the version that is honest about its
+method. **`RisingSignGuidance.astro` states the method on the page**, so nobody is led to believe
+each paragraph was composed for that specific lunation.
+
+Retrogrades and ingresses render nothing — they have no lunation sign, so there is no house to
+count to. Verified: 12 cards on lunations and eclipses, 0 on retrogrades.
+
+### E-E-A-T changes
+
+- **`AuthorNote.astro`** — author plus named, verifiable credentials at the end of blog posts, sky
+  events, and the sign/planet/house/aspect templates. Someone arriving from a search result never
+  saw `/credentials/`, which is the strongest trust page here. Nothing in it is inflated, and there
+  is deliberately no "20 years of experience" line because no such figure has been supplied.
+- **`/explore/sources/`** — the reference library separated traditional from modern from Mo's
+  synthesis without ever attributing the traditional column. "The ancients believed" is an authority
+  claim a reader cannot check. The page names the actual canon: Dorotheus, Ptolemy, Valens,
+  Firmicus, Abu Ma'shar, Bonatti, Lilly, and the modern recovery through Project Hindsight and
+  Brennan. `Layers.astro` now links the "Traditional view" and "Modern view" labels to it, so every
+  doctrine block on the site carries attribution with no per-page authoring. The other four labels
+  deliberately do not link — astronomy needs no citation and "Mo's synthesis" is explicitly opinion.
+- **`FurtherReading.astro`** + `src/data/further-reading.ts` — nine of thirteen blog posts had fewer
+  than three inbound internal links; the library and the blog covered the same topics without
+  acknowledging each other. Now **zero** posts are under-linked. The component is self-locating: it
+  looks up `Astro.url.pathname` and renders nothing without a genuine subject match, so it can be
+  dropped into a template without deciding anything at the call site.
+- FAQPage structured data was **already implemented** and emitting ten Question entities. The
+  strategy memo was wrong about this; no change was needed.
+
+### Marketing line and Current Sky
+
+Astrology is unregulated, so "certified" alone is worth little. The differentiator is that Mo's
+credentials are _named_ and that she invites you to check them — so that invitation is now the
+hero line on the homepage rather than something buried three clicks deep.
+
+Current Sky was a bare list of links in half a night band. It is the one asset no comparable
+astrologer's site has (a dated, sourced calendar, now with rising-sign guidance on every lunation),
+so the band says what it is and why it is different. An asset nobody understands is not an asset.
+
+### Voice
+
+The site drifted into third person — "Mo writes", "she reads every message". Mo's own writing at
+molumen.com/services-2 is first person and warm: _"I would love to work with you"_, _"I am not a
+'fortune teller'"_, astrology as _"a tool to use like a mirror or a planner"_. Fifteen passages moved
+into her voice across contact, FAQs, horoscopes, newsletter, courses, reading-finder, start-here,
+testimonials, videos, glossary, schools, house-systems, dignities and the explore hub.
+
+Two things stay third person on purpose: the `AuthorNote` byline ("Written by Maureen 'Mo' Lumen"),
+because a byline is not speech, and the `Layers` label "Mo's synthesis", because it is a category
+name in a legend rather than a sentence.
+
+### Verified state
+
+`astro check` 0 errors, **130 pages** (`/explore/sources/` is new). Audit: **0 thin pages** (was 1 —
+`/videos/` now has real copy), 0 orphans, 0 missing alt, 0 heading skips, 0 pages without JSON-LD.
+**0 blog posts under three inbound links** (was 9). Hero contrast: 119 pages discovered, every block
+above 4.5:1, worst 5.14:1. axe 0 violations across 20 pages x 2 viewports. `check:contrast` all
+pass. Booking 18/18, finder 11/11.
+
+### Still open
+
+- **Mo has not read the rising-sign guidance.** It is derived from standard whole-sign technique and
+  her stated approach, but it is interpretive content published under her byline and belongs on the
+  same review list as the thirteen blog posts.
+- `/videos/` is still empty. The empty state is now honest rather than a build note, and
+  `/testimonials/` no longer advertises video as "the most honest preview" while pointing at a blank
+  page — it points at `/explore/sources/` instead. Swap both back once there is something to watch.
+- Exact clock times for sky events were never supplied. The build note claiming they were coming is
+  gone; the dates and signs remain sourced and verified, which is what the pages actually assert.

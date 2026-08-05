@@ -19,8 +19,8 @@ const crumbs = [{ label: 'Newsletter', href: '/newsletter/' }];
       <p class="eyebrow">Free, monthly, five minutes</p>
       <h1>The Sky This Month</h1>
       <p class="lede">
-        Once a month, Mo writes you the sky: what's moving overhead, what it tends to mean, and
-        one practical thing to do about it. No doom, no spam, unsubscribe anytime.
+        Once a month I write you the sky: what's moving overhead, what it tends to mean, and one
+        practical thing to do about it. No doom, no spam, unsubscribe anytime.
       </p>
       </div>
       <img
@@ -57,12 +57,13 @@ const crumbs = [{ label: 'Newsletter', href: '/newsletter/' }];
           in, so you notice doors while they're still opening. Subscribers will receive it as soon
           as it's released — it's being finished now, and we'd rather ship it right than fast.
         </p>
-        <div class="callout callout--review" style="margin: 0;">
-          <p style="margin: 0;">
-            Owner action: guide file not yet supplied. Copy above deliberately avoids promising
-            immediate delivery. Outline in docs/lead-magnet-outline.md.
-          </p>
-        </div>
+        {/*
+          The build note that used to sit here ("Owner action: guide file not yet
+          supplied") was visible to visitors. The copy above already avoids
+          promising immediate delivery, which is the part that actually mattered;
+          the outline lives in docs/lead-magnet-outline.md where the owner will
+          look for it.
+        */}
       </div>
     </div>
   </section>

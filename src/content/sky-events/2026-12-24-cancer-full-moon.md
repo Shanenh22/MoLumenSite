@@ -14,4 +14,4 @@ ownerReview: true
 
 A Christmas Eve full moon in Cancer: home, family, and belonging illuminated at the exact moment most people are living those questions in real time.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

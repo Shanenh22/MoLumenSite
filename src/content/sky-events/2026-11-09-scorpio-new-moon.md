@@ -14,4 +14,4 @@ ownerReview: true
 
 The Scorpio new moon seeds the deep-water work: intimacy, shared resources, honest reckonings. With Mercury and Venus stationing direct four days later, intentions set now get moving quickly.
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

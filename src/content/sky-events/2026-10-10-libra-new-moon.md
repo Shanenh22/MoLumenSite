@@ -14,4 +14,4 @@ ownerReview: true
 
 The Libra new moon — arriving during Venus retrograde — opens a cycle about balance and partnership, with a review flavor: what needs rebalancing in how you relate, before anything new is promised?
 
-*Exact times for this event are not yet listed — verified times will be added before publication (owner review).*
+

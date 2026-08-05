@@ -1,0 +1,42 @@
+---
+/**
+ * Author + verifiable credentials, for pages a reader can land on straight from
+ * a search result.
+ *
+ * The problem this solves: `/credentials/` is the strongest trust page on the
+ * site, and somebody arriving on a blog post or a reference page from Google
+ * never sees it. Google's quality guidance for advice that touches money,
+ * relationships and major life decisions leans hard on a named author with
+ * checkable training attached to the content itself — not filed away on a
+ * separate page the reader has no reason to visit.
+ *
+ * Everything here is already stated on /credentials/. Nothing is added, inflated
+ * or rounded up, and there is deliberately no "20 years of experience" style
+ * claim, because no such figure has been supplied by the owner.
+ *
+ * `variant="full"` for long reads (blog, reference pages); `variant="compact"`
+ * for short dated notes where a full card would outweigh the content.
+ */
+interface Props {
+  variant?: 'full' | 'compact';
+  /** Optional date line, already formatted. */
+  dateline?: string;
+}
+const { variant = 'full', dateline } = Astro.props;
+---
+
+<aside class:list={['author-note', variant === 'compact' && 'author-note--compact']}>
+  <p class="author-note__by">
+    <span class="author-note__name">Written by Maureen “Mo” Lumen</span>
+    {dateline && <span class="author-note__date"> · {dateline}</span>}
+  </p>
+  <p class="author-note__creds">
+    Practitioner's Certificate in Horary Astrology (School of Traditional Astrology) · NCGR-PAA
+    Levels 1 and 2 passed · Board member and treasurer, Organization for Professional Astrologers ·
+    Member of NCGR, OPA and ISAR.
+  </p>
+  <p class="author-note__verify">
+    Astrology is an unregulated field, so I'd rather you checked than took my word for it —
+    <a href="/credentials/">every one of these is named and verifiable</a>.
+  </p>
+</aside>

@@ -36,6 +36,7 @@ export const primaryNav: NavGroup[] = [
       { label: "Essential Dignities", href: "/explore/dignities/" },
       { label: "The Saturn Return", href: "/explore/saturn-return/" },
       { label: "Explore Your Chart", href: "/tools/explore-your-chart/" },
+      { label: "Sources", href: "/explore/sources/" },
       { label: "Glossary", href: "/explore/glossary/" },
     ],
   },
