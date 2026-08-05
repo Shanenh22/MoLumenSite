@@ -12,6 +12,20 @@ const skyEvents = (await getCollection('skyEvents'))
   .filter((e) => e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
   .slice(0, 3);
+/**
+ * Three testimonials for the homepage, chosen by which objection they answer
+ * rather than by which is most flattering: "will this mean anything to me",
+ * "will she just tell me what to do", "I know nothing about astrology".
+ *
+ * Filtered on `approved` like every other surface — an unapproved testimonial
+ * must never render anywhere. If one of these is ever withdrawn the filter drops
+ * it and the grid simply shows fewer, which is the correct failure mode.
+ */
+const HOME_QUOTE_IDS = ['claire-m-natal', 'rachel-t-life-changes', 'jennifer-l-natal'];
+const homeQuotes = (await getCollection('testimonials'))
+  .filter((t) => t.data.approved && HOME_QUOTE_IDS.includes(t.id))
+  .sort((a, b) => HOME_QUOTE_IDS.indexOf(a.id) - HOME_QUOTE_IDS.indexOf(b.id));
+
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
 
@@ -64,8 +78,23 @@ const values = [
           <a class="btn btn--accent" href="/reading-finder/">Find Your Reading</a>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
         </div>
+        {/*
+          The dream outcome, and it is deliberately not a promise of results.
+          "Perspective you can use" was a texture, not an outcome — nothing a
+          reader can picture. But this site cannot promise what will happen to
+          someone's life either: the disclaimer says astrology offers
+          perspective rather than certainty, and Mo's own words are "I am not a
+          fortune teller".
+
+          So the outcome named here is the one clients actually report, in their
+          own words on /testimonials/ — Claire: "things I've felt about myself
+          forever and just never had words for." Language for what you are
+          already living is a real transformation, it is honest, and it is
+          evidenced. Do not upgrade it into a guarantee.
+        */}
         <p class="hero__reassure">
-          No belief required. No doom, no scare tactics — just perspective you can use.
+          No belief required. No doom, no scare tactics — just words for something you've been
+          living for years.
         </p>
         {/*
           The brand line, in Mo's own words from /about/. It sits where a
@@ -204,6 +233,64 @@ const values = [
       </div>
       <p style="margin-top: var(--space-6);">
         <a href="/readings/">Compare all readings side by side →</a>
+      </p>
+
+      {/*
+        Risk reversal, next to the prices rather than buried.
+
+        Every line here was already true and already written — in
+        /booking-policy/, which is exactly where nobody reads it while deciding
+        whether to spend $150 on a stranger. Nothing has been invented or
+        upgraded; if the policy changes, change it there and here together.
+      */}
+      <ul class="assurances">
+        <li>
+          <strong>Reschedule free</strong> up to 48 hours before. Inside that window your fee is
+          held as credit, not lost.
+        </li>
+        <li>
+          <strong>If I have to cancel</strong>, you choose — reschedule, or a full refund.
+        </li>
+        <li>
+          <strong>Every reading is recorded</strong>, and the recording is yours to keep.
+        </li>
+        <li>
+          <strong>Your birth data stays yours.</strong> Never sold, never shared, deleted on
+          request. <a href="/privacy/">The privacy policy</a> says so in plain words.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  {/*
+    Council note: nine real, permissioned testimonials existed on a page almost
+    nobody reaches. These three are chosen to answer the three objections a
+    first-time visitor actually arrives with — "will this mean anything?",
+    "will she just tell me what to do?", and "I know nothing about astrology,
+    will I feel stupid?" — in clients' own words rather than in marketing copy.
+
+    Real words only. Fabricated testimonials are illegal under the FTC rule and
+    would destroy the one thing this site is actually selling.
+  */}
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">In their words</p>
+      <h2>What people say afterwards</h2>
+      <div class="quote-grid">
+        {
+          homeQuotes.map((t) => (
+            <figure class="quote-card">
+              <blockquote>{t.data.quote}</blockquote>
+              <figcaption>
+                {t.data.attribution}
+                {t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}
+              </figcaption>
+            </figure>
+          ))
+        }
+      </div>
+      <p style="margin-top: var(--space-6);">
+        <a href="/testimonials/">Read the rest — and what you can verify without taking my word for it →</a>
       </p>
     </div>
   </section>
@@ -379,12 +466,23 @@ const values = [
   <section class="section section--night center">
     <div class="container flow">
       <div class="divider"><Icon name="moon" size={20} /></div>
-      <h2>Whenever you're ready, the sky's not going anywhere.</h2>
+      {/*
+        This used to read "Whenever you're ready, the sky's not going anywhere /
+        Take your time." Gracious, and it was the last thing on the page — an
+        instruction to leave, placed directly above the only button. The warmth
+        was worth keeping; the exit was not. It now invites rather than defers,
+        and still refuses to pressure anyone.
+      */}
+      <h2>Bring me your real question.</h2>
       <p class="lede" style="margin-inline: auto;">
-        Take your time. Read, explore, watch — and when a real question forms, I'd love to meet
-        you and your chart.
+        You don't need to know any astrology to start — that's my job. Come with what's actually
+        on your mind, and we'll look at your chart together.
       </p>
       <p><a class="btn btn--accent" href="/book/">Book a Reading</a></p>
+      <p class="card__meta" style="margin-inline: auto;">
+        Not sure which one? <a href="/reading-finder/">Answer five questions</a> and I'll tell you
+        what I'd suggest.
+      </p>
     </div>
   </section>
 </BaseLayout>

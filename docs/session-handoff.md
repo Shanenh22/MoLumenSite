@@ -707,3 +707,113 @@ sentences on a photograph and neither had ever been measured.
 homepage), every block above 4.5:1, worst **5.14:1**. axe 0 violations across 20 pages × 2 viewports.
 `check:contrast` all pass. Audit: 0 thin pages, 0 orphans, 0 missing alt, 0 pages without exactly one
 h1. Booking 18/18, finder 11/11.
+
+## Reading Finder rebuild and conversion pass (2026-08-05)
+
+Prompted by running the marketing-council skill against the live site.
+
+### The Reading Finder went from 2 questions to 5
+
+The old finder asked "have you had a reading before?" then one need question, and returned a product
+name. It now asks five and returns a diagnosis.
+
+Question order is deliberate. It opens with **what brought you here**, not with the
+new-or-established split, because the first question decides whether this reads as a form or as the
+start of a conversation — and that decides completion. The admin question is now second.
+
+**Only `focus` (relationship) and `depth` / `est-need` change the recommendation.** `birthtime` and
+`when` exist to make the readback specific and to weight the closing action. They earn their place
+by what the reader gets back, not by segmenting them — a question whose only purpose is marketing
+gets smelled out by exactly this audience.
+
+Two of the five are worth defending individually:
+
+- **Birth time** is the single biggest piece of friction in this funnel; there is a whole page about
+  tracking one down. Asking inside the finder turns a silent drop-off into a moment of help, and it
+  genuinely changes the advice. It is **yes / roughly / no** — never an actual time, per the site
+  rule that birth data stays out of analytics, URLs and email.
+- **Timing** is the funnel question, framed as service. "In the next few weeks" versus "still
+  deciding" is what tells Mo who to book and who to keep warm, without a countdown timer anywhere.
+
+### Three exits, weighted by intent
+
+The result used to have one door: book. Most visitors are not ready today, and they were given
+nothing to do but leave. It now offers **book / send this to me first / full details**, and the
+primary button swaps based on the timing answer — someone still exploring gets "send this to me
+first" as the loud button, and an explicit "don't book anything yet, read the sky letter" line.
+
+### Why the email is a `mailto:` and not a form
+
+There is no server. The site deploys as **static assets only** (`wrangler.jsonc` has an `assets`
+block and no fetch handler), `PUBLIC_MAILERLITE_FORM_ID` is unset, and molumen.com is still on
+Squarespace so no sending domain could be verified yet. A form backend was not an option.
+
+So "Send this to me first" opens the visitor's own mail client, pre-filled with their answers and
+the recommendation, addressed to Mo. It stores nothing — which keeps faith with the promise on the
+page — Mo receives a lead **with context**, and the visitor keeps a copy in their Sent folder.
+
+There is also an argument it is simply better here: for a $150–$275 one-to-one service, starting a
+conversation with a human beats adding a row to a mailing list. When MailerLite is configured this
+can upgrade using the same `formId ? … : mailto` pattern `NewsletterForm` already uses.
+
+**The page's promise was updated to match.** It used to say "nothing you answer here is stored or
+sent anywhere". It now says answers stay in the browser and nothing is sent unless you choose to
+send it. If the finder ever gains a real backend, that sentence has to change again first.
+
+### The vocabulary trap, avoided
+
+`recommend()` returns `primary` (a **service** slug, used for the `services` lookup and
+`/readings/<slug>/`) and an optional `book` (a **Cal.com event** key, used only in
+`/book/?service=`). They are separate fields on purpose. Routing the 60/90 split needed `natal-60`
+and `natal-90`, which are event keys — `services['natal-60']` is undefined and would have thrown.
+This is the same drift documented above under "Vocabulary drift"; it has now bitten twice.
+
+Side benefit: the finder used to send every new client to `natal` (which maps to the $200
+ninety-minute event). It now routes to the duration they actually chose.
+
+### Council recommendations 1, 2 and 5
+
+- **Three testimonials on the homepage.** Chosen by which objection they answer — "will this mean
+  anything", "will she just tell me what to do", "I know nothing about astrology" — not by which is
+  most flattering. Filtered on `approved` like every other surface.
+- **Assurances strip beside the prices.** 48-hour reschedule, fee held as credit, full refund if Mo
+  cancels, recording yours, birth data never sold. Every line was already true and already written
+  in `/booking-policy/` — which is exactly where nobody reads it while deciding whether to spend
+  $150 on a stranger. **Nothing was invented; if the policy changes, change both.**
+- **Closing CTA.** Was "Whenever you're ready, the sky's not going anywhere / Take your time" — an
+  instruction to leave, directly above the only button. Now "Bring me your real question."
+
+### The dream outcome, and its ceiling
+
+"Just perspective you can use" was a texture, not an outcome. But this site **cannot** promise what
+will happen in someone's life: the disclaimer says astrology offers perspective rather than
+certainty, and Mo's own words are "I am not a fortune teller."
+
+So the outcome now named in the hero is the one clients actually report, in their own words on
+`/testimonials/` — _"things I've felt about myself forever and just never had words for."_ The line
+is **"just words for something you've been living for years."** It is honest, specific, and
+evidenced. Do not upgrade it into a guarantee.
+
+### A CSS trap worth knowing
+
+`.quote-card blockquote` had to reset `background` and `border-radius` explicitly. There are **two**
+bare `blockquote` rules in `global.css` — one sets parchment, a later one overrides it with a blush
+tint — and inside a white card that read as a stray highlight. Class specificity won for the
+properties that were named and did nothing for the ones that were not. When overriding a bare
+element selector, clear every property it sets, not just the ones you happen to think of.
+
+### Verified state
+
+`astro check` 0 errors, 130 pages. Finder handoff 11/11 and booking 18/18 — the finder UI changed
+completely and both still pass, because the test asserts `/book/?service=` slugs rather than the
+finder's markup. All eight recommendation paths were driven in a real browser and checked. Hero
+contrast 120 pages, worst 5.14:1. axe 0 violations across 20 pages × 2 viewports. `check:contrast`
+pass. Audit 0 thin, 0 orphans, 0 missing alt.
+
+### Still open on this
+
+- Completion rate per step is unmeasured. Going 2 → 5 questions will cost _some_ completion; the
+  `reading_finder_intent` GA4 event and the existing step events are there to find out whether the
+  trade was worth it. Nobody has looked yet.
+- The lead magnet ("Reading the Road Ahead") still does not exist, so there is still no bait rung
+  below the $150 natal reading for a cold visitor.

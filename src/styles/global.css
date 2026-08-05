@@ -2595,3 +2595,128 @@ fieldset.booking-group > legend span {
     );
   }
 }
+
+/* ---------- Reading Finder result ----------
+   The readback is set apart because it is the moment the page stops being a
+   form and starts sounding like a person. Serif, slightly larger, quoted back
+   to the reader in their own terms. */
+.finder__readback {
+  font-family: var(--font-serif);
+  font-size: var(--text-lg);
+  line-height: 1.5;
+  color: var(--ink);
+  border-inline-start: 3px solid var(--color-gold);
+  padding-inline-start: var(--space-4);
+  margin-block: var(--space-4);
+}
+.finder__readback::first-letter {
+  text-transform: uppercase;
+}
+/* Three exits, not one. They wrap rather than shrink, because a booking button
+   that has been squeezed to fit reads as less important than it is. */
+.finder__exits {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  margin-block: var(--space-6) var(--space-4);
+}
+
+/* ---------- homepage testimonial cards ----------
+   The testimonials page renders plain blockquotes on parchment, which is right
+   for a page you arrive at deliberately and wrong for the homepage, where these
+   have to stop a scroll. White cards on the parchment `.section--alt` band so
+   they lift off the page, a gold quote mark for the eye to land on, and the
+   quote itself in the brand serif rather than body sans.
+
+   Colours are all brand tokens — no new palette. */
+.quote-grid {
+  display: grid;
+  gap: var(--space-6);
+  margin-top: var(--space-8);
+}
+@media (min-width: 900px) {
+  .quote-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+.quote-card {
+  position: relative;
+  margin: 0;
+  background: var(--surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  padding: var(--space-8) var(--space-6) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+/* The opening quotation mark, set as decoration rather than content so screen
+   readers hear the quote and not a stray punctuation character. */
+.quote-card::before {
+  content: "\201C";
+  position: absolute;
+  top: -0.15em;
+  inset-inline-start: var(--space-5);
+  font-family: var(--font-serif);
+  font-size: 5rem;
+  line-height: 1;
+  color: rgb(176 141 69 / 0.32);
+  pointer-events: none;
+}
+/* Full reset of the global blockquote treatment.
+   There are TWO bare `blockquote` rules further up this file — one sets a
+   parchment background, and a later one overrides it with a blush tint. Inside
+   a white card that reads as a stray highlight, which is exactly what it looked
+   like. Every property they set is cleared here explicitly rather than trusting
+   specificity to cover properties that were never named. */
+.quote-card blockquote {
+  margin: 0;
+  border: 0;
+  padding: 0;
+  background: none;
+  border-radius: 0;
+  font-family: var(--font-serif);
+  font-size: var(--text-base);
+  line-height: 1.6;
+  color: var(--ink);
+}
+.quote-card figcaption {
+  margin-top: auto;
+  font-family: var(--font-sans);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink);
+  padding-top: var(--space-3);
+  border-top: var(--border-hairline);
+}
+.quote-card figcaption span {
+  font-weight: 400;
+  color: var(--ink-soft);
+  text-transform: capitalize;
+}
+
+/* ---------- assurances strip ----------
+   Risk reversal beside the prices. Deliberately quiet — these are facts a
+   hesitating reader needs, not a feature list to be sold with. */
+.assurances {
+  list-style: none;
+  margin: var(--space-8) 0 0;
+  padding: var(--space-5) var(--space-6);
+  background: var(--surface);
+  border: var(--border-hairline);
+  border-radius: var(--radius-lg);
+  display: grid;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+}
+@media (min-width: 768px) {
+  .assurances {
+    grid-template-columns: 1fr 1fr;
+    column-gap: var(--space-8);
+  }
+}
+.assurances strong {
+  color: var(--ink);
+}

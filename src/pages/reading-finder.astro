@@ -1,6 +1,7 @@
 ---
 import { getCollection } from 'astro:content';
 import { photos, scenes } from '../config/images';
+import { site } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 
@@ -31,7 +32,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
 <BaseLayout
   title="Reading Finder — which astrology reading fits you?"
-  description="Answer two quick questions in plain language and find the astrology reading that fits your situation. No account, no stored answers, no pressure."
+  description="Answer five quick questions in plain language and get a straight read on which astrology reading fits your situation. No account, nothing stored, no pressure."
   path="/reading-finder/"
   breadcrumbs={crumbs}
 >
@@ -42,8 +43,9 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       <p class="eyebrow">A little help choosing</p>
       <h1>Find your reading</h1>
       <p class="lede">
-        Two quick questions, plain language, and a suggestion at the end. Nothing you answer here
-        is stored or sent anywhere — and you're always welcome to choose any reading you like.
+        Five quick questions, plain language, and a straight answer at the end — not just a product
+        name, but what I'd actually suggest and why. Your answers stay in your browser; nothing is
+        stored, and nothing is sent to me unless you choose to send it.
       </p>
       </div>
       <img
@@ -61,14 +63,57 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
   <section class="section">
     <div class="container" style="max-width: 46rem;">
-      <div class="finder" data-finder data-services={JSON.stringify(bySlug)}>
+      <div
+        class="finder"
+        data-finder
+        data-services={JSON.stringify(bySlug)}
+        data-email={site.email}
+      >
         <form>
-          <div data-step="who">
+          {/*
+            Question order is deliberate. The old finder opened with "have you
+            had a reading before?" — administratively useful and emotionally
+            flat. It now opens with what brought them here, because the first
+            question sets whether this feels like a form or like the start of a
+            conversation, and that decides completion.
+
+            Only `focus` (relationship) and `depth` / `est-need` change the
+            recommendation. `birthtime` and `when` exist to make the readback
+            specific and to route the right closing action — they earn their
+            place by what the reader gets back, not by segmenting them.
+          */}
+          <div data-step="focus">
             <fieldset>
-              <legend>Have you had a reading with Mo before?</legend>
+              <legend>What's bringing you here right now?</legend>
               <label class="choice"
-                ><input type="radio" name="who" value="new" required />
-                <span>No — this would be my first reading with Mo</span></label
+                ><input type="radio" name="focus" value="crossroads" required />
+                <span>I'm at a crossroads, and the timing matters</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="focus" value="patterns" />
+                <span>I want to understand myself — why I keep doing what I do</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="focus" value="relationship" />
+                <span>It's about a relationship between two people</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="focus" value="season" />
+                <span>I'm in a hard season and want to make sense of it</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="focus" value="curious" />
+                <span>Honest answer: I'm curious, and I want a good first look</span></label
+              >
+            </fieldset>
+          </div>
+
+          <div data-step="who" hidden>
+            <fieldset>
+              <legend>Have we worked together before?</legend>
+              <label class="choice"
+                ><input type="radio" name="who" value="new" />
+                <span>No — this would be my first reading with you</span></label
               >
               <label class="choice"
                 ><input type="radio" name="who" value="established" />
@@ -77,20 +122,20 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
             </fieldset>
           </div>
 
-          <div data-step="new-need" hidden>
+          <div data-step="depth" hidden>
             <fieldset>
-              <legend>What brings you here?</legend>
+              <legend>How much time feels right?</legend>
               <label class="choice"
-                ><input type="radio" name="new-need" value="deep" />
-                <span>I want to understand myself and my life patterns — the full picture</span></label
+                ><input type="radio" name="depth" value="full" />
+                <span>Give me the full tour — I'd rather not rush it (90 minutes)</span></label
               >
               <label class="choice"
-                ><input type="radio" name="new-need" value="essentials" />
-                <span>I'm curious and want a solid first look without the longest session</span></label
+                ><input type="radio" name="depth" value="focused" />
+                <span>A solid first look is plenty for now (60 minutes)</span></label
               >
               <label class="choice"
-                ><input type="radio" name="new-need" value="relationship" />
-                <span>It's about a relationship between two people</span></label
+                ><input type="radio" name="depth" value="unsure" />
+                <span>I genuinely don't know — tell me what you'd suggest</span></label
               >
             </fieldset>
           </div>
@@ -125,11 +170,56 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
             </fieldset>
           </div>
 
+          {/*
+            The birth-time question earns its place twice over. It is the single
+            biggest piece of friction in this funnel — there is a whole page
+            about tracking one down — and asking here turns a silent drop-off
+            into a moment of help. It also genuinely changes what I'd say.
+
+            Deliberately yes / no / not sure. Never the actual time: birth data
+            stays out of analytics, URLs and email, per the site's own rule.
+          */}
+          <div data-step="birthtime" hidden>
+            <fieldset>
+              <legend>Do you know your birth time?</legend>
+              <label class="choice"
+                ><input type="radio" name="birthtime" value="yes" />
+                <span>Yes — I have it from a certificate or a reliable record</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="birthtime" value="approx" />
+                <span>Roughly — I know the part of the day, not the minute</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="birthtime" value="no" />
+                <span>No, and I'm not sure where to find it</span></label
+              >
+            </fieldset>
+          </div>
+
+          <div data-step="when" hidden>
+            <fieldset>
+              <legend>When are you hoping to do this?</legend>
+              <label class="choice"
+                ><input type="radio" name="when" value="soon" />
+                <span>Soon — in the next few weeks</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="when" value="months" />
+                <span>Sometime in the next few months</span></label
+              >
+              <label class="choice"
+                ><input type="radio" name="when" value="exploring" />
+                <span>No timeline — I'm still working out whether this is for me</span></label
+              >
+            </fieldset>
+          </div>
+
           <div class="finder__controls">
             <button type="button" class="btn btn--ghost" data-back hidden>Back</button>
             <button type="button" class="btn btn--primary" data-next>Next</button>
             <button type="button" class="btn btn--ghost" data-restart hidden>Start over</button>
-            <span class="finder__progress" data-progress>Question 1 of 2</span>
+            <span class="finder__progress" data-progress>Question 1 of 5</span>
           </div>
         </form>
 
@@ -158,6 +248,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
   const root = document.querySelector<HTMLElement>('[data-finder]');
   if (root) {
     const services = JSON.parse(root.dataset.services || '{}');
+    const MO_EMAIL = root.dataset.email || '';
     const stepEls: Record<string, HTMLElement> = {};
     root.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => {
       stepEls[el.dataset.step!] = el;
@@ -168,7 +259,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     const progress = root.querySelector<HTMLElement>('[data-progress]')!;
     const result = root.querySelector<HTMLElement>('[data-result]')!;
     const form = root.querySelector('form')!;
-    let path: string[] = ['who'];
+    let path: string[] = ['focus'];
 
     const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).gtag?.('event', event, params);
@@ -177,32 +268,66 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     const answer = (name: string) =>
       form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? null;
 
+    /**
+     * Five steps for everyone. The third differs by whether they're an existing
+     * client, so the count stays predictable and the progress indicator never
+     * lies — a bar that jumps from "3 of 4" to "4 of 5" reads as a trick.
+     */
     function nextStepId(): string | null {
       const current = path[path.length - 1];
-      if (current === 'who') return answer('who') === 'established' ? 'est-need' : 'new-need';
-      return null; // second answer produces the result
+      if (current === 'focus') return 'who';
+      if (current === 'who') return answer('who') === 'established' ? 'est-need' : 'depth';
+      if (current === 'depth' || current === 'est-need') return 'birthtime';
+      if (current === 'birthtime') return 'when';
+      return null; // `when` produces the result
     }
 
-    function recommend(): { primary: string; alt: string | null; why: string } {
+    /**
+     * `primary` is a SERVICE slug — it indexes the `services` map and builds
+     * /readings/<slug>/ links. `book` is a Cal.com EVENT key and only ever goes
+     * into /book/?service=. They are different vocabularies that have drifted
+     * apart before (see the vocabulary-drift note in docs/session-handoff.md),
+     * so they are separate fields here rather than one value used for both.
+     * When they happen to match, `book` is simply omitted.
+     */
+    function recommend(): {
+      primary: string;
+      book?: string;
+      alt: string | null;
+      why: string;
+    } {
       const who = answer('who');
+      const focus = answer('focus');
+
+      // A relationship question routes the same way whoever is asking.
+      if (focus === 'relationship')
+        return {
+          primary: 'relationship',
+          alt: who === 'new' ? 'natal' : 'want-more-clarity',
+          why: "I'd read both natal charts together — where affinity flows, where friction lives, and how each of you communicates and feels cared for. It works best with both of you there. If it turns out the real question is about your own patterns in relationships rather than this particular pairing, say so and we'll start with your chart instead.",
+        };
+
       if (who === 'new') {
-        const need = answer('new-need');
-        if (need === 'relationship')
-          return {
-            primary: 'relationship',
-            alt: 'natal',
-            why: "The Relationship Consultation reads both natal charts together — affinities, frictions, and how each of you communicates and feels cared for. Both people's presence is preferred. (If it's really about your own patterns in relationships, the natal reading goes there too.)",
-          };
-        if (need === 'essentials')
+        const depth = answer('depth');
+        if (depth === 'focused')
           return {
             primary: 'natal',
+            book: 'natal-60',
             alt: null,
-            why: "Every client relationship with Mo starts at the natal chart — and the 60-minute option gives you a solid first look at $150. If you already know you'll have lots of questions, the 90-minute session gives the conversation room to breathe.",
+            why: "We start where I start with everyone: your whole birth chart. Sixty minutes is a real reading — enough to lay out the shape of the chart and connect it to what's actually going on for you. If you find yourself with more questions afterwards, that's what the follow-up is for.",
+          };
+        if (depth === 'full')
+          return {
+            primary: 'natal',
+            book: 'natal-90',
+            alt: null,
+            why: "Ninety minutes is the full tour: the whole chart, the patterns running through it, and what the current sky is stirring — with room for your questions as we go rather than crammed into the last five minutes. It's the foundation every other reading builds on.",
           };
         return {
           primary: 'natal',
+          book: 'natal-90',
           alt: null,
-          why: 'The 90-minute Natal Chart Reading is the full tour: your whole chart, its patterns and connections, and what the current sky is stirring — with room for your questions throughout. It\'s the foundation every other reading builds on.',
+          why: "Since you asked what I'd suggest: take the ninety. People who arrive with a real question almost always want more time than they expect, and the extra half hour is where the conversation usually gets useful. Sixty is a genuine reading too if you'd rather start smaller — both are on the booking page.",
         };
       }
       const need = answer('est-need');
@@ -251,37 +376,136 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       const idx = path.indexOf(stepId);
       backBtn.hidden = idx === 0;
       restartBtn.hidden = idx === 0;
-      nextBtn.textContent = stepId === 'who' ? 'Next' : 'Show my suggestion';
-      progress.textContent = `Question ${idx + 1} of 2`;
+      nextBtn.textContent = stepId === 'when' ? 'Show me what you’d suggest' : 'Next';
+      progress.textContent = `Question ${idx + 1} of 5`;
       stepEls[stepId].querySelector<HTMLInputElement>('input')?.focus();
     }
 
+    /**
+     * The readback — "here's what I'm hearing" — in Mo's voice.
+     *
+     * This is the point of asking five questions instead of two. A bare product
+     * name is a vending machine; reflecting someone's own situation back to them
+     * before naming a price is how you demonstrate you were listening, and it is
+     * the closest a website gets to how the actual reading opens. It also makes
+     * the "send this to Mo" option honest — there is something worth sending.
+     */
+    const ESC: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+    };
+    const esc = (s: string) => s.replace(/[&<>"]/g, (c) => ESC[c]);
+
+    const FOCUS_LINE: Record<string, string> = {
+      crossroads: "you're at a crossroads where the timing matters",
+      patterns: 'you want to understand your own patterns',
+      relationship: "you're asking about a relationship between two people",
+      season: "you're in a hard season and want to make sense of it",
+      curious: "you're curious and want a good first look",
+    };
+    const BIRTH_LINE: Record<string, string> = {
+      yes: "You have your birth time, which matters more than people expect — it's what gives us your rising sign and your houses, and that's the difference between a chart that's yours and one that could belong to anybody born that day.",
+      approx:
+        "You know roughly when you were born. That's usually workable — I can often narrow it from the part of the day, and I'll tell you honestly if it's too wide to trust the houses. <a href=\"/prepare-for-your-reading/\">Here's where people usually find the exact time.</a>",
+      no: "You don't have your birth time, and I want to say plainly: that is not a dealbreaker. Your Sun and almost always your Moon are still solid. What we'd be guessing at is the rising sign and the houses, so I'd rather tell you that up front than pretend otherwise. <a href=\"/prepare-for-your-reading/\">Here's where to look for it</a> — a birth certificate is the usual answer.",
+    };
+
+    function readback(): string {
+      const focus = answer('focus');
+      const who = answer('who');
+      const bits: string[] = [];
+      if (focus && FOCUS_LINE[focus]) bits.push(FOCUS_LINE[focus]);
+      bits.push(
+        who === 'established'
+          ? "we've worked together before"
+          : 'this would be your first reading with me',
+      );
+      return `${bits.join(', and ')}.`;
+    }
+
     function showResult() {
-      const { primary, alt, why } = recommend();
+      const { primary, book, alt, why } = recommend();
       const p = services[primary];
       const a = alt ? services[alt] : null;
+      const bookSlug = book ?? p.slug;
+      const when = answer('when');
+      const birth = answer('birthtime');
+
       track('reading_finder_complete', { recommendation: primary });
       track('reading_recommendation_view', { service: primary });
+      // Intent is the one answer worth reporting: it says who to book and who to
+      // keep warm. No birth data is ever tracked, sent, or put in a URL.
+      if (when) track('reading_finder_intent', { intent: when });
+
       Object.values(stepEls).forEach((el) => (el.hidden = true));
       result.hidden = false;
       backBtn.hidden = false;
       restartBtn.hidden = false;
       nextBtn.hidden = true;
-      progress.textContent = 'Suggestion ready';
+      progress.textContent = 'Here’s what I’d suggest';
+
+      /**
+       * Three exits, weighted by the timing answer. One button assumes everyone
+       * is ready today; most people are not, and the ones who aren't were
+       * previously given nothing to do but leave.
+       */
+      const ready = when === 'soon';
+      const mailBody = [
+        'Hi Mo,',
+        '',
+        'I used the Reading Finder on your site and it suggested the ' + p.name + '.',
+        '',
+        'What I said:',
+        '• What brought me here: ' + (FOCUS_LINE[answer('focus') ?? ''] ?? '—'),
+        '• Worked together before: ' + (answer('who') === 'established' ? 'yes' : 'no'),
+        '• Birth time: ' +
+          (birth === 'yes' ? 'I have it' : birth === 'approx' ? 'roughly' : "don't have it"),
+        '• Timing: ' +
+          (when === 'soon'
+            ? 'in the next few weeks'
+            : when === 'months'
+              ? 'in the next few months'
+              : 'still deciding'),
+        '',
+        'My question is:',
+        '',
+      ].join('\n');
+      const mailto =
+        'mailto:' +
+        MO_EMAIL +
+        '?subject=' +
+        encodeURIComponent('Reading Finder — ' + p.name) +
+        '&body=' +
+        encodeURIComponent(mailBody);
+
       result.innerHTML = `
-        <h2>Our suggestion: ${p.name}</h2>
+        <h2>Here’s what I’m hearing</h2>
+        <p class="finder__readback">${esc(readback())}</p>
+        <p>${birth && BIRTH_LINE[birth] ? BIRTH_LINE[birth] : ''}</p>
+        <h3>So I’d suggest the ${esc(p.name)}</h3>
         <p>${why}</p>
         <dl class="factlist">
-          <dt>Length</dt><dd>${p.duration}</dd>
-          <dt>Price</dt><dd>${p.price}</dd>
-          <dt>You'll need</dt><dd>${p.birth}</dd>
+          <dt>Length</dt><dd>${esc(p.duration)}</dd>
+          <dt>Price</dt><dd>${esc(p.price)}</dd>
+          <dt>You'll need</dt><dd>${esc(p.birth)}</dd>
         </dl>
-        <p>
-          <a class="btn btn--primary" href="/book/?service=${p.slug}">Book this reading</a>
+        <div class="finder__exits">
+          <a class="btn ${ready ? 'btn--primary' : 'btn--ghost'}" href="/book/?service=${bookSlug}">Book this reading</a>
+          <a class="btn ${ready ? 'btn--ghost' : 'btn--primary'}" href="${mailto}">Send this to me first</a>
           <a class="btn btn--ghost" href="/readings/${p.slug}/">Full details</a>
+        </div>
+        <p class="card__meta">
+          “Send this to me” opens your own email with your answers filled in, so you can add the
+          actual question before you decide anything. Nothing is sent until you press send.
         </p>
-        ${a ? `<p>Also worth a look: <a href="/readings/${a.slug}/">${a.name}</a> — ${a.purpose}</p>` : ''}
-        <p>And remember — you're welcome to choose any reading. This is your call.</p>`;
+        ${a ? `<p>Also worth a look: <a href="/readings/${a.slug}/">${esc(a.name)}</a> — ${esc(a.purpose)}</p>` : ''}
+        ${
+          when === 'exploring'
+            ? `<p>And if you're still working out whether this is for you, don't book anything yet. <a href="/current-sky/">Read the sky letter</a> or <a href="/explore/">the reference library</a> first — both are free, and they'll tell you more about how I think than any sales page will.</p>`
+            : `<p>The suggestion is exactly that. Every reading is open to you, and this is your call.</p>`
+        }`;
       result.querySelector('h2')?.setAttribute('tabindex', '-1');
       (result.querySelector('h2') as HTMLElement)?.focus();
     }
@@ -312,8 +536,8 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     });
     restartBtn.addEventListener('click', () => {
       form.reset();
-      path = ['who'];
-      show('who');
+      path = ['focus'];
+      show('focus');
     });
   }
 </script>
