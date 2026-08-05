@@ -34,6 +34,21 @@ video {
   height: auto;
   display: block;
 }
+/* The `hidden` attribute has to actually hide things.
+   The browser implements it as `[hidden] { display: none }` in the UA
+   stylesheet, and ANY author rule that sets `display` on the same element beats
+   it — author styles win over UA styles regardless of specificity. So
+   `.card { display: flex }` silently defeated `card.hidden = true`, and the blog
+   category filter set the attribute on ten of thirteen posts while all thirteen
+   stayed on screen. The status line even announced "3 posts shown".
+   Everything that toggles `.hidden` in this codebase had the same latent bug:
+   the video filter, the Current Sky event filter, and the Reading Finder's step
+   buttons, which are `.btn { display: inline-flex }`.
+   `!important` is correct here rather than lazy — it is what makes the rule
+   independent of source order and of whatever `display` a component sets. */
+[hidden] {
+  display: none !important;
+}
 h1,
 h2,
 h3,
@@ -2484,11 +2499,7 @@ fieldset.booking-group > legend span {
   block-size: 2px;
   margin-block-end: var(--space-4);
   border-radius: 2px;
-  background: linear-gradient(
-    90deg,
-    var(--color-teal),
-    rgb(46 196 182 / 0.12)
-  );
+  background: linear-gradient(90deg, var(--color-teal), rgb(46 196 182 / 0.12));
 }
 
 /* ---------- section washes ----------

@@ -63,6 +63,20 @@ it fill the band. There is a comment in `global.css` saying so. It is not an ove
 **CSS source order decides ties.** The mobile hero scrim override lives at the _end_ of
 `global.css` on purpose, with a comment. Moving it up loses it to a later equal-specificity rule.
 
+**The `hidden` attribute does not hide anything a component has given a `display` to.** Browsers
+implement it as `[hidden] { display: none }` in the _user-agent_ stylesheet, and any author rule
+setting `display` on the same element beats it — author styles win over UA styles regardless of
+specificity. `.card { display: flex }` therefore silently defeated `card.hidden = true`, and the
+blog category filter set the attribute on ten of thirteen posts while all thirteen stayed on
+screen. Its `aria-live` status even announced "3 posts shown" to screen readers, which was worse
+than the visual bug. Every `hidden` toggle in the codebase had it: the blog filter, the video
+filter, the Current Sky event filter, and the Reading Finder's Back/Restart buttons
+(`.btn { display: inline-flex }`), which showed on step one. Fixed once, globally, with
+`[hidden] { display: none !important }` near the top of `global.css`. The `!important` is
+load-bearing — it is what makes the rule immune to source order and to whatever `display` any
+future component sets. Do not remove it, and do not "fix" a filter by reaching for a `.is-hidden`
+class instead; `hidden` is the accessible primitive and it now works.
+
 **axe cannot evaluate contrast of text over a photograph.** It reported zero violations while nine
 of ten heroes were failing on mobile, one at 2.28:1. That is what
 `npm run check:hero-contrast` exists for — it pixel-samples the worst case behind the text.
