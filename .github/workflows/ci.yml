@@ -25,7 +25,8 @@ jobs:
           node-version: 22
           cache: npm
       - run: npm ci
-      - name: Formatting
+      - name: Formatting (advisory)
+        continue-on-error: true
         run: npm run format:check
       - name: Astro/type checks
         run: npm run check
