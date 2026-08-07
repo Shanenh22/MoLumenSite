@@ -66,8 +66,14 @@ Readings are provided for entertainment purposes. Some jurisdictions require ser
 to carry that classification, and I apply it everywhere rather than case by case — you should not
 have to work out which rules apply where you live in order to know what you are buying.
 
-It changes nothing about the care that goes into a session, and nothing stated above about what a
-reading is not.
+**That is a legal classification, not a description of the work.** This is a consulting practice,
+not fortune-telling. I do not read palms, I do not contact the dead, and I do not tell you what is
+going to happen to you. I prepare for every session in advance, I work from your actual chart, and
+I expect you to arrive with a real question — because an hour spent on "tell me something about
+myself" is an hour neither of us gets back.
+
+Bring me something you are genuinely trying to decide or understand, and I will treat it with the
+seriousness it deserves. Nothing above changes about what a reading is not.
 
 ## Educational content on this site
 

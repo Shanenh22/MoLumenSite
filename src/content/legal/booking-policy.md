@@ -31,12 +31,13 @@ You may reschedule **without charge up to 48 hours before** your session, using 
 confirmation email. Pick any open slot that suits you.
 
 Inside 48 hours, email mo@molumen.com. If the time can be filled, or if something genuinely
-unavoidable has happened — illness, bereavement, an emergency — Mo will almost always move you
-without charge. That is a matter of judgement rather than entitlement, and it is exercised
-generously.
+unavoidable has happened — illness, bereavement, an emergency — I will almost always move you
+without charge. That is judgement rather than entitlement. I use it generously when something has
+actually gone wrong, and I would rather you asked than assumed it applies.
 
-There is no limit on how often you may reschedule outside the window, though a session rescheduled
-repeatedly may be converted to credit so the calendar can be released.
+You may reschedule as often as you genuinely need to, outside the window. But a session that keeps
+moving may be converted to credit and the slot released — not as a penalty, but because an hour
+nobody is using is an hour somebody else could have had.
 
 ## Cancellation and refunds
 
@@ -44,13 +45,14 @@ repeatedly may be converted to credit so the calendar can be released.
 method. Refunds typically take five to ten business days to appear, depending on your bank.
 
 **Inside 48 hours:** the fee is held as **credit toward a future session**, valid for twelve months.
-The money is not lost — it moves. Book whenever you are ready, for this reading or a different one.
+The money is not lost — it moves. Use it for this reading or a different one, any time within those
+twelve months.
 
 **No refund is issued more than thirty (30) days after payment**, in line with the
 [terms of service](/terms/).
 
-**If Mo cancels** — illness, emergency, or a technical failure on this end — you choose: reschedule
-at your convenience, or take a full refund. That choice is always yours, never ours.
+**If I cancel** — illness, emergency, or a technical failure on this end — you choose: reschedule at
+your convenience, or take a full refund. That choice is always yours, never mine.
 
 ## Late arrival and missed sessions
 

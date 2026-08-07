@@ -16,8 +16,17 @@ const year = new Date().getFullYear();
         <p style="max-width: 34ch; color: var(--color-stone);">
           {site.description}
         </p>
+        {/*
+          A location in the footer, on every page. The E-E-A-T audit scored
+          Trustworthiness down because nothing on the site told a visitor where
+          this practice operates from — the strongest signal available to a
+          one-person online business short of a street address, which a
+          home-based practice should not publish.
+        */}
         <p>
           <a href={`mailto:${site.email}`}>{site.email}</a><br />
+          <span style="color: var(--color-stone);">Based in the Dallas–Fort Worth Metroplex</span
+          ><br />
           <a href={site.social.instagram} rel="noopener">Instagram</a> ·
           <a href={site.social.facebook} rel="noopener">Facebook</a>
         </p>

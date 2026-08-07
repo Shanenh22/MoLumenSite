@@ -926,3 +926,84 @@ question on the site.
 `astro check` 0 errors, 130 pages. Hero contrast 129 pages, all above 4.5:1. axe 0 violations.
 `check:contrast` pass. Finder 11/11, booking 18/18. Audit 0 thin, 0 orphans, 0 missing alt,
 descriptions all within range.
+
+---
+
+## Session block — 2026-08-07: owner answers applied (DFW, memberships, firmer policy, consulting not fortune-telling)
+
+Shane answered five of the audit's open questions. Everything here is his words turned into copy,
+not inference.
+
+### What he answered, and what changed
+
+- **"Based in Dallas–Fort Worth Metroplex."** Now stated in the footer (every page) and in
+  `/contact/` under "Where I am". A Google Business Profile is being set up to match, which is what
+  will make it independently checkable. In `BaseLayout.astro` this went into `address` as a
+  `PostalAddress` — *where the practice is based* — which is a different claim from `areaServed`,
+  *where it serves*. They are separate properties for that reason.
+- **"This is a consulting business not fortune telling."** `disclaimer.md` and `terms.md` now say,
+  immediately after the entertainment classification: **that is a legal classification, not a
+  description of the work.** Followed by what the practice does not do (palms, mediumship, telling
+  you what will happen) and what it does (prepared in advance, worked from the actual chart, expects
+  a real question). The classification itself is unchanged — this reframes it, it does not retract
+  it.
+- **Memberships linked.** OPA board page, OPA, NCGR, ISAR on both `/credentials/` and `/about/`.
+  Note the code comment: NCGR and ISAR have **no public member directory**, so those two links prove
+  the organisation exists, not that Mo is in it. The OPA board link is the one that actually
+  verifies anything.
+- **"Skip the length of practice."** Four years, and Shane's read is that a number under a decade
+  reads as a negative rather than a credential. Not added. Remove this from "still open" — it is
+  now a decision, not a gap.
+- **"Perspective you can use"** is on `/book/`, in the lede, at the moment someone is deciding to
+  pay. It was the closing half of the homepage reassurance line before the dream-outcome rewrite
+  replaced it.
+- **Disclaimers firmer.** `booking-policy.md` rebalanced so it reads gentle but firm rather than
+  gentle but escapable. **No term changed** — same 48 hours, same credit, same 15 minutes, same
+  twelve months. What changed is that discretion now reads as discretion: "That is judgement rather
+  than entitlement. I use it generously when something has actually gone wrong, and I would rather
+  you asked than assumed it applies." Plus a limit on serial rescheduling that is explained rather
+  than threatened, and "If I cancel… that choice is always yours, never mine."
+
+### Corrected from the previous block
+
+The previous session removed `Dallas–Fort Worth, Texas (in person, by arrangement)` from
+`areaServed` on the grounds that the site "never tells the reader". **That was wrong.** The
+in-person offer is stated in `faqs.json`, `/how-readings-work/`, `terms.md` and `privacy.md` — the
+last two `reviewStatus: owner-approved`, and all of it predating this session by many commits. It
+was never an unconfirmed schema-only claim.
+
+Fixed both ways round: `areaServed` is now an array of two areas (worldwide online, DFW), and
+`/contact/` says it too, so the one page a local visitor lands on to find out is no longer the only
+page that doesn't. **Open-questions #9 is closed** — not because Mo confirmed it this session, but
+because the owner-approved legal documents already had.
+
+The general lesson, which cost time twice now: before removing a claim as unsourced, grep the whole
+of `src/` for it. Content collections are copy too.
+
+### Needs Shane's decision
+
+**The OPA board page lists her as "Maureen Houshmand, Treasurer"** (website MoLumen.com). The board
+claim is true and now verifiable, which is the point — but a visitor who follows a link offered as
+"check me rather than take my word for it" lands on a different surname. That undercuts the exact
+thing the link is there to do. Either the OPA listing gets updated, or the site needs a one-line
+note. Do not paper over it by removing the link; an unverifiable claim is worse than a confusing
+verifiable one.
+
+### Still open, needing facts only Mo has
+
+- **Legal entity name.** The footer publishes "Mo Lumen Astrological Services" on all 130 pages
+  while `site.ts` carries `// confirm with owner`. Unchanged, and still the largest one.
+- **Local licensing.** Several Texas municipalities license fortune-telling specifically. Worth
+  re-checking now that the site states DFW explicitly.
+- **A worked example of a reading.** Still nothing shows the work. Needs a real anonymised case.
+- **Mo's sign-off** on the rising-sign lunation guidance and on the testimonials as published.
+
+### Verified
+
+`astro check` 0 errors, 130 pages built. `check:hero-contrast` 129 pages × 2 viewports, worst pixel
+5.14:1, all pass. `check:contrast` 8/8 pass. axe 0 violations across 20 pages × 2 viewports. Finder
+11/11. Booking 18/18. `audit.mjs`: 0 duplicate titles or descriptions, 0 thin pages, 0 orphans, 0
+missing alt, 0 heading skips. Mojibake scan on `src/` clean.
+
+One known coverage hole the hero checker reports rather than hides: `/explore/the-big-three/ (hero)
+no heading or lede`. It is measuring the block and finding no text to measure. Worth a look.

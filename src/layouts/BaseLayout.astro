@@ -108,10 +108,28 @@ const baseSchema: object[] = [
     url: site.url,
     email: site.email,
     description: site.description,
+    /**
+     * Two entries because the practice genuinely has two service areas: online
+     * everywhere, and in person in DFW by arrangement. The in-person offer is
+     * not a schema-only claim — it is stated in the FAQs, /how-readings-work/,
+     * the terms, and the privacy policy, the last two owner-approved. Schema
+     * has to agree with the visible page or it is the schema that is wrong.
+     *
+     * The `address` block is separate and says something different: where the
+     * practice is *based*, which Shane confirmed on 2026-08-05 and is backing
+     * with a Google Business Profile. Being based somewhere and serving
+     * somewhere are different claims, so they live in different properties.
+     */
     areaServed: [
       { '@type': 'AdministrativeArea', name: 'Worldwide (online)' },
-      { '@type': 'City', name: 'Dallas–Fort Worth, Texas (in person, by arrangement)' },
+      { '@type': 'AdministrativeArea', name: 'Dallas–Fort Worth Metroplex, Texas' },
     ],
+    address: {
+      '@type': 'PostalAddress',
+      addressRegion: 'TX',
+      addressCountry: 'US',
+      addressLocality: 'Dallas–Fort Worth Metroplex',
+    },
     founder: moPerson,
     employee: moPerson,
     sameAs: [site.social.instagram, site.social.facebook, site.social.youtube].filter(Boolean),

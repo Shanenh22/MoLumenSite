@@ -24,8 +24,11 @@ only readings we offer. Prices are shown before you pay and are the prices you p
 
 Astrology services are provided for perspective, reflection, timing, and education, and for
 entertainment purposes. Some jurisdictions require services of this kind to carry that
-classification, and it is applied here everywhere rather than case by case. It does not change how
-seriously the work is taken on this end.
+classification, and it is applied here everywhere rather than case by case.
+
+That classification is a legal one and does not describe the work. This is a consulting practice.
+Sessions are prepared in advance, worked from your actual chart, and conducted on the understanding
+that you have brought a genuine question.
 
 ## What a reading is not
 
