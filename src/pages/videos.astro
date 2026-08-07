@@ -6,9 +6,9 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import { site } from '../config/site';
 
-const videos = (await getCollection('videos')).sort(
-  (a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf()
-);
+const videos = (await getCollection('videos'))
+  .filter((v) => !v.data.draft)
+  .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
 const categories = [
   ['current-sky', 'Current Sky'],
   ['astrology-basics', 'Astrology Basics'],
