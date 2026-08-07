@@ -1,0 +1,584 @@
+media:
+  - name: content_images
+    label: Content images
+    input: public/images/uploads
+    output: /images/uploads
+    categories: [image]
+    extensions: [jpg, jpeg, png, webp, avif]
+    rename: safe
+    commit:
+      templates:
+        create: "content(media): add {filename}"
+        update: "content(media): update {filename}"
+        delete: "content(media): remove {filename}"
+        rename: "content(media): rename {oldFilename} -> {newFilename}"
+  - name: downloads
+    label: Downloads
+    input: public/downloads
+    output: /downloads
+    categories: [document]
+    extensions: [pdf]
+    rename: safe
+    commit:
+      templates:
+        create: "content(download): add {filename}"
+        update: "content(download): update {filename}"
+        delete: "content(download): remove {filename}"
+        rename: "content(download): rename {oldFilename} -> {newFilename}"
+
+settings:
+  hide: true
+  content:
+    merge: true
+  commit:
+    identity: user
+    templates:
+      create: "content(cms): create {path}"
+      update: "content(cms): update {path}"
+      delete: "content(cms): remove {path}"
+      rename: "content(cms): rename {oldPath} -> {newPath}"
+
+actions:
+  - name: quality-check
+    label: Run site quality check
+    workflow: pages-cms-quality.yml
+    ref: current
+    confirm:
+      title: Run site quality check?
+      message: This checks the Astro build, content schemas, and internal links. It does not publish the production domain.
+      button: Run checks
+
+content:
+  - name: publishing
+    label: Write & Publish
+    type: group
+    items:
+      - name: blog
+        label: Blog posts
+        type: collection
+        path: src/content/blog
+        format: yaml-frontmatter
+        subfolders: false
+        filename:
+          template: "{title}.md"
+          field: create
+        operations:
+          create: true
+          rename: false
+          delete: false
+        view:
+          fields: [title, publishDate, category, draft]
+          primary: title
+          sort: [publishDate, title, category]
+          search: [title, description, category, tags]
+          default:
+            sort: publishDate
+            order: desc
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+            options:
+              maxlength: 120
+          - name: description
+            label: Summary / search description
+            type: text
+            required: true
+            description: One or two sentences. This is also used for search and sharing.
+            options:
+              maxlength: 320
+          - name: publishDate
+            label: Publish date
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: updatedDate
+            label: Updated date
+            type: date
+            default: ""
+            description: Leave blank unless this is a meaningful revision.
+            options:
+              format: yyyy-MM-dd
+          - name: category
+            label: Category
+            type: string
+            required: true
+          - name: tags
+            label: Tags
+            type: string
+            list: true
+          - name: featured
+            label: Featured
+            type: boolean
+            default: false
+          - name: draft
+            label: Draft — hide from the website
+            type: boolean
+            default: true
+            description: Keep this ON while writing. Turn it OFF only when the article is ready to appear on the site.
+          - name: body
+            label: Article
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              media: content_images
+              path: blog
+              rename: safe
+
+      - name: sky_events
+        label: Current Sky
+        type: collection
+        path: src/content/sky-events
+        format: yaml-frontmatter
+        subfolders: false
+        filename:
+          template: "{start}-{title}.md"
+          field: create
+        operations:
+          create: true
+          rename: false
+          delete: false
+        view:
+          fields: [title, start, eventType, draft]
+          primary: title
+          sort: [start, title, eventType]
+          search: [title, summary, eventType, planets, sign]
+          default:
+            sort: start
+            order: desc
+        fields:
+          - name: title
+            label: Event title
+            type: string
+            required: true
+          - name: eventType
+            label: Event type
+            type: select
+            required: true
+            options:
+              values:
+                - { name: lunation, label: New or Full Moon }
+                - { name: eclipse, label: Eclipse }
+                - { name: retrograde, label: Retrograde / station }
+                - { name: ingress, label: Ingress }
+                - { name: aspect, label: Major aspect }
+                - { name: other, label: Other }
+          - name: start
+            label: Start date
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: end
+            label: End date
+            type: date
+            default: ""
+            options:
+              format: yyyy-MM-dd
+          - name: timezone
+            label: Time zone
+            type: string
+            default: America/Chicago
+            readonly: true
+          - name: planets
+            label: Planets
+            type: string
+            list: true
+          - name: sign
+            label: Sign
+            type: string
+          - name: summary
+            label: Short summary
+            type: text
+            required: true
+            options:
+              maxlength: 400
+          - name: interpretation
+            label: Includes Mo's interpretation
+            type: boolean
+            default: true
+          - name: featured
+            label: Featured
+            type: boolean
+            default: false
+          - name: displayThrough
+            label: Display through
+            type: date
+            default: ""
+            description: Optional. Use only when an event should remain current beyond its start/end date.
+            options:
+              format: yyyy-MM-dd
+          - name: sourceNote
+            label: Astronomical source note
+            type: text
+            required: true
+            description: Record the ephemeris/astronomy source used to verify the date.
+          - name: lastVerified
+            label: Last verified
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: draft
+            label: Draft — hide from the website
+            type: boolean
+            default: true
+            description: Keep this ON until dates, sources, and copy have been checked.
+          - name: body
+            label: Event write-up
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              media: false
+
+      - name: videos
+        label: Videos
+        type: file
+        path: src/content/videos/videos.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: id
+            label: Internal ID
+            type: string
+            required: true
+            description: Short unique slug, for example saturn-return-basics.
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Use lowercase letters, numbers, and hyphens only.
+          - name: platform
+            label: Platform
+            type: select
+            required: true
+            default: youtube
+            options:
+              values:
+                - { name: youtube, label: YouTube }
+                - { name: instagram, label: Instagram }
+          - name: externalId
+            label: YouTube video ID or Instagram URL
+            type: string
+            required: true
+            description: For YouTube, paste only the video ID — the part after v= or youtu.be/.
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: description
+            label: Summary
+            type: text
+            required: true
+            options:
+              maxlength: 500
+          - name: category
+            label: Category
+            type: select
+            required: true
+            options:
+              values:
+                - { name: current-sky, label: Current Sky }
+                - { name: astrology-basics, label: Astrology Basics }
+                - { name: relationships, label: Relationships }
+                - { name: personal-purpose, label: Personal Purpose }
+          - name: thumbnail
+            label: Optional custom thumbnail path
+            type: string
+            description: Leave blank to use YouTube's thumbnail automatically.
+          - name: publishedDate
+            label: Published date
+            type: date
+            required: true
+            options:
+              format: yyyy-MM-dd
+          - name: durationSeconds
+            label: Duration in seconds
+            type: number
+          - name: featured
+            label: Featured
+            type: boolean
+            default: false
+          - name: transcriptStatus
+            label: Transcript
+            type: select
+            default: none
+            options:
+              values:
+                - { name: none, label: No transcript yet }
+                - { name: summary, label: Summary available }
+                - { name: full, label: Full transcript available }
+          - name: related
+            label: Related page paths
+            type: string
+            list: true
+          - name: draft
+            label: Draft — hide from the website
+            type: boolean
+            default: true
+            description: Keep this ON until the title, ID, summary, and related links are ready.
+
+  - name: site_content
+    label: Site Content
+    type: group
+    items:
+      - name: services
+        label: Readings & services
+        type: collection
+        path: src/content/services
+        format: json
+        subfolders: false
+        operations:
+          create: false
+          rename: false
+          delete: false
+        view:
+          fields: [name, durationLabel, priceLabel, available]
+          primary: name
+          search: [name, shortName, purpose]
+        fields:
+          - name: name
+            label: Reading name
+            type: string
+            required: true
+          - name: shortName
+            label: Short name
+            type: string
+            required: true
+          - name: purpose
+            label: Main description
+            type: text
+            required: true
+          - name: bestFor
+            label: Best for
+            type: string
+            list: true
+          - name: notFor
+            label: Not for
+            type: string
+            list: true
+          - name: durationLabel
+            label: Duration
+            type: string
+            required: true
+            description: Display text only. Do not change unless the actual service duration has changed.
+          - name: price
+            label: Base price
+            type: number
+            description: Business-critical. Change only when Mo has approved the real price.
+          - name: priceConfirmed
+            label: Price confirmed
+            type: boolean
+            description: Turn on only when the displayed price is approved.
+          - name: priceLabel
+            label: Price display text
+            type: string
+            description: Use for multiple durations/prices, for example $150 (60 min) · $200 (90 min).
+          - name: format
+            label: Formats
+            type: string
+            list: true
+          - name: intakeRequirements
+            label: Intake requirements
+            type: string
+            list: true
+          - name: includes
+            label: What is included
+            type: string
+            list: true
+          - name: deliverables
+            label: What the client receives
+            type: string
+            list: true
+          - name: preparation
+            label: Preparation
+            type: string
+            list: true
+          - name: cancellationPolicy
+            label: Cancellation summary
+            type: text
+            required: true
+            description: Must stay consistent with the formal booking policy.
+          - name: reschedulingPolicy
+            label: Rescheduling summary
+            type: text
+            required: true
+            description: Must stay consistent with the formal booking policy.
+          - name: featured
+            label: Featured
+            type: boolean
+          - name: available
+            label: Available to book
+            type: boolean
+
+      - name: explore
+        label: Astrology reference library
+        type: collection
+        path: src/content/explore
+        format: yaml-frontmatter
+        subfolders: true
+        operations:
+          create: false
+          rename: false
+          delete: false
+        view:
+          fields: [title, cluster, order]
+          primary: title
+          sort: [cluster, order, title]
+          search: [title, description, cluster]
+        fields:
+          - name: title
+            label: Title
+            type: string
+            required: true
+          - name: description
+            label: Summary
+            type: text
+            required: true
+          - name: cluster
+            label: Topic group
+            type: select
+            required: true
+            options:
+              values:
+                - { name: basics, label: Basics }
+                - { name: planets, label: Planets }
+                - { name: signs, label: Signs }
+                - { name: houses, label: Houses }
+                - { name: aspects, label: Aspects }
+                - { name: transits, label: Transits }
+                - { name: relationships, label: Relationships }
+                - { name: personal-purpose, label: Personal Purpose }
+                - { name: deciding, label: Decision Support }
+          - name: order
+            label: Display order
+            type: number
+          - name: updatedDate
+            label: Updated date
+            type: date
+            default: ""
+            options:
+              format: yyyy-MM-dd
+          - name: body
+            label: Page content
+            type: rich-text
+            required: true
+            options:
+              format: markdown
+              media: content_images
+              path: reference
+              rename: safe
+
+  - name: supporting
+    label: FAQs, Glossary & Trust
+    type: group
+    items:
+      - name: faqs
+        label: FAQs
+        type: file
+        path: src/content/faqs/faqs.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: id
+            label: Internal ID
+            type: string
+            required: true
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Use lowercase letters, numbers, and hyphens only.
+          - name: question
+            label: Question
+            type: string
+            required: true
+          - name: answer
+            label: Answer
+            type: text
+            required: true
+          - name: scope
+            label: Scope
+            type: string
+            default: global
+            description: Use global, or an existing service slug for a service-specific FAQ.
+          - name: order
+            label: Display order
+            type: number
+            default: 0
+
+      - name: glossary
+        label: Glossary
+        type: file
+        path: src/content/glossary/terms.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: id
+            label: Internal ID
+            type: string
+            required: true
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Use lowercase letters, numbers, and hyphens only.
+          - name: term
+            label: Term
+            type: string
+            required: true
+          - name: definition
+            label: Definition
+            type: text
+            required: true
+          - name: related
+            label: Related terms
+            type: string
+            list: true
+          - name: learnLink
+            label: Learn more path
+            type: string
+
+      - name: testimonials
+        label: Testimonials
+        type: file
+        path: src/content/testimonials/testimonials.json
+        format: json
+        list: true
+        operations:
+          delete: false
+        fields:
+          - name: id
+            label: Internal ID
+            type: string
+            required: true
+            pattern:
+              regex: "^[a-z0-9-]+$"
+              message: Use lowercase letters, numbers, and hyphens only.
+          - name: quote
+            label: Client quote
+            type: text
+            required: true
+            description: Use the client's approved words. Do not rewrite a testimonial.
+          - name: attribution
+            label: Attribution
+            type: string
+            required: true
+            description: Use only the name/initial format the client approved.
+          - name: service
+            label: Related service slug
+            type: string
+          - name: approved
+            label: Approved for public use
+            type: boolean
+            default: false
+            description: Must remain OFF until permission has been documented.
+          - name: permissionNote
+            label: Permission record
+            type: text
+            required: true
+            description: Record how and when permission was obtained. This is internal and is not displayed publicly.
