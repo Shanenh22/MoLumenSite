@@ -9,7 +9,7 @@ const services = (await getCollection('services')).sort(
   (a, b) => Number(b.data.featured) - Number(a.data.featured)
 );
 const skyEvents = (await getCollection('skyEvents'))
-  .filter((e) => e.data.start >= new Date())
+  .filter((e) => !e.data.draft && e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
   .slice(0, 3);
 /**
@@ -276,7 +276,7 @@ const values = [
     Council note: nine real, permissioned testimonials existed on a page almost
     nobody reaches. These three are chosen to answer the three objections a
     first-time visitor actually arrives with — "will this mean anything?",
-    "will she just tell me what to do?", and "I know nothing about astrology,
+    "will she just tell me what to do", and "I know nothing about astrology,
     will I feel stupid?" — in clients' own words rather than in marketing copy.
 
     Real words only. Fabricated testimonials are illegal under the FTC rule and
