@@ -1,0 +1,62 @@
+name: Pages CMS quality check
+
+on:
+  workflow_dispatch:
+    inputs:
+      payload:
+        description: Pages CMS action payload as JSON
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-cms-quality-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  quality:
+    name: Validate CMS content
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - name: Check out selected branch
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Type and content schema check
+        run: npm run check
+
+      - name: Production build
+        run: npm run build
+
+      - name: Internal link check
+        run: npm run test:links
+
+      - name: Summarize
+        if: always()
+        env:
+          PAGES_PAYLOAD: ${{ inputs.payload }}
+        run: |
+          echo "### MoLumen Pages CMS quality check" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "This workflow validates the selected branch. It does not deploy the production domain." >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          node - <<'NODE' >> "$GITHUB_STEP_SUMMARY" 2>/dev/null || true
+          try {
+            const p = JSON.parse(process.env.PAGES_PAYLOAD || '{}');
+            if (p.context?.path) console.log(`Pages CMS item: \`${p.context.path}\``);
+            if (p.triggeredBy?.githubUsername) console.log(`Triggered by: @${p.triggeredBy.githubUsername}`);
+          } catch {}
+          NODE
