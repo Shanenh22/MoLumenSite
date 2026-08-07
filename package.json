@@ -13,7 +13,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "test:content": "node scripts/content-integrity.mjs",
-    "test:links": "linkinator ./dist --recurse --silent",
+    "test:links": "npx --yes linkinator@8.0.2 ./dist --recurse --silent",
     "test:a11y": "pa11y-ci",
     "audit:install": "npm install --no-save lighthouse playwright pngjs",
     "audit": "node scripts/audit.mjs",
