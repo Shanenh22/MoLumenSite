@@ -1,9 +1,10 @@
 {
+  "$schema": "./node_modules/wrangler/config-schema.json",
   // Cloudflare Workers deploy config (static assets).
-  // Used by the Cloudflare Git integration: build `npm run build`,
-  // deploy `npx wrangler deploy`. See docs/deployment.md.
+  // Used by GitHub Actions: build `npm run build`, deploy with the exact
+  // Wrangler version pinned in .github/workflows/deploy.yml.
   "name": "molumen",
-  "compatibility_date": "2026-08-02",
+  "compatibility_date": "2026-08-07",
   "assets": {
     "directory": "./dist",
     // Serve our custom 404 page for unknown routes.
