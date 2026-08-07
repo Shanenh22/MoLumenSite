@@ -31,7 +31,7 @@ export const site = {
   social: {
     instagram: "https://www.instagram.com/mo.lumen/",
     facebook: "https://www.facebook.com/profile.php?id=100094534962856",
-    youtube: "", // pending owner (open-questions Q11)
+    youtube: "https://www.youtube.com/@MoLumenAstrology",
   },
   /**
    * Search engine verification. Paste the token only — not the whole meta tag.
@@ -57,7 +57,12 @@ export const site = {
     // secret: it appears in every booking link Mo shares. Kept here rather
     // than in an env var so it cannot go missing from a build environment.
     calcomUsername: import.meta.env.PUBLIC_CALCOM_USERNAME ?? "molumen",
-    mailerliteFormId: import.meta.env.PUBLIC_MAILERLITE_FORM_ID ?? "",
+    // Kit form IDs are public embed identifiers, not secrets. This default is
+    // the owner-supplied MoLumen form; the env override keeps staging/testing flexible.
+    kitFormUid: import.meta.env.PUBLIC_KIT_FORM_UID ?? "c60976a5a9",
+    kitFormScriptUrl:
+      import.meta.env.PUBLIC_KIT_FORM_SCRIPT_URL ??
+      "https://molumen.kit.com/c60976a5a9/index.js",
     youtubeChannelId: import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ?? "",
     instagramHandle: import.meta.env.PUBLIC_INSTAGRAM_HANDLE ?? "mo.lumen",
   },
