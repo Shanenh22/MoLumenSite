@@ -1,16 +1,62 @@
 # Content Editing Basics
 
-All content is plain text. Two formats:
+## The normal way: Pages CMS
 
-**JSON** (structured lists — services, FAQs, videos, glossary, testimonials). Rules: keep every quote mark and comma; strings in "double quotes"; no trailing comma after the last item. If a build fails after an edit, it's almost always a missing comma or quote — the build error names the file and line.
+Mo should use **Pages CMS** for routine website content. It provides forms and a rich-text editor while saving the underlying files safely to GitHub.
 
-**Markdown** (prose — articles, sky events, legal). A file starts with a `---` frontmatter block (title, dates, settings) followed by the body. Headings use `##`, links use `[text](/path/)`, emphasis uses `**bold**` / `*italic*`.
+Open Pages CMS, sign in with GitHub, choose the **MoLumenSite** repository and the `main` branch, then choose the content area you want to edit.
 
-## Voice checklist (from docs/research/voice-analysis.md)
+The CMS currently exposes:
 
-Warm, candid, practical, agency-first. Explain terms on first use. Never: fear-based predictions, guaranteed outcomes, "the universe wants," medical/legal/financial claims. Always: choice stays with the reader.
+- **Blog posts** — create and edit articles
+- **Current Sky** — create and edit dated sky events
+- **Videos** — add YouTube/Instagram entries
+- **Readings & services** — edit existing descriptions, approved prices, preparation and availability
+- **Astrology reference library** — edit existing educational pages
+- **FAQs**
+- **Glossary**
+- **Testimonials** — permission safeguards still apply
 
-## Editing on GitHub (no software needed)
+See [`docs/pages-cms-for-mo.md`](./pages-cms-for-mo.md) for the step-by-step workflow.
 
-1. Open the file on github.com → pencil icon → edit → "Commit changes."
-2. Cloudflare Pages rebuilds automatically. Check the deployment status in the Cloudflare dashboard.
+## Draft safety
+
+Blog posts, Current Sky entries and Videos support a **Draft** switch.
+
+- Keep **Draft ON** while working.
+- Save as often as needed.
+- Draft content is excluded from public website pages.
+- When it is ready, turn **Draft OFF** and save.
+
+A save to `main` triggers the existing staging build/deploy workflow, so changes can be reviewed at the Workers staging site before the production-domain cutover.
+
+## Quality check button
+
+Pages CMS includes a **Run site quality check** action. It runs the Astro type/content check, production build and internal-link check. It does not change DNS or deploy the production domain.
+
+## Content that stays protected
+
+Some content remains outside the CMS on purpose, including:
+
+- layout and navigation code
+- booking/payment integration details
+- analytics
+- schema architecture
+- legal pages
+- credentials and other sensitive trust claims embedded in layout pages
+- homepage/About structural copy that is tightly coupled to conversion and layout logic
+
+For those less-frequent changes, use Claude Code or a developer so the change can be tested with the surrounding layout and business rules.
+
+## Advanced fallback: GitHub files
+
+All content remains ordinary files in GitHub, so nothing is locked into Pages CMS. Developers can still edit Markdown/JSON directly when needed.
+
+- **JSON** is used for structured lists such as services, FAQs, videos, glossary and testimonials.
+- **Markdown** is used for prose such as blog posts, Current Sky entries and educational pages.
+
+Avoid direct GitHub editing for routine work when Pages CMS provides the same field; the CMS has the friendlier validation and guardrails.
+
+## Voice checklist
+
+Warm, candid, practical and agency-first. Explain technical terms on first use. Avoid fear-based predictions, guaranteed outcomes, “the universe wants,” or medical/legal/financial claims. Choice stays with the reader.
