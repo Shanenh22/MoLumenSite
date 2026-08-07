@@ -3,6 +3,7 @@ import { site } from '../config/site';
 import pageDates from '../data/page-dates.json';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
+import ConsentBanner from '../components/ConsentBanner.astro';
 import '../styles/global.css';
 
 export interface Breadcrumb {
@@ -241,15 +242,94 @@ const ga4Id = site.integrations.ga4Id;
       ga4Id && (
         <>
           <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+          {/*
+            Order inside this one script is load-bearing, which is why it is a
+            single block rather than several tidy ones. `gtag('consent',
+            'default', …)` MUST reach dataLayer before `gtag('config', …)`. If
+            the config lands first, the very first page_view is sent under the
+            implicit default of granted, a cookie is written, and the visitor
+            has been measured before being asked. The async loader above does
+            not affect this: it only defines the processor, and dataLayer order
+            is what decides behaviour.
+
+            `anonymize_ip` used to be set on the config call. It is a Universal
+            Analytics parameter and does nothing in GA4 — IP anonymisation is
+            always on and cannot be switched off — so it read as a privacy
+            measure while being inert. The two flags that replaced it do have an
+            effect: no cross-device/Google-account linking, and no advertising
+            personalisation. That is what makes this measurement rather than
+            adtech, which is the claim /privacy/ makes.
+
+            Everything starts denied. Consent Mode upgrades `analytics_storage`
+            in two places: synchronously below if this browser already said yes
+            (so a returning visitor is not re-counted as a stranger while the
+            banner script is still parsing), and from the banner on click.
+            Denied is not silent — GA4 still sends a cookieless ping, so
+            aggregate page counts survive a refusal while nothing is stored.
+          */}
           <script
-            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','${ga4Id}',{anonymize_ip:true});`}
+            set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted'});try{if(localStorage.getItem('ml-consent-v1')==='granted')gtag('consent','update',{analytics_storage:'granted'});}catch(e){}gtag('js',new Date());gtag('config','${ga4Id}',{allow_google_signals:false,allow_ad_personalization_signals:false});`}
           />
         </>
       )
     }
+    {/*
+      One tracking entry point for the whole site: `window.mlTrack(name, params)`.
+
+      Defined unconditionally, even when GA4 is not configured, so that every
+      caller can fire and forget. Components must never test for gtag
+      themselves — that is how the Reading Finder ended up with four events
+      that silently never fired for months behind an optional-call operator.
+      With a real helper the call site stays honest and the no-op lives in
+      exactly one place.
+
+      The sanitiser is the important part. This site handles birth dates, birth
+      times and birth places, and none of it may ever reach an analytics
+      vendor. Rather than trusting every future call site to remember that,
+      anything resembling an email address or a run of digits long enough to be
+      a date or a time is dropped here, and values are capped at 100 chars.
+      Parameters are meant to be short enumerated labels like "natal-90" or
+      "exploring", so anything longer is a mistake worth losing.
+    */}
+    <script
+      is:inline
+      set:html={`
+      (function () {
+        var EMAIL = /[^\\s@]+@[^\\s@]+\\.[^\\s@]+/;
+        var DIGITS = /\\d{4,}|\\d{1,2}[:/-]\\d{1,2}/;
+        function clean(params) {
+          var out = {};
+          if (!params) return out;
+          for (var k in params) {
+            if (!Object.prototype.hasOwnProperty.call(params, k)) continue;
+            var v = params[k];
+            if (typeof v === 'number' || typeof v === 'boolean') { out[k] = v; continue; }
+            if (typeof v !== 'string') continue;
+            if (EMAIL.test(v) || DIGITS.test(v)) continue;
+            out[k] = v.slice(0, 100);
+          }
+          return out;
+        }
+        window.mlTrack = function (name, params) {
+          try {
+            if (typeof window.gtag !== 'function') return;
+            window.gtag('event', name, clean(params));
+          } catch (e) { /* analytics must never break a page */ }
+        };
+      })();
+      `}
+    />
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
+    {/*
+      Second in the body, immediately after the bypass link, even though it is
+      pinned to the bottom of the screen. A keyboard or screen-reader user
+      should meet the consent choice in the first couple of tabs rather than
+      after every nav item and half the page — and `position: fixed` means DOM
+      order costs nothing visually.
+    */}
+    <ConsentBanner />
     <Header />
     <main id="main">
       <slot />

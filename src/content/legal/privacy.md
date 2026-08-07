@@ -54,14 +54,36 @@ never bundled into booking.
 Our host records standard server data such as IP address, browser type, and pages requested, which
 is ordinary for any website and is used for security and to keep the site running.
 
-If website analytics are enabled, they are configured to record page views and general navigation
+This site uses Google Analytics 4, configured to record page views and general navigation
 only, with no personal identifiers. Names, email addresses, birth data, and intake answers are never
-sent to analytics under any configuration. IP addresses are anonymised where the analytics provider
-supports it.
+sent to analytics under any configuration. Google Analytics 4 anonymises IP addresses automatically
+and cannot be configured to do otherwise.
+
+Two settings are switched off deliberately: Google signals, which would otherwise link your activity
+across devices and to a Google account, and ad personalisation, which would let the data feed
+advertising. This is measurement of how the site is used, and nothing else.
+
+**Analytics storage starts switched off for everyone**, on every visit, until you say otherwise. On
+your first visit you will be asked. Until you agree, no analytics cookie is written and nothing
+recognises your browser; the page is counted, and that is all. If you agree, one cookie is set so a
+second visit is not counted as a second person. If you decline, nothing changes about how the site
+works and I keep only the anonymous count.
+
+You can change your answer at any time using the **Cookie choices** link in the footer of every
+page.
 
 ## Cookies
 
 This website sets no advertising cookies and no cross-site tracking cookies of its own.
+
+Google Analytics sets a first-party cookie **only if you agree to it**, so that a return visit is
+not counted as a new person. It records how the site is used, not who you are, and with the settings
+described above it cannot follow you to other websites. Decline, and no analytics cookie is written
+at all.
+
+One small item is stored in your browser either way: your answer to the cookie question itself. It
+holds a single word — whether you agreed or declined — so you are not asked again on every page. It
+is never sent anywhere.
 
 Embedded third-party features — the booking calendar and video players — may set their own cookies,
 and they load only when you interact with them. If you never open the booking calendar or press play
@@ -77,8 +99,9 @@ and its own obligations to us:
 | ---------- | ----------------------------------------------- | ------------------------------------ |
 | Cal.com    | Scheduling, appointment details, intake answers | Booking and calendar management      |
 | Stripe     | Payment processing                              | Taking payment securely              |
-| MailerLite | Newsletter email addresses                      | Sending the newsletter you asked for |
+| Kit        | Newsletter email addresses                      | Sending the newsletter you asked for |
 | Cloudflare | Website hosting and delivery                    | Serving this site                    |
+| Google Analytics | Page views and general site usage         | Understanding how the site is used   |
 | YouTube    | Video playback, in privacy-enhanced mode        | Showing videos when you press play   |
 
 **Mo never sees or stores your full card number.** Payment card details go directly to Stripe and

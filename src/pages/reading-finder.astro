@@ -261,8 +261,11 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     const form = root.querySelector('form')!;
     let path: string[] = ['focus'];
 
+    // Shared helper from BaseLayout. These four events existed and fired into
+    // nothing for months because gtag was never defined — the optional call
+    // made a missing integration indistinguishable from a working one.
     const track = (event: string, params: Record<string, string> = {}) =>
-      (window as any).gtag?.('event', event, params);
+      (window as any).mlTrack?.(event, params);
     track('reading_finder_start');
 
     const answer = (name: string) =>

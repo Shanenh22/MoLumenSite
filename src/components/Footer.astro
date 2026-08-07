@@ -60,6 +60,20 @@ const year = new Date().getFullYear();
               <a href={link.href}>{link.label}</a>
             </li>
           ))}
+          {/*
+            A consent choice you cannot revisit is not a choice. This sits in
+            the policy row on every page and reopens the banner in place.
+            Rendered only when analytics is configured, so it never advertises
+            a control that would do nothing. ConsentBanner.astro binds it by
+            the data attribute and returns focus here on close.
+          */}
+          {site.integrations.ga4Id && (
+            <li>
+              <button class="consent-reopen" type="button" data-consent-reopen>
+                Cookie choices
+              </button>
+            </li>
+          )}
         </ul>
       </nav>
       <p>

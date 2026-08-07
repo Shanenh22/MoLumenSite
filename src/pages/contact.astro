@@ -96,5 +96,5 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
 <script>
   document
     .querySelector('[data-contact-email]')
-    ?.addEventListener('click', () => (window as any).gtag?.('event', 'contact_submit'));
+    ?.addEventListener('click', () => (window as any).mlTrack?.('contact_submit'));
 </script>
