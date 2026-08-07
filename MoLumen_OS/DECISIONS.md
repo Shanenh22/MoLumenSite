@@ -1,7 +1,7 @@
 # Decision Log
 
-- Kit replaces MailerLite.
-- YouTube is canonical video host.
+- Kit replaces MailerLite; the repository uses the owner-supplied Kit JavaScript form embed and no MailerLite subscription fallback.
+- YouTube is canonical video host and the official channel is https://www.youtube.com/@MoLumenAstrology.
 - Embedded YouTube should use click-to-load/privacy-conscious facades.
 - About is primary expected home for welcome video; homepage use depends on UX/performance.
 - Claude may research and author 2027 Current Sky using authoritative cross-checked sources.
@@ -12,4 +12,10 @@
 - Routine CMS create/delete/rename privileges are restricted for business-critical collections such as services and reference architecture.
 - Blog, Current Sky and Videos use a draft flag so saving work in Pages CMS does not automatically make an unfinished item public.
 - Homepage/About structural copy remains code-managed for now because it combines conversion layout, credentials and verified business claims; extract selected fields only if owner editing frequency justifies it.
+- Pull requests should be validated automatically before merge; formatting is advisory until the pre-existing repository is normalized.
+- MoLumen-specific content integrity is a separate quality gate from Astro's type/schema validation.
+- Dependency and source-code security are monitored with Dependabot and CodeQL.
+- Staging/external endpoint health is checked on a recurring GitHub Actions schedule.
+- Cloudflare deploy commands should pin an explicit Wrangler release rather than float to latest at deploy time.
+- Staging noindex changes are intentionally deferred by the owner for now.
 - No production cutover without explicit authorization.
