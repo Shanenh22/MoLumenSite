@@ -17,8 +17,28 @@ function unique(items, key, label) {
   }
 }
 
+/**
+ * Minimal frontmatter reader.
+ *
+ * The `\r` normalisation is load-bearing, not defensive tidying. In JavaScript
+ * `.` matches any character EXCEPT a line terminator, and `\r` is a line
+ * terminator — so on a CRLF checkout `(.*)$` stopped before the trailing `\r`,
+ * `$` could not match with one left over, and every single line failed to
+ * parse. `frontmatter()` returned `{}` for every file.
+ *
+ * This repository sets `core.autocrlf=true` and ships no `.gitattributes`, so
+ * that is the state of every Windows working copy — including the owner's.
+ * The effect was that `npm run test:content` reported 45 errors locally (all
+ * 15 sky events, three each: missing sourceNote, missing lastVerified, invalid
+ * start date) while the identical commit passed cleanly in CI on Linux.
+ *
+ * A quality gate that cries wolf on the maintainer's own machine is worse than
+ * no gate, because the next real failure gets waved through with the rest. It
+ * also silently disabled the `draft` skip below, since `fm.draft` was never
+ * populated either.
+ */
 function frontmatter(file) {
-  const raw = readFileSync(file, 'utf8');
+  const raw = readFileSync(file, 'utf8').replace(/\r\n?/g, '\n');
   const match = raw.match(/^---\s*\n([\s\S]*?)\n---/);
   if (!match) return {};
   const out = {};
