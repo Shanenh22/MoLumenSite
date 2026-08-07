@@ -8,7 +8,7 @@ import NewsletterForm from '../../components/NewsletterForm.astro';
 
 const now = new Date();
 const events = (await getCollection('skyEvents'))
-  .filter((e) => (e.data.end ?? e.data.start) >= now || e.data.start >= now)
+  .filter((e) => !e.data.draft && ((e.data.end ?? e.data.start) >= now || e.data.start >= now))
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
 const types = [...new Set(events.map((e) => e.data.eventType))];
 const typeLabels: Record<string, string> = {
