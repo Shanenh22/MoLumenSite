@@ -1,0 +1,51 @@
+name: Repository health
+
+on:
+  schedule:
+    - cron: "17 14 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  health:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run check
+      - run: npm run test:content
+      - run: npm run build
+      - run: npm run test:links
+      - name: Check staging-critical URLs
+        run: |
+          set -e
+          for url in \
+            https://molumen.shanenh.workers.dev/ \
+            https://molumen.shanenh.workers.dev/book/ \
+            https://molumen.shanenh.workers.dev/newsletter/ \
+            https://molumen.shanenh.workers.dev/videos/ \
+            https://molumen.shanenh.workers.dev/sitemap-index.xml \
+            https://molumen.shanenh.workers.dev/llms.txt; do
+            code=$(curl -L --retry 2 --max-time 20 -s -o /dev/null -w '%{http_code}' "$url")
+            echo "$code $url"
+            case "$code" in 2*|3*) ;; *) exit 1 ;; esac
+          done
+      - name: Check external integrations
+        run: |
+          for url in \
+            https://cal.com/molumen \
+            https://www.youtube.com/@MoLumenAstrology \
+            https://molumen.kit.com/c60976a5a9/index.js; do
+            code=$(curl -L --retry 2 --max-time 20 -A 'Mozilla/5.0 MoLumenHealthCheck/1.0' -s -o /dev/null -w '%{http_code}' "$url" || true)
+            echo "$code $url"
+            case "$code" in 2*|3*) ;; *) echo "::warning::External integration returned $code: $url" ;; esac
+          done
