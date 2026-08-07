@@ -29,7 +29,7 @@ function existsFor(pathname) {
   } catch {
     decoded = pathname;
   }
-  const clean = decoded.replace(/^\/+/, '');
+  const clean = decoded.replace(/^\/+/, '').replace(/\/$/, '');
   const candidates = [];
   if (!clean) candidates.push(path.join(root, 'index.html'));
   else {
@@ -42,6 +42,9 @@ function existsFor(pathname) {
 
 function checkReference(raw, sourceRoute, sourceFile) {
   if (!raw || raw.startsWith('#')) return;
+  // Generated HTML can contain client-side template expressions that are not
+  // navigation targets until JavaScript substitutes their values.
+  if (raw.includes('${') || raw.includes('{{')) return;
   if (/^(mailto:|tel:|sms:|data:|javascript:)/i.test(raw)) return;
 
   let target;
