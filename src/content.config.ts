@@ -89,6 +89,7 @@ const skyEvents = defineCollection({
     displayThrough: z.coerce.date().optional(),
     sourceNote: z.string().default(""),
     lastVerified: z.coerce.date(),
+    draft: z.boolean().default(false), // CMS-safe work-in-progress flag
     ownerReview: z.boolean().default(true),
   }),
 });
@@ -113,6 +114,7 @@ const videos = defineCollection({
     featured: z.boolean().default(false),
     transcriptStatus: z.enum(["none", "summary", "full"]).default("none"),
     related: z.array(z.string()).default([]),
+    draft: z.boolean().default(false), // CMS-safe work-in-progress flag
   }),
 });
 
