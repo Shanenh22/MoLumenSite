@@ -3,7 +3,7 @@
   "type": "module",
   "version": "0.1.0",
   "private": true,
-  "description": "Mo Lumen Astrology — static site built with Astro, deployed on Cloudflare Pages.",
+  "description": "Mo Lumen Astrology — static site built with Astro, deployed on Cloudflare Workers.",
   "scripts": {
     "dev": "astro dev",
     "prebuild": "node scripts/gen-page-dates.mjs",
@@ -12,7 +12,8 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:links": "linkinator ./dist --recurse --silent",
+    "test:content": "node scripts/content-integrity.mjs",
+    "test:links": "node scripts/internal-link-check.mjs",
     "test:a11y": "pa11y-ci",
     "audit:install": "npm install --no-save lighthouse playwright pngjs",
     "audit": "node scripts/audit.mjs",
