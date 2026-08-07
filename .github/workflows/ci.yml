@@ -1,0 +1,45 @@
+name: Pull request validation
+
+on:
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - name: Formatting
+        run: npm run format:check
+      - name: Astro/type checks
+        run: npm run check
+      - name: Content integrity
+        run: npm run test:content
+      - name: Build
+        run: npm run build
+      - name: Internal links
+        run: npm run test:links
+      - name: Install browser test tools
+        run: |
+          npm run audit:install
+          npx playwright install --with-deps chromium
+      - name: Booking handoff
+        run: npm run test:booking
+      - name: Reading Finder handoff
+        run: npm run test:finder
