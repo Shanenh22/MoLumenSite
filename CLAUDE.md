@@ -10,6 +10,17 @@ At the beginning of substantive work read:
 
 Use project skills from `.claude/skills/` when relevant.
 
+## Publishing interface
+
+Pages CMS is Mo's primary day-to-day editing and publishing interface. Its repository configuration is `.pages.yml`.
+
+When changing content schemas, file locations, draft behavior, media paths, or editable business fields:
+- inspect `.pages.yml`
+- keep the CMS configuration synchronized
+- preserve `settings.content.merge: true` unless there is a deliberate migration plan
+- do not expose secrets or fragile integration fields merely for convenience
+- preserve a no-code path for ordinary blogs, Current Sky, videos, FAQs, glossary and existing content edits
+
 Rules:
 - Make routine implementation decisions autonomously.
 - Inspect before editing.
