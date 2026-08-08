@@ -21,7 +21,8 @@ Priority labels: **P0** production blocker · **P1** high-value launch improveme
 - **OWNER** Decide whether the archived tagline “Where astrology becomes understanding” belongs in verified brand language.
 - Collect permissioned testimonials for readings that still lack a service-matched quote, especially the Relationship Consultation; never substitute a generic quote as if it came from that service.
 - Add scoped FAQs for established-client readings only when real pre-booking questions are known; the architecture is already in place.
-- Review whether `/courses/` and `/guides/` should remain visible before the offerings are real.
+- **OWNER** Two typos in the Cal.com booking questions, visible to bookers: the second birth-time option on `natal-60` and `natal-90` reads "Option Roughly — I know the part of the day" (drop the stray "Option"), and `relationship` has "Person A —Do you know your birth time?" missing a space. Relationship also shows "Person A — What would you most like to explore?" followed by an unlabelled "What would you most like to explore?"; label the second for Person B or merge them into one question for the pair.
+- Review whether `/courses/` and `/guides/` should remain visible before the offerings are real. Their premature content collections were removed on 2026-08-08; add real collections in the same change that creates real content.
 - If Mo should edit the `/explore/` reference library in Pages CMS, migrate it deliberately into real content-backed structures with layout/link/schema regression coverage.
 - Consider moving the `/birth-time/` article body into a CMS-editable collection while preserving inline links and FAQ/Article schema; keep printable worksheet structure code-managed.
 - Continue migrating recurring handwritten inline styles when relevant pages are touched.
