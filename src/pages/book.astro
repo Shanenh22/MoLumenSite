@@ -270,7 +270,7 @@ const groups = [
       toggle.type = 'button';
       toggle.className = 'booking-group__toggle';
       const count = secondary.querySelectorAll('input[name="booking-service"]').length;
-      toggle.textContent = `View ${count} follow-up readings ↓`;
+      toggle.textContent = `Show ${count} follow-up readings ↓`;
       toggle.setAttribute('aria-expanded', 'false');
       const list = secondary.querySelector<HTMLElement>('.booking-list');
       if (!list) return;
@@ -281,7 +281,7 @@ const groups = [
         secondary.dataset.collapsed = open ? 'true' : 'false';
         toggle.setAttribute('aria-expanded', String(!open));
         toggle.textContent = open
-          ? `View ${count} follow-up readings ↓`
+          ? `Show ${count} follow-up readings ↓`
           : 'Hide follow-up readings ↑';
       });
       legend.after(toggle);
