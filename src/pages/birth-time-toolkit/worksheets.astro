@@ -13,9 +13,10 @@
  * in a browser, or who cannot use a PDF.
  *
  * The worksheets print. `.ws-line` and `.ws-grid` collapse to ruled writing
- * space under the print stylesheet, which is why they are markup rather than a
- * picture of a form: it keeps the whole thing accessible, translatable and
- * editable, and means the PDF is generated rather than maintained.
+ * space under the PDF generator's stylesheet, which is why they are markup
+ * rather than a picture of a form: it keeps the whole thing accessible,
+ * translatable and editable, and means the PDF is generated rather than
+ * maintained.
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../config/site';
@@ -316,3 +317,118 @@ const lines = (n: number) => Array.from({ length: n });
     </div>
   </section>
 </BaseLayout>
+
+<style is:global media="screen">
+  /* Browser-only worksheet presentation. The downloadable PDF is intentionally
+     owned by scripts/gen-toolkit-pdf.mjs so screen styling cannot change its
+     pagination. */
+  .ws {
+    margin: var(--space-6) 0;
+    padding: var(--space-5) var(--space-6);
+    background: var(--bg-alt);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+  }
+  .ws-block + .ws-block {
+    margin-top: var(--space-6);
+    padding-top: var(--space-6);
+    border-top: var(--border-hairline);
+  }
+  .ws-grid {
+    display: grid;
+    gap: var(--space-3) var(--space-6);
+    margin-bottom: var(--space-3);
+  }
+  @media (min-width: 640px) {
+    .ws-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+    .ws-grid--wide {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  .ws-label {
+    display: block;
+    font-size: var(--text-sm);
+    font-weight: 600;
+    color: var(--ink-soft);
+    margin-bottom: 0.15rem;
+  }
+  .ws-line {
+    display: block;
+    border-bottom: 1px solid var(--color-blue-muted);
+    height: 1.6rem;
+    margin-bottom: var(--space-3);
+  }
+  .ws-line--tall {
+    height: 2rem;
+  }
+  .ws-note {
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+    margin: var(--space-3) 0 0;
+  }
+  .ws-check {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 var(--space-5);
+    display: grid;
+    gap: var(--space-3);
+  }
+  .ws-check li {
+    display: grid;
+    grid-template-columns: 1.4rem 1fr;
+    gap: var(--space-3);
+    font-size: var(--text-sm);
+  }
+  .ws-check li::before {
+    content: '';
+    display: block;
+    width: 1rem;
+    height: 1rem;
+    margin-top: 0.28rem;
+    border: 1.5px solid var(--color-blue-muted);
+    border-radius: 2px;
+  }
+  .ws-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: var(--text-sm);
+  }
+  .ws-table th {
+    text-align: left;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    padding: 0 var(--space-2) var(--space-2) 0;
+    border-bottom: 1.5px solid var(--color-blue-muted);
+  }
+  .ws-table td {
+    height: 2.2rem;
+    border-bottom: 1px solid var(--color-blue-muted);
+    padding: 0 var(--space-2) 0 0;
+  }
+  .ws-scale {
+    margin: var(--space-5) 0;
+    display: grid;
+    gap: var(--space-2);
+  }
+  .ws-scale dt {
+    font-weight: 650;
+    color: var(--ink);
+  }
+  .ws-scale dd {
+    margin: 0 0 var(--space-3);
+    font-size: var(--text-sm);
+    color: var(--ink-soft);
+  }
+  .rule-print {
+    border: none;
+    border-top: var(--border-hairline);
+    margin: var(--space-12) 0;
+  }
+  .print-only {
+    display: none;
+  }
+</style>
