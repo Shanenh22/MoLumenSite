@@ -94,6 +94,20 @@ const skyEvents = defineCollection({
   }),
 });
 
+/**
+ * Videos. Currently an empty array, and that is correct — keep it.
+ *
+ * The build logs "No items found in ./src/content/videos/videos.json" and "The
+ * collection videos does not exist or is empty". Unlike the `courses`/`guides`
+ * declarations removed at the foot of this file, this one is real: the JSON
+ * file exists, `.pages.yml` exposes it as a Pages CMS editor so Mo can add
+ * videos without touching code, and `/videos/` reads it and renders an honest
+ * empty state.
+ *
+ * So the warning marks an empty shelf, not a missing one. Deleting the
+ * collection to silence it would take away the no-code path that is the whole
+ * point. It clears itself the moment Mo publishes a first video.
+ */
 const videos = defineCollection({
   loader: file("./src/content/videos/videos.json"),
   schema: z.object({
@@ -188,26 +202,23 @@ const legal = defineCollection({
   }),
 });
 
-/** Future products — defined now, populated only when real offerings exist. */
-const courses = defineCollection({
-  loader: glob({ pattern: "*.json", base: "./src/content/courses" }),
-  schema: z.object({
-    name: z.string(),
-    type: z.enum(["recorded", "live"]),
-    status: z.enum(["planned", "waitlist", "open"]),
-    description: z.string(),
-    price: z.number().nullable(),
-  }),
-});
-const guides = defineCollection({
-  loader: glob({ pattern: "*.json", base: "./src/content/guides" }),
-  schema: z.object({
-    name: z.string(),
-    status: z.enum(["outline", "draft", "published"]),
-    description: z.string(),
-    file: z.string().nullable(),
-  }),
-});
+/**
+ * `courses` and `guides` collections were declared here and removed on
+ * 2026-08-08.
+ *
+ * They were the same defect as the `explore` collection removed earlier: a
+ * schema pointing at `src/content/courses/` and `src/content/guides/`, neither
+ * of which has ever existed on disk or in git history. Nothing called
+ * `getCollection` on either, neither appeared in `.pages.yml`, and `/courses/`
+ * and `/guides/` are hand-written pages that never read them. The only effect
+ * was two `[glob-loader] base directory does not exist` warnings on every
+ * build — noise that trains everyone to skim build output, which is how a real
+ * warning gets missed.
+ *
+ * Declaring a schema does not reserve anything. When real courses or guides
+ * exist, add the collection in the same change that creates the content and
+ * the CMS block, exactly as the explore removal note says.
+ */
 
 export const collections = {
   services,
@@ -218,6 +229,4 @@ export const collections = {
   testimonials,
   faqs,
   legal,
-  courses,
-  guides,
 };

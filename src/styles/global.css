@@ -12,6 +12,22 @@
 }
 html {
   scroll-behavior: smooth;
+  /*
+   * Keeps fragment targets out from under the sticky header.
+   *
+   * `.site-header` is `position: sticky; top: 0` and measures 65px, so any
+   * in-page jump — the skip link to #main, "Review Booking Options" to
+   * #options, the birth-time links to #confidence-check — landed with the top
+   * 65px of the target hidden behind it. Measured on
+   * /readings/want-more-clarity/#options: the first option card's heading sat
+   * at viewport y=0, entirely covered.
+   *
+   * 5rem covers the header plus a little breathing room. Overshooting is
+   * harmless — the target simply sits slightly lower — while undershooting
+   * hides content, so this is deliberately generous rather than pixel-matched
+   * to a height that can change with the nav.
+   */
+  scroll-padding-top: 5rem;
 }
 @media (prefers-reduced-motion: reduce) {
   html {

@@ -1,6 +1,6 @@
 ---
 import { getCollection } from 'astro:content';
-import { photos, scenes } from '../config/images';
+import { scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../config/site';
@@ -191,7 +191,7 @@ const groups = [
         </div>
 
         <div class="flow">
-          <BookingEmbed calUser={calUser} services={serviceData} />
+          <BookingEmbed calUser={calUser} />
           <div class="callout">
             <p style="margin: 0;">
               <strong>Before you book:</strong> live readings need your birth date, exact time, and

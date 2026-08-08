@@ -27,6 +27,7 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import { scenes } from '../config/images';
 import { site } from '../config/site';
+import { defaultBookingHref } from '../config/booking.ts';
 
 const crumbs = [{ label: 'Find your birth time', href: '/birth-time/' }];
 const description =
@@ -412,6 +413,6 @@ const schema = [
     heading="Found it — or found the range?"
     body="Either is workable. Bring what you have and the real question you've been carrying."
     buttonLabel="Book This Reading"
-    buttonHref="/book/?service=natal-90"
+    buttonHref={defaultBookingHref()}
   />
 </BaseLayout>

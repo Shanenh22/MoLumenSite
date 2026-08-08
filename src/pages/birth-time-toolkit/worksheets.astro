@@ -20,6 +20,7 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../config/site';
+import { defaultBookingHref } from '../../config/booking.ts';
 
 const crumbs = [
   { label: 'Birth Time Toolkit', href: '/birth-time-toolkit/' },
@@ -316,7 +317,7 @@ const lines = (n: number) => Array.from({ length: n });
         would rather start from what is true than from a number that looks tidy.
       </p>
       <p class="no-print">
-        <a class="btn btn--accent" href="/book/?service=natal-90">Book This Reading</a>
+        <a class="btn btn--accent" href={defaultBookingHref()}>Book This Reading</a>
         <a href="/birth-time/" style="margin-left: var(--space-4);">Back to the guide</a>
       </p>
       <p class="print-only">

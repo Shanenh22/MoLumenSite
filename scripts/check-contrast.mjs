@@ -4,34 +4,14 @@
  * translucent background over its parent. axe reports a pass/fail; this
  * reports the number, which is what you need when tuning a colour.
  */
-import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { createReadStream, statSync } from "node:fs";
-import { extname, join } from "node:path";
+import { startDistServer } from "./lib/dist-server.mjs";
 
 const { chromium } = await import("playwright");
 const PORT = 4408;
-const MIME = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-};
-const server = http.createServer((req, res) => {
-  let f = join("dist", decodeURIComponent(req.url.split("?")[0]));
-  try {
-    if (statSync(f).isDirectory()) f = join(f, "index.html");
-  } catch {
-    res.writeHead(404);
-    return res.end();
-  }
-  res.writeHead(200, {
-    "Content-Type": MIME[extname(f)] || "application/octet-stream",
-  });
-  createReadStream(f).pipe(res);
-});
-await new Promise((r) => server.listen(PORT, r));
+// Manifest-backed, so a request is a lookup rather than a filesystem path
+// built from `req.url`. See scripts/lib/dist-server.mjs.
+const server = await startDistServer(PORT);
 
 const browser = await chromium.launch({
   executablePath: chromiumPath(),

@@ -6,7 +6,7 @@ import CTABand from '../../components/CTABand.astro';
 import { site } from '../../config/site';
 import SeaBreak from '../../components/SeaBreak.astro';
 import { bandFor, scenes } from '../../config/images';
-import { bookingActions, primaryBookingAction } from '../../config/booking.ts';
+import { bookingActions, finalCtaAction } from '../../config/booking.ts';
 
 const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
   natal: scenes.natal,
@@ -37,8 +37,16 @@ const related = all.filter((x) => s.related.includes(x.data.slug));
  * band, with an identical label, deep-linked to the $100 one.
  */
 const actions = bookingActions(s);
-const primaryAction = primaryBookingAction(s);
 const multiOption = actions.length > 1;
+
+/**
+ * The closing band's action. For a reading whose options differ by an
+ * eligibility condition rather than by preference — Want More Clarity, priced
+ * on how long ago the natal reading was — this resolves to a neutral
+ * "Review Booking Options" that returns the reader to the priced cards above
+ * instead of choosing a condition on their behalf. See finalCtaAction.
+ */
+const finalCta = finalCtaAction(s);
 
 /**
  * One matched testimonial, near the decision.
@@ -115,16 +123,18 @@ const schema: object[] = [
                   lowPrice: Math.min(...s.options.map((o) => o.price)),
                   highPrice: Math.max(...s.options.map((o) => o.price)),
                   offerCount: s.options.length,
-                  offers: s.options.map((o) => ({
+                  /* Offer URLs come from the same bookingActions() the visible
+                     buttons use. Built by hand they were a fourth copy of the
+                     service-to-event mapping, in the one format specifically
+                     designed to be trusted by a machine — an offer that
+                     disagreed with the page would be the schema that is wrong. */
+                  offers: s.options.map((o, i) => ({
                     '@type': 'Offer',
                     name: o.label,
                     price: o.price,
                     priceCurrency: s.currency,
                     availability: 'https://schema.org/InStock',
-                    url: new URL(
-                      `/book/?service=${o.bookingEventId || s.bookingEventId}`,
-                      site.url
-                    ).href,
+                    url: new URL(actions[i].href, site.url).href,
                   })),
                 }
               : {
@@ -132,7 +142,7 @@ const schema: object[] = [
                   price: s.price,
                   priceCurrency: s.currency,
                   availability: 'https://schema.org/InStock',
-                  url: new URL(`/book/?service=${s.bookingEventId}`, site.url).href,
+                  url: new URL(actions[0].href, site.url).href,
                 },
         }
       : {}),
@@ -259,17 +269,35 @@ if (faqs.length > 0) {
         <dd>{s.deliverables.join(' + ')}</dd>
       </dl>
 
+      {/*
+        `tabindex="-1"` is what makes the closing band's "Review Booking
+        Options" link work for a keyboard user. Following an in-page anchor
+        scrolls the viewport but does not move focus unless the target is
+        focusable, so without it the reader is looking at the options while
+        Tab continues from the button at the bottom of the page.
+
+        The heading is visually hidden rather than absent: a region a link
+        sends people to should be nameable, and `aria-labelledby` gives the
+        landmark an accessible name for anyone navigating by region.
+      */}
       {
         s.options.length > 0 && (
-          <div class="grid grid--2" id="options" style="margin-bottom: var(--space-8);">
+          <section id="options" tabindex="-1" aria-labelledby="options-heading">
+          <h2 id="options-heading" class="visually-hidden">
+            Booking options for the {s.name}
+          </h2>
+          <div class="grid grid--2" style="margin-bottom: var(--space-8);">
             {s.options.map((o, i) => {
               /* Pair each option card with its own action. actions[] is built
                  from s.options in order, so index alignment holds; for a
                  single-option service there is one action and one card. */
-              const a = actions[i] ?? primaryAction;
+              const a = actions[i] ?? actions[0];
               return (
                 <div class="card">
-                  <h2 style="font-size: var(--text-lg); margin: 0;">{o.label}</h2>
+                  {/* h3, not h2: these sit under the "Booking options" heading
+                      that names this section, so h2 here would flatten a real
+                      parent/child relationship into siblings. */}
+                  <h3 style="font-size: var(--text-lg); margin: 0;">{o.label}</h3>
                   <p class="card__meta" style="margin: 0;">
                     {o.durationLabel}
                   </p>
@@ -286,6 +314,7 @@ if (faqs.length > 0) {
               );
             })}
           </div>
+          </section>
         )
       }
 
@@ -375,17 +404,31 @@ if (faqs.length > 0) {
   }
 
   {/*
-    The closing band previously passed `s.slug`, which /book/ resolves through
-    `serviceToEvent` — so this button and the hero button, both reading "Book
-    this reading", deep-linked to different prices on any multi-price page.
-    It now uses the same primaryBookingAction() the rest of the page does, and
-    for a multi-price reading the label names the option so the two buttons are
-    visibly the same offer rather than silently the same guess.
+    The closing band takes its action from finalCtaAction, which is the only
+    place that decides whether this page may choose an option for the reader.
+
+    Two earlier versions of this were wrong in opposite directions. It first
+    passed `s.slug`, which /book/ resolved through `serviceToEvent`, so this
+    button and the hero button — both reading "Book this reading" — deep-linked
+    to different prices. Fixing that pointed it at primaryBookingAction, which
+    falls back to the FIRST option when nothing is marked recommended: on
+    Want More Clarity that produced "Book within 3 months of your natal
+    reading — $100", a button asserting an eligibility fact about the reader's
+    own history that the site has no way to know.
+
+    Now: one option, book it. Several with one recommended (natal-90), book that
+    and say what it costs. Several with none recommended, send them back to the
+    priced cards and let them choose.
   */}
   <CTABand
     heading={`Ready for your ${s.shortName.toLowerCase()} reading?`}
-    body="Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay."
-    buttonLabel={multiOption ? primaryAction.label : 'Book This Reading'}
-    buttonHref={primaryAction.href}
+    body={
+      finalCta.kind === 'choose'
+        ? 'This reading is priced by how recently we last worked together, so the choice is yours — both options are above, and every price is confirmed before you pay.'
+        : 'Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay.'
+    }
+    buttonLabel={finalCta.label}
+    buttonHref={finalCta.href}
+    buttonAriaLabel={finalCta.ariaLabel}
   />
 </BaseLayout>

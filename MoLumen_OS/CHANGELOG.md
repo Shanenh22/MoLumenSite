@@ -2,6 +2,13 @@
 
 This file contains only recent, human-useful project highlights. Git history is the complete implementation record. Older accumulated notes are preserved at `archive/CHANGELOG-through-2026-08-08.md` and are not current instructions.
 
+## 2026-08-08 — post-funnel code pass
+- Stopped closing CTAs choosing between options that differ by eligibility rather than preference; Want More Clarity now offers "Review Booking Options" and returns the reader to its priced cards, in the Reading Finder as well as on the reading page.
+- Routed every remaining booking link through `src/config/booking.ts`, including schema offer URLs, and added `check:booking-links` to `verify:core`.
+- Restored the manifest-backed dist server in the two suites the funnel merge had reverted, and migrated the four that had never used it.
+- Added `test:analytics`, which tests `mlTrack`'s sanitiser directly rather than assuming the call sites behave.
+- Cleared all 34 type-check hints, removed the phantom `courses`/`guides` collections, and stopped in-page anchors landing under the sticky header.
+
 ## 2026-08-08 — conversion funnel repair
 - Made the bare booking page deterministic (`natal-90`) and centralized reading order/booking actions in `src/config/booking.ts`.
 - Removed multi-price CTA ambiguity by exposing the real Natal and Want More Clarity options and preserving service/event deep links.

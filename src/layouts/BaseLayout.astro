@@ -261,11 +261,11 @@ const ga4Id = site.integrations.ga4Id;
     <meta name="twitter:card" content="summary_large_image" />
     {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
     {dateModified && <meta property="article:modified_time" content={dateModified} />}
-    <script type="application/ld+json" set:html={JSON.stringify(allSchema)} />
+    <script is:inline type="application/ld+json" set:html={JSON.stringify(allSchema)} />
     {
       ga4Id && (
         <>
-          <script async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
+          <script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ga4Id}`} />
           {/*
             Order inside this one script is load-bearing, which is why it is a
             single block rather than several tidy ones. `gtag('consent',
@@ -292,6 +292,7 @@ const ga4Id = site.integrations.ga4Id;
             aggregate page counts survive a refusal while nothing is stored.
           */}
           <script
+            is:inline
             set:html={`window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('consent','default',{ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',analytics_storage:'denied',functionality_storage:'granted',security_storage:'granted'});try{if(localStorage.getItem('ml-consent-v1')==='granted')gtag('consent','update',{analytics_storage:'granted'});}catch(e){}gtag('js',new Date());gtag('config','${ga4Id}',{allow_google_signals:false,allow_ad_personalization_signals:false});`}
           />
         </>
