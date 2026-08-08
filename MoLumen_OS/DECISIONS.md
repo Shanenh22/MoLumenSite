@@ -27,3 +27,7 @@
 - Sky-event page titles carry month and year. Event names repeat annually, so undated titles collide across years.
 - Current Sky coverage is enforced, not remembered: `test:content` fails below 90 days of future events and warns below 365.
 - A contrast block that cannot be measured fails the run. A check that prints a note and then reports "Every hero passes" is worse than no check.
+- Video facades request nothing from Google before the visitor presses play, including the poster image. An `i.ytimg.com` thumbnail would hand Google the visitor's IP on page load and make the privacy policy inaccurate, while looking like a privacy feature.
+- The Birth Time Toolkit is free to read in full; only the PDF is exchanged for an email address. Gating the content would be off-brand for a practice built on candour, unenforceable on a static site, and would waste the strongest search asset available on the biggest friction point in the funnel.
+- Structured data waits for real values. VideoObject is not emitted without a genuine uploadDate, and Offer prices must match the visible page.
+- Performance changes are kept only if a measurement says they helped. The homepage LCP preload was built, measured, found to make the number worse, and removed.

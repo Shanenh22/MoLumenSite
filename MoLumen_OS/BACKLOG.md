@@ -12,15 +12,15 @@
 - Protect staging from indexing — intentionally postponed for now; revisit before production cutover
 
 ## P1
-- Build privacy-conscious YouTube facade and finish the video hub/welcome video slot
+- ~~Build privacy-conscious YouTube facade and finish the video hub/welcome video slot~~ DONE 2026-08-07 — awaiting only Mo's video ID
 - ~~Complete 2027 Current Sky through Dec 31, 2027~~ DONE 2026-08-07 — 40 events, horizon 507 days
 - ~~Add 90-day Current Sky horizon validation~~ DONE 2026-08-07 — in content-integrity.mjs, fails <90d, warns <365d
-- Create Birth Time Toolkit and connect final delivery to Kit
+- ~~Create Birth Time Toolkit~~ DONE 2026-08-07 — page, PDF and CTAs shipped; Kit automation is the remaining account-side step
 - ~~Direct reading-to-booking actions~~ DONE 2026-08-07
 - Testimonial surfacing
-- Touch targets
-- Hero/LCP
-- CSP report-only
+- ~~Touch targets~~ DONE 2026-08-07 — 36 fixed, automated check added to axe-sweep
+- Hero/LCP — preload measured and reverted (no improvement); next try viewport-based hero background variants. Homepage mobile LCP ~3.0s vs 1.7-2.3s elsewhere
+- ~~CSP report-only~~ DONE 2026-08-07 — watch reports for a week, then enforce
 - Search Console/Bing verification when tokens are available
 
 ## P2
