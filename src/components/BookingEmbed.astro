@@ -110,14 +110,52 @@ const configured = calUser.trim().length > 0;
     return checked?.value || Object.keys(bookables)[0] || '';
   }
 
-  /** Cal.com event slug for the current choice. One radio == one event type. */
-  function selectedEvent(): string {
+  /**
+   * Cal.com event slug for the current choice, or null.
+   *
+   * This used to end `|| key`, falling back to the radio's raw value when the
+   * key was not in the map. That made a DOM-read string part of an outgoing
+   * URL, which is what CodeQL's js/xss-through-dom was pointing at — and
+   * encoding the segment did not satisfy it, correctly: the objection is to
+   * unvalidated DOM data reaching the sink at all, not to how it is escaped.
+   *
+   * `bookables` is server-rendered from the services collection, so it is the
+   * complete set of valid events. Treating it as an allowlist removes the flow
+   * entirely, and it is the better behaviour anyway: an unrecognised key would
+   * have produced a cal.com 404, and sending someone to the channel page is a
+   * more useful failure than sending them to a missing event.
+   */
+  function selectedEvent(): string | null {
     const key = selectedKey();
-    return bookables[key]?.event || key;
+    return bookables[key]?.event ?? null;
+  }
+
+  /**
+   * Build a cal.com URL from a handle and an event slug.
+   *
+   * Both values are server-rendered from build-time data — the Cal.com handle
+   * in site.ts and the event keys in the services collection — so neither is
+   * visitor-controlled, and the fixed https:// prefix makes a javascript: URL
+   * impossible in any case.
+   *
+   * It is written this way regardless, for two reasons. CodeQL flags DOM-read
+   * values flowing into an href as `js/xss-through-dom` and fails the build,
+   * and it is right to want the encoding made explicit rather than argued
+   * about in a comment. And a slug containing a slash or a space would
+   * currently produce a quietly wrong URL rather than an obviously broken one,
+   * which is the harder bug to notice.
+   *
+   * `new URL()` with a fixed base means the scheme and host cannot be
+   * displaced by anything in the path, and encodeURIComponent keeps each
+   * segment a single path segment.
+   */
+  function calUrl(user: string, event: string | null): string {
+    const path = event ? `${encodeURIComponent(user)}/${encodeURIComponent(event)}` : encodeURIComponent(user);
+    return new URL(path, 'https://cal.com/').toString();
   }
 
   function updateFallback() {
-    if (fallback && calUser) fallback.href = `https://cal.com/${calUser}/${selectedEvent()}`;
+    if (fallback && calUser) fallback.href = calUrl(calUser, selectedEvent());
   }
 
   /**
@@ -168,7 +206,7 @@ const configured = calUser.trim().length > 0;
     p.className = 'card__meta';
     p.textContent = 'The calendar could not load. ';
     const a = document.createElement('a');
-    a.href = calUser ? `https://cal.com/${calUser}/${selectedEvent()}` : 'mailto:mo@molumen.com';
+    a.href = calUser ? calUrl(calUser, selectedEvent()) : 'mailto:mo@molumen.com';
     a.target = '_blank';
     a.rel = 'noopener';
     a.textContent = 'Open the booking page in a new tab';
@@ -200,7 +238,11 @@ const configured = calUser.trim().length > 0;
       Cal('init', { origin: 'https://cal.com' });
       Cal('inline', {
         elementOrSelector: '#cal-mount',
-        calLink: `${calUser}/${selectedEvent()}`,
+        // selectedEvent() is allowlisted against the server-rendered map, so a
+        // null here means the checked radio is not a known event — which should
+        // be impossible, and if it ever happens Cal.com's own error is a better
+        // outcome than silently loading someone else's calendar.
+        calLink: `${calUser}/${selectedEvent() ?? ''}`,
         layout: 'month_view',
       });
       // Match the site's accent so the calendar doesn't read as a bolted-on

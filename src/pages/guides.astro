@@ -7,8 +7,8 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
 ---
 
 <BaseLayout
-  title="Downloadable Guides — coming later"
-  description="Downloadable astrology guides from Mo Lumen are in development, starting with 'Reading the Road Ahead.' Join the newsletter to receive them as they're released."
+  title="Downloadable Guides"
+  description="Practical astrology guides from Mo Lumen, starting with the Birth Time Toolkit: where your birth time is recorded, how to find it, and what a reading can tell you without it."
   path="/guides/"
   breadcrumbs={crumbs}
 >
@@ -16,7 +16,7 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">In development</p>
+      <p class="eyebrow">Free to read</p>
       <h1>Guides</h1>
       <p class="lede">
         Short, practical, beautifully-made references — written to be used, not just downloaded.
@@ -37,16 +37,33 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
   </section>
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">
+      {/*
+        This page used to be entirely forward-looking: "Reading the Road Ahead"
+        as the headline guide, with "a birth-time hunting checklist" listed
+        under things being considered. The checklist is the one that got
+        written, so it leads now and the page stops being a promise.
+
+        "Reading the Road Ahead" is still named because it is still intended —
+        but as an intention, without a release date attached, since inventing
+        one is how a coming-soon page becomes a broken promise.
+      */}
       <div class="prose flow">
-        <h2>First up</h2>
+        <h2>Available now</h2>
+        <p>
+          <strong><a href="/birth-time-toolkit/">The Birth Time Toolkit</a></strong> — where your
+          birth time is actually recorded, how to go and get it, better questions to ask the people
+          who might remember, and what a reading can still tell you if it turns out to be genuinely
+          lost. Free to read in full on the site; join the newsletter and I'll send the PDF.
+        </p>
+        <h2>Being written</h2>
         <p>
           <strong>Reading the Road Ahead</strong> — how an astrology reading helps you recognize
           opportunities before they arrive: seasons, windows, and the practical art of noticing
-          doors while they're still opening. Free to newsletter subscribers on release.
+          doors while they're still opening. No date on it yet; subscribers hear first.
         </p>
         <p>
-          Others under consideration: a birth-time hunting checklist, a lunation-cycle workbook,
-          and a plain-language preparation guide for first readings.
+          Others under consideration: a lunation-cycle workbook, and a plain-language preparation
+          guide for first readings.
         </p>
       </div>
       <div class="card flow">

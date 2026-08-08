@@ -25,6 +25,30 @@ interface Props {
   schema?: object[];
   noindex?: boolean;
 }
+/**
+ * No `preloadImage` prop, and that is a measured decision rather than an
+ * omission.
+ *
+ * Lighthouse flags the homepage hero as neither discoverable nor
+ * priority-hinted, because it is painted from a CSS custom property that the
+ * preload scanner cannot see. The obvious fix is a `<link rel="preload">`, so
+ * it was built and measured on one machine with the project's own
+ * `npm run audit:lh`:
+ *
+ *   without preload   mobile P:94  LCP 3.0s   desktop P:100  LCP 0.7s
+ *   with preload      mobile P:93  LCP 3.2s   desktop P:99   LCP 0.9s
+ *
+ * It did not help, and if anything competed with the stylesheet for bandwidth
+ * on a throttled connection. Shipping it would have been a "performance
+ * improvement" that made the number worse, justified by an audit label rather
+ * than by a measurement.
+ *
+ * The homepage mobile LCP of ~3.0s is real and worth fixing — every other page
+ * measures 1.7–2.3s. The hero file is only 56KB, so the cause is more likely
+ * the overall weight of a 12-section page than that one image. The next thing
+ * to try is viewport-based hero variants (the 640/960/1280 copies already
+ * exist) rather than another preload. Measure it the same way before keeping it.
+ */
 const {
   title,
   description,

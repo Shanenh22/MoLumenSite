@@ -1873,6 +1873,10 @@ fieldset.booking-group > legend span {
 }
 .choice__details {
   font-size: var(--text-sm);
+  /* Sits inside a label whose whole area selects the radio, so this is the one
+     small target on the booking page a visitor might miss and hit the radio
+     instead. It needs the 24px minimum more than most. */
+  padding-block: 0.3rem;
 }
 @media (max-width: 560px) {
   .choice--book {
@@ -2926,4 +2930,210 @@ fieldset.booking-group > legend span {
 }
 .booking-group__toggle:hover {
   background: var(--bg-alt);
+}
+
+/* ---------- YouTube facade ----------
+   aspect-ratio holds the box before anything loads and the iframe replaces the
+   button inside the same box, so activation cannot shift the page. CLS stays 0.
+   See src/components/YouTubeFacade.astro for why the poster is never fetched
+   from ytimg. */
+.ytf {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  width: 100%;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background: var(--color-navy-deep);
+  border: var(--border-hairline);
+}
+.ytf__poster,
+.ytf__frame {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+.ytf__poster {
+  object-fit: cover;
+}
+/* Used when no poster has been uploaded. A quiet night-sky wash in the brand
+   palette rather than a grey box or, worse, a Google-hosted still. */
+.ytf__poster--placeholder {
+  background:
+    radial-gradient(
+      ellipse at 30% 20%,
+      color-mix(in srgb, var(--color-teal) 40%, transparent),
+      transparent 60%
+    ),
+    linear-gradient(160deg, var(--color-navy) 0%, var(--color-navy-deep) 100%);
+}
+.ytf__play {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-4);
+  background: color-mix(in srgb, var(--color-navy-deep) 45%, transparent);
+  border: 0;
+  color: var(--color-ivory);
+  font: inherit;
+  cursor: pointer;
+  text-align: center;
+  transition: background var(--duration-fast) var(--ease);
+}
+.ytf__play:hover,
+.ytf__play:focus-visible {
+  background: color-mix(in srgb, var(--color-navy-deep) 62%, transparent);
+}
+.ytf__icon {
+  color: #f00;
+  display: block;
+  filter: drop-shadow(0 2px 8px rgb(0 0 0 / 0.45));
+  transition: transform var(--duration-fast) var(--ease);
+}
+.ytf__play:hover .ytf__icon {
+  transform: scale(1.06);
+}
+@media (prefers-reduced-motion: reduce) {
+  .ytf__icon,
+  .ytf__play {
+    transition: none;
+  }
+  .ytf__play:hover .ytf__icon {
+    transform: none;
+  }
+}
+.ytf__label {
+  font-weight: 650;
+  font-size: var(--text-lg);
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.6);
+}
+.ytf__note {
+  font-size: var(--text-sm);
+  color: var(--color-stone);
+  text-shadow: 0 1px 6px rgb(0 0 0 / 0.7);
+}
+
+/* ---------- print ----------
+   Used by the reader who prints a page, and by scripts/gen-toolkit-pdf.mjs,
+   which renders the real Birth Time Toolkit page to PDF rather than keeping a
+   separate template that could drift from it. Strips navigation, the signup
+   block, decorative photography and anything else that is site rather than
+   content. */
+@media print {
+  .site-header,
+  .site-footer,
+  .breadcrumbs,
+  .consent,
+  .cta-band,
+  .hero__img,
+  .feature-split img,
+  .newsletter-form,
+  .filter-bar,
+  .skip-link {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  .hero,
+  .section {
+    padding-block: 0 !important;
+    background: none !important;
+  }
+  .hero::after,
+  .hero::before {
+    display: none !important;
+  }
+  .container {
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+  .prose {
+    max-width: none !important;
+  }
+  h1 {
+    font-size: 22pt;
+  }
+  h2 {
+    font-size: 15pt;
+    margin-top: 1.4em;
+    /* Never leave a heading stranded at the foot of a page. */
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12.5pt;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  /* Print the destination of real links, but not of in-page anchors, which
+     would render as a meaningless "(#get-the-pdf)". */
+  .prose a[href^='/']::after {
+    content: ' (molumen.com' attr(href) ')';
+    font-size: 9pt;
+    color: #444;
+  }
+  .card,
+  .callout {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: none !important;
+  }
+}
+
+/* ---------- target size (WCAG 2.2 AA, 2.5.8) ----------
+   Measured at 390px before this: 36 standalone links rendered under 24px tall
+   — card heading links at 20px, footer nav links at 20px, and "read more" style
+   links that are the entire content of their paragraph.
+
+   SC 2.5.8 exempts links inside a sentence, so this deliberately targets only
+   links that are the sole content of a heading, list item or paragraph. A link
+   in running prose is left alone; enlarging those would put gaps in the text.
+
+   `padding-block` rather than `min-height` or `display: inline-block`, because
+   an inline element's padding is part of its hit region while contributing
+   nothing to the line box — so the tap target grows and the layout does not
+   move. axe cannot detect any of this, which is why it never appeared in a
+   sweep that reported zero violations. */
+h2 > a:only-child,
+h3 > a:only-child,
+li > a:only-child,
+.footer-policies a,
+.breadcrumbs li > a,
+p > a:only-child,
+dd > a:only-child,
+td > a:only-child {
+  padding-block: 0.34rem;
+}
+/* Breadcrumb items sit on one line, so the enlarged targets need horizontal
+   separation as well or two adjacent crumbs overlap. */
+.breadcrumbs ol {
+  row-gap: var(--space-1);
+}
+/* The footer policy row and footer nav sit close together; the padding above
+   would otherwise overlap neighbouring targets, which SC 2.5.8 also cares
+   about. Give the rows enough gap that the enlarged areas stay distinct. */
+.site-footer nav ul {
+  row-gap: var(--space-2);
+}
+.footer-policies {
+  gap: var(--space-2) var(--space-5);
 }

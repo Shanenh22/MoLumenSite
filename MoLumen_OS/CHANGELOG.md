@@ -1,5 +1,51 @@
 # AI Project Changelog
 
+### 2026-08-07 (later) — Video architecture, Birth Time Toolkit, CSP and target size
+
+**Added**
+
+- `src/components/YouTubeFacade.astro` — click-to-load player that requests **nothing** from Google until the play button is pressed, including the poster. The conventional facade uses an `i.ytimg.com` still, which is Google infrastructure, so the visitor's IP reaches Google on load anyway; `/privacy/` says video players "load only when you interact with them", and that has to be true. Uses the uploaded thumbnail or a branded CSS placeholder.
+- **The Birth Time Toolkit** at `/birth-time-toolkit/` — the first rung below $150. Free to read in full; the PDF is what arrives by email. Assembled from the two existing birth-time blog posts and `/prepare-for-your-reading/` rather than authored fresh, so it cannot contradict them. FAQPage + Article schema on five genuinely-asked questions.
+- `scripts/gen-toolkit-pdf.mjs` (`npm run toolkit:pdf`) — renders the real page to `public/downloads/birth-time-toolkit.pdf` so the download cannot drift from the web version. Manual, like `og:generate`, because Playwright is a `--no-save` audit dependency.
+- Print stylesheet in `global.css`, used by readers and by the PDF generator.
+- `Content-Security-Policy-Report-Only` in `public/_headers`, with origins read off the built output rather than guessed — including the two Kit hosts the embed pulls in at runtime.
+- Target-size checking in `scripts/axe-sweep.mjs`. axe cannot test SC 2.5.8, because the criterion turns on whether a link sits inside a sentence.
+
+**Changed**
+
+- `/videos/` moved onto the shared facade; its bespoke copy built the iframe by string concatenation and omitted fullscreen and captions. Empty state now points at the real YouTube channel. `VideoObject` per real published video, from fields the collection already requires.
+- Welcome video centralized: `welcomeVideoId` in `site.ts`. `/about/` renders it above the credentials; nothing renders while it is blank. `VideoObject` additionally waits for a real `uploadDate` rather than inventing one.
+- `/guides/` and `/newsletter/` stopped promising "Reading the Road Ahead" as the headline. `/guides/` had listed "a birth-time hunting checklist" under consideration — that is the one that got written, so it leads now, and the unwritten guide is named as an intention with no date attached.
+- 36 standalone links were under 24px at 390px. Fixed with `padding-block`, which extends an inline element's hit region without touching the line box. Links inside prose deliberately untouched.
+- `/images/*` cache 1 day → 30 days with a week of stale-while-revalidate (~193KB of repeat-visit waste). `/downloads/*` keeps the shorter window, because a PDF Mo corrects should not be stale for a month.
+
+**Reverted, with the measurement**
+
+- An LCP `<link rel="preload">` for the homepage hero. Measured on one machine: **without** preload mobile P:94 / LCP 3.0s, **with** preload mobile P:93 / LCP 3.2s. It did not help. The reasoning is kept in `BaseLayout.astro` so nobody rebuilds it.
+
+**Validated**
+
+- Astro check 0 errors, 34 hints. Build 171 pages.
+- axe **0 violations** across 20 pages × 2 viewports, now including target size (was 52 target-size failures when the check was first added, including one false positive of its own — a link wrapped in `<strong>` mid-sentence — which the detector now climbs past).
+- Hero contrast: **170 pages discovered**, 0 failures.
+- Content integrity 0 errors, 0 warnings. Horizon 507 days.
+- Links 171 files, 0 failures. Booking 18/18. Finder 11/11. Contrast 8/8.
+- Lighthouse: every page 98–100 mobile except the homepage at 94; desktop 99–100. CLS 0 everywhere.
+- Facade verified in-browser: 0 Google requests before click, 16:9 held, document height unchanged after activation, focus moves into the player.
+
+**Known, measured, not fixed**
+
+- Homepage mobile LCP ~3.0s against 1.7–2.3s everywhere else. Next thing to try is viewport-based hero background variants; the 640/960/1280 copies already exist.
+- Lighthouse Best Practices is 77 on every page. Worth re-checking now that the Kit `mailto:` is gone — the cause may have changed.
+
+**Still not done**
+
+- Per-service FAQ architecture (needs Mo's answers to be worth building).
+- Testimonial surfacing into the shared CTA band.
+- Inline-style consolidation beyond what was touched in passing.
+
+
+
 ### 2026-08-07 — Analytics, consent, booking conversion and the 2027 sky window
 
 **Changed**

@@ -73,5 +73,6 @@ sounds like you.
 If you're unsure, say so, and say how unsure. "Between 2 and 4pm" is far more useful to me than a
 flat "3pm" that turns out to be a family rounding error.
 
-There's more detail on tracking it down — and on what a reading looks like without one — in
+There's more detail on tracking it down — and on what a reading looks like without one — in the
+[Birth Time Toolkit](/birth-time-toolkit/) and in
 [how to prepare for your reading](/prepare-for-your-reading/).

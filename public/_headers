@@ -4,6 +4,33 @@
   Permissions-Policy: geolocation=(), microphone=(), camera=(), payment=(), usb=()
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   X-Frame-Options: DENY
+  # Content-Security-Policy, REPORT-ONLY for now.
+  #
+  # Report-only deliberately: this site loads a payment widget (Cal.com), an
+  # email form (Kit) and a video player (YouTube), and an enforced policy that
+  # blocks any one of them breaks booking, signup or playback silently for
+  # visitors while looking fine to us. Watch the reports for a week, confirm
+  # nothing legitimate is being flagged, then copy this to the enforcing
+  # `Content-Security-Policy` header.
+  #
+  # Origins, all verified against the built output rather than guessed:
+  #   googletagmanager / google-analytics  GA4
+  #   molumen.kit.com, *.convertkit.com    Kit form (index.js pulls ck.5.js
+  #                                        from f.convertkit.com and beacons
+  #                                        app.convertkit.com/forms/../visit)
+  #   app.cal.com                          booking embed script + iframe
+  #   youtube-nocookie.com                 video player, only after a click
+  #   i.ytimg.com, *.googlevideo.com       player thumbnails/streams, which
+  #                                        only ever load inside that iframe
+  #
+  # 'unsafe-inline' on script-src is a known compromise, not an oversight. The
+  # site uses inline scripts throughout (consent defaults must run before the
+  # gtag config, so they cannot be deferred to a bundle) and Astro emits its own.
+  # Hashing them needs build-time integration; until then this still constrains
+  # *which origins* can be reached, which is the actual risk with three
+  # third-party embeds. Tighten to hashes as a follow-up, not by deleting
+  # inline scripts that are load-bearing.
+  Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://app.cal.com https://molumen.kit.com https://app.convertkit.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://molumen.kit.com https://f.convertkit.com https://app.cal.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://app.convertkit.com https://f.convertkit.com https://app.cal.com; frame-src https://app.cal.com https://www.youtube-nocookie.com; media-src 'self' https://*.googlevideo.com; upgrade-insecure-requests
 
 # HTML documents must revalidate, or visitors keep seeing an old page after Mo publishes.
 /
@@ -39,6 +66,9 @@
 # swaps a photo — a day of caching keeps repeat visits fast without stranding
 # an updated image for a year.
 /images/*
+  Cache-Control: public, max-age=2592000, stale-while-revalidate=604800
+
+/downloads/*
   Cache-Control: public, max-age=86400, stale-while-revalidate=604800
 
 /favicon.svg

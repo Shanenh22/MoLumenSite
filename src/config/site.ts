@@ -72,6 +72,32 @@ export const site = {
       import.meta.env.PUBLIC_KIT_FORM_SCRIPT_URL ??
       "https://molumen.kit.com/c60976a5a9/index.js",
     youtubeChannelId: import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ?? "",
+    /**
+     * Mo's ~60-second face-to-camera introduction.
+     *
+     * Paste ONLY the YouTube video ID here — the part after v= or youtu.be/,
+     * not the whole URL. Everything downstream is already built and guarded on
+     * this value being non-empty: /about/ renders a click-to-load facade above
+     * the credentials, the homepage links to it, and VideoObject schema is
+     * emitted. Nothing appears while it is blank, so there is no placeholder to
+     * clean up and no broken player to apologise for.
+     *
+     * Deliberately not invented. An ID that does not resolve would ship a dead
+     * play button on the page whose whole job is making Mo credible.
+     */
+    welcomeVideoId: import.meta.env.PUBLIC_WELCOME_VIDEO_ID ?? "",
+    /** Optional locally hosted poster for the welcome video, e.g. /images/uploads/mo-welcome.webp */
+    welcomeVideoPoster: import.meta.env.PUBLIC_WELCOME_VIDEO_POSTER ?? "",
+    /**
+     * Publication date of the welcome video, ISO YYYY-MM-DD.
+     *
+     * The video renders on the ID alone; this only gates VideoObject schema,
+     * which Google requires an uploadDate for. Structured data describing a
+     * video with a made-up date would be a fabricated fact in the one format
+     * specifically designed to be trusted by machines, so the schema stays
+     * silent until the real date is supplied.
+     */
+    welcomeVideoUploadDate: import.meta.env.PUBLIC_WELCOME_VIDEO_UPLOAD_DATE ?? "",
     instagramHandle: import.meta.env.PUBLIC_INSTAGRAM_HANDLE ?? "mo.lumen",
   },
 } as const;
