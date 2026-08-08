@@ -1,0 +1,318 @@
+---
+/**
+ * Layer 2: the Birth Time Toolkit itself.
+ *
+ * This page is both the web-readable version and the source the PDF is
+ * rendered from, so the download cannot drift from what is on the site. One
+ * document, two presentations.
+ *
+ * `noindex` on purpose. /birth-time/ is the page built to rank for this topic;
+ * this one would compete with it for the same queries while being a worse
+ * search result — a worksheet set is for someone who has already decided to do
+ * the work. It stays reachable and linkable for anyone who prefers reading it
+ * in a browser, or who cannot use a PDF.
+ *
+ * The worksheets print. `.ws-line` and `.ws-grid` collapse to ruled writing
+ * space under the print stylesheet, which is why they are markup rather than a
+ * picture of a form: it keeps the whole thing accessible, translatable and
+ * editable, and means the PDF is generated rather than maintained.
+ */
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { site } from '../../config/site';
+
+const crumbs = [
+  { label: 'Birth Time Toolkit', href: '/birth-time-toolkit/' },
+  { label: 'The worksheets', href: '/birth-time-toolkit/worksheets/' },
+];
+
+/** A ruled writing line with a label. Repeats enough to be worth a helper. */
+const lines = (n: number) => Array.from({ length: n });
+---
+
+<BaseLayout
+  title="The Birth Time Toolkit — worksheets"
+  description="The full Birth Time Toolkit: a record search checklist, family interview sheets, a competing-times comparison, a confidence scale, and a reading preparation summary."
+  path="/birth-time-toolkit/worksheets/"
+  breadcrumbs={crumbs}
+  noindex={true}
+>
+  <section class="section toolkit">
+    <div class="container prose flow" style="max-width: 44rem;">
+      <p class="eyebrow">Mo Lumen Astrology</p>
+      <h1>The Birth Time Toolkit</h1>
+      <p class="lede">
+        A working process for finding a birth time, and for being honest about it when you can't.
+        Print it, or work through it on screen and keep your notes wherever you keep notes.
+      </p>
+      <p>
+        The background — why the time matters, how much precision actually matters, and what a
+        reading can still do without it — is on
+        <a href="/birth-time/">how to find your birth time</a>. This is the part where you go and
+        do it.
+      </p>
+
+      <hr class="rule-print" />
+
+      <h2>1 · What do you already know?</h2>
+      <p>
+        Start here even if the answer is "almost nothing". Writing down what you have, and where it
+        came from, is what turns a vague uncertainty into a search with a shape.
+      </p>
+      <div class="ws">
+        <div class="ws-grid">
+          <div><span class="ws-label">Birth date</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Birth city</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">State / province</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Country</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Hospital or place</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Time you have been told</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Who told you</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">How sure are they</span><span class="ws-line"></span></div>
+        </div>
+        <p class="ws-note">
+          If the time came from a document, note which document. If it came from a person, note the
+          person. Those are different kinds of answer and they get weighed differently later.
+        </p>
+      </div>
+
+      <hr class="rule-print" />
+
+      <h2>2 · Record search checklist</h2>
+      <p>
+        Work down in order. Most people find the time at the first or second step, and the later
+        ones exist for the cases where they don't.
+      </p>
+      <div class="ws">
+        <ul class="ws-check">
+          <li>
+            <strong>Check which birth certificate you have.</strong> Many households keep an
+            abbreviated copy that omits the time. Look for the long-form or full version.
+          </li>
+          <li>
+            <strong>Request the full certificate</strong> from the vital records authority for the
+            place of birth. Search for that office by name and read its own instructions —
+            requirements, fees and whether the time is even included vary by jurisdiction and by
+            how old the record is.
+          </li>
+          <li>
+            <strong>Try the hospital's medical records department.</strong> Separate from the
+            registry, with its own release process. Some retain birth records for decades.
+          </li>
+          <li><strong>Baby book, hospital keepsake or bracelet card.</strong></li>
+          <li>
+            <strong>Family papers</strong> — a parent's diary, a family bible, a letter written that
+            week, the back of a photograph.
+          </li>
+          <li>
+            <strong>Religious or community records</strong> where a birth or naming was registered
+            locally.
+          </li>
+          <li>
+            <strong>Newspaper birth announcements.</strong> Library and newspaper archives
+            occasionally carry times.
+          </li>
+        </ul>
+        <div class="ws-grid ws-grid--wide">
+          <div><span class="ws-label">Office / source contacted</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Date contacted</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">What they said</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Follow up by</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Office / source contacted</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Date contacted</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">What they said</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Follow up by</span><span class="ws-line"></span></div>
+        </div>
+      </div>
+
+      <hr class="rule-print" />
+
+      <h2>3 · Family interview</h2>
+      <p>
+        Ask about the shape of the day, not the number on the clock. People remember events far
+        better than times, and asking "what time was I born?" invites a rounded guess that then
+        hardens into a fact nobody meant to assert.
+      </p>
+      <p>Prompts worth using:</p>
+      <ul>
+        <li>Was it light or dark outside?</li>
+        <li>Before or after a meal — which one?</li>
+        <li>Had anyone left for work, or come home?</li>
+        <li>Did anyone miss something because of it?</li>
+        <li>Who else was there, and had they already arrived?</li>
+        <li>Was it the same day labour started?</li>
+        <li>Did the hospital staff change shift while you were there?</li>
+      </ul>
+      <div class="ws">
+        {
+          lines(2).map(() => (
+            <div class="ws-block">
+              <div class="ws-grid">
+                <div><span class="ws-label">Person</span><span class="ws-line"></span></div>
+                <div><span class="ws-label">Relationship</span><span class="ws-line"></span></div>
+                <div><span class="ws-label">Date asked</span><span class="ws-line"></span></div>
+                <div><span class="ws-label">Time they give</span><span class="ws-line"></span></div>
+              </div>
+              <span class="ws-label">What they remember, in their words</span>
+              <span class="ws-line ws-line--tall"></span>
+              <span class="ws-line ws-line--tall"></span>
+              <div class="ws-grid">
+                <div><span class="ws-label">Anchored to what event</span><span class="ws-line"></span></div>
+                <div><span class="ws-label">Confidence (see §5)</span><span class="ws-line"></span></div>
+              </div>
+            </div>
+          ))
+        }
+      </div>
+
+      <hr class="rule-print" />
+
+      <h2>4 · When times disagree</h2>
+      <p>
+        Keep every candidate. A recorded conflict is more useful than a premature decision, because
+        two candidate times can be tested against a chart and a single guessed time cannot be tested
+        against anything.
+      </p>
+      <p>
+        A documented time outranks any recollection. Between two recollections, the one anchored to
+        an event usually beats the one anchored to a number. And if two candidates produce the same
+        rising sign, the disagreement may not matter at all — worth checking before anyone spends
+        effort resolving it.
+      </p>
+      <div class="ws">
+        <table class="ws-table">
+          <thead>
+            <tr>
+              <th scope="col">Candidate time</th>
+              <th scope="col">Source</th>
+              <th scope="col">Document or memory?</th>
+              <th scope="col">Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              lines(4).map(() => (
+                <tr>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                </tr>
+              ))
+            }
+          </tbody>
+        </table>
+        <span class="ws-label">What contradicts what, and anything still to check</span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-line ws-line--tall"></span>
+      </div>
+
+      <hr class="rule-print" />
+
+      <h2>5 · How confident are you?</h2>
+      <p>
+        Use the plainest label that is true. The point of this scale is to stop a guess quietly
+        becoming a fact somewhere between your notes and your astrologer, so resist rounding
+        upward.
+      </p>
+      <dl class="ws-scale">
+        <dt>Documented</dt>
+        <dd>Written on a birth certificate, hospital record or contemporaneous document you have seen.</dd>
+        <dt>Strongly remembered</dt>
+        <dd>One consistent account from someone who was there, anchored to an event rather than a number.</dd>
+        <dt>Approximate</dt>
+        <dd>A window rather than a time — "sometime in the morning", "between two and four".</dd>
+        <dt>Conflicting</dt>
+        <dd>More than one candidate, none clearly better. Bring them all.</dd>
+        <dt>Unknown</dt>
+        <dd>No usable information. Say so plainly; it is workable.</dd>
+      </dl>
+      <div class="ws">
+        <div class="ws-grid">
+          <div><span class="ws-label">My current best time</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">My confidence label</span><span class="ws-line"></span></div>
+        </div>
+      </div>
+
+      <hr class="rule-print" />
+
+      <h2>6 · If it stays unknown</h2>
+      <p>
+        You can still have a real reading. What is unavailable without a time is the rising sign,
+        the house structure, and the Moon's exact degree on a fast-moving day. What remains is every
+        planet's sign, the aspects between them, the condition of each planet by dignity, and the
+        current transits — most of a chart, and where a great deal of character lives.
+      </p>
+      <p>
+        A reading built on that answers <em>what are these patterns</em> very well, and <em>where in
+        your life do they land</em> only in outline. Say plainly what you know and don't know, and a
+        good astrologer will stay off the parts that depend on the time rather than guessing at
+        them.
+      </p>
+      <p>
+        The only genuinely bad option is a guess presented as exact. That produces a detailed,
+        coherent reading about the life of someone born two hours after you.
+      </p>
+
+      <hr class="rule-print" />
+
+      <h2>7 · About rectification</h2>
+      <p>
+        Rectification is an astrological technique for narrowing a probable birth time by working
+        backwards from known life events. It is a real discipline, and specialists do careful work.
+      </p>
+      <p>
+        Two things to hold on to. It is substantial work and priced accordingly. And it produces a
+        well-reasoned hypothesis that fits the events you supplied — not a recovered fact, and not
+        verification in any external sense. Different rectifiers can reach different answers from
+        the same life. Certainty is not something the method can offer.
+      </p>
+      <p>
+        If you are choosing where to spend first, the full birth certificate is usually the better
+        bet. If you do pursue rectification, the dated life events in the next section are exactly
+        what a rectifier will ask for.
+      </p>
+
+      <hr class="rule-print" />
+
+      <h2>8 · Preparing for your reading</h2>
+      <p>
+        The summary to bring. This is what makes the difference between an astrologer guessing at
+        your certainty and knowing it.
+      </p>
+      <div class="ws">
+        <div class="ws-grid">
+          <div><span class="ws-label">Birth date</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Birth city and country</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Time (or range)</span><span class="ws-line"></span></div>
+          <div><span class="ws-label">Confidence label</span><span class="ws-line"></span></div>
+        </div>
+        <span class="ws-label">What I am certain about</span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-label">What I am unsure about</span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-label">Dated life events that stand out — moves, losses, beginnings, turns</span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-label">The real question I want to bring</span>
+        <span class="ws-line ws-line--tall"></span>
+        <span class="ws-line ws-line--tall"></span>
+      </div>
+
+      <hr class="rule-print" />
+
+      <p class="toolkit__close">
+        That's the whole process. If you found the time, bring it. If you found a range, bring the
+        range. If you found nothing, bring that — it is a smaller problem than it feels like, and I
+        would rather start from what is true than from a number that looks tidy.
+      </p>
+      <p class="no-print">
+        <a class="btn btn--accent" href="/book/?service=natal-90">Book This Reading</a>
+        <a href="/birth-time/" style="margin-left: var(--space-4);">Back to the guide</a>
+      </p>
+      <p class="print-only">
+        {site.name} · {site.url.replace('https://', '')} · Readings by Zoom, phone, or in person in
+        the Dallas–Fort Worth area.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
