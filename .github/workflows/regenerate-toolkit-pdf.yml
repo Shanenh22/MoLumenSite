@@ -1,0 +1,67 @@
+name: Regenerate Birth Time Toolkit PDF
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/regenerate-toolkit-pdf.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: regenerate-toolkit-pdf
+  cancel-in-progress: false
+
+jobs:
+  regenerate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install project dependencies
+        run: npm ci
+
+      - name: Install PDF browser dependency
+        run: |
+          npm install --no-save playwright
+          npx playwright install --with-deps chromium
+
+      - name: Build worksheet source
+        run: npm run build
+
+      - name: Generate corrected PDF
+        run: npm run toolkit:pdf
+
+      - name: Sanity-check generated file
+        run: |
+          test -s public/downloads/birth-time-toolkit.pdf
+          bytes=$(wc -c < public/downloads/birth-time-toolkit.pdf)
+          echo "Generated PDF: $bytes bytes"
+          if [ "$bytes" -lt 20000 ]; then
+            echo "::error::Generated PDF is unexpectedly small."
+            exit 1
+          fi
+
+      - name: Commit regenerated PDF
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add public/downloads/birth-time-toolkit.pdf
+          if git diff --cached --quiet; then
+            echo "PDF is already current."
+            exit 0
+          fi
+          git commit -m "Regenerate Birth Time Toolkit PDF"
+          git push
