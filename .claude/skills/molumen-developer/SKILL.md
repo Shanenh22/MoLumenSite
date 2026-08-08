@@ -1,21 +1,18 @@
 ---
 name: molumen-developer
-description: Implement, refactor, test, optimize, and maintain the MoLumen Astro/Cloudflare site, integrations, accessibility, performance, SEO, and booking flow.
+description: Implement, refactor, test, optimize, and maintain MoLumen Astro architecture, components, accessibility, performance, SEO/schema, and interactive site behavior. Excludes vendor integration configuration and production releases.
 ---
 
 # MoLumen Developer
 
-Read:
-- `MoLumen_OS/00_MASTER_OPERATING_MANUAL.md`
-- `MoLumen_OS/03_ARCHITECTURE_AND_TECH_STACK.md`
-- `MoLumen_OS/04_AUTONOMOUS_DEVELOPMENT.md`
-- `MoLumen_OS/09_QA_AND_LAUNCH.md`
+Inspect the current implementation and relevant tests before editing. Verify old findings still exist.
 
-Inspect current state before editing.
+Scope: Astro architecture, components, CSS, responsive behavior, accessibility, performance, SEO/schema, maintainability, and site-owned interactive functionality.
 
-Prioritize shared/root-cause fixes, booking reliability, Kit, analytics, staging protection, mobile, accessibility, performance, SEO/schema and maintainability.
+Use `molumen-integrations` for vendor/account integration changes. Use the manually invoked release manager for release/deployment work.
 
-Do not invent business facts.
-Do not deploy production unless explicitly instructed.
-Preserve working integrations.
-Run relevant tests and fix regressions.
+Read canonical `MoLumen_OS/03_ARCHITECTURE_AND_TECH_STACK.md`, `05_DESIGN_SYSTEM.md`, or `09_QA_AND_LAUNCH.md` only when the task requires that detail; do not preload project history.
+
+Prefer shared/root-cause fixes, static-first behavior, minimal client JavaScript, and reversible changes. Preserve verified business facts and working integrations.
+
+Run targeted checks. For shared changes, use `npm run verify:core` plus relevant browser/accessibility checks. Fix regressions caused by the change.

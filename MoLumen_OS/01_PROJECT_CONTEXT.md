@@ -4,46 +4,32 @@
 Mo Lumen Astrology.
 
 ## Platform
-Astro static site deployed through Cloudflare.
+Astro static-first site deployed through Cloudflare.
 
-## Current integrations
+## Business priority
+Primary: qualified paid reading bookings.
+Secondary: newsletter growth, trust, search authority, durable educational content, video publishing, and preparation for future reports/memberships/courses/products.
+
+## Current services
 - Cal.com — booking
-- Stripe — booking payments
-- Google Analytics 4 — account created; deployment/event wiring must be verified
-- Google Business Profile — created; verification pending
+- Stripe — booking payment
 - Kit — newsletter/email
-- YouTube — https://www.youtube.com/@MoLumenAstrology
+- GA4 — analytics
+- YouTube — video
+- Google Business Profile — external/local corroboration
+- Search Console / Bing Webmaster — search verification
+- Pages CMS — routine content editing
 - Cloudflare — hosting/deployment
 
-## Kit
-Official embed supplied by owner:
+## Source-of-truth rule
+Do not store volatile integration IDs, embed snippets, verification status, or deployment values in this context file.
 
-```html
-<script async data-uid="c60976a5a9" src="https://molumen.kit.com/c60976a5a9/index.js"></script>
-```
+Use:
+- `src/config/site.ts` for current public integration configuration
+- `docs/integrations/` for service-specific implementation notes
+- `MoLumen_OS/PROJECT_MEMORY.md` for current cross-session status when needed
+- `MoLumen_OS/DECISIONS.md` for historical rationale
+- `MoLumen_OS/BACKLOG.md` for unresolved priorities
 
-Do not invent undocumented Kit endpoints.
-
-## YouTube
-Official channel:
-https://www.youtube.com/@MoLumenAstrology
-
-A roughly 60-second welcome video will be supplied later.
-
-## Current project phase
-Finish integrations, QA, publishing system, 2027 Current Sky, Birth Time Toolkit lead magnet, and launch readiness.
-
-## Recurring audit priorities
-- working email capture
-- visible mobile booking action
-- direct service-to-booking handoff
-- analytics instrumentation
-- staging noindex
-- external trust proof
-- video of Mo
-- unique service FAQs
-- Current Sky maintenance horizon
-- touch targets
-- hero/LCP optimization
-- CSP
-- eliminating internal-note leakage
+## Operating principle
+Verify current code/state before acting on an old audit, prompt, handoff, or backlog item. Completed work should not be repeated unless evidence shows a regression.
