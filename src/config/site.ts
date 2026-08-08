@@ -67,10 +67,10 @@ export const site = {
     calcomUsername: import.meta.env.PUBLIC_CALCOM_USERNAME ?? "molumen",
     // Kit form IDs are public embed identifiers, not secrets. This default is
     // the owner-supplied MoLumen form; the env override keeps staging/testing flexible.
-    kitFormUid: import.meta.env.PUBLIC_KIT_FORM_UID ?? "c60976a5a9",
+    kitFormUid: import.meta.env.PUBLIC_KIT_FORM_UID ?? "aa0e899cd0",
     kitFormScriptUrl:
       import.meta.env.PUBLIC_KIT_FORM_SCRIPT_URL ??
-      "https://molumen.kit.com/c60976a5a9/index.js",
+      "https://molumen.kit.com/aa0e899cd0/index.js",
     youtubeChannelId: import.meta.env.PUBLIC_YOUTUBE_CHANNEL_ID ?? "",
     /**
      * Mo's ~60-second face-to-camera introduction.

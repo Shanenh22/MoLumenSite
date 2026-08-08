@@ -1,7 +1,5 @@
-import http from "http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import fs from "fs";
-import path from "path";
+import { startDistServer } from "./lib/dist-server.mjs";
 /**
  * lighthouse / playwright / chrome-launcher are deliberately NOT in
  * package.json. They are ~150MB of install that the Cloudflare build does not
@@ -23,33 +21,11 @@ async function requireTool(name) {
 const lighthouse = (await requireTool("lighthouse")).default;
 const { launch } = await requireTool("chrome-launcher");
 const root = process.env.DIST || "./dist"; // run from repo root: node scripts/lh-audit.mjs
-const types = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".xml": "application/xml",
-  ".webmanifest": "application/manifest+json",
-};
-const srv = http.createServer((req, res) => {
-  let p = decodeURIComponent(req.url.split("?")[0]);
-  let f = path.join(root, p);
-  if (fs.existsSync(f) && fs.statSync(f).isDirectory())
-    f = path.join(f, "index.html");
-  if (!fs.existsSync(f)) {
-    res.statusCode = 404;
-    f = path.join(root, "404.html");
-  }
-  res.setHeader(
-    "Content-Type",
-    types[path.extname(f)] || "application/octet-stream",
-  );
-  res.setHeader("Cache-Control", "public, max-age=31536000");
-  fs.createReadStream(f).pipe(res);
+const srv = await startDistServer(4600, root, {
+  // Preserve the production-like long-lived asset caching this audit has always
+  // measured, without constructing a filesystem path from req.url.
+  headersForFile: () => ({ "Cache-Control": "public, max-age=31536000" }),
 });
-await new Promise((r) => srv.listen(4600, r));
 const chrome = await launch({
   chromeFlags: ["--headless", "--no-sandbox", "--disable-gpu"],
   chromePath: chromiumPath(),
@@ -110,12 +86,6 @@ for (const [url, label] of pages) {
         if (x && x.score !== null && x.score < 1)
           console.log(`   ${k}: ${x.displayValue || ""} ${x.title}`);
       });
-      const fails = Object.values(r.lhr.audits).filter(
-        (x) =>
-          x.score !== null &&
-          x.score < 1 &&
-          ["seo", "best-practices"].some(() => true),
-      );
     }
   }
 }

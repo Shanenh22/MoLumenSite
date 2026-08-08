@@ -82,14 +82,20 @@ function buildManifest(root) {
 /**
  * Starts a server on `port` serving the built site. Returns the http.Server so
  * the caller can `server.close()`.
+ *
+ * `options.headersForFile` may return extra response headers for a manifest
+ * file. It receives the trusted manifest path plus the requested URL key; the
+ * request is never converted into a filesystem path.
  */
-export async function startDistServer(port, root = "dist") {
+export async function startDistServer(port, root = "dist", options = {}) {
   const base = resolve(root);
   if (!statSync(base).isDirectory())
     throw new Error(
       `dist-server: ${base} is not a directory — run the build first`,
     );
   const files = buildManifest(base);
+  const headersForFile =
+    typeof options.headersForFile === "function" ? options.headersForFile : null;
 
   const server = http.createServer((req, res) => {
     let key;
@@ -106,9 +112,18 @@ export async function startDistServer(port, root = "dist") {
       res.writeHead(404, { "Content-Type": "text/plain" });
       return res.end("Not found");
     }
-    res.writeHead(200, {
+
+    const headers = {
       "Content-Type": MIME[extname(file)] ?? "application/octet-stream",
-    });
+    };
+    if (headersForFile) {
+      const extra = headersForFile(file, key) ?? {};
+      for (const [name, value] of Object.entries(extra)) {
+        if (value !== undefined && value !== null) headers[name] = String(value);
+      }
+    }
+
+    res.writeHead(200, headers);
     createReadStream(file).pipe(res);
   });
 
