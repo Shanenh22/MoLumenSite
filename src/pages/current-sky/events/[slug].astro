@@ -20,6 +20,28 @@ const e = event.data;
 const slug = event.id.replace(/\.mdx?$/, '');
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+
+/**
+ * Page title carries the month and year; the on-page h1 does not.
+ *
+ * Sky events repeat on a cycle, so their names do too — there is a Virgo new
+ * moon every year and a Mercury retrograde in Scorpio every few. Publishing the
+ * 2027 window immediately produced ten pairs of pages sharing a title
+ * ("New Moon in Virgo | Mo Lumen Astrology" for both 2026-09-11 and
+ * 2027-08-31), which makes them compete with each other in search results and
+ * indistinguishable in a list of tabs or bookmarks.
+ *
+ * Dating the title is also what a searcher actually types: "virgo new moon
+ * september 2026", not "virgo new moon". Fixed here rather than in the 40
+ * content files so that every future window inherits it and Mo never has to
+ * remember to type a year into a CMS field.
+ */
+const monthYear = e.start.toLocaleDateString('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+});
+const pageTitle = `${e.title} — ${monthYear}`;
 const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: e.title, href: `/current-sky/events/${slug}/` },
@@ -99,7 +121,7 @@ const schema = [
 ---
 
 <BaseLayout
-  title={e.title}
+  title={pageTitle}
   description={e.summary}
   path={`/current-sky/events/${slug}/`}
   breadcrumbs={crumbs}
