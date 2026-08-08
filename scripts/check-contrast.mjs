@@ -51,6 +51,30 @@ const TARGETS = [
   ["/book/", ".choice__price", "booking price"],
   ["/book/", ".choice__tag", "booking duration chip"],
   ["/book/", "fieldset.booking-group > legend span", "booking group note"],
+  /**
+   * Calendar type chips. These are the smallest text on the site (0.7rem) and
+   * they sit on tinted, translucent backgrounds that composite differently per
+   * event type — exactly the case where a colour chosen by eye passes on one
+   * type and fails on another. axe cannot help here either, because on a
+   * filtered month two of the three are `hidden` when it runs.
+   */
+  [
+    "/current-sky/calendar/",
+    '.cal-event:not([data-event-type="eclipse"]):not([data-event-type="retrograde"]) .event-type',
+    "calendar chip — lunation",
+  ],
+  [
+    "/current-sky/calendar/",
+    '.cal-event[data-event-type="eclipse"] .event-type',
+    "calendar chip — eclipse",
+  ],
+  [
+    "/current-sky/calendar/",
+    '.cal-event[data-event-type="retrograde"] .event-type',
+    "calendar chip — retrograde",
+  ],
+  ["/current-sky/calendar/", ".cal-event__span", "calendar span note"],
+  ["/current-sky/calendar/", ".cal-grid__num", "calendar day number"],
 ];
 
 const results = [];

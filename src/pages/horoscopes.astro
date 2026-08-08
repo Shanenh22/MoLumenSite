@@ -6,6 +6,7 @@ import FurtherReading from '../components/FurtherReading.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import NextLunations from '../components/NextLunations.astro';
 
 /**
  * Split on today, not just sorted descending.
@@ -114,10 +115,14 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
       </p>
       <p>
         Don't know your rising sign? It comes from your exact birth time —
-        <a href="/prepare-for-your-reading/">here's how to find it</a>.
+        <a href="/birth-time/">here's how to find it</a>, and if you have a time but aren't sure
+        how much to trust it, <a href="/birth-time-toolkit/#confidence-check">three questions will
+        tell you</a>.
       </p>
     </div>
   </section>
+
+  <NextLunations />
   <section class="section section--alt">
     <div class="container" style="max-width: 42rem;">
       <h2 id="horo-newsletter">New lunation letters, by email</h2>

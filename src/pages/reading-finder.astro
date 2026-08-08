@@ -408,11 +408,24 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       season: "you're in a hard season and want to make sense of it",
       curious: "you're curious and want a good first look",
     };
+    /**
+     * The handoff to the Birth Time Confidence check runs in ONE direction:
+     * from here to there, never back.
+     *
+     * This finder already asks the birth-time question, and it is the right
+     * place for it — it is the biggest piece of friction in this funnel and
+     * asking here turns a silent drop-off into a moment of help. What it must
+     * not do is compete. The confidence check grades evidence quality and never
+     * recommends a reading; this finder recommends a reading and does not grade
+     * anything. Two tools answering the same question in different shapes is
+     * worse than either alone, so `approx` and `no` point at the check and the
+     * check points back at nothing.
+     */
     const BIRTH_LINE: Record<string, string> = {
       yes: "You have your birth time, which matters more than people expect — it's what gives us your rising sign and your houses, and that's the difference between a chart that's yours and one that could belong to anybody born that day.",
       approx:
-        "You know roughly when you were born. That's usually workable — I can often narrow it from the part of the day, and I'll tell you honestly if it's too wide to trust the houses. <a href=\"/prepare-for-your-reading/\">Here's where people usually find the exact time.</a>",
-      no: "You don't have your birth time, and I want to say plainly: that is not a dealbreaker. Your Sun and almost always your Moon are still solid. What we'd be guessing at is the rising sign and the houses, so I'd rather tell you that up front than pretend otherwise. <a href=\"/prepare-for-your-reading/\">Here's where to look for it</a> — a birth certificate is the usual answer.",
+        "You know roughly when you were born. That's usually workable — I can often narrow it from the part of the day, and I'll tell you honestly if it's too wide to trust the houses. <a href=\"/birth-time-toolkit/#confidence-check\">Three questions will tell you how much weight your time can carry</a>, and <a href=\"/birth-time/\">here's where people usually find the exact one</a>.",
+      no: "You don't have your birth time, and I want to say plainly: that is not a dealbreaker. Your Sun and almost always your Moon are still solid. What we'd be guessing at is the rising sign and the houses, so I'd rather tell you that up front than pretend otherwise. <a href=\"/birth-time/\">Here's where to look for it</a> — a birth certificate is the usual answer — and <a href=\"/birth-time-toolkit/#confidence-check\">this will tell you what you're working with</a> in the meantime.",
     };
 
     function readback(): string {

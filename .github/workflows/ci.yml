@@ -44,3 +44,12 @@ jobs:
         run: npm run test:booking
       - name: Reading Finder handoff
         run: npm run test:finder
+      # The calendar check forces two browser time zones 24 hours apart and
+      # asserts an identical grid. CI runs in UTC, where a getDate()/getUTCDate()
+      # mix-up is invisible — which is exactly why this has to run here.
+      - name: Current Sky calendar
+        run: npm run test:calendar
+      - name: Birth Time Confidence
+        run: npm run test:birthtime
+      - name: Rising sign preference
+        run: npm run test:rising

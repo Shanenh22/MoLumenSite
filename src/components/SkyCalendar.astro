@@ -1,0 +1,486 @@
+---
+/**
+ * The Current Sky calendar: a month grid on desktop, an agenda list on mobile.
+ *
+ * THREE THINGS ABOUT THIS COMPONENT ARE LOAD-BEARING
+ *
+ * 1. **Every month is server-rendered, and nothing is hidden in the HTML.**
+ *    Without JavaScript the page is a complete stacked calendar of the whole
+ *    published record, in order, with real headings. The single-month view is
+ *    applied by the inline bootstrap script below, which means the no-JS reader
+ *    gets everything rather than nothing. Ship visible, hide progressively.
+ *
+ * 2. **Both layouts are in the DOM; CSS decides which one is shown.** The
+ *    seven-column grid is not rendered at all below 768px — 42 cells at 45px is
+ *    not a calendar, it is a puzzle. The agenda list is the better interface at
+ *    that width, not a degraded one. Doing this in CSS rather than JavaScript
+ *    means there is no layout flash and no viewport listener, and `display:
+ *    none` removes the unused copy from the accessibility tree, so a screen
+ *    reader never meets both.
+ *
+ * 3. **Dates are UTC everywhere.** See the long note in src/lib/sky-calendar.ts.
+ *    The only local-time value on this page is which day is "today", which is
+ *    the reader's own calendar date and is compared as a string.
+ *
+ * A month grid is tabular data, so it is a `<table>` with real column headers
+ * and a caption — not a grid of divs. Screen readers rely on row/column
+ * relationships to make a calendar navigable at all, and a div grid throws
+ * them away.
+ */
+import {
+  monthsInRange,
+  eventsByDay,
+  spanLabel,
+  shortMonthLabel,
+  utcKey,
+  SKY_TYPE_LABELS,
+  SKY_TYPE_SHORT,
+  type CalendarEvent,
+} from '../lib/sky-calendar';
+
+interface Props {
+  events: CalendarEvent[];
+}
+const { events } = Astro.props;
+
+const sorted = [...events].sort((a, b) => a.start.valueOf() - b.start.valueOf());
+
+/**
+ * The range is derived from the content, not from the build date.
+ *
+ * A build-time `new Date()` would anchor the calendar to whenever the site last
+ * deployed, so a stale build would open on a stale month with nothing to say
+ * why. Deriving the window from the published events instead means the
+ * arithmetic is identical on every machine and every rebuild.
+ *
+ * Capped at 24 months ending at the last published event. The full record runs
+ * back to November 2024, but the two events before 2026 sit on the far side of
+ * a seventeen-month gap — so rendering the whole span meant seventeen empty
+ * grids for a reader stepping backwards, and 1,596 cells of DOM to build the
+ * page. Twenty-four months covers today plus the entire forward horizon, which
+ * is what a calendar is for. Everything older is on /current-sky/archive/,
+ * which is the complete chronological record and is linked from this page.
+ */
+const WINDOW_MONTHS = 24;
+const firstEvent = sorted[0]?.start ?? new Date(Date.UTC(2026, 0, 1));
+const last = sorted[sorted.length - 1]?.start ?? firstEvent;
+const windowStart = new Date(
+  Date.UTC(last.getUTCFullYear(), last.getUTCMonth() - (WINDOW_MONTHS - 1), 1)
+);
+const first = windowStart > firstEvent ? windowStart : firstEvent;
+const months = monthsInRange(first, last);
+/** Events older than the window are reachable, but not from this grid. */
+const olderThanWindow = sorted.filter((e) => e.start < first).length;
+const byDay = eventsByDay(sorted);
+
+/**
+ * Filters come from the types actually present, exactly as the Current Sky list
+ * already does. The schema declares six types and four are in use; a hard-coded
+ * filter list would offer two buttons that can never match anything, and would
+ * silently omit a fifth type the day one is published.
+ */
+const typesPresent = [...new Set(sorted.map((e) => e.eventType))].sort(
+  (a, b) => Object.keys(SKY_TYPE_LABELS).indexOf(a) - Object.keys(SKY_TYPE_LABELS).indexOf(b)
+);
+
+const weekdays = [
+  { short: 'Sun', full: 'Sunday' },
+  { short: 'Mon', full: 'Monday' },
+  { short: 'Tue', full: 'Tuesday' },
+  { short: 'Wed', full: 'Wednesday' },
+  { short: 'Thu', full: 'Thursday' },
+  { short: 'Fri', full: 'Friday' },
+  { short: 'Sat', full: 'Saturday' },
+];
+
+/** How many published events fall inside one month grid. */
+const byDayCount = (m: { weeks: { key: string }[][] }) =>
+  m.weeks.flat().reduce((n, c) => n + (byDay.get(c.key)?.length ?? 0), 0);
+
+const dayOfWeek = (key: string) =>
+  new Date(`${key}T00:00:00Z`).toLocaleDateString('en-US', {
+    weekday: 'short',
+    timeZone: 'UTC',
+  });
+---
+
+<div
+  class="sky-calendar"
+  data-sky-calendar
+  data-months={months.map((m) => m.key).join(',')}
+>
+  {/*
+    Controls and filters are rendered but hidden by CSS until the bootstrap
+    script marks the container enhanced. A button that does nothing is worse
+    than a button that is not there, and `<noscript>`-wrapping interactive
+    markup would put it outside the DOM the script needs.
+  */}
+  <div class="sky-calendar__controls" data-cal-controls>
+    <button type="button" class="btn btn--ghost" data-cal-step="-1">
+      <span aria-hidden="true">‹</span> Previous
+    </button>
+    <label class="visually-hidden" for="cal-jump">Jump to month</label>
+    <select id="cal-jump" class="sky-calendar__jump" data-cal-jump>
+      {months.map((m) => <option value={m.key}>{shortMonthLabel(m.year, m.month)}</option>)}
+    </select>
+    <button type="button" class="btn btn--ghost" data-cal-step="1">
+      Next <span aria-hidden="true">›</span>
+    </button>
+    <button type="button" class="btn btn--ghost" data-cal-today>Today</button>
+  </div>
+
+  <div class="filter-bar" role="group" aria-label="Filter events by type" data-cal-filters>
+    <button type="button" aria-pressed="true" data-filter="all">All events</button>
+    {
+      typesPresent.map((t) => (
+        <button type="button" aria-pressed="false" data-filter={t}>
+          {SKY_TYPE_LABELS[t] ?? t}
+        </button>
+      ))
+    }
+  </div>
+
+  <p class="visually-hidden" aria-live="polite" data-cal-status></p>
+
+  {
+    months.map((m) => (
+      <section
+        class="sky-calendar__month"
+        data-month={m.key}
+        data-count={m.weeks.flat().reduce((n, c) => n + (byDay.get(c.key)?.length ?? 0), 0)}
+        aria-labelledby={`h-${m.key}`}
+      >
+        <h2 class="sky-calendar__heading" id={`h-${m.key}`} tabindex="-1">
+          {m.label}
+        </h2>
+
+        {/* Desktop: the grid. Hidden below 768px by CSS, never by script. */}
+        <table class="cal-grid">
+          <caption class="visually-hidden">{m.label}</caption>
+          <thead>
+            <tr>
+              {weekdays.map((d) => (
+                <th scope="col">
+                  <span aria-hidden="true">{d.short}</span>
+                  <span class="visually-hidden">{d.full}</span>
+                </th>
+              ))}
+            </tr>
+          </thead>
+          <tbody>
+            {m.weeks.map((week) => (
+              <tr>
+                {week.map((cell) =>
+                  cell.inMonth ? (
+                    <td data-day={cell.key}>
+                      {/*
+                        Just the number. A visually-hidden full date on every
+                        cell was tried and removed: it is what a `<caption>` and
+                        a `<th scope="col">` already tell a screen reader in
+                        table mode ("October 2026, Saturday, 24"), and repeating
+                        it 1,596 times added 143KB to this page. The one place
+                        the full date genuinely earns its bytes is the event
+                        link below, whose accessible name has to stand alone in
+                        a list of links.
+                      */}
+                      <span class="cal-grid__num">{cell.day}</span>
+                      {(byDay.get(cell.key) ?? []).map((e) => (
+                        <a
+                          class="cal-event"
+                          href={`/current-sky/events/${e.slug}/`}
+                          data-event-type={e.eventType}
+                        >
+                          {/*
+                            Type is carried by a text chip, never by the colour
+                            alone (SC 1.4.1) — the colour coding matches the
+                            Current Sky timeline and is the second signal, not
+                            the first.
+                          */}
+                          <span class="event-type">{SKY_TYPE_SHORT[e.eventType] ?? e.eventType}</span>
+                          <span class="cal-event__title">{e.title}</span>
+                          {/*
+                            A screen-reader user pulling a list of links must not
+                            get twelve entries called "New Moon". The date makes
+                            every accessible name stand alone out of context.
+                          */}
+                          <span class="visually-hidden">, {cell.label}</span>
+                          {e.end && utcKey(e.end) !== utcKey(e.start) && (
+                            <span class="cal-event__span">{spanLabel(e.start, e.end)}</span>
+                          )}
+                        </a>
+                      ))}
+                    </td>
+                  ) : (
+                    /* An empty cell is silent to a screen reader on its own.
+                       `aria-hidden` here would remove it from the row and throw
+                       off the table's column arithmetic, which is the one thing
+                       making a calendar navigable. */
+                    <td class="cal-grid__pad" />
+                  )
+                )}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+
+        {/* Mobile: the agenda. Only days that carry an event appear. */}
+        <ol class="cal-agenda">
+          {m.weeks
+            .flat()
+            .filter((cell) => cell.inMonth && byDay.has(cell.key))
+            .map((cell) =>
+              (byDay.get(cell.key) ?? []).map((e) => (
+                <li data-event-type={e.eventType}>
+                  <a class="cal-agenda__item" href={`/current-sky/events/${e.slug}/`}>
+                    <span class="cal-agenda__date">
+                      <span aria-hidden="true">
+                        {dayOfWeek(cell.key)} {cell.day}
+                      </span>
+                      <span class="visually-hidden">{cell.label}</span>
+                    </span>
+                    <span class="event-type">{SKY_TYPE_LABELS[e.eventType] ?? e.eventType}</span>
+                    <span class="cal-agenda__title">{e.title}</span>
+                    {e.end && utcKey(e.end) !== utcKey(e.start) && (
+                      <span class="cal-event__span">{spanLabel(e.start, e.end)}</span>
+                    )}
+                  </a>
+                </li>
+              ))
+            )}
+        </ol>
+
+        {/*
+          Two different empty states, because they mean different things and one
+          of them has to be true without JavaScript. A month with nothing
+          published says so in the server output; a month emptied by a filter is
+          revealed by the script, which is the only thing that knows a filter is
+          on.
+        */}
+        <p class="cal-empty" hidden={byDayCount(m) > 0}>No events this month.</p>
+        <p class="cal-empty" data-cal-filtered hidden>No events of that kind this month.</p>
+      </section>
+    ))
+  }
+
+  <p class="cal-legend card__meta">
+    Dates are the published dates for each event, in US Central time. They do not shift with your
+    device's time zone — what you see here is the same date shown everywhere else on the site.
+    {
+      olderThanWindow > 0 && (
+        <>
+          {' '}
+          {olderThanWindow} earlier {olderThanWindow === 1 ? 'event' : 'events'} sit before this
+          window and are in the <a href="/current-sky/archive/">archive</a>.
+        </>
+      )
+    }
+  </p>
+</div>
+
+{/*
+  Bootstrap, deliberately `is:inline` and deliberately here rather than in the
+  module script below.
+
+  A module script is deferred: it runs after the document has parsed and, on a
+  38-month calendar, well after the browser has painted all of it. The reader
+  would see the entire published record flash past before it collapsed to one
+  month. This runs synchronously during parse, immediately after the markup it
+  operates on, so the single-month view is in place before the first paint.
+
+  It reads its data from `data-` attributes rather than from interpolation, so
+  there is no template-literal escaping to get wrong — the trap recorded in
+  PROJECT_MEMORY where one backtick inside an inline script silently turned the
+  rest of the file into code.
+*/}
+<script is:inline>
+  (function () {
+    var root = document.querySelector("[data-sky-calendar]");
+    if (!root) return;
+    var months = (root.getAttribute("data-months") || "").split(",").filter(Boolean);
+    if (!months.length) return;
+
+    // Today from the reader's LOCAL calendar. Someone in Chicago at 8pm on the
+    // 23rd is already the 24th in UTC, and highlighting tomorrow is a bug they
+    // would spot instantly. Compared as a string, never subtracted as a date.
+    var now = new Date();
+    var todayKey =
+      now.getFullYear() +
+      "-" +
+      String(now.getMonth() + 1).padStart(2, "0") +
+      "-" +
+      String(now.getDate()).padStart(2, "0");
+    var todayMonth = todayKey.slice(0, 7);
+
+    var requested = null;
+    try {
+      requested = new URLSearchParams(location.search).get("m");
+    } catch (e) {
+      /* malformed query string: fall through to today */
+    }
+
+    var target = months.indexOf(requested) !== -1 ? requested : null;
+    if (!target) {
+      // Clamp rather than fail. If today sits outside the published range —
+      // a very stale build, or an archive-only range — open on the nearest
+      // edge instead of rendering a calendar with no visible month.
+      if (months.indexOf(todayMonth) !== -1) target = todayMonth;
+      else if (todayMonth < months[0]) target = months[0];
+      else target = months[months.length - 1];
+    }
+
+    root.setAttribute("data-enhanced", "");
+    root.setAttribute("data-current", target);
+    root.setAttribute("data-today", todayKey);
+
+    var sections = root.querySelectorAll("[data-month]");
+    for (var i = 0; i < sections.length; i++) {
+      sections[i].hidden = sections[i].getAttribute("data-month") !== target;
+    }
+    var todayCell = root.querySelector('[data-day="' + todayKey + '"]');
+    if (todayCell) todayCell.setAttribute("data-is-today", "");
+  })();
+</script>
+
+<script>
+  /**
+   * Interactive wiring. Everything here is enhancement — the bootstrap above
+   * has already produced a usable single-month view, and without this script
+   * the page is still a complete, readable, linkable calendar.
+   */
+  const root = document.querySelector<HTMLElement>('[data-sky-calendar]');
+  if (root) {
+    const months = (root.dataset.months || '').split(',').filter(Boolean);
+    const sections = new Map<string, HTMLElement>();
+    root.querySelectorAll<HTMLElement>('[data-month]').forEach((el) => {
+      sections.set(el.dataset.month!, el);
+    });
+    const jump = root.querySelector<HTMLSelectElement>('[data-cal-jump]')!;
+    const status = root.querySelector<HTMLElement>('[data-cal-status]')!;
+    // Resolved once, outside render(): TypeScript loses the null narrowing on
+    // `root` inside a closure, and re-querying on every repaint is pointless.
+    const prevBtn = root.querySelector<HTMLButtonElement>('[data-cal-step="-1"]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-cal-step="1"]')!;
+    const todayBtn = root.querySelector<HTMLButtonElement>('[data-cal-today]')!;
+    const filterBar = root.querySelector<HTMLElement>('[data-cal-filters]')!;
+    const filterButtons = filterBar.querySelectorAll<HTMLButtonElement>('button');
+
+    let current = root.dataset.current || months[0];
+    let filter = 'all';
+
+    // mlTrack is the site's only analytics entry point and it drops any string
+    // parameter containing four or more digits — so a month key like "2026-10"
+    // would be silently discarded. Month movement is reported as a NUMBER and a
+    // direction word, both of which survive the sanitiser intact.
+    const track = (event: string, params: Record<string, string | number> = {}) =>
+      (window as any).mlTrack?.(event, params);
+
+    /** Visible, filter-surviving entries in the month currently on screen. */
+    function visibleCount(): number {
+      const section = sections.get(current);
+      if (!section) return 0;
+      const entries = section.querySelectorAll<HTMLElement>('.cal-grid [data-event-type]');
+      return [...entries].filter((el) => !el.hidden).length;
+    }
+
+    function render({ moveFocus = false, syncUrl = false } = {}) {
+      sections.forEach((el, key) => {
+        el.hidden = key !== current;
+      });
+      jump.value = current;
+      const idx = months.indexOf(current);
+      prevBtn.disabled = idx <= 0;
+      nextBtn.disabled = idx >= months.length - 1;
+
+      const section = sections.get(current);
+      const label = section?.querySelector('.sky-calendar__heading')?.textContent?.trim() ?? '';
+      const n = visibleCount();
+      status.textContent = `${label}, ${n} event${n === 1 ? '' : 's'} shown`;
+
+      // Only the filter-produced empty state is script-owned. A month with
+      // nothing published already says so in the server output.
+      const published = Number(section?.dataset.count ?? 0);
+      const filteredEmpty = section?.querySelector<HTMLElement>('[data-cal-filtered]');
+      if (filteredEmpty) filteredEmpty.hidden = !(published > 0 && n === 0);
+
+      // Focus the month heading rather than leaving focus on a button whose
+      // label just changed underneath the reader. Keyboard and screen-reader
+      // users land inside the month they asked for.
+      if (moveFocus) section?.querySelector<HTMLElement>('.sky-calendar__heading')?.focus();
+
+      // Written only on deliberate navigation. Stamping `?m=` onto the URL on
+      // every page load would hand every visitor a parameterised address to
+      // copy and share for a page they never navigated.
+      if (syncUrl) {
+        try {
+          const url = new URL(location.href);
+          url.searchParams.set('m', current);
+          // replaceState, not pushState: Back should leave the page, not step
+          // the reader backwards through however many months they browsed.
+          history.replaceState(null, '', url);
+        } catch (e) {
+          /* URL state is a convenience; never let it break navigation */
+        }
+      }
+    }
+
+    function goTo(key: string) {
+      if (!sections.has(key)) return;
+      current = key;
+      render({ moveFocus: true, syncUrl: true });
+    }
+
+    root.querySelectorAll<HTMLButtonElement>('[data-cal-step]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const step = Number(btn.dataset.calStep);
+        const next = months[months.indexOf(current) + step];
+        if (!next) return;
+        goTo(next);
+        track('sky_calendar_month', {
+          offset: step,
+          direction: step < 0 ? 'prev' : 'next',
+        });
+      });
+    });
+
+    jump.addEventListener('change', () => {
+      goTo(jump.value);
+      track('sky_calendar_month', { offset: 0, direction: 'jump' });
+    });
+
+    todayBtn.addEventListener('click', () => {
+      const todayMonth = (root!.dataset.today || '').slice(0, 7);
+      goTo(sections.has(todayMonth) ? todayMonth : months[0]);
+      track('sky_calendar_today');
+    });
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        filter = btn.dataset.filter!;
+        filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
+        // One selector covers both layouts: the grid's entries are the <a>
+        // elements and the agenda's are the <li> wrappers, and both carry
+        // data-event-type. Hiding the agenda's <li> rather than its link is
+        // what stops the list keeping a blank row where an event was.
+        root.querySelectorAll<HTMLElement>('[data-event-type]').forEach((el) => {
+          el.hidden = filter !== 'all' && el.dataset.eventType !== filter;
+        });
+        render();
+        track('sky_calendar_filter', { filter });
+      });
+    });
+
+    // Event opens are attributed by type, never by slug: slugs begin with a
+    // four-digit year and the sanitiser would drop the parameter entirely.
+    root.addEventListener('click', (e) => {
+      const link = (e.target as Element)?.closest<HTMLElement>('[data-event-type]');
+      if (link && link.tagName === 'A') {
+        track('sky_event_open', { from: 'calendar', type: link.dataset.eventType || 'unknown' });
+      }
+    });
+
+    track('sky_calendar_view', {
+      from: document.referrer.includes('/current-sky/') ? 'list' : 'direct',
+    });
+    render();
+  }
+</script>

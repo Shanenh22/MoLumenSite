@@ -12,10 +12,11 @@ The CMS currently exposes:
 - **Current Sky** — create and edit dated sky events
 - **Videos** — add YouTube/Instagram entries
 - **Readings & services** — edit existing descriptions, approved prices, preparation and availability
-- **Astrology reference library** — edit existing educational pages
 - **FAQs**
 - **Glossary**
 - **Testimonials** — permission safeguards still apply
+
+Not in the CMS: the **Explore Astrology** reference pages, the homepage, About, and the birth-time pages. Those are built in code and change through Shane.
 
 See [`docs/pages-cms-for-mo.md`](./pages-cms-for-mo.md) for the step-by-step workflow.
 

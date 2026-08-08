@@ -177,8 +177,12 @@ const explainData = {
     const panel = root.querySelector<HTMLElement>('[data-panel]')!;
     const targets = root.querySelectorAll<HTMLElement>('[data-kind][data-key]');
     let started = false;
+    // mlTrack is the site's only analytics entry point (see DECISIONS.md). It is
+    // defined unconditionally in BaseLayout and sanitises every parameter, so a
+    // call site can fire and forget. Calling gtag directly bypassed the
+    // sanitiser and silently fired into nothing whenever gtag was absent.
     const track = (event: string, params: Record<string, string> = {}) =>
-      (window as any).gtag?.('event', event, params);
+      (window as any).mlTrack?.(event, params);
 
     function select(el: HTMLElement) {
       if (!started) {

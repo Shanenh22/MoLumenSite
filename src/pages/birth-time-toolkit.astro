@@ -20,6 +20,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import BirthTimeConfidence from '../components/BirthTimeConfidence.astro';
 import { scenes } from '../config/images';
 import { site } from '../config/site';
 
@@ -94,6 +95,43 @@ const schema = [
         <li><strong>Rectification, honestly</strong> — what the technique is, and what it cannot promise.</li>
         <li><strong>A reading preparation sheet</strong> — the summary to send me, including the dated life events a rectifier would ask for anyway.</li>
       </ul>
+    </div>
+  </section>
+
+  {/*
+    The confidence check sits here — after the reader knows what the toolkit is,
+    before they are asked for an email address.
+
+    It goes on this page rather than on /birth-time/ or a new /tools/ URL, for
+    two reasons. /birth-time/ is the page built to rank and it is already long;
+    a widget there would push the record-retrieval prose further down the
+    search result for no gain this page cannot deliver. And the birth-time topic
+    was deliberately split into two layers on 2026-08-08 — a fourth URL would
+    undo that.
+
+    What it does for this page: /birth-time-toolkit/ was previously a
+    description of a PDF and a form, with nothing for a reader to do. The check
+    demonstrates the toolkit's own method in ninety seconds and hands back a
+    labelled position with a next step, which is a better argument for the
+    download than any paragraph about it.
+  */}
+  <section class="section section--sea">
+    <div class="container" style="max-width: 46rem;">
+      <div class="prose flow" style="margin-bottom: var(--space-8);">
+        <p class="eyebrow">Ninety seconds</p>
+        <h2>How good is the time you have?</h2>
+        <p>
+          Three quick questions about where your birth time came from. This doesn't work out what
+          your time <em>is</em> — it works out how much weight it can carry, which is the thing
+          that changes how I read a chart. You'll get one of the five labels from the toolkit's own
+          confidence scale, and the section that goes with it.
+        </p>
+        <p class="card__meta">
+          Nothing is stored and nothing is sent. I never ask for your birth date, your birth time,
+          or where you were born.
+        </p>
+      </div>
+      <BirthTimeConfidence />
     </div>
   </section>
 

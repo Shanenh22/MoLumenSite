@@ -1,0 +1,134 @@
+---
+/**
+ * The Current Sky calendar view.
+ *
+ * WHY THIS IS A SECOND URL RATHER THAN A TOGGLE ON /current-sky/
+ *
+ * A client-side view switch would have made the calendar invisible to crawlers,
+ * absent without JavaScript, and unlinkable — three costs for the saving of one
+ * URL. The two pages also have genuinely different jobs, which is what makes
+ * two of them defensible rather than duplicative:
+ *
+ *   /current-sky/          editorial — every event with Mo's summary under it,
+ *                          meant to be read top to bottom.
+ *   /current-sky/calendar/ navigational — when is the next eclipse, what does
+ *                          October look like, does Mercury retrograde land on
+ *                          my trip. Nobody reads a calendar; they scan it and
+ *                          leave through it.
+ *
+ * The calendar carries **no summary text at all**, so the overlap between the
+ * two pages is titles and dates. There is no duplicated prose, which is why
+ * both pages are self-canonical and neither is noindexed. Canonicalising this
+ * one onto the list would deindex a page built to answer date-shaped queries
+ * ("eclipse dates 2027", "mercury retrograde calendar") that the list page
+ * serves poorly.
+ *
+ * NO Event STRUCTURED DATA, DELIBERATELY. schema.org/Event describes something
+ * with a location and an organiser that a person attends. A lunar eclipse is
+ * not one, every sky event already has its own page carrying Article, and
+ * DECISIONS.md rules out emitting schema because a type happens to exist.
+ *
+ * The `?m=YYYY-MM` deep link is convenience state written with replaceState. It
+ * is never a distinct indexable page: the canonical is always parameter-free
+ * and @astrojs/sitemap only emits real routes, so nothing needs configuring to
+ * keep it out.
+ */
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
+import SkyCalendar from '../../components/SkyCalendar.astro';
+import SkyViewTabs from '../../components/SkyViewTabs.astro';
+import { photos } from '../../config/images';
+import type { CalendarEvent } from '../../lib/sky-calendar';
+
+const events: CalendarEvent[] = (await getCollection('skyEvents'))
+  .filter((e) => !e.data.draft)
+  .map((e) => ({
+    slug: e.id.replace(/\.mdx?$/, ''),
+    title: e.data.title,
+    eventType: e.data.eventType,
+    start: e.data.start,
+    end: e.data.end,
+    sign: e.data.sign,
+  }));
+
+const crumbs = [
+  { label: 'Current Sky', href: '/current-sky/' },
+  { label: 'Calendar', href: '/current-sky/calendar/' },
+];
+---
+
+<BaseLayout
+  title="Current Sky calendar — eclipses, retrogrades, moons"
+  description="A month-by-month calendar of verified sky events: new and full moons, eclipses, retrogrades and ingresses, each linking to Mo Lumen's plain-language notes."
+  path="/current-sky/calendar/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Month by month</p>
+        <h1>Current sky calendar</h1>
+        <p class="lede">
+          The same verified events as the timeline, laid out by month — so you can see what is
+          coming, when a retrograde starts and ends, and where the next eclipse falls. Every date
+          links to what it tends to mean.
+        </p>
+      </div>
+      <img
+        class="hero__img hero__img--portrait"
+        src={photos.skyReal1.src}
+        alt={photos.skyReal1.alt}
+        width={photos.skyReal1.width}
+        height={photos.skyReal1.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <SkyViewTabs current="calendar" />
+      <SkyCalendar events={events} />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2">
+      <div class="flow">
+        <h2>Prefer to read it?</h2>
+        <p>
+          The <a href="/current-sky/">Current Sky timeline</a> is the same events with Mo's notes
+          underneath each one, newest first. Everything past and future lives in the
+          <a href="/current-sky/archive/">archive</a>.
+        </p>
+        <p>
+          New to these terms? Start with <a href="/explore/transits/">how transits work</a>,
+          <a href="/explore/retrogrades/">retrogrades</a>, or
+          <a href="/explore/eclipses/">eclipses</a>.
+        </p>
+      </div>
+      <div class="flow">
+        <h2>Where the dates come from</h2>
+        <p>
+          Every event carries a recorded astronomical source and a date it was last verified. The
+          positions and dates are verified astronomy; the interpretation on each event page is
+          Mo's, and your choices remain your own.
+        </p>
+        <p>
+          <a href="/horoscopes/">Rising-sign guidance</a> accompanies each new moon and eclipse.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Wondering what this sky means for your chart?"
+    body="General sky-weather is here for everyone. What it activates in your chart — that's a personal reading, monthly or yearly."
+    buttonLabel="Monthly Personal Transits"
+    buttonHref="/readings/monthly-transits/"
+  />
+</BaseLayout>

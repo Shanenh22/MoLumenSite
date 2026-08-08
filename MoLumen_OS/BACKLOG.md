@@ -19,6 +19,13 @@
 - ~~Add 90-day Current Sky horizon validation~~ DONE 2026-08-07 — in content-integrity.mjs, fails <90d, warns <365d
 - ~~Create Birth Time Toolkit~~ DONE 2026-08-07 — page, PDF and CTAs shipped; Kit automation is the remaining account-side step
 - ~~Direct reading-to-booking actions~~ DONE 2026-08-07
+- ~~Current Sky calendar view~~ DONE 2026-08-08 — `/current-sky/calendar/`, 36 assertions incl. two forced time zones
+- ~~Birth Time Confidence check~~ DONE 2026-08-08 — on `/birth-time-toolkit/`, returns the toolkit's own five labels
+- ~~Rising-sign display preference~~ DONE 2026-08-08 — `ml-rising-v1`, plus a real rising-sign module on `/horoscopes/`
+- ~~Shane to approve the `privacy.md` storage paragraph~~ DONE 2026-08-08 — approved with the wording tightened to state explicitly that the preference is not birth data and not an identifier
+- ~~Fix the broken `src/content/explore/` declaration~~ DONE 2026-08-08 — collection and CMS block removed; they pointed at a directory that never existed
+- ~~Drop the unrunnable `test:a11y`~~ DONE 2026-08-08 — `pa11y-ci` was never a dependency; `audit:a11y` (axe) is the gate
+- **Migrate the `/explore/` reference library into a content collection** so Mo can edit it in Pages CMS. This is the real version of the editor that was configured but never built. 25 hand-written `.astro` pages carrying `Layers` and `FurtherReading` components, per-page structured data, `oceanFor()` hero assignment and hand-placed inline links that must stay in step with the prose — so it needs its own verification pass (build, links, hero contrast, axe) rather than a bulk conversion. Restore the `.pages.yml` block in the same change that creates the content, never before.
 - Testimonial surfacing
 - ~~Touch targets~~ DONE 2026-08-07 — 36 fixed, automated check added to axe-sweep
 - Hero/LCP — preload measured and reverted (no improvement); next try viewport-based hero background variants. Homepage mobile LCP ~3.0s vs 1.7-2.3s elsewhere
@@ -37,7 +44,7 @@
 - Pages CMS repository configuration
 - Friendly Blog / Current Sky / Video editors
 - Existing Readings/services editor with protected technical fields
-- Existing astrology reference-library editor
+- ~~Existing astrology reference-library editor~~ **This was never real.** The collection and CMS block were configured against a directory that never existed; removed 2026-08-08. See the P1 migration item above.
 - FAQ / Glossary / Testimonial editors
 - Content image and PDF media locations
 - Draft safety for Blog, Current Sky and Videos

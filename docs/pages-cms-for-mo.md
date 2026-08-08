@@ -63,9 +63,11 @@ Do **not** change price or duration unless the real business offering has change
 
 ## Astrology reference library
 
-Open **Site Content → Astrology reference library** and select an existing page.
+**The reference library is not in Pages CMS yet.** The pages under **Explore Astrology** — the signs, planets, houses, aspects and topic pages — are still built directly in code.
 
-Existing reference pages can be edited through the rich-text editor. Creating/deleting these pages is intentionally disabled so the site structure cannot be broken accidentally.
+An editor for them was listed here previously and did not work: it opened an empty section. That has been removed rather than left looking broken.
+
+To change one of those pages for now, send the wording to Shane. Everything else in this guide is genuinely editable.
 
 ## FAQs and glossary
 
@@ -93,7 +95,7 @@ Pages CMS provides:
 - **Content images** → `public/images/uploads/`
 - **Downloads** → PDF files under `public/downloads/`
 
-Blog/reference rich-text editors can insert uploaded content images.
+The Blog rich-text editor can insert uploaded content images.
 
 ## Birth Time guide and toolkit
 

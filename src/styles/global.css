@@ -3113,8 +3113,17 @@ fieldset.booking-group > legend span {
    nothing to the line box — so the tap target grows and the layout does not
    move. axe cannot detect any of this, which is why it never appeared in a
    sweep that reported zero violations. */
+/* h4-h6 were added after /horoscopes/ gained a module whose sign cards sit two
+   levels deep (section h2 -> lunation h3 -> sign h4), which is the correct
+   heading order and was therefore the one the rule did not reach. Thirty-six
+   links went back under 24px. The lesson is that this list is keyed on markup
+   depth rather than on what the element is for, so it silently stops applying
+   the moment a card is nested one level further down. */
 h2 > a:only-child,
 h3 > a:only-child,
+h4 > a:only-child,
+h5 > a:only-child,
+h6 > a:only-child,
 li > a:only-child,
 .footer-policies a,
 .breadcrumbs li > a,
@@ -3136,4 +3145,446 @@ td > a:only-child {
 }
 .footer-policies {
   gap: var(--space-2) var(--space-5);
+}
+/* ============================================================
+   Current Sky calendar  —  /current-sky/calendar/
+   ============================================================ */
+
+/* ---------- List / Calendar switch ---------- */
+.view-tabs {
+  display: inline-flex;
+  gap: 0;
+  margin-block: var(--space-6) var(--space-4);
+  border: var(--border-hairline);
+  border-radius: 999px;
+  overflow: hidden;
+  background: var(--surface);
+}
+.view-tabs__tab {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-6);
+  font-weight: 600;
+  text-decoration: none;
+  color: var(--ink);
+}
+.view-tabs__tab:hover {
+  background: var(--color-teal-tint);
+  color: var(--ink);
+}
+/* aria-current is the state; the fill is decoration on top of it, never the
+   only signal that a tab is active. */
+.view-tabs__tab[aria-current="page"] {
+  background: var(--color-teal);
+  color: #ffffff;
+}
+
+/* ---------- month navigation ----------
+   Controls and filters do nothing without the script, so they stay out of the
+   layout until the bootstrap marks the container enhanced. A dead button is
+   worse than no button. Without JavaScript every month renders stacked and in
+   order, which needs no controls at all. */
+.sky-calendar__controls,
+.sky-calendar .filter-bar {
+  display: none;
+}
+.sky-calendar[data-enhanced] .sky-calendar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block: var(--space-6) var(--space-4);
+}
+.sky-calendar[data-enhanced] .filter-bar {
+  display: flex;
+}
+.sky-calendar__jump {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  font: inherit;
+  color: var(--ink);
+}
+.sky-calendar__controls .btn[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.sky-calendar__month {
+  margin-bottom: var(--space-12);
+}
+.sky-calendar__heading {
+  font-size: var(--text-xl);
+  margin: 0 0 var(--space-4);
+}
+/* The heading receives focus after month navigation. It is not interactive, so
+   it must not look interactive — but the focus ring is never removed. */
+.sky-calendar__heading:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+.cal-empty {
+  color: var(--ink-soft);
+  font-style: italic;
+  margin: var(--space-4) 0 0;
+}
+.cal-legend {
+  margin-top: var(--space-8);
+}
+
+/* ---------- desktop grid ----------
+   Not rendered below 768px at all. Forty-two cells at 45px wide is not a
+   calendar, it is a puzzle — the agenda list below is the better interface at
+   that width rather than a degraded one. Doing the switch in CSS means no
+   layout flash, no viewport listener, and `display: none` keeps the unused
+   copy out of the accessibility tree so a screen reader never meets both. */
+.cal-grid {
+  display: none;
+}
+.cal-agenda {
+  display: block;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+@media (min-width: 768px) {
+  .cal-grid {
+    display: table;
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+  }
+  .cal-agenda {
+    display: none;
+  }
+}
+.cal-grid th {
+  padding: var(--space-2);
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-align: start;
+  border-bottom: 2px solid var(--border);
+}
+.cal-grid td {
+  vertical-align: top;
+  padding: var(--space-2);
+  height: 6.5rem;
+  border: var(--border-hairline);
+  background: var(--surface);
+}
+.cal-grid__pad {
+  background: var(--bg-alt);
+}
+.cal-grid__num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 1.75rem;
+  height: 1.75rem;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--ink-soft);
+}
+/* Today is marked by a filled disc (shape), a colour, AND the word "today".
+   Any one of the three alone would fail somebody. */
+[data-is-today] .cal-grid__num {
+  background: var(--color-teal);
+  color: #ffffff;
+  border-radius: 999px;
+}
+[data-is-today]::after {
+  content: "today";
+  display: block;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-teal-ink);
+  margin-top: 2px;
+}
+
+/* ---------- an event inside a cell ---------- */
+.cal-event {
+  display: block;
+  margin-top: var(--space-2);
+  padding: var(--space-2);
+  border-radius: var(--radius-sm);
+  border-inline-start: 3px solid var(--color-teal);
+  background: var(--color-teal-tint);
+  text-decoration: none;
+  color: var(--ink);
+}
+.cal-event:hover {
+  background: var(--surface);
+  outline: 1px solid var(--color-teal);
+}
+.cal-event__title {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1.3;
+  margin-top: 2px;
+}
+.cal-event__span {
+  display: block;
+  font-size: 0.75rem;
+  color: var(--ink-soft);
+  margin-top: 2px;
+}
+.cal-event .event-type,
+.cal-agenda .event-type {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-teal-ink);
+  background: transparent;
+  padding: 0;
+}
+/* Same colour language as the Current Sky timeline, so the two views read as
+   one dataset. Colour is always the second signal — the chip text above says
+   the type in words. */
+.cal-event[data-event-type="eclipse"],
+.cal-agenda li[data-event-type="eclipse"] .cal-agenda__item {
+  border-inline-start-color: var(--color-clay);
+  background: rgb(178 106 76 / 0.1);
+}
+.cal-event[data-event-type="eclipse"] .event-type,
+.cal-agenda li[data-event-type="eclipse"] .event-type {
+  color: var(--clay-ink);
+}
+.cal-event[data-event-type="retrograde"],
+.cal-agenda li[data-event-type="retrograde"] .cal-agenda__item {
+  border-inline-start-color: var(--color-blue-muted);
+  background: rgb(91 110 143 / 0.1);
+}
+.cal-event[data-event-type="retrograde"] .event-type,
+.cal-agenda li[data-event-type="retrograde"] .event-type {
+  color: #435377;
+}
+
+/* ---------- mobile agenda ---------- */
+.cal-agenda li {
+  margin: 0 0 var(--space-3);
+}
+.cal-agenda__item {
+  display: block;
+  min-height: 44px;
+  padding: var(--space-4);
+  border: var(--border-hairline);
+  border-inline-start: 3px solid var(--color-teal);
+  border-radius: var(--radius-md);
+  background: var(--color-teal-tint);
+  text-decoration: none;
+  color: var(--ink);
+}
+.cal-agenda__item:hover {
+  background: var(--surface);
+}
+.cal-agenda__date {
+  display: block;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  color: var(--ink-soft);
+}
+.cal-agenda__title {
+  display: block;
+  font-weight: 600;
+  line-height: 1.35;
+  margin-top: 2px;
+}
+
+/* ---------- print ----------
+   Someone printing a month to put on a wall is a real use for this content,
+   and the existing print block already hides .filter-bar and site chrome.
+   These four rules make sure every month is on the page rather than only the
+   one the script happened to be showing. */
+@media print {
+  .view-tabs,
+  .sky-calendar__controls,
+  .cal-agenda,
+  .cal-legend {
+    display: none !important;
+  }
+  .sky-calendar__month[hidden] {
+    display: block !important;
+  }
+  .cal-grid {
+    display: table !important;
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .cal-grid td {
+    height: auto;
+    border: 1px solid #999;
+  }
+  .cal-event {
+    background: none !important;
+    border-inline-start: 2px solid #666;
+  }
+  .sky-calendar__month {
+    break-inside: avoid;
+  }
+}
+
+/* ============================================================
+   Birth Time Confidence check  —  /birth-time-toolkit/#confidence-check
+   Sits inside .finder, so the question steps, .choice rows and controls are
+   already styled and already pass axe on /reading-finder/. Only the result
+   panel is new.
+   ============================================================ */
+.confidence__note {
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  margin: calc(var(--space-4) * -1) 0 var(--space-4);
+}
+.confidence__result h3 {
+  font-size: var(--text-2xl);
+  margin: var(--space-1) 0 var(--space-2);
+}
+.confidence__result h3:focus-visible {
+  outline: var(--focus-ring);
+  outline-offset: var(--focus-offset);
+}
+.confidence__result h4 {
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  margin: var(--space-6) 0 var(--space-2);
+}
+.confidence__result p {
+  margin: 0 0 var(--space-3);
+}
+/* The label's own published definition, set apart from Mo's commentary on it
+   so it is clear which words are the scale and which are the explanation. */
+.confidence__definition {
+  font-size: var(--text-lg);
+  padding: var(--space-4);
+  border-inline-start: 3px solid var(--color-teal);
+  background: var(--color-teal-tint);
+  border-radius: var(--radius-sm);
+}
+/* The sentence to send Mo. Monospace because it is a thing to copy, not a
+   thing to read — and it is the only place on the page that looks like a field. */
+.confidence__send {
+  font-family: ui-monospace, "SFMono-Regular", "Consolas", monospace;
+  font-size: var(--text-sm);
+  padding: var(--space-4);
+  background: var(--bg-alt);
+  border: var(--border-hairline);
+  border-radius: var(--radius-sm);
+}
+.confidence .finder__exits {
+  margin-top: var(--space-8);
+}
+@media (max-width: 47.99em) {
+  /* One full-width action per row. Three side-by-side buttons at 375px wrap
+     into an unreadable stack of half-width pills. */
+  .confidence .finder__exits .btn {
+    display: flex;
+    width: 100%;
+  }
+}
+
+/* ============================================================
+   Rising sign preference
+   ============================================================ */
+.rising-picker {
+  margin-bottom: var(--space-8);
+}
+.rising-picker__prompt {
+  font-weight: 600;
+  margin: 0 0 var(--space-2);
+}
+/* Twelve chips wide, one native select narrow. Twelve 44px targets is four
+   rows of furniture above the content on a 375px screen; the platform picker
+   is one row and is better on touch. Both write the same value. */
+.rising-picker__chips {
+  display: none;
+}
+.rising-picker__select {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  margin-block: var(--space-3);
+}
+.rising-picker__select label {
+  font-weight: 600;
+}
+.rising-picker__select select {
+  min-height: 44px;
+  flex: 1 1 12rem;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-hairline);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  font: inherit;
+  color: var(--ink);
+}
+@media (min-width: 768px) {
+  .rising-picker__chips {
+    display: flex;
+  }
+  .rising-picker__select {
+    display: none;
+  }
+}
+.rising-picker__state {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-sm);
+  color: var(--ink-soft);
+  margin: var(--space-2) 0 0;
+}
+.rising-picker__clear {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  border: var(--border-hairline);
+  border-radius: 999px;
+  background: var(--surface);
+  font: inherit;
+  font-size: var(--text-sm);
+  color: var(--ink);
+  cursor: pointer;
+}
+.rising-picker__clear:hover {
+  background: var(--color-teal-tint);
+}
+
+/* The reader's own card. Marked by a word, a border and its position — three
+   signals, so none of them is doing the job alone (SC 1.4.1). */
+.card.is-yours {
+  border-inline-start: 3px solid var(--color-teal);
+  background: var(--color-teal-tint);
+}
+.card__yours {
+  margin: 0;
+  font-size: var(--text-sm);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-teal-ink);
+}
+
+.next-lunation {
+  margin-bottom: var(--space-12);
+}
+.next-lunation h3 {
+  font-size: var(--text-xl);
+  margin: 0 0 var(--space-1);
+}
+.next-lunation .card__meta {
+  margin: 0 0 var(--space-4);
 }

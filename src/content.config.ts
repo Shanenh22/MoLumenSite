@@ -129,28 +129,28 @@ const glossary = defineCollection({
   }),
 });
 
-const explore = defineCollection({
-  loader: glob({ pattern: "**/*.{md,mdx}", base: "./src/content/explore" }),
-  schema: z.object({
-    title: z.string(),
-    description: z.string(),
-    cluster: z.enum([
-      "basics",
-      "planets",
-      "signs",
-      "houses",
-      "aspects",
-      "transits",
-      "relationships",
-      "personal-purpose",
-      "deciding",
-    ]),
-    order: z.number().default(0),
-    related: z.array(z.string()).default([]),
-    updatedDate: z.coerce.date().optional(),
-    ownerReview: z.boolean().default(true),
-  }),
-});
+/**
+ * There is deliberately no `explore` collection.
+ *
+ * One was declared here, and mapped in `.pages.yml` as an "Astrology reference
+ * library" editor, but `src/content/explore/` has never existed — not on disk
+ * and not anywhere in git history — and `getCollection('explore')` was never
+ * called. It produced a build warning, and a Pages CMS section Mo could open
+ * and find empty. `docs/pages-cms-for-mo.md` gave her step-by-step instructions
+ * for editing pages through it.
+ *
+ * The reference library is 25 hand-written `.astro` pages under
+ * `src/pages/explore/`. Making them genuinely CMS-editable means migrating them
+ * to markdown, and they carry components (`Layers`, `FurtherReading`),
+ * per-page structured data and hand-placed inline links that have to stay in
+ * step with the prose — the same reason the changelog gives for not rushing the
+ * `/birth-time/` body into a collection. That migration is on the backlog as
+ * its own task with its own verification pass.
+ *
+ * Until it happens, declaring the collection claimed a capability that did not
+ * exist. Removed rather than pointed at an empty directory, because an empty
+ * CMS editor is worse than an absent one: it looks like something Mo did wrong.
+ */
 
 /** Genuine, permissioned testimonials only. Unapproved entries never render in production. */
 const testimonials = defineCollection({
@@ -215,7 +215,6 @@ export const collections = {
   skyEvents,
   videos,
   glossary,
-  explore,
   testimonials,
   faqs,
   legal,

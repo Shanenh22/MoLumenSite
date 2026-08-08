@@ -96,12 +96,15 @@ Run `npm run audit:install` first (installs lighthouse, playwright, pngjs withou
 | ----------------------------- | ----------------------------------------------------- |
 | `npm run check`               | TypeScript / Astro errors                             |
 | `npm run audit`               | structure, SEO, link graph, title/description lengths |
-| `npm run audit:a11y`          | axe, 20 pages × 2 viewports                           |
+| `npm run audit:a11y`          | axe, 25 pages × 2 viewports                           |
 | `npm run check:hero-contrast` | **text over photos** — the one axe cannot do          |
 | `npm run check:contrast`      | computed ratios for chips and prices, with numbers    |
 | `npm run measure:heroes`      | hero height as % of the fold, 30 pages                |
 | `npm run test:booking`        | 18 assertions on the Cal.com embed                    |
 | `npm run test:finder`         | 11 Reading Finder → /book/ handoff cases              |
+| `npm run test:calendar`       | 36 on the sky calendar, incl. **two forced time zones 24h apart** |
+| `npm run test:birthtime`      | 36 on the confidence check, incl. **all 125 answer combinations** |
+| `npm run test:rising`         | 43 on the rising-sign preference, incl. **no sign reaches analytics** |
 | `npm run audit:lh`            | Lighthouse                                            |
 | `npm run shot /book/ /about/` | full-page screenshots into `shots/`                   |
 | `npm run images:variants`     | rebuilds the responsive copies of every band image    |
@@ -1007,3 +1010,89 @@ missing alt, 0 heading skips. Mojibake scan on `src/` clean.
 
 One known coverage hole the hero checker reports rather than hides: `/explore/the-big-three/ (hero)
 no heading or lede`. It is measuring the block and finding no text to measure. Worth a look.
+
+---
+
+## Session block — 2026-08-08: three interactive tools
+
+Full detail is in `MoLumen_OS/CHANGELOG.md`. What belongs here is the reasoning that
+would otherwise be lost.
+
+### The rising-sign feature is a third of what was asked for, deliberately
+
+The brief was a personalization system that surfaces relevant MoLumen content once a
+visitor names their rising sign. The repository does not contain the content that
+would need. There is no `risingSign` field in any collection schema; blog `tags` are
+topical; the `/explore/signs/` pages are about signs in general and say so on the page
+("one placement among many"). `src/content/explore/` does not even exist on disk.
+
+The one genuine rising-sign asset is `src/data/lunation-guidance.ts` — 36 passages and
+the whole-sign arithmetic that puts a lunation in a fixed house per rising sign. So a
+site-wide personalization layer would have had exactly one real thing to surface plus a
+link to a page that is not actually about rising signs, under a heading promising
+personalization. That is a worse feature than none.
+
+What shipped instead does two honest things: it moves the reader's card to the front of
+twelve that were being shown anyway, and it adds a `/horoscopes/` module showing the next
+three lunations with the house each falls in. Both are derived from arithmetic that
+already existed. **If sign-keyed content is ever written, that is the moment to revisit
+this — not before.**
+
+### Three things the verification suite caught that review would not have
+
+1. **The confidence tool scrolled every visitor past the hero.** Its first render focused
+   the first radio, and focusing scrolls. `check:hero-contrast` surfaced it as an h1 at
+   1.00:1, because the heading was at `y=-94` by the time the page settled. The contrast
+   number was a symptom of a layout bug, not a colour problem — worth remembering next
+   time that script reports something absurd.
+2. **The target-size rule stopped at `h3`.** `/horoscopes/` nests sign cards one level
+   deeper than the event pages, which is the correct heading order and therefore exactly
+   the case the rule missed. 36 links under 24px.
+3. **Two pre-existing `gtag` calls** in `explore-your-chart.astro` and
+   `current-sky/index.astro`, bypassing `mlTrack`'s sanitiser — the violation
+   `DECISIONS.md` was written about, still present.
+
+### A test that passed because it was measuring nothing, twice
+
+Both are the same failure mode this file already records for the contrast sampler.
+
+- **Stubbing `window.mlTrack` from a Playwright init script does nothing.** BaseLayout
+  defines the real helper in an inline script that runs afterwards and overwrites the
+  stub, so every analytics assertion passed against an empty array. Read `window.dataLayer`
+  instead — it also means the events go through the genuine sanitiser rather than around it.
+- **`window.localStorage = …` cannot be assigned**; the property has only a getter, so a
+  private-mode simulation written that way throws and leaves storage fully working while
+  appearing to test the failure path. Patch `Storage.prototype` instead. There is now an
+  explicit assertion that the denial is real before the assertions that depend on it.
+
+### Kit throws in storage-denied browsers, and we cannot fix it
+
+`f.convertkit.com/ckjs/ck.5.js` responds to unavailable storage by attempting
+`window.localStorage = …`, which throws for the reason above. Third-party, pre-dates this
+work. `test:rising` filters third-party frames so it asserts our own code degrades quietly
+rather than swallowing every error on the page.
+
+### The calendar's two design constraints
+
+**UTC everywhere.** Events are date-only strings parsed as UTC midnight, and there are no
+clock times in the collection at all. A browser-timezone conversion therefore cannot be
+more accurate — it can only move an event onto a day Mo did not publish it on, and
+disagree with the timeline on the same site. The test builds the whole grid in
+`Pacific/Honolulu` and `Pacific/Kiritimati` and requires the two to be identical. **CI runs
+in UTC, where this class of bug is invisible.**
+
+**Start day only for retrograde spans.** Ten events carry an `end`, all retrogrades — and
+a station-direct is *also* published as its own event (`2026-09-10-uranus-retrograde.md`
+ends on 2027-02-08; `2027-02-08-uranus-direct.md` exists). A bar from start to end renders
+that station twice. The range is carried as text on the entry instead. Whether standalone
+stations should be suppressed inside a span is an editorial question and has not been
+answered.
+
+### Open
+
+- **`privacy.md` needs Shane's sign-off.** It is `owner-approved` and now describes two
+  stored browser items rather than one, which the second key made necessary. The edit is
+  factual; the approval is his.
+- `src/content/explore/` is declared in `content.config.ts` and mapped in `.pages.yml` but
+  does not exist. The CMS reference-library editor points at a missing path.
+- ~~`npm run test:a11y` has no config and nothing to run.~~ Removed 2026-08-08 — `pa11y-ci` was never a dependency, and `audit:a11y` (axe) is the intended gate.

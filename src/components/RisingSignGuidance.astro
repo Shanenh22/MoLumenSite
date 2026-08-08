@@ -17,6 +17,7 @@
  * sign, so there is no house to count to.
  */
 import { guidanceForEvent, ordinal } from '../data/lunation-guidance';
+import RisingSignPicker from './RisingSignPicker.astro';
 
 interface Props {
   eventType: string;
@@ -49,9 +50,20 @@ const isEclipse = eventType === 'eclipse';
           </p>
         </div>
 
-        <div class="grid grid--3">
-          {guidance.map((g) => (
-            <article class="card">
+        <RisingSignPicker context="event" />
+
+        {/*
+          `data-order` records the zodiacal position so the picker can restore
+          it. Without it, reordering would be one-way: choosing Virgo and then
+          Aries would leave Virgo stranded in second place, because the script
+          would have no record of where it came from.
+        */}
+        <div class="grid grid--3" data-rising-grid>
+          {guidance.map((g, i) => (
+            <article class="card" data-sign={g.slug} data-order={i}>
+              <p class="card__yours" data-yours-badge hidden>
+                Yours
+              </p>
               <p class="card__meta" style="margin: 0;">
                 {ordinal(g.house)} house — {g.arena}
               </p>
