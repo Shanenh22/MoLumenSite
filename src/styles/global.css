@@ -1873,6 +1873,10 @@ fieldset.booking-group > legend span {
 }
 .choice__details {
   font-size: var(--text-sm);
+  /* Sits inside a label whose whole area selects the radio, so this is the one
+     small target on the booking page a visitor might miss and hit the radio
+     instead. It needs the 24px minimum more than most. */
+  padding-block: 0.3rem;
 }
 @media (max-width: 560px) {
   .choice--book {
@@ -3093,4 +3097,43 @@ fieldset.booking-group > legend span {
     box-shadow: none !important;
     background: none !important;
   }
+}
+
+/* ---------- target size (WCAG 2.2 AA, 2.5.8) ----------
+   Measured at 390px before this: 36 standalone links rendered under 24px tall
+   — card heading links at 20px, footer nav links at 20px, and "read more" style
+   links that are the entire content of their paragraph.
+
+   SC 2.5.8 exempts links inside a sentence, so this deliberately targets only
+   links that are the sole content of a heading, list item or paragraph. A link
+   in running prose is left alone; enlarging those would put gaps in the text.
+
+   `padding-block` rather than `min-height` or `display: inline-block`, because
+   an inline element's padding is part of its hit region while contributing
+   nothing to the line box — so the tap target grows and the layout does not
+   move. axe cannot detect any of this, which is why it never appeared in a
+   sweep that reported zero violations. */
+h2 > a:only-child,
+h3 > a:only-child,
+li > a:only-child,
+.footer-policies a,
+.breadcrumbs li > a,
+p > a:only-child,
+dd > a:only-child,
+td > a:only-child {
+  padding-block: 0.34rem;
+}
+/* Breadcrumb items sit on one line, so the enlarged targets need horizontal
+   separation as well or two adjacent crumbs overlap. */
+.breadcrumbs ol {
+  row-gap: var(--space-1);
+}
+/* The footer policy row and footer nav sit close together; the padding above
+   would otherwise overlap neighbouring targets, which SC 2.5.8 also cares
+   about. Give the rows enough gap that the enlarged areas stay distinct. */
+.site-footer nav ul {
+  row-gap: var(--space-2);
+}
+.footer-policies {
+  gap: var(--space-2) var(--space-5);
 }

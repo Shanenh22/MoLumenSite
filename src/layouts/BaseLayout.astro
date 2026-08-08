@@ -24,6 +24,20 @@ interface Props {
   /** Extra JSON-LD objects for this page. */
   schema?: object[];
   noindex?: boolean;
+  /**
+   * LCP image to preload, for heroes painted from a CSS background.
+   *
+   * A background set through a custom property is invisible to the browser's
+   * preload scanner — it cannot be found until CSS has been fetched, parsed and
+   * matched, which is why Lighthouse reported the homepage hero as neither
+   * `requestDiscoverable` nor `priorityHinted`. `<img>` heroes do not need this:
+   * they are in the markup and already carry `fetchpriority="high"`.
+   *
+   * Pass the same URL and srcset the CSS will request, or the browser fetches
+   * the image twice and the preload has made things worse. Never pass a
+   * below-the-fold image.
+   */
+  preloadImage?: { src: string; srcset?: string; sizes?: string };
 }
 const {
   title,
@@ -36,6 +50,7 @@ const {
   schema = [],
   noindex = false,
   shareImage,
+  preloadImage,
 } = Astro.props;
 
 const canonical = new URL(path, site.url).href;
@@ -211,6 +226,18 @@ const ga4Id = site.integrations.ga4Id;
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
+    {
+      preloadImage && (
+        <link
+          rel="preload"
+          as="image"
+          href={preloadImage.src}
+          imagesrcset={preloadImage.srcset}
+          imagesizes={preloadImage.sizes ?? '100vw'}
+          fetchpriority="high"
+        />
+      )
+    }
     {site.verification.google && (
       <meta name="google-site-verification" content={site.verification.google} />
     )}

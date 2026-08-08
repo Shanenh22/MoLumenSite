@@ -150,6 +150,67 @@ for (const vp of VIEWPORTS) {
           v.sample.slice(0, 70),
         ]);
     }
+
+    /**
+     * Target size (WCAG 2.2 AA, SC 2.5.8) — axe cannot test this.
+     *
+     * It is not machine-detectable in general because the standard turns on
+     * whether a link sits inside a sentence, which is a judgement about
+     * content. So axe reports zero violations on a page with twenty 20px tap
+     * targets, and this ran clean for months while 36 standalone links on the
+     * homepage were under the minimum.
+     *
+     * The inline exception is approximated the only way it can be: a link is
+     * treated as inline prose when its parent holds meaningfully more text than
+     * the link itself. Card titles, footer nav items and standalone "read more"
+     * links are not that, and they are what this catches.
+     *
+     * Mobile only. The criterion is about pointer targets, and the desktop
+     * viewport here is driven by a mouse.
+     */
+    if (vp.name === "mobile") {
+      const small = await page.evaluate(() => {
+        const isInlineProse = (el) => {
+          // Climb past purely presentational wrappers before judging. A link
+          // written as <strong><a>Aspects</a></strong> mid-sentence has a
+          // parent containing nothing but the link, so a naive parent check
+          // calls it standalone and reports a failure that is not one.
+          let p = el.parentElement;
+          while (
+            p &&
+            /^(STRONG|EM|B|I|SPAN|SMALL)$/.test(p.tagName) &&
+            p.textContent.trim() === el.textContent.trim()
+          ) {
+            p = p.parentElement;
+          }
+          if (!p) return false;
+          return (
+            p.textContent.trim().length > el.textContent.trim().length + 12
+          );
+        };
+        const out = [];
+        document.querySelectorAll("main a, footer a").forEach((el) => {
+          const r = el.getBoundingClientRect();
+          if (r.width === 0 || r.height === 0) return;
+          if (isInlineProse(el)) return;
+          if (r.height < 24 || r.width < 24) {
+            out.push(
+              `${(el.textContent || "").trim().slice(0, 30)} (${Math.round(r.width)}x${Math.round(r.height)})`,
+            );
+          }
+        });
+        return out;
+      });
+      if (small.length) {
+        total += small.length;
+        rows.push([
+          vp.name,
+          path,
+          `target-size <24px (wcag22aa) x${small.length}`,
+          small.slice(0, 2).join("; ").slice(0, 70),
+        ]);
+      }
+    }
   }
   await ctx.close();
 }
