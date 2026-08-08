@@ -1,5 +1,5 @@
 /**
- * Renders the Birth Time Toolkit landing page to public/downloads/birth-time-toolkit.pdf.
+ * Renders the Birth Time Toolkit worksheets to public/downloads/birth-time-toolkit.pdf.
  *
  * Manual, like `npm run og:generate`, and deliberately not part of `build`.
  * Playwright is a `--no-save` audit dependency here so the deploy stays lean;
@@ -52,7 +52,7 @@ mkdirSync('public/downloads', { recursive: true });
 
 const browser = await chromium.launch({ executablePath: chromiumPath() });
 const page = await browser.newPage();
-await page.goto(`http://localhost:${PORT}/birth-time-toolkit/`, { waitUntil: 'load' });
+await page.goto(`http://localhost:${PORT}/birth-time-toolkit/worksheets/`, { waitUntil: 'load' });
 // The print stylesheet is what makes this readable; emulate it explicitly
 // rather than trusting Chromium's default, which differs between versions.
 await page.emulateMedia({ media: 'print' });
