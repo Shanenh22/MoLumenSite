@@ -3,8 +3,46 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
+import YouTubeFacade from '../components/YouTubeFacade.astro';
 import { site } from '../config/site';
 const crumbs = [{ label: 'About Mo', href: '/about/' }];
+/**
+ * About is the primary home for the welcome video, per the decision log: this
+ * is the page where a visitor has already decided they want to know who Mo is,
+ * so a minute of her talking answers exactly the question they arrived with.
+ * The homepage links here rather than embedding a second copy — see the note
+ * in index.astro.
+ *
+ * Everything below is inert while the ID is empty. Nothing renders, no schema
+ * is emitted, and there is no placeholder to remove later.
+ */
+const welcomeId = site.integrations.welcomeVideoId;
+const welcomePoster = site.integrations.welcomeVideoPoster;
+const welcomeUploaded = site.integrations.welcomeVideoUploadDate;
+/**
+ * VideoObject only when a real uploadDate exists. Google requires it, and
+ * inventing one would be a fabricated fact in the format most likely to be
+ * taken at face value by a machine. The video itself renders on the ID alone.
+ */
+const videoSchema =
+  welcomeId && welcomeUploaded
+    ? [
+        {
+          '@context': 'https://schema.org',
+          '@type': 'VideoObject',
+          name: 'Meet Mo Lumen — a short introduction',
+          description:
+            'A short face-to-camera introduction from astrologer Maureen "Mo" Lumen, on how she works and what a reading with her is like.',
+          uploadDate: welcomeUploaded,
+          embedUrl: `https://www.youtube-nocookie.com/embed/${welcomeId}`,
+          contentUrl: `https://www.youtube.com/watch?v=${welcomeId}`,
+          ...(welcomePoster
+            ? { thumbnailUrl: new URL(welcomePoster, site.url).href }
+            : {}),
+          publisher: { '@type': 'Organization', name: site.name, url: site.url },
+        },
+      ]
+    : [];
 const schema = [
   {
     '@context': 'https://schema.org',
@@ -27,7 +65,7 @@ const schema = [
   description="Meet Maureen 'Mo' Lumen: a modern-day astrologer with a classical lens. Certified in horary astrology, NCGR-PAA examined, OPA board member — and a former science teacher who believes there is fate and there is choice."
   path="/about/"
   breadcrumbs={crumbs}
-  schema={schema}
+  schema={[...schema, ...videoSchema]}
 >
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
@@ -49,6 +87,29 @@ const schema = [
       />
     </div>
   </section>
+
+  {
+    welcomeId && (
+      <section class="section">
+        <div class="container" style="max-width: 46rem;">
+          <p class="eyebrow">A minute with Mo</p>
+          <h2>Before you decide, hear how I actually talk</h2>
+          <p class="lede">
+            A reading is an hour of conversation with a specific person. This is what that
+            person sounds like.
+          </p>
+          <div style="margin-top: var(--space-6);">
+            <YouTubeFacade
+              videoId={welcomeId}
+              title="Meet Mo Lumen — a short introduction"
+              poster={welcomePoster || undefined}
+              context="about-welcome"
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">

@@ -1,0 +1,113 @@
+---
+/**
+ * Click-to-load YouTube player.
+ *
+ * Nothing from Google is requested until the visitor asks for it — not the
+ * iframe, not the IFrame API, and deliberately not the poster image either.
+ *
+ * That last one is the part most facades get wrong. The conventional trick is
+ * to show `i.ytimg.com/vi/<id>/maxresdefault.jpg` as the still, which looks
+ * like a privacy win and is not: ytimg is Google infrastructure, so the visitor's
+ * IP and referer reach Google on page load anyway and the facade has bought
+ * nothing except a faster first paint. This site tells people in its privacy
+ * policy that video players "load only when you interact with them", and that
+ * sentence has to be true.
+ *
+ * So the poster is either an image the owner uploaded (the `thumbnail` field
+ * already exists in the videos collection and in Pages CMS) or a branded
+ * placeholder drawn in CSS. No third-party request either way.
+ *
+ * On activation it swaps in a `youtube-nocookie.com` embed with `autoplay=1` —
+ * autoplay is correct *after* a click, because the click was the play request.
+ * `rel=0` keeps end-cards to the same channel and `cc_load_policy=1` turns
+ * captions on where the video has them.
+ */
+interface Props {
+  /** YouTube video ID — the part after v= or youtu.be/ */
+  videoId: string;
+  /** Used as the accessible name of the play button. */
+  title: string;
+  /** Absolute-from-root path to a locally hosted poster, e.g. /images/uploads/x.webp */
+  poster?: string;
+  /** Passed to analytics so activations can be attributed to a page/slot. */
+  context?: string;
+  /** Eager only for a video genuinely above the fold. */
+  loading?: 'lazy' | 'eager';
+}
+const { videoId, title, poster, context = 'unknown', loading = 'lazy' } = Astro.props;
+---
+
+<div class="ytf" data-yt-facade data-video-id={videoId} data-context={context}>
+  {
+    poster ? (
+      <img
+        class="ytf__poster"
+        src={poster}
+        alt=""
+        width="1280"
+        height="720"
+        loading={loading}
+        decoding="async"
+      />
+    ) : (
+      <div class="ytf__poster ytf__poster--placeholder" aria-hidden="true" />
+    )
+  }
+  <button class="ytf__play" type="button" data-yt-play>
+    <span class="ytf__icon" aria-hidden="true">
+      <svg viewBox="0 0 68 48" width="68" height="48" focusable="false">
+        <path
+          d="M66.5 7.7a8.6 8.6 0 0 0-6-6.1C55.2 0 34 0 34 0S12.8 0 7.5 1.6a8.6 8.6 0 0 0-6 6.1A90 90 0 0 0 0 24a90 90 0 0 0 1.5 16.3 8.6 8.6 0 0 0 6 6C12.8 48 34 48 34 48s21.2 0 26.5-1.7a8.6 8.6 0 0 0 6-6A90 90 0 0 0 68 24a90 90 0 0 0-1.5-16.3z"
+          fill="currentColor"
+        />
+        <path d="M27 34V14l18 10-18 10z" fill="#fff" />
+      </svg>
+    </span>
+    {/*
+      The visible label is short; the accessible name carries the video title,
+      because a screen-reader user listing the buttons on /videos/ would
+      otherwise hear "Play" several times with nothing to tell them apart.
+    */}
+    <span class="ytf__label">
+      Watch<span class="visually-hidden">: {title}</span>
+    </span>
+    <span class="ytf__note">Loads YouTube when you press play</span>
+  </button>
+</div>
+
+<script>
+  /**
+   * One delegated listener for every facade on the page, bound once.
+   *
+   * The iframe replaces the button rather than sitting beside it, so the
+   * container keeps its aspect ratio and nothing below moves — this is what
+   * holds CLS at 0. Focus moves to the iframe so a keyboard user who pressed
+   * play lands inside the player instead of at the top of the document.
+   */
+  document.addEventListener('click', (e) => {
+    const btn = e.target instanceof Element ? e.target.closest('[data-yt-play]') : null;
+    if (!btn) return;
+    const wrap = btn.closest<HTMLElement>('[data-yt-facade]');
+    const id = wrap?.dataset.videoId;
+    if (!wrap || !id) return;
+
+    (window as any).mlTrack?.('video_activate', {
+      video_id: id,
+      context: wrap.dataset.context || 'unknown',
+      platform: 'youtube',
+    });
+
+    const frame = document.createElement('iframe');
+    frame.className = 'ytf__frame';
+    frame.src =
+      `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}` +
+      '?autoplay=1&rel=0&cc_load_policy=1';
+    frame.title = btn.textContent?.trim() || 'YouTube video player';
+    frame.allow = 'accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen';
+    frame.setAttribute('allowfullscreen', '');
+    frame.setAttribute('loading', 'eager');
+
+    wrap.replaceChildren(frame);
+    frame.focus();
+  });
+</script>

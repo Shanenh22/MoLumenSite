@@ -4,11 +4,36 @@ import { photos, scenes } from '../config/images';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
+import YouTubeFacade from '../components/YouTubeFacade.astro';
 import { site } from '../config/site';
 
 const videos = (await getCollection('videos'))
   .filter((v) => !v.data.draft)
   .sort((a, b) => b.data.publishedDate.valueOf() - a.data.publishedDate.valueOf());
+
+/**
+ * VideoObject per real, published video — built entirely from fields the
+ * collection already requires, so nothing here can be invented. `publishedDate`
+ * is required by the schema, which is what makes `uploadDate` safe to emit.
+ * An empty library emits no video schema at all, which is correct: there is
+ * nothing to describe.
+ */
+const videoSchema = videos
+  .filter((v) => v.data.platform === 'youtube')
+  .map((v) => ({
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: v.data.title,
+    description: v.data.description,
+    uploadDate: v.data.publishedDate.toISOString().slice(0, 10),
+    embedUrl: `https://www.youtube-nocookie.com/embed/${v.data.externalId}`,
+    contentUrl: `https://www.youtube.com/watch?v=${v.data.externalId}`,
+    ...(v.data.thumbnail ? { thumbnailUrl: new URL(v.data.thumbnail, site.url).href } : {}),
+    ...(v.data.durationSeconds
+      ? { duration: `PT${Math.round(v.data.durationSeconds)}S` }
+      : {}),
+    publisher: { '@type': 'Organization', name: site.name, url: site.url },
+  }));
 const categories = [
   ['current-sky', 'Current Sky'],
   ['astrology-basics', 'Astrology Basics'],
@@ -24,6 +49,7 @@ const ig = site.integrations.instagramHandle;
   description="Mo Lumen's astrology videos from YouTube and Instagram: current sky updates, astrology basics, relationships, and personal purpose."
   path="/videos/"
   breadcrumbs={crumbs}
+  schema={videoSchema}
 >
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
@@ -64,25 +90,23 @@ const ig = site.integrations.instagramHandle;
               {videos.map((v) => (
                 <article class="card" data-video-category={v.data.category}>
                   {v.data.platform === 'youtube' ? (
-                    <button
-                      type="button"
-                      class="video-facade"
-                      data-video-id={v.data.externalId}
-                      aria-label={`Play video: ${v.data.title}`}
-                    >
-                      <img
-                        src={v.data.thumbnail || `https://i.ytimg.com/vi/${v.data.externalId}/hqdefault.jpg`}
-                        alt=""
-                        loading="lazy"
-                        width="480"
-                        height="270"
-                      />
-                      <span class="play" aria-hidden="true">
-                        <span>
-                          <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
-                        </span>
-                      </span>
-                    </button>
+                    /*
+                      Shared YouTubeFacade rather than the bespoke markup that
+                      used to live here. The old version fell back to
+                      i.ytimg.com for a thumbnail when none was uploaded, which
+                      is a Google-hosted request on page load — so the facade
+                      deferred the iframe while still handing Google the
+                      visitor's IP, and /privacy/ says video players "load only
+                      when you interact with them". The component uses the
+                      uploaded thumbnail or a branded placeholder, and requests
+                      nothing from Google until the play button is pressed.
+                    */
+                    <YouTubeFacade
+                      videoId={v.data.externalId}
+                      title={v.data.title}
+                      poster={v.data.thumbnail || undefined}
+                      context="videos-hub"
+                    />
                   ) : (
                     <a
                       class="video-facade"
@@ -117,6 +141,11 @@ const ig = site.integrations.instagramHandle;
               show you nothing than pad it out.
             </p>
             <p>
+              When there is something to watch it will appear here and on
+              <a href={site.social.youtube} rel="noopener">my YouTube channel ↗</a> (opens
+              youtube.com) — subscribing there is the way to hear about it first.
+            </p>
+            <p>
               In the meantime, the closest thing to watching me work is reading how I think:
               <a href="/explore/">the reference library</a> separates what's astronomical fact from
               traditional doctrine from my own synthesis, and says plainly where astrologers
@@ -134,18 +163,10 @@ const ig = site.integrations.instagramHandle;
 </BaseLayout>
 
 <script>
-  // Video facades: load YouTube (privacy-enhanced) only on user interaction.
-  document.querySelectorAll<HTMLButtonElement>('[data-video-id]').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.dataset.videoId!;
-      (window as any).mlTrack?.('video_play', { video_id: id, platform: 'youtube' });
-      const wrap = document.createElement('div');
-      wrap.className = 'video-wrap';
-      wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
-      btn.replaceWith(wrap);
-      wrap.querySelector('iframe')?.focus();
-    });
-  });
+  // YouTube activation now lives in YouTubeFacade.astro, delegated once for
+  // every facade on the page. The per-page copy that used to sit here also
+  // built its iframe by string concatenation and omitted the fullscreen and
+  // captions parameters the component sets.
   document.querySelectorAll('[data-instagram-link]').forEach((a) =>
     a.addEventListener('click', () =>
       (window as any).mlTrack?.('video_platform_open', { platform: 'instagram' })
