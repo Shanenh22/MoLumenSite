@@ -57,10 +57,8 @@ For **each of the nine event types**:
 3. Stay on the **Setup** tab (it opens there).
 4. Find the **Location** section. It currently shows one entry: **Custom attendee location**.
 5. Click the **X** / remove icon on that entry.
-6. Click **Add a location** and choose **Zoom Video**.
-   - If Zoom does not appear in the list, it needs installing first: **Apps → App Store → Zoom →
-     Install**, and authorise the Zoom account. Do that once and it becomes available on every
-     event type.
+6. Click **Add a location** and choose **Zoom Video**. (Zoom was installed in the Cal.com account
+   on 2026-08-08, so it is available on every event type.)
    - If Mo prefers a fixed personal meeting room instead of Cal generating one per booking, choose
      **Link meeting** and paste her permanent Zoom room URL.
 7. Click **Add a location** again and choose **Attendee phone number**.
@@ -107,9 +105,16 @@ Cal.com's stock system fields only:
 | Email address | `email` | yes |
 | Phone number | `attendeePhoneNumber` | no |
 | "Somewhere else" | `location` | yes, in practice (see item 1) |
-| **What is this meeting about?** | `title` | **yes** |
+| **What is this meeting about?** | `title` | **yes where it is shown** |
 | Additional notes | `notes` | no |
 | Add guests | `guests` | no |
+
+**Correction, 2026-08-08:** an earlier version of this table said the `title` field was
+required on all nine event types. The `required: true` flag it was read from stays set even
+when the field is hidden, so it does not tell you whether a booker actually sees it. Checked
+directly: it **is** shown and required on `natal-90`'s live booking form, and it **is**
+already hidden on `quick-check-in`. So the state varies per event type and has to be looked
+at rather than assumed — the instructions below say "if it is showing" for that reason.
 
 No birth date. No birth time. No birthplace. Nothing about what the client wants to explore, except
 whatever they choose to type into a generic "Additional notes" box.
