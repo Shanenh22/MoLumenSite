@@ -1,5 +1,10 @@
 # Finishing your Cal.com booking setup
 
+> **Printable version:** `docs/Cal.com-setup-for-Mo.pdf` — same content, formatted for reading
+> alongside the Cal.com screen, with a tick-off checklist on the last page. Regenerate it with
+> `python scripts/gen-calcom-guide-pdf.py` after changing anything below.
+
+
 Hi Mo — there are two things left to set up in Cal.com before the new site goes live, plus one
 small typo to fix. Nothing here touches the website itself; it's all inside your Cal.com account.
 
