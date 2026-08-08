@@ -1,11 +1,11 @@
-Read the repository-level CLAUDE.md and the MoLumen operating system.
+# Bootstrap Claude Code
 
-Then:
-1. Inspect git status, repository structure, package.json, current branch and recent commits.
-2. Read MoLumen_OS/00_MASTER_OPERATING_MANUAL.md, PROJECT_MEMORY.md, DECISIONS.md and BACKLOG.md.
-3. Identify which prior audit findings are already fixed.
-4. Use the MoLumen Developer, Editor, Strategist and Publisher skills when relevant.
-5. Continue autonomous implementation.
-6. Do not ask me routine technical/design questions.
-7. Do not change production DNS or deploy the production domain.
-8. Update project memory, changelog, decisions and backlog before finishing.
+Start at the repository root and follow `CLAUDE.md` / `AGENTS.md`.
+
+Inspect the task area and current implementation before loading additional context. Do not preload the full MoLumen OS, decision log, backlog, changelog, old audits, or session handoffs.
+
+Use the relevant skill/rule and read only the canonical OS document needed for the task. Verify old findings still exist before acting on them.
+
+Make routine technical decisions autonomously. Do not deploy production or change production DNS without explicit owner authorization.
+
+Run proportional validation and update project documentation only when its underlying truth changed.

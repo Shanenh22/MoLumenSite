@@ -1,16 +1,14 @@
-Use master-website-auditor-v2 plus MoLumen Developer in launch-readiness/regression mode.
+# Launch readiness
 
-Do not redesign.
+For an owner-requested release review, deliberately invoke `/molumen-release-manager`.
 
-Run full native QA and verify Kit, analytics, booking, staging noindex, production canonical config, YouTube facade behavior, 2027 Current Sky horizon, schema, accessibility and mobile.
+Use current repository tests, CI, staging/runtime evidence, `MoLumen_OS/09_QA_AND_LAUNCH.md`, and only the relevant current backlog/state.
 
-Fix code-safe failures.
-
-Return:
-- passed
-- failed
+Do not redesign during release work. Fix code-safe blockers in scope, preserve rollback readiness, and report:
+- passed evidence
+- failed evidence
 - external owner actions
 - production blockers
 - GO / NO-GO
 
-Do not deploy production.
+Do not deploy production or change production DNS without explicit owner authorization.
