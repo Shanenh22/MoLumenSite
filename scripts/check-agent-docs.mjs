@@ -45,8 +45,8 @@ if (copiedResources.length) {
   failures.push(`copied skill resources are not allowed: ${copiedResources.join(', ')}`);
 }
 
-if (exists('MoLumen_OS/prompts')) failures.push('legacy MoLumen_OS/prompts directory must stay retired');
-if (exists('MoLumen_OS/PROJECT_MEMORY.md')) failures.push('PROJECT_MEMORY.md is retired; use PROJECT_STATE.md');
+if (exists('MoLumen_OS/prompts')) failures.push('legacy prompt directory must stay retired');
+if (exists('MoLumen_OS/PROJECT_MEMORY.md')) failures.push('retired project-memory file must stay removed');
 
 const liveInstructionFiles = [
   'AGENTS.md',
@@ -57,17 +57,42 @@ const liveInstructionFiles = [
   ),
 ];
 
-const forbidden = [
-  ['retired project-memory path', /PROJECT_MEMORY\.md/g],
-  ['legacy prompt path', /MoLumen_OS\/prompts\//g],
+const operatingProsePatterns = [
   ['deprecated MailerLite reference', /MailerLite/gi],
   ['GA measurement ID in operating prose', /\bG-[A-Z0-9]{6,}\b/g],
   ['embedded Kit UID in operating prose', /data-uid\s*=\s*["'][^"']+["']/gi],
 ];
-
 for (const file of liveInstructionFiles) {
   const text = read(file);
-  for (const [label, pattern] of forbidden) {
+  for (const [label, pattern] of operatingProsePatterns) {
+    pattern.lastIndex = 0;
+    if (pattern.test(text)) failures.push(`${label}: ${file}`);
+  }
+}
+
+const activeRepositoryText = [
+  'README.md',
+  'AGENTS.md',
+  'CLAUDE.md',
+  '.pages.yml',
+  'package.json',
+  ...walk('.claude'),
+  ...walk('MoLumen_OS').filter((p) => !p.startsWith('MoLumen_OS/archive/')),
+  ...walk('docs').filter((p) => !p.startsWith('docs/history/')),
+  ...walk('.github'),
+  ...walk('scripts').filter((p) => p !== 'scripts/check-agent-docs.mjs'),
+].filter((p) => exists(p) && /\.(?:md|mdx|yml|yaml|json|mjs|js|ts|astro)$/.test(p));
+
+const retiredReferencePatterns = [
+  ['retired project-memory reference', /PROJECT_MEMORY\.md/g],
+  ['legacy prompt-directory reference', /MoLumen_OS\/prompts\//g],
+  ['retired project-context reference', /01_PROJECT_CONTEXT\.md/g],
+  ['retired autonomous-guide reference', /04_AUTONOMOUS_DEVELOPMENT\.md/g],
+  ['retired roadmap reference', /10_POST_LAUNCH_ROADMAP\.md/g],
+];
+for (const file of [...new Set(activeRepositoryText)]) {
+  const text = read(file);
+  for (const [label, pattern] of retiredReferencePatterns) {
     pattern.lastIndex = 0;
     if (pattern.test(text)) failures.push(`${label}: ${file}`);
   }
@@ -79,4 +104,6 @@ if (failures.length) {
   process.exit(1);
 }
 
-console.log(`[agent-docs] OK — ${liveInstructionFiles.length} live instruction/reference files checked`);
+console.log(
+  `[agent-docs] OK — ${liveInstructionFiles.length} live instruction/reference files and ${new Set(activeRepositoryText).size} active repository text files checked`,
+);
