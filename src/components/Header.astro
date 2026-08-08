@@ -3,6 +3,12 @@ import { primaryNav, ctaNav } from '../config/navigation';
 import Icon from './Icon.astro';
 import LogoMark from './LogoMark.astro';
 const current = Astro.url.pathname;
+const isWithin = (href?: string) =>
+  Boolean(href && (current === href || (href !== '/' && current.startsWith(href))));
+const navState = (href?: string) =>
+  href && current === href ? 'page' : isWithin(href) ? 'location' : undefined;
+const groupIsCurrent = (group: (typeof primaryNav)[number]) =>
+  isWithin(group.href) || Boolean(group.children?.some((link) => isWithin(link.href)));
 const navIcons: Record<string, string> = {
   Readings: 'chart',
   'Explore Astrology': 'book',
@@ -22,12 +28,10 @@ const navIcons: Record<string, string> = {
         {
           primaryNav.map((group) =>
             group.children ? (
-              /* data-current marks the section a visitor is inside, so a
-                 grouped destination is not silently unmarked just because its
-                 top-level control is a button rather than a link. The submenu
-                 link still carries aria-current="page"; this is the section,
-                 not the page. */
-              <li data-nav-group data-current={group.children.some((c) => c.href === current) ? 'true' : undefined}>
+              /* Mark the whole section current on nested pages too — e.g.
+                 /readings/natal/ belongs to Readings and /blog/... belongs to
+                 From Mo even though neither URL is itself a submenu item. */
+              <li data-nav-group data-current={groupIsCurrent(group) ? 'true' : undefined}>
                 <button type="button" aria-expanded="false">
                   {group.label}
                   <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">
@@ -37,7 +41,7 @@ const navIcons: Record<string, string> = {
                 <ul class="submenu">
                   {group.children.map((link) => (
                     <li>
-                      <a href={link.href} aria-current={current === link.href ? 'page' : undefined}>
+                      <a href={link.href} aria-current={navState(link.href)}>
                         {link.label}
                       </a>
                     </li>
@@ -45,8 +49,8 @@ const navIcons: Record<string, string> = {
                 </ul>
               </li>
             ) : (
-              <li>
-                <a href={group.href} aria-current={current === group.href ? 'page' : undefined}>
+              <li data-current={groupIsCurrent(group) ? 'true' : undefined}>
+                <a href={group.href} aria-current={navState(group.href)}>
                   {group.label}
                 </a>
               </li>
@@ -99,13 +103,14 @@ const navIcons: Record<string, string> = {
       <nav aria-label="Mobile">
         <ul>
           {
-            primaryNav.map((group, i) =>
-              group.children ? (
-                <li>
+            primaryNav.map((group, i) => {
+              const active = groupIsCurrent(group);
+              return group.children ? (
+                <li data-current={active ? 'true' : undefined}>
                   <button
                     type="button"
                     class="mobile-group"
-                    aria-expanded="false"
+                    aria-expanded={active}
                     aria-controls={`mnav-${i}`}
                   >
                     <span class="mobile-nav__label">
@@ -116,25 +121,25 @@ const navIcons: Record<string, string> = {
                       <path d="M1 3l4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.5" />
                     </svg>
                   </button>
-                  <ul class="submenu-mobile" id={`mnav-${i}`} hidden>
+                  <ul class="submenu-mobile" id={`mnav-${i}`} hidden={!active}>
                     {group.children.map((link) => (
                       <li>
-                        <a href={link.href}>{link.label}</a>
+                        <a href={link.href} aria-current={navState(link.href)}>{link.label}</a>
                       </li>
                     ))}
                   </ul>
                 </li>
               ) : (
-                <li>
-                  <a href={group.href}>
+                <li data-current={active ? 'true' : undefined}>
+                  <a href={group.href} aria-current={navState(group.href)}>
                     <span class="mobile-nav__label">
                       <span class="nav-icon"><Icon name={navIcons[group.label] as any} size={22} /></span>
                       {group.label}
                     </span>
                   </a>
                 </li>
-              )
-            )
+              );
+            })
           }
         </ul>
       </nav>
