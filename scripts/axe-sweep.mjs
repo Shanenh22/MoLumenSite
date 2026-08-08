@@ -24,46 +24,13 @@ async function requireTool(name) {
 const { chromium } = await requireTool("playwright");
 import { readFileSync } from "node:fs";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import http from "node:http";
-import { createReadStream, statSync } from "node:fs";
-import { extname, join } from "node:path";
+import { startDistServer } from "./lib/dist-server.mjs";
 
 const AXE = readFileSync("node_modules/axe-core/axe.min.js", "utf8");
 const PORT = 4399;
-const ROOT = "dist";
-
-const MIME = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".xml": "application/xml",
-  ".json": "application/json",
-  ".txt": "text/plain",
-  ".woff2": "font/woff2",
-};
-
-const server = http.createServer((req, res) => {
-  let p = decodeURIComponent(req.url.split("?")[0]);
-  let file = join(ROOT, p);
-  try {
-    if (statSync(file).isDirectory()) file = join(file, "index.html");
-  } catch {
-    try {
-      statSync(file + ".html");
-      file = file + ".html";
-    } catch {
-      res.writeHead(404);
-      return res.end("not found");
-    }
-  }
-  res.writeHead(200, {
-    "Content-Type": MIME[extname(file)] || "application/octet-stream",
-  });
-  createReadStream(file).pipe(res);
-});
-await new Promise((r) => server.listen(PORT, r));
+// Manifest-backed, so a request is a lookup rather than a filesystem path
+// built from `req.url`. See scripts/lib/dist-server.mjs.
+const server = await startDistServer(PORT);
 
 /**
  * This is the accessibility gate. There is no second one.
@@ -112,7 +79,11 @@ const PAGES = [
   "/videos/",
   "/frequently-asked-questions/",
   "/explore/glossary/",
-  "/404",
+  // The built artifact is dist/404.html, and the manifest server serves exactly
+  // what the build produced. The previous hand-rolled server silently appended
+  // ".html" on a miss, which is why "/404" used to resolve here — a convenience
+  // the real host does not provide for this path either.
+  "/404.html",
 ];
 
 const VIEWPORTS = [

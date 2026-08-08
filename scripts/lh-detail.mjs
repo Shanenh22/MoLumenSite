@@ -1,37 +1,17 @@
-import http from "http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import fs from "fs";
-import path from "path";
+import { startDistServer } from "./lib/dist-server.mjs";
 import lighthouse from "lighthouse";
 import { launch } from "chrome-launcher";
-const root = "./dist";
-const types = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".xml": "application/xml",
-  ".webmanifest": "application/manifest+json",
-};
-const srv = http.createServer((req, res) => {
-  let p = decodeURIComponent(req.url.split("?")[0]);
-  let f = path.join(root, p);
-  if (fs.existsSync(f) && fs.statSync(f).isDirectory())
-    f = path.join(f, "index.html");
-  if (!fs.existsSync(f)) {
-    res.statusCode = 404;
-    f = path.join(root, "404.html");
-  }
-  res.setHeader(
-    "Content-Type",
-    types[path.extname(f)] || "application/octet-stream",
-  );
-  res.setHeader("Cache-Control", "public, max-age=31536000");
-  fs.createReadStream(f).pipe(res);
+
+// Manifest-backed, so a request is a lookup rather than a filesystem path
+// built from `req.url`. See scripts/lib/dist-server.mjs.
+//
+// The long Cache-Control header is kept: Lighthouse scores "Serve static
+// assets with an efficient cache policy", and without it this local run
+// reports a caching problem that Cloudflare does not actually have.
+const srv = await startDistServer(4601, "dist", {
+  headersForFile: () => ({ "Cache-Control": "public, max-age=31536000" }),
 });
-await new Promise((r) => srv.listen(4601, r));
 const chrome = await launch({
   chromeFlags: ["--headless", "--no-sandbox", "--disable-gpu"],
   chromePath: chromiumPath(),

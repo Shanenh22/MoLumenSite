@@ -9,10 +9,8 @@
  *
  * Run: node scripts/test-booking-embed.mjs   (needs npm run audit:install)
  */
-import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { createReadStream, statSync } from "node:fs";
-import { extname, join } from "node:path";
+import { startDistServer } from "./lib/dist-server.mjs";
 
 async function requireTool(name) {
   try {
@@ -27,29 +25,10 @@ async function requireTool(name) {
 const { chromium } = await requireTool("playwright");
 
 const PORT = 4402;
-const ROOT = "dist";
-const MIME = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".txt": "text/plain",
-};
-const server = http.createServer((req, res) => {
-  let file = join(ROOT, decodeURIComponent(req.url.split("?")[0]));
-  try {
-    if (statSync(file).isDirectory()) file = join(file, "index.html");
-  } catch {
-    res.writeHead(404);
-    return res.end("nope");
-  }
-  res.writeHead(200, {
-    "Content-Type": MIME[extname(file)] || "application/octet-stream",
-  });
-  createReadStream(file).pipe(res);
-});
-await new Promise((r) => server.listen(PORT, r));
+// Manifest-backed, so a request is a lookup rather than a filesystem path
+// built from `req.url`. See scripts/lib/dist-server.mjs for why that shape and
+// not a traversal guard — CodeQL flags the guarded version too, correctly.
+const server = await startDistServer(PORT);
 
 const browser = await chromium.launch({
   executablePath: chromiumPath(),

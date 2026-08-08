@@ -190,19 +190,95 @@ export function bookingActions(service: {
 }
 
 /**
- * The one action to use where only one will fit — a comparison-table cell, a
- * closing CTA band.
+ * The one action to use where only one will fit — a comparison-table cell.
  *
- * For a multi-option reading this is the recommended option if the service
- * data marks one (natal-90 carries the "Recommended for first readings" note),
+ * For a multi-option reading this is the recommended option if the service data
+ * marks one (natal-90 carries the "Recommended for first readings" note),
  * otherwise the first. It is still a real, priced option rather than a service
  * slug resolved by a lookup table, which is what made the two CTAs disagree.
+ *
+ * NOTE the fallback: when nothing is marked recommended this returns the FIRST
+ * option, which is a positional guess. That is acceptable in a table cell
+ * sitting in a row that already shows every price, and it is NOT acceptable as
+ * a page's closing call to action — see `finalCtaAction` below.
  */
 export function primaryBookingAction(
   service: Parameters<typeof bookingActions>[0]
 ): BookingAction {
   const actions = bookingActions(service);
   return actions.find((a) => a.recommended) ?? actions[0];
+}
+
+/**
+ * A page's single closing call to action.
+ *
+ * Three cases, and the third is why this exists separately from
+ * `primaryBookingAction`:
+ *
+ * 1. ONE OPTION — book it directly. Nothing is being decided for anyone.
+ *
+ * 2. SEVERAL OPTIONS, ONE MARKED RECOMMENDED — book that one, labelled with its
+ *    own duration and price. Natal is the case: the service data says 90
+ *    minutes is "Recommended for first readings", so recommending it is an
+ *    editorial decision Mo already made, and the button says exactly what it
+ *    costs. A visitor who wants the 60 has it on the same page for $150.
+ *
+ * 3. SEVERAL OPTIONS, NONE RECOMMENDED — do not pick. Send the visitor to the
+ *    page's own option cards instead.
+ *
+ * Case 3 is Want More Clarity, and it was previously falling through to
+ * `primaryBookingAction`'s positional fallback: the closing band read "Book
+ * within 3 months of your natal reading — $100" and deep-linked to the
+ * discounted event. But "within three months of your natal reading" is not a
+ * preference, it is an ELIGIBILITY CONDITION about the visitor's own history —
+ * something the site cannot know. Someone eight months past their natal reading
+ * was being walked to a $100 booking they do not qualify for, from a button
+ * that had decided on their behalf.
+ *
+ * The distinction that drives this, and the reason it generalises rather than
+ * special-casing one slug: a `note` on an option is Mo saying "this is the one
+ * I'd suggest". Its absence on a multi-option reading means the options are
+ * genuinely equivalent choices for the visitor to make. `content-integrity`
+ * asserts at most one note per service so this signal cannot become ambiguous.
+ */
+export type FinalCta =
+  | { kind: "book"; label: string; ariaLabel: string; href: string; event: string }
+  | { kind: "choose"; label: string; ariaLabel: string; href: string; event: null };
+
+export function finalCtaAction(
+  service: Parameters<typeof bookingActions>[0],
+  optionsAnchor = "#options"
+): FinalCta {
+  const actions = bookingActions(service);
+
+  if (actions.length === 1) {
+    return {
+      kind: "book",
+      label: "Book This Reading",
+      ariaLabel: actions[0].ariaLabel,
+      href: actions[0].href,
+      event: actions[0].event,
+    };
+  }
+
+  const recommended = actions.find((a) => a.recommended);
+  if (recommended) {
+    return {
+      kind: "book",
+      label: recommended.label,
+      ariaLabel: recommended.ariaLabel,
+      href: recommended.href,
+      event: recommended.event,
+    };
+  }
+
+  return {
+    kind: "choose",
+    label: "Review Booking Options",
+    ariaLabel: `Review the booking options for the ${service.name}`,
+    href: optionsAnchor,
+    event: null,
+  };
 }
 
 /**

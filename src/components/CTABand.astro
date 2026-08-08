@@ -6,6 +6,13 @@ interface Props {
   buttonLabel?: string;
   buttonHref?: string;
   /**
+   * Accessible name for the primary button, when the visible label is not
+   * self-describing out of context. "Review Booking Options" is fine on the
+   * page but tells a screen-reader user listing links nothing about which
+   * reading, so the reading pages pass the disambiguated name here.
+   */
+  buttonAriaLabel?: string;
+  /**
    * The quieter second action. Defaults to the Reading Finder and can be
    * turned off per page with `secondary={false}`.
    */
@@ -18,6 +25,7 @@ const {
   body = 'Sessions are one-on-one with Mo. Choose a reading, pick a time, and come with your questions.',
   buttonLabel = 'Book a Reading',
   buttonHref = '/book/',
+  buttonAriaLabel,
   secondaryLabel = 'Not sure which one? Find your reading',
   secondaryHref = '/reading-finder/',
   secondary = true,
@@ -53,7 +61,7 @@ const showSecondary = secondary && !sameTarget;
     <h2>{heading}</h2>
     <p class="lede" style="margin-inline: auto; color: var(--color-stone);">{body}</p>
     <p>
-      <a class="btn btn--accent" href={buttonHref}>{buttonLabel}</a>
+      <a class="btn btn--accent" href={buttonHref} aria-label={buttonAriaLabel}>{buttonLabel}</a>
     </p>
     {
       showSecondary && (
