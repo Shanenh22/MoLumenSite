@@ -12,6 +12,8 @@
 - Protect staging from indexing — intentionally postponed for now; revisit before production cutover
 
 ## P1
+- ~~Birth-time public resource + toolkit~~ DONE 2026-08-08 — /birth-time/ and /birth-time-toolkit/ shipped; Kit automation remains account-side
+- Extract the /birth-time/ article body into a content collection so Mo can edit it in Pages CMS (worksheets stay code-managed: printable forms)
 - ~~Build privacy-conscious YouTube facade and finish the video hub/welcome video slot~~ DONE 2026-08-07 — awaiting only Mo's video ID
 - ~~Complete 2027 Current Sky through Dec 31, 2027~~ DONE 2026-08-07 — 40 events, horizon 507 days
 - ~~Add 90-day Current Sky horizon validation~~ DONE 2026-08-07 — in content-integrity.mjs, fails <90d, warns <365d

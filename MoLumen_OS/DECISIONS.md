@@ -31,3 +31,7 @@
 - The Birth Time Toolkit is free to read in full; only the PDF is exchanged for an email address. Gating the content would be off-brand for a practice built on candour, unenforceable on a static site, and would waste the strongest search asset available on the biggest friction point in the funnel.
 - Structured data waits for real values. VideoObject is not emitted without a genuine uploadDate, and Offer prices must match the visible page.
 - Performance changes are kept only if a measurement says they helped. The homepage LCP preload was built, measured, found to make the number worse, and removed.
+- The birth-time topic is two pages, not one. `/birth-time/` is public, ungated and built to rank; `/birth-time-toolkit/` offers the worksheet format. A single page trying to answer the query and sell a download does neither well, and gating the answer would waste the strongest search asset on the biggest friction point in the funnel.
+- The toolkit worksheets stay code-managed. They are printable forms, and exposing ruled lines, checkboxes and comparison tables as CMS fields is the fragile-technical-field case the publishing rules exclude.
+- Precision claims about birth time are stated with their conditions. "Four minutes changes everything" is true near a cusp or angle and misleading otherwise, and the site says which.
+- Record-retrieval guidance names jurisdiction variance rather than describing one country's process as universal.
