@@ -415,63 +415,18 @@ content:
             label: Available to book
             type: boolean
 
-      - name: explore
-        label: Astrology reference library
-        type: collection
-        path: src/content/explore
-        format: yaml-frontmatter
-        subfolders: true
-        operations:
-          create: false
-          rename: false
-          delete: false
-        view:
-          fields: [title, cluster, order]
-          primary: title
-          sort: [cluster, order, title]
-          search: [title, description, cluster]
-        fields:
-          - name: title
-            label: Title
-            type: string
-            required: true
-          - name: description
-            label: Summary
-            type: text
-            required: true
-          - name: cluster
-            label: Topic group
-            type: select
-            required: true
-            options:
-              values:
-                - { name: basics, label: Basics }
-                - { name: planets, label: Planets }
-                - { name: signs, label: Signs }
-                - { name: houses, label: Houses }
-                - { name: aspects, label: Aspects }
-                - { name: transits, label: Transits }
-                - { name: relationships, label: Relationships }
-                - { name: personal-purpose, label: Personal Purpose }
-                - { name: deciding, label: Decision Support }
-          - name: order
-            label: Display order
-            type: number
-          - name: updatedDate
-            label: Updated date
-            type: date
-            default: ""
-            options:
-              format: yyyy-MM-dd
-          - name: body
-            label: Page content
-            type: rich-text
-            required: true
-            options:
-              format: markdown
-              media: content_images
-              path: reference
-              rename: safe
+      # There is deliberately no "Astrology reference library" editor here.
+      #
+      # One was configured, pointing at src/content/explore — a directory that
+      # has never existed. Opening it showed Mo an empty collection, and
+      # docs/pages-cms-for-mo.md told her how to edit pages through it.
+      #
+      # The reference library is 25 hand-written .astro pages under
+      # src/pages/explore/. Making them editable here means migrating them to
+      # markdown first; they carry components, per-page structured data and
+      # hand-placed inline links that must stay in step with the prose. That is
+      # on the backlog as its own task. Re-add this block in the same change
+      # that creates the content, not before.
 
   - name: supporting
     label: FAQs, Glossary & Trust

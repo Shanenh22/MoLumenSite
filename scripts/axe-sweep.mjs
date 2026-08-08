@@ -65,6 +65,22 @@ const server = http.createServer((req, res) => {
 });
 await new Promise((r) => server.listen(PORT, r));
 
+/**
+ * This is the accessibility gate. There is no second one.
+ *
+ * A `test:a11y` script pointing at `pa11y-ci` sat in package.json for months
+ * with `pa11y-ci` absent from devDependencies, so it could only ever fail at
+ * the shell. It was removed rather than given a config: pa11y and axe wrap
+ * overlapping rule sets, and a second a11y tool would have meant a new
+ * dependency, two lists of pages to keep in step, and two places to look when
+ * something failed.
+ *
+ * What this run covers that a stock axe pass does not: WCAG 2.2 target size
+ * (2.5.8), which axe cannot evaluate because the criterion turns on whether a
+ * link sits inside a sentence. Text over photographs is not covered here at
+ * all — axe cannot sample a photograph — and lives in
+ * `npm run check:hero-contrast`.
+ */
 const PAGES = [
   "/",
   "/readings/",
@@ -78,6 +94,17 @@ const PAGES = [
   "/start-here/",
   "/blog/",
   "/current-sky/",
+  /**
+   * The interactive surfaces. This list is hand-maintained, and
+   * docs/session-handoff.md records three separate occasions where a check
+   * silently shrank because somebody added a page and not a path. A new
+   * interactive page belongs here in the same commit that creates it.
+   */
+  "/current-sky/calendar/",
+  "/horoscopes/",
+  "/current-sky/events/2026-08-12-leo-solar-eclipse/",
+  "/birth-time/",
+  "/birth-time-toolkit/",
   "/tools/explore-your-chart/",
   "/reading-finder/",
   "/about/",

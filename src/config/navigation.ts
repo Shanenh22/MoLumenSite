@@ -65,6 +65,7 @@ export const footerNav: Record<string, NavLink[]> = {
   Writing: [
     { label: "Blog", href: "/blog/" },
     { label: "Current Sky", href: "/current-sky/" },
+    { label: "Sky Calendar", href: "/current-sky/calendar/" },
     { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
     { label: "Horoscopes", href: "/horoscopes/" },
     { label: "Videos", href: "/videos/" },

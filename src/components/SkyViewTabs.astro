@@ -1,0 +1,42 @@
+---
+/**
+ * The List / Calendar switch, shared by /current-sky/ and /current-sky/calendar/.
+ *
+ * Plain anchors, not buttons and not a JavaScript toggle. Two real URLs is the
+ * whole point of the arrangement: the calendar has to be crawlable, linkable
+ * and reachable without JavaScript, and a client-side view swap would have made
+ * it none of those. `aria-current="page"` is what marks the active one — the
+ * teal fill is decoration on top of that, never the only signal.
+ *
+ * The two views have genuinely different jobs, which is what makes two URLs
+ * defensible rather than duplicative. /current-sky/ is editorial: every event
+ * with Mo's summary underneath it, meant to be read. The calendar is
+ * navigational: when is the next eclipse, what does October look like, does
+ * Mercury retrograde land on my trip. It carries no summary text at all, so
+ * the overlap between the two pages is titles and dates and nothing more.
+ */
+interface Props {
+  /** Which view is currently being rendered. */
+  current: 'list' | 'calendar';
+}
+const { current } = Astro.props;
+
+const views = [
+  { id: 'list', label: 'List', href: '/current-sky/' },
+  { id: 'calendar', label: 'Calendar', href: '/current-sky/calendar/' },
+] as const;
+---
+
+<nav class="view-tabs" aria-label="Current Sky views">
+  {
+    views.map((view) => (
+      <a
+        href={view.href}
+        class="view-tabs__tab"
+        aria-current={view.id === current ? 'page' : undefined}
+      >
+        {view.label}
+      </a>
+    ))
+  }
+</nav>

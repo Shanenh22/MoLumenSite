@@ -1,0 +1,107 @@
+---
+/**
+ * "The next three lunations, and where each one lands for you."
+ *
+ * This is the module that justifies the rising-sign preference existing at all.
+ *
+ * /horoscopes/ promises guidance for all twelve rising signs with every new
+ * moon and eclipse, and then shows eight cards of titles and dates. The
+ * guidance is real — it is one click away on each event page — but the hub that
+ * advertises it shows none of it. This puts three lunations' worth on the page
+ * itself, with the house each falls in and what that house tends to ask.
+ *
+ * Nothing here is new content. `houseFor()` is arithmetic on whole-sign houses
+ * and the passages are the same 36 in src/data/lunation-guidance.ts that every
+ * event page already renders. Twelve signs x three lunations are all rendered
+ * into the HTML; the picker moves the reader's to the front of each. With no
+ * preference set, or with no JavaScript, this is simply a fuller version of the
+ * page — which is why it can be indexed without cloaking anything.
+ *
+ * Renders nothing at all when there are no upcoming lunations. That state is
+ * practically unreachable because `test:content` fails below a 90-day horizon,
+ * but "practically unreachable" is not "handled", and an empty shell under a
+ * heading promising three lunations would be worse than no module.
+ */
+import { getCollection } from 'astro:content';
+import { guidanceForEvent, ordinal } from '../data/lunation-guidance';
+import RisingSignPicker from './RisingSignPicker.astro';
+
+const now = new Date();
+const upcoming = (await getCollection('skyEvents'))
+  .filter(
+    (e) =>
+      !e.data.draft &&
+      (e.data.eventType === 'lunation' || e.data.eventType === 'eclipse') &&
+      e.data.start >= now
+  )
+  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
+  .slice(0, 3)
+  .map((e) => ({
+    slug: e.id.replace(/\.mdx?$/, ''),
+    title: e.data.title,
+    start: e.data.start,
+    // Guidance is empty for anything without a lunation sign. Filtered below
+    // rather than rendered as a heading with nothing under it.
+    guidance: guidanceForEvent(e.data.eventType, e.data.title, e.data.sign),
+  }))
+  .filter((e) => e.guidance.length > 0);
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+---
+
+{
+  upcoming.length > 0 && (
+    <section class="section section--sea" id="whats-coming-for-you">
+      <div class="container">
+        <div class="prose flow" style="margin-bottom: var(--space-6);">
+          <h2>What's coming, and where it lands for you</h2>
+          <p>
+            The next {upcoming.length === 1 ? 'lunation' : `${upcoming.length} lunations`}, and the
+            house each one falls in for every rising sign. Tell me yours and I'll put it first —
+            it's kept on this device only, and everything here works the same if you'd rather not.
+          </p>
+          <p class="card__meta">
+            I use <a href="/explore/house-systems/">whole-sign houses</a>, so the sign a lunation
+            falls in lands in the same house for everyone who shares a rising sign. That is
+            arithmetic rather than a prediction, and what each house tends to ask is written once
+            per house rather than freshly per event.
+          </p>
+        </div>
+
+        <RisingSignPicker context="horoscopes" />
+
+        {upcoming.map((e) => (
+          <div class="next-lunation">
+            <h3>
+              <a href={`/current-sky/events/${e.slug}/`}>{e.title}</a>
+            </h3>
+            <p class="card__meta">{fmt(e.start)}</p>
+            <div class="grid grid--3" data-rising-grid>
+              {e.guidance.map((g, i) => (
+                <article class="card" data-sign={g.slug} data-order={i}>
+                  <p class="card__yours" data-yours-badge hidden>
+                    Yours
+                  </p>
+                  <p class="card__meta" style="margin: 0;">
+                    {ordinal(g.house)} house — {g.arena}
+                  </p>
+                  <h4 style="font-size: var(--text-lg); margin: 0;">
+                    <a href={`/explore/signs/${g.slug}/`}>{g.sign} rising</a>
+                  </h4>
+                  <p style="margin: 0;">{g.text}</p>
+                </article>
+              ))}
+            </div>
+          </div>
+        ))}
+
+        <p class="card__meta" style="margin-top: var(--space-8);">
+          What this activates in your own chart — which planets it touches, and what a rising sign
+          alone cannot tell you — is what a{' '}
+          <a href="/readings/monthly-transits/">personal transits reading</a> is for.
+        </p>
+      </div>
+    </section>
+  )
+}

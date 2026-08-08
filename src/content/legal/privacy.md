@@ -1,7 +1,7 @@
 ---
 title: "Privacy Policy"
 description: "How Mo Lumen Astrology collects, uses, and protects your information — including why birth data is treated as sensitive, never sold, and never added to analytics."
-updatedDate: 2026-08-03
+updatedDate: 2026-08-08
 reviewStatus: owner-approved
 ---
 
@@ -81,9 +81,25 @@ not counted as a new person. It records how the site is used, not who you are, a
 described above it cannot follow you to other websites. Decline, and no analytics cookie is written
 at all.
 
-One small item is stored in your browser either way: your answer to the cookie question itself. It
-holds a single word — whether you agreed or declined — so you are not asked again on every page. It
-is never sent anywhere.
+Two small items may be stored in your browser either way, and neither is sent anywhere.
+
+The first is your answer to the cookie question itself. It holds a single word — whether you agreed
+or declined — so you are not asked again on every page.
+
+The second is only stored if you choose to set it: your rising sign, if you tell the site which one
+is yours so that the guidance written for it appears first. It holds one word from a list of twelve
+— "virgo", say — and nothing else.
+
+**It is not birth data, and it is not treated as any.** Choosing it never asks you for your birth
+date, your birth time or your birth place. None of those is requested, stored or sent at any point,
+and the site does not work your rising sign out from them — it has none of them to work from. You
+are picking a word from a list, in the same way you would anywhere else on the site.
+
+**It is not used to identify you.** It is not a login, an account or a profile. It is not used to
+recognise you, to tell you apart from anyone else, or to build any record of your visits. It stays
+on the device you set it on: it is never sent to us, never sent to analytics, and never placed in a
+web address. You can change it or clear it from the same control that set it, and clearing your
+browser data removes it. Everything on the site works identically whether or not you set one.
 
 Embedded third-party features — the booking calendar and video players — may set their own cookies,
 and they load only when you interact with them. If you never open the booking calendar or press play

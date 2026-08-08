@@ -5,20 +5,18 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
+import SkyViewTabs from '../../components/SkyViewTabs.astro';
+import { SKY_TYPE_LABELS } from '../../lib/sky-calendar';
 
 const now = new Date();
 const events = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && ((e.data.end ?? e.data.start) >= now || e.data.start >= now))
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
 const types = [...new Set(events.map((e) => e.data.eventType))];
-const typeLabels: Record<string, string> = {
-  lunation: 'New & Full Moons',
-  eclipse: 'Eclipses',
-  retrograde: 'Retrogrades',
-  ingress: 'Ingresses',
-  aspect: 'Aspects',
-  other: 'Other',
-};
+// Shared with the calendar view. Two copies of this map drifted the first time
+// one of them was edited, and a filter button labelled differently on two pages
+// showing the same events reads as two different datasets.
+const typeLabels = SKY_TYPE_LABELS;
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const monthKey = (d: Date) =>
@@ -62,6 +60,7 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 
   <section class="section">
     <div class="container">
+      <SkyViewTabs current="list" />
       <div class="filter-bar" role="group" aria-label="Filter events by type" data-sky-filters>
         <button type="button" aria-pressed="true" data-filter="all">All events</button>
         {
@@ -157,7 +156,11 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
           m.hidden = [...m.querySelectorAll<HTMLElement>('[data-event-type]')].every((li) => li.hidden);
         });
         if (status) status.textContent = `${shown} event${shown === 1 ? '' : 's'} shown`;
-        (window as any).gtag?.('event', 'current_sky_filter', { filter });
+        // mlTrack, not gtag. A bare `gtag?.()` fires into nothing whenever the
+        // helper has not loaded, and a missing integration then looks exactly
+        // like a working one — the failure that lost four Reading Finder events
+        // for months. mlTrack is defined unconditionally and no-ops in one place.
+        (window as any).mlTrack?.('current_sky_filter', { filter });
       })
     );
   }

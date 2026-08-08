@@ -54,7 +54,16 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>1 · What do you already know?</h2>
+      {/*
+        The `id` on every section heading is not decoration. The Birth Time
+        Confidence check on /birth-time-toolkit/ sends each result straight to
+        the worksheet that matches it, and a result whose link lands at the top
+        of a thirteen-page document has not sent anyone anywhere. The slugs are
+        descriptive rather than numbered so that renumbering a section does not
+        break an inbound link, and `content-integrity.mjs` asserts that every
+        anchor the tool emits exists here.
+      */}
+      <h2 id="what-you-know">1 · What do you already know?</h2>
       <p>
         Start here even if the answer is "almost nothing". Writing down what you have, and where it
         came from, is what turns a vague uncertainty into a search with a shape.
@@ -78,7 +87,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>2 · Record search checklist</h2>
+      <h2 id="record-search">2 · Record search checklist</h2>
       <p>
         Work down in order. Most people find the time at the first or second step, and the later
         ones exist for the cases where they don't.
@@ -127,7 +136,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>3 · Family interview</h2>
+      <h2 id="family-interview">3 · Family interview</h2>
       <p>
         Ask about the shape of the day, not the number on the clock. People remember events far
         better than times, and asking "what time was I born?" invites a rounded guess that then
@@ -167,7 +176,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>4 · When times disagree</h2>
+      <h2 id="when-times-disagree">4 · When times disagree</h2>
       <p>
         Keep every candidate. A recorded conflict is more useful than a premature decision, because
         two candidate times can be tested against a chart and a single guessed time cannot be tested
@@ -209,7 +218,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>5 · How confident are you?</h2>
+      <h2 id="confidence-scale">5 · How confident are you?</h2>
       <p>
         Use the plainest label that is true. The point of this scale is to stop a guess quietly
         becoming a fact somewhere between your notes and your astrologer, so resist rounding
@@ -236,7 +245,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>6 · If it stays unknown</h2>
+      <h2 id="if-it-stays-unknown">6 · If it stays unknown</h2>
       <p>
         You can still have a real reading. What is unavailable without a time is the rising sign,
         the house structure, and the Moon's exact degree on a fast-moving day. What remains is every
@@ -256,7 +265,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>7 · About rectification</h2>
+      <h2 id="rectification">7 · About rectification</h2>
       <p>
         Rectification is an astrological technique for narrowing a probable birth time by working
         backwards from known life events. It is a real discipline, and specialists do careful work.
@@ -275,7 +284,7 @@ const lines = (n: number) => Array.from({ length: n });
 
       <hr class="rule-print" />
 
-      <h2>8 · Preparing for your reading</h2>
+      <h2 id="preparing">8 · Preparing for your reading</h2>
       <p>
         The summary to bring. This is what makes the difference between an astrologer guessing at
         your certainty and knowing it.

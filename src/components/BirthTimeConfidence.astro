@@ -1,0 +1,259 @@
+---
+/**
+ * The Birth Time Confidence check.
+ *
+ * EVERY RESULT IS SERVER-RENDERED AND HIDDEN, not built by script.
+ *
+ * The Reading Finder assembles its result with `innerHTML` string
+ * concatenation, and the consequence is that none of its exit links are visible
+ * to `internal-link-check.mjs` — which is why `test-finder-handoff.mjs` had to
+ * be written to cover them separately. Rendering all five panels into the HTML
+ * costs about 4KB and buys four things at once: the link checker validates
+ * every anchor the tool can produce, the copy is indexable on a page that was
+ * previously thin, there is no escaping to get wrong, and the result text lives
+ * in one typed file rather than in a template literal.
+ *
+ * NOTHING IS STORED. Not localStorage, not sessionStorage, not a cookie, not a
+ * URL parameter. Answers live in the DOM for the length of the visit and vanish
+ * on reload — the same promise /reading-finder/ makes and keeps. The tool never
+ * asks for a birth date, a birth time or a place, so there is no sensitive data
+ * here to protect in the first place, which is deliberate on a page about
+ * sensitive data.
+ */
+import { QUESTIONS, RESULTS, WORKSHEETS_PATH } from '../lib/birth-time-confidence';
+
+const results = Object.values(RESULTS);
+const pdfPath = '/downloads/birth-time-toolkit.pdf';
+---
+
+<div class="finder confidence" data-confidence id="confidence-check">
+  <form>
+    {
+      QUESTIONS.map((q, i) => (
+        <div data-step={q.id} hidden={i > 0}>
+          <fieldset>
+            <legend>{q.legend}</legend>
+            {q.note && <p class="confidence__note">{q.note}</p>}
+            {q.options.map((o) => (
+              <label class="choice">
+                <input type="radio" name={q.id} value={o.value} />
+                <span>{o.label}</span>
+              </label>
+            ))}
+          </fieldset>
+        </div>
+      ))
+    }
+
+    <div class="finder__controls">
+      <button type="button" class="btn btn--ghost" data-back hidden>Back</button>
+      <button type="button" class="btn btn--primary" data-next>Next</button>
+      <button type="button" class="btn btn--ghost" data-restart hidden>Start over</button>
+      <span class="finder__progress" data-progress>Question 1 of 3</span>
+    </div>
+  </form>
+
+  {
+    results.map((r) => (
+      <div class="confidence__result" data-result={r.id} hidden>
+        {/*
+          The label is text. There is deliberately no colour scale, no meter and
+          no five-step traffic light: a red-to-green ramp would imply a ranking
+          this scale does not assert. "Unknown" is not a failing grade, and the
+          copy under it says so.
+        */}
+        <p class="eyebrow">Your evidence</p>
+        <h3 tabindex="-1">{r.label}</h3>
+        <p class="confidence__definition">{r.definition}</p>
+
+        <h4>What that means</h4>
+        <p>{r.means}</p>
+
+        <h4>What's still uncertain</h4>
+        <p>{r.uncertain}</p>
+
+        <h4>Your next step</h4>
+        <p>{r.nextStep}</p>
+        <p>
+          <a
+            class={`btn ${r.primaryAction === 'toolkit' ? 'btn--accent' : 'btn--ghost'}`}
+            href={`${WORKSHEETS_PATH}#${r.worksheet.anchor}`}
+            data-next-step={`worksheet-${r.worksheet.anchor}`}
+          >
+            {r.worksheet.label}
+          </a>
+        </p>
+
+        <h4>Can you still book a reading?</h4>
+        <p>{r.reading}</p>
+
+        <h4>What to send me</h4>
+        <p class="confidence__send">{r.sendMo}</p>
+
+        <div class="finder__exits">
+          {
+            r.primaryAction === 'book' ? (
+              <>
+                <a class="btn btn--primary" href="/book/?service=natal-90" data-next-step="book">
+                  Book a reading
+                </a>
+                <a class="btn btn--ghost" href={pdfPath} data-next-step="pdf" download>
+                  Download the toolkit
+                </a>
+              </>
+            ) : (
+              <>
+                <a class="btn btn--primary" href={pdfPath} data-next-step="pdf" download>
+                  Download the toolkit
+                </a>
+                <a class="btn btn--ghost" href="/birth-time/" data-next-step="guide">
+                  How to find your birth time
+                </a>
+              </>
+            )
+          }
+          <button type="button" class="btn btn--ghost" data-restart-result>Start over</button>
+        </div>
+      </div>
+    ))
+  }
+
+  <noscript>
+    <p>
+      This check needs JavaScript, but the scale it uses is written out in full in the toolkit:
+      <a href={`${WORKSHEETS_PATH}#confidence-scale`}>section 5, "How confident are you?"</a> —
+      five plain labels from <em>documented</em> to <em>unknown</em>. Pick the plainest one that is
+      true and bring it with you.
+    </p>
+  </noscript>
+</div>
+
+<script>
+  import { QUESTIONS, evaluate, type Answers } from '../lib/birth-time-confidence';
+
+  const root = document.querySelector<HTMLElement>('[data-confidence]');
+  if (root) {
+    const form = root.querySelector('form')!;
+    const steps = new Map<string, HTMLElement>();
+    root.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => steps.set(el.dataset.step!, el));
+    const panels = new Map<string, HTMLElement>();
+    root.querySelectorAll<HTMLElement>('[data-result]').forEach((el) =>
+      panels.set(el.dataset.result!, el)
+    );
+    const backBtn = root.querySelector<HTMLButtonElement>('[data-back]')!;
+    const nextBtn = root.querySelector<HTMLButtonElement>('[data-next]')!;
+    const restartBtn = root.querySelector<HTMLButtonElement>('[data-restart]')!;
+    const progress = root.querySelector<HTMLElement>('[data-progress]')!;
+
+    const track = (event: string, params: Record<string, string> = {}) =>
+      (window as any).mlTrack?.(event, params);
+
+    const answers = (): Answers => {
+      const out: Answers = {};
+      for (const q of QUESTIONS)
+        out[q.id] = form.querySelector<HTMLInputElement>(`input[name="${q.id}"]:checked`)?.value;
+      return out;
+    };
+
+    let index = 0;
+    let started = false;
+
+    /**
+     * Three fixed questions, so the denominator never moves. An earlier version
+     * had a conditional fourth step and the counter read "1 of 3" then "2 of 4";
+     * the question was redundant and was removed rather than papered over.
+     *
+     * `moveFocus` is not a nicety. Focusing an element scrolls it into view, and
+     * this component sits three sections down a long page — so focusing the
+     * first radio during the initial render scrolled every visitor past the
+     * hero and the "what's in it" list, landing them in the middle of a quiz
+     * they had not asked to start. `check:hero-contrast` is what caught it: it
+     * reported the h1 at 1.00:1 because the heading was at y=-94, above the
+     * viewport, by the time the page settled.
+     *
+     * So focus moves only when the reader has actually acted.
+     */
+    function show(i: number, moveFocus = true) {
+      index = Math.max(0, Math.min(i, QUESTIONS.length - 1));
+      const currentId = QUESTIONS[index].id;
+      steps.forEach((el, id) => (el.hidden = id !== currentId));
+      panels.forEach((el) => (el.hidden = true));
+      nextBtn.hidden = false;
+      backBtn.hidden = index === 0;
+      restartBtn.hidden = index === 0;
+      nextBtn.textContent = index === QUESTIONS.length - 1 ? 'See what this means' : 'Next';
+      progress.textContent = `Question ${index + 1} of ${QUESTIONS.length}`;
+      if (moveFocus) steps.get(currentId)?.querySelector<HTMLInputElement>('input')?.focus();
+    }
+
+    function showResult() {
+      const result = evaluate(answers());
+      if (!result) return;
+      steps.forEach((el) => (el.hidden = true));
+      panels.forEach((el, id) => (el.hidden = id !== result.id));
+      nextBtn.hidden = true;
+      backBtn.hidden = false;
+      restartBtn.hidden = false;
+      progress.textContent = 'Here’s what your evidence suggests';
+      // Only the label reaches analytics — never an answer combination, and
+      // never anything time-shaped. All five are short non-numeric strings and
+      // pass mlTrack's sanitiser unchanged.
+      track('birthtime_check_complete', { result: result.id });
+      const heading = panels.get(result.id)?.querySelector<HTMLElement>('h3');
+      heading?.focus();
+    }
+
+    nextBtn.addEventListener('click', () => {
+      if (!started) {
+        started = true;
+        track('birthtime_check_start');
+      }
+      const current = QUESTIONS[index];
+      if (!answers()[current.id]) {
+        steps.get(current.id)?.querySelector<HTMLInputElement>('input')?.focus();
+        // The validation message goes into the progress line, which is already
+        // the thing a reader is looking at for orientation. No alert, no
+        // colour-only error state.
+        progress.textContent = 'Please choose an answer to continue';
+        return;
+      }
+      if (index >= QUESTIONS.length - 1) showResult();
+      else show(index + 1);
+    });
+
+    backBtn.addEventListener('click', () => {
+      const onResult = [...panels.values()].some((el) => !el.hidden);
+      if (onResult) show(QUESTIONS.length - 1);
+      else show(index - 1);
+    });
+
+    const restart = () => {
+      form.reset();
+      index = 0;
+      show(0);
+    };
+    restartBtn.addEventListener('click', restart);
+    root
+      .querySelectorAll<HTMLButtonElement>('[data-restart-result]')
+      .forEach((b) => b.addEventListener('click', restart));
+
+    // Also guard the anchor entry point. Someone arriving on
+    // /birth-time-toolkit/#confidence-check — from /birth-time/, the Reading
+    // Finder or /horoscopes/ — should land on the heading above the tool, which
+    // the browser's own fragment handling does correctly. Stealing focus into a
+    // radio afterwards would scroll past the framing that explains what the
+    // tool is.
+
+    root.addEventListener('click', (e) => {
+      const link = (e.target as Element)?.closest<HTMLElement>('[data-next-step]');
+      if (!link) return;
+      const result = [...panels.entries()].find(([, el]) => !el.hidden)?.[0];
+      track('birthtime_check_next_step', {
+        result: result ?? 'unknown',
+        step: link.dataset.nextStep!,
+      });
+    });
+
+    show(0, false);
+  }
+</script>
