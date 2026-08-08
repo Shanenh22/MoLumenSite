@@ -62,17 +62,6 @@ const values = [
   title="Home"
   description="Clarifying astrology readings with a classical lens — practical, candid, and warm. Book a natal chart, relationship, solar return, or transit reading with Mo Lumen."
   path="/"
-  {/*
-    src only, no srcset — on purpose.
-
-    The hero is painted by `background-image: var(--hero-image)`, which is a
-    single URL. Preloading a srcset here would let the browser pick a different
-    candidate from the one CSS then asks for, and the page would download two
-    hero images instead of one: a "performance" change that costs bandwidth on
-    exactly the connections it was meant to help. If this hero ever moves to
-    `image-set()`, the preload must gain the matching srcset in the same commit.
-  */}
-  preloadImage={{ src: scenes.heroWorkspace.src }}
 >
   <!-- Hero: night workspace photograph + real photo of Mo -->
   <section class="hero hero--home" style={`--hero-image: url('${scenes.heroWorkspace.src}');`}>

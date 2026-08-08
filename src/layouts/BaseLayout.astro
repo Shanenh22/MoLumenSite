@@ -24,21 +24,31 @@ interface Props {
   /** Extra JSON-LD objects for this page. */
   schema?: object[];
   noindex?: boolean;
-  /**
-   * LCP image to preload, for heroes painted from a CSS background.
-   *
-   * A background set through a custom property is invisible to the browser's
-   * preload scanner — it cannot be found until CSS has been fetched, parsed and
-   * matched, which is why Lighthouse reported the homepage hero as neither
-   * `requestDiscoverable` nor `priorityHinted`. `<img>` heroes do not need this:
-   * they are in the markup and already carry `fetchpriority="high"`.
-   *
-   * Pass the same URL and srcset the CSS will request, or the browser fetches
-   * the image twice and the preload has made things worse. Never pass a
-   * below-the-fold image.
-   */
-  preloadImage?: { src: string; srcset?: string; sizes?: string };
 }
+/**
+ * No `preloadImage` prop, and that is a measured decision rather than an
+ * omission.
+ *
+ * Lighthouse flags the homepage hero as neither discoverable nor
+ * priority-hinted, because it is painted from a CSS custom property that the
+ * preload scanner cannot see. The obvious fix is a `<link rel="preload">`, so
+ * it was built and measured on one machine with the project's own
+ * `npm run audit:lh`:
+ *
+ *   without preload   mobile P:94  LCP 3.0s   desktop P:100  LCP 0.7s
+ *   with preload      mobile P:93  LCP 3.2s   desktop P:99   LCP 0.9s
+ *
+ * It did not help, and if anything competed with the stylesheet for bandwidth
+ * on a throttled connection. Shipping it would have been a "performance
+ * improvement" that made the number worse, justified by an audit label rather
+ * than by a measurement.
+ *
+ * The homepage mobile LCP of ~3.0s is real and worth fixing — every other page
+ * measures 1.7–2.3s. The hero file is only 56KB, so the cause is more likely
+ * the overall weight of a 12-section page than that one image. The next thing
+ * to try is viewport-based hero variants (the 640/960/1280 copies already
+ * exist) rather than another preload. Measure it the same way before keeping it.
+ */
 const {
   title,
   description,
@@ -50,7 +60,6 @@ const {
   schema = [],
   noindex = false,
   shareImage,
-  preloadImage,
 } = Astro.props;
 
 const canonical = new URL(path, site.url).href;
@@ -226,18 +235,6 @@ const ga4Id = site.integrations.ga4Id;
     <title>{fullTitle}</title>
     <meta name="description" content={metaDescription} />
     <link rel="canonical" href={canonical} />
-    {
-      preloadImage && (
-        <link
-          rel="preload"
-          as="image"
-          href={preloadImage.src}
-          imagesrcset={preloadImage.srcset}
-          imagesizes={preloadImage.sizes ?? '100vw'}
-          fetchpriority="high"
-        />
-      )
-    }
     {site.verification.google && (
       <meta name="google-site-verification" content={site.verification.google} />
     )}
