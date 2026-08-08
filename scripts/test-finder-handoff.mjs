@@ -107,7 +107,12 @@ const WALKS = [
   {
     name: "returning — deeper",
     answers: { focus: "patterns", who: "established", "est-need": "deeper", birthtime: "yes", when: "soon" },
-    expectBook: "/book/?service=want-more-clarity",
+    /* Want More Clarity is priced by how recently the natal reading was, and
+       the finder never asks. It must send the reader to the priced options
+       rather than resolve `want-more-clarity` through /book/'s service map,
+       which lands on the $100 within-three-months rate. */
+    expectBook: "/readings/want-more-clarity/#options",
+    expectBookLabel: "Review booking options",
     expectNurture: false,
   },
   {
@@ -167,6 +172,9 @@ for (const walk of WALKS) {
     return {
       resultShown: !result.hidden,
       exits: [...result.querySelectorAll(".finder__exits a")].map((a) => a.getAttribute("href")),
+      exitLabels: [...result.querySelectorAll(".finder__exits a")].map((a) =>
+        a.textContent.trim(),
+      ),
       nurtureVisible: nurture ? !nurture.hidden : null,
       events: (window.dataLayer || [])
         .filter((a) => a[0] === "event")
@@ -178,11 +186,20 @@ for (const walk of WALKS) {
     ok(false, `${walk.name}: ${r.error}`);
     continue;
   }
-  const bookHref = (r.exits || []).find((h) => h && h.startsWith("/book/"));
+  /* The first exit is the primary action. Matching on "starts with /book/"
+     would silently pass a walk that was supposed to route to the priced
+     options instead, so take the exit by position. */
+  const bookHref = (r.exits || [])[0];
   ok(
     r.resultShown && bookHref === walk.expectBook,
     `${walk.name} → ${walk.expectBook} (got ${bookHref})`,
   );
+  if (walk.expectBookLabel) {
+    ok(
+      (r.exitLabels || [])[0] === walk.expectBookLabel,
+      `${walk.name}: primary exit reads "${walk.expectBookLabel}" (got "${(r.exitLabels || [])[0]}")`,
+    );
+  }
   ok(
     r.nurtureVisible === walk.expectNurture,
     `${walk.name}: newsletter nurture ${walk.expectNurture ? "shown" : "hidden"} (got ${r.nurtureVisible})`,

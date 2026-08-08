@@ -123,16 +123,18 @@ const schema: object[] = [
                   lowPrice: Math.min(...s.options.map((o) => o.price)),
                   highPrice: Math.max(...s.options.map((o) => o.price)),
                   offerCount: s.options.length,
-                  offers: s.options.map((o) => ({
+                  /* Offer URLs come from the same bookingActions() the visible
+                     buttons use. Built by hand they were a fourth copy of the
+                     service-to-event mapping, in the one format specifically
+                     designed to be trusted by a machine — an offer that
+                     disagreed with the page would be the schema that is wrong. */
+                  offers: s.options.map((o, i) => ({
                     '@type': 'Offer',
                     name: o.label,
                     price: o.price,
                     priceCurrency: s.currency,
                     availability: 'https://schema.org/InStock',
-                    url: new URL(
-                      `/book/?service=${o.bookingEventId || s.bookingEventId}`,
-                      site.url
-                    ).href,
+                    url: new URL(actions[i].href, site.url).href,
                   })),
                 }
               : {
@@ -140,7 +142,7 @@ const schema: object[] = [
                   price: s.price,
                   priceCurrency: s.currency,
                   availability: 'https://schema.org/InStock',
-                  url: new URL(`/book/?service=${s.bookingEventId}`, site.url).href,
+                  url: new URL(actions[0].href, site.url).href,
                 },
         }
       : {}),

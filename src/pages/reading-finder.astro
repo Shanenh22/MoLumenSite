@@ -5,29 +5,64 @@ import { site } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
+import { bookingActions, finalCtaAction } from '../config/booking.ts';
 
 const services = await getCollection('services');
+
+/**
+ * Booking targets are resolved HERE, on the server, and handed to the script.
+ *
+ * The finder used to build `/book/?service=${book ?? p.slug}` in the browser.
+ * For every recommendation carrying an explicit `book` event that was correct,
+ * but the ones that fall back to the SERVICE slug went through /book/'s
+ * `serviceToEvent` map — which resolves `want-more-clarity` to `clarity-3mo`,
+ * the $100 rate that only applies within three months of a natal reading.
+ *
+ * The finder never asks how long ago that reading was, so it was quietly
+ * routing every "go deeper" recommendation to a discounted rate the visitor may
+ * not qualify for. Exactly the defect `finalCtaAction` exists to prevent, in the
+ * one tool on the site whose whole job is to recommend honestly.
+ *
+ * So each service now carries the href and label `finalCtaAction` produces, and
+ * `eventHrefs` covers the explicit event keys the finder chooses itself (the
+ * natal 60/90 split, which IS a real visitor answer to a real question). No URL
+ * is assembled in the browser any more.
+ */
 const bySlug = Object.fromEntries(
-  services.map((s) => [
-    s.data.slug,
-    {
-      name: s.data.name,
-      slug: s.data.slug,
-      duration: s.data.durationLabel,
-      price:
-        s.data.priceConfirmed && s.data.price
-          ? (s.data.priceLabel ?? `$${s.data.price}`)
-          : 'confirmed at booking',
-      birth:
-        s.data.birthDataRequired === 'none'
-          ? 'No birth data needed'
-          : s.data.birthDataRequired === 'both'
-            ? 'Birth data for both people'
-            : 'Your birth date, time, and place',
-      purpose: s.data.purpose,
-    },
-  ])
+  services.map((s) => {
+    const cta = finalCtaAction(s.data, `/readings/${s.data.slug}/#options`);
+    return [
+      s.data.slug,
+      {
+        name: s.data.name,
+        slug: s.data.slug,
+        duration: s.data.durationLabel,
+        price:
+          s.data.priceConfirmed && s.data.price
+            ? (s.data.priceLabel ?? `$${s.data.price}`)
+            : 'confirmed at booking',
+        birth:
+          s.data.birthDataRequired === 'none'
+            ? 'No birth data needed'
+            : s.data.birthDataRequired === 'both'
+              ? 'Birth data for both people'
+              : 'Your birth date, time, and place',
+        purpose: s.data.purpose,
+        /** Where "Book this reading" should actually go for this service. */
+        bookHref: cta.href,
+        /** "Book this reading", or "Review booking options" when the options
+            differ by an eligibility condition the finder has not asked about. */
+        bookLabel: cta.kind === 'choose' ? 'Review booking options' : 'Book this reading',
+      },
+    ];
+  })
 );
+
+/** Every bookable Cal.com event key -> its /book/ deep link. */
+const eventHrefs = Object.fromEntries(
+  services.flatMap((s) => bookingActions(s.data).map((a) => [a.event, a.href]))
+);
+
 const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 ---
 
@@ -68,6 +103,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         class="finder"
         data-finder
         data-services={JSON.stringify(bySlug)}
+        data-event-hrefs={JSON.stringify(eventHrefs)}
         data-email={site.email}
       >
         <form>
@@ -276,6 +312,8 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
   const root = document.querySelector<HTMLElement>('[data-finder]');
   if (root) {
     const services = JSON.parse(root.dataset.services || '{}');
+    // Server-resolved booking targets. Nothing here builds a /book/ URL.
+    const eventHrefs = JSON.parse(root.dataset.eventHrefs || '{}');
     const MO_EMAIL = root.dataset.email || '';
     const stepEls: Record<string, HTMLElement> = {};
     root.querySelectorAll<HTMLElement>('[data-step]').forEach((el) => {
@@ -499,7 +537,12 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       const { primary, book, alt, why } = recommend();
       const p = services[primary];
       const a = alt ? services[alt] : null;
-      const bookSlug = book ?? p.slug;
+      // An explicit `book` is an event the finder chose from a real answer
+      // (the natal 60/90 question). Otherwise take the service's own
+      // resolved target, which is a booking link when the reading has one
+      // obvious option and a link to its priced options when it does not.
+      const bookHref = (book && eventHrefs[book]) || p.bookHref;
+      const bookLabel = book ? 'Book this reading' : p.bookLabel;
       const when = answer('when');
       const birth = answer('birthtime');
 
@@ -562,7 +605,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
           <dt>You'll need</dt><dd>${esc(p.birth)}</dd>
         </dl>
         <div class="finder__exits">
-          <a class="btn ${ready ? 'btn--primary' : 'btn--ghost'}" href="/book/?service=${bookSlug}">Book this reading</a>
+          <a class="btn ${ready ? 'btn--primary' : 'btn--ghost'}" href="${bookHref}">${esc(bookLabel)}</a>
           <a class="btn ${ready ? 'btn--ghost' : 'btn--primary'}" href="${mailto}">Send this to me first</a>
           <a class="btn btn--ghost" href="/readings/${p.slug}/">Full details</a>
         </div>

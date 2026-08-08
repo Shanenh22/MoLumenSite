@@ -21,6 +21,7 @@
  * sensitive data.
  */
 import { QUESTIONS, RESULTS, WORKSHEETS_PATH } from '../lib/birth-time-confidence';
+import { defaultBookingHref } from '../config/booking.ts';
 
 const results = Object.values(RESULTS);
 const pdfPath = '/downloads/birth-time-toolkit.pdf';
@@ -94,7 +95,7 @@ const pdfPath = '/downloads/birth-time-toolkit.pdf';
           {
             r.primaryAction === 'book' ? (
               <>
-                <a class="btn btn--primary" href="/book/?service=natal-90" data-next-step="book">
+                <a class="btn btn--primary" href={defaultBookingHref()} data-next-step="book">
                   Book a reading
                 </a>
                 <a class="btn btn--ghost" href={pdfPath} data-next-step="pdf" download>

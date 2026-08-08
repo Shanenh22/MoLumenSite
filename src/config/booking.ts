@@ -47,6 +47,29 @@
 export const DEFAULT_BOOKING_EVENT = "natal-90";
 
 /**
+ * The booking link for a specific Cal.com event. The only place a
+ * `/book/?service=` URL is spelled out.
+ *
+ * Everything that links into the funnel goes through here or through
+ * `bookingActions`. Three pages had hand-written `/book/?service=natal-90`
+ * strings — the birth-time guide, the printable worksheets and the Birth Time
+ * Confidence result — which were correct only for as long as natal-90 happened
+ * to remain the newcomer reading. They meant "the reading I'd send a newcomer
+ * to", so they now say that instead of naming an event.
+ */
+export function bookingHref(event: string): string {
+  return `/book/?service=${event}`;
+}
+
+/**
+ * Where to send someone who should simply start with the reading Mo recommends
+ * to a first-time client — the same reading a bare `/book/` opens on.
+ */
+export function defaultBookingHref(): string {
+  return bookingHref(DEFAULT_BOOKING_EVENT);
+}
+
+/**
  * Canonical display order for readings, by SERVICE slug.
  *
  * Deliberately a list rather than a numeric field on each JSON file: `order`
@@ -149,7 +172,7 @@ export function bookingActions(service: {
         event: service.bookingEventId,
         label: 'Book this reading',
         ariaLabel: `Book the ${service.name}`,
-        href: `/book/?service=${service.bookingEventId}`,
+        href: bookingHref(service.bookingEventId),
         recommended: false,
         price,
         durationLabel: service.durationLabel,
@@ -180,7 +203,7 @@ export function bookingActions(service: {
       event,
       label: price ? `Book ${distinguisher} — ${price}` : `Book ${distinguisher}`,
       ariaLabel: `Book the ${service.shortName} reading, ${o.label}${price ? `, ${price}` : ''}`,
-      href: `/book/?service=${event}`,
+      href: bookingHref(event),
       recommended: Boolean(o.note),
       price,
       /** Short text for a table cell: whichever field tells the options apart. */
