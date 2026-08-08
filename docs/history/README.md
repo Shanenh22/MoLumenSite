@@ -1,5 +1,5 @@
 # Historical Project Evidence
 
-Files in this directory preserve old audits, testing snapshots, and session handoffs. They are not current operating instructions or an active backlog.
+Files in this directory preserve old audits, testing snapshots, session handoffs, and completed planning-phase artifacts. They are not current operating instructions or an active backlog.
 
-Before acting on a historical finding, verify it against the current code, rendered site, and repository tests. Current agent routing/state lives in `AGENTS.md`, `CLAUDE.md`, and `MoLumen_OS/`.
+Before acting on a historical finding or proposal, verify it against the current code, rendered site, repository tests, `MoLumen_OS/PROJECT_STATE.md`, and the active backlog. Current agent routing lives in `AGENTS.md`, `CLAUDE.md`, and `MoLumen_OS/INDEX.md`.
