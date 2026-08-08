@@ -20,19 +20,18 @@
  */
 import { site } from '../config/site';
 
-interface Bookable {
-  key: string;
-  name: string;
-  duration: string;
-  price: string | null;
-  event: string;
-}
-
+/**
+ * Only `calUser` is needed here.
+ *
+ * A `services` prop used to be passed in as well, and was never read: the
+ * client script takes the bookables from `[data-services]` in the DOM, which
+ * `book.astro` renders next to the radio group. Two sources for the same data
+ * where one is inert is how they drift, so the inert one is gone.
+ */
 interface Props {
   calUser: string;
-  services: Record<string, Bookable>;
 }
-const { calUser, services } = Astro.props;
+const { calUser } = Astro.props;
 const configured = calUser.trim().length > 0;
 ---
 
