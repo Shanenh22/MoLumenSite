@@ -464,6 +464,15 @@ details.faq .faq__body {
   background: var(--color-teal-tint);
   color: var(--color-teal);
 }
+/* Current section. A grouped destination sits behind a <button>, which cannot
+   take aria-current="page" — so the group is marked as the section instead,
+   and the submenu link inside it still carries the page state. Underline
+   rather than the tint used for the current page, so "you are in here" and
+   "you are on this" stay visually distinct. */
+.nav-desktop > ul > li[data-current="true"] > button {
+  color: var(--color-teal);
+  box-shadow: inset 0 -2px 0 var(--color-teal);
+}
 .nav-desktop .submenu {
   position: absolute;
   top: 100%;
@@ -1063,6 +1072,23 @@ details.faq .faq__body {
     display: table;
   }
 }
+/* Book column. A two-price reading gets one link per option rather than a
+   single "Book" that silently picks one, so the cell holds a list. Padded to
+   clear the 24px WCAG 2.2 target minimum even though the table is desktop-only
+   — a future breakpoint change should not quietly reintroduce a small target. */
+.compare-book {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-1);
+}
+.compare-book a {
+  display: inline-block;
+  min-height: 24px;
+  padding: 2px 0;
+  white-space: nowrap;
+}
 
 /* ---------- timeline ---------- */
 .timeline {
@@ -1474,6 +1500,25 @@ details.faq .faq__body {
 }
 .card--featured {
   border-top: 3px solid var(--color-teal);
+}
+
+/* Eligibility chip — "After your natal reading".
+   Same parchment/accent-ink pairing as .choice__tag on /book/, which
+   check:contrast already measures; this is registered there too rather than
+   assumed to inherit its result, because it renders on white cards and on
+   .bg-alt sections and the composite differs. It is a statement about
+   sequence, never a refusal, so it is styled as quiet metadata and not as a
+   warning colour. */
+.eligibility-chip {
+  display: inline-block;
+  margin: 0;
+  padding: 1px 8px;
+  border-radius: 999px;
+  background: var(--color-parchment);
+  border: 1px solid var(--border);
+  font-size: 0.78rem;
+  color: var(--accent-ink);
+  align-self: start;
 }
 .card--img > img {
   border-bottom: 3px solid var(--color-teal);
@@ -2851,6 +2896,85 @@ fieldset.booking-group > legend span {
 .consent__fine {
   color: color-mix(in srgb, var(--color-stone) 85%, transparent);
 }
+/* The one-line summary that keeps the phone banner short enough not to cover
+   the homepage's primary actions. Full-strength stone rather than the faded
+   .consent__fine colour — on mobile this is the only sentence most people
+   read, so it is not fine print. */
+.consent__lead {
+  color: var(--color-stone);
+}
+.consent__more > * + * {
+  margin-top: var(--space-2);
+}
+/* The one-line summary is the phone banner; the full explanation is the
+   desktop one. Exactly one of the two shows at any width, so the disclosure is
+   never duplicated to a screen reader. */
+.consent__lead {
+  display: block;
+}
+@media (min-width: 860px) {
+  .consent__lead {
+    display: none;
+  }
+}
+@media (max-width: 859px) {
+  .consent__more {
+    display: none;
+  }
+}
+/* Compact phone banner.
+ *
+ * The target is arithmetic, not taste. On the shortest viewport this site is
+ * checked at — 375x667 — the homepage hero buttons sit at y=395, which leaves
+ * 272px between them and the bottom of the screen. A bottom-docked banner
+ * taller than that covers the site's two primary first-actions, which is
+ * exactly what was happening at 398px, and still happened at 272px after the
+ * detail block was collapsed.
+ *
+ * So every rule here is buying vertical pixels, and the two that matter most
+ * are the padding reduction (which also brings the two buttons onto one row
+ * instead of two — worth ~60px on its own) and the tightened gaps.
+ *
+ * What is deliberately NOT traded away: the buttons stay 48px tall, well over
+ * the 44px touch minimum, and they stay identical to each other. Refusing must
+ * remain exactly as easy as agreeing at every width.
+ */
+@media (max-width: 859px) {
+  .consent {
+    padding: var(--space-2);
+    padding-bottom: calc(var(--space-2) + env(safe-area-inset-bottom, 0px));
+  }
+  /* The heading stays in the DOM — it is the banner's accessible name via
+     aria-labelledby — but the one-line summary beside it already says what
+     this is, and 19px of visible title is 19px of covered hero button. */
+  .consent__title {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+  .consent__inner {
+    padding: var(--space-3);
+    gap: var(--space-3);
+    /* If someone opens the detail block by hand on a short phone, the banner
+       scrolls inside itself rather than growing until it swallows the page.
+       The collapse is what keeps arrival unobstructed; this bounds the
+       deliberate expansion. */
+    max-height: 60vh;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+  .consent__copy {
+    gap: var(--space-1);
+  }
+  .consent__actions {
+    gap: var(--space-2);
+  }
+}
 .consent a {
   color: var(--color-aqua);
 }
@@ -2893,6 +3017,32 @@ fieldset.booking-group > legend span {
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
+}
+
+/* Nurture block under the Reading Finder result — shown only for "still
+   deciding". Set apart from the recommendation above it so it reads as a
+   separate, optional offer rather than a step in the flow. */
+.finder__nurture {
+  margin-top: var(--space-8);
+  padding-top: var(--space-6);
+  border-top: var(--border-hairline);
+}
+.finder__nurture h2 {
+  font-size: var(--text-xl);
+}
+
+/* The quieter second exit in the closing band. Aqua on navy, matching the
+   other links in .section--night; sized for the 24px WCAG 2.2 target minimum,
+   which a bare inline link in a centred paragraph does not otherwise clear. */
+.cta-band__secondary {
+  margin-top: var(--space-2);
+}
+.cta-band__secondary a {
+  display: inline-block;
+  min-height: 24px;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-aqua);
 }
 
 /* Action row at the foot of a card: a primary booking button and a quieter

@@ -56,20 +56,51 @@ const enabled = Boolean(site.integrations.ga4Id);
       hidden
     >
       <div class="consent__inner">
+        {/*
+          Two registers of the same disclosure: a one-line summary that is the
+          whole banner on a phone, and the full explanation which shows from
+          860px up.
+
+          Measured before this change, at 375x812: the banner was 398px tall —
+          49% of the viewport — and `document.elementFromPoint()` on both
+          homepage hero buttons returned the banner. The site's two primary
+          first-actions were physically unclickable on first visit, on the
+          most-viewed page, on the viewport most people arrive on.
+
+          The arithmetic is why this is a copy change and not only a CSS one.
+          On 375x667 the hero buttons sit 159px from the bottom of the screen,
+          so a bottom-docked banner has 159px to work in. A title, a paragraph,
+          a disclosure control and two 48px buttons do not fit in 159px at any
+          padding — collapsing the detail block got it to 224px and the buttons
+          were still covered. One line and two buttons fit in ~138px.
+
+          Nothing that makes the trade honest was dropped. "Saying no is
+          completely fine" and a link to the privacy policy are both in the one
+          line that always shows, and /privacy/ carries the full detail — which
+          is where it properly lives. The heading stays in the DOM for
+          `aria-labelledby`, visually hidden on phones only.
+        */}
         <div class="consent__copy">
           <h2 class="consent__title" id="consent-title" tabindex="-1">
             A word about cookies
           </h2>
-          <p>
-            I use Google Analytics to see which pages people actually read — how many visits, which
-            articles, nothing that identifies you. Saying yes lets it set one cookie so a return
-            visit is not counted as a new person. Saying no is completely fine: the site works
-            identically, and I still get an anonymous page count.
+          <p class="consent__lead">
+            Analytics only — nothing that identifies you. Saying no is completely fine.{' '}
+            <a href="/privacy/">Privacy</a>.
           </p>
-          <p class="consent__fine">
-            Never advertising, never sold, never linked to your birth details. The{' '}
-            <a href="/privacy/">privacy policy</a> spells it out.
-          </p>
+          <div class="consent__more">
+            <h3 class="visually-hidden">What this means</h3>
+            <p>
+              I use Google Analytics to see which pages people actually read — how many visits,
+              which articles, nothing that identifies you. Saying yes lets it set one cookie so a
+              return visit is not counted as a new person. Saying no is completely fine: the site
+              works identically, and I still get an anonymous page count.
+            </p>
+            <p class="consent__fine">
+              Never advertising, never sold, never linked to your birth details. The{' '}
+              <a href="/privacy/">privacy policy</a> spells it out.
+            </p>
+          </div>
         </div>
         <div class="consent__actions">
           <button class="btn btn--accent" type="button" data-consent-accept>

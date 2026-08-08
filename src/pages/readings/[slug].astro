@@ -6,6 +6,7 @@ import CTABand from '../../components/CTABand.astro';
 import { site } from '../../config/site';
 import SeaBreak from '../../components/SeaBreak.astro';
 import { bandFor, scenes } from '../../config/images';
+import { bookingActions, primaryBookingAction } from '../../config/booking.ts';
 
 const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
   natal: scenes.natal,
@@ -25,13 +26,60 @@ const { service } = Astro.props;
 const s = service.data;
 const all = await getCollection('services');
 const related = all.filter((x) => s.related.includes(x.data.slug));
+
+/**
+ * Every booking action on this page comes from one function, so the hero, the
+ * option cards and the closing band cannot disagree.
+ *
+ * They used to. The hero passed `s.bookingEventId` and the CTA band passed
+ * `s.slug`, which /book/ resolves through `serviceToEvent` — so on
+ * /readings/want-more-clarity/ the hero deep-linked to the $130 tier and the
+ * band, with an identical label, deep-linked to the $100 one.
+ */
+const actions = bookingActions(s);
+const primaryAction = primaryBookingAction(s);
+const multiOption = actions.length > 1;
+
+/**
+ * One matched testimonial, near the decision.
+ *
+ * Nine real, permissioned quotes existed on /testimonials/, which almost
+ * nobody reaches, and none of them appeared on the seven pages where the
+ * purchase is actually decided. Matched strictly on the `service` field —
+ * there is no fallback to a general quote, because implying a client said
+ * something about a reading they did not have is the same fabrication the
+ * testimonial rules exist to prevent. Readings with no matching quote simply
+ * show none, and four currently do.
+ */
+const testimonial = (await getCollection('testimonials'))
+  .filter((t) => t.data.approved && t.data.service === s.slug)
+  .sort((a, b) => a.id.localeCompare(b.id))[0];
 /* A breath between the detail of the reading and the questions people ask about
    it. Slug-derived so each service keeps its own. */
 const breakImage = bandFor(s.slug, 7);
+/**
+ * This reading's own questions first, then the general ones.
+ *
+ * The old sort was on `order` alone across both scopes, and every FAQ in the
+ * collection was `scope: "global"` — so all seven reading pages rendered the
+ * identical four questions ("What actually happens in a reading?", "Can
+ * astrology predict my future?", and the two birth-time ones), in the block
+ * that sits directly between the reading detail and the closing CTA. On the
+ * page where the purchase is decided, the last thing before the button
+ * answered nothing about the thing being bought.
+ *
+ * Sorting by scope first means a scoped question can never be pushed out of
+ * the slice by a general one, which is what would have happened here — the
+ * six new scoped entries all carry low `order` values that collide with the
+ * globals.
+ */
 const faqs = (await getCollection('faqs'))
   .filter((f) => f.data.scope === 'global' || f.data.scope === s.slug)
-  .sort((a, b) => a.data.order - b.data.order)
-  .slice(0, 4);
+  .sort((a, b) => {
+    const scoped = (f: typeof a) => (f.data.scope === s.slug ? 0 : 1);
+    return scoped(a) - scoped(b) || a.data.order - b.data.order;
+  })
+  .slice(0, 5);
 const crumbs = [
   { label: 'Readings', href: '/readings/' },
   { label: s.shortName, href: `/readings/${s.slug}/` },
@@ -134,10 +182,20 @@ if (faqs.length > 0) {
           ))}
           {s.audience === 'established' && <li>Established clients</li>}
         </ul>
+        {/*
+          One button per bookable option. A reading sold at two prices offers
+          both here — the customer makes the choice that costs them money, not
+          a lookup table. Single-option readings are unchanged: one
+          "Book this reading".
+        */}
         <p class="hero__cta">
-          <a class="btn btn--accent" href={`/book/?service=${s.bookingEventId}`}>
-            Book this reading
-          </a>
+          {
+            actions.map((a) => (
+              <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
+                {a.label}
+              </a>
+            ))
+          }
           <a class="btn btn--ghost" href="/reading-finder/">Not sure? Find your reading</a>
         </p>
       </div>
@@ -203,17 +261,30 @@ if (faqs.length > 0) {
 
       {
         s.options.length > 0 && (
-          <div class="grid grid--2" style="margin-bottom: var(--space-8);">
-            {s.options.map((o) => (
-              <div class="card">
-                <h2 style="font-size: var(--text-lg); margin: 0;">{o.label}</h2>
-                <p class="card__meta" style="margin: 0;">
-                  {o.durationLabel}
-                </p>
-                <p class="price" style="margin: 0;">${o.price}</p>
-                {o.note && <p style="margin: 0;">{o.note}</p>}
-              </div>
-            ))}
+          <div class="grid grid--2" id="options" style="margin-bottom: var(--space-8);">
+            {s.options.map((o, i) => {
+              /* Pair each option card with its own action. actions[] is built
+                 from s.options in order, so index alignment holds; for a
+                 single-option service there is one action and one card. */
+              const a = actions[i] ?? primaryAction;
+              return (
+                <div class="card">
+                  <h2 style="font-size: var(--text-lg); margin: 0;">{o.label}</h2>
+                  <p class="card__meta" style="margin: 0;">
+                    {o.durationLabel}
+                  </p>
+                  <p class="price" style="margin: 0;">${o.price}</p>
+                  {o.note && <p style="margin: 0;">{o.note}</p>}
+                  {multiOption && (
+                    <p class="card__actions" style="margin-top: auto;">
+                      <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
+                        {a.label}
+                      </a>
+                    </p>
+                  )}
+                </div>
+              );
+            })}
           </div>
         )
       }
@@ -240,6 +311,25 @@ if (faqs.length > 0) {
       </div>
     </div>
   </section>
+
+  {
+    testimonial && (
+      <section class="section section--alt">
+        <div class="container" style="max-width: 46rem;">
+          <p class="eyebrow">In their words</p>
+          <figure class="quote-card">
+            <blockquote>{testimonial.data.quote}</blockquote>
+            <figcaption>
+              {testimonial.data.attribution} · {s.shortName.toLowerCase()} reading
+            </figcaption>
+          </figure>
+          <p class="card__meta" style="margin-top: var(--space-4);">
+            <a href="/testimonials/">Read what other clients said →</a>
+          </p>
+        </div>
+      </section>
+    )
+  }
 
   <SeaBreak image={breakImage} />
 
@@ -284,10 +374,18 @@ if (faqs.length > 0) {
     )
   }
 
+  {/*
+    The closing band previously passed `s.slug`, which /book/ resolves through
+    `serviceToEvent` — so this button and the hero button, both reading "Book
+    this reading", deep-linked to different prices on any multi-price page.
+    It now uses the same primaryBookingAction() the rest of the page does, and
+    for a multi-price reading the label names the option so the two buttons are
+    visibly the same offer rather than silently the same guess.
+  */}
   <CTABand
     heading={`Ready for your ${s.shortName.toLowerCase()} reading?`}
     body="Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay."
-    buttonLabel="Book This Reading"
-    buttonHref={`/book/?service=${s.slug}`}
+    buttonLabel={multiOption ? primaryAction.label : 'Book This Reading'}
+    buttonHref={primaryAction.href}
   />
 </BaseLayout>

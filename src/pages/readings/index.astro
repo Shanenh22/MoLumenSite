@@ -5,9 +5,25 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 
-const services = (await getCollection('services')).sort(
-  (a, b) => Number(b.data.featured) - Number(a.data.featured)
-);
+import {
+  orderServices,
+  bookingActions,
+  eligibilityLabel,
+} from '../../config/booking.ts';
+
+/**
+ * Canonical order, then split by who may actually book.
+ *
+ * Five of the seven readings follow on from a natal reading. Presenting all
+ * seven as one flat menu asked a first-time visitor to evaluate five things
+ * they are not eligible for — including the cheapest row on the page — and the
+ * old `featured` sort put the $275 two-person reading at the top of it. The
+ * split is orientation, not gating: every reading keeps its page, its schema
+ * entry and its booking link.
+ */
+const services = orderServices(await getCollection('services'), (s) => s.data.slug);
+const startHere = services.filter((s) => s.data.audience !== 'established');
+const followUps = services.filter((s) => s.data.audience === 'established');
 const crumbs = [{ label: 'Readings', href: '/readings/' }];
 const priceCell = (s: (typeof services)[0]) =>
   s.data.priceConfirmed && s.data.price
@@ -63,38 +79,40 @@ const schema = [
 
   <section class="section">
     <div class="container">
-      <div class="grid grid--3">
+      <h2 id="start-here">New to Mo? Start here</h2>
+      <p class="lede">
+        These two are open to everyone. Most people begin with the natal reading — it's the
+        foundation every other reading builds on.
+      </p>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
-          services.map((s) => (
+          startHere.map((s) => (
             <article class="card">
-              <h2 style="font-size: var(--text-xl); margin: 0;">
+              <h3 style="font-size: var(--text-xl); margin: 0;">
                 <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
-              </h2>
+              </h3>
               <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
               <p>{s.data.purpose}</p>
               {/*
-                The hub used to end every card at "Learn more". It is the page
-                where the choice between seven readings is actually made, and
-                it could not act on that choice — the only booking link on the
-                whole page was one generic /book/, so a visitor picked a reading
-                here and then picked it again from nine radios on the booking
-                page, with natal-90 preselected whatever they had chosen.
-
-                Same `?service=` deep link the detail pages and the Reading
-                Finder already emit, and the same `bookingEventId` field, so
-                there is one mapping rather than a second one to drift.
+                One action per real option, from bookingActions() — so a
+                multi-price reading offers both prices here rather than
+                quietly resolving to one of them. The natal card shows
+                "Book 1 hour 30 minutes — $200" and "Book 1 hour — $150";
+                a single-option reading still shows one "Book this reading".
               */}
               <p class="card__actions">
-                <a class="btn btn--accent" href={`/book/?service=${s.data.bookingEventId}`}>
-                  Book this reading
-                </a>
+                {bookingActions(s.data).map((a) => (
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
+                    {a.label}
+                  </a>
+                ))}
                 <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
               </p>
             </article>
           ))
         }
         <article class="card" style="background: var(--bg-alt);">
-          <h2 style="font-size: var(--text-xl); margin: 0;">Not sure which fits?</h2>
+          <h3 style="font-size: var(--text-xl); margin: 0;">Not sure which fits?</h3>
           {/* "three quick questions" was left behind when the finder went from
               two questions to five. It is a promise a visitor can disprove in
               one click, which is the worst kind of small inaccuracy to leave on
@@ -105,6 +123,38 @@ const schema = [
           </p>
           <p style="margin: 0;"><a class="btn btn--primary" href="/reading-finder/">Reading Finder</a></p>
         </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 id="follow-ups">Already had your natal reading?</h2>
+      <p class="lede">
+        These follow on from a natal reading with me — they start from a chart we've already been
+        through together, so we can go straight to the question.
+      </p>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {
+          followUps.map((s) => (
+            <article class="card">
+              <h3 style="font-size: var(--text-xl); margin: 0;">
+                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
+              </h3>
+              <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
+              <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
+              <p>{s.data.purpose}</p>
+              <p class="card__actions">
+                {bookingActions(s.data).map((a) => (
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
+                    {a.label}
+                  </a>
+                ))}
+                <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
+              </p>
+            </article>
+          ))
+        }
       </div>
     </div>
   </section>
@@ -120,6 +170,8 @@ const schema = [
             <article class="card">
               <h3 style="margin: 0;">{s.data.shortName}</h3>
               <dl class="factlist" style="margin: 0; padding: var(--space-4);">
+                <dt>Who can book</dt>
+                <dd>{eligibilityLabel(s.data.audience) ?? 'Anyone — no prior reading needed'}</dd>
                 <dt>Best for</dt>
                 <dd>{s.data.bestFor[0]}</dd>
                 <dt>Length</dt>
@@ -136,9 +188,11 @@ const schema = [
                 <dd>{priceCell(s)}</dd>
               </dl>
               <p class="card__actions">
-                <a class="btn btn--accent" href={`/book/?service=${s.data.bookingEventId}`}>
-                  Book this reading
-                </a>
+                {bookingActions(s.data).map((a) => (
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
+                    {a.label}
+                  </a>
+                ))}
                 <a href={`/readings/${s.data.slug}/`}>Full details →</a>
               </p>
             </article>
@@ -152,6 +206,7 @@ const schema = [
         <thead>
           <tr>
             <th scope="col">Reading</th>
+            <th scope="col">Who can book</th>
             <th scope="col">Best for</th>
             <th scope="col">Length</th>
             <th scope="col">Birth data</th>
@@ -166,6 +221,7 @@ const schema = [
                 <th scope="row">
                   <a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a>
                 </th>
+                <td>{eligibilityLabel(s.data.audience) ?? 'Anyone'}</td>
                 <td>{s.data.bestFor[0]}</td>
                 <td>{s.data.durationLabel}</td>
                 <td>
@@ -177,16 +233,21 @@ const schema = [
                 </td>
                 <td>{priceCell(s)}</td>
                 <td>
-                  {/* The accessible name has to carry the reading, because a
-                      screen-reader user listing the links on this page would
-                      otherwise hear "Book" seven times with nothing to tell
-                      them apart. */}
-                  <a
-                    href={`/book/?service=${s.data.bookingEventId}`}
-                    aria-label={`Book the ${s.data.name}`}
-                  >
-                    Book
-                  </a>
+                  {/* One link per bookable option, so a two-price reading is
+                      never collapsed into a single "Book" that picks for the
+                      customer. The accessible name carries the reading and the
+                      option, because a screen-reader user listing the links on
+                      this page would otherwise hear "Book" nine times with
+                      nothing to tell them apart. */}
+                  <ul class="compare-book">
+                    {bookingActions(s.data).map((a) => (
+                      <li>
+                        <a href={a.href} aria-label={a.ariaLabel}>
+                          {bookingActions(s.data).length > 1 ? a.durationLabel : 'Book'}
+                        </a>
+                      </li>
+                    ))}
+                  </ul>
                 </td>
               </tr>
             ))

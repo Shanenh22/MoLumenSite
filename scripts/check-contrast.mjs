@@ -51,6 +51,8 @@ const TARGETS = [
   ["/book/", ".choice__price", "booking price"],
   ["/book/", ".choice__tag", "booking duration chip"],
   ["/book/", "fieldset.booking-group > legend span", "booking group note"],
+  ["/", ".eligibility-chip", "eligibility chip — homepage card"],
+  ["/readings/", ".eligibility-chip", "eligibility chip — readings hub"],
   /**
    * Calendar type chips. These are the smallest text on the site (0.7rem) and
    * they sit on tinted, translucent backgrounds that composite differently per

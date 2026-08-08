@@ -5,13 +5,46 @@ interface Props {
   body?: string;
   buttonLabel?: string;
   buttonHref?: string;
+  /**
+   * The quieter second action. Defaults to the Reading Finder and can be
+   * turned off per page with `secondary={false}`.
+   */
+  secondaryLabel?: string;
+  secondaryHref?: string;
+  secondary?: boolean;
 }
 const {
   heading = 'Ready to see your chart in a new light?',
   body = 'Sessions are one-on-one with Mo. Choose a reading, pick a time, and come with your questions.',
   buttonLabel = 'Book a Reading',
   buttonHref = '/book/',
+  secondaryLabel = 'Not sure which one? Find your reading',
+  secondaryHref = '/reading-finder/',
+  secondary = true,
 } = Astro.props;
+
+/**
+ * Two exits, weighted by intent — the same principle the Reading Finder's
+ * result already uses, applied to the closer that ends 48 pages.
+ *
+ * This band is the last thing on every blog post, every sky event, every
+ * reference page and every sign, planet, house and aspect page. Until now it
+ * offered exactly one action: book. A visitor who arrived from search on
+ * "what is a Saturn return", finished reading, and felt genuinely curious was
+ * asked to jump straight from a free article to a $150–$275 purchase, and
+ * given nothing else to do if they were not ready. Measured before this
+ * change: zero of the ~140 educational pages linked to the Reading Finder at
+ * all — the one tool built for exactly that person.
+ *
+ * The booking button is unchanged and still primary, so nothing is taken away
+ * from someone with high intent. This only adds a rung below it.
+ *
+ * The suppression rule matters: a band whose primary action already IS the
+ * finder must not offer it twice, so the secondary is dropped automatically
+ * rather than relying on every call site to remember.
+ */
+const sameTarget = secondaryHref === buttonHref;
+const showSecondary = secondary && !sameTarget;
 ---
 
 <section class="section section--night center">
@@ -22,5 +55,12 @@ const {
     <p>
       <a class="btn btn--accent" href={buttonHref}>{buttonLabel}</a>
     </p>
+    {
+      showSecondary && (
+        <p class="cta-band__secondary">
+          <a href={secondaryHref}>{secondaryLabel} →</a>
+        </p>
+      )
+    }
   </div>
 </section>
