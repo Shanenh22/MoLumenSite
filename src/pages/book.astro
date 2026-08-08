@@ -5,8 +5,12 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import { site } from '../config/site';
 import BookingEmbed from '../components/BookingEmbed.astro';
+import { DEFAULT_BOOKING_EVENT, orderServices } from '../config/booking.ts';
 
-const services = (await getCollection('services')).filter((s) => s.data.available);
+const services = orderServices(
+  (await getCollection('services')).filter((s) => s.data.available),
+  (s) => s.data.slug
+);
 const calUser = site.integrations.calcomUsername;
 const crumbs = [{ label: 'Book a Reading', href: '/book/' }];
 /**
@@ -44,6 +48,23 @@ const bookables = services.flatMap((s) =>
       ]
 );
 const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
+
+/**
+ * The reading a bare /book/ opens on.
+ *
+ * Read from config rather than inferred from render order — see
+ * src/config/booking.ts for why. The throw is deliberate and is the whole
+ * point of the constant: a default naming an event that does not exist would
+ * fall back to "whatever renders first", which is exactly the silent failure
+ * this replaces. Failing the build is the only outcome that cannot be missed.
+ */
+if (!serviceData[DEFAULT_BOOKING_EVENT]) {
+  throw new Error(
+    `DEFAULT_BOOKING_EVENT "${DEFAULT_BOOKING_EVENT}" is not a bookable event. ` +
+      `Available: ${Object.keys(serviceData).join(', ')}. ` +
+      `Fix src/config/booking.ts or the services collection.`
+  );
+}
 
 /**
  * Service slug -> default event key.
@@ -148,7 +169,7 @@ const groups = [
                           type="radio"
                           name="booking-service"
                           value={b.key}
-                          checked={b.key === firstReadings[0]?.key}
+                          checked={b.key === DEFAULT_BOOKING_EVENT}
                         />
                         <span class="choice__body">
                           <span class="choice__name">{b.name}</span>

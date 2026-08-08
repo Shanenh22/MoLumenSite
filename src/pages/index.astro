@@ -4,10 +4,30 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import Icon from '../components/Icon.astro';
 import { photos, scenes } from '../config/images';
+import { orderServices, eligibilityLabel } from '../config/booking.ts';
+import YouTubeFacade from '../components/YouTubeFacade.astro';
+import { site } from '../config/site';
 
-const services = (await getCollection('services')).sort(
-  (a, b) => Number(b.data.featured) - Number(a.data.featured)
-);
+/**
+ * Mo's ~60-second introduction, if it exists yet.
+ *
+ * Guarded on the ID exactly as /about/ is, so nothing renders while the value
+ * is empty — no placeholder card, no fabricated thumbnail, no dead play
+ * button. The slot is here rather than waiting to be built because the video
+ * is coming and this is where it belongs: directly after the first time the
+ * page introduces her, on the page where a stranger decides whether to keep
+ * reading.
+ */
+const welcomeId = site.integrations.welcomeVideoId;
+const welcomePoster = site.integrations.welcomeVideoPoster;
+
+/**
+ * Canonical order, not `featured`. The old sort was a no-op between two
+ * featured services and let file order decide, so the homepage led with the
+ * $275 Relationship Consultation while the copy directly beneath it said new
+ * clients start with the natal reading. See src/config/booking.ts.
+ */
+const services = orderServices(await getCollection('services'), (s) => s.data.slug);
 const skyEvents = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
@@ -214,6 +234,13 @@ const values = [
                     <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
                   </h3>
                   <p class="card__meta" style="margin: 0;">{s.data.durationLabel}</p>
+                  {/* Five of the seven readings follow on from a natal reading.
+                      Saying so here costs one line and stops a first-time
+                      visitor building a shortlist out of things they cannot
+                      book yet. */}
+                  {eligibilityLabel(s.data.audience) && (
+                    <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
+                  )}
                   <p style="margin: 0;">{s.data.purpose}</p>
                   <p class="price" style="margin-top: auto;">
                     {s.data.priceLabel ?? (s.data.price ? `$${s.data.price}` : '')}
@@ -237,6 +264,9 @@ const values = [
               <p class="card__meta" style="margin: 0;">
                 {s.data.durationLabel} · {s.data.priceLabel ?? `$${s.data.price}`}
               </p>
+              {eligibilityLabel(s.data.audience) && (
+                <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
+              )}
             </article>
           ))
         }
@@ -340,6 +370,29 @@ const values = [
       />
     </div>
   </section>
+
+  {
+    welcomeId && (
+      <section class="section section--alt">
+        <div class="container" style="max-width: 46rem;">
+          <p class="eyebrow">A minute with Mo</p>
+          <h2>Before you decide, hear how I actually talk</h2>
+          <p class="lede">
+            A reading is an hour of conversation with a specific person. This is what that person
+            sounds like.
+          </p>
+          <div style="margin-top: var(--space-6);">
+            <YouTubeFacade
+              videoId={welcomeId}
+              title="Meet Mo Lumen — a short introduction"
+              poster={welcomePoster || undefined}
+              context="home-welcome"
+            />
+          </div>
+        </div>
+      </section>
+    )
+  }
 
   <!-- How it works -->
   <section class="section section--alt">

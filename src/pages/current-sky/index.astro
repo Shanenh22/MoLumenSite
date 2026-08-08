@@ -127,11 +127,22 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
     </div>
   </section>
 
+  {/*
+    This band used to send everyone to Monthly Personal Transits, which is an
+    established-client reading — it follows on from a natal reading. Current
+    Sky is the site's biggest free asset and a search entry point, so most
+    people reading it have never had a reading at all, and the closing action
+    pointed them at the one thing they could not buy.
+
+    The Reading Finder is the right destination for a visitor whose interest
+    is real but whose certainty is not: it asks what brought them here and
+    names a reading, instead of asking a stranger to pick from seven.
+  */}
   <CTABand
     heading="Wondering what this sky means for your chart?"
-    body="General sky-weather is here for everyone. What it activates in your chart — that's a personal reading, monthly or yearly."
-    buttonLabel="Monthly Personal Transits"
-    buttonHref="/readings/monthly-transits/"
+    body="General sky-weather is here for everyone — what it actually activates depends on where these degrees fall in your chart. Five questions and I'll tell you which reading I'd suggest."
+    buttonLabel="Find Your Reading"
+    buttonHref="/reading-finder/"
   />
 </BaseLayout>
 
