@@ -6,6 +6,15 @@ Mo should be able to add and update ordinary content without touching layout cod
 
 **Pages CMS is the primary day-to-day publishing interface.** GitHub remains the source of truth, and Claude Publisher remains the editorial/quality layer.
 
+## Mo's two starting guides
+
+For normal day-to-day work, Mo should start with these instead of reading the technical OS:
+
+- `docs/pages-cms-for-mo.md` — how to update the site through Pages CMS
+- `docs/how-to-write-and-publish-articles.md` — step-by-step article workflow
+
+The remainder of this file is operating guidance for Claude/developers.
+
 ## Division of responsibility
 
 ### Pages CMS — Mo's normal interface
@@ -62,7 +71,7 @@ Blog posts, Current Sky entries and videos support a `draft` flag.
 - FAQ
 - glossary
 - testimonials
-- lead magnet (Claude-assisted until the first real lead-magnet collection is implemented)
+- lead magnet (Claude-assisted where the format requires custom layout/download generation)
 - existing services/readings
 
 ## Automation should cover where applicable
@@ -92,6 +101,7 @@ Do not expose high-risk technical or legal fields merely for convenience. Pages 
 - credentials embedded in trust/layout pages
 - site navigation/layout code
 - homepage/About structural copy that is tightly coupled to conversion and verified claims
+- Birth Time worksheet structure/PDF generation
 
 Those changes should go through Claude Code/developer review and tests.
 
@@ -104,8 +114,10 @@ Pages CMS provides:
 
 The repository remains portable; content is not locked into a CMS database.
 
+## Source-of-truth rule for schemas
+
+The live content schema in `src/content.config.ts` and the live Pages CMS configuration in `.pages.yml` are authoritative. Templates and workflows must match them. If they diverge, update the documentation/template rather than teaching Mo to work around the CMS.
+
 ## Maintenance rule
 
 If adding an ordinary blog post, Current Sky item, FAQ, glossary entry or video requires editing an Astro component, improve the publishing architecture rather than normalizing manual page coding.
-
-See `docs/pages-cms-for-mo.md` for Mo's step-by-step instructions.
