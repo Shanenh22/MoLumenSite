@@ -1,5 +1,33 @@
 # AI Project Changelog
 
+### 2026-08-08 — Birth-time funnel split into two layers
+
+**Added**
+
+- `/birth-time/` — the public, ungated, evergreen resource. The page built to rank, holding nothing back. Answers "how accurate does it need to be?" with the real answer (depends on proximity to a cusp or angle) rather than the widely repeated "four minutes changes everything", and treats vital-records process as jurisdiction-dependent rather than describing one country as universal.
+- `/birth-time-toolkit/worksheets/` — the toolkit: eight sections including a record search checklist, two family interview sheets, a competing-times comparison table, a five-label confidence scale, and a reading preparation summary. `noindex`, so it does not compete with `/birth-time/` for the same queries.
+- 13-page PDF generated from the worksheets page by `npm run toolkit:pdf`, so the download cannot drift from the site.
+
+**Changed**
+
+- `/birth-time-toolkit/` is now a landing page for the worksheets rather than the guide itself, and says openly that the information is free on `/birth-time/`. What is exchanged is the format, not access.
+- Contextual links added where the question arises: the Big Three callout, the angles page (beside its own four-minute claim, now with the nuance), birth chart basics, both birth-time blog posts, prepare, resources, guides, newsletter.
+- Mo-facing docs: adding a YouTube video, editing a service FAQ, replacing the toolkit PDF, and why the birth-time pages are not in Pages CMS.
+
+**Not done, with reasons**
+
+- **Birth-time pages are not Pages CMS-editable.** The worksheets are printable forms — ruled lines, checkboxes, comparison tables — and exposing that structure as editable fields is exactly the fragile-technical-field case the CMS rules exclude. The article body is a fair candidate for extraction into a content collection, but it carries hand-placed inline links and schema passages that must stay in step with the prose, so it needs its own verification pass rather than being rushed. The existing `guides` collection is a catalogue schema (name/status/file) and not a fit.
+- Testimonial surfacing, Courses/Guides de-emphasis and the service-FAQ architecture were not reached in this pass.
+
+**Validated**
+
+- Astro check 0 errors. Build 173 pages.
+- Content integrity 0 errors, 0 warnings. Horizon 507 days.
+- Internal links 173 files, 0 failures.
+- axe 0 violations across 20 pages x 2 viewports, including the target-size check.
+- Hero contrast 171 pages discovered, 0 failures. `check:contrast` 8/8.
+- Booking 18/18. Finder 11/11. Audit clean: 0 duplicate titles, 0 thin, 0 orphans.
+
 ### 2026-08-07 (later) — Video architecture, Birth Time Toolkit, CSP and target size
 
 **Added**
