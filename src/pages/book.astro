@@ -99,7 +99,7 @@ const groups = [
   },
   {
     legend: 'Returning client?',
-    note: 'Already had your natal reading? Choose from these follow-up readings for clients who have already worked with Mo.',
+    note: 'Already had your natal reading with Mo? Choose a follow-up reading.',
     items: returningReadings,
   },
 ].filter((g) => g.items.length > 0);
@@ -197,10 +197,11 @@ const groups = [
           <BookingEmbed calUser={calUser} />
           <div class="callout">
             <p style="margin: 0;">
-              <strong>Before you book:</strong> live readings need your birth date, exact time, and
-              place — <a href="/prepare-for-your-reading/">here's why and how to find them</a>.
-              Booking means you accept the <a href="/booking-policy/">booking policy</a>
-              (cancellation, rescheduling, and recording details).
+              <strong>Before you book:</strong> for a first chart-based reading, have the birth date,
+              birthplace, and birth time ready — as exact as you know it. If the time is uncertain or
+              unknown, you can still book; <a href="/birth-time/">see your options</a>. Booking means
+              you accept the <a href="/booking-policy/">booking policy</a> (cancellation,
+              rescheduling, and recording details).
             </p>
           </div>
         </div>
