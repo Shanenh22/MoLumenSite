@@ -14,51 +14,15 @@
  * /birth-time/ — keep both rather than picking one — and a reordered rule set
  * would quietly contradict the page this tool sits underneath.
  */
-import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { createReadStream, statSync } from "node:fs";
-import { extname, join, resolve, sep } from "node:path";
+import { startDistServer } from "./lib/dist-server.mjs";
 
 const { chromium } = await import("playwright");
 const PORT = 4413;
-const MIME = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".pdf": "application/pdf",
-};
-/**
- * Every request is confined to `dist/`.
- *
- * `decodeURIComponent` on a raw URL will happily produce `../../` segments, so
- * joining it onto "dist" is a path traversal — CodeQL flags exactly this as
- * js/path-injection, and it is right to. Nothing untrusted reaches this server
- * (it binds to localhost and only Playwright talks to it), but "no attacker can
- * reach it today" is a property of the caller rather than of the code, and it
- * is one line to make it a property of the code instead.
- */
-const ROOT = resolve("dist");
-const server = http.createServer((req, res) => {
-  let f = resolve(ROOT, "." + decodeURIComponent(req.url.split("?")[0]));
-  if (f !== ROOT && !f.startsWith(ROOT + sep)) {
-    res.writeHead(403);
-    return res.end();
-  }
-  try {
-    if (statSync(f).isDirectory()) f = join(f, "index.html");
-  } catch {
-    res.writeHead(404);
-    return res.end();
-  }
-  res.writeHead(200, {
-    "Content-Type": MIME[extname(f)] || "application/octet-stream",
-  });
-  createReadStream(f).pipe(res);
-});
-await new Promise((r) => server.listen(PORT, r));
+// The server serves from a manifest of the files that exist in dist/, so a
+// request is a lookup rather than a path built from user input. See the note
+// in scripts/lib/dist-server.mjs for why that shape and not a guard.
+const server = await startDistServer(PORT);
 
 const PAGE = `http://localhost:${PORT}/birth-time-toolkit/`;
 let pass = 0;
