@@ -110,10 +110,24 @@ const configured = calUser.trim().length > 0;
     return checked?.value || Object.keys(bookables)[0] || '';
   }
 
-  /** Cal.com event slug for the current choice. One radio == one event type. */
-  function selectedEvent(): string {
+  /**
+   * Cal.com event slug for the current choice, or null.
+   *
+   * This used to end `|| key`, falling back to the radio's raw value when the
+   * key was not in the map. That made a DOM-read string part of an outgoing
+   * URL, which is what CodeQL's js/xss-through-dom was pointing at — and
+   * encoding the segment did not satisfy it, correctly: the objection is to
+   * unvalidated DOM data reaching the sink at all, not to how it is escaped.
+   *
+   * `bookables` is server-rendered from the services collection, so it is the
+   * complete set of valid events. Treating it as an allowlist removes the flow
+   * entirely, and it is the better behaviour anyway: an unrecognised key would
+   * have produced a cal.com 404, and sending someone to the channel page is a
+   * more useful failure than sending them to a missing event.
+   */
+  function selectedEvent(): string | null {
     const key = selectedKey();
-    return bookables[key]?.event || key;
+    return bookables[key]?.event ?? null;
   }
 
   /**
@@ -135,10 +149,8 @@ const configured = calUser.trim().length > 0;
    * displaced by anything in the path, and encodeURIComponent keeps each
    * segment a single path segment.
    */
-  function calUrl(user: string, event?: string): string {
-    const path = event
-      ? `${encodeURIComponent(user)}/${encodeURIComponent(event)}`
-      : encodeURIComponent(user);
+  function calUrl(user: string, event: string | null): string {
+    const path = event ? `${encodeURIComponent(user)}/${encodeURIComponent(event)}` : encodeURIComponent(user);
     return new URL(path, 'https://cal.com/').toString();
   }
 
@@ -226,7 +238,11 @@ const configured = calUser.trim().length > 0;
       Cal('init', { origin: 'https://cal.com' });
       Cal('inline', {
         elementOrSelector: '#cal-mount',
-        calLink: `${calUser}/${selectedEvent()}`,
+        // selectedEvent() is allowlisted against the server-rendered map, so a
+        // null here means the checked radio is not a known event — which should
+        // be impossible, and if it ever happens Cal.com's own error is a better
+        // outcome than silently loading someone else's calendar.
+        calLink: `${calUser}/${selectedEvent() ?? ''}`,
         layout: 'month_view',
       });
       // Match the site's accent so the calendar doesn't read as a bolted-on
