@@ -116,8 +116,34 @@ const configured = calUser.trim().length > 0;
     return bookables[key]?.event || key;
   }
 
+  /**
+   * Build a cal.com URL from a handle and an event slug.
+   *
+   * Both values are server-rendered from build-time data — the Cal.com handle
+   * in site.ts and the event keys in the services collection — so neither is
+   * visitor-controlled, and the fixed https:// prefix makes a javascript: URL
+   * impossible in any case.
+   *
+   * It is written this way regardless, for two reasons. CodeQL flags DOM-read
+   * values flowing into an href as `js/xss-through-dom` and fails the build,
+   * and it is right to want the encoding made explicit rather than argued
+   * about in a comment. And a slug containing a slash or a space would
+   * currently produce a quietly wrong URL rather than an obviously broken one,
+   * which is the harder bug to notice.
+   *
+   * `new URL()` with a fixed base means the scheme and host cannot be
+   * displaced by anything in the path, and encodeURIComponent keeps each
+   * segment a single path segment.
+   */
+  function calUrl(user: string, event?: string): string {
+    const path = event
+      ? `${encodeURIComponent(user)}/${encodeURIComponent(event)}`
+      : encodeURIComponent(user);
+    return new URL(path, 'https://cal.com/').toString();
+  }
+
   function updateFallback() {
-    if (fallback && calUser) fallback.href = `https://cal.com/${calUser}/${selectedEvent()}`;
+    if (fallback && calUser) fallback.href = calUrl(calUser, selectedEvent());
   }
 
   /**
@@ -168,7 +194,7 @@ const configured = calUser.trim().length > 0;
     p.className = 'card__meta';
     p.textContent = 'The calendar could not load. ';
     const a = document.createElement('a');
-    a.href = calUser ? `https://cal.com/${calUser}/${selectedEvent()}` : 'mailto:mo@molumen.com';
+    a.href = calUser ? calUrl(calUser, selectedEvent()) : 'mailto:mo@molumen.com';
     a.target = '_blank';
     a.rel = 'noopener';
     a.textContent = 'Open the booking page in a new tab';
