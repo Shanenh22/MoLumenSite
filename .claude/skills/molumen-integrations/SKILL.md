@@ -1,36 +1,22 @@
 ---
 name: molumen-integrations
-description: Maintain MoLumen third-party integrations including Kit, Cal.com, Stripe, GA4, YouTube, Google Business Profile, Search Console, Bing, Pages CMS, and Cloudflare-facing configuration without redesigning the site.
+description: Maintain MoLumen third-party integration code/configuration for Kit, Cal.com, Stripe, GA4, YouTube, Search Console/Bing/GBP, Pages CMS, and Cloudflare-facing settings without redesigning the site.
 ---
 
 # MoLumen Integrations
 
 Use for third-party account/configuration work and integration code.
 
-Read first:
-- `MoLumen_OS/00_MASTER_OPERATING_MANUAL.md`
-- `MoLumen_OS/01_PROJECT_CONTEXT.md`
-- `MoLumen_OS/03_ARCHITECTURE_AND_TECH_STACK.md`
-- `docs/integrations/`
+Start with the current implementation. `src/config/site.ts` is authoritative for public integration IDs; never copy volatile IDs from old prose. Read only the relevant file under `docs/integrations/` or canonical architecture guide when needed.
 
-## Rules
+Rules:
+- never expose secrets in public source
+- verify current vendor documentation before changing vendor-specific behavior
+- preserve layout/page flow unless integration function requires a change
+- keep third-party scripts lazy or single-load where practical
+- preserve consent/privacy behavior and CSP compatibility
+- use `window.mlTrack`, not direct component `gtag` calls
+- add/update integration-specific tests and health checks
+- never fabricate verification status, review counts, account URLs, IDs, or analytics results
 
-- Preserve layout and established page flow unless an integration cannot function otherwise.
-- Never expose secrets in public source.
-- Public IDs belong in centralized config/environment variables.
-- Verify current vendor documentation before changing integration code.
-- Keep third-party scripts lazy or single-load where practical.
-- Add/update integration-specific tests and health checks.
-- Do not fabricate verification status, review counts, account URLs, IDs, or analytics results.
-
-## Current services
-
-- Kit — newsletter
-- Cal.com — scheduling
-- Stripe — payment through Cal.com
-- GA4 — analytics
-- YouTube — video
-- Google Business Profile — external trust; verification status must be owner-confirmed
-- Google Search Console / Bing Webmaster — search verification
-- Pages CMS — content editing
-- Cloudflare Workers — staging/deployment
+Do not perform production release/DNS work through this skill.

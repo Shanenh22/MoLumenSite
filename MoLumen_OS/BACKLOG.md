@@ -1,62 +1,36 @@
-# Backlog
+# MoLumen Active Backlog
 
-## P0
-- Verify Kit subscription flow end-to-end with a real test address
-- Verify GA4 deployment/events
-- Verify Cal.com → Stripe booking path
-- ~~Fix mobile booking CTA/path~~ DONE 2026-08-07 — header CTA visible at all widths, /readings/ deep-links, mobile booking order
-- Complete QA suite
-- Confirm production environment configuration
+Only unfinished work belongs here. Completed work belongs in Git history/changelog; historical plans belong under archive/history.
 
-## Deferred by owner
-- Protect staging from indexing — intentionally postponed for now; revisit before production cutover
+Priority labels: **P0** production blocker · **P1** high-value launch improvement · **P2** post-launch/growth · **OWNER** owner/account action.
 
-## P1
-- ~~Birth-time public resource + toolkit~~ DONE 2026-08-08 — /birth-time/ and /birth-time-toolkit/ shipped; Kit automation remains account-side
-- Extract the /birth-time/ article body into a content collection so Mo can edit it in Pages CMS (worksheets stay code-managed: printable forms)
-- ~~Build privacy-conscious YouTube facade and finish the video hub/welcome video slot~~ DONE 2026-08-07 — awaiting only Mo's video ID
-- ~~Complete 2027 Current Sky through Dec 31, 2027~~ DONE 2026-08-07 — 40 events, horizon 507 days
-- ~~Add 90-day Current Sky horizon validation~~ DONE 2026-08-07 — in content-integrity.mjs, fails <90d, warns <365d
-- ~~Create Birth Time Toolkit~~ DONE 2026-08-07 — page, PDF and CTAs shipped; Kit automation is the remaining account-side step
-- ~~Direct reading-to-booking actions~~ DONE 2026-08-07
-- ~~Current Sky calendar view~~ DONE 2026-08-08 — `/current-sky/calendar/`, 36 assertions incl. two forced time zones
-- ~~Birth Time Confidence check~~ DONE 2026-08-08 — on `/birth-time-toolkit/`, returns the toolkit's own five labels
-- ~~Rising-sign display preference~~ DONE 2026-08-08 — `ml-rising-v1`, plus a real rising-sign module on `/horoscopes/`
-- ~~Shane to approve the `privacy.md` storage paragraph~~ DONE 2026-08-08 — approved with the wording tightened to state explicitly that the preference is not birth data and not an identifier
-- ~~Fix the broken `src/content/explore/` declaration~~ DONE 2026-08-08 — collection and CMS block removed; they pointed at a directory that never existed
-- ~~Drop the unrunnable `test:a11y`~~ DONE 2026-08-08 — `pa11y-ci` was never a dependency; `audit:a11y` (axe) is the gate
-- **Migrate the `/explore/` reference library into a content collection** so Mo can edit it in Pages CMS. This is the real version of the editor that was configured but never built. 25 hand-written `.astro` pages carrying `Layers` and `FurtherReading` components, per-page structured data, `oceanFor()` hero assignment and hand-placed inline links that must stay in step with the prose — so it needs its own verification pass (build, links, hero contrast, axe) rather than a bulk conversion. Restore the `.pages.yml` block in the same change that creates the content, never before.
-- Testimonial surfacing
-- ~~Touch targets~~ DONE 2026-08-07 — 36 fixed, automated check added to axe-sweep
-- Hero/LCP — preload measured and reverted (no improvement); next try viewport-based hero background variants. Homepage mobile LCP ~3.0s vs 1.7-2.3s elsewhere
-- ~~CSP report-only~~ DONE 2026-08-07 — watch reports for a week, then enforce
-- Search Console/Bing verification when tokens are available
+## P0 — production blockers / owner gates
+- **OWNER** Complete owner-side newsletter subscription test on the live/staging embed.
+- **OWNER** Confirm GA4 consent/events in the GA4 account after traffic is available.
+- **OWNER** Approve the final cutover runbook before production DNS/domain attachment.
+- **OWNER** Verify Cal.com + Stripe real booking/payment/confirmation flow after production credentials/account configuration are approved.
+- **OWNER** Complete professional legal review for Terms, Privacy, Booking Policy, and Disclaimer before production launch.
+- **OWNER** Perform and archive the manual screen-reader review required by the approved accessibility policy before production launch.
+- **OWNER** Verify remaining business/brand facts marked owner-required in `docs/owner-guide.md`.
 
-## P2
-- Unique service FAQ architecture/content
-- Reduce inline style debt opportunistically
-- Expand CMS only when a real recurring editorial need appears
-- Consider extracting selected homepage/About copy into structured CMS files after launch if Mo needs frequent edits
-- Normalize legacy Prettier formatting so formatting can become a blocking CI check
-- Review npm audit findings through normal dependency updates; do not apply breaking `--force` upgrades blindly
+## P1 — high-value launch improvements
+- **OWNER** Supply real YouTube content/welcome-video ID when available.
+- **OWNER** Test and approve Birth Time Toolkit newsletter delivery/automation before using the PDF as a live lead magnet.
+- **OWNER** Choose how the MLS program will be described publicly before credential changes.
+- **OWNER** Decide whether the archived tagline “Where astrology becomes understanding” belongs in verified brand language.
+- Route verified real testimonials into relevant service/funnel surfaces.
+- Decide whether service-specific FAQs should be exposed in service JSON/Pages CMS without duplicating general FAQs.
+- Review whether `/courses/` and `/guides/` should remain visible before the offerings are real.
+- If Mo should edit the `/explore/` reference library in Pages CMS, migrate it deliberately into real content-backed structures with layout/link/schema regression coverage.
+- Consider moving the `/birth-time/` article body into a CMS-editable collection while preserving inline links and FAQ/Article schema; keep printable worksheet structure code-managed.
+- Continue migrating recurring handwritten inline styles when relevant pages are touched.
 
-## Completed publishing and repository foundation
-- Pages CMS repository configuration
-- Friendly Blog / Current Sky / Video editors
-- Existing Readings/services editor with protected technical fields
-- ~~Existing astrology reference-library editor~~ **This was never real.** The collection and CMS block were configured against a directory that never existed; removed 2026-08-08. See the P1 migration item above.
-- FAQ / Glossary / Testimonial editors
-- Content image and PDF media locations
-- Draft safety for Blog, Current Sky and Videos
-- Pages CMS one-click quality-check workflow
-- Mo-friendly publishing guide
-- Claude Publisher/OS updated to treat Pages CMS as primary routine publishing interface
-- Kit integration replaces obsolete MailerLite implementation/docs
-- Official YouTube channel centralized in site configuration
-- PR validation workflow
-- Dependabot npm/GitHub Actions monitoring
-- CodeQL JavaScript/TypeScript scanning
-- MoLumen content-integrity validator
-- Scheduled repository/staging/integration health checks
-- Explicit Wrangler release pin in deployment workflow
-- Claude integrations and release-manager skills
+## P2 — post-launch / growth
+- Maintain the rolling Current Sky horizon; present coverage currently extends through December 2027.
+- Expand blog clusters using Search Console and real query performance.
+- Add a welcome/authority video after Mo has a real production video.
+- Add testimonials/case studies only when real content and permission exist.
+- Deepen Reading Finder branching only if analytics demonstrates need.
+- Add lead magnets beyond Birth Time Toolkit only when owner-approved and strategically justified.
+- Add server-side form handling only if a real requirement emerges.
+- Consider reports, memberships, courses, workshops, or paid sky content only after owner approval.

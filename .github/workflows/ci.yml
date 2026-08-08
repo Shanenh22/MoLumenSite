@@ -28,6 +28,8 @@ jobs:
       - name: Formatting (advisory)
         continue-on-error: true
         run: npm run format:check
+      - name: Agent instruction integrity
+        run: npm run check:agent-docs
       - name: Astro/type checks
         run: npm run check
       - name: Content integrity

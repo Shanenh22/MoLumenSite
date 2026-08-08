@@ -1,123 +1,33 @@
 # Content Publishing System
 
-## Goal
+## Policy
+Pages CMS is Mo's normal day-to-day publishing interface for supported content. GitHub remains the source of truth; Claude Publisher is the research/structure/quality layer when assistance is needed.
 
-Mo should be able to add and update ordinary content without touching layout code, CSS, schema code, Astro components, raw JSON, or Git commands.
+Mo-facing instructions live in:
+- `docs/pages-cms-for-mo.md`
+- `docs/how-to-write-and-publish-articles.md`
 
-**Pages CMS is the primary day-to-day publishing interface.** GitHub remains the source of truth, and Claude Publisher remains the editorial/quality layer.
+## Sources of truth
+- `src/content.config.ts` — live content schemas.
+- `.pages.yml` — fields/content surfaces exposed in Pages CMS.
+- `src/content/` — collection content.
+- `MoLumen_OS/templates/` and `workflows/` — on-demand publishing aids; they must follow the live schema/CMS rather than override it.
 
-## Mo's two starting guides
+## Routine CMS scope
+Pages CMS supports configured routine content such as blog posts, Current Sky, videos, FAQs, glossary, testimonials, and approved editable reading/service copy. A content area is not CMS-editable merely because documentation says it is; the collection/config must exist.
 
-For normal day-to-day work, Mo should start with these instead of reading the technical OS:
+Draft-capable content stays unpublished while its `draft` flag is enabled. Review staging/quality checks before publishing when appropriate.
 
-- `docs/pages-cms-for-mo.md` — how to update the site through Pages CMS
-- `docs/how-to-write-and-publish-articles.md` — step-by-step article workflow
+## Protected/code-managed scope
+Do not expose high-risk or tightly coupled fields merely for convenience. Keep booking/integration internals, analytics, schema architecture, legal controls, navigation/layout code, tightly coupled verified homepage/About structure, and Birth Time worksheet/PDF generation under code/developer review.
 
-The remainder of this file is operating guidance for Claude/developers.
+The `/explore/` reference library remains code-managed unless a deliberate content-backed migration is implemented and tested.
 
-## Division of responsibility
-
-### Pages CMS — Mo's normal interface
-
-Use Pages CMS for routine work on:
-
-- blog posts
-- Current Sky
-- videos
-- existing reading/service copy
-- existing astrology reference pages
-- FAQs
-- glossary
-- testimonials
-
-The repository-root `.pages.yml` controls the editor fields and guardrails.
-
-### Claude Publisher — research, review and unusual work
-
-Use the `molumen-publisher` skill when:
-
-- Mo wants help drafting or polishing content
-- a batch of Current Sky events needs research
-- a content item needs an unusual structure
-- metadata/internal links need a deeper review
-- the build or CMS workflow fails
-- a new content type is needed
-- site-wide content maintenance is requested
-
-Claude should preserve Pages CMS compatibility when changing content schemas.
-
-### Claude Developer — technical changes
-
-Use the developer skill for layout, components, navigation, analytics, booking, integrations, schema architecture, performance and other code-level work.
-
-## Draft workflow
-
-Blog posts, Current Sky entries and videos support a `draft` flag.
-
-1. Create/edit the content in Pages CMS.
-2. Leave **Draft ON** while working.
-3. Save freely; draft items stay out of generated public pages.
-4. Run the Pages CMS **Run site quality check** action when useful.
-5. Review the staging site.
-6. Turn Draft OFF and save when the item is ready to appear on the website.
-
-## Supported publishing types
-
-- blog
-- video
-- Current Sky
-- horoscope/lunation (Claude-assisted until a dedicated live collection is added)
-- reference/educational page
-- FAQ
-- glossary
-- testimonials
-- lead magnet (Claude-assisted where the format requires custom layout/download generation)
-- existing services/readings
-
-## Automation should cover where applicable
-
-- metadata
-- canonical URL
-- author
-- dates
-- schema
-- breadcrumbs
-- related content
-- newsletter CTA
-- reading CTA
-- Open Graph
-- internal-link hooks
-- sitemap inclusion
-- draft exclusion
-
-## Protected content
-
-Do not expose high-risk technical or legal fields merely for convenience. Pages CMS intentionally does not provide routine editing for:
-
-- booking event IDs and integration internals
-- analytics
-- schema architecture
-- legal pages
-- credentials embedded in trust/layout pages
-- site navigation/layout code
-- homepage/About structural copy that is tightly coupled to conversion and verified claims
-- Birth Time worksheet structure/PDF generation
-
-Those changes should go through Claude Code/developer review and tests.
-
-## Media
-
-Pages CMS provides:
-
-- content images under `public/images/uploads/`
-- PDF/download files under `public/downloads/`
-
-The repository remains portable; content is not locked into a CMS database.
-
-## Source-of-truth rule for schemas
-
-The live content schema in `src/content.config.ts` and the live Pages CMS configuration in `.pages.yml` are authoritative. Templates and workflows must match them. If they diverge, update the documentation/template rather than teaching Mo to work around the CMS.
+## Skill ownership
+- `molumen-editor` — substantive research/prose/voice.
+- `molumen-publisher` — content structure, frontmatter/fields, metadata, internal links, CMS compatibility, migrations, and publication QA.
+- `molumen-developer` — components/layout/schema architecture/performance/site-owned behavior.
+- `molumen-integrations` — vendor/account integration code/configuration.
 
 ## Maintenance rule
-
-If adding an ordinary blog post, Current Sky item, FAQ, glossary entry or video requires editing an Astro component, improve the publishing architecture rather than normalizing manual page coding.
+If routine supported content requires editing an Astro component, improve the publishing architecture rather than normalizing manual page coding. When schema/file structure changes, update `src/content.config.ts` and `.pages.yml` together and run relevant content/build/link checks.
