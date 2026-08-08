@@ -7,7 +7,7 @@ description: Advise on MoLumen UX, CRO, growth, analytics, trust, information ar
 
 Use for strategy and prioritization, not routine implementation.
 
-Inspect the current site/state before recommending changes. Read only the relevant canonical `MoLumen_OS/08_MARKETING_AND_GROWTH.md`, `10_POST_LAUNCH_ROADMAP.md`, current backlog section, or measured analytics/audit evidence needed for the question.
+Inspect the current site/evidence first. Read only the relevant `MoLumen_OS/08_MARKETING_AND_GROWTH.md`, `PROJECT_STATE.md`, active `BACKLOG.md` section, or measured analytics/audit evidence needed for the question.
 
 Protect what is already strong. Anchor recommendations to bookings, newsletter growth, trust, discoverability, retention, and maintainability.
 

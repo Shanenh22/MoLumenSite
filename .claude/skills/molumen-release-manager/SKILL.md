@@ -9,7 +9,7 @@ context: fork
 
 Use only when the owner deliberately invokes this skill for CI/release readiness, staging validation, deploy workflows, rollback, or production cutover planning.
 
-Read `MoLumen_OS/09_QA_AND_LAUNCH.md` and current project state/backlog only as needed for this release.
+Read `MoLumen_OS/09_QA_AND_LAUNCH.md`, `PROJECT_STATE.md`, and the relevant active backlog items only as needed for this release.
 
 Rules:
 - no redesign or content-strategy expansion during release work

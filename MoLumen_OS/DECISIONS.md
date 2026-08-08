@@ -1,48 +1,13 @@
-# Decision Log
+# MoLumen Decision Index
 
-- Kit replaces MailerLite; the repository uses the owner-supplied Kit JavaScript form embed and no MailerLite subscription fallback.
-- YouTube is canonical video host and the official channel is https://www.youtube.com/@MoLumenAstrology.
-- Embedded YouTube should use click-to-load/privacy-conscious facades.
-- About is primary expected home for welcome video; homepage use depends on UX/performance.
-- Claude may research and author 2027 Current Sky using authoritative cross-checked sources.
-- Lead magnet: Birth Time Toolkit, based on approved content + verified research, written in Mo's voice.
-- Pages CMS is Mo's primary day-to-day interface for routine content publishing and editing.
-- GitHub remains the source of truth; Pages CMS is an editing layer, not a separate content database.
-- Preserve `settings.content.merge: true` so CMS edits do not discard technical fields hidden from Mo.
-- Routine CMS create/delete/rename privileges are restricted for business-critical collections such as services and reference architecture.
-- Blog, Current Sky and Videos use a draft flag so saving work in Pages CMS does not automatically make an unfinished item public.
-- Homepage/About structural copy remains code-managed for now because it combines conversion layout, credentials and verified business claims; extract selected fields only if owner editing frequency justifies it.
-- Pull requests should be validated automatically before merge; formatting is advisory until the pre-existing repository is normalized.
-- MoLumen-specific content integrity is a separate quality gate from Astro's type/schema validation.
-- Dependency and source-code security are monitored with Dependabot and CodeQL.
-- Staging/external endpoint health is checked on a recurring GitHub Actions schedule.
-- Cloudflare deploy commands should pin an explicit Wrangler release rather than float to latest at deploy time.
-- Staging noindex changes are intentionally deferred by the owner for now.
-- No production cutover without explicit authorization.
-- GA4 runs under Consent Mode v2 with everything denied by default. A refusal still yields cookieless page counts, so measurement survives without storing anything. The alternative — loading no Google script until consent — was rejected because most visitors never touch a banner either way, which would have returned the site to having no measurement at all.
-- Accept and Decline in the consent banner carry equal visual weight, and always will. Refusing must be as easy as agreeing.
-- Public integration identifiers (GA4 measurement ID, Cal.com handle, Kit form UID) are defaulted in `src/config/site.ts`, not left to environment variables. The deploy workflow passes no env at build time, and every one of these sits behind a truthiness guard, so a missing variable disables the integration silently and looks exactly like a healthy build.
-- `window.mlTrack` is the only analytics entry point. Components must never call `gtag` directly: an optional call at each site makes a missing integration indistinguishable from a working one, which is how four Reading Finder events fired into nothing for months.
-- Analytics parameters are sanitised centrally. Birth dates, birth times and email addresses can never reach a vendor even if a future call site passes them.
-- Sky-event page titles carry month and year. Event names repeat annually, so undated titles collide across years.
-- Current Sky coverage is enforced, not remembered: `test:content` fails below 90 days of future events and warns below 365.
-- A contrast block that cannot be measured fails the run. A check that prints a note and then reports "Every hero passes" is worse than no check.
-- Video facades request nothing from Google before the visitor presses play, including the poster image. An `i.ytimg.com` thumbnail would hand Google the visitor's IP on page load and make the privacy policy inaccurate, while looking like a privacy feature.
-- The Birth Time Toolkit is free to read in full; only the PDF is exchanged for an email address. Gating the content would be off-brand for a practice built on candour, unenforceable on a static site, and would waste the strongest search asset available on the biggest friction point in the funnel.
-- Structured data waits for real values. VideoObject is not emitted without a genuine uploadDate, and Offer prices must match the visible page.
-- Performance changes are kept only if a measurement says they helped. The homepage LCP preload was built, measured, found to make the number worse, and removed.
-- The birth-time topic is two pages, not one. `/birth-time/` is public, ungated and built to rank; `/birth-time-toolkit/` offers the worksheet format. A single page trying to answer the query and sell a download does neither well, and gating the answer would waste the strongest search asset on the biggest friction point in the funnel.
-- The toolkit worksheets stay code-managed. They are printable forms, and exposing ruled lines, checkboxes and comparison tables as CMS fields is the fragile-technical-field case the publishing rules exclude.
-- Precision claims about birth time are stated with their conditions. "Four minutes changes everything" is true near a cusp or angle and misleading otherwise, and the site says which.
-- Record-retrieval guidance names jurisdiction variance rather than describing one country's process as universal.
-- Current Sky has two views at two URLs, not one URL with a JavaScript toggle. A client-side swap would make the calendar uncrawlable, absent without JavaScript and unlinkable. The two have different jobs — the timeline is editorial and meant to be read, the calendar is navigational and meant to be left through — and the calendar carries no summary text, so the overlap is titles and dates. Both self-canonical; neither noindexed.
-- Sky dates are UTC everywhere, in every view. Events are date-only strings parsed as UTC midnight and there are no clock times in the collection, so a browser-timezone conversion cannot be more accurate — it can only move an event onto a day Mo did not publish it on. The single exception is which day is "today", which is the reader's own local date and is compared as a string.
-- Retrograde spans are marked on their start day with the range as text, not drawn as bars. A station-direct is published as its own event as well as being another event's `end`, so a bar would render it twice. Whether standalone stations should be suppressed inside a span is an editorial question, and it has not been answered.
-- The Birth Time Confidence check returns the five labels the toolkit already publishes, verbatim. No percentages, no scores, no traffic light — a numeric confidence in someone's evidence would be invented precision, and a red-to-green ramp would imply a ranking the scale does not assert. "Unknown" is not a failing grade. `content-integrity.mjs` fails the build if a percentage appears in the result copy.
-- Only the Documented result leads with booking. Every other result leads with the search step, because that is what would actually help that reader. A tool whose every branch ends at a checkout is a funnel wearing a diagnosis.
-- The Reading Finder and the Confidence check hand off in one direction only. The finder recommends a reading and does not grade evidence; the check grades evidence and does not recommend a reading. Two tools answering the same question in different shapes is worse than either alone.
-- Interactive tools render every possible outcome server-side and let script reveal, never generate. This is what makes `internal-link-check.mjs` cover their links, keeps the copy indexable, and keeps the no-JavaScript state complete. The Reading Finder builds its result with `innerHTML` and its exit links are consequently invisible to every check in the repository — that is the pattern not to repeat.
-- The rising sign is a display preference, not a profile: one key, one word from a list of twelve, never sent anywhere, never in a URL. All twelve cards stay in the DOM and reordering moves DOM nodes rather than using CSS `order`, so reading order and visual order never diverge. Nothing is gated behind it.
-- No sign, and nothing sign-shaped, is ever passed to analytics. `mlTrack`'s sanitiser catches dates, times and emails but would pass "virgo" straight through, so this rule lives at the call site and is asserted by `test:rising`.
-- No new structured data for any of the three tools. `Event` describes something with a location and an organiser that a person attends; a lunar eclipse is not one, and every sky event already carries `Article` on its own page.
-- None of the three tools gets Pages CMS fields. The calendar reads fields Mo already edits, the sign list is arithmetic, and the confidence copy has to stay in step with `/birth-time/`, the worksheets and the generated PDF — four surfaces that already have to agree, and four ways to drift if exposed separately.
+Use this as a topic router. Open only the decision file relevant to the current question. The superseded cumulative decision log is preserved at `archive/DECISIONS-through-2026-08-08.md` for historical research.
+
+## Active decision topics
+- [`decisions/architecture-and-cms.md`](decisions/architecture-and-cms.md) — static-first Astro architecture, source-of-truth hierarchy, Pages CMS boundaries, and no-backend-by-default policy.
+- [`decisions/integrations-and-privacy.md`](decisions/integrations-and-privacy.md) — integration IDs/config, consent-aware analytics, lazy third parties, and YouTube privacy behavior.
+- [`decisions/content-and-current-sky.md`](decisions/content-and-current-sky.md) — content ownership, Current Sky sourcing/horizon, and Birth Time editorial/toolkit separation.
+- [`decisions/interactive-tools.md`](decisions/interactive-tools.md) — sky calendar, birth-time confidence, rising-sign preference, schema, and CMS boundaries.
+- [`decisions/deployment-and-release.md`](decisions/deployment-and-release.md) — staging/production separation, production owner gates, rollback, and evidence requirements.
+
+## Adding a decision
+Create or update the smallest topic file that owns the rationale. Add a new topic only when a durable decision does not fit an existing one. Do not append routine implementation history here.

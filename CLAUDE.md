@@ -4,9 +4,9 @@
 
 Use the most relevant project skill in `.claude/skills/` and path-scoped rules in `.claude/rules/`.
 
-Do not preload `MoLumen_OS/`. Read canonical OS documents only when the task needs them.
+Do not preload `MoLumen_OS/`. Use `MoLumen_OS/INDEX.md` only when you need to locate deeper guidance.
 
-For current cross-session status, read `MoLumen_OS/PROJECT_MEMORY.md`. For historical rationale, search `MoLumen_OS/DECISIONS.md` for the topic. For planning, read only the relevant `MoLumen_OS/BACKLOG.md` section.
+For current status, read `MoLumen_OS/PROJECT_STATE.md` only when the task depends on cross-session state. For planning, read only the relevant `BACKLOG.md` section. For rationale, open `DECISIONS.md` and then only the linked topic decision.
 
 Delegate noisy verification to the `molumen-qa` project subagent when useful.
 
