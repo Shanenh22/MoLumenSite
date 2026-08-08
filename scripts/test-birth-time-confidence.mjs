@@ -17,7 +17,7 @@
 import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync } from "node:fs";
-import { extname, join } from "node:path";
+import { extname, join, resolve, sep } from "node:path";
 
 const { chromium } = await import("playwright");
 const PORT = 4413;
@@ -30,8 +30,23 @@ const MIME = {
   ".png": "image/png",
   ".pdf": "application/pdf",
 };
+/**
+ * Every request is confined to `dist/`.
+ *
+ * `decodeURIComponent` on a raw URL will happily produce `../../` segments, so
+ * joining it onto "dist" is a path traversal — CodeQL flags exactly this as
+ * js/path-injection, and it is right to. Nothing untrusted reaches this server
+ * (it binds to localhost and only Playwright talks to it), but "no attacker can
+ * reach it today" is a property of the caller rather than of the code, and it
+ * is one line to make it a property of the code instead.
+ */
+const ROOT = resolve("dist");
 const server = http.createServer((req, res) => {
-  let f = join("dist", decodeURIComponent(req.url.split("?")[0]));
+  let f = resolve(ROOT, "." + decodeURIComponent(req.url.split("?")[0]));
+  if (f !== ROOT && !f.startsWith(ROOT + sep)) {
+    res.writeHead(403);
+    return res.end();
+  }
   try {
     if (statSync(f).isDirectory()) f = join(f, "index.html");
   } catch {
@@ -71,11 +86,28 @@ const ctx = await browser.newContext({
   viewport: { width: 1440, height: 900 },
 });
 const page = await ctx.newPage();
+/**
+ * Console errors from OUR scripts only.
+ *
+ * The unfiltered version passes locally and fails in CI with
+ * `ERR_BLOCKED_BY_RESPONSE.NotSameOrigin`: the page loads Google's tag and
+ * Kit's embed, and the runner's network policy blocks them. That is a property
+ * of the environment, not of the page, and an assertion that only holds on a
+ * machine with open network access fails for a reason nobody can act on.
+ */
+const THIRD_PARTY =
+  /convertkit|googletagmanager|google-analytics|cal\.com|ytimg|youtube/;
+const isPageFault = (text) =>
+  !THIRD_PARTY.test(text) &&
+  !/net::ERR_|ERR_BLOCKED_BY_RESPONSE|ERR_FAILED/.test(text);
 const consoleErrors = [];
-page.on("pageerror", (e) => consoleErrors.push(String(e)));
+page.on("pageerror", (e) => {
+  const detail = `${e.message}
+${e.stack ?? ""}`;
+  if (isPageFault(detail)) consoleErrors.push(e.message);
+});
 page.on("console", (m) => {
-  // The blocked Google tag below is an intentional abort, not a page fault.
-  if (m.type() === "error" && !/ERR_FAILED|googletagmanager/.test(m.text()))
+  if (m.type() === "error" && isPageFault(m.text()))
     consoleErrors.push(m.text());
 });
 

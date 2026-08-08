@@ -17,7 +17,7 @@
 import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync, readdirSync } from "node:fs";
-import { extname, join } from "node:path";
+import { extname, join, resolve, sep } from "node:path";
 
 const { chromium } = await import("playwright");
 const PORT = 4414;
@@ -29,8 +29,23 @@ const MIME = {
   ".svg": "image/svg+xml",
   ".png": "image/png",
 };
+/**
+ * Every request is confined to `dist/`.
+ *
+ * `decodeURIComponent` on a raw URL will happily produce `../../` segments, so
+ * joining it onto "dist" is a path traversal — CodeQL flags exactly this as
+ * js/path-injection, and it is right to. Nothing untrusted reaches this server
+ * (it binds to localhost and only Playwright talks to it), but "no attacker can
+ * reach it today" is a property of the caller rather than of the code, and it
+ * is one line to make it a property of the code instead.
+ */
+const ROOT = resolve("dist");
 const server = http.createServer((req, res) => {
-  let f = join("dist", decodeURIComponent(req.url.split("?")[0]));
+  let f = resolve(ROOT, "." + decodeURIComponent(req.url.split("?")[0]));
+  if (f !== ROOT && !f.startsWith(ROOT + sep)) {
+    res.writeHead(403);
+    return res.end();
+  }
   try {
     if (statSync(f).isDirectory()) f = join(f, "index.html");
   } catch {
@@ -98,10 +113,35 @@ const ctx = await browser.newContext({
 // into dataLayer, where these assertions read it from.
 await ctx.route("**://www.googletagmanager.com/**", (r) => r.abort());
 const page = await ctx.newPage();
+/**
+ * Console errors from OUR scripts only.
+ *
+ * The unfiltered version passes locally and fails in CI with
+ * `ERR_BLOCKED_BY_RESPONSE.NotSameOrigin`: the page loads Google's tag and
+ * Kit's embed, and the runner's network policy blocks them. That is a property
+ * of the environment, not of the page, and an assertion that only holds on a
+ * machine with open network access fails for a reason nobody can act on.
+ *
+ * Kit is worth naming specifically, because it also throws under the denied
+ * storage simulated further down: its embed responds to unavailable storage by
+ * assigning to `window.localStorage`, which throws because the property has
+ * only a getter. That is Kit's behaviour in any storage-denied browser and
+ * nothing here can fix it. What these assertions check is that *our* scripts
+ * degrade quietly.
+ */
+const THIRD_PARTY =
+  /convertkit|googletagmanager|google-analytics|cal\.com|ytimg|youtube/;
+const isPageFault = (text) =>
+  !THIRD_PARTY.test(text) &&
+  !/net::ERR_|ERR_BLOCKED_BY_RESPONSE|ERR_FAILED/.test(text);
+
 const consoleErrors = [];
-page.on("pageerror", (e) => consoleErrors.push(String(e)));
+page.on("pageerror", (e) => {
+  const detail = `${e.message}\n${e.stack ?? ""}`;
+  if (isPageFault(detail)) consoleErrors.push(e.message);
+});
 page.on("console", (m) => {
-  if (m.type() === "error" && !/ERR_FAILED|googletagmanager/.test(m.text()))
+  if (m.type() === "error" && isPageFault(m.text()))
     consoleErrors.push(m.text());
 });
 
@@ -285,24 +325,14 @@ await denied.addInitScript(() => {
 });
 const deniedPage = await denied.newPage();
 const deniedErrors = [];
-/**
- * Third-party frames are excluded, and one of them is worth naming.
- *
- * Kit's embed script (f.convertkit.com/ckjs/ck.5.js) responds to storage being
- * unavailable by attempting `window.localStorage = …`, which throws because the
- * property has only a getter. That is Kit's behaviour in any storage-denied
- * browser, it predates this work, and there is nothing in this repository that
- * can fix it. What this assertion is for is that *our* scripts degrade quietly,
- * so it filters on the originating file rather than swallowing everything.
- */
-const isOurs = (text) =>
-  !/convertkit|googletagmanager|cal\.com|ytimg|youtube/.test(text);
+// Same predicate as the main context. Kit's embed is the one that actually
+// throws here, for the reason given where isPageFault is defined.
 deniedPage.on("pageerror", (e) => {
   const detail = `${e.message}\n${e.stack ?? ""}`;
-  if (isOurs(detail)) deniedErrors.push(e.message);
+  if (isPageFault(detail)) deniedErrors.push(e.message);
 });
 deniedPage.on("console", (m) => {
-  if (m.type() === "error" && !/ERR_FAILED/.test(m.text()) && isOurs(m.text()))
+  if (m.type() === "error" && isPageFault(m.text()))
     deniedErrors.push(m.text());
 });
 await deniedPage.goto(EVENT, { waitUntil: "load" });

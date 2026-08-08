@@ -17,7 +17,7 @@
 import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
 import { createReadStream, statSync, readdirSync } from "node:fs";
-import { extname, join } from "node:path";
+import { extname, join, resolve, sep } from "node:path";
 
 const { chromium } = await import("playwright");
 const PORT = 4412;
@@ -30,8 +30,23 @@ const MIME = {
   ".png": "image/png",
   ".xml": "application/xml",
 };
+/**
+ * Every request is confined to `dist/`.
+ *
+ * `decodeURIComponent` on a raw URL will happily produce `../../` segments, so
+ * joining it onto "dist" is a path traversal — CodeQL flags exactly this as
+ * js/path-injection, and it is right to. Nothing untrusted reaches this server
+ * (it binds to localhost and only Playwright talks to it), but "no attacker can
+ * reach it today" is a property of the caller rather than of the code, and it
+ * is one line to make it a property of the code instead.
+ */
+const ROOT = resolve("dist");
 const server = http.createServer((req, res) => {
-  let f = join("dist", decodeURIComponent(req.url.split("?")[0]));
+  let f = resolve(ROOT, "." + decodeURIComponent(req.url.split("?")[0]));
+  if (f !== ROOT && !f.startsWith(ROOT + sep)) {
+    res.writeHead(403);
+    return res.end();
+  }
   try {
     if (statSync(f).isDirectory()) f = join(f, "index.html");
   } catch {
@@ -121,10 +136,41 @@ const ctx = await browser.newContext({
   viewport: { width: 1440, height: 900 },
 });
 const page = await ctx.newPage();
+/**
+ * Console errors from OUR scripts only.
+ *
+ * The unfiltered version passed locally and failed in CI with
+ * `ERR_BLOCKED_BY_RESPONSE.NotSameOrigin`: the page loads Google's tag and
+ * Kit's embed, and the runner's network policy blocks them. That is a property
+ * of the environment, not of the calendar, and an assertion that only holds on
+ * a machine with open network access is worse than no assertion — it fails for
+ * a reason nobody can act on, and gets muted.
+ *
+ * Filtering on the originating file keeps the check meaningful: a genuine error
+ * thrown by the calendar's own script still fails the run. The other two tool
+ * suites do the same thing, and `test-rising-pref.mjs` carries the longer note
+ * about why third-party frames are excluded rather than swallowed wholesale.
+ */
+const THIRD_PARTY =
+  /convertkit|googletagmanager|google-analytics|cal\.com|ytimg|youtube/;
 const consoleErrors = [];
-page.on("pageerror", (e) => consoleErrors.push(String(e)));
+page.on("pageerror", (e) => {
+  const detail = `${e.message}\n${e.stack ?? ""}`;
+  if (!THIRD_PARTY.test(detail)) consoleErrors.push(e.message);
+});
 page.on("console", (m) => {
-  if (m.type() === "error") consoleErrors.push(m.text());
+  if (m.type() !== "error") return;
+  const text = m.text();
+  // A blocked cross-origin fetch reports no originating script, so match on the
+  // failure mode as well as on the host.
+  if (THIRD_PARTY.test(text)) return;
+  if (
+    /ERR_BLOCKED_BY_RESPONSE|ERR_FAILED|ERR_NAME_NOT_RESOLVED|net::ERR_/.test(
+      text,
+    )
+  )
+    return;
+  consoleErrors.push(text);
 });
 await page.goto(URL_CAL, { waitUntil: "load" });
 
