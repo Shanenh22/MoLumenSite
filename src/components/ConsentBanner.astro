@@ -1,0 +1,154 @@
+---
+/**
+ * Cookie consent banner.
+ *
+ * Renders only when analytics is actually configured — a consent banner on a
+ * site that sets no analytics cookie is a lie in the other direction, and it
+ * would train visitors to dismiss a control that does nothing.
+ *
+ * Three decisions worth defending, because each had a plausible alternative:
+ *
+ * 1. **Google Consent Mode v2, not a hard gate on the script.** The strictest
+ *    option is to load nothing from Google until someone clicks Accept. It is
+ *    simpler, and it was tempting on a site whose whole position is that it
+ *    does not fake things. It was rejected because most people never touch a
+ *    banner either way, so a hard gate would have taken the site straight back
+ *    to the state the audit just fixed: no idea how many people arrive or where
+ *    they go. Consent Mode denies `analytics_storage` by default — no cookie is
+ *    written, nothing identifies a person — while still allowing cookieless
+ *    pings, so aggregate page counts survive a refusal. That is the honest
+ *    trade: measure the crowd by default, never the individual, and only
+ *    identify a returning browser if asked.
+ *
+ * 2. **Accept and Decline have equal visual weight.** Not a styled Accept
+ *    beside a grey text link. Under GDPR and the EU cookie rules refusing must
+ *    be as easy as agreeing, and beyond the law, a nudge here would be the one
+ *    dark pattern on a site that tells people astrology cannot predict their
+ *    future. Both buttons are the same size, the same shape, the same distance
+ *    from the thumb.
+ *
+ * 3. **It is a region, not a modal.** No focus trap and no backdrop. The
+ *    banner asks for a preference; it does not hold the page hostage until it
+ *    gets one. It is placed early in the DOM (right after the skip link) so a
+ *    keyboard user reaches it in the first few tabs rather than after 129 pages
+ *    worth of navigation, while `position: fixed` keeps it visually at the
+ *    bottom and — critically — out of layout flow, so it cannot shift the page.
+ *    This site measures CLS 0 and it stays that way.
+ *
+ * Server-rendered with `hidden` and revealed by script, rather than injected.
+ * Injecting markup after load is what makes banners jump. `hidden` works here
+ * because `[hidden] { display: none !important }` near the top of global.css
+ * makes it immune to whatever `display` a component sets — see the note in
+ * docs/session-handoff.md about the twelve filters that silently ignored it.
+ */
+import { site } from '../config/site';
+const enabled = Boolean(site.integrations.ga4Id);
+---
+
+{
+  enabled && (
+    <div
+      class="consent"
+      id="consent-banner"
+      role="region"
+      aria-labelledby="consent-title"
+      data-consent
+      hidden
+    >
+      <div class="consent__inner">
+        <div class="consent__copy">
+          <h2 class="consent__title" id="consent-title" tabindex="-1">
+            A word about cookies
+          </h2>
+          <p>
+            I use Google Analytics to see which pages people actually read — how many visits, which
+            articles, nothing that identifies you. Saying yes lets it set one cookie so a return
+            visit is not counted as a new person. Saying no is completely fine: the site works
+            identically, and I still get an anonymous page count.
+          </p>
+          <p class="consent__fine">
+            Never advertising, never sold, never linked to your birth details. The{' '}
+            <a href="/privacy/">privacy policy</a> spells it out.
+          </p>
+        </div>
+        <div class="consent__actions">
+          <button class="btn btn--accent" type="button" data-consent-accept>
+            Yes, that's fine
+          </button>
+          <button class="btn btn--ghost" type="button" data-consent-decline>
+            No thanks
+          </button>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+{/*
+  `set:html` rather than putting the code between the script tags.
+  `<script is:inline>{\`…\`}</script>` inside a component emits the braces and
+  backticks *literally*, so the shipped page contained `<script>{\`(function
+  () {…})();\`}</script>` — a block statement wrapping an unused template
+  string. Perfectly valid JavaScript that does nothing at all, with no error
+  and no console warning: the banner simply never appeared. This is the same
+  family of bug as the `hidden` attribute note in the handoff — the failure
+  mode here is silence, so verify the behaviour in a browser, never the
+  presence of the markup. BaseLayout.astro already used `set:html` for the
+  gtag block; this now matches it.
+*/}
+{
+  enabled && (
+    <script
+      is:inline
+      set:html={`
+      (function () {
+        var KEY = 'ml-consent-v1';
+        var banner = document.querySelector('[data-consent]');
+        if (!banner) return;
+
+        function read() {
+          try { return localStorage.getItem(KEY); } catch (e) { return null; }
+        }
+        function write(v) {
+          try { localStorage.setItem(KEY, v); } catch (e) { /* private mode: choice lasts this page only */ }
+        }
+        function apply(v) {
+          if (typeof window.gtag === 'function') {
+            window.gtag('consent', 'update', {
+              analytics_storage: v === 'granted' ? 'granted' : 'denied'
+            });
+          }
+        }
+        function close(v) {
+          write(v);
+          apply(v);
+          banner.hidden = true;
+          // Returning focus matters when the banner was opened deliberately
+          // from the footer; on first visit the opener does not exist and
+          // focus simply stays where the visitor left it.
+          var opener = document.querySelector('[data-consent-reopen]');
+          if (opener && banner.dataset.reopened === 'true') opener.focus();
+          banner.dataset.reopened = 'false';
+        }
+
+        banner.querySelector('[data-consent-accept]').addEventListener('click', function () { close('granted'); });
+        banner.querySelector('[data-consent-decline]').addEventListener('click', function () { close('denied'); });
+
+        // Only ask people who have not answered. A stored 'denied' is an
+        // answer, and re-asking someone who said no is the behaviour that
+        // makes these banners hated.
+        if (!read()) banner.hidden = false;
+
+        // Let anyone change their mind, from every page.
+        document.querySelectorAll('[data-consent-reopen]').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            banner.dataset.reopened = 'true';
+            banner.hidden = false;
+            banner.querySelector('.consent__title').focus();
+          });
+        });
+      })();
+      `}
+    />
+  )
+}

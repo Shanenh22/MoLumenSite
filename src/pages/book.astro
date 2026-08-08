@@ -135,8 +135,8 @@ const groups = [
             data-service-map={JSON.stringify(serviceToEvent)}
           >
             {
-              groups.map((g) => (
-                <fieldset class="booking-group">
+              groups.map((g, gi) => (
+                <fieldset class="booking-group" data-group-index={gi}>
                   <legend>
                     {g.legend}
                     <span>{g.note}</span>
@@ -204,5 +204,63 @@ const groups = [
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  /**
+   * Collapse the "returning clients" group on phones.
+   *
+   * Measured at 390px before this: nine reading rows ran 1,479px, so the
+   * "Show available times" button sat 2,368px down a 6,374px page — about 2.8
+   * screens of scrolling past options before a first-time visitor reached any
+   * availability. Six of those nine are follow-ups that explicitly require a
+   * natal reading the visitor has not had yet.
+   *
+   * So the second group starts closed on narrow viewports only. Three relevant
+   * choices instead of nine, and the calendar moves roughly a screen closer.
+   *
+   * Three things this must not break, in order of how easily they would have
+   * been missed:
+   *
+   * 1. Deep links. /book/?service=clarity lands on a reading inside this
+   *    group. If it stayed shut the radio would be display:none, BookingEmbed's
+   *    scrollIntoView would land on nothing, and test:finder would fail. The
+   *    group is therefore opened whenever the checked radio is inside it.
+   * 2. Ordering. BookingEmbed preselects from its own inline script, so this
+   *    runs after a frame rather than racing it — it reads whatever ended up
+   *    checked rather than re-parsing the query string, which keeps one source
+   *    of truth for the service/event mapping.
+   * 3. No-JS. The markup ships expanded; this only ever collapses. Someone
+   *    without JavaScript sees every option, which is the safe failure.
+   */
+  const secondary = document.querySelector<HTMLFieldSetElement>('[data-group-index="1"]');
+  if (secondary && window.matchMedia('(max-width: 767px)').matches) {
+    requestAnimationFrame(() => {
+      const checked = document.querySelector<HTMLInputElement>(
+        'input[name="booking-service"]:checked'
+      );
+      if (checked && secondary.contains(checked)) return;
+      secondary.dataset.collapsed = 'true';
+      const legend = secondary.querySelector('legend');
+      if (!legend) return;
+      const toggle = document.createElement('button');
+      toggle.type = 'button';
+      toggle.className = 'booking-group__toggle';
+      const count = secondary.querySelectorAll('input[name="booking-service"]').length;
+      toggle.textContent = `Show ${count} follow-up readings`;
+      toggle.setAttribute('aria-expanded', 'false');
+      const list = secondary.querySelector<HTMLElement>('.booking-list');
+      if (!list) return;
+      list.id = list.id || 'booking-list-returning';
+      toggle.setAttribute('aria-controls', list.id);
+      toggle.addEventListener('click', () => {
+        const open = secondary.dataset.collapsed !== 'true';
+        secondary.dataset.collapsed = open ? 'true' : 'false';
+        toggle.setAttribute('aria-expanded', String(!open));
+        toggle.textContent = open ? `Show ${count} follow-up readings` : 'Hide follow-up readings';
+      });
+      legend.after(toggle);
+    });
+  }
+</script>
 
 

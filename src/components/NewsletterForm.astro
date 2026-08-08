@@ -33,11 +33,35 @@ const scriptUrl = site.integrations.kitFormScriptUrl;
   </p>
 </div>
 
-<script is:inline define:vars={{ uid, scriptUrl }}>
+<script is:inline define:vars={{ uid, scriptUrl, source }}>
   (() => {
     const current = document.currentScript;
     const host = current?.previousElementSibling;
     if (!(host instanceof HTMLElement) || !host.matches('[data-kit-form-host]')) return;
+
+    /**
+     * Analytics is attached per instance, before the single-load guard below,
+     * because every instance is a real conversion surface: the one that renders
+     * the Kit form and the ones that stay a link to /newsletter/. Measuring only
+     * the first would attribute all newsletter interest to whichever block
+     * happens to appear earliest in the DOM.
+     *
+     * `submit` is delegated on the host rather than bound to the form, because
+     * Kit injects its markup asynchronously and there is nothing to bind to
+     * yet. Nothing about the subscriber is captured — only which block on which
+     * page prompted it. The email never leaves the form, and mlTrack's
+     * sanitiser would drop it even if a future edit tried to pass it.
+     */
+    host.addEventListener('click', (e) => {
+      if (e.target instanceof Element && e.target.closest('.kit-form-fallback a')) {
+        window.mlTrack?.('newsletter_cta_click', { source });
+      }
+    });
+    host.addEventListener(
+      'submit',
+      () => window.mlTrack?.('newsletter_signup_intent', { source }),
+      true
+    );
 
     if (window.__molumenKitFormLoaded) return;
     window.__molumenKitFormLoaded = true;

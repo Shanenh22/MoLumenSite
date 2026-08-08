@@ -510,13 +510,48 @@ details.faq .faq__body {
   }
 }
 .header-cta {
-  min-height: 42px;
+  min-height: 44px; /* WCAG 2.2 target size, and this is the money button */
   padding: var(--space-2) var(--space-5, 1.25rem);
   font-size: 0.95rem;
+  white-space: nowrap;
 }
+.header-cta__short {
+  display: none;
+}
+/* Phones keep the button and lose four words of it.
+   Measured at 390px: the brand ends at x=183 and the menu toggle starts at
+   x=278, leaving 96px. The 24px header gap either side of a new flex child
+   eats 48 of that, so the gap tightens here too — 72px of room for a ~58px
+   button. "Book a Reading" needs about 105px and does not fit; "Book" does,
+   and aria-label keeps the full accessible name. */
 @media (max-width: 479px) {
+  .site-header__inner {
+    gap: var(--space-3);
+  }
   .header-cta {
+    padding-inline: var(--space-3);
+    font-size: 0.9rem;
+  }
+  .header-cta__long {
     display: none;
+  }
+  .header-cta__short {
+    display: inline;
+  }
+}
+/* Below ~360px the three header children stop fitting: the lockup is 167px
+   intrinsic, the button 59px and the menu toggle 96px, which with two 12px
+   gaps needs 346px before container padding. Rather than dropping the booking
+   button again — the whole point of the change above — the wordmark scales
+   down, since the logo is the one element that still reads at a smaller size.
+   Keeps a 320px screen free of horizontal overflow. */
+@media (max-width: 359px) {
+  .brand svg {
+    max-width: 132px;
+    height: auto;
+  }
+  .nav-toggle {
+    padding-inline: var(--space-2);
   }
 }
 
@@ -2727,4 +2762,168 @@ fieldset.booking-group > legend span {
   .quote-grid--wide {
     grid-template-columns: repeat(2, 1fr);
   }
+}
+
+/* ---------- cookie consent ----------
+   A bottom sheet rather than a full-bleed bar, so it reads as the same card
+   language as the rest of the site instead of a browser chrome afterthought.
+
+   `position: fixed` is not decoration here — it takes the banner out of layout
+   flow entirely, which is the only reason revealing it after load cannot move
+   anything. This site measures CLS 0 and the banner must not be what changes
+   that.
+
+   z-index 60 sits above the sticky header (50) and below the skip link (100),
+   deliberately: the banner should cover the header it overlaps, but must never
+   cover the bypass link a keyboard user presses first. The mobile nav is a
+   native <dialog>, which renders in the top layer above all of this, so opening
+   the menu is never obstructed. */
+.consent {
+  position: fixed;
+  inset: auto 0 0 0;
+  z-index: 60;
+  padding: var(--space-4);
+  /* viewport-fit=cover is set in the meta, so on a notched phone the home
+     indicator would otherwise sit on top of the buttons. */
+  padding-bottom: calc(var(--space-4) + env(safe-area-inset-bottom, 0px));
+  /* No entrance animation, deliberately.
+     A fade-in was here and it broke the accessibility sweep: scripts/axe-sweep.mjs
+     runs axe the instant `load` fires, which landed inside the 250ms fade, so
+     every heading and link in the banner was sampled at partial opacity and
+     reported as a colour-contrast violation on 19 pages. The colours were
+     always correct — ivory on navy measures ~14:1 — but an element that is
+     animating its opacity has no stable computed colour to measure.
+     A consent control is not a delight moment. It appears; that is the whole
+     requirement. Do not reintroduce a fade here without also giving the sweep
+     something deterministic to wait for. */
+}
+.consent__inner {
+  max-width: var(--container-wide);
+  margin-inline: auto;
+  background: var(--color-navy-deep);
+  color: var(--color-ivory);
+  border: 1px solid color-mix(in srgb, var(--color-gold-soft) 45%, transparent);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-2);
+  padding: var(--space-5) var(--space-6);
+  display: grid;
+  gap: var(--space-4);
+}
+@media (min-width: 860px) {
+  .consent__inner {
+    grid-template-columns: 1fr auto;
+    align-items: center;
+    gap: var(--space-8);
+  }
+}
+.consent__copy {
+  display: grid;
+  gap: var(--space-2);
+  max-width: 68ch;
+}
+.consent__title {
+  font-size: var(--text-lg);
+  margin: 0;
+  color: var(--color-ivory);
+}
+/* The heading takes focus when the banner is reopened from the footer, so it
+   needs a focus ring — but only when reached that way, never as a stray
+   outline on first paint. :focus-visible does exactly that for a
+   programmatically focused tabindex="-1" element. */
+.consent__title:focus {
+  outline: none;
+}
+.consent__title:focus-visible {
+  outline: 3px solid var(--color-aqua);
+  outline-offset: 3px;
+  border-radius: var(--radius-sm);
+}
+.consent p {
+  margin: 0;
+  font-size: var(--text-sm);
+  line-height: 1.6;
+  color: var(--color-stone);
+}
+.consent__fine {
+  color: color-mix(in srgb, var(--color-stone) 85%, transparent);
+}
+.consent a {
+  color: var(--color-aqua);
+}
+/* Two buttons of identical size and shape. Refusing has to be exactly as easy
+   as agreeing — that is the law in the EU, and it is also the only version of
+   this control that belongs on a site which tells people astrology cannot
+   predict their future. Do not restyle one of these into a text link. */
+.consent__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+}
+.consent__actions .btn {
+  flex: 1 1 auto;
+  white-space: nowrap;
+}
+@media (min-width: 860px) {
+  .consent__actions .btn {
+    flex: 0 0 auto;
+  }
+}
+/* .btn--ghost is navy-on-transparent by default, which is invisible here.
+   Same override the dark sections already carry. */
+.consent .btn--ghost {
+  color: var(--color-ivory);
+  border-color: var(--color-ivory);
+}
+.consent .btn--ghost:hover {
+  background: var(--color-ivory);
+  color: var(--color-navy);
+}
+/* The "change your mind" control in the footer. A button, not a link, because
+   it opens a control on the current page rather than navigating anywhere. */
+.consent-reopen {
+  background: none;
+  border: none;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+}
+
+/* Action row at the foot of a card: a primary booking button and a quieter
+   text link beside it. `margin-top: auto` pins it to the bottom so cards in a
+   grid line their buttons up regardless of how long the description runs. */
+.card__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+  margin-top: auto;
+  margin-bottom: 0;
+}
+
+/* Collapsed "returning clients" group on phones — see the reasoning in
+   src/pages/book.astro. The attribute is set by script, so the markup ships
+   expanded and a no-JS visitor sees every reading. */
+.booking-group[data-collapsed='true'] .booking-list {
+  display: none;
+}
+.booking-group__toggle {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: var(--space-2) var(--space-4);
+  margin-top: var(--space-2);
+  background: none;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  font: inherit;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--link);
+  cursor: pointer;
+}
+.booking-group__toggle:hover {
+  background: var(--bg-alt);
 }

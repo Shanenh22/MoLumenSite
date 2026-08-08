@@ -52,7 +52,15 @@ export const site = {
    */
   indexNowKey: "12c6ffba6788bf3dea9359c17ab44f81",
   integrations: {
-    ga4Id: import.meta.env.PUBLIC_GA4_ID ?? "",
+    // GA4 measurement ID, supplied by Shane on 2026-08-07. Defaulted here for
+    // the same reason as calcomUsername and the Kit IDs below: it is a public
+    // identifier that ships in the HTML of every page, the deploy workflow
+    // passes no env at build time, and an unset value fails *silently* — the
+    // whole gtag block sits behind an `ga4Id &&` guard, so a missing variable
+    // renders nothing and looks exactly like a healthy build. That is how this
+    // site ran with no analytics at all while every check stayed green.
+    // PUBLIC_GA4_ID still overrides for a preview or test property.
+    ga4Id: import.meta.env.PUBLIC_GA4_ID ?? "G-64N9EPKNTR",
     // Cal.com handle — the part after cal.com/ in the booking URL. Not a
     // secret: it appears in every booking link Mo shares. Kept here rather
     // than in an env var so it cannot go missing from a build environment.

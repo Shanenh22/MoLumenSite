@@ -43,14 +43,49 @@ const schema: object[] = [
     name: s.name,
     description: s.purpose,
     provider: { '@type': 'ProfessionalService', name: site.name, url: site.url },
+    url: new URL(`/readings/${s.slug}/`, site.url).href,
+    /**
+     * Offers, and why a multi-price reading gets an AggregateOffer.
+     *
+     * This used to emit a single Offer carrying `s.price` even for readings
+     * sold at two lengths — so the natal reading advertised $150 to search
+     * engines while the page plainly offered $150 and $200. Schema has to agree
+     * with the visible page or it is the schema that is wrong.
+     *
+     * `url` is the other addition. An Offer without one describes a price but
+     * gives an engine nowhere to send anybody; pointing it at the deep-linked
+     * booking path makes the offer actionable and lands the visitor on the
+     * booking page with the right reading already selected.
+     */
     ...(s.priceConfirmed && s.price
       ? {
-          offers: {
-            '@type': 'Offer',
-            price: s.price,
-            priceCurrency: s.currency,
-            availability: 'https://schema.org/InStock',
-          },
+          offers:
+            s.options && s.options.length > 1
+              ? {
+                  '@type': 'AggregateOffer',
+                  priceCurrency: s.currency,
+                  lowPrice: Math.min(...s.options.map((o) => o.price)),
+                  highPrice: Math.max(...s.options.map((o) => o.price)),
+                  offerCount: s.options.length,
+                  offers: s.options.map((o) => ({
+                    '@type': 'Offer',
+                    name: o.label,
+                    price: o.price,
+                    priceCurrency: s.currency,
+                    availability: 'https://schema.org/InStock',
+                    url: new URL(
+                      `/book/?service=${o.bookingEventId || s.bookingEventId}`,
+                      site.url
+                    ).href,
+                  })),
+                }
+              : {
+                  '@type': 'Offer',
+                  price: s.price,
+                  priceCurrency: s.currency,
+                  availability: 'https://schema.org/InStock',
+                  url: new URL(`/book/?service=${s.bookingEventId}`, site.url).href,
+                },
         }
       : {}),
   },

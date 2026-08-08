@@ -97,8 +97,11 @@ const configured = calUser.trim().length > 0;
   const bookables: Record<string, Bookable> = JSON.parse(servicesEl?.dataset.services || '{}');
   const calUser = root?.dataset.calUser || '';
 
+  // One entry point, defined in BaseLayout. Calling gtag directly is what let
+  // four Reading Finder events sit dead behind `?.` for months without anyone
+  // noticing; mlTrack no-ops in exactly one place instead of at every call.
   const track = (event: string, params: Record<string, string> = {}) =>
-    (window as any).gtag?.('event', event, params);
+    (window as any).mlTrack?.(event, params);
 
   function selectedKey(): string {
     const checked = document.querySelector<HTMLInputElement>(

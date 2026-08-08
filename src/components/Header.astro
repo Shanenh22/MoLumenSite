@@ -53,7 +53,24 @@ const navIcons: Record<string, string> = {
       </ul>
     </nav>
 
-    <a class="btn btn--accent header-cta" href={ctaNav.href}>{ctaNav.label}</a>
+    {/*
+      Visible at every width, including phones.
+
+      This used to be `display: none` below 480px, so on a 390px screen the
+      only route to booking was to open the hamburger — and on the homepage the
+      first Book button in the page body sits at roughly 85% scroll depth. The
+      primary conversion action was effectively hidden on the viewport most
+      visitors arrive on.
+
+      The label shortens rather than the button disappearing. `aria-label`
+      pins the accessible name to the full phrase at all widths, so screen
+      reader and voice-control users always hear and can say "Book a Reading"
+      even when the visible glyphs read "Book".
+    */}
+    <a class="btn btn--accent header-cta" href={ctaNav.href} aria-label={ctaNav.label}>
+      <span class="header-cta__long">{ctaNav.label}</span>
+      <span class="header-cta__short">Book</span>
+    </a>
 
     <button class="nav-toggle" type="button" aria-haspopup="dialog" data-open-mobile-nav>
       <svg width="20" height="14" viewBox="0 0 20 14" aria-hidden="true">

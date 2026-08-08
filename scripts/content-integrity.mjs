@@ -17,8 +17,28 @@ function unique(items, key, label) {
   }
 }
 
+/**
+ * Minimal frontmatter reader.
+ *
+ * The `\r` normalisation is load-bearing, not defensive tidying. In JavaScript
+ * `.` matches any character EXCEPT a line terminator, and `\r` is a line
+ * terminator — so on a CRLF checkout `(.*)$` stopped before the trailing `\r`,
+ * `$` could not match with one left over, and every single line failed to
+ * parse. `frontmatter()` returned `{}` for every file.
+ *
+ * This repository sets `core.autocrlf=true` and ships no `.gitattributes`, so
+ * that is the state of every Windows working copy — including the owner's.
+ * The effect was that `npm run test:content` reported 45 errors locally (all
+ * 15 sky events, three each: missing sourceNote, missing lastVerified, invalid
+ * start date) while the identical commit passed cleanly in CI on Linux.
+ *
+ * A quality gate that cries wolf on the maintainer's own machine is worse than
+ * no gate, because the next real failure gets waved through with the rest. It
+ * also silently disabled the `draft` skip below, since `fm.draft` was never
+ * populated either.
+ */
 function frontmatter(file) {
-  const raw = readFileSync(file, 'utf8');
+  const raw = readFileSync(file, 'utf8').replace(/\r\n?/g, '\n');
   const match = raw.match(/^---\s*\n([\s\S]*?)\n---/);
   if (!match) return {};
   const out = {};
@@ -58,12 +78,73 @@ for (const [path, key, label] of [
 }
 
 const skyDir = 'src/content/sky-events';
+let furthestFuture = null;
+let futureCount = 0;
+const today = new Date();
+today.setHours(0, 0, 0, 0);
+
 for (const file of readdirSync(skyDir).filter((f) => /\.mdx?$/.test(f))) {
   const fm = frontmatter(join(skyDir, file));
   if (fm.draft === 'true') continue;
   if (!fm.sourceNote) err(`sky event ${file}: published item missing sourceNote`);
   if (!fm.lastVerified) err(`sky event ${file}: published item missing lastVerified`);
-  if (!fm.start || Number.isNaN(Date.parse(fm.start))) err(`sky event ${file}: invalid/missing start date`);
+  if (!fm.start || Number.isNaN(Date.parse(fm.start))) {
+    err(`sky event ${file}: invalid/missing start date`);
+    continue;
+  }
+  const start = new Date(fm.start);
+  if (start >= today) {
+    futureCount += 1;
+    if (!furthestFuture || start > furthestFuture) furthestFuture = start;
+  }
+}
+
+/**
+ * Current Sky horizon.
+ *
+ * The dated, sourced sky calendar is the one asset on this site that no
+ * comparable astrologer publishes, and it has a hard expiry date: when the
+ * last event passes, the Current Sky timeline, the homepage's three upcoming
+ * events and every rising-sign horoscope go empty at once — while the homepage
+ * still promises coverage "through the end of the year". An asset that lapses
+ * silently converts the strongest proof of rigour into the most visible
+ * evidence of neglect.
+ *
+ * Fails under 90 days so a lapse cannot reach production. Warns under the
+ * 12-month maintenance target so routine work has a standing nudge long before
+ * it becomes urgent. Deliberately part of this validator rather than a separate
+ * script — it runs in CI, in the Pages CMS quality check and in npm
+ * run test:content, which is everywhere it needs to be.
+ */
+const HORIZON_FAIL_DAYS = 90;
+const HORIZON_TARGET_DAYS = 365;
+const DAY_MS = 86400000;
+if (!furthestFuture) {
+  err(
+    'Current Sky horizon: no future events are published. The timeline, homepage ' +
+      'upcoming list and rising-sign horoscopes are all empty.',
+  );
+} else {
+  const daysLeft = Math.round((furthestFuture - today) / DAY_MS);
+  const last = furthestFuture.toISOString().slice(0, 10);
+  if (daysLeft < HORIZON_FAIL_DAYS) {
+    err(
+      `Current Sky horizon: only ${daysLeft} day(s) of future coverage remain ` +
+        `(last event ${last}, ${futureCount} upcoming). Minimum is ${HORIZON_FAIL_DAYS}; ` +
+        `target is ${HORIZON_TARGET_DAYS}. Research and publish the next window.`,
+    );
+  } else if (daysLeft < HORIZON_TARGET_DAYS) {
+    warn(
+      `Current Sky horizon: ${daysLeft} day(s) of future coverage ` +
+        `(last event ${last}, ${futureCount} upcoming). Above the ${HORIZON_FAIL_DAYS}-day ` +
+        `minimum but below the ${HORIZON_TARGET_DAYS}-day target.`,
+    );
+  } else {
+    console.log(
+      `Current Sky horizon: ${daysLeft} days of future coverage ` +
+        `(last event ${last}, ${futureCount} upcoming).`,
+    );
+  }
 }
 
 const forbidden = ['PUBLIC_MAILERLITE_FORM_ID', 'assets.mailerlite.com/jsonp', 'mailto:${site.email}?subject='];

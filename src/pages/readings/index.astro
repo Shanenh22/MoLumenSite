@@ -70,9 +70,24 @@ const schema = [
               <h2 style="font-size: var(--text-xl); margin: 0;">
                 <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
               </h2>
-              <p class="card__meta">{s.data.durationLabel}</p>
+              <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
               <p>{s.data.purpose}</p>
-              <p style="margin-top: auto; margin-bottom: 0;">
+              {/*
+                The hub used to end every card at "Learn more". It is the page
+                where the choice between seven readings is actually made, and
+                it could not act on that choice — the only booking link on the
+                whole page was one generic /book/, so a visitor picked a reading
+                here and then picked it again from nine radios on the booking
+                page, with natal-90 preselected whatever they had chosen.
+
+                Same `?service=` deep link the detail pages and the Reading
+                Finder already emit, and the same `bookingEventId` field, so
+                there is one mapping rather than a second one to drift.
+              */}
+              <p class="card__actions">
+                <a class="btn btn--accent" href={`/book/?service=${s.data.bookingEventId}`}>
+                  Book this reading
+                </a>
                 <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
               </p>
             </article>
@@ -80,8 +95,12 @@ const schema = [
         }
         <article class="card" style="background: var(--bg-alt);">
           <h2 style="font-size: var(--text-xl); margin: 0;">Not sure which fits?</h2>
+          {/* "three quick questions" was left behind when the finder went from
+              two questions to five. It is a promise a visitor can disprove in
+              one click, which is the worst kind of small inaccuracy to leave on
+              a conversion page. */}
           <p>
-            Answer three quick questions and get a suggestion — or start with the natal reading,
+            Answer five quick questions and get a suggestion — or start with the natal reading,
             the foundation everything else builds on.
           </p>
           <p style="margin: 0;"><a class="btn btn--primary" href="/reading-finder/">Reading Finder</a></p>
@@ -116,7 +135,12 @@ const schema = [
                 <dt>Price</dt>
                 <dd>{priceCell(s)}</dd>
               </dl>
-              <a href={`/readings/${s.data.slug}/`}>Full details →</a>
+              <p class="card__actions">
+                <a class="btn btn--accent" href={`/book/?service=${s.data.bookingEventId}`}>
+                  Book this reading
+                </a>
+                <a href={`/readings/${s.data.slug}/`}>Full details →</a>
+              </p>
             </article>
           ))
         }
@@ -132,6 +156,7 @@ const schema = [
             <th scope="col">Length</th>
             <th scope="col">Birth data</th>
             <th scope="col">Price</th>
+            <th scope="col">Book</th>
           </tr>
         </thead>
         <tbody>
@@ -151,6 +176,18 @@ const schema = [
                       : 'Yes'}
                 </td>
                 <td>{priceCell(s)}</td>
+                <td>
+                  {/* The accessible name has to carry the reading, because a
+                      screen-reader user listing the links on this page would
+                      otherwise hear "Book" seven times with nothing to tell
+                      them apart. */}
+                  <a
+                    href={`/book/?service=${s.data.bookingEventId}`}
+                    aria-label={`Book the ${s.data.name}`}
+                  >
+                    Book
+                  </a>
+                </td>
               </tr>
             ))
           }

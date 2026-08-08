@@ -138,7 +138,7 @@ const ig = site.integrations.instagramHandle;
   document.querySelectorAll<HTMLButtonElement>('[data-video-id]').forEach((btn) => {
     btn.addEventListener('click', () => {
       const id = btn.dataset.videoId!;
-      (window as any).gtag?.('event', 'video_play', { video_id: id, platform: 'youtube' });
+      (window as any).mlTrack?.('video_play', { video_id: id, platform: 'youtube' });
       const wrap = document.createElement('div');
       wrap.className = 'video-wrap';
       wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1" title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`;
@@ -148,7 +148,7 @@ const ig = site.integrations.instagramHandle;
   });
   document.querySelectorAll('[data-instagram-link]').forEach((a) =>
     a.addEventListener('click', () =>
-      (window as any).gtag?.('event', 'video_platform_open', { platform: 'instagram' })
+      (window as any).mlTrack?.('video_platform_open', { platform: 'instagram' })
     )
   );
   const bar = document.querySelector<HTMLElement>('[data-video-filters]');

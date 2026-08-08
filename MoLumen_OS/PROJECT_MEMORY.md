@@ -1,6 +1,10 @@
 # Project Memory
 
 ## Current known state
+- GA4 is live and verified in-browser: measurement ID `G-64N9EPKNTR`, defaulted in `src/config/site.ts` because the deploy workflow passes no env and a missing value fails silently.
+- Consent Mode v2 is in place with a first-party banner. Nothing is stored until a visitor agrees; a refusal still yields cookieless page counts.
+- `window.mlTrack` is the only analytics entry point. It sanitises anything resembling an email, date or time. Never call `gtag` directly from a component.
+- Current Sky is published through 2027-12-27 (507 days of horizon). `test:content` fails under 90 days and warns under 365.
 - GA4 account created.
 - GBP created; verification pending.
 - Stripe registered for booking.
@@ -20,7 +24,24 @@
 - Claude Code now has dedicated `molumen-integrations` and `molumen-release-manager` skills in addition to Developer, Editor, Strategist and Publisher.
 
 ## Current phase
-GA4/event instrumentation, booking conversion refinements, YouTube facade/video hub, 2027 Current Sky, Birth Time Toolkit, remaining audit fixes and launch readiness.
+YouTube facade/video hub and welcome-video slot, Birth Time Toolkit, and the
+remaining audit fixes (CSP report-only, hero/LCP preload, WCAG 2.2 target size,
+testimonial surfacing, courses/guides de-emphasis, per-service FAQs).
+
+GA4/event instrumentation, booking conversion and the 2027 Current Sky window
+are done — see the 2026-08-07 changelog entry.
+
+## Two traps worth not rediscovering
+- **CRLF and `.`** — in JavaScript `.` excludes line terminators including `\r`,
+  so `(.*)$` never matches a line on a CRLF checkout. This silently broke the
+  whole content-integrity validator on Windows while CI passed. Normalise line
+  endings before parsing anything.
+- **Inline scripts are template literals.** `set:html={` … `}` cannot contain a
+  backtick anywhere, including inside a comment — one closes the string and the
+  rest parses as code. And `<script is:inline>{` … `}</script>` emits the braces
+  and backticks literally, producing a script that is valid JavaScript and does
+  nothing. Both failed silently; verify inline-script behaviour in a browser,
+  never by confirming the markup shipped.
 
 ## Publishing guardrail
 Keep `.pages.yml`, Astro content schemas and the Pages CMS-facing file structure synchronized whenever content architecture changes.
