@@ -1,5 +1,47 @@
 [
   {
+    "id": "natal-60-or-90",
+    "question": "Should I choose 60 or 90 minutes?",
+    "answer": "Take the ninety if you can. Sixty minutes is a genuine reading — enough to lay out the shape of the chart and connect it to what's going on for you. But people who arrive with a real question almost always want more time than they expect, and the extra half hour is usually where the conversation gets useful: room for the whole chart, the patterns running through it, and your questions as we go rather than crammed into the last five minutes. Both are on the booking page at $200 and $150.",
+    "scope": "natal",
+    "order": 1
+  },
+  {
+    "id": "natal-no-astrology-knowledge",
+    "question": "Do I need to know any astrology first?",
+    "answer": "No — that's my job. You don't need to have read anything, and you don't need to believe anything either. What helps is arriving with two or three real questions you're actually living with. I taught natural sciences for years before this, so explaining things properly is the part I'm good at.",
+    "scope": "natal",
+    "order": 2
+  },
+  {
+    "id": "relationship-both-attend",
+    "question": "Do both of us need to be there?",
+    "answer": "Both parties' presence is preferred, and it's a better session when you're both in it — a lot of what comes up is worth hearing together rather than relayed afterwards. I also won't read someone's chart without their knowledge, so the other person does need to know it's happening and be willing.",
+    "scope": "relationship",
+    "order": 1
+  },
+  {
+    "id": "relationship-birth-data",
+    "question": "What birth information do you need for both people?",
+    "answer": "Birth date, exact time, and place for each of you — ideally from birth certificates. The time matters most: it's what sets each rising sign and house structure, and synastry reads the two charts against each other, so an uncertain time on either side widens the margin on both.",
+    "scope": "relationship",
+    "order": 2
+  },
+  {
+    "id": "relationship-not-only-romantic",
+    "question": "Is this only for romantic partners?",
+    "answer": "No. It's for any two people trying to bond in a constructive way — couples and partners, but equally a parent and adult child, business partners, or close friends. What the reading looks at is the interaction between two charts: where affinity flows, where friction lives, how each of you communicates and what makes each of you feel secure. None of that is specific to romance.",
+    "scope": "relationship",
+    "order": 3
+  },
+  {
+    "id": "clarity-which-price",
+    "question": "Which price applies to me — $100 or $130?",
+    "answer": "It depends on how long it's been since your natal reading with me. Within three months of it, this session is $100; after that it's $130. Both are the same full hour and the same reading — pick the one that matches your timing on the booking page and I'll sort it out with you if you're not sure.",
+    "scope": "want-more-clarity",
+    "order": 1
+  },
+  {
     "id": "what-is-reading",
     "question": "What actually happens in an astrology reading?",
     "answer": "We meet one-on-one (Zoom, phone, or in person in DFW by arrangement) and walk through your chart together. It's a conversation, not a performance — you bring questions, I bring the chart and thirty-plus symbols' worth of perspective, and we connect what the sky shows to what your life is actually doing. You'll leave with a recording and your chart.",

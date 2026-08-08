@@ -217,6 +217,43 @@ const configured = calUser.trim().length > 0;
 
   let calLoaded = false;
   let failureTimer = 0;
+  let successBound = false;
+
+  /**
+   * Close the funnel: fire booking_complete when Cal.com confirms a booking.
+   *
+   * Until this existed the funnel was measured from arrival all the way to
+   * booking_embed_open and then went dark — the denominator lived in GA4 and
+   * the numerator only in Cal.com and Stripe, so no conversion rate for the
+   * site, the Reading Finder or any landing page could be calculated at all.
+   *
+   * Two deliberate constraints:
+   *
+   * 1. THE PAYLOAD IS NEVER READ. Cal's callback hands over the attendee's
+   *    name, email and phone, the booking UID, the appointment time and every
+   *    free-text response — which on this site is where someone will paste a
+   *    birth date, time and place. The service key is taken from the radio the
+   *    visitor selected instead, which is a server-rendered enumerated label.
+   *    Not reading the payload is stronger than sanitising it, and
+   *    test:booking asserts that none of those values reach dataLayer by
+   *    handing the callback a payload that contains all of them.
+   * 2. REGISTERED ONCE. mountEmbed() runs again every time the reading
+   *    changes after the calendar has loaded, so binding here without a guard
+   *    would attach a second handler per switch and report one booking as
+   *    several.
+   */
+  function bindBookingSuccess() {
+    if (successBound) return;
+    const Cal = (window as any).Cal;
+    if (typeof Cal !== 'function') return;
+    Cal('on', {
+      action: 'bookingSuccessfulV2',
+      callback: function () {
+        track('booking_complete', { service: selectedKey() });
+      },
+    });
+    successBound = true;
+  }
 
   function mountEmbed() {
     const mount = document.querySelector<HTMLElement>('[data-cal-mount]');
@@ -253,6 +290,7 @@ const configured = calUser.trim().length > 0;
         hideEventTypeDetails: false,
         layout: 'month_view',
       });
+      bindBookingSuccess();
     } catch {
       showEmbedFailure(mount);
       return;

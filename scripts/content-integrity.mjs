@@ -65,6 +65,71 @@ for (const s of services) {
     warn(`service ${s.slug}: available but no booking event ID`);
   if (s.priceConfirmed && s.price == null && !(s.options || []).length)
     err(`service ${s.slug}: priceConfirmed but no price/options`);
+  /* Every option of a multi-price reading needs its own Cal.com event, because
+     each one is now a separate booking action. An option without one would
+     fall back to the service's canonical event and quietly sell the wrong
+     price — the exact defect the booking-action rule exists to prevent. */
+  if ((s.options || []).length > 1)
+    for (const o of s.options)
+      if (!o.bookingEventId)
+        err(`service ${s.slug}: option "${o.label}" has no bookingEventId`);
+}
+
+/**
+ * The funnel's two hard-coded booking facts, checked against the collection.
+ *
+ * READING_ORDER decides what a visitor sees first on the homepage and the
+ * readings hub, and DEFAULT_BOOKING_EVENT decides what a bare /book/ opens on
+ * — the state every click of the persistent header CTA lands in. Both used to
+ * be decided by a `featured` tie broken by file order, which is how the site
+ * came to lead with its most expensive two-person reading everywhere.
+ *
+ * Stating them in config only helps if adding or renaming a reading fails
+ * loudly instead of silently dropping it to the end of the list, so that is
+ * what this does.
+ */
+{
+  const cfg = readFileSync("src/config/booking.ts", "utf8").replace(/\r\n?/g, "\n");
+  const orderBlock = cfg.match(/READING_ORDER\s*=\s*\[([\s\S]*?)\]/);
+  const defaultEvent = cfg.match(/DEFAULT_BOOKING_EVENT\s*=\s*"([^"]+)"/)?.[1];
+
+  if (!orderBlock) err("booking config: READING_ORDER not found");
+  else {
+    const ordered = [...orderBlock[1].matchAll(/"([^"]+)"/g)].map((m) => m[1]);
+    const slugs = services.map((s) => s.slug);
+    for (const slug of slugs)
+      if (!ordered.includes(slug))
+        err(`booking config: service "${slug}" is missing from READING_ORDER`);
+    for (const slug of ordered)
+      if (!slugs.includes(slug))
+        err(`booking config: READING_ORDER lists unknown service "${slug}"`);
+    if (new Set(ordered).size !== ordered.length)
+      err("booking config: READING_ORDER contains a duplicate");
+  }
+
+  if (!defaultEvent) err("booking config: DEFAULT_BOOKING_EVENT not found");
+  else {
+    const events = services.flatMap((s) =>
+      (s.options || []).length > 1
+        ? s.options.map((o) => o.bookingEventId || s.bookingEventId)
+        : [s.bookingEventId],
+    );
+    if (!events.includes(defaultEvent))
+      err(
+        `booking config: DEFAULT_BOOKING_EVENT "${defaultEvent}" is not a bookable event (${events.join(", ")})`,
+      );
+    const owner = services.find((s) =>
+      (s.options || []).length > 1
+        ? s.options.some((o) => (o.bookingEventId || s.bookingEventId) === defaultEvent)
+        : s.bookingEventId === defaultEvent,
+    );
+    /* A default that requires a prior natal reading would send every visitor
+       who clicks the header CTA to something they cannot buy. */
+    if (owner && owner.audience === "established")
+      err(
+        `booking config: DEFAULT_BOOKING_EVENT "${defaultEvent}" belongs to "${owner.slug}", which is for established clients only`,
+      );
+  }
 }
 
 const videos = json("src/content/videos/videos.json");

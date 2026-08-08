@@ -86,6 +86,165 @@ for (const [slug, expected] of CASES) {
   );
 }
 
+/**
+ * Drive the finder itself, end to end, in the browser.
+ *
+ * The handoff cases above start at /book/ with a query string, so they prove
+ * the mapping and nothing about whether the finder still produces those
+ * slugs. These walk the real five questions.
+ */
+const ok = (cond, label) => {
+  console.log(`  ${cond ? "PASS" : "FAIL"}  ${label}`);
+  if (!cond) fails++;
+};
+
+/** [name, label] answers per step, then what the result should offer. */
+const WALKS = [
+  {
+    name: "new client, 60 minutes",
+    answers: { focus: "crossroads", who: "new", depth: "focused", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=natal-60",
+    expectNurture: false,
+  },
+  {
+    name: "new client, 90 minutes",
+    answers: { focus: "patterns", who: "new", depth: "full", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=natal-90",
+    expectNurture: false,
+  },
+  {
+    name: "new client, unsure of length",
+    answers: { focus: "season", who: "new", depth: "unsure", birthtime: "no", when: "months" },
+    expectBook: "/book/?service=natal-90",
+    expectNurture: false,
+  },
+  {
+    name: "relationship",
+    answers: { focus: "relationship", who: "new", depth: "full", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=relationship",
+    expectNurture: false,
+  },
+  {
+    name: "returning — deeper",
+    answers: { focus: "patterns", who: "established", "est-need": "deeper", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=want-more-clarity",
+    expectNurture: false,
+  },
+  {
+    name: "returning — year ahead",
+    answers: { focus: "crossroads", who: "established", "est-need": "year", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=solar-return",
+    expectNurture: false,
+  },
+  {
+    name: "returning — navigating change",
+    answers: { focus: "season", who: "established", "est-need": "change", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=life-changes",
+    expectNurture: false,
+  },
+  {
+    name: "returning — monthly",
+    answers: { focus: "curious", who: "established", "est-need": "monthly", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=monthly-transits",
+    expectNurture: false,
+  },
+  {
+    name: "returning — one topic",
+    answers: { focus: "curious", who: "established", "est-need": "one-topic", birthtime: "yes", when: "soon" },
+    expectBook: "/book/?service=quick-check-in",
+    expectNurture: false,
+  },
+  {
+    name: "still exploring — nurture path",
+    answers: { focus: "curious", who: "new", depth: "unsure", birthtime: "approx", when: "exploring" },
+    expectBook: "/book/?service=natal-90",
+    expectNurture: true,
+  },
+];
+
+console.log("\nWalking the finder itself");
+for (const walk of WALKS) {
+  await page.goto(`http://localhost:${PORT}/reading-finder/`, { waitUntil: "load" });
+  const r = await page.evaluate((answers) => {
+    const form = document.querySelector("[data-finder] form");
+    const next = document.querySelector("[data-next]");
+    // Follow whichever step is actually visible rather than assuming an
+    // order, so a routing change surfaces as a failure here instead of a
+    // silently skipped answer.
+    for (let i = 0; i < 8; i++) {
+      const step = [...document.querySelectorAll("[data-step]")].find((el) => !el.hidden);
+      if (!step) break;
+      const name = step.querySelector("input").name;
+      const value = answers[name];
+      if (value === undefined) break;
+      const input = form.querySelector(`input[name="${name}"][value="${value}"]`);
+      if (!input) return { error: `no option ${name}=${value}` };
+      input.checked = true;
+      next.click();
+    }
+    const result = document.querySelector("[data-result]");
+    const nurture = document.querySelector("[data-finder-nurture]");
+    return {
+      resultShown: !result.hidden,
+      exits: [...result.querySelectorAll(".finder__exits a")].map((a) => a.getAttribute("href")),
+      nurtureVisible: nurture ? !nurture.hidden : null,
+      events: (window.dataLayer || [])
+        .filter((a) => a[0] === "event")
+        .map((a) => [a[1], a[2]]),
+    };
+  }, walk.answers);
+
+  if (r.error) {
+    ok(false, `${walk.name}: ${r.error}`);
+    continue;
+  }
+  const bookHref = (r.exits || []).find((h) => h && h.startsWith("/book/"));
+  ok(
+    r.resultShown && bookHref === walk.expectBook,
+    `${walk.name} → ${walk.expectBook} (got ${bookHref})`,
+  );
+  ok(
+    r.nurtureVisible === walk.expectNurture,
+    `${walk.name}: newsletter nurture ${walk.expectNurture ? "shown" : "hidden"} (got ${r.nurtureVisible})`,
+  );
+
+  /* Step analytics. Five questions means five step events, each fired once —
+     and the payload must never carry an answer, because two of the questions
+     are about birth time and personal circumstance. */
+  const steps = r.events.filter(([n]) => n === "reading_finder_step");
+  ok(steps.length === 5, `${walk.name}: 5 reading_finder_step events (got ${steps.length})`);
+  const answerValues = Object.values(walk.answers);
+  const stepPayload = JSON.stringify(steps);
+  ok(
+    !answerValues.some((v) => stepPayload.includes(`"${v}"`) && !["focus", "who"].includes(v)),
+    `${walk.name}: step events carry no answer values`,
+  );
+  ok(
+    steps.every(([, p]) => Object.keys(p).every((k) => k === "step" || k === "number")),
+    `${walk.name}: step events carry only step and number`,
+  );
+}
+
+/** Going Back and forward again must not double-count a step. */
+console.log("\nStep events are not re-fired by Back");
+await page.goto(`http://localhost:${PORT}/reading-finder/`, { waitUntil: "load" });
+const backCount = await page.evaluate(() => {
+  const form = document.querySelector("[data-finder] form");
+  const next = document.querySelector("[data-next]");
+  const back = document.querySelector("[data-back]");
+  form.querySelector('input[name="focus"][value="curious"]').checked = true;
+  next.click();
+  form.querySelector('input[name="who"][value="new"]').checked = true;
+  next.click();
+  back.click();
+  next.click();
+  back.click();
+  next.click();
+  return (window.dataLayer || []).filter((a) => a[0] === "event" && a[1] === "reading_finder_step")
+    .length;
+});
+ok(backCount === 3, `three distinct steps reported after two Backs (got ${backCount})`);
+
 await browser.close();
 server.close();
 console.log(

@@ -1,5 +1,77 @@
 # AI Project Changelog
 
+### 2026-08-08 (funnel) — Conversion-funnel repair, Phase 1 and 2
+
+Prompted by a conversion-funnel audit that agreed with a separate independent audit: the
+funnel, voice, Reading Finder and booking architecture are strong, and the problems are
+concentrated at the bottom of the funnel. No redesign; the Finder, the embed, the collapse,
+`mlTrack`, Consent Mode, open pricing and the header CTA are all untouched in substance.
+
+**The default reading on a bare `/book/` was the $275 Relationship Consultation.**
+
+`natal.json` and `relationship.json` both carry `featured: true`, the sort
+(`Number(b.featured) - Number(a.featured)`) is a no-op on a tie, and `firstReadings[0]` took
+whatever collection order produced. The header CTA is on all 174 pages and points at bare
+`/book/`, so the site's most-clicked route into the funnel opened on its most expensive
+reading — one that requires a second attendee. `test:booking` could not see it: the suite
+checks the `natal-90` radio itself before asserting anything, so it was 18/18 green
+throughout.
+
+`src/config/booking.ts` now states `DEFAULT_BOOKING_EVENT` and `READING_ORDER` explicitly.
+`book.astro` throws at build time if the default is not a real bookable event, and
+`test:content` fails if `READING_ORDER` and the services collection disagree, or if the
+default belongs to an established-clients-only reading.
+
+**Two "Book this reading" buttons on one page went to two different prices.**
+
+On `/readings/want-more-clarity/` the hero passed `bookingEventId` (`clarity`, $130) and the
+CTA band passed `slug` (`want-more-clarity` → `clarity-3mo`, $100). `test:finder` passed
+because it asserts each mapping in isolation, never that one page's two CTAs agree.
+
+`bookingActions()` in `src/config/booking.ts` is now the only source of booking links, used
+by the hero, the option cards, the CTA band, both hub grids and the comparison table. The
+rule: a single-option reading deep-links to its canonical event; a multi-option reading
+offers one priced action per option and never picks for the customer. Where options share a
+duration the option label distinguishes them, because two buttons both reading "Book 1 hour"
+at different prices is the same defect from the other direction.
+
+**Analytics went dark at the Cal.com boundary.** `booking_complete` now fires from Cal's
+`bookingSuccessfulV2` callback through `mlTrack`. The callback payload is never read — it
+carries the attendee's name, email, phone, the booking UID, the appointment time and any
+birth data typed into the notes — so the service key comes from the selected radio instead.
+The test hands the callback a payload containing all of it and asserts none reaches
+`dataLayer`.
+
+**The mobile consent banner covered the homepage's primary actions.** Measured at 375x812:
+398px tall, 49% of the viewport, and `elementFromPoint()` on both hero buttons returned the
+banner. The arithmetic is why this needed a copy change and not only CSS — at 375x667 the
+hero buttons sit 159px from the bottom, and a title, paragraph, disclosure control and two
+48px buttons do not fit in 159px at any padding. The phone banner is now one line plus the
+two buttons at 146px; desktop is unchanged at 194px with the full explanation. Both choices
+stay identical in size, Consent Mode defaults are untouched, and the privacy link is in the
+line that always shows.
+
+**Everything else, briefly.** Navigation regrouped to Readings / Explore Astrology / Current
+Sky / From Mo with the Book CTA separate — no URL changed. Readings hub split into "New to
+Mo? Start here" and "Already had your natal reading?" with a "Who can book" column, because
+five of seven readings follow on from a natal reading and the hub presented all seven
+identically. `/current-sky/` closed by pointing at Monthly Personal Transits, an
+established-client reading, on the site's biggest free search entry point; it now points at
+the Reading Finder. `CTABand` gained a Reading Finder secondary action, which reaches all 48
+pages that use it — measured before: zero of ~140 educational pages linked to the Finder at
+all. One matched testimonial per reading page, matched strictly on the `service` field with
+no fallback. Six service-scoped FAQs, all answerable from existing service records. Homepage
+welcome-video slot, guarded on the ID exactly as `/about/` is. `reading_finder_step` events
+carrying only a step id and number. The newsletter as a nurture exit for the "still
+deciding" answer only, never as a gate.
+
+**Owner-side, and blocking launch:** `docs/calcom-owner-actions.md`. All nine Cal.com event
+types have `locations: [{"type":"somewhereElse"}]`, so the last required question before
+payment is a free-text box labelled "Somewhere else" while the site says Zoom · Phone. And
+no event type has a single custom booking question, so the intake form four surfaces promise
+does not exist. Both are settings in Mo's account; the document gives the measured current
+state and click-by-click instructions rather than a faked repository fix.
+
 ### 2026-08-08 (follow-up) — Two capabilities the repository claimed and did not have
 
 Both were found while building the interactive tools and are unrelated to them. Neither

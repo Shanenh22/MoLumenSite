@@ -1,6 +1,10 @@
 # Backlog
 
 ## P0
+- **Cal.com configuration — blocks production.** See `docs/calcom-owner-actions.md`. Meeting
+  location says "Somewhere else" on all 9 event types while the site says Zoom · Phone; no
+  event type has any intake question, so the intake form four surfaces promise does not
+  exist; Quick Check-In carries the Monthly Transits description. All owner-side.
 - Verify Kit subscription flow end-to-end with a real test address
 - Verify GA4 deployment/events
 - Verify Cal.com → Stripe booking path
@@ -26,7 +30,13 @@
 - ~~Fix the broken `src/content/explore/` declaration~~ DONE 2026-08-08 — collection and CMS block removed; they pointed at a directory that never existed
 - ~~Drop the unrunnable `test:a11y`~~ DONE 2026-08-08 — `pa11y-ci` was never a dependency; `audit:a11y` (axe) is the gate
 - **Migrate the `/explore/` reference library into a content collection** so Mo can edit it in Pages CMS. This is the real version of the editor that was configured but never built. 25 hand-written `.astro` pages carrying `Layers` and `FurtherReading` components, per-page structured data, `oceanFor()` hero assignment and hand-placed inline links that must stay in step with the prose — so it needs its own verification pass (build, links, hero contrast, axe) rather than a bulk conversion. Restore the `.pages.yml` block in the same change that creates the content, never before.
-- Testimonial surfacing
+- ~~Testimonial surfacing~~ DONE 2026-08-08 — one matched quote per reading page, strict
+  `service` match, no fallback. Four readings still have no testimonial because none exists:
+  relationship, quick-check-in, want-more-clarity, monthly-transits. Relationship is the
+  notable gap — $275 and open to new clients.
+- ~~Unique service FAQ architecture/content~~ PARTIAL 2026-08-08 — six scoped FAQs added
+  (natal ×2, relationship ×3, want-more-clarity ×1). The four established-only readings
+  still show globals only; add scoped ones there when a real pre-booking question is known.
 - ~~Touch targets~~ DONE 2026-08-07 — 36 fixed, automated check added to axe-sweep
 - Hero/LCP — preload measured and reverted (no improvement); next try viewport-based hero background variants. Homepage mobile LCP ~3.0s vs 1.7-2.3s elsewhere
 - ~~CSP report-only~~ DONE 2026-08-07 — watch reports for a week, then enforce

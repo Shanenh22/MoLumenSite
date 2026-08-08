@@ -7,9 +7,7 @@ const navIcons: Record<string, string> = {
   Readings: 'chart',
   'Explore Astrology': 'book',
   'Current Sky': 'moon',
-  Blog: 'letter',
-  Videos: 'video',
-  'About Mo': 'sun',
+  'From Mo': 'sun',
 };
 ---
 
@@ -24,7 +22,12 @@ const navIcons: Record<string, string> = {
         {
           primaryNav.map((group) =>
             group.children ? (
-              <li data-nav-group>
+              /* data-current marks the section a visitor is inside, so a
+                 grouped destination is not silently unmarked just because its
+                 top-level control is a button rather than a link. The submenu
+                 link still carries aria-current="page"; this is the section,
+                 not the page. */
+              <li data-nav-group data-current={group.children.some((c) => c.href === current) ? 'true' : undefined}>
                 <button type="button" aria-expanded="false">
                   {group.label}
                   <svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true">

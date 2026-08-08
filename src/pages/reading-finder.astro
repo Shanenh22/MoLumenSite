@@ -4,6 +4,7 @@ import { photos, scenes } from '../config/images';
 import { site } from '../config/site';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
 
 const services = await getCollection('services');
 const bySlug = Object.fromEntries(
@@ -240,6 +241,33 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         The suggestion is exactly that — a suggestion. Every reading is open to you, and
         <a href="/contact/">I'm happy to advise</a> if you're torn.
       </p>
+
+      {/*
+        The nurture exit, for the people who answer "no timeline — I'm still
+        working out whether this is for me".
+
+        It ships in the markup and hidden, revealed by the result renderer only
+        for that answer, because the finder's result is built with innerHTML
+        and a Kit embed cannot survive that. It is never a gate: the
+        recommendation, the price and all three booking exits are already on
+        screen above it by the time this appears, and answering the finder
+        never requires an email address.
+
+        This does not replace the free paths that answer already offers — the
+        sky letter and the reference library are still named first, and still
+        free with no email required. This is one more thing to do, for someone
+        who has just told us they are not buying today and would otherwise
+        leave with nothing.
+      */}
+      <div class="finder__nurture" data-finder-nurture hidden>
+        <h2 id="finder-newsletter">No rush — shall I keep you posted?</h2>
+        <p>
+          The Sky This Month is one email a month: what's moving overhead, what it means, and one
+          practical thing to do about it. Five minutes to read, unsubscribe anytime. It's the
+          easiest way to get a feel for how I think before you spend anything.
+        </p>
+        <NewsletterForm source="reading-finder" labelledby="finder-newsletter" />
+      </div>
     </div>
   </section>
 </BaseLayout>
@@ -371,6 +399,31 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       };
     }
 
+    /**
+     * Per-step progression, so the length of this finder can be argued about
+     * with evidence instead of with CRO folklore.
+     *
+     * It went from two questions to five deliberately — the readback is the
+     * whole point and it needs the answers — but nobody has ever been able to
+     * see what that cost, because the only events were start and complete.
+     * A drop-off concentrated on one question is a fixable question; an even
+     * bleed across five is an argument for a shorter finder. Those look
+     * identical from start/complete alone.
+     *
+     * The step id and its number, and nothing else. Never the answer: two of
+     * these questions are about birth time and personal circumstance, and the
+     * site's rule is that none of that reaches analytics. `reading_finder_intent`
+     * already reports the timing answer, which is the one enumerated label
+     * that says who to book and who to keep warm.
+     */
+    const seenSteps = new Set<string>();
+    function trackStep(stepId: string, index: number) {
+      if (seenSteps.has(stepId)) return; // going Back must not re-report
+      seenSteps.add(stepId);
+      track('reading_finder_step', { step: stepId, number: String(index + 1) });
+    }
+    trackStep('focus', 0);
+
     function show(stepId: string) {
       Object.values(stepEls).forEach((el) => (el.hidden = true));
       stepEls[stepId].hidden = false;
@@ -381,6 +434,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       restartBtn.hidden = idx === 0;
       nextBtn.textContent = stepId === 'when' ? 'Show me what you’d suggest' : 'Next';
       progress.textContent = `Question ${idx + 1} of 5`;
+      trackStep(stepId, idx);
       stepEls[stepId].querySelector<HTMLInputElement>('input')?.focus();
     }
 
@@ -522,6 +576,11 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
             ? `<p>And if you're still working out whether this is for you, don't book anything yet. <a href="/current-sky/">Read the sky letter</a> or <a href="/explore/">the reference library</a> first — both are free, and they'll tell you more about how I think than any sales page will.</p>`
             : `<p>The suggestion is exactly that. Every reading is open to you, and this is your call.</p>`
         }`;
+      // The nurture block, for the "still deciding" answer only. Everyone else
+      // has a reading to book and does not need a mailing list in the way.
+      const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
+      if (nurture) nurture.hidden = when !== 'exploring';
+
       result.querySelector('h2')?.setAttribute('tabindex', '-1');
       (result.querySelector('h2') as HTMLElement)?.focus();
     }
@@ -553,7 +612,15 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     restartBtn.addEventListener('click', () => {
       form.reset();
       path = ['focus'];
+      const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
+      if (nurture) nurture.hidden = true;
       show('focus');
+    });
+    // Going Back from the result also leaves the result, so the nurture block
+    // must not linger under a question.
+    backBtn.addEventListener('click', () => {
+      const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
+      if (nurture) nurture.hidden = true;
     });
   }
 </script>

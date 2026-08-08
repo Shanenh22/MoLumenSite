@@ -38,7 +38,32 @@ are done — see the 2026-08-07 changelog entry.
 - `ml-rising-v1` is the second and only other localStorage key besides `ml-consent-v1`. One word from a list of twelve. Adding a third key means editing `privacy.md` again.
 - Three new gates: `test:calendar`, `test:birthtime`, `test:rising`. All in CI.
 
+## Booking funnel (2026-08-08)
+- `src/config/booking.ts` is the single source of truth for two things that used to be
+  decided by accident: `DEFAULT_BOOKING_EVENT` (what a bare `/book/` opens on — natal-90)
+  and `READING_ORDER` (the order readings appear everywhere). Both are asserted by
+  `test:content`; `book.astro` throws at build time on an invalid default.
+- `bookingActions()` / `primaryBookingAction()` are the only way to build a `/book/?service=`
+  link. Six surfaces call them. Do not hand-write a booking href — that is exactly how the
+  hero and the CTA band on `/readings/want-more-clarity/` came to quote different prices.
+- `booking_complete` fires from Cal.com's `bookingSuccessfulV2`. **The callback payload is
+  never read.** It contains name, email, phone, booking UID, appointment time and whatever
+  birth data the client typed into the notes. The service key comes from the checked radio.
+- Five of seven readings are `audience: "established"`. Only natal and relationship are
+  bookable by a first-time visitor. Any surface listing readings has to say so.
+
 ## Traps worth not rediscovering
+- **A green test suite can be blind to the default state.** `test:booking` was 18/18 while a
+  bare `/book/` opened on the $275 two-person reading, because the suite checked the
+  `natal-90` radio itself before asserting anything. It now asserts the untouched default
+  first. When a test sets up the state it is measuring, it is measuring the setup.
+- **The in-app browser applies mobile emulation *after* the page's modules run.** The
+  `/book/` follow-up collapse reported as broken on some loads and working on others, purely
+  from that. Anything gated on `matchMedia` at load must be asserted under a real Playwright
+  viewport, which is set before navigation — not eyeballed in the preview pane.
+- **PowerShell eats `stash@{0}`.** It brace-expands, and `git stash pop` without a ref can
+  then apply only part of the entry. Use the Bash tool with the ref quoted for any stash
+  operation, and check `git stash list` is empty afterwards.
 - **CRLF and `.`** — in JavaScript `.` excludes line terminators including `\r`,
   so `(.*)$` never matches a line on a CRLF checkout. This silently broke the
   whole content-integrity validator on Windows while CI passed. Normalise line
