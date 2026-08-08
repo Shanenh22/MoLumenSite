@@ -7,7 +7,7 @@ MoLumen uses Kit for newsletter subscriptions.
 Owner-supplied JavaScript embed:
 
 ```html
-<script async data-uid="c60976a5a9" src="https://molumen.kit.com/c60976a5a9/index.js"></script>
+<script async data-uid="aa0e899cd0" src="https://molumen.kit.com/aa0e899cd0/index.js"></script>
 ```
 
 Kit recommends its JavaScript embed for normal website use because changes made in Kit are reflected automatically on the site.
@@ -25,8 +25,8 @@ Kit recommends its JavaScript embed for normal website use because changes made 
 The owner-supplied form is the default. These public environment variables are optional overrides:
 
 ```text
-PUBLIC_KIT_FORM_UID=c60976a5a9
-PUBLIC_KIT_FORM_SCRIPT_URL=https://molumen.kit.com/c60976a5a9/index.js
+PUBLIC_KIT_FORM_UID=aa0e899cd0
+PUBLIC_KIT_FORM_SCRIPT_URL=https://molumen.kit.com/aa0e899cd0/index.js
 ```
 
 These are public browser integration identifiers, not secrets.
