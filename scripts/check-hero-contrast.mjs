@@ -123,11 +123,22 @@ for (const vp of [
   console.log(`\n${vp.n}`);
   for (const p of PAGES) {
     await page.goto(`http://localhost:${PORT}${p}`, { waitUntil: "load" });
+    /**
+     * The label has to name the block that was actually measured.
+     *
+     * This used to be a single ternary that recognised `interlude` and called
+     * everything else "hero". A `.seabreak--quote` therefore reported itself as
+     * a hero, which is why `/explore/the-big-three/ (hero) no heading or lede`
+     * read for months like a broken hero on a page whose hero was perfectly
+     * fine — and nobody went looking for the sea break sitting below it.
+     */
     const blocks = await page.evaluate(
       (sel) =>
-        [...document.querySelectorAll(sel)].map((el) =>
-          el.classList.contains("interlude") ? "interlude" : "hero",
-        ),
+        [...document.querySelectorAll(sel)].map((el) => {
+          if (el.classList.contains("interlude")) return "interlude";
+          if (el.classList.contains("seabreak--quote")) return "seabreak";
+          return "hero";
+        }),
       BLOCK_SELECTOR,
     );
     if (!blocks.length) {
@@ -156,7 +167,7 @@ for (const vp of [
            */
           const els = [
             ...block.querySelectorAll(
-              "h1, h2, .lede, .hero__tagline, .hero__reassure",
+              "h1, h2, .lede, .hero__tagline, .hero__reassure, .seabreak__line, .interlude__line",
             ),
           ];
           if (!els.length) return null;
@@ -198,13 +209,63 @@ for (const vp of [
             if (pos === "sticky" || pos === "fixed")
               headerBottom = header.getBoundingClientRect().bottom;
           }
-          return { boxes, headerBottom };
+          /**
+           * The same problem from the other end of the viewport.
+           *
+           * The cookie banner is `position: fixed` at the bottom, and a fresh
+           * Playwright context has no stored consent, so it is on screen for
+           * every page this script measures. Centring a block taller than the
+           * viewport slides its lede underneath the banner, and the sampler
+           * reads whatever is painted there instead of the photograph.
+           *
+           * Left unhandled this reported nine blog heroes and the homepage
+           * tagline at 1.00–1.15:1 against backgrounds no visitor ever sees
+           * behind that text — a false alarm loud enough to bury a real one.
+           *
+           * Excluding rather than hiding the banner is deliberate: a checker
+           * that removes real overlays before measuring is measuring a page
+           * nobody visits. Generalised to any fixed bottom overlay so the next
+           * one does not need this comment written again.
+           */
+          let overlayTop = Infinity;
+          document
+            .querySelectorAll("[data-consent], [data-fixed-overlay]")
+            .forEach((el) => {
+              if (el.hidden) return;
+              if (getComputedStyle(el).position !== "fixed") return;
+              const r = el.getBoundingClientRect();
+              if (r.height === 0) return;
+              overlayTop = Math.min(overlayTop, r.top);
+            });
+          return { boxes, headerBottom, overlayTop };
         },
         [BLOCK_SELECTOR, bi],
       );
       const label = `${p} (${blocks[bi]})`;
       if (!info) {
-        console.log(`  ${label.padEnd(30)} no heading or lede`);
+        /**
+         * A discovered block with no measurable text is a COVERAGE HOLE, not a
+         * clean result, so it fails the run.
+         *
+         * It printed a note and continued for months. `.seabreak--quote`
+         * carries its line in `.seabreak__line`, which was missing from the
+         * element list above, so the one sea break on the site was silently
+         * never measured — text on a photograph, which is the single thing
+         * this script exists to check. The note scrolled past in a run that
+         * ended "Every hero passes".
+         *
+         * If a block genuinely has no text, it does not belong in
+         * BLOCK_SELECTOR; `.seabreak--rest` is excluded there for exactly that
+         * reason. Anything still matching and yielding nothing is a bug in one
+         * of the two lists, and should stop the build until someone reconciles
+         * them.
+         */
+        console.log(
+          `  ${label.padEnd(30)} FAIL — block discovered but no measurable text.` +
+            ` Add its text element to the sampled selector, or remove the block` +
+            ` class from BLOCK_SELECTOR.`,
+        );
+        fails++;
         continue;
       }
       /**
@@ -280,8 +341,13 @@ for (const vp of [
             Math.floor(b.y),
             Math.ceil(info.headerBottom ?? 0),
           ),
-          y1 = Math.min(png.height - 1, Math.ceil(b.y + b.h));
-        if (y1 < y0) continue; // entirely behind the sticky header
+          y1 = Math.min(
+            png.height - 1,
+            Math.ceil(b.y + b.h),
+            Math.floor(info.overlayTop ?? Infinity) - 1,
+          );
+        // Entirely behind the sticky header, or entirely under a fixed overlay.
+        if (y1 < y0) continue;
         for (let y = y0; y <= y1; y += 2) {
           for (let x = x0; x <= x1; x += 2) {
             const i = (png.width * y + x) << 2;

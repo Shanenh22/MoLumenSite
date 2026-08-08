@@ -316,6 +316,36 @@ const ga4Id = site.integrations.ga4Id;
             window.gtag('event', name, clean(params));
           } catch (e) { /* analytics must never break a page */ }
         };
+
+        /**
+         * Every route into the booking funnel, measured once, here.
+         *
+         * Booking links live on the homepage, seven reading pages, the readings
+         * hub cards, the comparison table, the Reading Finder result and the
+         * shared CTA band. Instrumenting them individually would guarantee the
+         * next one added is the one nobody remembers to wire, so this is a
+         * single delegated listener instead.
+         *
+         * The service param is the Cal.com event key: an enumerated internal
+         * label such as natal-90, never anything about the visitor. The from
+         * param is the pathname, so the funnel can be attributed to the page
+         * that produced it.
+         *
+         * NOTE: no backticks anywhere inside this script. The whole block is a
+         * template literal, so one backtick in a comment closes the string and
+         * the rest of the file is parsed as code. That is what broke this build
+         * once already.
+         */
+        document.addEventListener('click', function (e) {
+          var a = e.target instanceof Element ? e.target.closest('a[href*="/book/"]') : null;
+          if (!a) return;
+          var href = a.getAttribute('href') || '';
+          var m = href.match(/[?&]service=([^&#]+)/);
+          window.mlTrack('booking_cta_click', {
+            service: m ? decodeURIComponent(m[1]) : 'unspecified',
+            from: location.pathname
+          });
+        });
       })();
       `}
     />
