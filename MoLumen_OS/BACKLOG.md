@@ -4,7 +4,7 @@
 - Verify Kit subscription flow end-to-end with a real test address
 - Verify GA4 deployment/events
 - Verify Cal.com → Stripe booking path
-- Fix mobile booking CTA/path
+- ~~Fix mobile booking CTA/path~~ DONE 2026-08-07 — header CTA visible at all widths, /readings/ deep-links, mobile booking order
 - Complete QA suite
 - Confirm production environment configuration
 
@@ -13,10 +13,10 @@
 
 ## P1
 - Build privacy-conscious YouTube facade and finish the video hub/welcome video slot
-- Complete 2027 Current Sky through Dec 31, 2027
-- Add 90-day Current Sky horizon validation
+- ~~Complete 2027 Current Sky through Dec 31, 2027~~ DONE 2026-08-07 — 40 events, horizon 507 days
+- ~~Add 90-day Current Sky horizon validation~~ DONE 2026-08-07 — in content-integrity.mjs, fails <90d, warns <365d
 - Create Birth Time Toolkit and connect final delivery to Kit
-- Direct reading-to-booking actions
+- ~~Direct reading-to-booking actions~~ DONE 2026-08-07
 - Testimonial surfacing
 - Touch targets
 - Hero/LCP

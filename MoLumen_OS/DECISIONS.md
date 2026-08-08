@@ -19,3 +19,11 @@
 - Cloudflare deploy commands should pin an explicit Wrangler release rather than float to latest at deploy time.
 - Staging noindex changes are intentionally deferred by the owner for now.
 - No production cutover without explicit authorization.
+- GA4 runs under Consent Mode v2 with everything denied by default. A refusal still yields cookieless page counts, so measurement survives without storing anything. The alternative — loading no Google script until consent — was rejected because most visitors never touch a banner either way, which would have returned the site to having no measurement at all.
+- Accept and Decline in the consent banner carry equal visual weight, and always will. Refusing must be as easy as agreeing.
+- Public integration identifiers (GA4 measurement ID, Cal.com handle, Kit form UID) are defaulted in `src/config/site.ts`, not left to environment variables. The deploy workflow passes no env at build time, and every one of these sits behind a truthiness guard, so a missing variable disables the integration silently and looks exactly like a healthy build.
+- `window.mlTrack` is the only analytics entry point. Components must never call `gtag` directly: an optional call at each site makes a missing integration indistinguishable from a working one, which is how four Reading Finder events fired into nothing for months.
+- Analytics parameters are sanitised centrally. Birth dates, birth times and email addresses can never reach a vendor even if a future call site passes them.
+- Sky-event page titles carry month and year. Event names repeat annually, so undated titles collide across years.
+- Current Sky coverage is enforced, not remembered: `test:content` fails below 90 days of future events and warns below 365.
+- A contrast block that cannot be measured fails the run. A check that prints a note and then reports "Every hero passes" is worse than no check.

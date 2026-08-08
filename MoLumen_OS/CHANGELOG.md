@@ -1,5 +1,54 @@
 # AI Project Changelog
 
+### 2026-08-07 — Analytics, consent, booking conversion and the 2027 sky window
+
+**Changed**
+
+- GA4 measurement ID configured (`G-64N9EPKNTR`, defaulted in `src/config/site.ts`). Analytics had never run: the ID was empty, the gtag block sits behind an `ga4Id &&` guard, and the deploy workflow passes no env — so 130 pages shipped with no measurement while every check stayed green.
+- Google Consent Mode v2 with a first-party consent banner. Everything denied by default; no cookie is written until a visitor agrees. Reopenable from the footer on every page.
+- Removed `anonymize_ip` (a Universal Analytics parameter, inert in GA4) and replaced it with `allow_google_signals: false` and `allow_ad_personalization_signals: false`, which take effect.
+- `window.mlTrack` is now the single analytics entry point, with a sanitiser that drops anything resembling an email, date or time before it can reach GA. All call sites migrated; the Reading Finder's four events fire for the first time.
+- `booking_cta_click` added as one delegated listener rather than per-page wiring.
+- Mobile header exposes a Book action at every width (was `display: none` below 479px). Label shortens to "Book"; `aria-label` keeps the full accessible name.
+- `/readings/` cards, compare cards and table rows deep-link to `/book/?service=<bookingEventId>`; cards now show price.
+- `/book/` collapses the returning-clients group on phones. Availability moved from 2,368px to 1,503px. Deep links into that group open it.
+- Published 40 researched 2027 Current Sky events. Horizon 139 → 507 days.
+- Current Sky horizon validation added to `content-integrity.mjs`: fails under 90 days, warns under 365.
+- `/horoscopes/` split into "Coming up" and "Recent lunation letters", both filtered on today. It previously headed six future lunations as "recent".
+- Sky-event page titles now carry month and year, resolving ten duplicate titles caused by annually repeating event names.
+- `Service` schema gained `url`; `Offer` gained the deep-linked booking URL; multi-price readings emit `AggregateOffer` instead of a single price contradicting the visible page.
+- `privacy.md` named MailerLite as the newsletter processor. Corrected to Kit, with Google Analytics added and the analytics/cookie sections rewritten to describe what the site actually does.
+- Fixed stale copy: an owner note rendering in `<main>` on `/readings/gift/`, third-person voice on the same page, and "Three questions" on `/resources/` and `/readings/` for a five-question finder.
+
+**Fixed**
+
+- `scripts/content-integrity.mjs` reported 45 false errors on any CRLF checkout. In JavaScript `.` excludes line terminators and `\r` is one, so no frontmatter line parsed and `frontmatter()` returned `{}` for every file — which also silently disabled the draft skip. CI on Linux passed the same commit. This repo sets `core.autocrlf=true`, so it affected every Windows working copy including the owner's.
+- `scripts/check-hero-contrast.mjs`: three defects. No exclusion for fixed bottom overlays (the consent banner produced ten false failures at 1.00–1.15:1); `.seabreak--quote` mislabelled as "hero"; and its `.seabreak__line` text missing from the sampled selector, so the site's one sea break had never been measured. It reads 7.94:1 desktop / 6.19:1 mobile. An unmeasurable block now fails instead of printing a note inside a run that ends "Every hero passes".
+
+**Validated**
+
+- Astro check 0 errors. Build 170 pages.
+- Content integrity 0 errors, 0 warnings. Horizon 507 days.
+- Internal links 170 files, 0 failures.
+- axe 0 violations across 20 pages × 2 viewports.
+- `check:contrast` 8/8. `check:hero-contrast` 129 pages discovered, 0 failures.
+- Booking 18/18. Reading Finder 11/11.
+- `audit.mjs` clean on 12 checks: 0 duplicate titles or descriptions, 0 thin, 0 orphans, 0 missing alt, 0 heading skips.
+- Consent verified in-browser: pre-consent zero cookies and `gcs=G100`; post-accept `_ga` written and consent update pushed; decline stores the choice and writes nothing.
+- Kit verified in-browser: one script tag across two hosts on a page, second host falls back to `/newsletter/`, no console errors, no failed requests.
+
+**Deferred**
+
+- Staging noindex / search-engine protection — deferred by owner. Not implemented.
+
+**Not completed this pass**
+
+- YouTube facade component, `/videos/` hub rebuild and welcome-video slot.
+- Birth Time Toolkit lead magnet.
+- CSP report-only, hero/LCP preload, WCAG 2.2 target-size sweep, testimonial surfacing, courses/guides de-emphasis, per-service FAQ architecture.
+
+
+
 ### 2026-08-07 — Repository hardening v3
 
 **Changed**
