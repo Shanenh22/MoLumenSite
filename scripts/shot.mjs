@@ -3,10 +3,9 @@
  * complaint can be looked at rather than guessed at.
  * Usage: node scripts/shot.mjs /book/ /testimonials/
  */
-import http from "node:http";
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { createReadStream, statSync, mkdirSync } from "node:fs";
-import { extname, join } from "node:path";
+import { mkdirSync } from "node:fs";
+import { startDistServer } from "./lib/dist-server.mjs";
 
 async function requireTool(name) {
   try {
@@ -21,30 +20,7 @@ async function requireTool(name) {
 const { chromium } = await requireTool("playwright");
 
 const PORT = 4404;
-const ROOT = "dist";
-const MIME = {
-  ".html": "text/html",
-  ".css": "text/css",
-  ".js": "text/javascript",
-  ".webp": "image/webp",
-  ".svg": "image/svg+xml",
-  ".png": "image/png",
-  ".txt": "text/plain",
-};
-const server = http.createServer((req, res) => {
-  let f = join(ROOT, decodeURIComponent(req.url.split("?")[0]));
-  try {
-    if (statSync(f).isDirectory()) f = join(f, "index.html");
-  } catch {
-    res.writeHead(404);
-    return res.end("404");
-  }
-  res.writeHead(200, {
-    "Content-Type": MIME[extname(f)] || "application/octet-stream",
-  });
-  createReadStream(f).pipe(res);
-});
-await new Promise((r) => server.listen(PORT, r));
+const server = await startDistServer(PORT);
 
 const pages = process.argv.slice(2);
 if (!pages.length) pages.push("/");
