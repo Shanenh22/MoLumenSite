@@ -3015,3 +3015,82 @@ fieldset.booking-group > legend span {
   color: var(--color-stone);
   text-shadow: 0 1px 6px rgb(0 0 0 / 0.7);
 }
+
+/* ---------- print ----------
+   Used by the reader who prints a page, and by scripts/gen-toolkit-pdf.mjs,
+   which renders the real Birth Time Toolkit page to PDF rather than keeping a
+   separate template that could drift from it. Strips navigation, the signup
+   block, decorative photography and anything else that is site rather than
+   content. */
+@media print {
+  .site-header,
+  .site-footer,
+  .breadcrumbs,
+  .consent,
+  .cta-band,
+  .hero__img,
+  .feature-split img,
+  .newsletter-form,
+  .filter-bar,
+  .skip-link {
+    display: none !important;
+  }
+  body {
+    background: #fff;
+    color: #000;
+    font-size: 11pt;
+  }
+  .hero,
+  .section {
+    padding-block: 0 !important;
+    background: none !important;
+  }
+  .hero::after,
+  .hero::before {
+    display: none !important;
+  }
+  .container {
+    max-width: none !important;
+    padding-inline: 0 !important;
+  }
+  .prose {
+    max-width: none !important;
+  }
+  h1 {
+    font-size: 22pt;
+  }
+  h2 {
+    font-size: 15pt;
+    margin-top: 1.4em;
+    /* Never leave a heading stranded at the foot of a page. */
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  h3 {
+    font-size: 12.5pt;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+  p,
+  li {
+    orphans: 3;
+    widows: 3;
+  }
+  a {
+    color: #000;
+    text-decoration: underline;
+  }
+  /* Print the destination of real links, but not of in-page anchors, which
+     would render as a meaningless "(#get-the-pdf)". */
+  .prose a[href^='/']::after {
+    content: ' (molumen.com' attr(href) ')';
+    font-size: 9pt;
+    color: #444;
+  }
+  .card,
+  .callout {
+    border: 1px solid #ccc !important;
+    box-shadow: none !important;
+    background: none !important;
+  }
+}

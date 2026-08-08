@@ -1,0 +1,347 @@
+---
+/**
+ * The Birth Time Toolkit — MoLumen's first lead magnet.
+ *
+ * Two decisions worth defending, because both had an obvious alternative.
+ *
+ * 1. **The guide is free to read in full; only the PDF arrives by email.**
+ *    The conventional lead magnet hides the content behind a form. This site
+ *    is static, so it could not actually enforce that — but more to the point,
+ *    gating would be off-brand for a practice whose whole position is candour,
+ *    and it would waste the strongest search asset here. Birth time is the
+ *    single biggest friction point in this funnel; a page that answers the
+ *    question completely is worth more in search than a teaser is in signups.
+ *    The exchange offered instead is honest: keep a copy, and get the monthly
+ *    letter. Kit sends the file.
+ *
+ * 2. **Assembled from writing that already exists**, chiefly the two birth-time
+ *    blog posts and /prepare-for-your-reading/, rather than authored fresh.
+ *    That is deliberate: the material is already in Mo's voice and already
+ *    approved, and a lead magnet that contradicts the blog it was drawn from
+ *    is worse than no lead magnet. Where this page adds anything it is
+ *    structure — the search order, the phone script, the what-to-send list —
+ *    not new claims about astrology.
+ *
+ * Nothing here states a fact about vital-records law, fees or turnaround times
+ * beyond what the existing posts already say, because those vary by state and
+ * this site does not invent verifiable specifics.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+import NewsletterForm from '../components/NewsletterForm.astro';
+import CTABand from '../components/CTABand.astro';
+import { scenes } from '../config/images';
+import { site } from '../config/site';
+
+const crumbs = [{ label: 'Birth Time Toolkit', href: '/birth-time-toolkit/' }];
+const pdfPath = '/downloads/birth-time-toolkit.pdf';
+
+const description =
+  'A practical guide to finding your exact birth time: where it is recorded, who to ask, what to do when it is genuinely lost, and what a reading can still tell you without it.';
+
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'The Birth Time Toolkit',
+    description,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': new URL('/birth-time-toolkit/', site.url).href,
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Maureen "Mo" Lumen',
+      url: new URL('/about/', site.url).href,
+    },
+    publisher: { '@type': 'Organization', name: site.name, url: site.url },
+    inLanguage: 'en-US',
+    isAccessibleForFree: true,
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'Why does an astrologer need my exact birth time?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The rising sign changes roughly every two hours, and the rising degree sets the entire house structure of the chart — the twelve areas of life a chart divides into. A two-hour error does not shift one detail; it moves every planet into a different area of your life. The Sun takes about a month to cross a sign, which is why sun-sign astrology works as a mass-market product. The rising sign crosses the whole zodiac in a day.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Where is my birth time recorded?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Most often on the long-form birth certificate held by the vital records office of the state or country where you were born. The short form many people keep at home frequently omits the time. Other places worth trying: hospital records, baby books and family papers, newspaper birth announcements, and family memory — held loosely, because a remembered time is usually a rounded one.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I still have a reading if I do not know my birth time?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Without a time you still have every planet’s sign, the aspects between them, the condition of each planet by dignity, and the current transits contacting your chart. That is most of a chart. What is lost is the rising sign, the house structure and the Moon’s exact degree. A reading built on what is solid answers "what are these patterns" very well, and "where in your life do they land" only in outline.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is chart rectification?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Rectification is the technique of working backwards from known life events to estimate a birth time. It is a real discipline and specialists do careful work. Two things are worth knowing: it is substantial work and usually priced accordingly, and it produces a well-reasoned hypothesis rather than a recovered fact. Anyone offering a rectified time with certainty is claiming more than the method supports.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is a guessed birth time better than no birth time?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'No — a confident guess is the worst of the options. An honest "I don’t know" produces a good reading with stated limits. A wrong time presented as exact produces a detailed, coherent reading about the life of someone born two hours after you, and neither of you finds out until you are partway through wondering why none of it fits. A range is far more useful than a false precision.',
+        },
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="The Birth Time Toolkit"
+  description={description}
+  path="/birth-time-toolkit/"
+  breadcrumbs={crumbs}
+  schema={schema}
+  ogType="article"
+>
+  <Breadcrumbs crumbs={crumbs} />
+
+  <section class="hero hero--split">
+    <div class="container">
+      <div>
+        <p class="eyebrow">Free guide</p>
+        <h1>The Birth Time Toolkit</h1>
+        <p class="lede">
+          Not knowing your birth time stops more people from booking a reading than anything else,
+          and it shouldn't. Here is where the time is actually recorded, how to go and get it, and
+          what a reading can still tell you if it turns out to be genuinely lost.
+        </p>
+      </div>
+      <img
+        class="hero__img"
+        src={scenes.prepareReading.src}
+        srcset={scenes.prepareReading.srcset}
+        sizes="100vw"
+        alt={scenes.prepareReading.alt}
+        width={scenes.prepareReading.width}
+        height={scenes.prepareReading.height}
+        fetchpriority="high"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow" style="max-width: 42rem;">
+      <p>
+        The whole of this guide is on this page, free, with nothing to fill in. If you would rather
+        keep a copy — to work through at the records office, or to send to the parent who might
+        remember — <a href="#get-the-pdf">I'll email you the PDF</a>.
+      </p>
+
+      <h2>Why two hours matters</h2>
+      <p>
+        Your Sun moves about one degree a day and takes roughly a month to cross a sign. That is why
+        sun-sign astrology works as a mass-market product: everyone born in a three-week window
+        shares one, and you can write a column for them.
+      </p>
+      <p>
+        Your rising sign — the degree of the zodiac coming over the eastern horizon at the moment you
+        arrived — crosses the entire zodiac in twenty-four hours. A new sign rises roughly every two
+        hours. One of those is a season. The other is a snapshot.
+      </p>
+      <p>
+        If it were only one more sign to talk about, an approximate time would be a small loss. It
+        isn't, because the rising degree sets the whole <a href="/explore/houses/">house structure</a>
+        of the chart — the twelve areas of life it divides into. Move the rising degree and every
+        planet migrates. A two-hour error doesn't change a detail; it relocates Saturn from your
+        house of career to your house of partnership, and those are entirely different
+        conversations.
+      </p>
+
+      <h2>Where the time is actually written down</h2>
+      <p>Work down this list in order. Most people find it at the first or second step.</p>
+
+      <h3>1. The long-form birth certificate</h3>
+      <p>
+        This is the one that usually works. The short form many people keep at home frequently omits
+        the time; the long form, held by the vital records office of the state or country where you
+        were born, usually includes it. In the United States it is a routine request. It is by far
+        the most common way people find a time they thought was lost — and for most people it is a
+        better use of the money than paying for rectification.
+      </p>
+
+      <h3>2. Hospital records</h3>
+      <p>
+        Some hospitals keep birth records for decades. Worth a call, and worth asking for medical
+        records rather than the switchboard's first guess at who handles it.
+      </p>
+
+      <h3>3. Baby books and family papers</h3>
+      <p>
+        Time of birth is the sort of thing written down once, in the moment, and then filed. Baby
+        books, family bibles, a parent's diary, a letter written that week, the back of a
+        photograph.
+      </p>
+
+      <h3>4. Newspaper birth announcements</h3>
+      <p>
+        Local papers historically printed birth notices, sometimes with times. Library and newspaper
+        archives have turned up times for people who had given up on finding one.
+      </p>
+
+      <h3>5. Family memory — held loosely</h3>
+      <p>
+        Ask, and treat the answer as a clue rather than a fact. "Just before dinner" narrows a
+        twenty-four-hour window to a few hours, which is genuinely valuable. "Three o'clock" from a
+        memory forty years old is often a rounded approximation, and rounding is exactly what causes
+        the trouble.
+      </p>
+      <p>
+        Better questions than <em>what time was I born?</em>: Was it light or dark outside? Before or
+        after a meal — which one? Had Dad already left for work, or come home? Was it the same day
+        you went into labour? Did anyone miss anything because of it? People remember the shape of a
+        day far better than they remember a number.
+      </p>
+
+      <h2>What to bring me, and how to say it</h2>
+      <p>
+        When you book, send the birth date, the birth city and country, and the time <em>with your
+        confidence attached</em>. That last part is the one people leave off, and it is the one that
+        changes how I read the chart.
+      </p>
+      <ul>
+        <li><strong>From a document</strong> — say so, and say which. This is the strongest case.</li>
+        <li>
+          <strong>A range</strong> — "between 2 and 4pm" is far more useful than a flat "3pm" that
+          turns out to be a family rounding error.
+        </li>
+        <li>
+          <strong>A rough time of day</strong> — "sometime in the morning" is real information and I
+          can work with it.
+        </li>
+        <li><strong>Genuinely unknown</strong> — say that too, plainly. It is not a problem.</li>
+      </ul>
+
+      <h2>If it is genuinely lost</h2>
+      <p>You can have a real reading without a birth time. It will be a different reading, and I'll tell you which parts are missing.</p>
+      <p>
+        <strong>What is lost:</strong> the rising sign, the entire house structure, and the Moon's
+        exact degree — the Moon moves twelve to thirteen degrees a day, so across an unknown day it
+        can shift meaningfully and occasionally change sign.
+      </p>
+      <p>
+        <strong>What is not:</strong> every planet's sign, in almost all cases. The aspects between
+        them — the geometry of your chart, which is where a great deal of character actually lives.
+        The condition of each planet by
+        <a href="/explore/dignities/">dignity</a>. The current transits and which natal placements
+        they are contacting.
+      </p>
+      <p>
+        That is most of a chart. A reading built on it is not a consolation prize. It answers
+        <em>what are these patterns</em> very well and <em>where do they land</em> only in outline.
+      </p>
+
+      <h2>A word about rectification</h2>
+      <p>
+        Rectification is the technique of working backwards from known life events to estimate a
+        birth time. It exists, it is a real discipline, and practitioners who specialise in it do
+        careful work.
+      </p>
+      <p>
+        Two things worth knowing. It is substantial work, usually priced accordingly. And it produces
+        an estimate rather than a fact — a well-reasoned hypothesis that fits the events you
+        supplied, not a recovery of the true time. If someone offers you a rectified time with
+        certainty, that confidence isn't warranted by the method.
+      </p>
+
+      <h2>The one thing to avoid</h2>
+      <p>
+        Don't guess and present the guess as exact. This is the genuinely bad outcome, and it is
+        worse than knowing nothing.
+      </p>
+      <p>
+        An honest "I don't know" produces a good reading with stated limits. A confident wrong time
+        produces a detailed, coherent, wholly inapplicable reading about the life of someone born two
+        hours after you — and neither of us finds out until you are partway through wondering why
+        none of it fits.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container feature-split">
+      <div class="flow">
+        <p class="eyebrow">Keep a copy</p>
+        <h2 id="get-the-pdf">Want this as a PDF?</h2>
+        <p>
+          Join The Sky This Month and I'll send you the toolkit as a printable PDF — useful at the
+          records office, or to forward to whoever might remember. One letter a month after that:
+          what's moving overhead, what it tends to mean, and one practical thing to do about it.
+          Unsubscribe anytime.
+        </p>
+        <NewsletterForm source="birth-time-toolkit" labelledby="get-the-pdf" />
+        <p class="card__meta" style="margin-top: var(--space-4);">
+          Already subscribed, or would rather not?
+          <a href={pdfPath} data-toolkit-download download>Download the PDF directly</a> — no
+          address needed. The guide above is the same content, in full.
+        </p>
+      </div>
+      <img
+        src={scenes.newsletterLetters.src}
+        alt={scenes.newsletterLetters.alt}
+        width={scenes.newsletterLetters.width}
+        height={scenes.newsletterLetters.height}
+        loading="lazy"
+      />
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--3">
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;">
+          <a href="/prepare-for-your-reading/">Prepare for your reading</a>
+        </h2>
+        <p style="margin: 0;">Everything else to bring, and what actually helps.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;">
+          <a href="/explore/the-big-three/">The Big Three</a>
+        </h2>
+        <p style="margin: 0;">What the rising sign contributes once you have it.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;">
+          <a href="/blog/dont-know-your-birth-time/">If you don't know your time</a>
+        </h2>
+        <p style="margin: 0;">The longer essay this guide was drawn from.</p>
+      </article>
+    </div>
+  </section>
+
+  <CTABand
+    heading="Found your time?"
+    body="Bring it, and the real question you've been carrying. We'll look at your chart together."
+    buttonLabel="Book This Reading"
+    buttonHref="/book/?service=natal-90"
+  />
+</BaseLayout>
+
+<script>
+  document
+    .querySelector('[data-toolkit-download]')
+    ?.addEventListener('click', () =>
+      (window as any).mlTrack?.('toolkit_download', { toolkit: 'birth-time' })
+    );
+</script>

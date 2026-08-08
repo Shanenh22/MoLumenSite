@@ -90,6 +90,8 @@ you — and neither of us finds out until you're partway through wondering why n
 "Sometime in the morning" is more useful to me than a precise-sounding time that came from a family
 rounding error. Tell me what you actually know, including how well you know it.
 
+The [Birth Time Toolkit](/birth-time-toolkit/) is this essay turned into a search you can actually
+work through — where to look, in what order, and what to ask the people who might remember.
 [How to prepare for your reading](/prepare-for-your-reading/) covers what to bring, and
 [the big three](/explore/the-big-three/) explains what the rising sign contributes when you do have
 it.
