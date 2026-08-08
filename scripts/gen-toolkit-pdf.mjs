@@ -18,13 +18,14 @@
  */
 import http from 'node:http';
 import { createReadStream, statSync, mkdirSync } from 'node:fs';
-import { extname, join } from 'node:path';
+import { extname, join, resolve, sep } from 'node:path';
 import { chromiumPath } from './lib/chromium-path.mjs';
 
 const { chromium } = await import('playwright');
 
 const PORT = 4413;
 const OUT = 'public/downloads/birth-time-toolkit.pdf';
+const DIST_ROOT = resolve('dist');
 const MIME = {
   '.html': 'text/html',
   '.css': 'text/css',
@@ -36,7 +37,21 @@ const MIME = {
 };
 
 const server = http.createServer((req, res) => {
-  let f = join('dist', decodeURIComponent(req.url.split('?')[0]));
+  const rawPath = req.url?.split('?')[0] ?? '/';
+  let decodedPath;
+  try {
+    decodedPath = decodeURIComponent(rawPath);
+  } catch {
+    res.writeHead(400);
+    return res.end();
+  }
+
+  let f = resolve(DIST_ROOT, `.${decodedPath}`);
+  if (f !== DIST_ROOT && !f.startsWith(DIST_ROOT + sep)) {
+    res.writeHead(403);
+    return res.end();
+  }
+
   try {
     if (statSync(f).isDirectory()) f = join(f, 'index.html');
   } catch {
