@@ -7,15 +7,15 @@
   "name": "Quick Check-In: One Topic",
   "shortName": "Quick Check-In",
   "slug": "quick-check-in",
-  "purpose": "One area of life suddenly chaotic, or one place you want to grow? Thirty focused minutes on how your astrological influences are affecting that single topic.",
-  "method": "A single-topic transit consultation: you name the area in the intake form; Mo examines how current influences are affecting it and how to use them to make more positive choices.",
+  "purpose": "Thirty focused minutes for one topic that needs your attention now: a decision, a change, a recurring issue, or one area you want to understand more clearly.",
+  "method": "You name one topic in the intake form. I look at the current astrological influences connected with that area, then we use the time to understand what is active and what perspective the chart may add to the situation you are already living.",
   "bestFor": [
-    "Existing clients with one specific area that needs attention now",
-    "A sudden bout of chaos in one part of life",
-    "Guidance for growth in one named area"
+    "Established clients with one specific area that needs attention now",
+    "A focused question or situation that does not require a full-hour follow-up",
+    "A current issue you want to look at in the context of your chart"
   ],
   "notFor": [
-    "Multiple topics or the whole chart: book Want More Clarity or a natal follow-up instead",
+    "Multiple topics or a broader chart review: book Want More Clarity instead",
     "New clients. The Natal Chart Reading comes first"
   ],
   "durationMinutes": 30,
@@ -33,14 +33,14 @@
     "Your one topic, written out in the appointment form"
   ],
   "includes": [
-    "Your one topic, examined through your chart's current influences",
-    "How to use those influences to make more positive choices"
+    "One topic examined through the current influences on your chart",
+    "A clearer view of the astrological context surrounding that question or situation"
   ],
   "deliverables": [
     "Recording of the session"
   ],
   "preparation": [
-    "Write your topic out clearly in the intake form: specific beats broad"
+    "Write your topic out clearly in the intake form: one focused question gives us the most room to go somewhere useful"
   ],
   "bookingEventId": "quick-check-in",
   "related": [
