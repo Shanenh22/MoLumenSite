@@ -21,19 +21,17 @@ const crumbs = [
   { label: h.name, href: `/explore/houses/${h.slug}/` },
 ];
 const angularityNote = {
-  Angular: 'Angular houses (1, 4, 7, 10) sit on the chart\'s four corners and are the most active, planets here show up strongly in a life.',
-  Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are about consolidation, holding and building on what the angular house began.',
-  Cadent: 'Cadent houses (3, 6, 9, 12) precede the angles and are about processing, learning, and distribution. Traditionally considered weaker, though modern practice disputes that.',
+  Angular: 'Angular houses (1, 4, 7, 10) sit on the chart\'s four primary axes and are traditionally treated as especially active or prominent.',
+  Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are traditionally associated with consolidation, resources, and sustaining what has been initiated.',
+  Cadent: 'Cadent houses (3, 6, 9, 12) precede the angles and are traditionally associated with movement, learning, adjustment, and distribution. Different schools weight them differently.',
 }[h.angularity];
-/* No image at all on these twelve before. Slug-derived so each house keeps its
-   own pair, stable across builds. */
 const heroImage = bandFor(h.slug);
 const breakImage = bandFor(h.slug, 5);
 ---
 
 <BaseLayout
   title={`The ${h.name}: meaning in the birth chart`}
-  description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it governs, its traditional and modern readings, and what planets there mean.`}
+  description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it describes, how different traditions read it, and why planets there still need whole-chart context.`}
   path={`/explore/houses/${h.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -60,6 +58,12 @@ const breakImage = bandFor(h.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
+      <p>
+        A house describes an area of experience, not what will happen there. The planets occupying
+        it, the sign on its cusp, the house ruler, aspects, timing, and the rest of the chart all
+        change the interpretation. Think of the house as the setting; the chart tells us what is
+        happening in that setting and how important it may be for this person.
+      </p>
       <h2>At a glance</h2>
       <table class="ref-table">
         <caption class="visually-hidden">Attributes of the {h.name}</caption>
@@ -76,7 +80,7 @@ const breakImage = bandFor(h.slug, 5);
 
       <h2>The arena</h2>
       <p>{h.arena}</p>
-      <h2>What it covers</h2>
+      <h2>What it can cover</h2>
       <ul>{h.covers.map((c) => <li>{c}</li>)}</ul>
     </div>
   </section>
@@ -97,11 +101,11 @@ const breakImage = bandFor(h.slug, 5);
       <h2>Planets here</h2>
       <p>{h.planetsHere}</p>
       <p>
-        Which sign begins this house, and which planets occupy it, depends on your exact birth
-        time, and on the <a href="/explore/house-systems/">house system</a> your astrologer uses.
-        <a href="/explore/birth-chart-basics/">Here's why.</a>
+        Which sign begins this house, and which planets occupy it, depends on birth time and on the
+        <a href="/explore/house-systems/">house system</a> being used. When birth time is uncertain,
+        house placement may be uncertain too. That is information to name, not something to hide.
+        <a href="/explore/birth-chart-basics/">Here is how the pieces fit together.</a>
       </p>
-
 
       <nav aria-label="More houses" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/houses/${prev.slug}/`}>← {prev.name}</a>
@@ -110,5 +114,8 @@ const breakImage = bandFor(h.slug, 5);
     </div>
   </section>
 
-  <CTABand />
+  <CTABand
+    heading={`The ${h.name} is one part of the chart`}
+    body="A reading looks at the planets, rulers, aspects, timing, and lived experience that give this area of life its particular meaning for you."
+  />
 </BaseLayout>
