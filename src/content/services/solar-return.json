@@ -7,15 +7,15 @@
   "name": "Solar Return Reading",
   "shortName": "Solar Return",
   "slug": "solar-return",
-  "purpose": "Your yearly reading: when the Sun returns to its birth position near your birthday, the rest of the sky has moved: new patterns, new themes, a new year to navigate.",
-  "method": "Solar return chart interpretation layered over your natal chart: the emerging themes of your personal year ahead. You direct the focus in advance through the intake form.",
+  "purpose": "A yearly reading around your birthday: your solar return chart brings the coming year's themes into focus and shows where the next chapter may ask for more of your attention.",
+  "method": "I read the solar return chart in relationship with your natal chart, looking for the themes and areas of emphasis that stand out for the year ahead. Your intake form tells me what is already on your mind so the conversation can stay connected to the life you are living.",
   "bestFor": [
     "An annual check-in around your birthday",
-    "Clients who've had a natal reading and want the year ahead mapped",
-    "Framing the coming year's themes while there's still time to use them"
+    "Established clients who want a broader view of the year ahead",
+    "Seeing which themes may deserve more attention as a new personal year begins"
   ],
   "notFor": [
-    "A first reading. Start with the Natal Chart Reading; this builds on it"
+    "A first reading. Start with the Natal Chart Reading; this builds on the natal foundation we have already established"
   ],
   "durationMinutes": 60,
   "durationLabel": "1 hour",
@@ -32,9 +32,9 @@
     "Your focus for the year, via the intake form"
   ],
   "includes": [
-    "Your solar return chart and its new patterns and relationships",
-    "The emerging themes of your personal year",
-    "How the year's chart converses with your natal promise"
+    "Your solar return chart and the patterns that stand out within it",
+    "The themes and areas of emphasis for your personal year",
+    "How the solar return chart relates back to your natal chart"
   ],
   "deliverables": [
     "Recording of the session",
