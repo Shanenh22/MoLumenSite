@@ -7,15 +7,15 @@
   "name": "Life Changes Astrological Consultation",
   "shortName": "Life Changes",
   "slug": "life-changes",
-  "purpose": "New job, new home, a change of direction, when life is in motion, this reading shows which areas are being influenced and the themes emerging in the transition.",
-  "method": "Current-sky transits to your natal chart, focused on the transition at hand. You direct the focus in advance through the intake form.",
+  "purpose": "For the moments when life is already moving: a new job, a move, a change of direction, or another transition that has you weighing what comes next.",
+  "method": "I look at current transits to your natal chart with the transition itself as our focus. The goal is to understand which parts of the chart are being activated, what themes are emerging, and how those possibilities connect with the decisions and circumstances already in front of you.",
   "bestFor": [
     "A move, career change, or shift in direction already underway or under consideration",
-    "Understanding the emerging themes of a transition",
-    "Clients who've had a natal reading and are in a season of change"
+    "Understanding the larger pattern around a transition rather than looking at one decision in isolation",
+    "Established clients who are in a season of meaningful change"
   ],
   "notFor": [
-    "A first reading. The natal reading comes first",
+    "A first reading. The Natal Chart Reading comes first so we have a shared foundation",
     "Ongoing month-by-month guidance. That's Monthly Personal Transits"
   ],
   "durationMinutes": 60,
@@ -33,15 +33,15 @@
     "The transition you're navigating, via the intake form"
   ],
   "includes": [
-    "The interactions of the current sky with your natal chart",
-    "Which areas of your life are being influenced, and how",
-    "The emerging themes of your transition"
+    "How current transits are interacting with your natal chart",
+    "Which areas of your life are receiving the most emphasis now",
+    "The themes and possibilities surrounding the transition"
   ],
   "deliverables": [
     "Recording of the session"
   ],
   "preparation": [
-    "Name the change you're navigating and what decisions sit inside it"
+    "Name the change you're navigating and the questions or decisions sitting inside it"
   ],
   "bookingEventId": "life-changes",
   "related": [
