@@ -69,18 +69,18 @@ const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
 };
 
 const values = [
-  ['spark', 'Insight', 'See the patterns with clarity'],
-  ['choice', 'Empowerment', 'Make choices aligned with your truth'],
-  ['heart', 'Compassion', 'A safe space to be fully yourself'],
-  ['leaf', 'Growth', 'Navigate change and step into possibility'],
-  ['sun', 'Practical Wisdom', 'Grounded guidance for real life'],
-  ['compass', 'Your Unique Path', 'Honoring your story, your timing, your way'],
+  ['spark', 'Wonder', 'Look closely enough and there is always more to notice'],
+  ['chart', 'Synthesis', 'See how the pieces change one another'],
+  ['people', 'Conversation', 'Your lived experience belongs in the reading'],
+  ['choice', 'Agency', 'Perspective without giving away your decisions'],
+  ['sun', 'Clarity', 'Complex astrology, explained in plain language'],
+  ['compass', 'Individuality', 'Your chart is yours, not a set of labels'],
 ] as const;
 ---
 
 <BaseLayout
   title="Home"
-  description="Clarifying astrology readings with a classical lens: practical, candid, and warm. Book a natal chart, relationship, solar return, or transit reading with Mo Lumen."
+  description="Thoughtful astrology readings with Mo Lumen: natal, relationship, solar return, and transit consultations that connect chart patterns with real life while keeping your choices your own."
   path="/"
 >
   <!-- Hero: night workspace photograph + real photo of Mo -->
@@ -90,39 +90,18 @@ const values = [
         <p class="eyebrow">✦ Mo Lumen Astrology</p>
         <h1 style="max-width: 14ch;">See yourself in a new light.</h1>
         <p class="lede">
-          Insightful. Empowering. Personal. I'm Mo, astrologer, teacher, and interpreter of the
-          language of the planets. A reading with me connects your birth chart to your real life:
-          your decisions, your relationships, your timing.
+          I'm Mo, an astrologer, teacher, and interpreter of the language of the planets. I look
+          for the patterns in your chart, the timing around you now, and the life you're actually
+          living, then we make sense of them together.
         </p>
         <div class="hero__actions">
           <a class="btn btn--accent" href="/reading-finder/">Find Your Reading</a>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
         </div>
-        {/*
-          The dream outcome, and it is deliberately not a promise of results.
-          "Perspective you can use" was a texture, not an outcome — nothing a
-          reader can picture. But this site cannot promise what will happen to
-          someone's life either: the disclaimer says astrology offers
-          perspective rather than certainty, and Mo's own words are "I am not a
-          fortune teller".
-
-          So the outcome named here is the one clients actually report, in their
-          own words on /testimonials/ — Claire: "things I've felt about myself
-          forever and just never had words for." Language for what you are
-          already living is a real transformation, it is honest, and it is
-          evidenced. Do not upgrade it into a guarantee.
-        */}
         <p class="hero__reassure">
-          No belief required. No doom, no scare tactics. Just words for something you've been
-          living for years.
+          You do not need to know astrology, and you do not need to believe every word. No doom,
+          no scare tactics, and no handing your decisions over to the chart.
         </p>
-        {/*
-          The brand line, in Mo's own words from /about/. It sits where a
-          credentials line used to and does the same job differently: it earns
-          trust by saying what she believes rather than by listing what she has
-          passed. Kept as a quiet closing thought so it does not compete with the
-          two buttons above it.
-        */}
         <p class="hero__tagline">
           There is fate and there is choice, and a good reading helps you tell the difference.
         </p>
@@ -145,7 +124,7 @@ const values = [
   <!-- Value row (icon strip) -->
   <section class="section section--strip">
     <div class="container">
-      <h2 class="visually-hidden">What a reading offers</h2>
+      <h2 class="visually-hidden">What shapes a reading with Mo</h2>
       <div class="value-row value-row--6">
         {
           values.map(([icon, title, desc]) => (
@@ -166,9 +145,9 @@ const values = [
       <div class="divider"><Icon name="star" size={18} /></div>
       <h2 style="font-size: var(--text-3xl);">Astrology is a map, not a mandate.</h2>
       <p class="lede" style="margin-inline: auto;">
-        You are the author of your life. There is fate and there is choice. A good reading helps
-        you tell the difference. Knowledge brings insight, insight brings power, power brings
-        freedom.
+        A chart can describe conditions, tendencies, timing, and patterns. It cannot live your
+        life for you. A good reading can widen the view, help name what has been difficult to see
+        from the inside, and give you more room to choose what comes next.
       </p>
     </div>
   </section>
@@ -179,25 +158,17 @@ const values = [
       <div class="flow">
         <p class="eyebrow">Why people come</p>
         <h2 style="max-width: 22ch;">You don't need to know astrology. You just need a real question.</h2>
-        {/*
-          Audience specificity. This paragraph used to open with three separate
-          "maybe"s across five situations — hedging toward every possible reader,
-          which is how copy ends up addressed to nobody in particular. It now
-          describes one recognisable person: someone mid-decision who has already
-          exhausted the people around them.
-
-          Still true of everyone else who books; it just stops trying to say so
-          in the same breath.
-        */}
         <p>
-          Most people who book me are somewhere in the middle of a decision they've already been
-          carrying for months: a job that fits worse every year, a relationship they can't get a
-          clear view of, a move they keep almost making. They've talked it through with everyone
-          close to them, and the conversation has stopped going anywhere new.
+          People often find me when something matters enough that the usual explanations are no
+          longer enough: a decision they keep circling, a relationship they cannot quite see
+          clearly, a pattern that keeps returning, or a season of change that has made the old map
+          feel incomplete.
         </p>
         <p>
-          That's the hour I'm useful for. Your chart won't tell you what to do. It will show you
-          the shape of the thing you've been circling, and that's usually what was missing.
+          That is where astrology can be useful. I am not looking for a sentence in your chart
+          that tells you what to do. I am looking at how the pieces fit together, what is active
+          now, and what becomes clearer when we put that picture beside the life you are actually
+          living.
         </p>
         <p><a class="btn btn--primary" href="/reading-finder/">Try the Reading Finder</a></p>
       </div>
@@ -217,9 +188,10 @@ const values = [
       <p class="eyebrow">Readings</p>
       <h2>One approach, wherever you are</h2>
       <p class="lede">
-        Your chart, connected directly to your real life by a certified astrologer with a
-        classical lens and a practical streak. Start with a natal reading; return for the year
-        ahead, life's transitions, or a monthly one-on-one.
+        Every reading starts from the same premise: a chart contains patterns and possibilities,
+        but your life tells us how they are actually being lived. New clients begin with the natal
+        foundation; returning clients can come back for a year ahead, a transition, a focused
+        question, or ongoing timing work.
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-8);">
         {
@@ -234,10 +206,6 @@ const values = [
                     <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
                   </h3>
                   <p class="card__meta" style="margin: 0;">{s.data.durationLabel}</p>
-                  {/* Five of the seven readings follow on from a natal reading.
-                      Saying so here costs one line and stops a first-time
-                      visitor building a shortlist out of things they cannot
-                      book yet. */}
                   {eligibilityLabel(s.data.audience) && (
                     <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
                   )}
@@ -275,14 +243,6 @@ const values = [
         <a href="/readings/">Compare all readings side by side →</a>
       </p>
 
-      {/*
-        Risk reversal, next to the prices rather than buried.
-
-        Every line here was already true and already written — in
-        /booking-policy/, which is exactly where nobody reads it while deciding
-        whether to spend $150 on a stranger. Nothing has been invented or
-        upgraded; if the policy changes, change it there and here together.
-      */}
       <ul class="assurances">
         <li>
           <strong>Reschedule free</strong> up to 48 hours before. Inside that window your fee is
@@ -302,16 +262,6 @@ const values = [
     </div>
   </section>
 
-  {/*
-    Council note: nine real, permissioned testimonials existed on a page almost
-    nobody reaches. These three are chosen to answer the three objections a
-    first-time visitor actually arrives with — "will this mean anything?",
-    "will she just tell me what to do", and "I know nothing about astrology,
-    will I feel stupid?" — in clients' own words rather than in marketing copy.
-
-    Real words only. Fabricated testimonials are illegal under the FTC rule and
-    would destroy the one thing this site is actually selling.
-  */}
   <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">In their words</p>
@@ -340,17 +290,17 @@ const values = [
     <div class="container feature-split feature-split--rev">
       <div class="flow">
         <p class="eyebrow">About Mo</p>
-        <h2>Astrologer. Teacher. Writer.</h2>
+        <h2>Astrologer. Teacher. Lifelong observer.</h2>
         <p>
-          Hello, I'm Maureen, a.k.a. Mo: a modern-day astrologer with a classical lens. Before
-          astrology I ran businesses and taught natural sciences from middle school through
-          college, and I bring both to the chart: practical grounding and a teacher's knack for
-          making complex things clear.
+          Before astrology, I ran businesses and taught natural sciences from middle school
+          through college. What stayed with me was the wonder of seeing how systems work: cycles
+          within cycles, relationships between parts, and patterns that only become visible when
+          you stop looking at one piece in isolation.
         </p>
         <p>
-          I hold a Practitioner's Certificate in Horary Astrology from the School of Traditional
-          Astrology, have passed NCGR-PAA Level 1 and 2 certification exams, and serve on the
-          board of the Organization for Professional Astrologers.
+          I bring that way of looking to astrology, along with broad astrological study and a
+          teacher's instinct to explain what I see. Science is not my proof of astrology; it is
+          part of what taught me to observe carefully, ask questions, and respect complexity.
         </p>
         <p>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
@@ -378,8 +328,8 @@ const values = [
           <p class="eyebrow">A minute with Mo</p>
           <h2>Before you decide, hear how I actually talk</h2>
           <p class="lede">
-            A reading is an hour of conversation with a specific person. This is what that person
-            sounds like.
+            A reading is a conversation with a real person. Here is a minute with me before we
+            ever sit down together.
           </p>
           <div style="margin-top: var(--space-6);">
             <YouTubeFacade
@@ -398,16 +348,16 @@ const values = [
   <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">How it works</p>
-      <h2>From booking to insight, in six easy steps</h2>
+      <h2>From booking to conversation, in six easy steps</h2>
       <ol class="grid grid--3" style="list-style: none; padding: 0; margin-top: var(--space-8);">
         {
           [
             ['calendar', 'Choose', 'Pick a reading, or let the Reading Finder suggest one.'],
             ['clock', 'Schedule', 'Choose a time that works; times show in your own time zone.'],
             ['star', 'Pay', 'Pay securely online when you book. No surprises later.'],
-            ['letter', 'Share', 'Send your birth details and questions through the intake form.'],
+            ['letter', 'Share', 'Send your birth details and the questions on your mind through the intake form.'],
             ['book', 'Prepare', "You'll get simple preparation notes, nothing to study."],
-            ['people', 'Meet', 'We talk, one-on-one. You leave with a recording and your chart.'],
+            ['people', 'Meet', 'I guide the reading, explain what I see, and make room for your questions and feedback.'],
           ].map(([icon, t, d], i) => (
             <li class="card" style="gap: var(--space-2);">
               <span style="display: flex; align-items: center; gap: var(--space-3); color: var(--accent-ink);">
@@ -429,20 +379,13 @@ const values = [
   <!-- Current Sky + Explorer — night band -->
   <section class="section section--night">
     <div class="container grid grid--2">
-      {/*
-        Current Sky is the one thing here no comparable astrologer's site has: a
-        dated, sourced calendar of what is actually overhead, with rising-sign
-        guidance on every lunation. It was previously a bare list of links in
-        half a band. It now says what it is and what makes it different, because
-        an asset nobody understands is not an asset.
-      */}
       <div class="flow">
         <p class="eyebrow">The sky right now</p>
         <h2>Current Sky</h2>
         <p>
-          Every lunation, eclipse and retrograde through the end of the year: dated, sourced, and
-          written up with guidance for <strong>all twelve rising signs</strong>. Free, no email
-          required.
+          What is moving overhead, when it happens, and what I think is worth noticing about it.
+          Dates and positions are verified; the interpretation is mine, with rising-sign guidance
+          on each lunation. Free, no email required.
         </p>
         {
           skyEvents.length > 0 && (
@@ -467,8 +410,9 @@ const values = [
         <p class="eyebrow">Free interactive tool</p>
         <h2>Explore Your Chart</h2>
         <p>
-          An interactive tour of how a birth chart actually works: planets as drives, signs as
-          styles, houses as arenas. No birth data needed; it's education, not a reading.
+          An interactive tour of how a birth chart works: planets as drives, signs as styles,
+          houses as arenas, and the reminder that the pieces make more sense in relationship to
+          one another. No birth data needed; it is education, not a reading.
         </p>
         <p><a class="btn btn--accent" href="/tools/explore-your-chart/">Open the explorer</a></p>
       </div>
@@ -513,10 +457,12 @@ const values = [
     <div class="container feature-split">
       <div class="flow">
         <p class="eyebrow">Free newsletter</p>
-        <h2 id="home-newsletter">The Sky This Month</h2>
+        <h2 id="home-newsletter">A monthly note from Mo</h2>
         <p>
-          Once a month: what's moving overhead, what it means, and one practical thing to do about
-          it. Written by Mo, read in five minutes, unsubscribe anytime.
+          <strong>The Sky This Month</strong> is one recurring section: what is moving overhead
+          and what I think is worth noticing. Alongside it, I will share something that caught my
+          attention — a question, a pattern, a connection, or a piece of the living world I keep
+          thinking about. Astrology is the anchor; curiosity gets some room to wander.
         </p>
         <NewsletterForm source="homepage" labelledby="home-newsletter" />
       </div>
@@ -534,17 +480,11 @@ const values = [
   <section class="section section--night center">
     <div class="container flow">
       <div class="divider"><Icon name="moon" size={20} /></div>
-      {/*
-        This used to read "Whenever you're ready, the sky's not going anywhere /
-        Take your time." Gracious, and it was the last thing on the page — an
-        instruction to leave, placed directly above the only button. The warmth
-        was worth keeping; the exit was not. It now invites rather than defers,
-        and still refuses to pressure anyone.
-      */}
       <h2>Bring me your real question.</h2>
       <p class="lede" style="margin-inline: auto;">
-        You don't need to know any astrology to start. That's my job. Come with what's actually
-        on your mind, and we'll look at your chart together.
+        You do not need to know astrology to start. Bring what is actually on your mind. I will
+        bring the chart, the preparation, and what I am noticing, and we will look at the pattern
+        together.
       </p>
       <p><a class="btn btn--accent" href="/book/">Book a Reading</a></p>
       <p class="card__meta" style="margin-inline: auto;">
