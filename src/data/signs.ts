@@ -57,22 +57,22 @@ export const signs: Sign[] = [
       "Opens spring in the northern hemisphere: the equinox point, 0° of the zodiac.",
     keywords: ["initiative", "courage", "directness"],
     style:
-      "Aries expresses through beginnings. Whatever planet wears this sign acts first and refines later: direct, quick to commit, allergic to waiting for permission. It is the spark that gets things moving.",
+      "Aries brings a cardinal-fire style: initiating, direct, responsive to challenge, and inclined to move before everything has been fully worked out.",
     traditional:
-      "As Mars's day-side home and the exaltation of the Sun, Aries was read as the sign of raw initiating force: hot, dry, and choleric. Saturn falls here, the planet of limits is at its least effective in the sign that refuses them, and Venus is in detriment, which older texts framed as difficulty with accommodation and compromise.",
+      "As Mars's day-side home and the exaltation of the Sun, Aries was read as the sign of raw initiating force: hot, dry, and choleric. Saturn falls here, and Venus is in detriment, which older texts connected with difficulty around restraint, accommodation, or delay.",
     modern:
       'Twentieth-century astrology recast Aries as the archetype of individuation: the first assertion of "I am" before relationship, role, or social conditioning shapes it. The emphasis moved from martial force toward healthy self-assertion and the courage to exist as a separate person.',
-    mo: "In readings I watch Aries placements for the gap between starting and finishing. The courage is genuine and worth honoring; most people can't begin things at all. The work is usually staying past the interesting part, and noticing that other people were also in the room while you were moving.",
+    mo: "With Aries, I look for where initiative is useful and where speed may be outrunning context. Sometimes the gift is starting what no one else will start. Sometimes the question is what happens after the first move. The planet involved tells me far more than the sign alone.",
     misconception:
-      "That Aries means angry. Mars rulership gets flattened into temper, when what the sign actually describes is the capacity to act without prior permission, which is as often generosity, defense of someone vulnerable, or simply starting the thing nobody else would.",
+      "That Aries means angry. Mars rulership can show up as heat or conflict, but also as courage, decisiveness, advocacy, physical effort, or the willingness to begin.",
     strengths:
-      "Honest momentum. Aries placements cut through deliberation, defend what they love without hesitation, and bring real courage to fresh starts.",
+      "Aries can add courage, momentum, candor, and a willingness to enter new territory.",
     watchFor:
-      "Speed can outrun follow-through, and directness can land as bluntness. The growth edge is finishing what the spark started, and noticing who else is in the room.",
+      "In some charts, speed can outrun reflection or follow-through. The useful question is whether immediate action serves the situation or simply relieves impatience.",
     inRelationship:
-      "Aries energy wants engagement, not management. It thrives with partners who can meet its candor and give it something worth pursuing.",
+      "Aries can bring directness and strong engagement to relationship, but the lived expression depends on the planet, house, aspects, and the person's actual relational history.",
     atWork:
-      "Best deployed at the front of things: launches, pitches, crises, turnarounds. Poorly deployed in long maintenance roles where nothing ever begins.",
+      "Aries symbolism can be useful around launches, initiative, competition, crisis response, or entrepreneurial action. It does not prescribe a career by itself.",
   },
   {
     slug: "taurus",
@@ -91,22 +91,22 @@ export const signs: Sign[] = [
     season: "Spring at full strength: the season's growth becoming substance.",
     keywords: ["steadiness", "embodiment", "value"],
     style:
-      "Taurus expresses through stabilizing. Planets here move deliberately, build things meant to last, and trust what can be touched, tasted, and counted on. It is the gardener among the signs.",
+      "Taurus brings a fixed-earth style: stabilizing, conserving, sensory, deliberate, and interested in what can be sustained or relied upon.",
     traditional:
-      "Venus's night home and the Moon's exaltation: a doubly receptive, fertile sign associated with land, livestock, provisions, and everything that sustains a body. Mars is in detriment: the planet of swift cutting action is poorly suited to a sign whose whole method is not moving.",
+      "Venus's night home and the Moon's exaltation: a receptive, fertile sign associated with land, provisions, pleasure, and sustenance. Mars is in detriment here, since swift cutting action sits awkwardly in a sign whose method favors continuity.",
     modern:
-      "Modern astrology emphasizes Taurus as the seat of self-worth and embodiment, the felt sense of being enough, and of having a right to comfort and pleasure. The second-house link makes it the sign of what you value, not merely what you own.",
-    mo: "Taurus placements often know exactly what they want and underestimate how rare that is. The question I return to with them is whether the thing they are holding onto still nourishes them, or whether it has simply become familiar. Those two feel identical from the inside.",
+      "Modern astrology emphasizes Taurus through embodiment, self-worth, pleasure, security, and relationship to value. Those themes may be expressed materially, emotionally, creatively, or relationally depending on the chart.",
+    mo: "Taurus makes me curious about what someone values enough to preserve and what has become familiar enough that change feels expensive. I do not assume stubbornness or stability from the sign alone; I want to see what planet is there and what the person has actually learned to hold onto.",
     misconception:
-      "That Taurus is lazy. What looks like slowness is usually conservation. Taurus doesn't spend energy on anything it hasn't decided is worth it, and the same person will work without stopping once it is.",
+      "That Taurus is lazy. Deliberation and conservation are not the same as lack of effort, and fixed-earth energy can be remarkably persistent once committed.",
     strengths:
-      "Reliability, sensory intelligence, and the patience to let good things ripen. Taurus placements know what they value and hold it well.",
+      "Taurus can contribute steadiness, patience, sensory awareness, loyalty, and an ability to build value over time.",
     watchFor:
-      "Steadiness can harden into immovability. The growth edge is telling the difference between loyalty to what matters and comfort with what is merely familiar.",
+      "Consistency can become inertia when familiarity is mistaken for nourishment. Context tells us whether holding on is wisdom or avoidance.",
     inRelationship:
-      "Taurus energy offers constancy and asks for it in return. Affection is shown concretely: presence, provision, and touch more than declarations.",
+      "Taurus can emphasize constancy, physical affection, loyalty, or tangible expressions of care. How those needs operate depends on the rest of the relationship picture.",
     atWork:
-      "Excellent at building and maintaining anything that compounds over time. Struggles where priorities change weekly or where results are never allowed to settle.",
+      "Taurus symbolism can support long-horizon building, stewardship, craft, finance, resources, or work that benefits from patience and continuity.",
   },
   {
     slug: "gemini",
@@ -125,24 +125,24 @@ export const signs: Sign[] = [
       "Spring dispersing into summer: the season distributing what it grew.",
     keywords: ["curiosity", "connection", "versatility"],
     style:
-      "Gemini expresses through exchange. Planets here gather, compare, and circulate: questions, stories, contacts, ideas. It is the messenger, moving between worlds and translating as it goes.",
+      "Gemini brings a mutable-air style: gathering, comparing, connecting, translating, and moving information from one place or perspective to another.",
     traditional:
-      "Mercury's day home, and traditionally the sign of the near world: siblings, neighbors, short journeys, letters, and commerce. Jupiter is in detriment here. The planet of the big picture is at a disadvantage in a sign that works by dividing things into pieces.",
+      "Mercury's day home, and traditionally associated with siblings, neighbors, short journeys, letters, commerce, and exchange. Jupiter is in detriment here, since broad synthesis can sit uneasily with a sign that works by separating and comparing pieces.",
     modern:
-      "Modern practice foregrounds Gemini as the perceiving mind. How a person takes in and processes information, their learning style, and their relationship to language itself. The twins become a symbol of the mind observing itself.",
-    mo: 'The Gemini gift I most often see undervalued is translation: the ability to explain one world to another. The cost is that a mind this quick can outrun feeling. When a Gemini placement tells me they are "fine, just busy," that is usually where we start.',
+      "Modern practice foregrounds Gemini as a symbol of perception, language, mental flexibility, learning, and exchange. Its multiplicity can be read as curiosity rather than inconsistency.",
+    mo: "Gemini placements often make me pay attention to how a person moves between ideas, people, or languages of experience. Translation can be a real gift here. Whether variety feels enlivening or dispersing depends on what else the chart is asking that planet to do.",
     differs:
-      "Whether Gemini's famous changeability is a flaw or the point. Traditional texts treat mutability as instability; modern practice reads it as adaptive intelligence. Both are describing the same behavior with different values attached.",
+      "Traditional texts may emphasize mutability as instability; modern practice often values it as adaptive intelligence. Both are observing changeability and assigning different weight to it.",
     misconception:
-      "That Gemini is two-faced. The duality is about holding two ideas at once, not about deceit, and the sign is often more transparent than most, because it says what it is thinking as it thinks it.",
+      "That Gemini is two-faced. Its symbolism is more usefully understood through multiplicity, comparison, and the ability to hold more than one idea in view.",
     strengths:
-      "Quick learning, verbal agility, and a gift for making unlikely connections between people and ideas.",
+      "Gemini can add curiosity, verbal agility, adaptability, quick learning, and a talent for connecting information or people.",
     watchFor:
-      "Breadth can crowd out depth, and cleverness can dodge feeling. The growth edge is staying at the table when the conversation gets slow or serious.",
+      "Breadth can become fragmentation when nothing is given enough time to deepen. Whether that is a problem depends on the role the placement plays in the chart.",
     inRelationship:
-      "Gemini energy bonds through conversation. Interest is affection; a partner who keeps surprising its mind keeps its attention.",
+      "Gemini can emphasize conversation, mental stimulation, flexibility, and curiosity in relationship, but no sign alone defines attachment or compatibility.",
     atWork:
-      "Thrives in roles requiring communication, variety, and rapid learning. Wilts in repetitive work with no one to talk to.",
+      "Gemini symbolism often suits communication, teaching, writing, sales, media, research, networking, or work where variety and information flow matter.",
   },
   {
     slug: "cancer",
@@ -163,22 +163,22 @@ export const signs: Sign[] = [
       "Opens summer at the solstice: the year at its most fertile and most sheltered.",
     keywords: ["care", "memory", "belonging"],
     style:
-      "Cancer expresses through protecting. Planets here feel first, remember everything, and build shells around what is tender: homes, families, traditions, people. It initiates through care.",
+      "Cancer brings a cardinal-water style: initiating through care, protection, attachment, memory, belonging, and sensitivity to what feels safe or familiar.",
     traditional:
-      "The Moon's only home and Jupiter's exaltation: a sign of nourishment, lineage, and increase. Saturn is in detriment and Mars falls here: both the cold restrictor and the hot aggressor are out of place in a sign whose method is holding and feeding.",
+      "The Moon's only home and Jupiter's exaltation: a sign traditionally associated with nourishment, lineage, fertility, increase, and protection. Saturn is in detriment and Mars falls here.",
     modern:
-      "Modern astrology reads Cancer through attachment and emotional security: the internalized experience of being cared for (or not), and how that shapes the ability to care for others without losing oneself.",
-    mo: "Cancer placements almost always give more than they ask for, and then quietly keep score. The reading that helps is rarely about learning to care more; it is about learning to state a need out loud before resentment does it for them.",
+      "Modern astrology reads Cancer through attachment, emotional security, memory, care, and the ways early belonging can shape later responses.",
+    mo: "Cancer makes me curious about what someone protects, how they ask for care, and what they experience as home or belonging. I never assume a family story from the sign alone. The chart may describe sensitivity to care without telling me how care was actually given or received.",
     misconception:
-      "That Cancer is fragile. The shell exists because the interior is soft, not because the person is weak, and a threatened Cancer placement is one of the most formidable things in the zodiac.",
+      "That Cancer is fragile. Receptivity and protectiveness can coexist with considerable strength, especially when something important feels threatened.",
     strengths:
-      "Emotional intelligence, fierce loyalty, and the ability to make nearly any place feel like home.",
+      "Cancer can contribute emotional memory, loyalty, protectiveness, responsiveness, and an instinct for sustaining people or places.",
     watchFor:
-      "Protection can become moating, and moods can steer the ship. The growth edge is letting people in before they have fully proven themselves safe.",
+      "Protection can become withdrawal or overprotection when safety is treated as the only goal. The rest of the chart shows how much movement and exposure are also needed.",
     inRelationship:
-      "Cancer energy nurtures by instinct and needs its care received, not just tolerated. Security and consistency matter more than grand gestures.",
+      "Cancer can emphasize care, continuity, security, home, and emotional responsiveness in relationship. The person still tells us what those words mean in practice.",
     atWork:
-      "Strong where loyalty, institutional memory, and care for people are assets. Suffers in cultures that treat staff as interchangeable.",
+      "Cancer symbolism can be strong where stewardship, memory, care, continuity, hospitality, home, family systems, or protection are relevant.",
   },
   {
     slug: "leo",
@@ -196,22 +196,22 @@ export const signs: Sign[] = [
       "Summer at full height: maximum light, and the year at its most confident.",
     keywords: ["heart", "creativity", "dignity"],
     style:
-      "Leo expresses through radiating. Planets here perform in the best sense: they bring warmth, color, and full-hearted commitment to whatever they touch, and they want that light witnessed.",
+      "Leo brings a fixed-fire style: sustained creative expression, visibility, warmth, authorship, pride, play, and the desire to invest heart in what matters.",
     traditional:
-      "The Sun's only home, and the sign most associated with kingship, the heart, and vitality itself. Saturn is in detriment: the planet of scarcity and cold sits badly in the sign of generous heat. Traditional texts treat Leo's dignity seriously, as a duty of the powerful, not merely a taste for attention.",
+      "The Sun's only home, associated with kingship, the heart, vitality, visibility, and dignity. Saturn is in detriment here, placing restraint and scarcity opposite a sign built around solar radiance.",
     modern:
-      "Modern astrology frames Leo as the creative self in search of authentic expression, and links it to the fifth house of play, romance, and children: anything you make that carries your signature.",
-    mo: "Every Leo placement I have read wants to be seen, and almost none of them will say so directly, because the culture has taught them that wanting to be seen is a character flaw. It isn't. The honest version of that need is what makes a person generous. The distorted version is what makes them exhausting.",
+      "Modern astrology frames Leo around creative self-expression, play, authorship, visibility, and the development of a self that can both shine and recognize others.",
+    mo: "Leo placements make me curious about visibility: where someone wants to create, contribute, lead, be recognized, or simply be fully themselves without shrinking. I do not assume every Leo placement wants attention. Sometimes the deeper issue is whether it feels safe to be seen at all.",
     misconception:
-      "That Leo is arrogant. The sign is far more often the one holding the room together and quietly checking whether everyone else feels included. Its insecurity is usually invisible precisely because it performs well.",
+      "That Leo is arrogant. Solar symbolism can involve pride and recognition, but it can also describe generosity, creativity, loyalty, play, leadership, or the courage to be visible.",
     strengths:
-      "Generosity, creative confidence, and natural leadership that lifts a room rather than dominating it, at its best.",
+      "Leo can add creative confidence, loyalty, generosity, warmth, and sustained commitment to something personally meaningful.",
     watchFor:
-      "The need to be seen can eclipse the willingness to see others. The growth edge is shining just as brightly when no one applauds.",
+      "Recognition can become overly important when self-expression depends on an audience. In other charts, the challenge may be allowing visibility rather than seeking it.",
     inRelationship:
-      "Leo energy loves loudly and loyally. Genuine appreciation is its oxygen; indifference wounds it more than conflict ever could.",
+      "Leo can emphasize warmth, loyalty, play, appreciation, and expressive affection. The whole chart shows whether that comes easily or feels vulnerable.",
     atWork:
-      "Excels where visible ownership and creative authorship are possible. Struggles in anonymous roles where good work disappears into a group.",
+      "Leo symbolism can be useful where leadership, performance, creativity, ownership, visibility, children, entertainment, or personal authorship matter.",
   },
   {
     slug: "virgo",
@@ -232,22 +232,22 @@ export const signs: Sign[] = [
       "Late summer: the harvest, and the sorting of what is worth keeping.",
     keywords: ["craft", "discernment", "service"],
     style:
-      "Virgo expresses through refining. Planets here notice what others miss, improve what they touch, and serve quietly and concretely. It is the craftsman among the signs.",
+      "Virgo brings a mutable-earth style: sorting, refining, adapting, diagnosing, practicing, and improving through attention to useful detail.",
     traditional:
-      "Uniquely both Mercury's night home and Mercury's exaltation, the only sign where a planet holds both dignities, which traditional astrology read as analytical intelligence at maximum precision. Venus falls here and Jupiter is in detriment: neither indulgence nor expansiveness fares well in a sign built for discrimination.",
+      "Uniquely both Mercury's night home and Mercury's exaltation, Virgo was associated with discrimination, craft, analysis, and careful sorting. Venus falls here and Jupiter is in detriment.",
     modern:
-      "Modern practice emphasizes Virgo as the integration of body, work, and daily habit: the sign of the practices that quietly determine a life, and of service as a form of love.",
-    mo: "The Virgo placements I meet are almost never as critical of others as they are of themselves, and they are genuinely surprised to hear that. If I can get one thing across in a reading, it's that 'good and finished' is a legitimate standard, and that the inner critic is not the same thing as high standards.",
+      "Modern practice emphasizes Virgo through daily practice, skill, service, health routines, discernment, work, and the relationship between improvement and self-criticism.",
+    mo: "Virgo placements make me curious about the difference between discernment and criticism. The capacity to notice what could work better can be extraordinarily useful. The question is whether that same eye is allowed to recognize what is already working.",
     misconception:
-      "That Virgo is nitpicky or cold. The scrutiny is usually an act of care. The sign notices the detail because it is trying to make the thing actually work for the person using it.",
+      "That Virgo is simply nitpicky or cold. Precision can be an expression of care, craft, responsibility, or a desire to make something genuinely useful.",
     strengths:
-      "Precision, usefulness, and an ethic of care expressed through competence: the friend who shows up with the right tool.",
+      "Virgo can contribute precision, practical intelligence, craft, adaptability, service, and a talent for improving systems or processes.",
     watchFor:
-      "Discernment can curdle into criticism, of others and especially of oneself. The growth edge is accepting 'good and finished' over 'perfect and imaginary.'",
+      "Refinement can become endless correction. Sometimes 'good and finished' is the more intelligent standard; sometimes precision is exactly what the situation requires.",
     inRelationship:
-      "Virgo energy loves through acts of service and attention to detail. It needs its efforts noticed, and needs to hear that it is enough as it is.",
+      "Virgo can show care through attention, practical help, consistency, or problem-solving. Whether that feels supportive or intrusive depends on how it is offered and received.",
     atWork:
-      "Outstanding at craft, quality, systems, and anything requiring sustained attention to detail. Miserable under sloppy management.",
+      "Virgo symbolism often supports craft, analysis, editing, systems, health, service, quality control, or any work where careful adjustment matters.",
   },
   {
     slug: "libra",
@@ -267,22 +267,22 @@ export const signs: Sign[] = [
     season: "Opens autumn at the equinox: day and night in exact balance.",
     keywords: ["balance", "fairness", "relationship"],
     style:
-      "Libra expresses through relating. Planets here think in pairs and counterweights: weighing options, seeking fairness, making things (and moments) more beautiful and more just.",
+      "Libra brings a cardinal-air style: initiating through comparison, relationship, negotiation, aesthetics, balance, justice, and awareness of another point of view.",
     traditional:
-      "Venus's day home and Saturn's exaltation, which is more interesting than it first appears: the sign of harmony is where the planet of structure and justice does its best work. Traditional astrology read Libra through law, contracts, and equity as much as through beauty. The Sun falls here. The solitary self is at a disadvantage in the sign of the other person.",
+      "Venus's day home and Saturn's exaltation, Libra was associated with contracts, law, fairness, proportion, beauty, and the balancing of competing claims. The Sun falls here and Mars is in detriment.",
     modern:
-      "Modern astrology treats Libra as the discovery of the self through relationship: the recognition that identity has an edge, and that the edge is where someone else begins.",
-    mo: "Libra placements are frequently praised for being easy to get along with, which is often the problem. The most useful thing I can offer them is permission: a clear 'no' is not a failure of harmony, it is the thing that makes the harmony real rather than performed.",
+      "Modern astrology treats Libra as an encounter with the other: identity developing through contrast, dialogue, partnership, projection, and the effort to create fair exchange.",
+    mo: "Libra makes me curious about how someone weighs competing needs and how much of themselves remains visible in that process. Sometimes diplomacy is a gift. Sometimes keeping the peace has become more important than telling the truth. I want the life context before deciding which is happening.",
     misconception:
-      "That Libra is indecisive out of weakness. It is usually because the sign can genuinely see the merit of every option: a form of intelligence that becomes paralysis only when there's no deadline.",
+      "That Libra is simply indecisive. Seeing several legitimate sides of a question can be sophisticated perception; it becomes paralysis only when weighing replaces choosing.",
     strengths:
-      "Diplomacy, aesthetic intelligence, and a genuine gift for seeing the other side of any question.",
+      "Libra can contribute diplomacy, fairness, aesthetic intelligence, mediation, social awareness, and a talent for holding more than one perspective.",
     watchFor:
-      "Weighing can become wavering, and peacekeeping can bury real grievances. The growth edge is discovering that a clear 'no' is a form of fairness too.",
+      "Balance can become avoidance when every conflict is treated as a failure. A clear position can sometimes create more honest harmony than endless accommodation.",
     inRelationship:
-      "Libra energy is built for partnership and does its best thinking in dialogue. It needs harmony that is honest, not just quiet.",
+      "Libra can make partnership, dialogue, reciprocity, fairness, and shared decision-making especially important themes.",
     atWork:
-      "Strong in negotiation, design, mediation, and client relationships. Struggles where it must impose decisions unilaterally and quickly.",
+      "Libra symbolism often supports negotiation, design, law, mediation, consulting, client work, or environments where proportion and perspective matter.",
   },
   {
     slug: "scorpio",
@@ -302,24 +302,24 @@ export const signs: Sign[] = [
     season: "Autumn deepening: the season of decay that feeds the next cycle.",
     keywords: ["depth", "intensity", "transformation"],
     style:
-      "Scorpio expresses through penetrating. Planets here go beneath the surface on principle, to the motive, the secret, the root. Nothing halfway: it merges, transforms, or walks away entirely.",
+      "Scorpio brings a fixed-water style: sustained emotional intensity, privacy, investigation, loyalty, concentration, and a tendency to look beneath appearances.",
     traditional:
-      "Mars's night home, and traditional astrology gave it no exaltation at all, which is telling. Associated with death, inheritance, surgery, and other people's resources. The Moon falls here: comfort and easy feeling do not thrive in a sign that insists on going all the way down.",
+      "Mars's night home, Scorpio was associated with hidden matters, danger, inheritance, surgery, death, and other people's resources. The Moon falls here and Venus is in detriment.",
     modern:
-      "After Pluto's 1930 discovery, modern astrology assigned it to Scorpio and reframed the sign around psychological transformation: the underworld journey, shadow material, and regeneration through crisis.",
-    mo: "Scorpio placements can generally handle the truth better than almost anyone, which is why I don't soften things with them. What they often can't do is trust before testing, and the test is usually invisible to whoever is being tested.",
+      "After Pluto's discovery, modern astrology increasingly associated Scorpio with depth psychology, transformation, power, compulsion, shadow material, and regeneration.",
+    mo: "Scorpio placements make me curious about what someone is willing to investigate deeply and what they protect by staying private or in control. I do not assume trauma, secrecy, or intensity from the sign alone. Those are possibilities, not diagnoses.",
     differs:
-      "Rulership. Traditional astrologers keep Mars as Scorpio's ruler and read the sign through Mars's condition; most modern astrologers use Pluto. This isn't cosmetic: the two produce noticeably different readings, and a good astrologer will tell you which they're using.",
+      "Traditional astrologers keep Mars as Scorpio's ruler; many modern astrologers use Pluto. Those rulership choices can produce noticeably different emphases.",
     misconception:
-      "That Scorpio is vengeful or dark. The sign is drawn to what is hidden because it distrusts surfaces, and its loyalty, once given, is the most durable in the zodiac.",
+      "That Scorpio is inherently vengeful, dark, or secretive. Its symbolism is more usefully understood through depth, concentration, protection, consequence, and willingness to stay with difficult material.",
     strengths:
-      "Emotional courage, ride-or-die loyalty, and the power to regenerate after losses that would flatten other signs.",
+      "Scorpio can contribute emotional courage, concentration, loyalty, investigative depth, strategic awareness, and resilience.",
     watchFor:
-      "Depth can become suspicion, and control can masquerade as protection. The growth edge is trusting without testing.",
+      "Depth can become suspicion or control when uncertainty feels intolerable. The whole chart helps show whether trust, privacy, or power is the more relevant theme.",
     inRelationship:
-      "Scorpio energy bonds completely or not at all. It offers rare intimacy and asks for honesty at the same depth.",
+      "Scorpio can intensify themes of trust, privacy, loyalty, intimacy, shared resources, and emotional depth in relationship.",
     atWork:
-      "Formidable in research, crisis, investigation, therapy, finance. Anywhere the real answer is buried. Poorly suited to superficial or performative environments.",
+      "Scorpio symbolism can be useful in research, investigation, crisis work, finance, psychology, medicine, strategy, or any field where important material sits below the surface.",
   },
   {
     slug: "sagittarius",
@@ -336,22 +336,22 @@ export const signs: Sign[] = [
     season: "Late autumn: the year reaching past what it can see.",
     keywords: ["meaning", "freedom", "horizon"],
     style:
-      "Sagittarius expresses through expanding. Planets here aim at the far horizon: travel, philosophy, faith, the big picture. It would rather be roughly right about something vast than precisely right about something small.",
+      "Sagittarius brings a mutable-fire style: exploring, expanding, teaching, interpreting experience, testing beliefs, and reaching toward a wider horizon.",
     traditional:
-      "Jupiter's day home, and the sign of long journeys, foreign lands, higher learning, law, and religion. Mercury is in detriment: the planet of fine distinctions is at a disadvantage in a sign that thinks in sweeping arcs.",
+      "Jupiter's day home, Sagittarius was associated with long journeys, foreign lands, higher learning, law, religion, philosophy, and broad judgment. Mercury is in detriment here.",
     modern:
-      "Modern astrology frames Sagittarius as the search for meaning: the drive to assemble experience into a worldview, and the restlessness that follows when the worldview stops fitting.",
-    mo: "Sagittarius placements are often the most honest people in the room and the least aware of how much that costs others. The growth is not becoming less truthful; it's noticing that timing and delivery are part of the truth.",
+      "Modern astrology frames Sagittarius as the search for meaning: the impulse to turn experience into worldview and to revise that worldview when it becomes too small.",
+    mo: "Sagittarius placements make me curious about what gives a person a sense of meaning, direction, freedom, or possibility. The same symbolism can describe teaching, travel, conviction, humor, restlessness, or a hunger for perspective. I do not assume which one is central until I hear the person's story.",
     misconception:
-      "That Sagittarius is flaky or commitment-averse. The sign commits intensely, to ideas, causes, and journeys. What it resists is confinement without meaning, which isn't the same thing.",
+      "That Sagittarius is simply flaky or commitment-averse. Mutable fire can seek movement and range, but commitment can be very strong when it serves a meaningful direction.",
     strengths:
-      "Optimism with legs, honesty that clears the air, and a contagious sense that life is an adventure worth having.",
+      "Sagittarius can contribute perspective, optimism, humor, candor, teaching ability, and willingness to explore beyond familiar boundaries.",
     watchFor:
-      "The horizon can become an escape hatch, and candor can trample nuance. The growth edge is finding freedom inside commitments, not only beyond them.",
+      "A broad view can miss important details, and conviction can outrun curiosity. The question is whether meaning remains open enough to learn from what contradicts it.",
     inRelationship:
-      "Sagittarius energy needs room to roam and a partner who feels like a fellow traveler, not a customs officer.",
+      "Sagittarius can emphasize honesty, growth, freedom, shared exploration, and the need for a relationship to keep expanding rather than merely repeating itself.",
     atWork:
-      "Excellent in teaching, publishing, travel, law, and anything requiring vision and morale. Chafes under micromanagement and windowless routine.",
+      "Sagittarius symbolism often suits teaching, publishing, law, travel, coaching, international work, philosophy, or roles where vision and perspective matter.",
   },
   {
     slug: "capricorn",
@@ -372,22 +372,22 @@ export const signs: Sign[] = [
       "Opens winter at the solstice: the darkest point, and the turn back toward light.",
     keywords: ["mastery", "responsibility", "endurance"],
     style:
-      "Capricorn expresses through building. Planets here take the long view, respect structure, and climb: patiently, strategically, and usually carrying more than their share.",
+      "Capricorn brings a cardinal-earth style: organizing, building, assuming responsibility, working with limits, and directing effort toward something durable.",
     traditional:
-      "Saturn's night home and the exaltation of Mars, disciplined force, ambition with a strategy. Associated with rulers, elders, boundaries, and time itself. The Moon is in detriment and Jupiter falls here: neither soft comfort nor easy expansion belongs in the sign of earned results.",
+      "Saturn's night home and the exaltation of Mars, Capricorn was associated with authority, endurance, boundaries, labor, hierarchy, age, and long-term consequence. The Moon is in detriment and Jupiter falls here.",
     modern:
-      "Modern astrology reads Capricorn through vocation and legitimate authority: the process of becoming someone whose competence is real rather than claimed, and the cost of that process.",
-    mo: "Capricorn placements tend to arrive at a reading with a list of what they still have to do. What I usually end up pointing out is how much is already built, and how rarely they have stopped to look at it. Saturn does eventually hand something back, but only to people who notice.",
+      "Modern astrology reads Capricorn through vocation, competence, responsibility, legitimate authority, ambition, and the gradual construction of a life that can bear weight.",
+    mo: "Capricorn placements make me curious about responsibility: what someone has chosen to carry, what they assumed they had to carry, and what they are trying to build over time. Ambition is only one possible expression. So are restraint, expertise, duty, fear of failure, or a strong respect for consequence.",
     misconception:
-      "That Capricorn is cold or purely materialistic. The sign is frequently the one carrying the family, the team, or the institution, and its restraint is often protectiveness rather than indifference.",
+      "That Capricorn is cold or purely materialistic. Saturnian restraint can reflect caution, duty, endurance, protectiveness, or seriousness about what has long-term consequences.",
     strengths:
-      "Discipline, integrity under pressure, and the rare ability to turn ambition into durable achievement.",
+      "Capricorn can contribute endurance, strategic planning, accountability, discipline, realism, and the ability to build over long periods.",
     watchFor:
-      "Duty can crowd out joy, and self-sufficiency can refuse help it genuinely needs. The growth edge is letting worth rest on more than output.",
+      "Responsibility can become overidentification with usefulness or output. Sometimes the work is carrying more; sometimes it is discovering what no longer belongs on your back.",
     inRelationship:
-      "Capricorn energy shows love through commitment and reliability. It softens slowly, and permanently, with those who prove patient.",
+      "Capricorn can emphasize reliability, commitment, responsibility, time, and earned trust. Emotional expression may be simple or complex depending on the rest of the chart.",
     atWork:
-      "Built for long-horizon responsibility, leadership, and anything requiring endurance. At risk of overwork and of mistaking exhaustion for virtue.",
+      "Capricorn symbolism often supports management, operations, leadership, institutions, long-term planning, craft mastery, or work where consequences accumulate over time.",
   },
   {
     slug: "aquarius",
@@ -407,24 +407,24 @@ export const signs: Sign[] = [
       "Deep winter: the season of structure, and of the ideas that outlast it.",
     keywords: ["perspective", "independence", "community"],
     style:
-      "Aquarius expresses through reimagining. Planets here step outside the frame: questioning defaults, siding with the future, and caring for people in principled, sometimes unconventional ways.",
+      "Aquarius brings a fixed-air style: sustained ideas, systems thinking, principled distance, group awareness, unconventional perspectives, and resistance to being easily moved.",
     traditional:
-      "Saturn's day home, which reframes the sign considerably. Traditional Aquarius is not chaotic but structural: the architecture of society, laws, and the groups people organize into. The Sun is in detriment here, which older texts read as difficulty with purely personal authority.",
+      "Saturn's day home, traditional Aquarius was associated with structure, society, law, groups, endurance, and the ordering of collective life. The Sun is in detriment here.",
     modern:
-      "With Uranus assigned to it after 1781, modern astrology recast Aquarius as the disruptor and futurist: the sign of sudden insight, rebellion, and progressive social vision.",
-    mo: "The Saturn-ruled Aquarius is the one most people never meet, and it explains the placements that puzzle them: the friend who is radical in principle and completely immovable in practice. Fixed air is still fixed. These are some of the most stubborn people I read.",
+      "With Uranus assigned to it, modern astrology emphasized disruption, invention, individuation, social reform, independence, and future-oriented thinking.",
+    mo: "Aquarius is one of the signs where I most want to know which rulership framework is useful and what the person actually does with fixed air. It can be principled, inventive, communal, detached, stubborn, reforming, or highly structured. Those are related possibilities, not one personality type.",
     differs:
-      "Rulership again. Traditional practice reads Aquarius through Saturn: structure, society, endurance. Modern practice reads it through Uranus: disruption, genius, sudden change. The two portraits barely resemble each other, and I usually look at both.",
+      "Traditional practice reads Aquarius through Saturn; modern practice often adds or substitutes Uranus. The different rulers change the interpretive emphasis considerably.",
     misconception:
-      "That Aquarius is emotionally detached. The distance is usually a working method, the sign steps back in order to see the whole system, and it often masks strong feeling about people in the aggregate.",
+      "That Aquarius is automatically rebellious, futuristic, or emotionally detached. Fixed-air symbolism can just as easily describe consistency of thought, systems awareness, principle, or loyalty to a group or idea.",
     strengths:
-      "Original thinking, humanitarian instinct, and steadiness in its convictions even when they cost social comfort.",
+      "Aquarius can contribute systems thinking, independence of mind, social perspective, consistency of principle, invention, and long-range conceptual thinking.",
     watchFor:
-      "Perspective can become distance, and principle can outrank person. The growth edge is letting the heart be as engaged as the ideals.",
+      "Perspective can become distance, and principle can become rigidity. The useful question is whether stepping back improves understanding or avoids participation.",
     inRelationship:
-      "Aquarius energy needs friendship at the core of love, and space that is granted rather than negotiated.",
+      "Aquarius can emphasize friendship, intellectual connection, freedom, shared ideals, or nontraditional relational structures. The rest of the chart shows how intimacy is actually approached.",
     atWork:
-      "Strong in systems thinking, technology, research, and mission-driven organizations. Resists hierarchy for its own sake.",
+      "Aquarius symbolism can support systems, technology, science, networks, research, policy, community, innovation, or work oriented toward collective structures.",
   },
   {
     slug: "pisces",
@@ -446,23 +446,23 @@ export const signs: Sign[] = [
       "Winter dissolving into spring: the last sign, where the year lets go.",
     keywords: ["compassion", "imagination", "surrender"],
     style:
-      "Pisces expresses through dissolving. Planets here feel the whole room, blur the boundary between self and other, and reach for what is beyond the visible: art, spirit, dream, mercy.",
+      "Pisces brings a mutable-water style: adapting through feeling, imagination, permeability, compassion, symbolism, surrender, and sensitivity to what is difficult to separate cleanly.",
     traditional:
-      "Jupiter's night home and the exaltation of Venus: a sign of mercy, faith, and abundance of feeling. Mercury is uniquely both in detriment and in fall here, which traditional astrology read as the limits of analysis: some things cannot be reasoned, only felt.",
+      "Jupiter's night home and the exaltation of Venus, Pisces was associated with faith, mercy, abundance, permeability, and the limits of purely analytical judgment. Mercury is both in detriment and fall here.",
     modern:
-      "Modern astrology, assigning Neptune to Pisces, emphasizes transcendence, collective unconscious, and the dissolution of ego boundaries, along with the escapism that shadows all of it.",
-    mo: "Pisces placements feel more than they let on and frequently carry things that were never theirs. Boundaries are the entire curriculum, not to feel less, but so that the compassion has somewhere to stand. A Pisces with boundaries is extraordinary; one without them is exhausted.",
+      "Modern astrology, assigning Neptune to Pisces, emphasizes imagination, transcendence, collective feeling, spirituality, dissolution, idealization, and the risks of escapism or confusion.",
+    mo: "Pisces placements make me curious about sensitivity: what someone picks up, imagines, believes, idealizes, creates, or has difficulty separating from. I do not assume intuition, spirituality, poor boundaries, or artistic talent from the sign alone. Those are different possible expressions of the same symbolic field.",
     differs:
-      "Traditional astrologers read Pisces through Jupiter: faith, mercy, and increase. Modern astrologers read it through Neptune: dissolution, glamour, and the ineffable. Jupiter's version is noticeably more grounded, and worth asking for.",
+      "Traditional astrologers read Pisces through Jupiter; modern astrologers often add Neptune. Jupiter emphasizes faith, meaning, mercy, and increase; Neptune emphasizes permeability, imagination, and dissolution.",
     misconception:
-      "That Pisces is weak or passive. Mutable water adapts rather than resists, which looks like yielding, but water is what wears down stone, and Pisces placements outlast opposition more often than they defeat it.",
+      "That Pisces is weak or passive. Mutable water adapts, absorbs, and changes form; that can be yielding, resilient, imaginative, elusive, compassionate, or overwhelmed depending on context.",
     strengths:
-      "Deep compassion, creative imagination, and an intuitive read on people and currents that logic cannot match.",
+      "Pisces can contribute imagination, compassion, adaptability, symbolic thinking, spiritual sensitivity, artistry, and an ability to perceive atmosphere or emotional nuance.",
     watchFor:
-      "Boundarylessness can mean absorbing what was never yours to carry. The growth edge is compassion that includes yourself, and a working pair of boundaries.",
+      "Permeability can become confusion when distinctions are needed. The answer is not necessarily to feel less, but to know more clearly what belongs to whom and what requires evidence.",
     inRelationship:
-      "Pisces energy loves empathically and needs gentleness in return. Clear agreements protect its tender, generous heart.",
+      "Pisces can emphasize empathy, imagination, idealization, sacrifice, spiritual connection, or emotional permeability in relationship. Clear agreements may become especially important in some charts.",
     atWork:
-      "Gifted in creative, healing, and caring work, and anywhere intuition about people matters. Needs structure supplied by the role, since it rarely supplies its own.",
+      "Pisces symbolism can support creative, spiritual, caring, charitable, artistic, healing, or imaginative work, especially where ambiguity and human complexity are part of the task.",
   },
 ];
