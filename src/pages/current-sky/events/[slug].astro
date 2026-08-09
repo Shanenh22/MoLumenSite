@@ -21,21 +21,6 @@ const slug = event.id.replace(/\.mdx?$/, '');
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
-/**
- * Page title carries the month and year; the on-page h1 does not.
- *
- * Sky events repeat on a cycle, so their names do too — there is a Virgo new
- * moon every year and a Mercury retrograde in Scorpio every few. Publishing the
- * 2027 window immediately produced ten pairs of pages sharing a title
- * ("New Moon in Virgo | Mo Lumen Astrology" for both 2026-09-11 and
- * 2027-08-31), which makes them compete with each other in search results and
- * indistinguishable in a list of tabs or bookmarks.
- *
- * Dating the title is also what a searcher actually types: "virgo new moon
- * september 2026", not "virgo new moon". Fixed here rather than in the 40
- * content files so that every future window inherits it and Mo never has to
- * remember to type a year into a CMS field.
- */
 const monthYear = e.start.toLocaleDateString('en-US', {
   month: 'long',
   year: 'numeric',
@@ -46,21 +31,7 @@ const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: e.title, href: `/current-sky/events/${slug}/` },
 ];
-/* Fifteen sky-event pages carried no image at all, so the hero earns its place.
-   A second decorative band below the article did not: these are short dated
-   notes — three paragraphs and a source line — and the only seam available was
-   between the note and its own citation. Tried and removed.
 
-   The hero is keyed to what the event actually is rather than hashed off the
-   slug, because a page about an eclipse opening on an arbitrary wave is the
-   same "picture for no reason" problem in a quieter form. Unknown types still
-   fall back to the hash, so adding an eventType to the schema cannot leave a
-   page without a hero.
-
-   A single image per type would mean all ten lunation pages opened on the same
-   picture, which is the sibling-duplication problem the imagery work existed to
-   fix. So each type gets a small pool and the slug picks within it: the hero is
-   always about the right kind of event, and no two lunations look alike. */
 const HERO_BY_TYPE: Record<string, SiteImage[]> = {
   eclipse: [celestial.distanceUnderEclipse, ocean.lightBreakingStorm],
   lunation: [
@@ -90,12 +61,6 @@ const schema = [
     publisher: { '@type': 'Organization', name: site.name, url: site.url },
     mainEntityOfPage: `${site.url}/current-sky/events/${slug}/`,
   },
-  /**
-   * These are dated astronomical events, so they are eligible for Event rich
-   * results — the surface that answers "when is the next full moon". Marked
-   * as online and free because that is what they are: the sky, visible to
-   * everyone, at no cost. Nothing here is a Mo Lumen product.
-   */
   {
     '@context': 'https://schema.org',
     '@type': 'Event',
@@ -136,8 +101,6 @@ const schema = [
         <div>
           <p class="eyebrow">{e.eventType}{e.sign ? ` · ${e.sign}` : ''}</p>
           <h1>{e.title}</h1>
-          {/* Same reasoning as the blog byline: a link to the training, not a
-              list of it. See the note in src/pages/blog/[slug].astro. */}
           <p class="card__meta">
             {fmt(e.start)}{e.end ? ` – ${fmt(e.end)}` : ''} · by
             <a href="/about/">Mo Lumen</a> · <a href="/credentials/">how I trained</a>
@@ -160,8 +123,10 @@ const schema = [
         <Content />
         <hr />
         <p class="card__meta">
-          Astronomical data: {e.sourceNote} The interpretation is mine. Astrology offers
-          perspective, not certainty, and your choices remain your own.
+          Astronomical data: {e.sourceNote} The date and position are the observable framework; the
+          meaning I draw from them is astrological interpretation. This note describes the shared
+          sky, not a personal prediction. Your chart and lived circumstances determine how, or
+          whether, the symbolism becomes personally relevant.
         </p>
       </div>
     </section>
@@ -169,7 +134,9 @@ const schema = [
     <RisingSignGuidance eventType={e.eventType} title={e.title} sign={e.sign} />
   </article>
   <CTABand
-    heading="What does this stir in your chart?"
-    body="Sky events land differently for every chart. A reading connects the current sky to yours."
+    heading="What does this touch in your chart?"
+    body="The shared sky gives us a pattern to watch. A personal reading adds your houses, natal contacts, timing, and the life you are actually living."
+    buttonLabel="Find Your Reading"
+    buttonHref="/reading-finder/"
   />
 </BaseLayout>
