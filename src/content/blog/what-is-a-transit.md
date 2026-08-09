@@ -1,6 +1,6 @@
 ---
-title: "What Is a Transit, and Why Does Timing Work at All?"
-description: "Your birth chart is fixed. The sky isn't. Transits are the moving planets making contact with your natal positions: the mechanism behind every timing question in astrology."
+title: "What Is a Transit, and Why Does Timing Matter?"
+description: "A transit compares the moving sky with the natal chart. Here is what that relationship can show, why slower cycles last longer, and why no transit should be read in isolation."
 publishDate: 2026-08-04
 category: "Timing"
 tags: ["transits", "timing", "outer planets", "technique"]
@@ -9,93 +9,64 @@ draft: false
 ownerReview: true
 ---
 
-Nearly every question people bring to a reading is a timing question wearing other clothes. _Is this
-the moment to leave?_ _Why does this year feel like wading?_ _When does it ease?_
+A natal chart records one moment. The sky keeps moving.
 
-Transits are how astrology attempts to answer those, and the mechanism is simpler than most people
-expect.
+Transits are one of the main ways astrologers compare those two things: where the planets are now and where the planets, angles, and other points were at birth.
 
-## The basic mechanism
+The calculation is straightforward. The interpretation is where the work begins.
 
-Your birth chart is a fixed snapshot: where every planet stood at the moment you arrived. It never
-changes.
+## The basic idea
 
-The sky, meanwhile, keeps moving. Right now Saturn is somewhere, Jupiter is somewhere, and both are
-at specific degrees of specific signs.
+Suppose your natal Sun is at 15° Taurus. If transiting Saturn reaches 15° Taurus, Saturn is conjunct your natal Sun. If it reaches 15° Aquarius, it is square that Sun by degree.
 
-A transit is what we call it when a currently-moving planet forms a geometric relationship with one
-of your fixed natal positions. When Saturn arrives at the exact degree your natal Sun occupies,
-Saturn is transiting your Sun. That contact has a start, a peak, and an end, and its dates can be
-calculated years in advance.
+Those contacts can be calculated precisely. We can know when a transiting planet enters orb, when the aspect is exact, whether retrograde motion brings it back across the same degree, and when it finally separates.
 
-That's it. There's no additional machinery. The whole of predictive astrology rests on this
-correspondence between where the planets are now and where they were when you were born.
+What the calculation does **not** tell us by itself is the event.
 
-## Why speed is the important variable
+That distinction matters. The geometry is objective within the astrological chart. The meaning is interpretation.
 
-The character of a transit depends mostly on how fast the transiting planet moves.
+## Speed changes the scale of the conversation
 
-**The Moon** completes a full circuit in about twenty-eight days, touching everything in your chart
-every month. Its transits last hours. They describe mood and daily texture, and they are almost
-never worth planning around.
+The Moon moves through the zodiac quickly, so its contacts are brief. Saturn moves slowly, so a significant Saturn transit can develop over many months. Uranus, Neptune, and Pluto can stay within range of a natal point for much longer.
 
-**The Sun, Mercury, Venus and Mars** take roughly a year, or two for Mars. Days to weeks. Useful for
-fine-grained timing, when a conversation might go more smoothly, when energy is available.
+That is why astrologers usually treat slower transits as longer chapters rather than isolated days. A fast planet may describe a short activation inside a larger pattern; a slow planet can provide part of the background against which many shorter events unfold.
 
-**Jupiter** takes about twelve years, spending roughly a year per sign. Its transits describe the
-theme of a year.
+But slower does not automatically mean more important. Importance depends on the natal chart, the exact contact, the role of the planets involved, other timing techniques, and what is actually happening in the person's life.
 
-**Saturn** takes about twenty-nine and a half years, two to three years per sign. Its transits
-describe chapters, and they're the ones people feel as a period of their life rather than an event.
+## Why a transit can make several exact contacts
 
-**Uranus, Neptune and Pluto** take decades. Pluto's orbit is roughly 248 years. A single Pluto
-transit to a natal planet can run for several years with multiple exact passes. These describe eras,
-and people often can't see them properly until afterwards.
+Because planets can appear to reverse direction from Earth's point of view, a transiting planet may cross the same natal degree, move back across it during retrograde motion, and later cross it again after stationing direct.
 
-The rule of thumb: the slower the planet, the longer the transit and the more structural its
-subject matter.
+That can create several exact passes inside one longer period.
 
-## Why they hit more than once
+I do not assume those passes have to follow a scripted sequence such as "problem, review, resolution." Sometimes the first exact hit is the most obvious. Sometimes the middle one is. Sometimes the whole period is subtle until hindsight makes the pattern easier to see.
 
-Planets appear to go retrograde, a viewing angle produced by our own orbit, not an actual reversal.
-So an outer planet typically crosses a sensitive degree, backs over it, and crosses again. Three
-passes over eighteen months is common.
+The dates help us observe. They do not force the story.
 
-This is why significant transits feel like a process rather than a date. The first pass raises the
-question. The retrograde pass reconsiders it. The final pass tends to settle it.
+## A transit describes a relationship, not a verdict
 
-If you've noticed that hard periods in your life had a shape (something surfaced, went quiet,
-returned, resolved), that's frequently what you were watching.
+Take Saturn moving through the seventh house. It may make partnership, agreements, obligations, or one-to-one relationships more relevant to the conversation. But that does not tell me whether someone will marry, divorce, sign a contract, deepen a friendship, or simply become more aware of how they handle commitment.
 
-## What transits describe, and what they don't
+To say more, I need more chart.
 
-**They describe conditions, not events.** Saturn transiting your seventh house describes a period
-when partnership is under structural review. It does not specify a divorce, a wedding, a business
-partnership, or a long conversation that clears the air. All four are the same transit expressing
-through different lives and different choices.
+Which sign is involved? What rules the seventh? What is Saturn contacting? What is happening to Venus? What other timing is active? Is partnership even the question the client brought?
 
-This is the point where astrology is most often oversold, and where I'd want you to be most
-sceptical of confident claims. **The transit is real and calculable. The event is not.** Anyone
-telling you exactly what will happen has stepped past what the technique supports.
+That is synthesis. A single transit is only one piece.
 
-**They don't act alone.** At any moment you have several transits running. A difficult Saturn
-contact alongside a supportive Jupiter one is a different year from the Saturn contact by itself.
-Reading one transit in isolation is the commonest way to frighten yourself unnecessarily.
+## General sky and personal timing are different products
 
-**They're weighted by your chart, not by the news.** A transit everyone is talking about may touch
-nothing sensitive in your chart, while something nobody mentions sits exactly on your Moon. General
-forecasts can't know which.
+When I write about [Current Sky](/current-sky/), I am describing a configuration all of us can observe and the symbolism astrologers associate with it. That can be useful for learning and reflection.
 
-## The useful way to use them
+A personal timing reading asks a different question: **What is the moving sky doing in relation to this natal chart?**
 
-Transits are best at answering _what season is this, and roughly how long does it run._ That's
-genuinely valuable: knowing you're in a two-year consolidation rather than a permanent state
-changes how you spend your energy.
+That is where houses, exact contacts, rulerships, natal condition, and lived context enter. The same Saturn position in the sky can be central for one person and peripheral for another.
 
-They're worst at answering _what exactly will happen and when._ Pressure applied to a treated
-question is not the same as a predicted outcome.
+## What transits are good for
 
-The [transits page](/explore/transits/) covers the major contacts in more depth,
-[Current Sky](/current-sky/) tracks what's moving now, and a
-[transit reading](/readings/monthly-transits/) looks at what's actually touching your chart rather
-than the sky in general.
+I find them especially useful for understanding scale and timing: when a longer process begins to build, when it becomes exact, when it repeats, and when it starts to separate.
+
+That can help answer questions such as: *Why does this feel especially active now? Is this a short spike or part of a longer cycle? What other parts of the chart are being drawn into the same story?*
+
+Those are different questions from *What exactly will happen on Tuesday?*
+
+The [transits page](/explore/transits/) goes deeper into the technique, and [Current Sky](/current-sky/) tracks the shared sky. For individualized timing, [Monthly Personal Transits](/readings/monthly-personal-transits/) is for established clients, while a [Life Changes reading](/readings/life-changes/) is a better fit when a larger transition or decision is the real reason you are looking.
