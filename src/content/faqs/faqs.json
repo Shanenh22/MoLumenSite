@@ -2,112 +2,112 @@
   {
     "id": "natal-60-or-90",
     "question": "Should I choose 60 or 90 minutes?",
-    "answer": "Take the ninety if you can. Sixty minutes is a genuine reading, enough to lay out the shape of the chart and connect it to what's going on for you. But people who arrive with a real question almost always want more time than they expect, and the extra half hour is usually where the conversation gets useful: room for the whole chart, the patterns running through it, and your questions as we go rather than crammed into the last five minutes. Both are on the booking page at $200 and $150.",
+    "answer": "Both are complete readings. Sixty minutes gives us enough time to establish the natal foundation, connect it with your lived experience, and look at important current conditions. Ninety minutes gives the conversation more room to develop, especially if you have several questions or prefer not to feel rushed. The booking page shows both options at $150 and $200.",
     "scope": "natal",
     "order": 1
   },
   {
     "id": "natal-no-astrology-knowledge",
     "question": "Do I need to know any astrology first?",
-    "answer": "No: that's my job. You don't need to have read anything, and you don't need to believe anything either. What helps is arriving with two or three real questions you're actually living with. I taught natural sciences for years before this, so explaining things properly is the part I'm good at.",
+    "answer": "No. Knowing the astrology is my job. You do not need to study beforehand or arrive fluent in the terminology. What helps most is knowing what has been on your mind lately, even if you are not yet sure how to turn it into a perfect question.",
     "scope": "natal",
     "order": 2
   },
   {
     "id": "relationship-both-attend",
     "question": "Do both of us need to be there?",
-    "answer": "Both parties' presence is preferred, and it's a better session when you're both in it. A lot of what comes up is worth hearing together rather than relayed afterwards. I also won't read someone's chart without their knowledge, so the other person does need to know it's happening and be willing.",
+    "answer": "Both parties' presence is preferred, and the conversation is usually more useful when you are both part of it. Many of the dynamics are easier to understand together than to relay afterward. I also will not read someone's chart without their knowledge, so the other person needs to know the consultation is happening and be willing.",
     "scope": "relationship",
     "order": 1
   },
   {
     "id": "relationship-birth-data",
     "question": "What birth information do you need for both people?",
-    "answer": "Birth date, exact time, and place for each of you, ideally from birth certificates. The time matters most: it's what sets each rising sign and house structure, and synastry reads the two charts against each other, so an uncertain time on either side widens the margin on both.",
+    "answer": "Birth date, exact time, and place for each person, ideally from birth certificates or another reliable record. The time matters because it establishes the rising sign and house structure. If one or both times are uncertain, tell me so we can be clear about which parts of the comparison are solid and which require more caution.",
     "scope": "relationship",
     "order": 2
   },
   {
     "id": "relationship-not-only-romantic",
     "question": "Is this only for romantic partners?",
-    "answer": "No. It's for any two people trying to bond in a constructive way: couples and partners, but equally a parent and adult child, business partners, or close friends. What the reading looks at is the interaction between two charts: where affinity flows, where friction lives, how each of you communicates and what makes each of you feel secure. None of that is specific to romance.",
+    "answer": "No. It can be useful for any two people trying to understand a meaningful relationship more clearly: couples, partners, a parent and adult child, business partners, or close friends. The focus is the interaction between two charts: where connection comes naturally, where differences create friction, and how each person tends to communicate and experience care and security.",
     "scope": "relationship",
     "order": 3
   },
   {
     "id": "clarity-which-price",
     "question": "Which price applies to me, $100 or $130?",
-    "answer": "It depends on how long it's been since your natal reading with me. Within three months of it, this session is $100; after that it's $130. Both are the same full hour and the same reading: pick the one that matches your timing on the booking page and I'll sort it out with you if you're not sure.",
+    "answer": "It depends on how long it has been since your natal reading with me. Within three months, the one-hour follow-up is $100; after three months, it is $130. The session length is the same. Choose the option that matches your timing on the booking page, and contact me if you are unsure which applies.",
     "scope": "want-more-clarity",
     "order": 1
   },
   {
     "id": "what-is-reading",
     "question": "What actually happens in an astrology reading?",
-    "answer": "We meet one-on-one (Zoom, phone, or in person in DFW by arrangement) and walk through your chart together. It's a conversation, not a performance: you bring questions, I bring the chart and thirty-plus symbols' worth of perspective, and we connect what the sky shows to what your life is actually doing. You'll leave with a recording and your chart.",
+    "answer": "We meet one-on-one by Zoom or phone, or in person in DFW by arrangement. I prepare your chart before we meet, explain what I am seeing, and connect the astrology with the life and questions you bring. I may ask how a possible pattern is showing up for you so the interpretation becomes more specific rather than more generic. You will leave with a recording and your chart.",
     "scope": "global",
     "order": 1
   },
   {
     "id": "is-it-accurate",
     "question": "Can astrology predict my future?",
-    "answer": "No, and be wary of anyone who says otherwise. Astrology describes patterns, seasons, and timing: which themes are active, when doors tend to open, where friction is likely. What you do inside those conditions remains entirely yours. There is fate and there is choice; readings are about using both well.",
+    "answer": "Most of the work I do is better described as identifying patterns, timing, conditions, and possibilities than predicting one unavoidable future. Your choices and circumstances still matter. Some branches of astrology, including horary, are designed to answer a specific question more directly; when I use those methods, I will be clear about what the technique supports and where uncertainty remains.",
     "scope": "global",
     "order": 2
   },
   {
     "id": "birth-time",
     "question": "Why do you need my exact birth time?",
-    "answer": "The rising sign, and with it your entire house structure, changes roughly every two hours. An accurate birth time is the difference between a chart tailored to you and one that's merely close. Check your birth certificate; in the US, vital records offices can provide the long form.",
+    "answer": "The birth time establishes your rising sign and house structure, both of which are important parts of a natal chart. A reliable recorded time gives me more confidence in those parts of the chart. Check your birth certificate or another dependable record if you can; the birth-time guide walks through the search in more detail.",
     "scope": "global",
     "order": 3
   },
   {
     "id": "no-birth-time",
     "question": "What if I don't know my birth time?",
-    "answer": "You still have options. Tell me when booking: an unknown birth time limits some techniques (especially houses and the rising sign), but plenty of the chart doesn't depend on it, and we can shape the reading around what's solid. If you can, hunt down the time first. The preparation page shows exactly where to look.",
+    "answer": "You still have options. Tell me when you book. An unknown birth time limits some techniques, especially those involving the rising sign and houses, but other parts of the chart do not depend on it. We can work with what is reliable and be clear about what remains uncertain. The preparation page shows where to look if you want to search for the time first.",
     "scope": "global",
     "order": 4
   },
   {
     "id": "which-reading",
     "question": "Which reading should I start with?",
-    "answer": "New clients start with the Natal Chart Reading, 60 or 90 minutes, your choice, because everything else builds on it. Couples and close pairs can start with the Relationship Consultation. If you've already had your natal reading with Mo, the follow-ups open up: Want More Clarity for depth, Solar Return near your birthday, Life Changes when things are moving, Monthly Transits for ongoing timing, or a Quick Check-In for one urgent topic. The Reading Finder walks you through it in under a minute.",
+    "answer": "Most new clients start with the Natal Chart Reading because it establishes the chart and the lived context that later readings can build on. The Relationship Consultation is also open to new clients when the relationship itself is the reason you are coming. If you have already had your natal reading with me, follow-up options include Want More Clarity, Solar Return, Life Changes, Monthly Transits, and Quick Check-In. The Reading Finder can suggest a place to start in five questions.",
     "scope": "global",
     "order": 5
   },
   {
     "id": "how-to-prepare",
     "question": "How should I prepare?",
-    "answer": "Confirm your birth data, bring two or three genuine questions, and find a quiet place where you can speak freely. Some people bring a notebook; the recording means you don't have to scribble. Details are on the preparation page.",
+    "answer": "Confirm your birth information if you can, think about what has genuinely been on your mind, and find a quiet place where you can speak comfortably. You do not need to prepare a perfect list of questions or study any astrology. The preparation page has the details.",
     "scope": "global",
     "order": 6
   },
   {
     "id": "recorded",
     "question": "Will the session be recorded?",
-    "answer": "Yes: recordings are included with every live reading so you can listen again later. Most people catch things on the second listen that they missed in the moment.",
+    "answer": "Yes. Recordings are included with every live reading so you can return to the conversation afterward without needing to take extensive notes while we talk.",
     "scope": "global",
     "order": 7
   },
   {
     "id": "is-this-therapy",
     "question": "Is a reading a substitute for therapy or professional advice?",
-    "answer": "No. Readings are not medical, psychological, legal, or financial services, and I'll be the first to say so if your question belongs with one of those professionals. Astrology offers perspective and timing: a different kind of help, and honest about its limits.",
+    "answer": "No. Astrology is not medical, psychological, legal, or financial care. If your question belongs with one of those professionals, I will say so plainly. A reading offers a different kind of perspective, and part of practicing responsibly is being clear about its limits.",
     "scope": "global",
     "order": 8
   },
   {
     "id": "religion",
     "question": "Does astrology conflict with my faith or require any beliefs?",
-    "answer": "You don't need to believe anything in particular to find a reading useful. Most clients treat the chart as a reflective tool, a structured way to think about their life. Take what serves you; leave the rest.",
+    "answer": "Astrology is not a faith you have to believe in. I use it as a tool that can offer another perspective on how you interact with life, your circumstances, and the patterns around you. You are free to consider what is useful, question what is not, and keep your own beliefs and judgment intact.",
     "scope": "global",
     "order": 9
   },
   {
     "id": "online-how",
     "question": "How do online readings work?",
-    "answer": "After booking you'll receive a confirmation with a meeting link and preparation notes. At the scheduled time we meet by video or phone, times display in your own time zone at booking. The conversation is identical to an in-person session, recording included.",
+    "answer": "After booking, you will receive a confirmation with your meeting information and preparation notes. At the scheduled time we meet by Zoom or phone; appointment times display in your own time zone when you book. The consultation is conversational and the recording is included.",
     "scope": "global",
     "order": 10
   }
