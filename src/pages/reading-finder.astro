@@ -68,7 +68,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
 <BaseLayout
   title="Reading Finder, which astrology reading fits you?"
-  description="Answer five quick questions in plain language and get a straight read on which astrology reading fits your situation. No account, nothing stored, no pressure."
+  description="Answer five quick questions about what brings you here and get Mo's suggestion for which astrology reading may fit. No account, nothing stored, no pressure."
   path="/reading-finder/"
   breadcrumbs={crumbs}
 >
@@ -79,9 +79,9 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       <p class="eyebrow">A little help choosing</p>
       <h1>Find your reading</h1>
       <p class="lede">
-        Five quick questions, plain language, and a straight answer at the end, not just a product
-        name, but what I'd actually suggest and why. Your answers stay in your browser; nothing is
-        stored, and nothing is sent to me unless you choose to send it.
+        Five quick questions about what brings you here, followed by the reading I would suggest
+        and why. Your answers stay in your browser; nothing is stored or sent to me unless you
+        choose to send it.
       </p>
       </div>
       <img
@@ -107,18 +107,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         data-email={site.email}
       >
         <form>
-          {/*
-            Question order is deliberate. The old finder opened with "have you
-            had a reading before?" — administratively useful and emotionally
-            flat. It now opens with what brought them here, because the first
-            question sets whether this feels like a form or like the start of a
-            conversation, and that decides completion.
-
-            Only `focus` (relationship) and `depth` / `est-need` change the
-            recommendation. `birthtime` and `when` exist to make the readback
-            specific and to route the right closing action — they earn their
-            place by what the reader gets back, not by segmenting them.
-          */}
           <div data-step="focus">
             <fieldset>
               <legend>What's bringing you here right now?</legend>
@@ -128,7 +116,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               >
               <label class="choice"
                 ><input type="radio" name="focus" value="patterns" />
-                <span>I want to understand myself, why I keep doing what I do</span></label
+                <span>I want to understand a pattern I keep noticing in myself</span></label
               >
               <label class="choice"
                 ><input type="radio" name="focus" value="relationship" />
@@ -136,11 +124,11 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               >
               <label class="choice"
                 ><input type="radio" name="focus" value="season" />
-                <span>I'm in a hard season and want to make sense of it</span></label
+                <span>I'm in a difficult season and want another perspective on it</span></label
               >
               <label class="choice"
                 ><input type="radio" name="focus" value="curious" />
-                <span>Honest answer: I'm curious, and I want a good first look</span></label
+                <span>I'm curious, and I want a thoughtful first look</span></label
               >
             </fieldset>
           </div>
@@ -154,7 +142,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               >
               <label class="choice"
                 ><input type="radio" name="who" value="established" />
-                <span>Yes, I've had my natal reading and I'm back for more</span></label
+                <span>Yes, I've had my natal reading and I'm returning</span></label
               >
             </fieldset>
           </div>
@@ -164,15 +152,15 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               <legend>How much time feels right?</legend>
               <label class="choice"
                 ><input type="radio" name="depth" value="full" />
-                <span>Give me the full tour, I'd rather not rush it (90 minutes)</span></label
+                <span>I'd like more room for the conversation (90 minutes)</span></label
               >
               <label class="choice"
                 ><input type="radio" name="depth" value="focused" />
-                <span>A solid first look is plenty for now (60 minutes)</span></label
+                <span>A solid first reading feels right for now (60 minutes)</span></label
               >
               <label class="choice"
                 ><input type="radio" name="depth" value="unsure" />
-                <span>I genuinely don't know, tell me what you'd suggest</span></label
+                <span>I'm not sure; tell me what you'd suggest</span></label
               >
             </fieldset>
           </div>
@@ -182,40 +170,31 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               <legend>What do you need right now?</legend>
               <label class="choice"
                 ><input type="radio" name="est-need" value="deeper" />
-                <span>To go deeper into parts of my chart or what's ahead</span></label
+                <span>I want to go deeper into part of my chart or what's ahead</span></label
               >
               <label class="choice"
                 ><input type="radio" name="est-need" value="year" />
-                <span>My year ahead. It's near my birthday</span></label
+                <span>I want to look at the year ahead near my birthday</span></label
               >
               <label class="choice"
                 ><input type="radio" name="est-need" value="change" />
-                <span>I'm navigating a change: job, home, direction</span></label
+                <span>I'm navigating a change: job, home, direction, or another transition</span></label
               >
               <label class="choice"
                 ><input type="radio" name="est-need" value="monthly" />
-                <span>Ongoing guidance. A monthly rhythm sounds right</span></label
+                <span>I want an ongoing monthly look at my personal timing</span></label
               >
               <label class="choice"
                 ><input type="radio" name="est-need" value="one-topic" />
-                <span>One specific topic that needs attention now</span></label
+                <span>I have one specific topic that needs attention now</span></label
               >
               <label class="choice"
                 ><input type="radio" name="est-need" value="relationship" />
-                <span>A relationship between two people</span></label
+                <span>I want to look at a relationship between two people</span></label
               >
             </fieldset>
           </div>
 
-          {/*
-            The birth-time question earns its place twice over. It is the single
-            biggest piece of friction in this funnel — there is a whole page
-            about tracking one down — and asking here turns a silent drop-off
-            into a moment of help. It also genuinely changes what I'd say.
-
-            Deliberately yes / no / not sure. Never the actual time: birth data
-            stays out of analytics, URLs and email, per the site's own rule.
-          */}
           <div data-step="birthtime" hidden>
             <fieldset>
               <legend>Do you know your birth time?</legend>
@@ -247,7 +226,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
               >
               <label class="choice"
                 ><input type="radio" name="when" value="exploring" />
-                <span>No timeline. I'm still working out whether this is for me</span></label
+                <span>No timeline. I'm still deciding whether a reading is for me</span></label
               >
             </fieldset>
           </div>
@@ -264,43 +243,27 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
         <noscript>
           <p>
-            The finder needs JavaScript, but choosing is simple: first reading with Mo → the
-            <a href="/readings/natal/">Natal Chart Reading</a> (60 or 90 minutes); two people →
-            the <a href="/readings/relationship/">Relationship Consultation</a>. Already an
-            established client? See the follow-ups on the
-            <a href="/readings/">readings page</a>: Want More Clarity, Solar Return, Life
-            Changes, Monthly Transits, or a Quick Check-In.
+            The finder needs JavaScript, but choosing is simple: most first-time clients begin with
+            the <a href="/readings/natal/">Natal Chart Reading</a> (60 or 90 minutes); a
+            relationship between two people can begin with the
+            <a href="/readings/relationship/">Relationship Consultation</a>. If you've already
+            had your natal reading with me, see the follow-ups on the
+            <a href="/readings/">readings page</a>.
           </p>
         </noscript>
       </div>
       <p class="card__meta" style="margin-top: var(--space-4);">
-        The suggestion is exactly that: a suggestion. Every reading is open to you, and
-        <a href="/contact/">I'm happy to advise</a> if you're torn.
+        This is a suggestion, not a command. Eligibility still applies to follow-up readings, and
+        <a href="/contact/">I'm happy to advise</a> if you're unsure.
       </p>
 
-      {/*
-        The nurture exit, for the people who answer "no timeline — I'm still
-        working out whether this is for me".
-
-        It ships in the markup and hidden, revealed by the result renderer only
-        for that answer, because the finder's result is built with innerHTML
-        and a Kit embed cannot survive that. It is never a gate: the
-        recommendation, the price and all three booking exits are already on
-        screen above it by the time this appears, and answering the finder
-        never requires an email address.
-
-        This does not replace the free paths that answer already offers — the
-        sky letter and the reference library are still named first, and still
-        free with no email required. This is one more thing to do, for someone
-        who has just told us they are not buying today and would otherwise
-        leave with nothing.
-      */}
       <div class="finder__nurture" data-finder-nurture hidden>
-        <h2 id="finder-newsletter">No rush: shall I keep you posted?</h2>
+        <h2 id="finder-newsletter">Not ready to book? Stay curious.</h2>
         <p>
-          The Sky This Month is one email a month: what's moving overhead, what it means, and one
-          practical thing to do about it. Five minutes to read, unsubscribe anytime. It's the
-          easiest way to get a feel for how I think before you spend anything.
+          My monthly note includes <strong>The Sky This Month</strong>, plus something that has
+          caught my attention: a question, a pattern, a connection, or something in the living
+          world that made me look twice. It is an easy way to spend a little time with how I think
+          before deciding whether a reading is right for you.
         </p>
         <NewsletterForm source="reading-finder" labelledby="finder-newsletter" />
       </div>
@@ -312,7 +275,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
   const root = document.querySelector<HTMLElement>('[data-finder]');
   if (root) {
     const services = JSON.parse(root.dataset.services || '{}');
-    // Server-resolved booking targets. Nothing here builds a /book/ URL.
     const eventHrefs = JSON.parse(root.dataset.eventHrefs || '{}');
     const MO_EMAIL = root.dataset.email || '';
     const stepEls: Record<string, HTMLElement> = {};
@@ -327,9 +289,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     const form = root.querySelector('form')!;
     let path: string[] = ['focus'];
 
-    // Shared helper from BaseLayout. These four events existed and fired into
-    // nothing for months because gtag was never defined — the optional call
-    // made a missing integration indistinguishable from a working one.
     const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).mlTrack?.(event, params);
     track('reading_finder_start');
@@ -337,28 +296,15 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
     const answer = (name: string) =>
       form.querySelector<HTMLInputElement>(`input[name="${name}"]:checked`)?.value ?? null;
 
-    /**
-     * Five steps for everyone. The third differs by whether they're an existing
-     * client, so the count stays predictable and the progress indicator never
-     * lies — a bar that jumps from "3 of 4" to "4 of 5" reads as a trick.
-     */
     function nextStepId(): string | null {
       const current = path[path.length - 1];
       if (current === 'focus') return 'who';
       if (current === 'who') return answer('who') === 'established' ? 'est-need' : 'depth';
       if (current === 'depth' || current === 'est-need') return 'birthtime';
       if (current === 'birthtime') return 'when';
-      return null; // `when` produces the result
+      return null;
     }
 
-    /**
-     * `primary` is a SERVICE slug — it indexes the `services` map and builds
-     * /readings/<slug>/ links. `book` is a Cal.com EVENT key and only ever goes
-     * into /book/?service=. They are different vocabularies that have drifted
-     * apart before (see the vocabulary-drift note in docs/session-handoff.md),
-     * so they are separate fields here rather than one value used for both.
-     * When they happen to match, `book` is simply omitted.
-     */
     function recommend(): {
       primary: string;
       book?: string;
@@ -368,12 +314,11 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       const who = answer('who');
       const focus = answer('focus');
 
-      // A relationship question routes the same way whoever is asking.
       if (focus === 'relationship')
         return {
           primary: 'relationship',
           alt: who === 'new' ? 'natal' : 'want-more-clarity',
-          why: "I'd read both natal charts together, where affinity flows, where friction lives, and how each of you communicates and feels cared for. It works best with both of you there. If it turns out the real question is about your own patterns in relationships rather than this particular pairing, say so and we'll start with your chart instead.",
+          why: "I'd look at both natal charts together: where connection comes naturally, where differences create friction, and how each of you tends to communicate and experience care and security. It works best with both of you present. If the question turns out to be more about your own relationship patterns than this particular pairing, we can begin with your chart instead.",
         };
 
       if (who === 'new') {
@@ -383,20 +328,20 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
             primary: 'natal',
             book: 'natal-60',
             alt: null,
-            why: "We start where I start with everyone: your whole birth chart. Sixty minutes is a real reading, enough to lay out the shape of the chart and connect it to what's actually going on for you. If you find yourself with more questions afterwards, that's what the follow-up is for.",
+            why: "Sixty minutes gives us a complete first reading: enough time to establish the natal foundation, connect it with the life you're living, and look at important current conditions. If new questions emerge afterward, a follow-up can build on what we have already established.",
           };
         if (depth === 'full')
           return {
             primary: 'natal',
             book: 'natal-90',
             alt: null,
-            why: "Ninety minutes is the full tour: the whole chart, the patterns running through it, and what the current sky is stirring, with room for your questions as we go rather than crammed into the last five minutes. It's the foundation every other reading builds on.",
+            why: "Ninety minutes gives the first conversation more room. We can establish the natal foundation, look at important current conditions, and leave more space for your questions and the way the chart is actually showing up in your life.",
           };
         return {
           primary: 'natal',
           book: 'natal-90',
           alt: null,
-          why: "Since you asked what I'd suggest: take the ninety. People who arrive with a real question almost always want more time than they expect, and the extra half hour is where the conversation usually gets useful. Sixty is a genuine reading too if you'd rather start smaller: both are on the booking page.",
+          why: "If you're asking what I'd suggest, I would choose ninety minutes for the extra room it gives the first conversation. Sixty minutes is still a complete reading if you would rather begin there; both options are available on the booking page.",
         };
       }
       const need = answer('est-need');
@@ -404,59 +349,42 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         return {
           primary: 'solar-return',
           alt: 'monthly-transits',
-          why: 'The Solar Return Reading is the yearly check-in: when the Sun returns to its birth position, the rest of the sky has moved, and your new year has its own themes. Book it near your birthday.',
+          why: 'The Solar Return Reading is an annual check-in around your birthday. I read the solar return chart in relationship with your natal chart to see which themes and areas of emphasis stand out for the year ahead.',
         };
       if (need === 'change')
         return {
           primary: 'life-changes',
           alt: 'want-more-clarity',
-          why: "The Life Changes Consultation reads the current sky against your natal chart, focused on the transition you're in, which areas are being influenced, and the themes emerging.",
+          why: "The Life Changes Consultation focuses on the transition you're navigating and the current transits to your natal chart, so we can look at which areas are being emphasized and what larger pattern may be emerging around the change.",
         };
       if (need === 'monthly')
         return {
           primary: 'monthly-transits',
           alt: 'solar-return',
-          why: "Monthly Personal Transits is a standing 30-minute Zoom each month on how the month's movements resonate with your chart specifically: individualized, not a general forecast.",
+          why: "Monthly Personal Transits is a standing 30-minute session focused on how the month's planetary movements are interacting with your chart specifically. It is individualized timing work, not a general forecast.",
         };
       if (need === 'one-topic')
         return {
           primary: 'quick-check-in',
           alt: 'want-more-clarity',
-          why: 'The Quick Check-In takes one named topic, the suddenly-chaotic area, or the one place you want to grow, and spends thirty focused minutes on how your current influences are affecting it.',
+          why: 'The Quick Check-In gives one specific topic thirty focused minutes. You name the situation, and I look at the current astrological influences connected with that area so we can add context without trying to cover everything at once.',
         };
       if (need === 'relationship')
         return {
           primary: 'relationship',
           alt: null,
-          why: "The Relationship Consultation reads both natal charts together: affinities, frictions, communication styles, and what helps each of you feel secure. Both people's presence is preferred.",
+          why: "The Relationship Consultation looks at both natal charts together: the patterns of connection, difference, communication, and security that stand out between you. Both people's presence is preferred.",
         };
       return {
         primary: 'want-more-clarity',
         alt: 'quick-check-in',
-        why: "Want More Clarity is exactly this: a full hour to go deeper into parts of your chart or future aspects: $100 if it's within three months of your natal reading, $130 after.",
+        why: "Want More Clarity is a full hour to return to the natal foundation we already share and go deeper into the part of the chart, upcoming aspects, or questions that matter now. It is $100 within three months of your natal reading and $130 after.",
       };
     }
 
-    /**
-     * Per-step progression, so the length of this finder can be argued about
-     * with evidence instead of with CRO folklore.
-     *
-     * It went from two questions to five deliberately — the readback is the
-     * whole point and it needs the answers — but nobody has ever been able to
-     * see what that cost, because the only events were start and complete.
-     * A drop-off concentrated on one question is a fixable question; an even
-     * bleed across five is an argument for a shorter finder. Those look
-     * identical from start/complete alone.
-     *
-     * The step id and its number, and nothing else. Never the answer: two of
-     * these questions are about birth time and personal circumstance, and the
-     * site's rule is that none of that reaches analytics. `reading_finder_intent`
-     * already reports the timing answer, which is the one enumerated label
-     * that says who to book and who to keep warm.
-     */
     const seenSteps = new Set<string>();
     function trackStep(stepId: string, index: number) {
-      if (seenSteps.has(stepId)) return; // going Back must not re-report
+      if (seenSteps.has(stepId)) return;
       seenSteps.add(stepId);
       track('reading_finder_step', { step: stepId, number: String(index + 1) });
     }
@@ -476,15 +404,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       stepEls[stepId].querySelector<HTMLInputElement>('input')?.focus();
     }
 
-    /**
-     * The readback — "here's what I'm hearing" — in Mo's voice.
-     *
-     * This is the point of asking five questions instead of two. A bare product
-     * name is a vending machine; reflecting someone's own situation back to them
-     * before naming a price is how you demonstrate you were listening, and it is
-     * the closest a website gets to how the actual reading opens. It also makes
-     * the "send this to Mo" option honest — there is something worth sending.
-     */
     const ESC: Record<string, string> = {
       '&': '&amp;',
       '<': '&lt;',
@@ -495,29 +414,16 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
     const FOCUS_LINE: Record<string, string> = {
       crossroads: "you're at a crossroads where the timing matters",
-      patterns: 'you want to understand your own patterns',
+      patterns: 'you want to understand a pattern you keep noticing in yourself',
       relationship: "you're asking about a relationship between two people",
-      season: "you're in a hard season and want to make sense of it",
-      curious: "you're curious and want a good first look",
+      season: "you're in a difficult season and want another perspective on it",
+      curious: "you're curious and want a thoughtful first look",
     };
-    /**
-     * The handoff to the Birth Time Confidence check runs in ONE direction:
-     * from here to there, never back.
-     *
-     * This finder already asks the birth-time question, and it is the right
-     * place for it — it is the biggest piece of friction in this funnel and
-     * asking here turns a silent drop-off into a moment of help. What it must
-     * not do is compete. The confidence check grades evidence quality and never
-     * recommends a reading; this finder recommends a reading and does not grade
-     * anything. Two tools answering the same question in different shapes is
-     * worse than either alone, so `approx` and `no` point at the check and the
-     * check points back at nothing.
-     */
     const BIRTH_LINE: Record<string, string> = {
-      yes: "You have your birth time, which matters more than people expect. It's what gives us your rising sign and your houses, and that's the difference between a chart that's yours and one that could belong to anybody born that day.",
+      yes: "You have a recorded birth time, which gives me more confidence in your rising sign and house structure.",
       approx:
-        "You know roughly when you were born. That's usually workable: I can often narrow it from the part of the day, and I'll tell you honestly if it's too wide to trust the houses. <a href=\"/birth-time-toolkit/#confidence-check\">Three questions will tell you how much weight your time can carry</a>, and <a href=\"/birth-time/\">here's where people usually find the exact one</a>.",
-      no: "You don't have your birth time, and I want to say plainly: that is not a dealbreaker. Your Sun and almost always your Moon are still solid. What we'd be guessing at is the rising sign and the houses, so I'd rather tell you that up front than pretend otherwise. <a href=\"/birth-time/\">Here's where to look for it</a>, a birth certificate is the usual answer, and <a href=\"/birth-time-toolkit/#confidence-check\">this will tell you what you're working with</a> in the meantime.",
+        "You know roughly when you were born. That gives us useful information, but I will be careful about what I treat as certain. <a href=\"/birth-time-toolkit/#confidence-check\">Three questions can help you gauge the strength of the time you have</a>, and <a href=\"/birth-time/\">the birth-time guide</a> shows where people often find a more exact record.",
+      no: "You do not have your birth time, and that does not automatically rule out a useful reading. It limits the rising sign, houses, and some techniques, so I would rather be explicit about those limits than pretend the uncertainty is not there. <a href=\"/birth-time/\">The birth-time guide</a> shows where to look, and <a href=\"/birth-time-toolkit/#confidence-check\">the confidence check</a> can help if you uncover a possible range.",
     };
 
     function readback(): string {
@@ -537,10 +443,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       const { primary, book, alt, why } = recommend();
       const p = services[primary];
       const a = alt ? services[alt] : null;
-      // An explicit `book` is an event the finder chose from a real answer
-      // (the natal 60/90 question). Otherwise take the service's own
-      // resolved target, which is a booking link when the reading has one
-      // obvious option and a link to its priced options when it does not.
       const bookHref = (book && eventHrefs[book]) || p.bookHref;
       const bookLabel = book ? 'Book this reading' : p.bookLabel;
       const when = answer('when');
@@ -548,8 +450,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
 
       track('reading_finder_complete', { recommendation: primary });
       track('reading_recommendation_view', { service: primary });
-      // Intent is the one answer worth reporting: it says who to book and who to
-      // keep warm. No birth data is ever tracked, sent, or put in a URL.
       if (when) track('reading_finder_intent', { intent: when });
 
       Object.values(stepEls).forEach((el) => (el.hidden = true));
@@ -559,11 +459,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       nextBtn.hidden = true;
       progress.textContent = 'Here’s what I’d suggest';
 
-      /**
-       * Three exits, weighted by the timing answer. One button assumes everyone
-       * is ready today; most people are not, and the ones who aren't were
-       * previously given nothing to do but leave.
-       */
       const ready = when === 'soon';
       const mailBody = [
         'Hi Mo,',
@@ -616,11 +511,9 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         ${a ? `<p>Also worth a look: <a href="/readings/${a.slug}/">${esc(a.name)}</a>: ${esc(a.purpose)}</p>` : ''}
         ${
           when === 'exploring'
-            ? `<p>And if you're still working out whether this is for you, don't book anything yet. <a href="/current-sky/">Read the sky letter</a> or <a href="/explore/">the reference library</a> first. Both are free, and they'll tell you more about how I think than any sales page will.</p>`
-            : `<p>The suggestion is exactly that. Every reading is open to you, and this is your call.</p>`
+            ? `<p>If you're still deciding, there is no reason to rush into a reading. <a href="/current-sky/">Current Sky</a>, <a href="/explore/">Explore Astrology</a>, and the newsletter are all ways to spend more time with how I approach the subject first.</p>`
+            : `<p>This is a recommendation, not a verdict. The final choice is yours, with the eligibility requirements shown on each reading page.</p>`
         }`;
-      // The nurture block, for the "still deciding" answer only. Everyone else
-      // has a reading to book and does not need a mailing list in the way.
       const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
       if (nurture) nurture.hidden = when !== 'exploring';
 
@@ -659,8 +552,6 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
       if (nurture) nurture.hidden = true;
       show('focus');
     });
-    // Going Back from the result also leaves the result, so the nurture block
-    // must not linger under a question.
     backBtn.addEventListener('click', () => {
       const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
       if (nurture) nurture.hidden = true;
