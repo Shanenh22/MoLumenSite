@@ -40,7 +40,7 @@ const schema =
 
 <BaseLayout
   title="Blog"
-  description="Essays and guides from Mo Lumen: astrology explained plainly, questions worth asking, and honest thinking about what a chart can and cannot do."
+  description="Think with Mo about astrology: how the techniques work, where their limits are, what makes a reading useful, and the questions that keep opening as you learn."
   path="/blog/"
   breadcrumbs={crumbs}
   schema={schema}
@@ -49,11 +49,12 @@ const schema =
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">Writing</p>
+        <p class="eyebrow">Think with Mo</p>
         <h1>Blog</h1>
         <p class="lede">
-          Essays, guides, and thinking out loud: astrology explained plainly, questions worth
-          asking, and honest talk about what a chart can and cannot do.
+          This is where I follow the questions that do not fit neatly into a definition or a sky
+          update: how astrologers know what they know, where a technique has limits, what makes a
+          reading useful, and what gets more interesting the longer you look.
         </p>
       </div>
       <img
@@ -71,6 +72,16 @@ const schema =
 
   <section class="section">
     <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-8);">
+        <p>
+          If you are deciding whether a reading is right for you, start with
+          <a href="/blog/what-astrology-can-and-cannot-do/">what a reading can and cannot do</a> or
+          <a href="/blog/how-to-choose-an-astrologer/">how to choose an astrologer</a>. If you are
+          here to learn the language itself, the <a href="/start-here/">Start Here path</a> and
+          <a href="/explore/">Explore Astrology</a> are the more systematic route. The blog is less
+          textbook and more conversation.
+        </p>
+      </div>
       {
         posts.length > 0 ? (
           <>
@@ -128,11 +139,12 @@ const schema =
   <section class="section section--alt">
     <div class="container feature-split">
       <div class="flow">
-        <p class="eyebrow">Never miss one</p>
-        <h2 id="blog-newsletter">New posts, by email</h2>
+        <p class="eyebrow">A monthly note from Mo</p>
+        <h2 id="blog-newsletter">Keep the conversation going</h2>
         <p>
-          The Sky This Month carries new writing as it's published, alongside what's moving
-          overhead. One email a month, five minutes to read.
+          My monthly note brings together what I have been noticing, a look at the sky, new writing,
+          and the questions I am still turning over. It is correspondence, not another feed to keep
+          up with.
         </p>
         <NewsletterForm source="blog" labelledby="blog-newsletter" />
         <p class="card__meta">
@@ -140,12 +152,12 @@ const schema =
         </p>
       </div>
       <div class="flow">
-        <h2>Also worth reading</h2>
+        <h2>Choose the next path</h2>
         <ul>
-          <li><a href="/current-sky/">Current Sky</a>: dated lunations, eclipses, and retrogrades</li>
-          <li><a href="/horoscopes/">Horoscopes</a>, rising-sign guidance with each lunation</li>
-          <li><a href="/start-here/">Start Here</a>, the nine-step beginner path</li>
-          <li><a href="/explore/">Explore Astrology</a>, the full reference library</li>
+          <li><a href="/readings/">Readings</a>, when a real question needs individual synthesis</li>
+          <li><a href="/current-sky/">Current Sky</a>, to follow the cycles moving overhead</li>
+          <li><a href="/start-here/">Start Here</a>, for a guided introduction to chart language</li>
+          <li><a href="/explore/">Explore Astrology</a>, for the full reference library</li>
         </ul>
       </div>
     </div>
