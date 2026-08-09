@@ -5,39 +5,39 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 const crumbs = [{ label: 'Explore Astrology', href: '/explore/' }];
 const foundations = [
-  ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart actually is, and how its pieces fit together. Start here.'],
-  ['The Four Angles', '/explore/angles/', 'Ascendant, Descendant, Midheaven, IC, the frame everything sits in.'],
-  ['The Big Three', '/explore/the-big-three/', 'Sun, Moon, and rising, what each one really governs.'],
-  ['Elements & Modalities', '/explore/elements-and-modalities/', 'The two grids that generate all twelve signs.'],
-  ['The Planets', '/explore/planets/', 'Ten drives every chart contains: the Sun’s purpose to Pluto’s transformations.'],
-  ['The 12 Signs', '/explore/signs/', 'Styles of expression: how each sign colors the planets within it.'],
-  ['The 12 Houses', '/explore/houses/', 'Areas of experience: where in life each part of your chart plays out.'],
-  ['Aspects', '/explore/aspects/', 'The geometry of the chart: how planets support, strain, and balance each other.'],
-  ['Chart Patterns', '/explore/chart-patterns/', 'Stelliums, grand trines, T-squares: configurations that define a chart.'],
-  ['Essential Dignities', '/explore/dignities/', 'The traditional measure of whether a planet can do its job.'],
-  ['House Systems', '/explore/house-systems/', 'Whole sign, Placidus, equal, what changes, and what does not.'],
-  ['Schools & Traditions', '/explore/schools/', 'Hellenistic to modern to Vedic, and what to ask an astrologer.'],
+  ['Birth Chart Basics', '/explore/birth-chart-basics/', 'What a chart is, the four main vocabularies inside it, and why the relationships among them matter. Start here.'],
+  ['The Four Angles', '/explore/angles/', 'Ascendant, Descendant, Midheaven, and IC: four points that help orient the whole chart.'],
+  ['The Big Three', '/explore/the-big-three/', 'Sun, Moon, and rising: three important parts of a chart, but never the whole person.'],
+  ['Elements & Modalities', '/explore/elements-and-modalities/', 'Two ways of organizing the signs that reveal recurring patterns across the zodiac.'],
+  ['The Planets', '/explore/planets/', 'Different drives and functions within the chart, each shaped by sign, house, aspects, and context.'],
+  ['The 12 Signs', '/explore/signs/', 'Styles of expression: how signs shape the way a planet tends to operate.'],
+  ['The 12 Houses', '/explore/houses/', 'Areas of experience: where different parts of the chart are most likely to show themselves.'],
+  ['Aspects', '/explore/aspects/', 'The relationships among planets: where different parts of the chart reinforce, challenge, or complicate one another.'],
+  ['Chart Patterns', '/explore/chart-patterns/', 'Stelliums, grand trines, T-squares, and other configurations that become meaningful through the larger chart.'],
+  ['Essential Dignities', '/explore/dignities/', 'A traditional framework for considering how comfortably or effectively a planet may operate.'],
+  ['House Systems', '/explore/house-systems/', 'Whole sign, Placidus, equal, and why astrologers can use different systems without reading entirely different skies.'],
+  ['Schools & Traditions', '/explore/schools/', 'Some of the major astrological traditions, and why many astrologers study across more than one.'],
 ];
 const timing = [
-  ['Transits', '/explore/transits/', 'How the moving sky activates your chart, the astrology of timing.'],
-  ['Retrogrades', '/explore/retrogrades/', 'What retrograde motion is, and what it honestly isn’t.'],
-  ['Eclipses', '/explore/eclipses/', 'Why they come in seasons, and what they actually mark.'],
-  ['The Lunar Nodes', '/explore/lunar-nodes/', 'The growth axis, and why eclipses happen there.'],
-  ['Moon Phases', '/explore/moon-phases/', 'Working with the 29.5-day cycle, without the rulebook.'],
-  ['The Saturn Return', '/explore/saturn-return/', 'What arrives around 29 and 58: minus the doom.'],
+  ['Transits', '/explore/transits/', 'How the moving sky forms new relationships with a natal chart, one of astrology’s central approaches to timing.'],
+  ['Retrogrades', '/explore/retrogrades/', 'What retrograde motion is astronomically, and how astrologers interpret it without turning it into a scapegoat.'],
+  ['Eclipses', '/explore/eclipses/', 'Why eclipses arrive in seasons, what makes them astronomically remarkable, and how astrology approaches them.'],
+  ['The Lunar Nodes', '/explore/lunar-nodes/', 'The points where the Moon’s path crosses the Sun’s apparent path, and why eclipses gather around them.'],
+  ['Moon Phases', '/explore/moon-phases/', 'The familiar 29.5-day cycle as both an astronomical rhythm and an astrological one.'],
+  ['The Saturn Return', '/explore/saturn-return/', 'What is happening astrologically around ages 29 and 58, without treating it as a sentence or a crisis by definition.'],
 ];
 const life = [
-  ['Relationship Astrology', '/explore/relationships/', 'Synastry and composite charts: how two people’s charts interact.'],
-  ['Personal Purpose', '/explore/personal-purpose/', 'What a chart can (and can’t) say about vocation and direction.'],
-  ['Questions to Bring', '/explore/questions-to-bring/', 'The questions that make a reading genuinely useful.'],
-  ['Common Misconceptions', '/explore/misconceptions/', 'Twelve things people believe that astrologers don’t.'],
-  ['Glossary', '/explore/glossary/', 'Plain-language definitions for every term on this site.'],
+  ['Relationship Astrology', '/explore/relationships/', 'How two charts can be compared without reducing either person to a compatibility score.'],
+  ['Personal Purpose', '/explore/personal-purpose/', 'What a chart can contribute to questions of vocation and direction, and what it cannot decide for you.'],
+  ['Questions to Bring', '/explore/questions-to-bring/', 'How a good question gives an astrological conversation somewhere meaningful to begin.'],
+  ['Common Misconceptions', '/explore/misconceptions/', 'Some of the assumptions about astrology that deserve a closer look.'],
+  ['Glossary', '/explore/glossary/', 'Plain-language definitions for the terms used throughout this site.'],
 ];
 ---
 
 <BaseLayout
-  title="Explore Astrology, learn the real thing"
-  description="A free, plain-language astrology education hub by Mo Lumen: birth chart basics, planets, signs, houses, aspects, transits, and relationship astrology, no doom, no jargon."
+  title="Explore Astrology, learn how the pieces fit"
+  description="A free astrology learning hub by Mo Lumen: birth charts, planets, signs, houses, aspects, timing, and the relationships among them, explained in plain language."
   path="/explore/"
   breadcrumbs={crumbs}
 >
@@ -48,9 +48,9 @@ const life = [
       <p class="eyebrow">Learn</p>
       <h1>Explore astrology</h1>
       <p class="lede">
-        Astrology is a language, and languages are learnable. These pages teach it the way I do in
-        readings: plain words first, technical terms second, and your own agency at the center of
-        every interpretation. Welcome to the study, take your time.
+        Astrology gives us many pieces to study, but very few of them mean much in isolation. These
+        pages teach the vocabulary first, then keep asking the more interesting question: how do
+        the pieces relate to one another? That is where a chart begins to become a whole.
       </p>
       </div>
       <img
@@ -69,10 +69,10 @@ const life = [
   <section class="section section--night center">
     <div class="container flow" style="max-width: 44rem;">
       <p class="eyebrow">New to all this?</p>
-      <h2>There's an order that makes this easy</h2>
+      <h2>There is an order that makes this easier</h2>
       <p class="lede" style="margin-inline: auto;">
-        Nine steps, about an hour of reading, no jargon left unexplained. The sequence I'd teach
-        it in if you were sitting across from me.
+        Nine steps, about an hour of reading, no prior knowledge required. It is the sequence I
+        would use if we were sitting together and you asked me to show you how a chart works.
       </p>
       <p><a class="btn btn--accent" href="/start-here/">Start here</a></p>
     </div>
@@ -81,7 +81,7 @@ const life = [
   <section class="section">
     <div class="container">
       <p class="eyebrow">Foundations</p>
-      <h2>How a chart is built</h2>
+      <h2>Learn the parts, then look at the relationships</h2>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
           foundations.map(([title, href, desc]) => (
@@ -100,7 +100,11 @@ const life = [
   <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">Timing</p>
-      <h2>How the sky moves</h2>
+      <h2>Watch the sky keep moving</h2>
+      <p class="lede">
+        A natal chart is calculated for one moment. The planets do not stop there. Timing techniques
+        look at the continuing cycles and the new relationships they form with the natal chart.
+      </p>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
           timing.map(([title, href, desc]) => (
@@ -122,7 +126,11 @@ const life = [
   <section class="section">
     <div class="container">
       <p class="eyebrow">Living with it</p>
-      <h2>Astrology in practice</h2>
+      <h2>Bring astrology back to an actual life</h2>
+      <p class="lede">
+        General meanings are useful. A person is more complicated. These pages look at some of the
+        places where astrology becomes most useful when it stays curious about the life being lived.
+      </p>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
           life.map(([title, href, desc]) => (
@@ -144,22 +152,23 @@ const life = [
         <h2>Prefer to learn by doing?</h2>
         <p>
           The <a href="/tools/explore-your-chart/">Explore Your Chart</a> tool lets you click
-          around an interactive chart wheel and see how planets, signs, and houses combine, no
-          birth data needed.
+          around an interactive chart wheel and see how planets, signs, houses, and aspects relate,
+          with no birth data required. It teaches how charts work; it does not try to tell you what
+          yours means.
         </p>
       </div>
       <div class="flow">
         <h2>Prefer to watch?</h2>
         <p>
-          I teach on <a href="/videos/">YouTube and Instagram</a>, short, clear videos on the
-          current sky and the fundamentals.
+          I also teach through <a href="/videos/">video</a>, where there is room to look at a
+          concept, a cycle, or something in the current sky together.
         </p>
       </div>
     </div>
   </section>
 
   <CTABand
-    heading="Reading about charts is good. Sitting with yours is better."
-    body="When you're ready to see how all of this lives in your own chart, that's what readings are for."
+    heading="The pieces are learnable. The whole is personal."
+    body="When you want to see how all of these relationships are actually expressing themselves in your life, that is where a reading becomes different from a reference page."
   />
 </BaseLayout>
