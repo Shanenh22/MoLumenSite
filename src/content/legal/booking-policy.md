@@ -1,12 +1,12 @@
 ---
 title: "Booking Policy"
-description: "Cancellation, rescheduling, payment, late arrival, recording, and preparation terms for readings with Mo Lumen Astrology — including the 48-hour window."
+description: "Cancellation, rescheduling, payment, late arrival, recording, and preparation terms for readings with Mo Lumen Astrology, including the 48-hour window."
 updatedDate: 2026-08-03
 reviewStatus: owner-approved
 ---
 
 This is a one-astrologer practice. When you book a session that time is held for you and nobody else
-can have it, and the preparation — casting the chart, reading it, thinking about your questions —
+can have it, and the preparation, casting the chart, reading it, thinking about your questions,
 happens before you ever arrive. These terms exist so both sides know where they stand, and they are
 written to be as forgiving as a practice this size can afford to be.
 
@@ -20,7 +20,7 @@ yours.
 ## Payment
 
 Payment in full is due at booking, processed securely by our scheduling and payment providers. The
-price is always shown before you pay, and it is the price you pay — there are no additional fees.
+price is always shown before you pay, and it is the price you pay. There are no additional fees.
 Card details go directly to the payment processor and are never held by this practice.
 
 ## Rescheduling
@@ -31,12 +31,12 @@ You may reschedule **without charge up to 48 hours before** your session, using 
 confirmation email. Pick any open slot that suits you.
 
 Inside 48 hours, email mo@molumen.com. If the time can be filled, or if something genuinely
-unavoidable has happened — illness, bereavement, an emergency — I will almost always move you
+unavoidable has happened (illness, bereavement, an emergency), I will almost always move you
 without charge. That is judgement rather than entitlement. I use it generously when something has
 actually gone wrong, and I would rather you asked than assumed it applies.
 
 You may reschedule as often as you genuinely need to, outside the window. But a session that keeps
-moving may be converted to credit and the slot released — not as a penalty, but because an hour
+moving may be converted to credit and the slot released, not as a penalty, but because an hour
 nobody is using is an hour somebody else could have had.
 
 ## Cancellation and refunds
@@ -45,13 +45,13 @@ nobody is using is an hour somebody else could have had.
 method. Refunds typically take five to ten business days to appear, depending on your bank.
 
 **Inside 48 hours:** the fee is held as **credit toward a future session**, valid for twelve months.
-The money is not lost — it moves. Use it for this reading or a different one, any time within those
+The money is not lost. It moves. Use it for this reading or a different one, any time within those
 twelve months.
 
 **No refund is issued more than thirty (30) days after payment**, in line with the
 [terms of service](/terms/).
 
-**If I cancel** — illness, emergency, or a technical failure on this end — you choose: reschedule at
+**If I cancel**, illness, emergency, or a technical failure on this end, you choose: reschedule at
 your convenience, or take a full refund. That choice is always yours, never mine.
 
 ## Late arrival and missed sessions
@@ -63,7 +63,7 @@ If you arrive within **15 minutes** of the start time, we will use whatever time
 count. Beyond 15 minutes with no word, the session is treated as missed, and the fee is held as
 credit under the same terms as a late cancellation.
 
-If something has gone wrong and you can reach us, do — a message saying "stuck in traffic, twenty
+If something has gone wrong and you can reach us, do. A message saying "stuck in traffic, twenty
 minutes" is almost always workable.
 
 ## Recordings
@@ -79,7 +79,7 @@ else. Please do not publish or distribute a recording without written permission
 
 Live readings need your **birth date, exact birth time, and birthplace**, supplied at booking so
 there is time to prepare properly. A reading prepared without an accurate birth time is a materially
-different reading — the rising sign, and with it the entire house structure, changes roughly every
+different reading: the rising sign, and with it the entire house structure, changes roughly every
 two hours.
 
 If you do not know your birth time, book anyway and say so; there are options, and
@@ -91,7 +91,7 @@ other person is content for their details to be shared.
 
 ## Choosing the right reading
 
-Some readings are for established clients only — this is noted clearly on the booking page. If you
+Some readings are for established clients only. This is noted clearly on the booking page. If you
 book one you are not eligible for, we will email you and either move you to the reading that fits or
 refund you in full. Nobody is charged for booking the wrong thing by accident.
 

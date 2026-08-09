@@ -24,7 +24,7 @@ const bookables = services.flatMap((s) =>
     ? s.data.options.map((o) => ({
         key: o.bookingEventId || s.data.bookingEventId,
         service: s.data.slug,
-        name: `${s.data.shortName} — ${o.label}`,
+        name: `${s.data.shortName}: ${o.label}`,
         duration: o.durationLabel,
         price: s.data.priceConfirmed ? `$${o.price}` : null,
         event: o.bookingEventId || s.data.bookingEventId,
@@ -127,7 +127,7 @@ const groups = [
       */}
       <p class="lede">
         You're one step away from an hour of <strong>perspective you can use</strong>. Choose a
-        reading below — times display in your own time zone, payment is secure, and you'll get
+        reading below. Times display in your own time zone, payment is secure, and you'll get
         confirmation, preparation notes, and a reminder by email.
       </p>
       </div>
@@ -198,7 +198,7 @@ const groups = [
           <div class="callout">
             <p style="margin: 0;">
               <strong>Before you book:</strong> for a first chart-based reading, have the birth date,
-              birthplace, and birth time ready — as exact as you know it. If the time is uncertain or
+              birthplace, and birth time ready, as exact as you know it. If the time is uncertain or
               unknown, you can still book; <a href="/birth-time/">see your options</a>. Booking means
               you accept the <a href="/booking-policy/">booking policy</a> (cancellation,
               rescheduling, and recording details).
@@ -216,7 +216,7 @@ const groups = [
         {
           [
             ['Right away', 'Confirmation email with your session link and a calendar invite.'],
-            ['Before we meet', 'Preparation notes and a reminder — nothing to study, just how to get the most from your hour.'],
+            ['Before we meet', 'Preparation notes and a reminder: nothing to study, just how to get the most from your hour.'],
             ['Afterward', 'Your recording and chart, plus rescheduling links if life intervenes.'],
           ].map(([t, d]) => (
             <li class="card" style="gap: var(--space-2);">

@@ -1,13 +1,13 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
   "ownerReview": true,
   "available": true,
-  "name": "Quick Check-In — One Topic",
+  "name": "Quick Check-In: One Topic",
   "shortName": "Quick Check-In",
   "slug": "quick-check-in",
-  "purpose": "One area of life suddenly chaotic — or one place you want to grow? Thirty focused minutes on how your astrological influences are affecting that single topic.",
+  "purpose": "One area of life suddenly chaotic, or one place you want to grow? Thirty focused minutes on how your astrological influences are affecting that single topic.",
   "method": "A single-topic transit consultation: you name the area in the intake form; Mo examines how current influences are affecting it and how to use them to make more positive choices.",
   "bestFor": [
     "Existing clients with one specific area that needs attention now",
@@ -15,8 +15,8 @@
     "Guidance for growth in one named area"
   ],
   "notFor": [
-    "Multiple topics or the whole chart — book Want More Clarity or a natal follow-up instead",
-    "New clients — the Natal Chart Reading comes first"
+    "Multiple topics or the whole chart: book Want More Clarity or a natal follow-up instead",
+    "New clients. The Natal Chart Reading comes first"
   ],
   "durationMinutes": 30,
   "durationLabel": "30 minutes",
@@ -40,7 +40,7 @@
     "Recording of the session"
   ],
   "preparation": [
-    "Write your topic out clearly in the intake form — specific beats broad"
+    "Write your topic out clearly in the intake form: specific beats broad"
   ],
   "bookingEventId": "quick-check-in",
   "related": [

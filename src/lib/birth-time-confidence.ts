@@ -115,7 +115,7 @@ export const QUESTIONS: Question[] = [
       {
         value: "document-seen",
         label:
-          "A document I have seen — birth certificate, hospital record, baby book",
+          "A document I have seen: birth certificate, hospital record, baby book",
       },
       {
         value: "document-described",
@@ -136,7 +136,7 @@ export const QUESTIONS: Question[] = [
       { value: "hour", label: "To within about an hour" },
       {
         value: "part-of-day",
-        label: "A part of the day — morning, after lunch, overnight",
+        label: "A part of the day: morning, after lunch, overnight",
       },
       { value: "none", label: "No idea at all" },
     ],
@@ -146,7 +146,7 @@ export const QUESTIONS: Question[] = [
     legend: "Is there more than one version?",
     note: "Two times that disagree is a better position than one vague time, not a worse one. Two candidates can be tested against a chart.",
     options: [
-      { value: "single", label: "No — one time, one source" },
+      { value: "single", label: "No: one time, one source" },
       {
         value: "one-better",
         label: "Yes, and one is clearly better documented",
@@ -168,14 +168,14 @@ export const RESULTS: Record<ResultId, Result> = {
     definition:
       "Written on a birth certificate, hospital record or contemporaneous document you have seen.",
     means:
-      "This is the strongest position there is. A time written down at the time, by someone whose job was to write it down, outranks every recollection — including a very confident one.",
+      "This is the strongest position there is. A time written down at the time, by someone whose job was to write it down, outranks every recollection, including a very confident one.",
     uncertain:
       "Only the ordinary residue: records are occasionally transcribed wrong, and a time rounded to the nearest five minutes on the form is still rounded. Neither is worth chasing unless something in the reading does not fit.",
     nextStep:
       "Nothing to hunt for. Write the time down together with which document it came from, so it stays a fact rather than becoming a memory of a fact.",
     worksheet: {
       anchor: "preparing",
-      label: "Toolkit §8 — Preparing for your reading",
+      label: "Toolkit §8: Preparing for your reading",
     },
     reading:
       "Yes, and with the houses and the rising sign on solid ground. This is the version of a chart where I can say where something lands as well as what it is.",
@@ -195,7 +195,7 @@ export const RESULTS: Record<ResultId, Result> = {
       "Ask for the long-form birth certificate. It either confirms what you have or corrects it, and both outcomes are worth the fee.",
     worksheet: {
       anchor: "record-search",
-      label: "Toolkit §2 — Record search checklist",
+      label: "Toolkit §2: Record search checklist",
     },
     reading:
       "Yes. Tell me it is remembered rather than recorded and I will treat anything sitting near a cusp with the caution it deserves, rather than quietly assuming it.",
@@ -207,16 +207,16 @@ export const RESULTS: Record<ResultId, Result> = {
     id: "approximate",
     label: "Approximate",
     definition:
-      'A window rather than a time — "sometime in the morning", "between two and four".',
+      'A window rather than a time: "sometime in the morning", "between two and four".',
     means:
       "You have a window. That is real information, and it is what most people start with. A window of a couple of hours often still settles the rising sign, and where it does not, it narrows the possibilities to two rather than twelve.",
     uncertain:
-      "Which sign was rising, if the window straddles a boundary — the rising degree crosses a whole sign roughly every two hours. The house structure moves with it.",
+      "Which sign was rising, if the window straddles a boundary, the rising degree crosses a whole sign roughly every two hours. The house structure moves with it.",
     nextStep:
       "Ask about the shape of the day rather than the number on the clock. Was it light out? Before or after a meal? Did anyone miss a shift? Those questions narrow a window; “what time was I born” invites a guess that then hardens into a fact.",
     worksheet: {
       anchor: "family-interview",
-      label: "Toolkit §3 — Family interview",
+      label: "Toolkit §3: Family interview",
     },
     reading:
       "Yes. Bring the window rather than a midpoint. I would rather work from “between two and four” than from a tidy-looking three o'clock that nobody actually said.",
@@ -231,12 +231,12 @@ export const RESULTS: Record<ResultId, Result> = {
     means:
       "Two times that disagree is a better position than one vague time, not a worse one. Two candidates can be tested against a chart; a single guessed time cannot be tested against anything.",
     uncertain:
-      "Which candidate is right — and whether it even matters. If both produce the same rising sign, the disagreement makes no difference to the reading at all, and that is worth checking before anyone spends effort resolving it.",
+      "Which candidate is right, and whether it even matters. If both produce the same rising sign, the disagreement makes no difference to the reading at all, and that is worth checking before anyone spends effort resolving it.",
     nextStep:
       "Write down every candidate with its source and how confident that source is. Do not pick one yet. A documented time outranks any recollection; between two recollections, the one anchored to an event usually beats the one anchored to a number.",
     worksheet: {
       anchor: "when-times-disagree",
-      label: "Toolkit §4 — When times disagree",
+      label: "Toolkit §4: When times disagree",
     },
     reading:
       "Yes. Send me both and say they disagree. I would rather start from what is true than from a number that looks tidy.",
@@ -253,10 +253,10 @@ export const RESULTS: Record<ResultId, Result> = {
     uncertain:
       "The rising sign, the house structure, and the Moon's exact degree on a fast-moving day. So a reading answers what these patterns are very well, and where in your life they land only in outline.",
     nextStep:
-      "The full birth certificate is the usual answer and it is usually findable. Check which certificate is already in the house first — many households keep an abbreviated copy that omits the time.",
+      "The full birth certificate is the usual answer and it is usually findable. Check which certificate is already in the house first: many households keep an abbreviated copy that omits the time.",
     worksheet: {
       anchor: "if-it-stays-unknown",
-      label: "Toolkit §6 — If it stays unknown",
+      label: "Toolkit §6: If it stays unknown",
     },
     reading:
       "Yes, and this is not a consolation prize. The one genuinely bad option is guessing and presenting the guess as exact, which produces a detailed, coherent reading about someone born two hours after you.",

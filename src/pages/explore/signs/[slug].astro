@@ -28,7 +28,7 @@ const breakImage = bandFor(s.slug, 5);
 ---
 
 <BaseLayout
-  title={`${s.name} — meaning, dignities, and how to read it`}
+  title={`${s.name}: meaning, dignities, and how to read it`}
   description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Traditional and modern readings, essential dignities, strengths, growth edges, and common misconceptions.`}
   path={`/explore/signs/${s.slug}/`}
   breadcrumbs={crumbs}
@@ -69,11 +69,11 @@ const breakImage = bandFor(s.slug, 5);
           {s.fall && <tr><th scope="row">Fall</th><td>{s.fall}</td></tr>}
           <tr><th scope="row">Opposite sign</th><td>{opposite ? <a href={`/explore/signs/${opposite.slug}/`}>{s.opposite}</a> : s.opposite}</td></tr>
           <tr><th scope="row">Sun season</th><td>{s.dates}</td></tr>
-          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{s.glyph}</span> — {s.glyphMeaning}</td></tr>
+          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{s.glyph}</span>, {s.glyphMeaning}</td></tr>
         </tbody>
       </table>
       <p class="card__meta">
-        Dignities follow the Ptolemaic tables used in traditional astrology — see
+        Dignities follow the Ptolemaic tables used in traditional astrology, see
         <a href="/explore/dignities/">essential dignities explained</a>.
       </p>
     </div>
@@ -110,7 +110,7 @@ const breakImage = bandFor(s.slug, 5);
       <div class="callout">
         <p style="margin: 0;">
           <strong>Remember:</strong> "being {s.name}" usually means the Sun was here when you were
-          born — one placement among many. Your Moon, rising, and every planet take a sign of their
+          born, one placement among many. Your Moon, rising, and every planet take a sign of their
           own, which is why sun-sign descriptions fit loosely. See
           <a href="/explore/the-big-three/">the big three</a>.
         </p>
@@ -126,6 +126,6 @@ const breakImage = bandFor(s.slug, 5);
 
   <CTABand
     heading={`More than your ${s.name} placements`}
-    body="A reading looks at the whole chart — every sign, every planet, working together."
+    body="A reading looks at the whole chart: every sign, every planet, working together."
   />
 </BaseLayout>

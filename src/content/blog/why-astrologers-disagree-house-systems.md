@@ -17,12 +17,12 @@ you a lot about how they handle everything else.
 
 ## The problem being solved
 
-The twelve houses divide the chart into areas of life. To draw them, you have to divide something —
+The twelve houses divide the chart into areas of life. To draw them, you have to divide something,
 and there is more than one thing you could reasonably divide.
 
 You could divide the ecliptic into twelve equal thirty-degree slices. You could divide the space
 between the horizon and the meridian, which produces unequal houses because that space is not
-symmetrical. You could divide time rather than space — the hours it takes a degree to rise. Each of
+symmetrical. You could divide time rather than space. The hours it takes a degree to rise. Each of
 those is a defensible answer to a real geometric problem, and each produces a different chart.
 
 The disagreement is not sloppiness. It is that the sky does not come pre-divided, and the choice of
@@ -52,7 +52,7 @@ I work primarily in Whole Sign, with the angles noted separately. That is a cons
 a neutral one, and you are entitled to know it before I read your chart.
 
 The reasoning: Whole Sign keeps the relationship between sign and house clean, which makes the
-traditional techniques I rely on — rulership, sect, angularity — behave consistently. When a house
+traditional techniques I rely on, rulership, sect, angularity, behave consistently. When a house
 is a whole sign, the ruler of that sign is unambiguously the ruler of that house, and a great deal
 of traditional interpretation depends on that being unambiguous.
 

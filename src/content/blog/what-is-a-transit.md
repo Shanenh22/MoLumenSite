@@ -1,6 +1,6 @@
 ---
 title: "What Is a Transit, and Why Does Timing Work at All?"
-description: "Your birth chart is fixed. The sky isn't. Transits are the moving planets making contact with your natal positions — the mechanism behind every timing question in astrology."
+description: "Your birth chart is fixed. The sky isn't. Transits are the moving planets making contact with your natal positions: the mechanism behind every timing question in astrology."
 publishDate: 2026-08-04
 category: "Timing"
 tags: ["transits", "timing", "outer planets", "technique"]
@@ -40,7 +40,7 @@ every month. Its transits last hours. They describe mood and daily texture, and 
 never worth planning around.
 
 **The Sun, Mercury, Venus and Mars** take roughly a year, or two for Mars. Days to weeks. Useful for
-fine-grained timing — when a conversation might go more smoothly, when energy is available.
+fine-grained timing, when a conversation might go more smoothly, when energy is available.
 
 **Jupiter** takes about twelve years, spending roughly a year per sign. Its transits describe the
 theme of a year.
@@ -48,7 +48,7 @@ theme of a year.
 **Saturn** takes about twenty-nine and a half years, two to three years per sign. Its transits
 describe chapters, and they're the ones people feel as a period of their life rather than an event.
 
-**Uranus, Neptune and Pluto** take decades — Pluto's orbit is roughly 248 years. A single Pluto
+**Uranus, Neptune and Pluto** take decades. Pluto's orbit is roughly 248 years. A single Pluto
 transit to a natal planet can run for several years with multiple exact passes. These describe eras,
 and people often can't see them properly until afterwards.
 
@@ -57,15 +57,15 @@ subject matter.
 
 ## Why they hit more than once
 
-Planets appear to go retrograde — a viewing angle produced by our own orbit, not an actual reversal.
+Planets appear to go retrograde, a viewing angle produced by our own orbit, not an actual reversal.
 So an outer planet typically crosses a sensitive degree, backs over it, and crosses again. Three
 passes over eighteen months is common.
 
 This is why significant transits feel like a process rather than a date. The first pass raises the
 question. The retrograde pass reconsiders it. The final pass tends to settle it.
 
-If you've noticed that hard periods in your life had a shape — something surfaced, went quiet,
-returned, resolved — that's frequently what you were watching.
+If you've noticed that hard periods in your life had a shape (something surfaced, went quiet,
+returned, resolved), that's frequently what you were watching.
 
 ## What transits describe, and what they don't
 
@@ -89,7 +89,7 @@ forecasts can't know which.
 ## The useful way to use them
 
 Transits are best at answering _what season is this, and roughly how long does it run._ That's
-genuinely valuable — knowing you're in a two-year consolidation rather than a permanent state
+genuinely valuable: knowing you're in a two-year consolidation rather than a permanent state
 changes how you spend your energy.
 
 They're worst at answering _what exactly will happen and when._ Pressure applied to a treated

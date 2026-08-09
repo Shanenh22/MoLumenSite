@@ -18,7 +18,7 @@ entirely on how you read them.
 It is one twelfth of the population, addressed at once, based on a single placement.
 
 That is not a criticism, it's a description of the format. A columnist writing for Scorpio is
-writing for everyone born across roughly thirty degrees of the Sun's annual journey — several
+writing for everyone born across roughly thirty degrees of the Sun's annual journey: several
 hundred million people, with every possible Moon, rising sign, house structure, and life
 circumstance between them.
 
@@ -26,7 +26,7 @@ Whatever is true of all of them at once is necessarily general. Not false, neces
 
 ## What a good one can genuinely do
 
-The better columnists — and there are some very good ones — are usually writing about the _actual
+The better columnists, and there are some very good ones, are usually writing about the _actual
 current transits_, translated for a general audience. When the Sun ingresses into a new sign, or
 Mars stations retrograde, that really is happening to the sky, and a column describing what that
 season tends to surface is describing something real.
@@ -41,7 +41,7 @@ column that made them curious.
 
 **It cannot know your rising sign**, which means it has no idea which area of your life any of this
 lands in. The same transit that touches one person's career touches another's home and a third's
-health — determined by house placement the column cannot see.
+health, determined by house placement the column cannot see.
 
 **It cannot know your Moon**, so it has no idea how you'll actually experience it.
 
@@ -54,7 +54,7 @@ Columns that promise precise events are choosing readability over accuracy.
 
 ## The version that does harm
 
-Fear-based columns. Anything built on dread — retrograde panic, eclipse warnings, "the worst week
+Fear-based columns. Anything built on dread: retrograde panic, eclipse warnings, "the worst week
 for these three signs." That framing gets clicks reliably and helps nobody. It manufactures anxiety
 and then sells the resolution.
 
@@ -70,8 +70,8 @@ happens gradually.
 ## How I'd read one
 
 As a prompt rather than a report. If a column says the week tends to surface questions about
-security, treat that as a question to sit with — _is anything about security live for me right now?_
-— rather than a claim about your week. Sometimes the answer is no. That's fine, and it's information
+security, treat that as a question to sit with, _is anything about security live for me right now?_
+, rather than a claim about your week. Sometimes the answer is no. That's fine, and it's information
 too.
 
 Check whether it describes conditions or issues verdicts. Conditions are honest. Verdicts aren't.
@@ -82,7 +82,7 @@ act. If a source consistently leaves you anxious, it's not serving you, whatever
 ## The thing worth knowing
 
 If a column ever makes you think _that's uncannily accurate_, that reaction is worth taking
-seriously — not as proof the column is precise, but as a sign there's something live in your chart
+seriously, not as proof the column is precise, but as a sign there's something live in your chart
 it happened to brush against.
 
 That's the point at which looking at your actual chart will tell you considerably more than the next

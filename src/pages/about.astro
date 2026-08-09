@@ -30,7 +30,7 @@ const videoSchema =
         {
           '@context': 'https://schema.org',
           '@type': 'VideoObject',
-          name: 'Meet Mo Lumen — a short introduction',
+          name: 'Meet Mo Lumen: a short introduction',
           description:
             'A short face-to-camera introduction from astrologer Maureen "Mo" Lumen, on how she works and what a reading with her is like.',
           uploadDate: welcomeUploaded,
@@ -61,8 +61,8 @@ const schema = [
 ---
 
 <BaseLayout
-  title="About Mo — astrologer, teacher, writer"
-  description="Meet Maureen 'Mo' Lumen: a modern-day astrologer with a classical lens. Certified in horary astrology, NCGR-PAA examined, OPA board member — and a former science teacher who believes there is fate and there is choice."
+  title="About Mo: astrologer, teacher, writer"
+  description="Meet Maureen 'Mo' Lumen: a modern-day astrologer with a classical lens. Certified in horary astrology, NCGR-PAA examined, OPA board member, and a former science teacher who believes there is fate and there is choice."
   path="/about/"
   breadcrumbs={crumbs}
   schema={[...schema, ...videoSchema]}
@@ -101,7 +101,7 @@ const schema = [
           <div style="margin-top: var(--space-6);">
             <YouTubeFacade
               videoId={welcomeId}
-              title="Meet Mo Lumen — a short introduction"
+              title="Meet Mo Lumen: a short introduction"
               poster={welcomePoster || undefined}
               context="about-welcome"
             />
@@ -121,20 +121,20 @@ const schema = [
           height={photos.moAbout.height}
           loading="lazy"
         />
-        <figcaption>Maureen &ldquo;Mo&rdquo; Lumen — astrologer, teacher, writer</figcaption>
+        <figcaption>Maureen &ldquo;Mo&rdquo; Lumen: astrologer, teacher, writer</figcaption>
       </figure>
       <div class="prose flow">
         <p>
           Life is a many-faceted journey, and the ancient wisdom of astrology shines light on our
           paths. I believe your resonance with the heavens influences your choices about
-          everything — where you live, what you do, who you keep close, and what moves you. My work
+          everything, where you live, what you do, who you keep close, and what moves you. My work
           is to help you see those patterns clearly, so you can actively choose what suits you
           best.
         </p>
         <p>
           I came to astrology the long way, and I wouldn't trade the route. I've run businesses. I
           taught natural sciences from middle school through college, which is why my readings
-          sound more like a good class than a mystical performance — I like things explained
+          sound more like a good class than a mystical performance, I like things explained
           properly. I've weathered real losses and done real healing, and along the way picked up
           practices from tarot to reiki, plus a lifelong habit of making things with my hands:
           painting, jewelry, glass.
@@ -142,27 +142,27 @@ const schema = [
         <p>
           All of it comes with me into the reading room. Clients tell me I'm a great listener and
           deeply intuitive; I'd add that I'm practical to a fault. Astrology, as I practice it, is
-          a modern conversation through a classical lens — traditional technique, present-tense
+          a modern conversation through a classical lens: traditional technique, present-tense
           life.
         </p>
         <blockquote>Knowledge brings insight. Insight brings power. Power brings freedom.</blockquote>
         <p>
-          That's the heart of it. There is fate and there is choice — and a good reading helps you
+          That's the heart of it. There is fate and there is choice, and a good reading helps you
           tell the difference.
         </p>
         <h2>Can't live without</h2>
         <ul>
-          <li><strong>Family</strong> — birth family, chosen family, and the family we create.</li>
-          <li><strong>Nature</strong> — especially the ocean, where I'm most at peace and most alive.</li>
-          <li><strong>Learning</strong> — something new, every single day.</li>
-          <li><strong>Travel</strong> — other cultures are other ways of seeing.</li>
+          <li><strong>Family</strong>: birth family, chosen family, and the family we create.</li>
+          <li><strong>Nature</strong>: especially the ocean, where I'm most at peace and most alive.</li>
+          <li><strong>Learning</strong>: something new, every single day.</li>
+          <li><strong>Travel</strong>: other cultures are other ways of seeing.</li>
         </ul>
       </div>
       <aside class="flow">
         <div class="card">
           <h2 style="font-size: var(--text-lg); margin: 0;">Training & credentials</h2>
           <ul style="margin: 0; padding-left: 1.1em;">
-            <li>Practitioner's Certificate in Horary Astrology — School of Traditional Astrology (STA)</li>
+            <li>Practitioner's Certificate in Horary Astrology, School of Traditional Astrology (STA)</li>
             <li>NCGR-PAA Level 1 and Level 2 certification exams passed; Level 3 in progress</li>
             <li>
               Board member &amp; treasurer,
@@ -199,7 +199,7 @@ const schema = [
   */}
   <CTABand
     heading="Ready to work together?"
-    body="Choose a reading, or start with the Reading Finder — I'll meet you and your chart there."
+    body="Choose a reading, or start with the Reading Finder, I'll meet you and your chart there."
     secondaryLabel="Start with the Reading Finder"
   />
 </BaseLayout>

@@ -41,7 +41,7 @@ const monthYear = e.start.toLocaleDateString('en-US', {
   year: 'numeric',
   timeZone: 'UTC',
 });
-const pageTitle = `${e.title} — ${monthYear}`;
+const pageTitle = `${e.title}: ${monthYear}`;
 const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: e.title, href: `/current-sky/events/${slug}/` },
@@ -160,7 +160,7 @@ const schema = [
         <Content />
         <hr />
         <p class="card__meta">
-          Astronomical data: {e.sourceNote} The interpretation is mine — astrology offers
+          Astronomical data: {e.sourceNote} The interpretation is mine. Astrology offers
           perspective, not certainty, and your choices remain your own.
         </p>
       </div>

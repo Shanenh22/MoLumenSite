@@ -1,12 +1,12 @@
 ---
 title: "Astrology Disclaimer"
-description: "What astrology at Mo Lumen is — perspective, timing, education — and what it is not: medical, psychological, legal, or financial advice, or a prediction of a fixed future."
+description: "What astrology at Mo Lumen is, perspective, timing, education, and what it is not: medical, psychological, legal, or financial advice, or a prediction of a fixed future."
 updatedDate: 2026-08-03
 reviewStatus: owner-approved
 ---
 
 Most disclaimers exist to protect the person who wrote them. This one is here because being clear
-about what astrology can and cannot do is part of practising it honestly — and because the
+about what astrology can and cannot do is part of practising it honestly, and because the
 difference matters most to the people who arrive at a reading with something genuinely at stake.
 
 ## Perspective, not certainty
@@ -15,7 +15,7 @@ Astrology, as practised here, offers perspective: pattern recognition, timing, r
 structured vocabulary for thinking about your life. It does not offer certainty, and no reading
 predicts a fixed future.
 
-A chart describes conditions and seasons — which themes are active, when doors tend to open, where
+A chart describes conditions and seasons, which themes are active, when doors tend to open, where
 friction is likely. It does not describe an outcome, because the outcome depends on what you do.
 There is fate and there is choice, and every reading here is built on the conviction that the
 choices are yours.
@@ -24,7 +24,7 @@ choices are yours.
 
 Nothing in a reading removes your agency or your responsibility. A chart shows tendencies; you
 decide what to do with them. Any astrologer who tells you the stars _require_ a particular decision
-has stepped outside ethical practice — and outside what happens here.
+has stepped outside ethical practice, and outside what happens here.
 
 If a reading ever leaves you feeling that your life has been decided for you, something has gone
 wrong in the telling. Say so, and we will go back over it.
@@ -63,13 +63,13 @@ real vulnerability meet, and where an honest practitioner declines.
 ## Legal classification
 
 Readings are provided for entertainment purposes. Some jurisdictions require services of this kind
-to carry that classification, and I apply it everywhere rather than case by case — you should not
+to carry that classification, and I apply it everywhere rather than case by case. You should not
 have to work out which rules apply where you live in order to know what you are buying.
 
 **That is a legal classification, not a description of the work.** This is a consulting practice,
 not fortune-telling. I do not read palms, I do not contact the dead, and I do not tell you what is
 going to happen to you. I prepare for every session in advance, I work from your actual chart, and
-I expect you to arrive with a real question — because an hour spent on "tell me something about
+I expect you to arrive with a real question, because an hour spent on "tell me something about
 myself" is an hour neither of us gets back.
 
 Bring me something you are genuinely trying to decide or understand, and I will treat it with the

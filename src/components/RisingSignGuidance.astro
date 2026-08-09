@@ -36,7 +36,7 @@ const isEclipse = eventType === 'eclipse';
         <div class="prose flow" style="margin-bottom: var(--space-8);">
           <h2>What this asks of you, by rising sign</h2>
           <p>
-            Find your <strong>rising sign</strong> below — that is the one this is written for.
+            Find your <strong>rising sign</strong> below. That is the one this is written for.
             If you don't know it, it comes from your exact birth time, and
             <a href="/prepare-for-your-reading/"> here's how to track it down</a>. Reading your Sun
             sign instead still works; it just fits a little more loosely.
@@ -45,7 +45,7 @@ const isEclipse = eventType === 'eclipse';
             I use <a href="/explore/house-systems/">whole-sign houses</a>, so the sign this
             {isEclipse ? ' eclipse ' : ' lunation '}falls in lands in the same house for everyone
             who shares a rising sign. What you'll read below is that house, and what it tends to
-            ask — not a prediction of what will happen to you. Astrology is a tool like a mirror or
+            ask, not a prediction of what will happen to you. Astrology is a tool like a mirror or
             a planner. Your choices stay yours.
           </p>
         </div>
@@ -65,7 +65,7 @@ const isEclipse = eventType === 'eclipse';
                 Yours
               </p>
               <p class="card__meta" style="margin: 0;">
-                {ordinal(g.house)} house — {g.arena}
+                {ordinal(g.house)} house: {g.arena}
               </p>
               <h3 style="font-size: var(--text-lg); margin: 0;">
                 <a href={`/explore/signs/${g.slug}/`}>{g.sign} rising</a>
@@ -76,7 +76,7 @@ const isEclipse = eventType === 'eclipse';
         </div>
 
         <p class="card__meta" style="margin-top: var(--space-6);">
-          Want to know how this lands in your chart specifically — which planets it touches, and
+          Want to know how this lands in your chart specifically, which planets it touches, and
           what it activates that a rising sign alone can't tell you? That's what a
           <a href="/readings/monthly-transits/"> personal transits reading</a> is for.
         </p>

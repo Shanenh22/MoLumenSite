@@ -72,14 +72,14 @@ export const furtherReading: Record<string, RelatedPost[]> = {
     {
       slug: "what-a-chart-says-about-relationships",
       title:
-        "What a Chart Can Tell You About a Relationship — and What It Can't",
+        "What a Chart Can Tell You About a Relationship, and What It Can't",
       note: "Where synastry is genuinely useful, and where it gets over-claimed.",
     },
   ],
   "/explore/misconceptions/": [
     {
       slug: "what-astrology-can-and-cannot-do",
-      title: "What an Astrology Reading Can — and Can't — Do for You",
+      title: "What an Astrology Reading Can, and Can't, Do for You",
       note: "The limits, stated plainly, before you spend money on anything.",
     },
   ],
@@ -94,7 +94,7 @@ export const furtherReading: Record<string, RelatedPost[]> = {
     {
       slug: "how-to-choose-an-astrologer",
       title: "How to Choose an Astrologer (Including Whether to Choose Me)",
-      note: "What to ask anyone before you book — me included.",
+      note: "What to ask anyone before you book: me included.",
     },
   ],
   "/prepare-for-your-reading/": [
@@ -117,7 +117,7 @@ export const furtherReading: Record<string, RelatedPost[]> = {
     },
     {
       slug: "what-astrology-can-and-cannot-do",
-      title: "What an Astrology Reading Can — and Can't — Do for You",
+      title: "What an Astrology Reading Can, and Can't, Do for You",
       note: "What to expect, and what no reading will do for you.",
     },
   ],

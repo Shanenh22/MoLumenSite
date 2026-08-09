@@ -1,5 +1,5 @@
 ---
-title: "What a Chart Can Tell You About a Relationship — and What It Can't"
+title: "What a Chart Can Tell You About a Relationship, and What It Can't"
 description: "Synastry compares two charts; a composite treats the relationship as its own entity. Both are genuinely useful. Neither produces a compatibility score, and you should distrust anyone who says otherwise."
 publishDate: 2026-08-04
 category: "Understanding Readings"
@@ -17,7 +17,7 @@ Here is what the technique actually supports.
 
 ## What the methods are
 
-**Synastry** lays two birth charts over each other and reads the contacts between them — where your
+**Synastry** lays two birth charts over each other and reads the contacts between them, where your
 Venus meets their Mars, where their Saturn lands in your houses, which of your sensitive degrees
 they occupy without meaning to. It describes the dynamic between two specific people.
 
@@ -33,12 +33,12 @@ name it.
 ## What it genuinely does well
 
 **It names the friction accurately.** Most couples know where their sticking points are. What they
-often lack is a neutral vocabulary for them — one that doesn't require either person to be the
+often lack is a neutral vocabulary for them, one that doesn't require either person to be the
 problem. "Your Moon and their Saturn are in a hard aspect" describes a real, recurring dynamic
 around emotional expression and restraint without assigning blame, and people can hear it.
 
 **It explains the intensity that doesn't match the timeline.** Some connections feel enormous within
-weeks. The chart often shows why — heavy contacts to the angles, outer planets landing on personal
+weeks. The chart often shows why, heavy contacts to the angles, outer planets landing on personal
 points. Knowing that doesn't make it less real. It does help people distinguish intensity from
 compatibility, which are not the same thing and get confused constantly.
 
@@ -78,6 +78,6 @@ particular argument recur?_ _What season is this relationship in?_
 Those have real answers. _Are we compatible_ does not, in the form it's usually asked.
 
 The [relationship reading](/readings/relationship/) covers both charts together and needs birth
-details for both people — with the other person's knowledge. The
+details for both people, with the other person's knowledge. The
 [aspects library](/explore/aspects/) explains what the contacts actually mean if you'd like to read
 ahead.

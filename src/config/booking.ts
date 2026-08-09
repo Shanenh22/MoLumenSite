@@ -201,7 +201,7 @@ export function bookingActions(service: {
       : o.durationLabel;
     return {
       event,
-      label: price ? `Book ${distinguisher} — ${price}` : `Book ${distinguisher}`,
+      label: price ? `Book ${distinguisher} · ${price}` : `Book ${distinguisher}`,
       ariaLabel: `Book the ${service.shortName} reading, ${o.label}${price ? `, ${price}` : ''}`,
       href: bookingHref(event),
       recommended: Boolean(o.note),

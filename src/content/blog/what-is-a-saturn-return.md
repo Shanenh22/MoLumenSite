@@ -21,7 +21,7 @@ Saturn takes approximately 29.5 years to complete one orbit of the Sun. That mea
 born.
 
 That's it. That's the whole mechanism. First return around 29 to 30, second around 58 to 59, third
-around 87 to 88. There is nothing mystical about the timing — it is orbital mechanics, and you can
+around 87 to 88. There is nothing mystical about the timing. It is orbital mechanics, and you can
 check the dates yourself.
 
 Because Saturn goes retrograde during the period, most people cross their return point two or three
@@ -34,7 +34,7 @@ Saturn is the traditional planet of limit, structure, time, and consequence. The
 blunt about it: Saturn is the Greater Malefic, associated with restriction, delay, cold, and hard
 lessons. Traditional astrologers did not soften this.
 
-Modern astrology tends to reframe Saturn as the planet of maturation and earned authority — the
+Modern astrology tends to reframe Saturn as the planet of maturation and earned authority, the
 same experiences, described by what they build rather than what they cost.
 
 **Where I land**, and you should know this is interpretation rather than fact: both are describing
@@ -50,7 +50,7 @@ commitment or end. People go back to school, leave cities, become parents, or fi
 thing they've been doing since 23 was someone else's idea.
 
 The second, around 58, asks a quieter and harder question: what does this amount to, and what do you
-want the last third to hold. It arrives alongside real losses for many people — parents, health,
+want the last third to hold. It arrives alongside real losses for many people: parents, health,
 certainties.
 
 I want to be careful here. **These are tendencies, not appointments.** Plenty of people pass through
@@ -61,7 +61,7 @@ you've built there.
 ## What it is not
 
 It is not a punishment, and Saturn is not keeping score. It is not a prediction that your
-relationship will end — it is an indication that structures get tested, and a sound structure that
+relationship will end. It is an indication that structures get tested, and a sound structure that
 gets tested is a structure that gets confirmed.
 
 It is also not the only thing happening in your chart at 29. The volume of Saturn-return content
@@ -78,6 +78,6 @@ out of habit?
 That is a conversation worth having at 28. It is a harder one to have at 30 while something is
 already coming apart.
 
-The [Saturn return page](/explore/saturn-return/) has the technical detail — how to find yours by
+The [Saturn return page](/explore/saturn-return/) has the technical detail, how to find yours by
 house and sign, and what the return conditions change. If you're in one now, a
 [Life Changes reading](/readings/life-changes/) is built for exactly this kind of transition.

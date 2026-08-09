@@ -125,7 +125,7 @@ export const scenes = {
   ),
   relationship: band(
     "relationship-reading",
-    "Two mugs — midnight blue and warm clay — resting on overlapping birth charts",
+    "Two mugs, midnight blue and warm clay, resting on overlapping birth charts",
     1200,
     800,
   ),

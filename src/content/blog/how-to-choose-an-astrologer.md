@@ -1,6 +1,6 @@
 ---
 title: "How to Choose an Astrologer (Including Whether to Choose Me)"
-description: "Astrology is unregulated, which makes choosing well your job. Seven honest criteria for picking an astrologer — training, ethics, style — from someone with skin in the game."
+description: "Astrology is unregulated, which makes choosing well your job. Seven honest criteria for picking an astrologer, training, ethics, style, from someone with skin in the game."
 publishDate: 2026-08-02
 category: "Choosing a Reading"
 heroImage: "approachPhilosophy"
@@ -8,11 +8,11 @@ tags: ["choosing an astrologer", "ethics", "readings"]
 ownerReview: true
 ---
 
-Astrology has no licensing board. Anyone can print business cards tomorrow, and some do. That puts the burden of choosing well on you — so here is the checklist I'd hand a friend, even knowing it may send some readers elsewhere. That's fine. The right fit matters more than the booking.
+Astrology has no licensing board. Anyone can print business cards tomorrow, and some do. That puts the burden of choosing well on you, so here is the checklist I'd hand a friend, even knowing it may send some readers elsewhere. That's fine. The right fit matters more than the booking.
 
 ## 1. Ask about training
 
-Serious astrologers train for years and can tell you exactly where: named schools, certification programs, examinations. The field's respected institutions include NCGR's certification exams, the School of Traditional Astrology, Kepler College, and the certifying programs of ISAR and OPA. "Self-taught over decades" can be legitimate too — but ask what that study looked like. Vagueness is the red flag, not any particular path. (Mine: STA Horary Practitioner's Certificate, NCGR-PAA Levels 1 and 2 passed, Level 3 in progress — details on the [credentials page](/credentials/).)
+Serious astrologers train for years and can tell you exactly where: named schools, certification programs, examinations. The field's respected institutions include NCGR's certification exams, the School of Traditional Astrology, Kepler College, and the certifying programs of ISAR and OPA. "Self-taught over decades" can be legitimate too, but ask what that study looked like. Vagueness is the red flag, not any particular path. (Mine: STA Horary Practitioner's Certificate, NCGR-PAA Levels 1 and 2 passed, Level 3 in progress, details on the [credentials page](/credentials/).)
 
 ## 2. Look for professional affiliation
 
@@ -24,7 +24,7 @@ Prices should be visible before you commit, full stop. Hidden pricing, escalatin
 
 ## 4. Notice how they talk about the future
 
-This is the big one. An ethical astrologer describes tendencies, seasons, and windows — and leaves the choices to you. Walk away from anyone who deals in certain doom, guaranteed outcomes, curses to be removed for a fee, or predictions about death and disaster. Fear is a sales tool. You deserve better.
+This is the big one. An ethical astrologer describes tendencies, seasons, and windows, and leaves the choices to you. Walk away from anyone who deals in certain doom, guaranteed outcomes, curses to be removed for a fee, or predictions about death and disaster. Fear is a sales tool. You deserve better.
 
 ## 5. Check the boundaries
 
@@ -36,8 +36,8 @@ Astrologers differ honestly: psychological or traditional, conversational or for
 
 ## 7. Trust the pre-sale experience
 
-How someone treats you before payment predicts after. Clear answers, no pressure, respect for your skepticism — or evasiveness and urgency. The pattern rarely reverses once money changes hands.
+How someone treats you before payment predicts after. Clear answers, no pressure, respect for your skepticism, or evasiveness and urgency. The pattern rarely reverses once money changes hands.
 
 ---
 
-However you choose — here or elsewhere — go in with real questions and healthy skepticism, and expect to leave with perspective rather than prophecy. If my approach sounds like your fit, [here's how readings work](/how-readings-work/). If not, use this list without me. It works either way.
+However you choose, here or elsewhere, go in with real questions and healthy skepticism, and expect to leave with perspective rather than prophecy. If my approach sounds like your fit, [here's how readings work](/how-readings-work/). If not, use this list without me. It works either way.

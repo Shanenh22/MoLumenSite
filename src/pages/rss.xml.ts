@@ -32,7 +32,7 @@ export const GET: APIRoute = async () => {
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>${esc(site.name)} — Current Sky &amp; Blog</title>
+<title>${esc(site.name)}, Current Sky &amp; Blog</title>
 <link>${site.url}</link>
 <description>${esc(site.description)}</description>
 <language>en-us</language>

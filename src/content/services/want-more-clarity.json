@@ -1,13 +1,13 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
   "ownerReview": true,
   "available": true,
-  "name": "Want More Clarity — Follow-Up Reading",
+  "name": "Want More Clarity: Follow-Up Reading",
   "shortName": "More Clarity",
   "slug": "want-more-clarity",
-  "purpose": "Go deeper into parts of your chart or future aspects after your natal reading — a full hour to delve into whatever you'd like to discuss.",
+  "purpose": "Go deeper into parts of your chart or future aspects after your natal reading: a full hour to delve into whatever you'd like to discuss.",
   "method": "A focused follow-up session on your natal chart and upcoming aspects, directed entirely by what you want to explore further.",
   "bestFor": [
     "Established clients whose natal reading opened doors worth walking through",
@@ -15,7 +15,7 @@
     "Questions that surfaced after the recording sank in"
   ],
   "notFor": [
-    "New clients — the Natal Chart Reading comes first"
+    "New clients: the Natal Chart Reading comes first"
   ],
   "durationMinutes": 60,
   "durationLabel": "1 hour",

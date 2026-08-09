@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-description: "How Mo Lumen Astrology collects, uses, and protects your information — including why birth data is treated as sensitive, never sold, and never added to analytics."
+description: "How Mo Lumen Astrology collects, uses, and protects your information, including why birth data is treated as sensitive, never sold, and never added to analytics."
 updatedDate: 2026-08-08
 reviewStatus: owner-approved
 ---
@@ -26,7 +26,7 @@ Contact for anything in this policy: mo@molumen.com.
 
 ### Information you give us when you book
 
-Booking a reading requires your name and email address, and — for most readings — your birth date,
+Booking a reading requires your name and email address, and, for most readings, your birth date,
 your exact birth time, and your birthplace. Many clients also send the questions they want to bring.
 
 Birth data is the reason astrology works at all, and it is also unusually personal: an exact birth
@@ -36,7 +36,7 @@ We treat it accordingly.
 **Birth data is used only to cast and interpret your chart.** It is never sold, leased, or shared
 with third parties. It is never used for marketing. It is never sent to analytics. It is never
 placed in a web address, and it is never stored in this website's code or in your browser's storage
-— the chart tools on this site do their work in your browser and forget it when you close the tab.
+. The chart tools on this site do their work in your browser and forget it when you close the tab.
 
 ### Information you give us when you write to us
 
@@ -83,16 +83,16 @@ at all.
 
 Two small items may be stored in your browser either way, and neither is sent anywhere.
 
-The first is your answer to the cookie question itself. It holds a single word — whether you agreed
-or declined — so you are not asked again on every page.
+The first is your answer to the cookie question itself. It holds a single word, whether you agreed
+or declined, so you are not asked again on every page.
 
 The second is only stored if you choose to set it: your rising sign, if you tell the site which one
 is yours so that the guidance written for it appears first. It holds one word from a list of twelve
-— "virgo", say — and nothing else.
+, "virgo", say, and nothing else.
 
 **It is not birth data, and it is not treated as any.** Choosing it never asks you for your birth
 date, your birth time or your birth place. None of those is requested, stored or sent at any point,
-and the site does not work your rising sign out from them — it has none of them to work from. You
+and the site does not work your rising sign out from them. It has none of them to work from. You
 are picking a word from a list, in the same way you would anywhere else on the site.
 
 **It is not used to identify you.** It is not a login, an account or a profile. It is not used to
@@ -101,7 +101,7 @@ on the device you set it on: it is never sent to us, never sent to analytics, an
 web address. You can change it or clear it from the same control that set it, and clearing your
 browser data removes it. Everything on the site works identically whether or not you set one.
 
-Embedded third-party features — the booking calendar and video players — may set their own cookies,
+Embedded third-party features, the booking calendar and video players, may set their own cookies,
 and they load only when you interact with them. If you never open the booking calendar or press play
 on a video, those cookies are never set. Your browser's settings control cookie behaviour; blocking
 them affects only those embedded features, never your ability to read the site.
@@ -133,13 +133,13 @@ Booking and payment records are kept for as long as tax, accounting, and busines
 obligations require, and no longer than necessary after that.
 
 Birth data and reading notes are kept as part of your client record so that follow-up readings can
-build on earlier work — which is often the point of a follow-up. If you would rather we did not keep
+build on earlier work, which is often the point of a follow-up. If you would rather we did not keep
 it, say so and we will delete it.
 
 Newsletter subscriptions are kept until you unsubscribe. Correspondence is kept as long as it is
 useful for answering you and maintaining a record.
 
-Anything you ask us to delete is deleted, except where we are legally required to retain it — a
+Anything you ask us to delete is deleted, except where we are legally required to retain it, a
 payment record needed for tax purposes, for example. If that exception applies to your request, we
 will tell you which record it is and why, rather than simply refusing.
 
@@ -169,7 +169,7 @@ also have the right not to be treated differently for exercising any of these ri
 
 Two things worth stating plainly. **We do not sell or share personal information**, as those terms
 are defined in the CCPA, which is why there is no "Do Not Sell or Share My Personal Information"
-link on this site — there is nothing to opt out of. And your birth data qualifies as sensitive
+link on this site. There is nothing to opt out of. And your birth data qualifies as sensitive
 personal information: we use it only for the purpose you provided it for, which is exactly the
 limitation the statute exists to secure.
 
@@ -184,18 +184,18 @@ affecting the lawfulness of processing carried out before you withdrew it.
 
 Our legal bases for processing are:
 
-- **Contract** — booking details and birth data, because we cannot deliver a reading you have paid
+- **Contract**, booking details and birth data, because we cannot deliver a reading you have paid
   for without them
-- **Consent** — the newsletter, and any use of your words as a testimonial, which we ask for
+- **Consent**, the newsletter, and any use of your words as a testimonial, which we ask for
   separately and in writing every time
-- **Legitimate interests** — keeping the site secure and functioning, and keeping ordinary business
+- **Legitimate interests**, keeping the site secure and functioning, and keeping ordinary business
   records, balanced against your own interests and rights
 
 Because this practice is based in the United States, information you send is processed there. Where
 a provider moves data internationally, they do so under the safeguards set out in their own terms,
 such as Standard Contractual Clauses.
 
-If you think we have handled your information badly, please tell us first — we would rather fix it
+If you think we have handled your information badly, please tell us first. We would rather fix it
 than have you find out from a regulator. You also have the right to complain to your national
 supervisory authority, or to the Information Commissioner's Office in the United Kingdom.
 
@@ -216,7 +216,7 @@ and the testimonial comes down.
 
 Payments are handled by Stripe and never pass through this website. The site is served over HTTPS
 throughout, with security headers set at the edge. Client records are kept in access-controlled
-accounts. No system is perfectly secure and we will not claim otherwise — but birth data is never
+accounts. No system is perfectly secure and we will not claim otherwise, but birth data is never
 published, never sold, and never used for anything except your reading.
 
 ## Changes to this policy

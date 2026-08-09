@@ -66,7 +66,7 @@ const canonical = new URL(path, site.url).href;
 
 /** Keep titles under ~60 chars so search results don't truncate mid-word. */
 function buildTitle(t: string): string {
-  if (path === '/') return `${site.name} — ${site.tagline}`;
+  if (path === '/') return `${site.name} | ${site.tagline}`;
   const full = `${t} | ${site.name}`;
   if (full.length <= 60) return full;
   const short = `${t} | Mo Lumen`;
@@ -246,7 +246,7 @@ const ga4Id = site.integrations.ga4Id;
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
     <link rel="manifest" href="/site.webmanifest" />
-    <link rel="alternate" type="application/rss+xml" title={`${site.name} — Current Sky & Articles`} href="/rss.xml" />
+    <link rel="alternate" type="application/rss+xml" title={`${site.name}: Current Sky & Articles`} href="/rss.xml" />
     <meta name="theme-color" content="#1e2a45" />
     <meta property="og:site_name" content={site.name} />
     <meta property="og:title" content={fullTitle} />
