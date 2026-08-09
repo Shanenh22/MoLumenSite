@@ -20,16 +20,13 @@ const crumbs = [
   { label: 'The 12 Signs', href: '/explore/signs/' },
   { label: s.name, href: `/explore/signs/${s.slug}/` },
 ];
-/* Twelve sign pages shipped with no image at all — hero included — so each one
-   was a title, a table and 900 words of column. The slug picks both bands so
-   they stay stable per sign and differ from each other. */
 const heroImage = bandFor(s.slug);
 const breakImage = bandFor(s.slug, 5);
 ---
 
 <BaseLayout
   title={`${s.name}: meaning, dignities, and how to read it`}
-  description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Traditional and modern readings, essential dignities, strengths, growth edges, and common misconceptions.`}
+  description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Learn the sign as a style of expression and how its meaning changes by planet, house, and chart context.`}
   path={`/explore/signs/${s.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -56,6 +53,12 @@ const breakImage = bandFor(s.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
+      <p>
+        A sign describes a style, not a complete person. {s.name} changes meaning depending on which
+        planet is expressing through it, which house it occupies, what rules that house, and what
+        relationships connect it to the rest of the chart. Use the page as a vocabulary guide, not a
+        personality test.
+      </p>
       <h2>At a glance</h2>
       <table class="ref-table">
         <caption class="visually-hidden">Structural attributes of {s.name}</caption>
@@ -73,7 +76,7 @@ const breakImage = bandFor(s.slug, 5);
         </tbody>
       </table>
       <p class="card__meta">
-        Dignities follow the Ptolemaic tables used in traditional astrology, see
+        Dignities follow the Ptolemaic tables used in traditional astrology. See
         <a href="/explore/dignities/">essential dignities explained</a>.
       </p>
     </div>
@@ -98,9 +101,9 @@ const breakImage = bandFor(s.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <h2>Strengths</h2>
+      <h2>Possible strengths</h2>
       <p>{s.strengths}</p>
-      <h2>The growth edge</h2>
+      <h2>Possible tension or growth edge</h2>
       <p>{s.watchFor}</p>
       <h2>In relationship</h2>
       <p>{s.inRelationship}</p>
@@ -109,13 +112,12 @@ const breakImage = bandFor(s.slug, 5);
 
       <div class="callout">
         <p style="margin: 0;">
-          <strong>Remember:</strong> "being {s.name}" usually means the Sun was here when you were
-          born, one placement among many. Your Moon, rising, and every planet take a sign of their
-          own, which is why sun-sign descriptions fit loosely. See
-          <a href="/explore/the-big-three/">the big three</a>.
+          <strong>Keep the sign in context.</strong> Saying you "are {s.name}" usually means the Sun
+          was in {s.name} when you were born. Your Moon, rising sign, and every planet have signs of
+          their own, and each placement is modified by house, aspect, rulership, and the rest of the
+          chart. See <a href="/explore/the-big-three/">the Big Three</a>.
         </p>
       </div>
-
 
       <nav aria-label="More signs" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/signs/${prev.slug}/`}>← {prev.name}</a>
@@ -125,7 +127,7 @@ const breakImage = bandFor(s.slug, 5);
   </section>
 
   <CTABand
-    heading={`More than your ${s.name} placements`}
-    body="A reading looks at the whole chart: every sign, every planet, working together."
+    heading={`${s.name} is one part of a larger chart`}
+    body="A reading looks at what is expressing through this sign, where it is operating, and how it belongs to the rest of the pattern."
   />
 </BaseLayout>
