@@ -1,9 +1,10 @@
 /**
  * The 12 houses — areas of experience.
  *
- * Angularity, natural rulers, traditional Latin names, and planetary joys
- * follow standard Western and Hellenistic convention. Interpretive fields are
- * labeled by kind: `traditional`, `modern`, `mo`.
+ * Angularity, traditional Latin names, and planetary joys follow standard
+ * Western and Hellenistic convention. "Natural sign/ruler" fields preserve a
+ * common modern teaching correspondence used by this site's reference table;
+ * they are not treated here as literal house rulerships.
  */
 export interface House {
   slug: string;
@@ -37,20 +38,20 @@ export const houses: House[] = [
     opposite: "Seventh House",
     joy: "Mercury",
     arena:
-      "You, arriving. The first house is your threshold: appearance, temperament, the instinctive way you meet life before any strategy kicks in. Its cusp is the Ascendant, or rising sign, one of the most personal points in any chart.",
+      "The first house begins at the Ascendant and describes the immediate field of self: embodiment, presence, temperament, and the way a person enters experience.",
     covers: [
       "identity and self-presentation",
       "physical body and vitality",
       "first impressions",
-      "how you begin things",
+      "how you begin or meet experience",
     ],
     traditional:
-      "The house of life itself. Traditional astrology read the first house and its ruler as the primary indicator of vitality, constitution, and the native's general condition, the starting point of any chart judgment. Mercury takes joy here.",
+      "Traditional astrology treats the first house and its ruler as central indicators of life, body, vitality, and the native's general condition. Mercury takes joy here.",
     modern:
-      "Modern practice emphasizes the first house as persona and self-image: the interface between the inner person and the social world, and the qualities a person unconsciously leads with.",
-    mo: "I read the first house as the doorway. It's not a mask, people often assume the rising sign is fake, and it isn't, but it is the part of you that arrives first, and it shapes what everyone else responds to before they know anything else.",
+      "Modern practice often emphasizes the first house as self-presentation, approach, and the interface between inner identity and the world.",
+    mo: "I think of the first house as the doorway rather than a mask. It is part of the person, but it is also only the first part we meet. What occupies that doorway matters, and so does everything elsewhere in the house and chart that supports or complicates it.",
     planetsHere:
-      "Planets in the first house sit in the front window of your life: whatever they represent, people meet it early and often.",
+      "Planets in the first house can become especially noticeable in how a person enters situations or is initially perceived, but sign, aspects, condition, and the rest of the chart determine the expression.",
   },
   {
     slug: "second-house",
@@ -63,20 +64,20 @@ export const houses: House[] = [
     naturalRuler: "Venus",
     opposite: "Eighth House",
     arena:
-      "What you have and what you are worth, to yourself first. The second house governs money, belongings, and resources, and beneath them the deeper question of self-worth and what you consider truly valuable.",
+      "The second house concerns what is personally yours in material terms: money, possessions, income, resources, and the practical question of what you have available to support your life.",
     covers: [
       "income and personal money",
-      "possessions and material security",
-      "values",
-      "self-esteem and talents you can live from",
+      "possessions",
+      "material resources",
+      "financial security and sufficiency",
     ],
     traditional:
-      "Traditionally the house of substance: movable goods, income, and, in some texts, supporters and helpers. Judged for the native's material sufficiency rather than their psychology.",
+      "Traditionally the house of substance: movable goods, money, income, and material sufficiency. Its emphasis was concrete rather than psychological.",
     modern:
-      "Modern astrology expanded it into self-worth and the internal sense of having enough, treating money as the outer measure of an inner valuation.",
-    mo: "The second house is where I find out whether someone believes they are allowed to be resourced. Two people with identical incomes can have completely different second-house experiences, and the difference is almost never about the money.",
+      "Some modern astrologers extend the second house into abstract ideas of values or self-worth. I keep the house grounded primarily in finances, possessions, and personal material resources.",
+    mo: "I keep the second house fairly literal. Money and possessions carry enough meaning on their own without asking one house to explain a person's entire sense of worth. I want to know what resources are available, how they are managed, and what material questions are actually present in the life.",
     planetsHere:
-      "Planets here shape how you earn, spend, keep, and value, and how tightly your security is tied to what you own.",
+      "Planets here may describe different ways money, possessions, earning, spending, keeping, or material security become active themes. Their meaning depends on the planet's condition and the chart around it.",
   },
   {
     slug: "third-house",
@@ -90,20 +91,20 @@ export const houses: House[] = [
     opposite: "Ninth House",
     joy: "the Moon",
     arena:
-      "The neighbourhood of the mind. The third house governs everyday thinking and talking: learning, errands, siblings, neighbours, the familiar routes you travel and the constant hum of information along them.",
+      "The third house describes the near environment: communication, siblings and neighbors, early learning, short journeys, errands, and the movement of information through everyday life.",
     covers: [
       "communication and writing",
-      "early education and learning style",
+      "early education and learning",
       "siblings and neighbours",
       "short trips and daily movement",
     ],
     traditional:
-      "The house of brothers, short journeys, and, notably, the goddess: traditional texts associate it with rituals, omens, and the local sacred. The Moon takes joy here, which fits a house of daily rounds and familiar ground.",
+      "Traditional texts associate the third with siblings, short journeys, messages, local surroundings, and the goddess or local sacred. The Moon takes joy here.",
     modern:
-      "Modern practice reads it as the concrete mind and immediate environment: how you gather and exchange information, and the mental habits formed in early schooling.",
-    mo: "The third house is deceptively important. It describes the texture of an ordinary day, the commute, the group chat, the sibling you talk to weekly, and ordinary days are what a life is mostly made of.",
+      "Modern practice often emphasizes communication style, learning, information exchange, and the mental habits developed through the immediate environment.",
+    mo: "I like the third house because it reminds us that a life is built from ordinary contact: the conversation, the drive across town, the person you text, the information you encounter every day. Those details may look small until they repeat for years.",
     planetsHere:
-      "Planets here colour your voice and your curiosity: how you gather information and how it sounds when you pass it on.",
+      "Planets here can color communication, learning, sibling dynamics, local movement, or the daily exchange of information. The planet tells us what function is involved; the chart tells us how.",
   },
   {
     slug: "fourth-house",
@@ -116,20 +117,20 @@ export const houses: House[] = [
     naturalRuler: "the Moon",
     opposite: "Tenth House",
     arena:
-      "The root system. The fourth house is home in every sense: the household you came from, the one you build, ancestry, land, and the private self that exists when the door is closed.",
+      "The fourth house concerns home, land, family and ancestry, foundations, private life, and the conditions from which the rest of the chart grows outward.",
     covers: [
       "home and household",
       "family of origin and lineage",
       "one parent (traditions differ on which)",
-      "endings and foundations",
+      "land, foundations, and endings",
     ],
     traditional:
-      "The house of the father, the land, and, importantly, of endings: traditional astrology read the fourth as the conclusion of the matter, the grave, and what remains after. Its cusp, the Imum Coeli, is the lowest point of the chart.",
+      "Traditional astrology associates the fourth with parents, land, home, ancestry, endings, and the conclusion of a matter. Its angle is the Imum Coeli, or IC.",
     modern:
-      "Modern practice emphasizes psychological foundations: the emotional inheritance of the family of origin, and the private self beneath the public one.",
-    mo: "The fourth house is where I look when someone's outward life is working and they still feel unmoored. It is the floor. If the floor was uneven, everything built on it compensates, and that compensation is usually invisible until someone names it.",
+      "Modern practice often adds psychological foundations, family patterns, privacy, roots, and the internal experience of home.",
+    mo: "The fourth house makes me curious about what 'home' actually means to this person. I do not assume a childhood story from the chart. The symbolism may describe roots, privacy, family, place, ancestry, or the need for a foundation, and lived experience tells us which thread matters most.",
     planetsHere:
-      'Planets here work underground, shaping your sense of belonging and what "home" must include for you to rest.',
+      "Planets here can make home, family, roots, land, ancestry, privacy, or foundations especially important. Their expression may be supportive, complicated, or simply prominent depending on context.",
   },
   {
     slug: "fifth-house",
@@ -143,20 +144,20 @@ export const houses: House[] = [
     opposite: "Eleventh House",
     joy: "Venus",
     arena:
-      "The stage and the playground. The fifth house governs what you create and what delights you: art, romance, children, games, and every act where you put something of yourself into the world for the joy of it.",
+      "The fifth house concerns children, pleasure, play, creativity, romance, recreation, and forms of self-expression undertaken because they bring life or delight.",
     covers: [
       "creativity and self-expression",
       "romance and courtship",
       "children",
-      "play, pleasure, and risk taken for joy",
+      "play, pleasure, and recreation",
     ],
     traditional:
-      "The house of good fortune, children, banquets, and pleasure. Venus takes joy here. Traditional texts read it for offspring and for enjoyment generally, treating delight as a legitimate subject of astrological inquiry.",
+      "Traditional astrology calls the fifth the house of good fortune and associates it with children, pleasure, banquets, enjoyment, and fertility. Venus takes joy here.",
     modern:
-      "Modern astrology broadened it into creative self-expression of every kind: anything you make that carries your signature, whether or not anyone else ever sees it.",
-    mo: "Adults routinely tell me they have no fifth house life, and then describe three things they make that they don't count because nobody pays them for it. Play is not optional equipment. It's where the Sun in a chart actually gets used.",
+      "Modern astrology broadens the fifth into personal creativity, play, performance, romance, and the desire to make or express something that feels distinctly one's own.",
+    mo: "The fifth house is one of my favorite reminders that delight belongs in a serious chart. I want to know what someone makes, enjoys, risks for pleasure, or loves enough to do without turning it into a productivity project.",
     planetsHere:
-      "Planets here want an outlet. They describe your creative signature and what makes you feel most alive.",
+      "Planets here can become involved in creativity, play, romance, children, performance, recreation, or the wish to express something personally meaningful.",
   },
   {
     slug: "sixth-house",
@@ -170,20 +171,20 @@ export const houses: House[] = [
     opposite: "Twelfth House",
     joy: "Mars",
     arena:
-      "The workshop of daily life. The sixth house governs routines, work in the sense of craft and duty, health habits, and service: the unglamorous hours that quietly determine nearly everything.",
+      "The sixth house concerns labor, service, routine, illness and health matters, skill developed through repetition, and the practical maintenance required by everyday life.",
     covers: [
       "daily work and routines",
-      "health and habits",
+      "health and illness",
       "service and skill-building",
-      "colleagues, employees, and animals in your care",
+      "employees, coworkers, and animals in your care",
     ],
     traditional:
-      'One of the traditionally "difficult" houses: illness, servitude, and toil, with Mars taking joy here. Traditional astrology read it for sickness and for subordinates, the labour that keeps a household running.',
+      'Traditional astrology considered the sixth a difficult house associated with illness, servitude, toil, subordinates, and small animals. Mars takes joy here.',
     modern:
-      "Modern practice reframed it more constructively as craft, wellness, and the integration of body and routine, the sign that daily practice is where change actually happens.",
-    mo: "The sixth house is where good intentions meet Tuesday. I find more useful information here than in almost any other house, because what a person does repeatedly matters far more than what they intend.",
+      "Modern practice often reframes the sixth through habits, wellness, craft, work process, service, and the relationship between daily choices and larger functioning.",
+    mo: "The sixth house brings astrology down to the ordinary day, which is exactly why it matters. I look at what is being repeated, maintained, practiced, or endured. But I do not use a chart to diagnose illness or replace medical care.",
     planetsHere:
-      "Planets here express through practice and maintenance: they show how you work, and how your body keeps the score of it.",
+      "Planets here can emphasize work routines, service, health concerns, maintenance, coworkers, animals, or skills built through repetition. Medical interpretation belongs within clear ethical limits.",
   },
   {
     slug: "seventh-house",
@@ -196,46 +197,46 @@ export const houses: House[] = [
     naturalRuler: "Venus",
     opposite: "First House",
     arena:
-      'The other chair. The seventh house governs committed one-to-one relationships: spouses, business partners, close collaborators, and open adversaries. It is where "I" learns to be half of "we."',
+      "The seventh house concerns one-to-one encounters: marriage and committed partnership, contracts, business partnerships, negotiation, open opponents, and the people we meet across the table.",
     covers: [
       "marriage and committed partnership",
       "business partnership and contracts",
       "open enemies and negotiation",
-      "what you seek (and project) in others",
+      "significant one-to-one relationships",
     ],
     traditional:
-      "The house of marriage, partners, and open enemies, traditional astrology grouped allies and adversaries together, on the logic that both are people who meet you face to face. Also the house of the astrologer, in a horary chart.",
+      "Traditional astrology associates the seventh with marriage, partners, contracts, open enemies, and, in horary, the other party to a question. It is the angle directly opposite the Ascendant.",
     modern:
-      "Modern practice adds projection: the seventh house describes qualities a person disowns in themselves and then reliably encounters in partners.",
-    mo: "The seventh house tends to arrive as other people. What you keep meeting there is usually something of yours that hasn't been claimed yet, which is uncomfortable to hear and remarkably useful once it lands.",
+      "Modern practice often adds projection and relational mirroring: the possibility that qualities experienced strongly through partners may also belong to the native's own psychological landscape.",
+    mo: "The seventh house makes me curious about what repeatedly happens in close one-to-one relationships. Projection can be useful language, but I do not assume every difficult partner is simply carrying a disowned part of the client. Sometimes another person is just another person. Conversation keeps the astrology honest.",
     planetsHere:
-      "Planets here tend to be met in other people first: qualities you attract, marry, hire, or contend with until you recognise them as your own.",
+      "Planets here can make partnership, contracts, negotiation, conflict, or significant one-to-one relationships especially prominent. They do not tell us in advance who a partner will be or what a relationship must become.",
   },
   {
     slug: "eighth-house",
     number: 8,
     name: "Eighth House",
-    traditionalName: "the house of shared resources and transformation",
+    traditionalName: "the house of shared resources and mortality",
     latin: "Mors: death",
     angularity: "Succedent",
     naturalSign: "Scorpio",
     naturalRuler: "Mars (traditional), Pluto (modern)",
     opposite: "Second House",
     arena:
-      "Where lives intertwine past the point of easy exit. The eighth house governs shared money and deep bonds, inheritance, debt, taxes, intimacy, and the transformations that mergers and losses force.",
+      "The eighth house concerns other people's resources and obligations that bind lives together: inheritance, taxes, debt, shared finances, mortality, loss, and the consequences of material or intimate entanglement.",
     covers: [
       "other people's money: inheritance, loans, taxes, joint finances",
-      "deep intimacy and trust",
-      "crisis, loss, and regeneration",
-      "the psyche beneath the surface",
+      "debts and obligations",
+      "inheritance and legacies",
+      "mortality, loss, and matters shared with others",
     ],
     traditional:
-      "The house of death, inheritance, and the partner's substance, one of the traditionally difficult houses, and the source of its modern reputation. Traditional practice read it for legacies, debts, and mortality quite literally.",
+      "Traditional astrology associates the eighth with death, inheritance, the partner's resources, debts, and legacies. It was considered one of the more difficult houses.",
     modern:
-      "Modern astrology psychologized it into transformation, intimacy, and shadow work, death as metaphor for the endings that precede change.",
-    mo: "I hold the eighth house carefully. It's genuinely the house of the things people don't discuss at dinner: money owed, bodies, grief, sex, power. Naming what lives there is often the most useful hour of a reading.",
+      "Modern astrology often extends the eighth into intimacy, psychological depth, transformation, shared vulnerability, and experiences of loss or regeneration.",
+    mo: "I keep the eighth house anchored in what is actually shared, owed, inherited, lost, or beyond one person's control. Modern psychological language can be useful, but I do not want 'transformation' to become a vague substitute for the concrete subjects this house has long described.",
     planetsHere:
-      "Planets here work at depth: they describe how you merge, what you fear losing, and how you come back from endings.",
+      "Planets here can become involved in shared money, debt, taxes, inheritance, mortality, loss, intimacy, or other entanglements. The chart does not justify fatalistic predictions about death.",
   },
   {
     slug: "ninth-house",
@@ -249,20 +250,20 @@ export const houses: House[] = [
     opposite: "Third House",
     joy: "the Sun",
     arena:
-      "The far horizon. The ninth house governs everything that stretches your world, long journeys, higher education, philosophy, religion, law, publishing, the search for meaning beyond the familiar.",
+      "The ninth house concerns long-distance journeys, higher learning, religion, philosophy, law, divination, publishing, and the search for frameworks large enough to organize experience.",
     covers: [
       "travel and foreign cultures",
       "higher education and philosophy",
-      "belief, faith, and law",
-      "publishing and teaching at scale",
+      "belief, religion, and law",
+      "publishing, divination, and advanced study",
     ],
     traditional:
-      "The house of God, long journeys, prophecy, and dreams. The Sun takes joy here. Traditional astrology treated it as the place of divination and religious life as much as of travel.",
+      "Traditional astrology calls the ninth the house of God and associates it with religion, prophecy, divination, dreams, long journeys, and higher knowledge. The Sun takes joy here.",
     modern:
-      "Modern practice reads it as the search for meaning and the construction of a worldview, belief as an organizing structure rather than a doctrine.",
-    mo: "The ninth house is where a person goes looking for a bigger frame. For some that is literal travel; for others it is study, or faith, or a stubborn insistence on asking why. All three are the same instinct.",
+      "Modern practice often emphasizes worldview, meaning, advanced education, philosophy, intercultural experience, and the ways belief organizes perception.",
+    mo: "The ninth house makes me curious about the larger questions a person cannot stop asking. Sometimes that becomes travel or formal education; sometimes faith, philosophy, astrology, law, or teaching. The common thread is the search for a wider frame.",
     planetsHere:
-      "Planets here hunger for the bigger picture: they describe your relationship with belief and the adventures that educate you.",
+      "Planets here can make belief, study, travel, law, publishing, religion, philosophy, teaching, or divination important arenas of expression.",
   },
   {
     slug: "tenth-house",
@@ -275,7 +276,7 @@ export const houses: House[] = [
     naturalRuler: "Saturn",
     opposite: "Fourth House",
     arena:
-      "The mountaintop. The tenth house governs your public life, career, reputation, achievement, authority, and the vocation you climb toward across decades. Its cusp is the Midheaven (MC).",
+      "The tenth house concerns public life: career, reputation, authority, achievement, responsibility, visibility, and the ways a person becomes known beyond private life.",
     covers: [
       "career and vocation",
       "public reputation and visibility",
@@ -283,18 +284,18 @@ export const houses: House[] = [
       "one parent (traditions differ on which)",
     ],
     traditional:
-      "The house of kingdom, rank, and the mother in many texts: traditionally the most elevated point of the chart and a primary indicator of worldly standing and profession.",
+      "Traditional astrology associates the tenth with rank, authority, profession, action, reputation, and one parent. The Midheaven is a separate astronomical point that may or may not coincide with the tenth-house cusp depending on house system.",
     modern:
-      "Modern astrology reads it as vocation in the deeper sense: not merely a job but the contribution a person is recognized for, and the relationship they have with their own authority.",
-    mo: "The tenth house is what you're visible for, which is not always what you're best at. Part of a good vocational reading is separating those two, because building a career on the wrong one is a slow, expensive mistake.",
+      "Modern astrology often reads the tenth through vocation, public identity, achievement, authority, and the kind of contribution for which a person becomes visible.",
+    mo: "The tenth house can tell me a great deal about public direction, but it does not print a profession on the chart. I look at it with its ruler, planets, aspects, the second and sixth houses, and the person's actual skills and circumstances before talking about vocation.",
     planetsHere:
-      "Planets here are visible from a distance. They shape what you are known for and how you handle responsibility in public.",
+      "Planets here can become especially visible through career, reputation, leadership, responsibility, or public roles. Visibility is not the same as destiny.",
   },
   {
     slug: "eleventh-house",
     number: 11,
     name: "Eleventh House",
-    traditionalName: "the house of community and hopes",
+    traditionalName: "the house of friends and hopes",
     latin: "Benefacta: good fortune",
     angularity: "Succedent",
     naturalSign: "Aquarius",
@@ -302,20 +303,20 @@ export const houses: House[] = [
     opposite: "Fifth House",
     joy: "Jupiter",
     arena:
-      "The wider circle. The eleventh house governs friendship, groups, networks, and causes, and the hopes you carry for your own future and for the collective one.",
+      "The eleventh house concerns friends, allies, groups, benefactors, networks, hopes, and the people or communities through which possibilities become larger than one individual.",
     covers: [
       "friendships and alliances",
-      "groups, communities, and audiences",
+      "groups, communities, and networks",
       "hopes, wishes, and long-range goals",
-      "social causes",
+      "benefactors and collective efforts",
     ],
     traditional:
-      "The house of good spirit, friends, allies, and benefactors. Jupiter takes joy here, and traditional texts counted it among the most fortunate houses. Also the house of hopes and wishes quite literally.",
+      "Traditional astrology calls the eleventh the house of good spirit and associates it with friends, allies, benefactors, hopes, and good fortune. Jupiter takes joy here.",
     modern:
-      "Modern practice emphasizes community, chosen family, and collective vision, the shift from personal creativity (fifth) to shared purpose (eleventh).",
-    mo: "The eleventh house is where people underestimate what they have. Ask someone about their friendships and their causes and you often learn more about their future than their career answers reveal.",
+      "Modern practice often emphasizes community, networks, chosen groups, audiences, collective vision, and future-oriented goals.",
+    mo: "The eleventh house reminds me that people do not build a future alone. I want to know who someone is connected to, what communities matter, and which hopes are actually being supported by relationships and networks rather than held only as ideas.",
     planetsHere:
-      "Planets here find their power in company: they describe your people, your causes, and what you build with others.",
+      "Planets here can emphasize friendship, community, networks, benefactors, audiences, hopes, or collective projects. Their meaning is relational but not automatically social in the same way for every chart.",
   },
   {
     slug: "twelfth-house",
@@ -329,19 +330,19 @@ export const houses: House[] = [
     opposite: "Sixth House",
     joy: "Saturn",
     arena:
-      "Behind the veil. The twelfth house governs what is withdrawn from ordinary view: solitude, dreams, the unconscious, hospitals and retreats, self-undoing and self-transcendence alike.",
+      "The twelfth house concerns what is removed from ordinary visibility or participation: isolation, confinement, hidden enemies, retreat, institutions, and, in modern practice, unconscious or private material.",
     covers: [
-      "solitude, retreat, and rest",
-      "the unconscious and dreams",
-      "hidden patterns and self-sabotage",
-      "compassion, surrender, and spiritual life",
+      "solitude, retreat, and isolation",
+      "institutions and confinement",
+      "hidden enemies and unseen difficulties",
+      "private, unconscious, or spiritual material in modern practice",
     ],
     traditional:
-      "The house of bad spirit: imprisonment, hidden enemies, large animals, and self-undoing, with Saturn taking joy here. Traditionally the most difficult house in the chart, and read quite literally as confinement.",
+      "Traditional astrology calls the twelfth the house of bad spirit and associates it with imprisonment, hidden enemies, isolation, large animals, and self-undoing. Saturn takes joy here.",
     modern:
-      "Modern astrology substantially rehabilitated it as the unconscious, the transpersonal, and the necessary retreat: the place where the ego rests and where creative and spiritual material surfaces.",
-    mo: "The twelfth house is not a curse, and I say that often because the older literature is frightening about it. What I actually see there is material that operates below conscious notice, which is only a problem for as long as it stays there.",
+      "Modern astrology substantially broadens the twelfth into the unconscious, spirituality, retreat, dreams, compassion, self-sabotage, and transpersonal experience.",
+    mo: "I do not treat the twelfth house as a curse, and I also do not erase its traditional difficulty by making it purely mystical. It can describe isolation, things operating outside conscious view, retreat, institutions, or spiritual life. The chart and the person's circumstances tell us which meaning belongs in the conversation.",
     planetsHere:
-      "Planets here work backstage: easy to overlook in yourself, powerful once brought into the light with patience and kindness.",
+      "Planets here may operate privately, indirectly, institutionally, spiritually, or outside easy conscious recognition. That can be difficult, creative, restorative, isolating, or several of those at once.",
   },
 ];
