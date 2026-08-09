@@ -10,16 +10,9 @@ import NextLunations from '../components/NextLunations.astro';
 
 /**
  * Split on today, not just sorted descending.
- *
- * This page used to take the six latest lunations by date and head them
- * "Recent lunation letters". Every one of them was in the future, so a visitor
- * in August read "recent" above a letter dated Christmas Eve. Publishing the
- * 2027 window turned that from odd into plainly wrong — the top entry became
- * December 2027, sixteen months out.
- *
- * Upcoming and past are genuinely different things to a reader: one is
- * something to prepare for, the other something to look back on. So they are
- * now two lists with honest headings, both filtered against today.
+ * Upcoming and past are different things to a reader: one is a pattern to
+ * watch as it approaches; the other is something to look back on. Both lists
+ * are filtered against today so a future event is never labeled "recent."
  */
 const allLunations = (await getCollection('skyEvents')).filter(
   (e) => e.data.eventType === 'lunation' || e.data.eventType === 'eclipse'
@@ -39,8 +32,8 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
 ---
 
 <BaseLayout
-  title="Horoscopes, by rising sign, with each lunation"
-  description="Mo Lumen writes rising-sign guidance with each new moon and eclipse, horoscopes that respect your agency. Read the latest lunation letters."
+  title="Horoscopes by rising sign: a lens on each lunation"
+  description="Mo Lumen offers rising-sign guidance with new moons and eclipses: a whole-sign-house lens on where to look, without pretending to predict what will happen."
   path="/horoscopes/"
   breadcrumbs={crumbs}
 >
@@ -48,12 +41,13 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">By rising sign</p>
+      <p class="eyebrow">A rising-sign lens</p>
       <h1>Horoscopes</h1>
       <p class="lede">
-        With each new moon and eclipse I write guidance for all twelve rising signs, where the
-        lunation lands in your chart and what that part of life tends to ask. Read by your
-        <em>rising</em> sign for the best fit; your Sun sign works too, it just fits more loosely.
+        A horoscope can give you somewhere useful to look without pretending to know the whole
+        story. With each new moon and eclipse, I use your rising sign and whole-sign houses to show
+        the broad area of the chart the lunation occupies. From there, I offer questions and
+        possibilities to consider, not a prediction of what will happen.
       </p>
       </div>
       <img
@@ -68,7 +62,31 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
       />
     </div>
   </section>
+
   <section class="section">
+    <div class="container prose flow" style="margin-bottom: var(--space-4);">
+      <h2>What these horoscopes can tell you</h2>
+      <p>
+        Your rising sign gives us a reliable piece of structure. In whole-sign houses, once I know
+        the sign of a lunation and your rising sign, I can identify which house it falls in. That
+        tells us the broad territory involved: perhaps relationships, home, work, money, creativity,
+        or another part of life.
+      </p>
+      <p>
+        What it cannot tell us is whether that lunation is especially important in your chart, what
+        natal planets it touches, what other timing is active, or what is already happening in your
+        life. Those details can change the interpretation considerably. So I treat a horoscope as a
+        lens rather than a verdict: it helps narrow the field without pretending the field is the
+        whole chart.
+      </p>
+      <p>
+        If you know your rising sign, start there. Your Sun sign can offer a second symbolic point of
+        view, but it is not interchangeable with the rising sign for house placement.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container">
       {
         upcoming.length > 0 && (
@@ -93,7 +111,7 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
       {
         recent.length > 0 && (
           <>
-            <h2 style="margin-top: var(--space-12);">Recent lunation letters</h2>
+            <h2 style="margin-top: var(--space-12);">Recent lunation notes</h2>
             <div class="grid grid--2" style="margin-top: var(--space-6);">
               {recent.map((e) => (
                 <article class="card">
@@ -111,13 +129,13 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
         )
       }
       <p style="margin-top: var(--space-6);">
-        Every past letter lives in the <a href="/current-sky/archive/">Current Sky archive</a>.
+        Every past note lives in the <a href="/current-sky/archive/">Current Sky archive</a>.
       </p>
       <p>
         Don't know your rising sign? It comes from your exact birth time:
         <a href="/birth-time/">here's how to find it</a>, and if you have a time but aren't sure
         how much to trust it, <a href="/birth-time-toolkit/#confidence-check">three questions will
-        tell you</a>.
+        help you assess it</a>.
       </p>
     </div>
   </section>
@@ -125,11 +143,21 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   <NextLunations />
   <section class="section section--alt">
     <div class="container" style="max-width: 42rem;">
-      <h2 id="horo-newsletter">New lunation letters, by email</h2>
-      <p>The Sky This Month delivers each letter as it's written.</p>
+      <h2 id="horo-newsletter">Keep looking with me</h2>
+      <p>
+        My monthly note includes <strong>The Sky This Month</strong> along with whatever else has
+        caught my attention: a question, an observation, or a connection worth following a little
+        further. Current Sky tracks the cycles; the newsletter is where I can write to you more
+        personally about what I am noticing.
+      </p>
       <NewsletterForm source="horoscopes" labelledby="horo-newsletter" />
       <FurtherReading />
     </div>
   </section>
-  <CTABand />
+  <CTABand
+    heading="Want to go beyond the rising-sign lens?"
+    body="A personal reading adds the rest of your chart, the timing around you, and the life you are actually living. That is where broad symbolism can become individual synthesis."
+    buttonLabel="Find Your Reading"
+    buttonHref="/reading-finder/"
+  />
 </BaseLayout>
