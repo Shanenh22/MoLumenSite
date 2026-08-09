@@ -1,41 +1,13 @@
 /**
  * Rising-sign guidance for lunations and eclipses.
  *
- * WHY THIS IS DERIVED RATHER THAN WRITTEN TWELVE TIMES PER EVENT
- *
- * `/horoscopes/` promises guidance for all twelve rising signs with every new
- * moon and eclipse. Writing that by hand would be twelve fresh paragraphs per
- * event forever, which is exactly the kind of promise a one-person practice
- * quietly stops keeping — and an unkept promise a reader can check in one click
- * costs more trust than never making it.
- *
- * So the house placement is calculated and the interpretation is written once,
- * properly, per house and per phase. In whole-sign houses — the system this site
- * documents on /explore/house-systems/ as Mo's classical default — the sign a
- * lunation falls in lands in a fixed house for each rising sign. A Virgo new
- * moon is always the 6th house for Aries rising and always the 1st for Virgo
- * rising. That is arithmetic, not invention, which is the only reason this can
- * be generated honestly at all.
- *
- * What that buys: every lunation gets correct, specific, house-grounded guidance
- * for all twelve signs, automatically, including lunations added years from now.
- * What it costs: the passage for "new moon in your 5th" reads the same whichever
- * lunation put it there. That is a fair trade and the page says so plainly
- * rather than implying bespoke text.
- *
- * VOICE: first person, Mo's own, drawn from molumen.com — practical, warm, never
- * fortune-telling. She describes astrology as "a tool to use like a mirror or a
- * planner" and says plainly "I am not a 'fortune teller'." Nothing here predicts
- * an event or tells a reader what to do. Each passage describes what the house
- * tends to ask and leaves the choice with the reader, which is the same standard
- * the rest of the site holds.
- *
- * OWNER REVIEW: this is interpretive content published under Mo's byline. It is
- * built from standard whole-sign technique and her stated approach, but she has
- * not read it. It belongs on the same review list as the blog posts.
+ * This layer is derived from whole-sign house placement. It is deliberately
+ * broad: it identifies a life area and offers questions or possibilities to
+ * consider, but it does not claim to describe a personal outcome. Personal
+ * interpretation requires the exact degree, natal contacts, other timing
+ * factors, and lived circumstances.
  */
 
-/** Zodiacal order. Index matters — `houseFor` counts around this array. */
 export const ZODIAC = [
   "Aries",
   "Taurus",
@@ -52,15 +24,8 @@ export const ZODIAC = [
 ] as const;
 
 export type ZodiacSign = (typeof ZODIAC)[number];
-
-/** Which lunation phase a passage is written for. */
 export type LunationPhase = "newMoon" | "fullMoon" | "eclipse";
 
-/**
- * Whole-sign house of `lunationSign` counted from `rising`.
- * Returns 1–12, or null if either sign is unrecognised (a retrograde or ingress
- * event has no lunation sign, and should not render this block at all).
- */
 export function houseFor(rising: string, lunationSign: string): number | null {
   const r = ZODIAC.indexOf(rising as ZodiacSign);
   const s = ZODIAC.indexOf(lunationSign as ZodiacSign);
@@ -68,15 +33,7 @@ export function houseFor(rising: string, lunationSign: string): number | null {
   return ((s - r + 12) % 12) + 1;
 }
 
-/**
- * Phase of a sky event, from its type and title.
- * Eclipses get their own passages because they behave differently from an
- * ordinary lunation — they accelerate rather than simply open or complete.
- */
-export function phaseOf(
-  eventType: string,
-  title: string,
-): LunationPhase | null {
+export function phaseOf(eventType: string, title: string): LunationPhase | null {
   if (eventType === "eclipse") return "eclipse";
   if (eventType !== "lunation") return null;
   if (/full moon/i.test(title)) return "fullMoon";
@@ -102,125 +59,120 @@ const ORDINALS = [
 export const ordinal = (n: number): string => ORDINALS[n] ?? String(n);
 
 export interface HousePassage {
-  /** Short label for the life area, used as the heading. */
   arena: string;
   newMoon: string;
   fullMoon: string;
   eclipse: string;
 }
 
-/**
- * One entry per house. House meanings follow the same conventions as
- * src/data/houses.ts, so the two never contradict each other.
- */
 export const HOUSE_GUIDANCE: Record<number, HousePassage> = {
   1: {
-    arena: "you, and how you arrive",
+    arena: "identity, body, and how you meet the world",
     newMoon:
-      "This is the closest thing your year gives you to a personal reset. I would spend it on how you want to arrive, your pace, your appearance, the way you introduce yourself, rather than on a resolution about somebody else.",
+      "With the lunation in your first house, questions of identity, presentation, pace, and personal direction may be easier to notice. Rather than treating it as a required reset, consider what feels newly worth expressing or inhabiting.",
     fullMoon:
-      "You are in the frame. Something about the way you have been showing up gets hard to ignore. Sometimes that arrives as other people reflecting you back, and sometimes it is simply catching your own reflection and deciding it needs updating.",
+      "A first-house full moon puts the self-and-other axis into view. You may notice more clearly how you are showing up, how others are responding, or where your current way of meeting the world no longer feels quite accurate.",
     eclipse:
-      "Eclipses here tend to speed up whatever you have already been suspecting about your own direction. This is the season people change their hair, their name, their title. I would let it move rather than brace against it.",
+      "An eclipse in the first house gives extra symbolic emphasis to identity, embodiment, and direction. That can coincide with visible changes for some people, but the more useful starting point is to notice what is already shifting in how you understand or present yourself.",
   },
   2: {
-    arena: "money, resources, and what you value",
+    arena: "money, possessions, and material resources",
     newMoon:
-      "A good place to start one concrete thing with money: a rate you charge, an account you open, a habit you fund. This house responds to the specific far better than to the sweeping.",
+      "A second-house new moon draws attention to income, possessions, spending, saving, and material security. It can be a useful point for looking at one concrete financial pattern without assuming the lunation will change it for you.",
     fullMoon:
-      "The numbers come into the light. Sometimes that is a payment arriving and sometimes it is finally adding it all up. Either way, you tend to learn what you actually value by seeing where it has been going.",
+      "A full moon here can make the state of your resources easier to see. The emphasis may be on money coming in or going out, what you own, or how much security a particular arrangement actually provides.",
     eclipse:
-      "Income, possessions, or your sense of what you are worth can move faster than is comfortable. It rarely ends where it starts, so I would not judge the whole story by the first week of it.",
+      "An eclipse in the second house emphasizes money, possessions, and material support. Changes are possible, but an eclipse alone cannot tell us whether those changes are gains, losses, decisions, or simply a stronger awareness of what needs attention.",
   },
   3: {
-    arena: "conversation, learning, and the everyday mind",
+    arena: "communication, learning, siblings, and daily movement",
     newMoon:
-      "A fine time to begin the course, the newsletter, the difficult conversation, or the habit of writing things down. Small and daily beats grand here.",
+      "A third-house new moon brings the everyday exchange of information into focus: conversations, writing, learning, siblings, errands, and short trips. Notice what you are beginning to understand or communicate differently.",
     fullMoon:
-      "A conversation comes to a head: something said, something finally understood, or something you have been circling privately that lands. Your calendar tends to get noisy for a few days.",
+      "A full moon here may make a conversation, piece of information, learning process, or everyday logistical pattern more visible. The point is not that something must be revealed, but that the mental and practical traffic of daily life deserves attention.",
     eclipse:
-      "How and what you communicate shifts: a message that changes things, a sibling, a piece of learning that reroutes you. Back up your files and read it twice before you send it.",
+      "An eclipse in the third house puts extra weight on communication, learning, siblings, and the local environment. If something is changing here, the chart can help describe the area; it cannot tell the whole story without context.",
   },
   4: {
-    arena: "home, family, and private life",
+    arena: "home, family, roots, and private life",
     newMoon:
-      "This is for foundations: the house itself, the family arrangement, the private base you retreat to. Beginnings here are quiet and often invisible to everyone else, which does not make them small.",
+      "A fourth-house new moon turns attention toward home, family, ancestry, and the private base beneath the public life. It may be a good time to notice what kind of foundation you are actually building or needing.",
     fullMoon:
-      "Home and family light up. Something about where you live or who you come from asks to be dealt with rather than managed around. It can be tender. Give yourself the evening.",
+      "A full moon here emphasizes the home-and-public-life axis. Questions about belonging, family, living arrangements, privacy, or emotional grounding may stand out more clearly than usual.",
     eclipse:
-      "The ground you stand on moves: a move, a household change, a shift in a family story. These are among the most felt eclipses and the least visible from outside.",
+      "An eclipse in the fourth house can make changes around home, family, roots, or private life especially noticeable. Sometimes those changes are external and sometimes they are shifts in what home or belonging means to you.",
   },
   5: {
-    arena: "creativity, romance, children, and play",
+    arena: "creativity, pleasure, romance, children, and play",
     newMoon:
-      "One of my favourites to use on purpose: start the creative thing, ask the person out, book the class you keep admiring from a distance. Enjoyment counts as a legitimate reason.",
+      "A fifth-house new moon highlights creativity, pleasure, romance, children, and the parts of life pursued because they matter to the heart. Notice what wants more room for expression rather than turning the lunation into an assignment to produce something.",
     fullMoon:
-      "A creative project, a romance, or something to do with a child reaches a peak. You find out what it actually is, which is almost always better than continuing to wonder.",
+      "A full moon here can bring creative work, romance, children, pleasure, or risk into clearer view. Something may feel more developed or simply more visible, but the exact expression depends on what is already happening in your life.",
     eclipse:
-      "Matters of the heart, creative work, or children accelerate. An eclipse here often reveals how much something meant to you by finally putting it in motion.",
+      "An eclipse in the fifth house gives extra emphasis to creativity, romance, children, play, and personal expression. It may mark a meaningful chapter for some people, but the surrounding chart tells us whether that emphasis is central or peripheral.",
   },
   6: {
-    arena: "work, health, and daily routine",
+    arena: "work, health, service, and daily routine",
     newMoon:
-      "For one specific, practical improvement: the appointment, the routine, the way the workday is arranged. I would pick one. Six resolutions in this house reliably become none.",
+      "A sixth-house new moon puts routines, work, service, and health habits under the lens. This can be useful for noticing which daily systems support you and which ones need adjustment, without turning astrology into medical advice or a productivity mandate.",
     fullMoon:
-      "You get to see the state of the system: what your body has been asking for, what the schedule cannot absorb, what the job has quietly turned into. Useful information, even when it is inconvenient.",
+      "A full moon here can make the condition of work routines, obligations, or health habits easier to see. The information may be practical rather than dramatic: what is sustainable, what is not, and what your daily life is actually asking of you.",
     eclipse:
-      "Work or health arrangements change, sometimes abruptly. If a routine has been unsustainable, this is often the point at which it stops being negotiable.",
+      "An eclipse in the sixth house emphasizes work, service, routines, and health-related patterns. If changes are already underway, this may help name the area, but it is not a diagnosis or a guarantee that disruption is coming.",
   },
   7: {
-    arena: "partnership and the people opposite you",
+    arena: "partnership, contracts, and one-to-one relationships",
     newMoon:
-      "A beginning in one-to-one relationship: a partner, a client, a contract, a person. It goes best when you are clear beforehand about what you are actually agreeing to.",
+      "A seventh-house new moon brings one-to-one relationships into focus: partners, clients, collaborators, agreements, and even conflicts that require direct engagement. Notice what kind of reciprocity or clarity the relationship in front of you actually needs.",
     fullMoon:
-      "A relationship comes into full light. Something between you and one particular person becomes explicit. That is not always comfortable, and it is usually more useful than the ambiguity was.",
+      "A full moon here emphasizes the relationship axis. A partnership or agreement may become easier to assess, especially the balance between your needs and the other person's, but the lunation does not decide the relationship for you.",
     eclipse:
-      "Partnerships form, formalise, or end. People arrive and depart quickly under these. I would let the first fortnight settle before deciding what any of it meant.",
+      "An eclipse in the seventh house gives extra symbolic weight to partnerships, contracts, and close one-to-one dynamics. For some people this coincides with major relational changes; for others it simply makes an existing pattern harder to overlook.",
   },
   8: {
-    arena: "shared resources, intimacy, and what you hold jointly",
+    arena: "shared resources, debt, inheritance, intimacy, and trust",
     newMoon:
-      "A place to start something held with someone else: the joint account, the loan, the estate paperwork, or the conversation about closeness that neither of you wants to open first.",
+      "An eighth-house new moon draws attention to what is shared, owed, inherited, merged, or entrusted to another person. Financial and emotional entanglements can both belong here, and the useful question is often what needs greater clarity or honesty.",
     fullMoon:
-      "Shared matters come to a head: money you hold with another person, a debt, or an intimacy that has been running under the surface. It tends to surface all at once rather than gradually.",
+      "A full moon here can make shared finances, debt, inheritance, intimacy, trust, or dependence more visible. The symbolism points to entanglement and exchange; your circumstances tell us what kind.",
     eclipse:
-      "What you share with other people moves: finances, intimacy, or an ending that clears space. Deep water, and rarely as catastrophic as this house's reputation suggests.",
+      "An eclipse in the eighth house emphasizes shared resources, intimacy, trust, debt, inheritance, and endings. That sounds dramatic because the house contains serious subjects, but the eclipse itself does not tell us which one is active or what outcome follows.",
   },
   9: {
-    arena: "travel, study, and what you believe",
+    arena: "travel, higher study, publishing, law, and belief",
     newMoon:
-      "For the bigger picture: the degree, the trip, the belief you want to test, the thing you want to publish. Aim it further out than feels entirely reasonable.",
+      "A ninth-house new moon highlights the search for a larger frame: travel, higher study, publishing, law, philosophy, or belief. Notice what question is asking you to widen your perspective rather than assuming you need a dramatic new direction.",
     fullMoon:
-      "A course of study, a journey, or a belief culminates. Sometimes you finish something. Sometimes you discover you no longer believe what you set out believing, which is its own kind of finishing.",
+      "A full moon here can make a course of study, journey, publication, legal matter, or belief system easier to evaluate. Sometimes the shift is external; sometimes it is simply recognizing that your understanding has changed.",
     eclipse:
-      "These tend to relocate you: literally, academically, or philosophically. Plans made abroad or in a classroom during an eclipse season have a way of sticking.",
+      "An eclipse in the ninth house gives extra emphasis to travel, higher education, publishing, law, faith, and worldview. The important distinction is between a meaningful symbolic emphasis and a prediction that one of those things must happen.",
   },
   10: {
-    arena: "career, reputation, and public role",
+    arena: "career, reputation, authority, and public role",
     newMoon:
-      "A good seed point for the public part of your life: the title, the application, the visible piece of work. What you begin here is the part other people will eventually see.",
+      "A tenth-house new moon brings career, reputation, authority, and public direction into focus. It can be a useful moment to notice what you want to be responsible for or recognized for, without treating the lunation as a promise of professional change.",
     fullMoon:
-      "Career or reputation peaks. A result lands, a role becomes official, or the gap between what you do and what you want to be known for becomes very clear.",
+      "A full moon here emphasizes the public-and-private axis. Career, reputation, leadership, or visible responsibilities may be easier to assess, especially where your outer role and inner priorities are no longer matching cleanly.",
     eclipse:
-      "The professional ground moves: a role, a manager, a public position. These are the seasons careers turn, and they usually announce themselves well before they finish.",
+      "An eclipse in the tenth house can make career, reputation, authority, or public role especially significant. Major changes are possible for some charts, but an eclipse in this house is not by itself a prediction of promotion, loss, or a career turn.",
   },
   11: {
-    arena: "friends, groups, and what you are aiming at",
+    arena: "friends, groups, networks, and future aims",
     newMoon:
-      "For the company you keep and where you are heading: join the group, make the ask, say the hope out loud. Networks respond unusually well to being started here.",
+      "An eleventh-house new moon highlights friends, groups, networks, audiences, and longer-range hopes. Notice which connections and goals still feel alive enough to invest in and which may belong to an earlier version of the future.",
     fullMoon:
-      "A friendship, a group, or a long-held hope comes to a head. You often learn which of your people are actually your people, and whether the goal still fits the person you have become.",
+      "A full moon here can make a friendship, group role, network, or future aim easier to see clearly. The emphasis may be on belonging, contribution, or whether a goal still fits the person you are becoming.",
     eclipse:
-      "Your circles and your ambitions rearrange. Groups form and dissolve quickly. What survives an eclipse here tends to be worth keeping.",
+      "An eclipse in the eleventh house gives extra weight to friendships, communities, alliances, audiences, and long-range goals. Social circles can change, but the chart and circumstances tell us whether that means joining, leaving, reorganizing, or simply seeing the group differently.",
   },
   12: {
-    arena: "rest, retreat, and what runs underneath",
+    arena: "solitude, retreat, endings, and what operates out of view",
     newMoon:
-      "The one I would argue for doing less with. It suits rest, retreat, therapy, and things done quietly. Beginnings here often do not show for a few weeks. That is the house, not a failure.",
+      "A twelfth-house new moon turns attention toward rest, retreat, solitude, and patterns that are easier to notice when the noise drops. This is less a call to action than an invitation to observe what has been operating outside ordinary awareness.",
     fullMoon:
-      "Something you had set aside surfaces: a feeling, a memory, a pattern running underneath. Dreams get loud. A good week for the quiet appointment and a poor one for a packed calendar.",
+      "A full moon here can make something previously private, deferred, or difficult to name more noticeable. That may involve rest, endings, solitude, dreams, or an internal pattern, but the symbolism should not be used to manufacture a crisis.",
     eclipse:
-      "Things close, sometimes before you have consciously decided to close them. An ending here can feel like relief and loss in the same afternoon. Protect your sleep and let it finish.",
+      "An eclipse in the twelfth house emphasizes retreat, endings, solitude, and material that sits outside ordinary awareness. Some people experience closure or withdrawal; others simply become more conscious of what has been taking place quietly in the background.",
   },
 };
 
@@ -232,10 +184,6 @@ export interface SignGuidance {
   text: string;
 }
 
-/**
- * Guidance for all twelve rising signs for one lunation or eclipse.
- * Returns an empty array for events that are not lunations or eclipses.
- */
 export function guidanceForEvent(
   eventType: string,
   title: string,
