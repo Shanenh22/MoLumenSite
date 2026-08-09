@@ -13,9 +13,6 @@ const events = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && ((e.data.end ?? e.data.start) >= now || e.data.start >= now))
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
 const types = [...new Set(events.map((e) => e.data.eventType))];
-// Shared with the calendar view. Two copies of this map drifted the first time
-// one of them was edited, and a filter button labelled differently on two pages
-// showing the same events reads as two different datasets.
 const typeLabels = SKY_TYPE_LABELS;
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -32,7 +29,7 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 
 <BaseLayout
   title="Current Sky: what's overhead now"
-  description="A verified timeline of what's moving in the sky: new and full moons, eclipses, and retrogrades, with dates, signs, and Mo Lumen's plain-language notes on each."
+  description="A verified timeline of current astrological events: lunations, eclipses, retrogrades, ingresses, and major planetary shifts, with Mo Lumen's plain-language interpretation and context."
   path="/current-sky/"
   breadcrumbs={crumbs}
 >
@@ -43,8 +40,9 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
       <p class="eyebrow">The sky right now</p>
       <h1>Current sky</h1>
       <p class="lede">
-        What's moving overhead, when, and what it tends to mean. Dates and positions are verified
-        astronomy; the interpretive notes are Mo's, and your choices are your own.
+        The sky never really holds still. Here you can see what's changing, when it changes, and
+        what I find worth noticing about it. The dates and positions are astronomy; the
+        interpretation is astrology. I keep those two things distinct on purpose.
       </p>
       </div>
       <img
@@ -60,6 +58,22 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 
   <section class="section">
     <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <h2>Look at the pattern before the prediction</h2>
+        <p>
+          I love watching planetary cycles because the movement itself is extraordinary: bodies
+          traveling on different rhythms, repeatedly forming new relationships with one another.
+          Astrology gives us a symbolic language for asking what those changing relationships may
+          mean. I don't think that requires turning every transit into an event that must happen to
+          you.
+        </p>
+        <p>
+          These notes stay at the level of the shared sky. Your own chart adds another layer: which
+          degrees are being contacted, which houses are involved, what other patterns are active,
+          and, most importantly, how any of it is actually showing up in your life.
+        </p>
+      </div>
+
       <SkyViewTabs current="list" />
       <div class="filter-bar" role="group" aria-label="Filter events by type" data-sky-filters>
         <button type="button" aria-pressed="true" data-filter="all">All events</button>
@@ -103,44 +117,38 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
   <section class="section section--alt">
     <div class="container grid grid--2">
       <div class="flow">
-        <h2>From the archive</h2>
+        <h2>Keep exploring</h2>
         <p>
-          Past lunation letters, including the essays that started this practice's writing life,
-          live in the <a href="/current-sky/archive/">Current Sky archive</a>.
+          Past lunation letters and earlier sky writing live in the
+          <a href="/current-sky/archive/">Current Sky archive</a>.
         </p>
         <p>
-          New to these terms? Start with <a href="/explore/transits/">how transits work</a>,
+          If the terminology is new, start with <a href="/explore/transits/">how transits work</a>,
           <a href="/explore/retrogrades/">retrogrades</a>, or
-          <a href="/explore/eclipses/">eclipses</a>, or look anything up in the
-          <a href="/explore/glossary/">glossary</a>.
+          <a href="/explore/eclipses/">eclipses</a>, or use the
+          <a href="/explore/glossary/">glossary</a> whenever a term gets in the way of the idea.
         </p>
         <p>
-          <a href="/current-sky/the-sky-in-2026/"><strong>The Sky in 2026</strong></a>, the year's
-          major planetary shifts, with verified dates.
+          <a href="/current-sky/the-sky-in-2026/"><strong>The Sky in 2026</strong></a> steps back
+          from individual dates to look at some of the larger movements shaping the year.
         </p>
       </div>
       <div class="flow">
-        <h2 id="sky-newsletter">Get this in your inbox</h2>
-        <p>The Sky This Month: one email, once a month, five minutes to read.</p>
+        <h2 id="sky-newsletter">A monthly note from me</h2>
+        <p>
+          <strong>The Sky This Month</strong> is one recurring part of the newsletter. I also share
+          what has caught my attention, a question I've been sitting with, or a connection I think
+          is worth looking at a little more closely. Astrology is the anchor; curiosity gets some
+          room too.
+        </p>
         <NewsletterForm source="current-sky" labelledby="sky-newsletter" />
       </div>
     </div>
   </section>
 
-  {/*
-    This band used to send everyone to Monthly Personal Transits, which is an
-    established-client reading — it follows on from a natal reading. Current
-    Sky is the site's biggest free asset and a search entry point, so most
-    people reading it have never had a reading at all, and the closing action
-    pointed them at the one thing they could not buy.
-
-    The Reading Finder is the right destination for a visitor whose interest
-    is real but whose certainty is not: it asks what brought them here and
-    names a reading, instead of asking a stranger to pick from seven.
-  */}
   <CTABand
-    heading="Wondering what this sky means for your chart?"
-    body="General sky-weather is here for everyone. What it actually activates depends on where these degrees fall in your chart. Five questions and I'll tell you which reading I'd suggest."
+    heading="Wondering what this sky means in your chart?"
+    body="The shared sky gives us the larger pattern. A personal reading adds your chart, your circumstances, and the conversation needed to understand which possibilities actually matter now."
     buttonLabel="Find Your Reading"
     buttonHref="/reading-finder/"
   />
@@ -167,10 +175,6 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
           m.hidden = [...m.querySelectorAll<HTMLElement>('[data-event-type]')].every((li) => li.hidden);
         });
         if (status) status.textContent = `${shown} event${shown === 1 ? '' : 's'} shown`;
-        // mlTrack, not gtag. A bare `gtag?.()` fires into nothing whenever the
-        // helper has not loaded, and a missing integration then looks exactly
-        // like a working one — the failure that lost four Reading Finder events
-        // for months. mlTrack is defined unconditionally and no-ops in one place.
         (window as any).mlTrack?.('current_sky_filter', { filter });
       })
     );
