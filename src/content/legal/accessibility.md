@@ -14,7 +14,7 @@ alternative text, and forms with proper labels and clear errors.
 
 ## What has been built in
 
-Every page works without JavaScript for all essential content — the reference library, the readings,
+Every page works without JavaScript for all essential content: the reference library, the readings,
 the policies, and the contact details are all plain HTML.
 
 Navigation is consistent from page to page, a skip link is provided, and headings follow a logical
@@ -22,7 +22,7 @@ order so screen-reader and keyboard users can move by region and by heading. Eve
 alternative text, and every image has explicit dimensions so the page does not jump around while it
 loads.
 
-The interactive tools — the reading finder, the chart explorer, the sky filters — are operable by
+The interactive tools, the reading finder, the chart explorer, the sky filters, are operable by
 keyboard, announce changes to screen readers, and have non-interactive equivalents so nothing is
 reachable only by mouse. Wide tables are placed in scrollable regions that can be reached and moved
 with a keyboard. Videos load only when you ask for them.
@@ -38,7 +38,7 @@ runs across a sample of every page type at both mobile and desktop widths, and c
 zero violations. Automated performance and accessibility auditing runs alongside it. The site is
 checked for horizontal overflow down to a 320-pixel screen width.
 
-## The limits of that testing — stated plainly
+## The limits of that testing, stated plainly
 
 **Automated testing catches somewhere between a third and a half of real accessibility barriers.**
 It can tell you an image has no alternative text; it cannot tell you the alternative text is
@@ -53,7 +53,7 @@ read "zero automated violations" as "accessible to everyone," least of all us.
 
 ## Known gaps
 
-Third-party embeds — the scheduling calendar and video players — are controlled by their providers,
+Third-party embeds, the scheduling calendar and video players, are controlled by their providers,
 and their accessibility is not ours to fix. Where they fall short, an alternative route is always
 provided: you can book a reading by emailing mo@molumen.com and skip the calendar entirely.
 
@@ -63,7 +63,7 @@ transcript yet, the same material is available in writing elsewhere on the site.
 ## Tell us
 
 **If anything on this site is difficult or impossible for you to use, please email
-mo@molumen.com.** Tell us what you were trying to do, what got in the way, and — if it helps — what
+mo@molumen.com.** Tell us what you were trying to do, what got in the way, and, if it helps, what
 you were using. You will get an answer from a person, and wherever it is within our control, a fix.
 
 If you need information from this site in a different format, or would rather arrange a reading by

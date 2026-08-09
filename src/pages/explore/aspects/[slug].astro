@@ -25,7 +25,7 @@ const breakImage = bandFor(a.slug, 5);
 ---
 
 <BaseLayout
-  title={`The ${a.name} — aspect meaning, angle, and orb`}
+  title={`The ${a.name}: aspect meaning, angle, and orb`}
   description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature} Traditional and modern readings, typical orbs, and how to work with it.`}
   path={`/explore/aspects/${a.slug}/`}
   breadcrumbs={crumbs}
@@ -36,7 +36,7 @@ const breakImage = bandFor(a.slug, 5);
       <div>
         <p class="eyebrow">Aspects</p>
         <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
-        <p class="lede">{a.angle} — {a.nature}</p>
+        <p class="lede">{a.angle}, {a.nature}</p>
       </div>
       <img
         class="hero__img"
@@ -64,7 +64,7 @@ const breakImage = bandFor(a.slug, 5);
         </tbody>
       </table>
       <p class="card__meta">
-        Orb is the allowance within which an aspect still counts. There is no universal standard —
+        Orb is the allowance within which an aspect still counts. There is no universal standard:
         orbs vary by astrologer, by school, and by the planets involved. Tighter aspects are
         stronger.
       </p>
@@ -99,7 +99,7 @@ const breakImage = bandFor(a.slug, 5);
           <strong>Applying or separating?</strong> An aspect is <em>applying</em> when the faster
           planet is still moving toward exactness, and <em>separating</em> once it has passed.
           Traditional astrology treats applying aspects as the ones still to unfold, and separating
-          ones as already spent — a distinction that matters a great deal in
+          ones as already spent, a distinction that matters a great deal in
           <a href="/explore/transits/">timing work</a>.
         </p>
       </div>

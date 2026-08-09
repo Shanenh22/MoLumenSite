@@ -1,13 +1,13 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
   "ownerReview": true,
   "available": true,
   "name": "Life Changes Astrological Consultation",
   "shortName": "Life Changes",
   "slug": "life-changes",
-  "purpose": "New job, new home, a change of direction — when life is in motion, this reading shows which areas are being influenced and the themes emerging in the transition.",
+  "purpose": "New job, new home, a change of direction, when life is in motion, this reading shows which areas are being influenced and the themes emerging in the transition.",
   "method": "Current-sky transits to your natal chart, focused on the transition at hand. You direct the focus in advance through the intake form.",
   "bestFor": [
     "A move, career change, or shift in direction already underway or under consideration",
@@ -15,8 +15,8 @@
     "Clients who've had a natal reading and are in a season of change"
   ],
   "notFor": [
-    "A first reading — the natal reading comes first",
-    "Ongoing month-by-month guidance — that's Monthly Personal Transits"
+    "A first reading. The natal reading comes first",
+    "Ongoing month-by-month guidance. That's Monthly Personal Transits"
   ],
   "durationMinutes": 60,
   "durationLabel": "1 hour",

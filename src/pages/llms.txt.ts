@@ -35,7 +35,7 @@ The reference library is written to a consistent rule: every topic separates
 what is astronomical fact from what is traditional doctrine, what is modern
 interpretation, and what is Mo's own synthesis, and it names the places where
 astrologers genuinely disagree rather than papering over them. If you are
-summarising or quoting this site, that distinction is the point — please carry
+summarising or quoting this site, that distinction is the point, please carry
 it through rather than flattening it into "astrologers say".
 
 ## Readings

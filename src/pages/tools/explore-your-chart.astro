@@ -44,8 +44,8 @@ const explainData = {
 ---
 
 <BaseLayout
-  title="Explore Your Chart — interactive birth chart tour"
-  description="An interactive, educational chart wheel: click any sign, house, or planet to learn what it means. No birth data required — this is a teaching tool, not a reading."
+  title="Explore Your Chart: interactive birth chart tour"
+  description="An interactive, educational chart wheel: click any sign, house, or planet to learn what it means. No birth data required. This is a teaching tool, not a reading."
   path="/tools/explore-your-chart/"
   breadcrumbs={crumbs}
 >
@@ -57,7 +57,7 @@ const explainData = {
         <h1>Explore your chart</h1>
         <p class="lede">
           This is the anatomy of a birth chart: signs on the outer ring, houses inside them, planets
-          listed alongside. Select anything — click, tap, or Tab and Enter — and it explains itself.
+          listed alongside. Select anything, click, tap, or Tab and Enter, and it explains itself.
         </p>
         <p class="hero__reassure">
           This tool is educational: it doesn't calculate your personal chart and never asks for
@@ -129,7 +129,7 @@ const explainData = {
           <text x="300" y="292" text-anchor="middle" font-size="15">Signs outside:</text>
           <text x="300" y="312" text-anchor="middle" font-size="15">styles. Houses inside: arenas.</text>
         </svg>
-        <div class="filter-bar" role="group" aria-label="Planets — select one to learn its drive">
+        <div class="filter-bar" role="group" aria-label="Planets, select one to learn its drive">
           {
             planets.map((p) => (
               <button type="button" data-kind="planets" data-key={p.slug} aria-pressed="false">
@@ -144,13 +144,13 @@ const explainData = {
         <p class="eyebrow">How to use this</p>
         <h2 style="font-size: var(--text-xl);">Pick any piece of the chart</h2>
         <p>
-          <strong>Planets are drives</strong> — what part of you is acting. <strong>Signs are
-          styles</strong> — how it acts. <strong>Houses are arenas</strong> — where in life it
+          <strong>Planets are drives</strong>: what part of you is acting. <strong>Signs are
+          styles</strong>: how it acts. <strong>Houses are arenas</strong>: where in life it
           plays out. <strong><a href="/explore/aspects/">Aspects</a></strong> are how drives relate
           to each other.
         </p>
         <p>
-          In a real chart, each planet lands in one sign and one house — a sentence like "Mars
+          In a real chart, each planet lands in one sign and one house, a sentence like "Mars
           (drive to act) in Taurus (steadily) in the 10th house (career)." Select pieces here to
           build the vocabulary.
         </p>
@@ -164,7 +164,7 @@ const explainData = {
 
   <CTABand
     heading="This is the grammar. Your chart is the poem."
-    body="When you want your own placements read — not the general meanings — that's a natal reading."
+    body="When you want your own placements read, not the general meanings, that's a natal reading."
     buttonLabel="About the Natal Reading"
     buttonHref="/readings/natal/"
   />
@@ -196,7 +196,7 @@ const explainData = {
       if (!item) return;
       track('chart_explorer_interaction', { kind, key });
       const kindLabel =
-        kind === 'planets' ? 'Planet — a drive' : kind === 'signs' ? 'Sign — a style' : 'House — an arena';
+        kind === 'planets' ? 'Planet: a drive' : kind === 'signs' ? 'Sign, a style' : 'House, an arena';
       panel.innerHTML = `
         <p class="eyebrow">${kindLabel}</p>
         <h2 style="font-size: var(--text-xl);"><span aria-hidden="true">${item.glyph}</span> ${item.name}</h2>

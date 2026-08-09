@@ -50,7 +50,7 @@ day it can shift meaningfully, and occasionally change sign.
 
 ## What doesn't change
 
-Every planet's sign, in almost all cases. The aspects between them — the geometry of your chart,
+Every planet's sign, in almost all cases. The aspects between them, the geometry of your chart,
 which is where a lot of character actually lives. The condition of each planet by dignity. The
 current transits and which natal placements they're contacting.
 
@@ -62,8 +62,8 @@ answers _what are these patterns_ very well and _where do they land_ only in out
 I'd tell you at the outset which parts I'm confident about and which I'm not, and I'd stay off the
 house-dependent material rather than quietly guessing at it.
 
-Where a chart has only one or two plausible rising signs — because your birth window is narrow, or
-because only two produce a coherent picture — I'll sometimes look at both with you and ask which
+Where a chart has only one or two plausible rising signs, because your birth window is narrow, or
+because only two produce a coherent picture, I'll sometimes look at both with you and ask which
 describes your life. You have information the chart doesn't. That isn't rectification, it's
 triangulation, and it's honest as long as I say that's what we're doing.
 
@@ -73,7 +73,7 @@ Rectification is the technique of working backwards from known life events to es
 It exists, it's a real discipline, and practitioners who specialise in it do careful work.
 
 I'd want you to know two things. It's substantial work, usually priced accordingly, and it produces
-an estimate rather than a fact — a well-reasoned hypothesis that fits the events you supplied. It is
+an estimate rather than a fact, a well-reasoned hypothesis that fits the events you supplied. It is
 not a way of recovering the true time. If someone offers you a rectified time with certainty, that
 confidence isn't warranted by the method.
 
@@ -85,13 +85,13 @@ Don't guess and present the guess as exact. This is the genuinely bad outcome.
 
 An honest "I don't know" produces a good reading with stated limits. A confident wrong time produces
 a detailed, coherent, wholly inapplicable reading about the life of someone born two hours after
-you — and neither of us finds out until you're partway through wondering why none of it fits.
+you, and neither of us finds out until you're partway through wondering why none of it fits.
 
 "Sometime in the morning" is more useful to me than a precise-sounding time that came from a family
 rounding error. Tell me what you actually know, including how well you know it.
 
 [How to find your birth time](/birth-time/) is this essay turned into a search you can actually
-work through — where to look, in what order, what to ask the people who might remember, and how
+work through, where to look, in what order, what to ask the people who might remember, and how
 much precision the chart really needs.
 [How to prepare for your reading](/prepare-for-your-reading/) covers what to bring, and
 [the big three](/explore/the-big-three/) explains what the rising sign contributes when you do have

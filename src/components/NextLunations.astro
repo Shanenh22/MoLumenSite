@@ -58,8 +58,8 @@ const fmt = (d: Date) =>
           <h2>What's coming, and where it lands for you</h2>
           <p>
             The next {upcoming.length === 1 ? 'lunation' : `${upcoming.length} lunations`}, and the
-            house each one falls in for every rising sign. Tell me yours and I'll put it first —
-            it's kept on this device only, and everything here works the same if you'd rather not.
+            house each one falls in for every rising sign. Tell me yours and I'll put it first.
+            It's kept on this device only, and everything here works the same if you'd rather not.
           </p>
           <p class="card__meta">
             I use <a href="/explore/house-systems/">whole-sign houses</a>, so the sign a lunation
@@ -84,7 +84,7 @@ const fmt = (d: Date) =>
                     Yours
                   </p>
                   <p class="card__meta" style="margin: 0;">
-                    {ordinal(g.house)} house — {g.arena}
+                    {ordinal(g.house)} house, {g.arena}
                   </p>
                   <h4 style="font-size: var(--text-lg); margin: 0;">
                     <a href={`/explore/signs/${g.slug}/`}>{g.sign} rising</a>
@@ -97,8 +97,8 @@ const fmt = (d: Date) =>
         ))}
 
         <p class="card__meta" style="margin-top: var(--space-8);">
-          What this activates in your own chart — which planets it touches, and what a rising sign
-          alone cannot tell you — is what a{' '}
+          What this activates in your own chart, which planets it touches, and what a rising sign
+          alone cannot tell you, is what a{' '}
           <a href="/readings/monthly-transits/">personal transits reading</a> is for.
         </p>
       </div>

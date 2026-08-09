@@ -45,7 +45,7 @@ const ig = site.integrations.instagramHandle;
 ---
 
 <BaseLayout
-  title="Videos — watch Mo teach"
+  title="Videos: watch Mo teach"
   description="Mo Lumen's astrology videos from YouTube and Instagram: current sky updates, astrology basics, relationships, and personal purpose."
   path="/videos/"
   breadcrumbs={crumbs}
@@ -94,7 +94,7 @@ const ig = site.integrations.instagramHandle;
                       Shared YouTubeFacade rather than the bespoke markup that
                       used to live here. The old version fell back to
                       i.ytimg.com for a thumbnail when none was uploaded, which
-                      is a Google-hosted request on page load — so the facade
+                      is a Google-hosted request on page load, so the facade
                       deferred the iframe while still handing Google the
                       visitor's IP, and /privacy/ says video players "load only
                       when you interact with them". The component uses the
@@ -129,7 +129,7 @@ const ig = site.integrations.instagramHandle;
           /*
             Empty-state copy, written for a visitor rather than for the build.
             It used to carry an "Owner action:" note naming a JSON file and a
-            docs path — a construction note left on a public page, which reads as
+            docs path, a construction note left on a public page, which reads as
             an unfinished site rather than a practice that hasn't filmed yet.
             The instructions for adding videos live in docs/add-a-video.md, which
             is where they belong. Delete this branch entirely once videos.json
@@ -137,13 +137,13 @@ const ig = site.integrations.instagramHandle;
           */
           <div class="prose flow">
             <p>
-              I'm still filming for this page, so there's nothing to watch here yet — I'd rather
+              I'm still filming for this page, so there's nothing to watch here yet, I'd rather
               show you nothing than pad it out.
             </p>
             <p>
               When there is something to watch it will appear here and on
               <a href={site.social.youtube} rel="noopener">my YouTube channel ↗</a> (opens
-              youtube.com) — subscribing there is the way to hear about it first.
+              youtube.com), subscribing there is the way to hear about it first.
             </p>
             <p>
               In the meantime, the closest thing to watching me work is reading how I think:

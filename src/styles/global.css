@@ -3284,7 +3284,9 @@ fieldset.booking-group > legend span {
    heading order and was therefore the one the rule did not reach. Thirty-six
    links went back under 24px. The lesson is that this list is keyed on markup
    depth rather than on what the element is for, so it silently stops applying
-   the moment a card is nested one level further down. */
+   the moment a card is nested one level further down. The same blind spot cost
+   the footer's "Cookie choices" control, which is a <button> rather than an <a>
+   and so sat at 23px in a row of 29px links until the selector was widened. */
 h2 > a:only-child,
 h3 > a:only-child,
 h4 > a:only-child,
@@ -3292,10 +3294,20 @@ h5 > a:only-child,
 h6 > a:only-child,
 li > a:only-child,
 .footer-policies a,
+.footer-policies button,
 .breadcrumbs li > a,
 p > a:only-child,
 dd > a:only-child,
 td > a:only-child {
+  padding-block: 0.34rem;
+}
+/* The homepage Current Sky teaser puts a date and a link in the same <li>, so
+   the link is not an :only-child and none of the selectors above ever reached
+   it. Those links measured 21-22px and were passing only on axe's exception for
+   a target inline in a sentence, which is a technicality rather than a usable
+   target. Same padding technique as above: the hit area grows, the line box
+   does not, so nothing moves. */
+.sky-teaser a {
   padding-block: 0.34rem;
 }
 /* Breadcrumb items sit on one line, so the enlarged targets need horizontal

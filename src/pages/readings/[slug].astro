@@ -236,7 +236,7 @@ if (faqs.length > 0) {
               <span class="price">{s.priceLabel ?? `$${s.price}`}</span>
             ) : (
               <span class="price--unconfirmed">
-                Final price is being confirmed — shown clearly before you book.
+                Final price is being confirmed, shown clearly before you book.
               </span>
             )
           }
@@ -249,9 +249,9 @@ if (faqs.length > 0) {
         <dd>
           {
             s.audience === 'new'
-              ? 'New clients — no prior reading needed'
+              ? 'New clients: no prior reading needed'
               : s.audience === 'established'
-                ? 'Established clients — after a natal reading with Mo'
+                ? 'Established clients: after a natal reading with Mo'
                 : 'New and returning clients'
           }
         </dd>
@@ -424,7 +424,7 @@ if (faqs.length > 0) {
     heading={`Ready for your ${s.shortName.toLowerCase()} reading?`}
     body={
       finalCta.kind === 'choose'
-        ? 'This reading is priced by how recently we last worked together, so the choice is yours — both options are above, and every price is confirmed before you pay.'
+        ? 'This reading is priced by how recently we last worked together, so the choice is yours. Both options are above, and every price is confirmed before you pay.'
         : 'Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay.'
     }
     buttonLabel={finalCta.label}

@@ -1,38 +1,38 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy — cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
   "ownerReview": true,
   "available": true,
   "name": "Natal Chart Reading",
   "shortName": "Natal",
   "slug": "natal",
-  "purpose": "Your whole birth chart, interpreted with you — the positions and connections of the planets, and what the current sky is stirring in your life right now.",
+  "purpose": "Your whole birth chart, interpreted with you: the positions and connections of the planets, and what the current sky is stirring in your life right now.",
   "method": "Full natal chart interpretation with a classical lens, including current-sky transits to your natal chart. You direct the focus in advance through the intake form, and you can be as interactive as you wish.",
   "bestFor": [
-    "New clients — this is the reading that starts everything",
+    "New clients: this is the reading that starts everything",
     "A first professional reading: the real thing, not an app summary",
     "A crossroads in career, relationship, or identity that wants a wider lens"
   ],
   "notFor": [
-    "Existing clients wanting a follow-up — Want More Clarity or a Quick Check-In fits better",
-    "Two people's compatibility — that's the Relationship Consultation"
+    "Existing clients wanting a follow-up: Want More Clarity or a Quick Check-In fits better",
+    "Two people's compatibility. That's the Relationship Consultation"
   ],
   "durationMinutes": 90,
-  "durationLabel": "60 or 90 minutes — your choice",
+  "durationLabel": "60 or 90 minutes: your choice",
   "price": 150,
   "priceConfirmed": true,
   "priceLabel": "$150 (60 min) · $200 (90 min)",
   "options": [
     {
-      "label": "90 minutes — the full tour",
+      "label": "90 minutes: the full tour",
       "durationLabel": "1 hour 30 minutes",
       "price": 200,
       "bookingEventId": "natal-90",
       "note": "Recommended for first readings: room for the whole chart and your questions."
     },
     {
-      "label": "60 minutes — the essentials",
+      "label": "60 minutes: the essentials",
       "durationLabel": "1 hour",
       "price": 150,
       "bookingEventId": "natal-60"
@@ -52,9 +52,9 @@
   ],
   "includes": [
     "Interpretation of the positions and connections of the planets in your birth chart",
-    "How the current sky interacts with your natal chart — what's being influenced now",
+    "How the current sky interacts with your natal chart: what's being influenced now",
     "Your chosen focus, set in advance through the intake form",
-    "As much interaction as you want — tailor the conversation to your needs"
+    "As much interaction as you want. Tailor the conversation to your needs"
   ],
   "deliverables": [
     "Recording of the session",

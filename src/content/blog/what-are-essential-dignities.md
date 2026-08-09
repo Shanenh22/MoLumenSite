@@ -1,6 +1,6 @@
 ---
 title: "What Are Essential Dignities, and Why Do Traditional Astrologers Care?"
-description: "The same planet in different signs is not the same planet. Domicile, exaltation, detriment and fall are the oldest way of asking how well a planet can do its job — and they change a reading substantially."
+description: "The same planet in different signs is not the same planet. Domicile, exaltation, detriment and fall are the oldest way of asking how well a planet can do its job, and they change a reading substantially."
 publishDate: 2026-08-04
 category: "Technique"
 tags: ["dignities", "traditional astrology", "technique", "rulership"]
@@ -18,7 +18,7 @@ reading more than almost any other single factor.
 ## The basic idea
 
 A planet's sign is not just a flavour. In traditional practice, the sign a planet occupies describes
-the _conditions it's operating under_ — whether it's at home, welcomed, tolerated, or working against
+the _conditions it's operating under_, whether it's at home, welcomed, tolerated, or working against
 the grain.
 
 Mars in Aries and Mars in Libra are both Mars. But one is operating in its own house, with its own
@@ -32,24 +32,24 @@ modern era set much of it aside.
 
 ## The four major conditions
 
-**Domicile** — the planet is in the sign it rules. Home ground. It can act directly and its
+**Domicile**: the planet is in the sign it rules. Home ground. It can act directly and its
 expression is trusted. Venus in Taurus or Libra, Mars in Aries or Scorpio, Saturn in Capricorn or
 Aquarius.
 
-**Exaltation** — the planet is in the sign where it is honoured, traditionally described as a guest
+**Exaltation**: the planet is in the sign where it is honoured, traditionally described as a guest
 treated better than at home. Powerful, sometimes to excess; the honour can outrun the competence.
 Sun in Aries, Moon in Taurus, Jupiter in Cancer.
 
-**Detriment** — the planet is opposite its domicile. It is working in conditions structurally
+**Detriment**: the planet is opposite its domicile. It is working in conditions structurally
 opposed to its nature. Not broken, but effortful, and often producing a compensating strategy.
 
-**Fall** — the planet is opposite its exaltation. Traditionally the weakest condition: the planet's
+**Fall**: the planet is opposite its exaltation. Traditionally the weakest condition: the planet's
 concerns are discounted, undervalued, or not taken seriously in that environment.
 
 ## Why this matters for reading a chart
 
 Without dignity, every placement gets described as an equally weighted trait, and charts flatten
-into lists. With it, you can see the hierarchy — which parts of a person are operating from
+into lists. With it, you can see the hierarchy, which parts of a person are operating from
 strength, which are working hard for their results, and which have had to develop workarounds.
 
 That last category is usually where the interesting conversation is. A planet in fall is not a
@@ -63,13 +63,13 @@ The old texts are harsh. Traditional sources describe debilitated planets in lan
 to a modern ear, as a verdict on a person's worth. Some contemporary traditional revivalists
 reproduce that tone.
 
-**I don't, and I think reproducing it is a mistake** — not because the technique is wrong, but
+**I don't, and I think reproducing it is a mistake**: not because the technique is wrong, but
 because the texts were written in a fatalistic frame that most of us no longer share. A planet in
 detriment describes conditions, not a sentence. Read as conditions, it is useful. Read as a verdict,
 it does real harm to people who came for help.
 
 **Where astrologers genuinely differ:** modern astrology largely dropped dignity, on the reasoning
-that it encoded value judgements and that the modern planets — Uranus, Neptune, Pluto — have no
+that it encoded value judgements and that the modern planets, Uranus, Neptune, Pluto, have no
 place in a system built before they were discovered. That is a serious objection and not a foolish
 one. My own position is that the technique carries real information and the fatalism is separable
 from it, but I hold that as a considered view rather than a settled fact.
@@ -77,7 +77,7 @@ from it, but I hold that as a considered view rather than a settled fact.
 ## The practical version
 
 If you know your chart, look up which of your planets are in domicile or exaltation. Those tend to
-be the capacities other people notice in you first — the things you do without effort and assume
+be the capacities other people notice in you first. The things you do without effort and assume
 everyone can do.
 
 Then look at detriment and fall. Those are often the areas you've worked hardest at, and where your

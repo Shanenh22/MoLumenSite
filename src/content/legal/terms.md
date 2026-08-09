@@ -7,7 +7,7 @@ reviewStatus: owner-approved
 
 These terms govern your use of molumen.com and any reading or service you book through it. Booking a
 reading, subscribing to the newsletter, or using this website means you accept them. They are
-written to be read, not to be impenetrable — if any part is unclear, email mo@molumen.com and ask.
+written to be read, not to be impenetrable, if any part is unclear, email mo@molumen.com and ask.
 
 ## Who these terms are with
 
@@ -68,7 +68,7 @@ refund you in full.
 
 Readings depend on the birth information you provide. By booking you confirm that the information is
 accurate to the best of your knowledge and that you have the right to share it. Where you provide
-another person's birth details — for a relationship reading, for instance — you confirm you have
+another person's birth details, for a relationship reading, for instance, you confirm you have
 that person's permission to do so.
 
 Astrology is sensitive to accuracy: an incorrect birth time changes the reading materially. We
@@ -127,7 +127,7 @@ control or endorse their content.
 We aim to keep this site available and accurate, but we do not guarantee uninterrupted access, and
 content may be updated or removed. Where a scheduled reading cannot go ahead because of illness,
 emergency, or technical failure on our side, we will reschedule at your convenience or refund you in
-full — your choice.
+full, your choice.
 
 ## Disclaimers and limitation of liability
 

@@ -26,7 +26,7 @@ const breakImage = bandFor(p.slug, 5);
 ---
 
 <BaseLayout
-  title={`${p.name} in Astrology — meaning, dignities, and cycle`}
+  title={`${p.name} in Astrology: meaning, dignities, and cycle`}
   description={`${p.name}: ${p.drive.slice(0, 120)} Traditional and modern readings, dignities, retrograde cycle, and how to work with it.`}
   path={`/explore/planets/${p.slug}/`}
   breadcrumbs={crumbs}
@@ -67,12 +67,12 @@ const breakImage = bandFor(p.slug, 5);
           {p.detriment && <tr><th scope="row">Detriment</th><td>{p.detriment}</td></tr>}
           {p.fall && <tr><th scope="row">Fall</th><td>{p.fall}</td></tr>}
           {p.joy && <tr><th scope="row">Joy</th><td>{p.joy}</td></tr>}
-          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{p.glyph}</span> — {p.glyphMeaning}</td></tr>
+          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{p.glyph}</span>: {p.glyphMeaning}</td></tr>
         </tbody>
       </table>
       <p class="card__meta">
-        Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables —
-        see <a href="/explore/dignities/">essential dignities</a>. "Joy" is the house a planet was
+        Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables.
+        See <a href="/explore/dignities/">essential dignities</a>. "Joy" is the house a planet was
         traditionally happiest in.
       </p>
     </div>
@@ -101,8 +101,8 @@ const breakImage = bandFor(p.slug, 5);
       <p>{p.workingWithIt}</p>
       <p>
         How this plays out depends on its <a href="/explore/signs/">sign</a>, its
-        <a href="/explore/houses/">house</a>, and its <a href="/explore/aspects/">aspects</a> —
-        that's the work of a real chart reading.
+        <a href="/explore/houses/">house</a>, and its <a href="/explore/aspects/">aspects</a>.
+        That's the work of a real chart reading.
       </p>
 
 
@@ -115,7 +115,7 @@ const breakImage = bandFor(p.slug, 5);
 
   <CTABand
     heading={`Curious how your ${p.name.replace('The ', '')} works?`}
-    body="A natal reading places every planet in your chart — sign, house, and aspects — in one conversation."
+    body="A natal reading places every planet in your chart, sign, house, and aspects, in one conversation."
     buttonLabel="About the Natal Reading"
     buttonHref="/readings/natal/"
   />

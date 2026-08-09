@@ -32,7 +32,7 @@ on mine.
 ## The rhythm that tends to work
 
 **A natal reading once.** Your birth chart doesn't change. A thorough natal reading is a foundation
-you keep, and most people never need a second one — though people who had theirs at twenty-two often
+you keep, and most people never need a second one, though people who had theirs at twenty-two often
 find it lands very differently at thirty-five, because they have more life for it to describe.
 
 **A solar return annually, if you like a yearly rhythm.** Around your birthday the Sun comes back to
@@ -40,7 +40,7 @@ its natal degree while everything else has moved, which makes a natural checkpoi
 this genuinely orienting. Others find one year much like another. Try it once and see which you are.
 
 **Transit readings when the season actually changes.** Not quarterly by habit, but when something
-real is in motion — a move, a career shift, a relationship at a hinge, a Saturn return arriving.
+real is in motion: a move, a career shift, a relationship at a hinge, a Saturn return arriving.
 These are the readings that earn their money, because there is something to apply them to.
 
 **Follow-ups when a specific question surfaces.** After a natal reading, people often come back with
@@ -61,7 +61,7 @@ what to do. You want a different answer than the one you got. You're checking wh
 improved. You'd be booking to relieve a feeling rather than answer a question.
 
 That last one is worth sitting with. Readings can be genuinely comforting, and there's nothing wrong
-with comfort — but if that's what you're buying, it's worth knowing that's what you're buying, and
+with comfort, but if that's what you're buying, it's worth knowing that's what you're buying, and
 that it wears off faster than the fee suggests.
 
 ## The monthly exception
@@ -78,6 +78,6 @@ know which they're doing.
 For most people: one natal reading, then a transit or life-changes reading when life genuinely turns
 a corner. That might be twice in five years. That's a perfectly good relationship with astrology.
 
-If you're unsure which reading fits your question — or whether one does — the
+If you're unsure which reading fits your question, or whether one does, the
 [reading finder](/reading-finder/) takes about a minute, and emailing to ask costs nothing. I'll
 tell you if I don't think a reading is what you need.

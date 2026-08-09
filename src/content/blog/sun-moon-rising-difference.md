@@ -20,7 +20,7 @@ Here is what each one is doing.
 
 ## The Sun: what you are becoming
 
-The Sun is where the vital principle lives — purpose, identity, the thing you are oriented toward.
+The Sun is where the vital principle lives: purpose, identity, the thing you are oriented toward.
 Traditional astrology treats it as the significator of life force and, in a day chart, the leader of
 the whole chart's condition.
 
@@ -46,11 +46,11 @@ Your Moon is usually more legible to the people who live with you than to you. I
 chart that people recognise instantly when it's described, and often with slight embarrassment.
 
 Because the Moon moves about twelve to thirteen degrees a day, it can change sign partway through a
-date — which is one of several reasons a birth time earns its keep.
+date, which is one of several reasons a birth time earns its keep.
 
 ## The Rising: how you meet the world
 
-The rising sign — the ascendant — is the degree of the zodiac coming over the eastern horizon at
+The rising sign, the ascendant, is the degree of the zodiac coming over the eastern horizon at
 your moment of birth. It changes roughly every two hours, which is why it needs an accurate time.
 
 It describes your interface: the manner you lead with, how you approach anything new, your physical
@@ -59,7 +59,7 @@ as" a sign that isn't their Sun.
 
 But its real importance is structural. The rising degree sets where all twelve houses begin, and the
 sign on the ascendant determines which planet rules your chart overall. Change the rising sign and
-every planet relocates to a different area of life. The ascendant isn't one more trait — it's the
+every planet relocates to a different area of life. The ascendant isn't one more trait. It's the
 frame everything else hangs in.
 
 ## Why they contradict each other
@@ -73,7 +73,7 @@ three are running at once.
 
 Most people are not one thing, and a chart that read as a single coherent personality would be
 describing somebody simpler than any actual person. The friction between the three is usually where
-the interesting part of a reading lives — because that friction is a real experience people are
+the interesting part of a reading lives, because that friction is a real experience people are
 having and rarely have language for.
 
 ## The honest caveat

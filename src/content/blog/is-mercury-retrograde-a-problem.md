@@ -1,6 +1,6 @@
 ---
 title: "Is Mercury Retrograde Actually a Problem?"
-description: "Mercury is never truly moving backwards — it is a viewing angle, not a reversal. Here is what retrograde motion is astronomically, what it is reasonable to expect, and what has been oversold."
+description: "Mercury is never truly moving backwards. It is a viewing angle, not a reversal. Here is what retrograde motion is astronomically, what it is reasonable to expect, and what has been oversold."
 publishDate: 2026-08-04
 category: "Misconceptions"
 tags: ["mercury retrograde", "transits", "misconceptions"]
@@ -10,7 +10,7 @@ ownerReview: true
 ---
 
 Mercury retrograde is the most famous thing in astrology and, by some distance, the most
-misrepresented. It has become a punchline, an excuse, and a marketing device — often in the same
+misrepresented. It has become a punchline, an excuse, and a marketing device, often in the same
 week.
 
 I want to give you the honest version, which is less exciting than the panic and more useful than
@@ -23,7 +23,7 @@ Mercury never moves backwards. Nothing in the solar system reverses direction.
 What happens is a viewing angle. Mercury orbits faster than Earth, so several times a year it
 overtakes us on the inside track. During that passage, seen against the background stars, it appears
 to slow, stop, drift backwards, stop again, and resume. It is exactly the effect of passing a slower
-car on the motorway — for a moment the other car appears to slide backwards relative to you, though
+car on the motorway, for a moment the other car appears to slide backwards relative to you, though
 both of you are moving forwards.
 
 This is called apparent retrograde motion, and every planet does it except the Sun and Moon. Mercury
@@ -34,7 +34,7 @@ reversing, that is a reason to find a different astrologer.
 
 ## What tradition and modern practice make of it
 
-Mercury governs communication, commerce, travel, contracts, and thinking — the traffic of daily
+Mercury governs communication, commerce, travel, contracts, and thinking, the traffic of daily
 life. Both traditional and modern astrology treat a retrograde planet as one whose expression turns
 inward, becomes less direct, and works less smoothly in outward affairs.
 
@@ -42,7 +42,7 @@ The conventional advice follows from that: a period better suited to revising th
 reviewing than signing, reconsidering than committing.
 
 **Where astrologers genuinely differ** is how much weight to give it. Traditional practice treats
-retrograde motion as one condition among many — significant, but read alongside dignity, sect, and
+retrograde motion as one condition among many: significant, but read alongside dignity, sect, and
 angularity, and easily outweighed by them. A great deal of popular astrology treats it as an
 override that colours everything.
 
@@ -65,7 +65,7 @@ extremely well and helps almost nobody.
 changes is whether you notice and what you blame.
 
 **That you must not sign contracts.** Business does not stop for three weeks, four times a year.
-Read carefully — which you should be doing anyway.
+Read carefully, which you should be doing anyway.
 
 **That it explains breakups, job losses and arguments.** Human relationships are their own weather
 system. Reaching for a planet is often a way of avoiding a harder explanation.
@@ -80,8 +80,8 @@ visitor.
 The prefix _re-_ is the whole instruction. Revise, review, revisit, repair, reconnect, reconsider.
 Retrograde periods are good for the work you keep meaning to go back to.
 
-If you would like to know whether the next one actually touches anything sensitive in your chart —
-rather than a general forecast — that is a reasonable thing to ask in a reading.
+If you would like to know whether the next one actually touches anything sensitive in your chart,
+rather than a general forecast, that is a reasonable thing to ask in a reading.
 
 There's more on retrograde motion across all the planets on the
 [retrogrades page](/explore/retrogrades/), and current dates on

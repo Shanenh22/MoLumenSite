@@ -21,8 +21,8 @@ const crumbs = [
   { label: h.name, href: `/explore/houses/${h.slug}/` },
 ];
 const angularityNote = {
-  Angular: 'Angular houses (1, 4, 7, 10) sit on the chart\'s four corners and are the most active — planets here show up strongly in a life.',
-  Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are about consolidation — holding and building on what the angular house began.',
+  Angular: 'Angular houses (1, 4, 7, 10) sit on the chart\'s four corners and are the most active, planets here show up strongly in a life.',
+  Succedent: 'Succedent houses (2, 5, 8, 11) follow the angles and are about consolidation, holding and building on what the angular house began.',
   Cadent: 'Cadent houses (3, 6, 9, 12) precede the angles and are about processing, learning, and distribution. Traditionally considered weaker, though modern practice disputes that.',
 }[h.angularity];
 /* No image at all on these twelve before. Slug-derived so each house keeps its
@@ -32,7 +32,7 @@ const breakImage = bandFor(h.slug, 5);
 ---
 
 <BaseLayout
-  title={`The ${h.name} — meaning in the birth chart`}
+  title={`The ${h.name}: meaning in the birth chart`}
   description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it governs, its traditional and modern readings, and what planets there mean.`}
   path={`/explore/houses/${h.slug}/`}
   breadcrumbs={crumbs}
@@ -97,7 +97,7 @@ const breakImage = bandFor(h.slug, 5);
       <h2>Planets here</h2>
       <p>{h.planetsHere}</p>
       <p>
-        Which sign begins this house — and which planets occupy it — depends on your exact birth
+        Which sign begins this house, and which planets occupy it, depends on your exact birth
         time, and on the <a href="/explore/house-systems/">house system</a> your astrologer uses.
         <a href="/explore/birth-chart-basics/">Here's why.</a>
       </p>
