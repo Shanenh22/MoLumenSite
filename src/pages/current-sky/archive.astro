@@ -5,8 +5,9 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 
+const now = new Date();
 const events = (await getCollection('skyEvents'))
-  .filter((e) => !e.data.draft)
+  .filter((e) => !e.data.draft && e.data.start < now)
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
@@ -18,7 +19,7 @@ const crumbs = [
 
 <BaseLayout
   title="Current Sky Archive"
-  description="Every sky event and lunation letter from Mo Lumen Astrology, past and upcoming, in one chronological archive."
+  description="Past sky events and lunation letters from Mo Lumen Astrology, collected chronologically so you can revisit the astrology in context."
   path="/current-sky/archive/"
   breadcrumbs={crumbs}
 >
@@ -26,13 +27,17 @@ const crumbs = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Everything, chronologically</p>
+      <p class="eyebrow">Past sky, kept in context</p>
       <h1>Current Sky archive</h1>
       <p class="lede">
-      All sky events and lunation letters, newest first. For what's coming rather than what's
-      been, try the <a href="/current-sky/">timeline</a> or the
-      <a href="/current-sky/calendar/">calendar</a>.
-    </p>
+        Astrology is easier to understand when you can look back as well as ahead. This archive keeps
+        Mo's past sky notes and lunation letters in chronological context: what was happening, what
+        patterns stood out, and what questions they raised at the time.
+      </p>
+      <p>
+        For what is active now or coming next, use the <a href="/current-sky/">Current Sky timeline</a>
+        or the <a href="/current-sky/calendar/">calendar</a>.
+      </p>
       </div>
       <img
         class="hero__img hero__img--portrait"
@@ -46,6 +51,12 @@ const crumbs = [
   </section>
   <section class="section">
     <div class="container">
+      <p style="max-width: 46rem; margin-bottom: var(--space-8);">
+        These pieces are records of the sky as Mo interpreted it then. They are useful for learning
+        how cycles unfold and for comparing an earlier moment with what you now know happened. They
+        are not personal readings; your own chart and lived circumstances add the layer an archive
+        cannot provide.
+      </p>
       <ol class="timeline">
         {
           events.map((e) => (
