@@ -1,6 +1,6 @@
 ---
 title: "How to Choose an Astrologer (Including Whether to Choose Me)"
-description: "Astrology is unregulated, which makes choosing well your job. Seven honest criteria for picking an astrologer, training, ethics, style, from someone with skin in the game."
+description: "What to look for in an astrologer: clear training, ethical boundaries, transparent pricing, a method you understand, and a working style that respects your agency."
 publishDate: 2026-08-02
 category: "Choosing a Reading"
 heroImage: "approachPhilosophy"
@@ -8,36 +8,50 @@ tags: ["choosing an astrologer", "ethics", "readings"]
 ownerReview: true
 ---
 
-Astrology has no licensing board. Anyone can print business cards tomorrow, and some do. That puts the burden of choosing well on you, so here is the checklist I'd hand a friend, even knowing it may send some readers elsewhere. That's fine. The right fit matters more than the booking.
+Astrology is not licensed in the way medicine, law, or counseling are. That means a polished website or a confident voice cannot tell you, by itself, how someone trained, how they work, or what happens when the chart does not give an easy answer.
 
-## 1. Ask about training
+If you are choosing an astrologer, including me, I think you should be able to find out those things before you pay.
 
-Serious astrologers train for years and can tell you exactly where: named schools, certification programs, examinations. The field's respected institutions include NCGR's certification exams, the School of Traditional Astrology, Kepler College, and the certifying programs of ISAR and OPA. "Self-taught over decades" can be legitimate too, but ask what that study looked like. Vagueness is the red flag, not any particular path. (Mine: STA Horary Practitioner's Certificate, NCGR-PAA Levels 1 and 2 passed, Level 3 in progress, details on the [credentials page](/credentials/).)
+## Look for a practice you can understand
 
-## 2. Look for professional affiliation
+An astrologer should be able to tell you what they studied and how they approach a chart without hiding behind jargon or mystique.
 
-Membership and service in organizations like NCGR, OPA, or ISAR isn't proof of skill, but it signals accountability: ethics codes, peer community, continuing education. Board service means peers trusted them with the institution itself.
+I have studied widely across astrological traditions and methods, including horary, traditional techniques, modern and contemporary approaches, Uranian work, and dwarf planets. I use the techniques that help me understand the question and chart in front of me rather than asking every chart to conform to one school. My formal training and professional involvement are listed on the [credentials page](/credentials/).
 
-## 3. Expect transparent pricing
+Another astrologer may work very differently. That is not a problem. What matters is that the method is clear enough for you to decide whether it makes sense for what you are asking.
 
-Prices should be visible before you commit, full stop. Hidden pricing, escalating "packages," or pressure to book follow-ups before the first session ends are business-model red flags, whatever the astrological skill behind them.
+## Pay attention to how certainty is handled
 
-## 4. Notice how they talk about the future
+Different branches of astrology support different kinds of statements. Horary, for example, is designed to address a focused question directly. Natal and timing work often involve a wider field of possibilities and patterns.
 
-This is the big one. An ethical astrologer describes tendencies, seasons, and windows, and leaves the choices to you. Walk away from anyone who deals in certain doom, guaranteed outcomes, curses to be removed for a fee, or predictions about death and disaster. Fear is a sales tool. You deserve better.
+I would be cautious with anyone who treats every technique as if it produces the same kind of certainty, or who turns frightening predictions into a reason you need another appointment. Fear should never be the sales mechanism.
 
-## 5. Check the boundaries
+A good question to ask is: **Will this astrologer tell me what they are seeing, why they are seeing it, and what the method can reasonably support?**
 
-Good astrologers know what they aren't: doctors, therapists, lawyers, or financial advisors. If your question belongs with one of those professionals, the right response is a referral, not a chart. An astrologer who claims the chart replaces professional care is dangerous, not gifted.
+## Look at the boundaries before you need them
 
-## 6. Match the style to your need
+Astrology does not replace medical, psychological, legal, or financial expertise. You should not have to discover an astrologer's boundaries only after you bring a serious question into the room.
 
-Astrologers differ honestly: psychological or traditional, conversational or formal, big-picture or precise-timing. None is "correct." Read how they write, watch how they speak, and pick the voice you could sit with for ninety minutes. Chemistry is data.
+The same is true of privacy, consent, and third-party charts. If relationship work is involved, find out how the astrologer handles another person's information and whether they require that person's knowledge or participation.
 
-## 7. Trust the pre-sale experience
+## Pricing should not be a mystery
 
-How someone treats you before payment predicts after. Clear answers, no pressure, respect for your skepticism, or evasiveness and urgency. The pattern rarely reverses once money changes hands.
+You should know the cost, length, and basic purpose of a service before you book it. I also think it should be possible to understand whether follow-up sessions are optional or expected.
 
----
+Clear pricing does not prove good astrology. It does remove one unnecessary layer of uncertainty from the decision.
 
-However you choose, here or elsewhere, go in with real questions and healthy skepticism, and expect to leave with perspective rather than prophecy. If my approach sounds like your fit, [here's how readings work](/how-readings-work/). If not, use this list without me. It works either way.
+## Read enough to hear the person's mind
+
+Technique matters, but so does the experience of sitting with someone for an hour or more while talking about your life.
+
+Read their writing. Watch a video if they have one. Notice whether they explain, pronounce, perform, teach, frighten, reassure, question, or listen. Ask yourself whether you would feel comfortable correcting them if an interpretation did not fit.
+
+That last point matters to me. I know the astrology; you know the life. I want enough conversation between those two sources of information for the reading to become more precise, not less.
+
+## The right astrologer does not have to be me
+
+Fit matters. Some people want a highly formal consultation. Some want a strongly predictive style. Some want a psychological framework. Some want a practitioner rooted in one particular tradition.
+
+My work is broad in technique, technically grounded, conversational, candid, and collaborative. I will explain what I see and why, ask questions when lived context matters, and leave the decisions with you.
+
+If that sounds useful, [how readings work](/how-readings-work/) will show you what the session itself is like, and the [Reading Finder](/reading-finder/) can help you choose a service. If it does not sound like your fit, knowing that before you book is a good outcome too.
