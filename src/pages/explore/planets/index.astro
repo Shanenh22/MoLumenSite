@@ -10,8 +10,8 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title="The Planets: ten drives every chart contains"
-  description="In astrology, planets are functions or drives: the Sun's purpose, the Moon's needs, Mercury's mind, Mars's will, Saturn's mastery. Learn all ten in plain language."
+  title="The Planets: functions and drives in a birth chart"
+  description="In astrology, planets describe functions and drives: identity, needs, thought, relationship, action, growth, limits, and more. Learn them in context, not as isolated labels."
   path="/explore/planets/"
   breadcrumbs={crumbs}
 >
@@ -22,9 +22,9 @@ const crumbs = [
       <p class="eyebrow">Explore Astrology</p>
       <h1>The planets</h1>
       <p class="lede">
-        Think of the planets as drives. Functions every person carries. You don't "have" a good
-        or bad Mars; you have a Mars, and it works in a particular style, in a particular arena of
-        your life. Here's the whole cast.
+        In astrology, planets describe functions or drives: ways a person thinks, feels, acts,
+        relates, grows, limits, transforms, and makes meaning. Everyone has every planet. What
+        changes is how each one is placed, conditioned, and connected to the rest of the chart.
       </p>
       </div>
       <img
@@ -41,6 +41,21 @@ const crumbs = [
   </section>
 
   <section class="section">
+    <div class="container prose flow" style="margin-bottom: var(--space-8);">
+      <h2>Start with the function, then add context</h2>
+      <p>
+        A planet is not a personality verdict. It is one part of a much larger system. Mars may
+        describe how someone asserts, pursues, or responds to conflict, but Mars in Taurus is not
+        the same as Mars in Gemini; Mars in the 2nd house is not the same as Mars in the 10th; and
+        either one may be altered substantially by its aspects and condition. This is why isolated
+        placement descriptions are useful beginnings, not finished interpretations.
+      </p>
+      <p>
+        As you read, keep asking three questions: <strong>What function does this planet describe?</strong>
+        <strong>How is it expressing?</strong> And <strong>what else in the chart is it connected to?</strong>
+        That last question is where synthesis begins.
+      </p>
+    </div>
     <div class="container grid grid--2">
       {
         planets.map((p) => (
@@ -59,13 +74,14 @@ const crumbs = [
 
   <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Related</h2>
+      <h2>Nothing works alone</h2>
       <p>
-        Planets are only one of the chart's four vocabularies. See how they combine with
-        <a href="/explore/signs/">the signs</a> and <a href="/explore/houses/">the houses</a>, how
-        <a href="/explore/dignities/">essential dignities</a> measure whether a planet can do its
-        job, and how <a href="/explore/moon-phases/">the lunar cycle</a> and
-        <a href="/explore/retrogrades/">retrograde periods</a> shape a planet's behaviour over time.
+        Planets are one vocabulary in the chart. <a href="/explore/signs/">Signs</a> describe style,
+        <a href="/explore/houses/">houses</a> describe areas of experience, and
+        <a href="/explore/aspects/">aspects</a> show relationships among chart factors. Some
+        traditions also use <a href="/explore/dignities/">essential dignities</a> to evaluate a
+        planet's condition. The useful question is rarely "What does my Venus mean?" in isolation.
+        It is "What is Venus doing in this chart, and how does it belong to the larger pattern?"
       </p>
     </div>
   </section>
