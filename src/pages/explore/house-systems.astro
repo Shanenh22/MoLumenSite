@@ -14,7 +14,7 @@ const crumbs = [
 
 <BaseLayout
   title="House Systems: why astrologers divide the chart differently"
-  description="Whole sign, Placidus, equal house, and others: what changes between house systems, what doesn't, and why there is no single correct answer."
+  description="Whole sign, Placidus, equal house, Regiomontanus, and other house systems: what changes, what stays the same, and why serious astrologers can use different methods."
   path="/explore/house-systems/"
   breadcrumbs={crumbs}
 >
@@ -24,18 +24,9 @@ const crumbs = [
       <div>
         <p class="eyebrow">Explore Astrology</p>
         <h1>House systems</h1>
-        <p class="lede">Ask three astrologers which house your Venus is in and you may get two answers. That isn't sloppiness. It's an open question the tradition has never settled.</p>
+        <p class="lede">This is one of the places where astrology refuses to become tidy. Different house systems can place the same planet in different houses, and serious astrologers can still disagree about which framework is most useful.</p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.coralReefBlueHour.src}
-        srcset={ocean.coralReefBlueHour.srcset}
-        sizes="100vw"
-        alt={ocean.coralReefBlueHour.alt}
-        width={ocean.coralReefBlueHour.width}
-        height={ocean.coralReefBlueHour.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.coralReefBlueHour.src} srcset={ocean.coralReefBlueHour.srcset} sizes="100vw" alt={ocean.coralReefBlueHour.alt} width={ocean.coralReefBlueHour.width} height={ocean.coralReefBlueHour.height} fetchpriority="high" />
     </div>
   </section>
 
@@ -43,40 +34,36 @@ const crumbs = [
     <div class="container prose flow">
       <h2>The problem being solved</h2>
       <p>
-        The zodiac is a clean 360° circle divided into twelve equal signs. The
-        <a href="/explore/houses/">houses</a> are also twelve divisions, but they're anchored to
-        the local horizon at your birth, which is tilted relative to the ecliptic and varies with
-        latitude. Converting one geometry into the other has no single obvious solution, so
-        astrologers developed several. Each is internally consistent; they simply divide differently.
+        The zodiac is a 360° circle divided into twelve signs. Houses are also twelve divisions, but
+        they are tied to a local horizon and meridian. Different systems solve the problem of
+        dividing that local space in different ways. The result is not one chart with different
+        planets; it is the same planetary positions organized through different house frameworks.
       </p>
 
-      <h2>The three you'll meet most</h2>
+      <h2>The systems you will meet most often</h2>
       <h3>Whole sign houses</h3>
       <p>
-        The oldest system, standard in Hellenistic astrology and widely revived today. The entire
-        sign containing your Ascendant becomes the first house, the next sign the second, and so on
-, houses and signs are identical. Simple, robust at extreme latitudes, and it produces no
-        intercepted signs. In this system the Midheaven floats: it may land in the ninth, tenth, or
-        eleventh house rather than marking the tenth cusp.
+        In whole sign houses, the entire sign containing the Ascendant becomes the first house, the
+        next sign becomes the second, and so on. The method is simple and has deep historical roots.
+        The Midheaven remains an important point but does not have to define the tenth-house cusp.
       </p>
       <h3>Placidus</h3>
       <p>
-        The most common system in modern Western practice and the default in most software. It
-        divides by time rather than space, tracking how long a degree takes to rise. Houses are
-        unequal in size, sometimes dramatically so, and the system breaks down at latitudes beyond
-        roughly 66°, where some houses become undefined.
+        Placidus is common in modern Western astrology and produces houses of unequal size. It is
+        calculated differently from whole sign and can move planets into neighboring houses,
+        especially when they are close to a cusp.
       </p>
       <h3>Equal house</h3>
       <p>
-        Twelve exactly 30° houses measured from the Ascendant degree. Keeps the Ascendant as the
-        first house cusp while giving every house identical size. Like whole sign, it detaches the
-        Midheaven from the tenth cusp.
+        Equal house begins the first house at the Ascendant degree and then divides the chart into
+        twelve equal 30° houses. Like whole sign, it does not require the Midheaven to be the
+        tenth-house cusp.
       </p>
       <p>
-        Others in regular use include Koch, Porphyry, Regiomontanus (favoured in traditional horary),
-        Campanus, and Alcabitius. Each has advocates and a rationale.
+        Other systems in regular use include Koch, Porphyry, Regiomontanus, Campanus, and Alcabitius.
+        Horary astrologers may favor systems that differ from those used in natal work. The method
+        should fit the technique rather than functioning as a badge of identity.
       </p>
-
     </div>
   </section>
 
@@ -84,48 +71,49 @@ const crumbs = [
 
   <section class="section section--sea">
     <div class="container prose flow">
-      <h2>What actually changes, and what doesn't</h2>
-      <p><strong>Unchanged by house system:</strong></p>
+      <h2>What changes, and what does not</h2>
+      <p><strong>House system does not change:</strong></p>
       <ul>
-        <li>Every planet's sign and degree</li>
-        <li>Every aspect between planets</li>
-        <li>The Ascendant and Midheaven degrees themselves</li>
+        <li>the zodiacal sign and degree of each planet</li>
+        <li>the aspects between planets</li>
+        <li>the Ascendant and Midheaven degrees themselves</li>
       </ul>
-      <p><strong>Changed by house system:</strong></p>
+      <p><strong>House system can change:</strong></p>
       <ul>
-        <li>Which house a planet falls in: sometimes shifting it by one, occasionally more</li>
-        <li>Which sign sits on each house cusp, and therefore which planet rules that house</li>
-        <li>Whether signs are intercepted (contained entirely within one house) or duplicated</li>
+        <li>which house a planet occupies</li>
+        <li>which signs fall on intermediate house cusps</li>
+        <li>some rulership chains and house-based interpretive emphasis</li>
       </ul>
       <p>
-        So the disagreement is bounded. Most of a chart is identical in every system; what moves is
-        the assignment of planets to life areas, which is admittedly not a small thing.
+        That is not a trivial difference, but it is also not a completely different chart. I think
+        this is a useful example of why astrology benefits from humility: technique matters, and
+        technique does not erase judgment.
       </p>
 
       <Layers kind="mo">
         <p>
-          I'll tell you which system I'm using and why, and I'm happy to look at a chart in more than
-          one when a placement sits near a cusp. That's not indecision: a planet at the edge of two
-          houses genuinely does describe a life that straddles two arenas, and reading both is more
-          honest than pretending the boundary is crisp.
+          I have studied and used more than one house system. I do not need every chart to prove one
+          system universally correct. If a placement changes houses between methods and that change
+          matters to the question, I am comfortable looking more closely rather than pretending the
+          ambiguity is embarrassing. The chart belongs to the person, not to my need for a tidy rule.
         </p>
       </Layers>
 
       <Layers kind="differs">
         <p>
-          There is no consensus and there may never be. Hellenistic revivalists generally use whole
-          sign; most twentieth-century Western astrologers use Placidus; traditional horary
-          practitioners often use Regiomontanus. Astrologers who have tested systems against their
-          own client work usually settle on one by experience rather than argument, which is a
-          reasonable epistemology for a symbolic system, and worth being upfront about.
+          Different traditions and techniques favor different systems, and astrologers often arrive
+          at their preferences through training, historical method, and experience with charts. That
+          disagreement is real. It is also one reason it is useful to ask an astrologer what method
+          they are using rather than assuming every chart is being divided the same way.
         </p>
       </Layers>
 
       <h2>What to do about it as a client</h2>
       <p>
-        Ask. A good astrologer will name their system without defensiveness. If two readings put
-        your Venus in different houses, neither person made an error, they used different methods,
-        and the useful question is which reading described your life more accurately.
+        You do not need to pick a side before having a reading. Ask which system is being used and,
+        if a placement is close to a boundary or another technique is relevant, ask whether the
+        astrologer considers more than one framework. The explanation should make sense without
+        requiring you to adopt an astrology-school identity of your own.
       </p>
       <p>
         Related: <a href="/explore/angles/">the four angles</a>,
@@ -136,5 +124,5 @@ const crumbs = [
     </div>
   </section>
 
-  <CTABand heading="Curious which system fits your chart?" body="I'll always tell you which system I'm using and why, and look at more than one when it matters." buttonLabel="See the readings" buttonHref="/readings/" />
+  <CTABand heading="The method should serve the chart" body="Different house systems can emphasize different parts of the same chart. The useful question is what helps us understand the person and the question in front of us." buttonLabel="See the readings" buttonHref="/readings/" />
 </BaseLayout>
