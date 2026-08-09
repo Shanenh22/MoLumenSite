@@ -46,7 +46,7 @@ const schema = [
 
 <BaseLayout
   title="Astrology Readings"
-  description="Natal chart, relationship, solar return, life changes, and monthly transit readings with Mo Lumen, open pricing, recordings included. Compare readings and book online."
+  description="Astrology consultations with Mo Lumen for natal charts, relationships, life changes, solar returns, and personal timing. Clear pricing, recordings included, and guidance without giving away your choices."
   path="/readings/"
   breadcrumbs={crumbs}
   schema={schema}
@@ -58,10 +58,10 @@ const schema = [
       <p class="eyebrow">Readings</p>
       <h1>Astrology readings with Mo</h1>
       <p class="lede">
-        One approach for wherever you are: your chart connected directly to your real life,
-        decisions, relationships, timing, by a certified astrologer with a classical lens and a
-        practical streak. New clients start with the natal reading; established clients have a
-        whole menu of follow-ups, from a yearly solar return to a 30-minute check-in.
+        A reading starts with the chart, but it does not stop there. I bring the preparation,
+        technique, and what I am noticing; you bring the life that chart belongs to. Together we
+        look for the patterns, timing, and possibilities that matter to the question in front of
+        you.
       </p>
       </div>
       <img
@@ -81,8 +81,10 @@ const schema = [
     <div class="container">
       <h2 id="start-here">New to Mo? Start here</h2>
       <p class="lede">
-        These two are open to everyone. Most people begin with the natal reading. It's the
-        foundation every other reading builds on.
+        Most new clients begin with the Natal Chart Reading. It gives us the foundation of your
+        chart, a first understanding of how you are actually living it, and a look at important
+        current conditions. The Relationship Consultation is also open to new clients when the
+        relationship itself is the reason you are coming.
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
@@ -93,13 +95,6 @@ const schema = [
               </h3>
               <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
               <p>{s.data.purpose}</p>
-              {/*
-                One action per real option, from bookingActions() — so a
-                multi-price reading offers both prices here rather than
-                quietly resolving to one of them. The natal card shows
-                "Book 1 hour 30 minutes — $200" and "Book 1 hour — $150";
-                a single-option reading still shows one "Book this reading".
-              */}
               <p class="card__actions">
                 {bookingActions(s.data).map((a) => (
                   <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
@@ -112,14 +107,10 @@ const schema = [
           ))
         }
         <article class="card" style="background: var(--bg-alt);">
-          <h3 style="font-size: var(--text-xl); margin: 0;">Not sure which fits?</h3>
-          {/* "three quick questions" was left behind when the finder went from
-              two questions to five. It is a promise a visitor can disprove in
-              one click, which is the worst kind of small inaccuracy to leave on
-              a conversion page. */}
+          <h3 style="font-size: var(--text-xl); margin: 0;">Not sure where to begin?</h3>
           <p>
-            Answer five quick questions and get a suggestion, or start with the natal reading,
-            the foundation everything else builds on.
+            The Reading Finder asks five plain-language questions about what brings you here and
+            suggests the reading I would point you toward. It is a recommendation, not a rule.
           </p>
           <p style="margin: 0;"><a class="btn btn--primary" href="/reading-finder/">Reading Finder</a></p>
         </article>
@@ -131,8 +122,9 @@ const schema = [
     <div class="container">
       <h2 id="follow-ups">Already had your natal reading?</h2>
       <p class="lede">
-        These follow on from a natal reading with me, they start from a chart we've already been
-        through together, so we can go straight to the question.
+        Follow-up readings begin with a chart and a lived context we already know together. That
+        shared foundation means we can spend less time establishing the basics and more time on
+        the question, transition, year, or timing that matters now.
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
         {
@@ -233,12 +225,6 @@ const schema = [
                 </td>
                 <td>{priceCell(s)}</td>
                 <td>
-                  {/* One link per bookable option, so a two-price reading is
-                      never collapsed into a single "Book" that picks for the
-                      customer. The accessible name carries the reading and the
-                      option, because a screen-reader user listing the links on
-                      this page would otherwise hear "Book" nine times with
-                      nothing to tell them apart. */}
                   <ul class="compare-book">
                     {bookingActions(s.data).map((a) => (
                       <li>
@@ -255,8 +241,8 @@ const schema = [
         </tbody>
       </table>
       <p class="card__meta">
-        Prices as currently listed on Mo's scheduler. Every price is always shown again before
-        you pay. Readings marked "established clients" follow an initial natal reading with Mo.
+        Prices are shown here and again before you pay. Readings marked "established clients"
+        build on a prior Natal Chart Reading with me.
       </p>
     </div>
   </section>
@@ -265,18 +251,22 @@ const schema = [
     <div class="container grid grid--3">
       <article class="card">
         <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/readings/gift/">Gift a reading</a></h2>
-        <p style="margin: 0;">A reading makes a remarkable gift, here's how it works.</p>
+        <p style="margin: 0;">If you are considering a reading for someone else, start with how gifting works.</p>
       </article>
       <article class="card">
         <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/how-readings-work/">What to expect</a></h2>
-        <p style="margin: 0;">Every step from booking to recording, explained.</p>
+        <p style="margin: 0;">From booking and intake to the conversation itself and your recording afterward.</p>
       </article>
       <article class="card">
         <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/frequently-asked-questions/">Reading FAQs</a></h2>
-        <p style="margin: 0;">Honest answers to the questions everyone asks.</p>
+        <p style="margin: 0;">Straight answers about birth time, preparation, prediction, and what a reading can and cannot do.</p>
       </article>
     </div>
   </section>
 
-  <CTABand />
+  <CTABand
+    heading="Bring me the question that matters."
+    body="If you know what you need, choose the reading that fits. If you do not, the Reading Finder will point you toward a place to start."
+    secondaryLabel="Start with the Reading Finder"
+  />
 </BaseLayout>
