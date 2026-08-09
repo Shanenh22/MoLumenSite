@@ -19,15 +19,13 @@ const crumbs = [
   { label: 'The Planets', href: '/explore/planets/' },
   { label: p.name, href: `/explore/planets/${p.slug}/` },
 ];
-/* These pages carried no image at all before. Slug-derived so each planet keeps
-   its own pair, stable across builds. */
 const heroImage = bandFor(p.slug);
 const breakImage = bandFor(p.slug, 5);
 ---
 
 <BaseLayout
   title={`${p.name} in Astrology: meaning, dignities, and cycle`}
-  description={`${p.name}: ${p.drive.slice(0, 120)} Traditional and modern readings, dignities, retrograde cycle, and how to work with it.`}
+  description={`${p.name}: ${p.drive.slice(0, 120)} Traditional and modern perspectives, dignities, cycle, and how this planetary function changes in context.`}
   path={`/explore/planets/${p.slug}/`}
   breadcrumbs={crumbs}
 >
@@ -54,6 +52,12 @@ const breakImage = bandFor(p.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
+      <p>
+        Start with the planet's function, then resist the temptation to stop there. A planet changes
+        expression through its sign, house, aspects, rulerships, condition, and relationship to the
+        rest of the chart. The material below gives you the vocabulary; the chart supplies the
+        context.
+      </p>
       <h2>At a glance</h2>
       <table class="ref-table">
         <caption class="visually-hidden">Attributes of {p.name}</caption>
@@ -72,8 +76,8 @@ const breakImage = bandFor(p.slug, 5);
       </table>
       <p class="card__meta">
         Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables.
-        See <a href="/explore/dignities/">essential dignities</a>. "Joy" is the house a planet was
-        traditionally happiest in.
+        See <a href="/explore/dignities/">essential dignities</a>. "Joy" refers to a traditional
+        house association for the planet.
       </p>
     </div>
   </section>
@@ -95,16 +99,15 @@ const breakImage = bandFor(p.slug, 5);
     <div class="container prose flow">
       <h2>In your chart</h2>
       <p>{p.inYourChart}</p>
-      <h2>When it leads</h2>
+      <h2>When this function is emphasized</h2>
       <p>{p.whenItLeads}</p>
       <h2>Working with it</h2>
       <p>{p.workingWithIt}</p>
       <p>
-        How this plays out depends on its <a href="/explore/signs/">sign</a>, its
-        <a href="/explore/houses/">house</a>, and its <a href="/explore/aspects/">aspects</a>.
-        That's the work of a real chart reading.
+        The useful next question is always contextual: what sign is {p.name} in, which house does it
+        occupy, what <a href="/explore/aspects/">aspects</a> does it make, what does it rule, and
+        what else is happening in the chart? No planet means the same thing in every life.
       </p>
-
 
       <nav aria-label="More planets" style="display: flex; justify-content: space-between; gap: var(--space-4);">
         <a href={`/explore/planets/${prev.slug}/`}>← {prev.name}</a>
@@ -114,8 +117,8 @@ const breakImage = bandFor(p.slug, 5);
   </section>
 
   <CTABand
-    heading={`Curious how your ${p.name.replace('The ', '')} works?`}
-    body="A natal reading places every planet in your chart, sign, house, and aspects, in one conversation."
+    heading={`Curious how ${p.name.replace('The ', '')} fits your chart?`}
+    body="A natal reading looks at this planet in relationship with the rest of your chart and with the life you are actually living."
     buttonLabel="About the Natal Reading"
     buttonHref="/readings/natal/"
   />
