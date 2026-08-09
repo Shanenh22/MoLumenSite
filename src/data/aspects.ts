@@ -32,20 +32,20 @@ export const aspects: Aspect[] = [
     signRelationship:
       "Usually the same sign, though a conjunction can straddle a sign boundary.",
     nature:
-      "Fusion. Neither easy nor hard by itself; it takes its character from the planets involved.",
+      "Fusion. Neither easy nor hard by itself; much depends on the planets involved and the rest of the chart.",
     traditional:
-      "Traditional astrology treated the conjunction as the most powerful of all aspects, and evaluated it strictly by the planets involved. A conjunction with a benefic was fortunate; one with a malefic, particularly a close conjunction with the Sun (combustion), was considered seriously damaging to the weaker planet.",
+      "Traditional astrology treats conjunctions as powerful contacts and judges them by the nature, condition, and relationship of the planets involved. A conjunction is not automatically benefic or difficult simply because the planets occupy the same place.",
     modern:
-      "Modern practice reads the conjunction as blending or fusion: two functions that operate as a single unit and cannot easily be experienced separately.",
-    mo: "Conjunctions are the hardest aspects to see in yourself, because the two planets have never been apart. Someone with Mercury conjunct Saturn doesn't experience 'careful thinking'. They experience thinking. Naming the two voices separately is usually the whole intervention.",
+      "Modern practice often reads the conjunction as blending or fusion: two functions operating so closely together that they may be difficult to experience separately.",
+    mo: "A conjunction interests me because the two planets have always been together in that person's chart. The person may experience the blend as completely ordinary. Part of the reading can be separating the functions just enough to notice what each one contributes.",
     misconception:
-      "That conjunctions are automatically good. Fusion amplifies whatever is fused, including two planets that want incompatible things.",
+      "That conjunctions are automatically good. Fusion intensifies a relationship between two chart factors; whether that feels easy, difficult, productive, or contradictory depends on what is being joined.",
     relationship:
-      "Two planets conjunct act as one blended force. Their agendas merge: sometimes into a superpower, sometimes into a package deal you cannot take apart.",
+      "Conjunct planets operate in close proximity. Their agendas can reinforce, complicate, or reshape one another, which is why the planets themselves matter more than the label 'conjunction.'",
     livedExperience:
-      "You experience conjunct planets as a single instinct: the Moon conjunct Mars feels feelings and acts on them in the same heartbeat.",
+      "A conjunction can feel like one instinct made from two functions. The blend may be so familiar that its separate ingredients are easier for an outside observer to notice than for the person living it.",
     workingWithIt:
-      "Learn to tell the two voices apart even though they arrive together. Naming each planet separately gives you back a choice inside the blend.",
+      "Try naming what each planet wants separately, then notice what changes when they act together. Distinction can create more choice inside the blend.",
   },
   {
     slug: "sextile",
@@ -56,20 +56,20 @@ export const aspects: Aspect[] = [
     typicalOrb: "commonly 4–6°",
     signRelationship: "Compatible elements: fire with air, earth with water.",
     nature:
-      "Opportunity. A friendly aspect that offers cooperation without forcing it.",
+      "Opportunity. A generally supportive aspect whose usefulness may depend on participation.",
     traditional:
-      "Classified as a benefic aspect, though weaker than the trine, traditional texts describe it as a relationship of moderate friendship and assistance rather than outright ease.",
+      "Traditional astrology classifies the sextile as a benefic aspect, generally milder than the trine: a relationship of assistance, opportunity, or moderate friendship between the planets involved.",
     modern:
-      "Modern practice frames the sextile as latent talent requiring activation: a channel between two functions that opens only when the person deliberately uses it.",
-    mo: "Sextiles are the aspects clients most often haven't noticed. They describe things you could do easily and simply never got around to. In a reading they're some of the most useful territory, because the fix is usually just permission.",
+      "Modern practice often describes the sextile as a usable connection or talent that may become more visible when the person actively develops it.",
+    mo: "Sextiles can be easy to overlook because they may not demand attention. I like them for exactly that reason. They can show a relationship between parts of the chart that becomes more useful once the person realizes it is available.",
     misconception:
-      "That sextiles are too minor to matter. They are quieter than trines, not weaker, and because they require initiative, the skills they describe tend to be more consciously earned.",
+      "That sextiles are too minor to matter. They may be quieter than stronger aspects, but their importance still depends on the planets involved, the orb, and the larger chart.",
     relationship:
-      "Sextile planets are compatible collaborators, usually across complementary elements, that support each other when invited to.",
+      "Sextile planets have a generally cooperative relationship. The connection can offer support or an opening without forcing the person to use it.",
     livedExperience:
-      "Sextiles feel like doors that open when knocked on. Talents sit here quietly; nothing happens until you use them.",
+      "A sextile may feel less like a problem demanding a solution and more like a capacity that becomes noticeable once life gives it something to do.",
     workingWithIt:
-      "The sextile rewards initiative. Treat it as standing permission: the resource is real, but you must pick it up.",
+      "Notice where one part of the chart can help another. The aspect may describe an available route rather than an automatic outcome.",
   },
   {
     slug: "square",
@@ -79,22 +79,22 @@ export const aspects: Aspect[] = [
     degrees: 90,
     typicalOrb: "commonly 6–8°",
     signRelationship:
-      "Same modality, incompatible elements, the source of the friction.",
+      "Usually signs of the same modality and different elements, which helps describe the friction.",
     nature:
-      "Friction. A hard aspect, and one of the chart's most productive engines.",
+      "Friction. A challenging relationship that can create pressure, effort, and development.",
     traditional:
-      "A hostile aspect in traditional terms, a relationship of enmity between planets, indicating obstruction and conflict in the matters they govern. Traditional astrology did not soften this.",
+      "Traditional astrology classifies the square as a difficult aspect associated with obstruction, conflict, or strain in the matters signified by the planets involved.",
     modern:
-      "Modern astrology substantially reframed the square as developmental tension: the friction that forces growth, and the source of a chart's drive and achievement.",
-    mo: "I take the traditional view seriously. Squares genuinely are difficult, and pretending otherwise insults anyone living one. But I've also never met an accomplished person without them. The difficulty and the capability are the same feature seen at different points in a life.",
+      "Modern astrology often adds a developmental frame: repeated tension can become a source of skill, effort, awareness, or achievement over time.",
+    mo: "I do not want to prettify a square. Some are genuinely difficult to live. I also do not want to reduce difficulty to doom. What interests me is how the two planets keep encountering one another and what the person has learned, or is still learning, from having to negotiate that tension.",
     misconception:
-      "That squares are bad luck. They describe an internal conflict between two of your own drives, which means the resolution is available to you, unlike genuine misfortune.",
+      "That a square guarantees bad events. It describes a difficult relationship between chart factors, not a predetermined outcome, and its expression changes with the planets, houses, condition, timing, and person.",
     relationship:
-      "Square planets want different things in incompatible styles, like roommates with opposite schedules. Neither will yield, so the tension recurs until it is built into something.",
+      "Square planets pull in directions that do not coordinate easily. The tension can recur until the person finds a way to give both functions legitimate expression.",
     livedExperience:
-      "Squares feel like the problem that keeps coming back, and, over years, like the muscle you built solving it. Many signature achievements sit on natal squares.",
+      "Squares often feel like a recurring point of effort. Over time, the same friction can become familiar territory and sometimes a source of competence.",
     workingWithIt:
-      "Stop trying to make the square go away. Give both planets a legitimate job and the friction becomes traction.",
+      "Ask what each side of the square is trying to accomplish before deciding that one of them is the problem. The aim is not to erase tension but to work with it more consciously.",
   },
   {
     slug: "trine",
@@ -104,21 +104,21 @@ export const aspects: Aspect[] = [
     degrees: 120,
     typicalOrb: "commonly 6–8°",
     signRelationship:
-      "Same element: the reason the energy flows without resistance.",
-    nature: "Flow. The classic easy aspect: harmony that asks nothing.",
+      "Usually signs of the same element, one reason the relationship is described as flowing.",
+    nature: "Flow. A generally supportive relationship between chart factors.",
     traditional:
-      "The most benefic aspect in traditional astrology: a relationship of friendship and mutual support, indicating ease and natural favour in the matters the planets govern.",
+      "Traditional astrology classifies the trine as a benefic aspect associated with ease, assistance, and a natural affinity between the planets involved.",
     modern:
-      "Modern practice adds a caution the tradition rarely emphasized: trines describe gifts that can go unused precisely because nothing ever forces the issue.",
-    mo: "Trines are where people are talented and bored. The ability is real and it arrived without effort, which is exactly why it often gets treated as unremarkable. Half my job with a strong trine is convincing someone it counts.",
+      "Modern practice often notes that an easy relationship can be underused precisely because it does not create much pressure for development.",
+    mo: "A trine can describe something a person does so naturally that they do not recognize it as a capacity. I am interested in the ease, but also in what the rest of the chart asks that ease to do. A gift matters differently when it has somewhere meaningful to go.",
     misconception:
-      "That trines guarantee good outcomes. They describe ease of flow, not merit, and an unused trine produces nothing at all.",
+      "That trines guarantee good outcomes. They describe ease of relationship, not a promise about what someone will do with it.",
     relationship:
-      "Trine planets share an element and an outlook; energy moves between them without resistance, like water finding its level.",
+      "Trine planets tend to support one another with relatively little friction. That can feel like fluency, familiarity, or a channel that is easy to use.",
     livedExperience:
-      "Trines feel like things you have always been able to do, so native you may not count them as talents at all.",
+      "A trine may feel so natural that it goes unnamed. Other people sometimes notice the ease before the person carrying it does.",
     workingWithIt:
-      "The trine's risk is passivity: gifts left idling because they never demanded attention. Deliberate use turns ease into excellence.",
+      "Ask where the ease is useful and whether you are actually using it. A supportive aspect still belongs inside the whole chart, where other factors may challenge, focus, or redirect it.",
   },
   {
     slug: "opposition",
@@ -128,19 +128,19 @@ export const aspects: Aspect[] = [
     degrees: 180,
     typicalOrb: "commonly 8–10°",
     signRelationship: "Same modality, opposite signs, two ends of one axis.",
-    nature: "Polarity. A hard aspect that seeks balance rather than victory.",
+    nature: "Polarity. A challenging aspect organized around two ends of one axis.",
     traditional:
-      "A hostile aspect, classically second only to the square in difficulty. Planets in opposition were read as being in direct confrontation, each undermining the other.",
+      "Traditional astrology classifies the opposition as a difficult aspect in which two planets confront one another from opposite sides of the zodiac.",
     modern:
-      "Modern astrology reads opposition through projection and integration: the tendency to experience one end of the axis as belonging to someone else until both are consciously owned.",
-    mo: "Oppositions show up as other people with impressive reliability. The partner who is everything you are not, the colleague who drives you mad. Those are frequently one end of an axis you carry. Recognizing that is uncomfortable and enormously freeing.",
+      "Modern astrology often reads oppositions through polarity, projection, and integration: one end of the axis may be easier to identify with while the other is first encountered through other people or circumstances.",
+    mo: "Oppositions fascinate me because the two ends really do belong to the same axis. Sometimes a person identifies strongly with one side and keeps meeting the other through relationships. I do not assume that is what is happening, but it is a useful question to bring into the conversation.",
     misconception:
-      "That an opposition must be resolved by choosing a side. The axis is the point: both ends are yours, and the work is holding them together rather than eliminating one.",
+      "That an opposition must be solved by choosing one side. The tension is built into an axis; the work is often learning how both functions belong rather than declaring one of them wrong.",
     relationship:
-      "Opposed planets sit at two ends of one axis: the same conversation from opposite chairs. Each holds something the other lacks.",
+      "Opposed planets face one another across an axis. Each can illuminate what the other lacks, exaggerate a difference, or create a repeated need for balance and negotiation.",
     livedExperience:
-      "Oppositions often play out through other people: you carry one end, someone across from you carries the other, until you recognise both as yours.",
+      "Oppositions can be experienced internally or through other people. The expression varies, but the sense of two competing or complementary positions is usually central.",
     workingWithIt:
-      "The question is never which side wins. It is how both get a seat. Integration, not amputation.",
+      "Instead of asking which side wins, ask what each side contributes and what becomes possible when neither has to disappear.",
   },
 ];
