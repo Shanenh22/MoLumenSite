@@ -10,8 +10,8 @@ const crumbs = [
 ---
 
 <BaseLayout
-  title="Aspects. The geometry of the chart"
-  description="Aspects are meaningful angles between planets: conjunction, sextile, square, trine, opposition. Learn what each one means, and why 'hard' aspects build your best skills."
+  title="Aspects. Relationships within the chart"
+  description="Aspects are meaningful angular relationships between planets. Learn conjunctions, sextiles, squares, trines, and oppositions without reducing them to good or bad."
   path="/explore/aspects/"
   breadcrumbs={crumbs}
 >
@@ -22,9 +22,10 @@ const crumbs = [
       <p class="eyebrow">Explore Astrology</p>
       <h1>Aspects</h1>
       <p class="lede">
-        Aspects are relationships between chart factors, the angles planets make to one another.
-        They tell you which of your drives cooperate, which argue, and which are fused for life.
-        One reframe before you start: "hard" aspects aren't bad. They're engines.
+        Aspects are relationships between chart factors: the angles planets make to one another.
+        They show how different functions in the chart meet, reinforce, challenge, interrupt, or
+        complicate one another. This is one of the places where astrology stops being a list and
+        starts becoming a pattern.
       </p>
       </div>
       <img
@@ -41,6 +42,20 @@ const crumbs = [
   </section>
 
   <section class="section">
+    <div class="container prose flow" style="margin-bottom: var(--space-8);">
+      <h2>Not simply good or bad</h2>
+      <p>
+        I am cautious with the old shorthand of "easy" and "hard" aspects. Some aspects tend to
+        describe more friction; others more flow. But flow can be underused, friction can become
+        productive, and neither tells you by itself how a person will live the configuration. A
+        square is not a sentence. A trine is not a guarantee.
+      </p>
+      <p>
+        What matters is which planets are involved, how close the aspect is, what else those planets
+        are doing in the chart, and how the pattern is actually showing up in the person's life. The
+        geometry gives structure. Interpretation still requires synthesis.
+      </p>
+    </div>
     <div class="container grid grid--3">
       {
         aspects.map((a) => (
@@ -59,13 +74,14 @@ const crumbs = [
 
   <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Related</h2>
+      <h2>Where relationships become patterns</h2>
       <p>
-        When three or more planets lock together they form
-        <a href="/explore/chart-patterns/">chart patterns</a>, stelliums, grand trines,
-        T-squares, which often define a chart more than any single aspect does. Aspects also
-        drive <a href="/explore/transits/">timing</a>, and their geometry follows from
-        <a href="/explore/elements-and-modalities/">elements and modalities</a>.
+        When several planets connect through multiple aspects, larger
+        <a href="/explore/chart-patterns/">chart patterns</a> can emerge: T-squares, grand trines,
+        stelliums, and other configurations. Aspects are also central to
+        <a href="/explore/transits/">timing</a>, because moving planets form new relationships to
+        natal chart factors over time. In both cases, the meaning comes from the network, not from
+        one line drawn across the wheel.
       </p>
     </div>
   </section>
