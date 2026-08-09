@@ -7,16 +7,16 @@
   "name": "Natal Chart Reading",
   "shortName": "Natal",
   "slug": "natal",
-  "purpose": "Your whole birth chart, interpreted with you: the positions and connections of the planets, and what the current sky is stirring in your life right now.",
-  "method": "Full natal chart interpretation with a classical lens, including current-sky transits to your natal chart. You direct the focus in advance through the intake form, and you can be as interactive as you wish.",
+  "purpose": "A first look at your birth chart as a whole, together with the important transits, progressions, and current conditions surrounding the life you're living now.",
+  "method": "We begin with the natal chart as the foundation, then bring in relevant transits, progressions, and other timing techniques to understand what is active now. I guide the conversation and explain what I'm seeing; your questions and feedback help us discover how those patterns are actually showing up in your life.",
   "bestFor": [
-    "New clients: this is the reading that starts everything",
-    "A first professional reading: the real thing, not an app summary",
-    "A crossroads in career, relationship, or identity that wants a wider lens"
+    "New clients: this is the reading that establishes our shared understanding of your chart",
+    "A first professional reading when you want the whole pattern, not an app-style list of placements",
+    "A meaningful crossroads, recurring pattern, or season of change that could use a wider view"
   ],
   "notFor": [
-    "Existing clients wanting a follow-up: Want More Clarity or a Quick Check-In fits better",
-    "Two people's compatibility. That's the Relationship Consultation"
+    "Existing clients wanting a focused follow-up: Want More Clarity or a Quick Check-In fits better",
+    "A consultation focused on two people's charts together: choose the Relationship Consultation"
   ],
   "durationMinutes": 90,
   "durationLabel": "60 or 90 minutes: your choice",
@@ -29,7 +29,7 @@
       "durationLabel": "1 hour 30 minutes",
       "price": 200,
       "bookingEventId": "natal-90",
-      "note": "Recommended for first readings: room for the whole chart and your questions."
+      "note": "Recommended for first readings: more room for the natal chart, current conditions, and your questions."
     },
     {
       "label": "60 minutes: the essentials",
@@ -51,10 +51,10 @@
     "The focus you want, via the intake form after booking"
   ],
   "includes": [
-    "Interpretation of the positions and connections of the planets in your birth chart",
-    "How the current sky interacts with your natal chart: what's being influenced now",
+    "A whole-chart natal interpretation focused on how the pieces work together",
+    "Relevant transits, progressions, and current planetary conditions around your natal chart",
     "Your chosen focus, set in advance through the intake form",
-    "As much interaction as you want. Tailor the conversation to your needs"
+    "A guided conversation with room for as much or as little feedback as feels natural to you"
   ],
   "deliverables": [
     "Recording of the session",
