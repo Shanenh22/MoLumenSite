@@ -1,6 +1,6 @@
 ---
 title: "How Often Should You Get an Astrology Reading?"
-description: "Less often than most astrologers would like to sell you, and more deliberately than most people book. An honest answer from someone with an obvious financial interest in the question."
+description: "There is no ideal schedule. A reading is most useful when there is a real question, transition, or cycle to understand, not simply because time has passed."
 publishDate: 2026-08-04
 category: "Choosing a Reading"
 tags: ["readings", "expectations", "choosing"]
@@ -9,75 +9,50 @@ draft: false
 ownerReview: true
 ---
 
-I'm aware this is a question I have an obvious interest in answering a particular way. So let me
-answer it the other way first.
+There is no ideal number of astrology readings to have in a year.
 
-**Most people need fewer readings than they think, and the ones who need the most are usually the
-ones who should have the fewest.**
+I would rather begin with a different question: **What is happening that makes you want another look at the chart?**
 
-## The pattern worth avoiding
+Sometimes the answer is obvious. Something has changed. A decision is getting closer. A relationship has reached a different stage. A pattern you thought you understood is showing up again in a new form. Those are good reasons to return.
 
-There is a way of using astrology that looks like engagement and functions as avoidance. Someone
-books whenever a decision looms, then books again when the decision doesn't resolve, then again when
-the new circumstances arrive. Each session is interesting. Nothing is ever decided.
+Sometimes the answer is simply that astrology has become a way of checking whether everything is going to be okay. That is worth noticing too.
 
-If you find yourself wanting a reading before every significant choice, the problem the readings are
-addressing is not informational. A chart cannot make you feel safe about deciding. It can only ever
-describe conditions, and no amount of description substitutes for the moment where you pick.
+## A natal reading is a foundation
 
-I would rather say that plainly and lose the booking than take money for something that isn't
-helping. A good reading should leave you more able to act on your own judgement, not more reliant
-on mine.
+Your natal chart does not change, but your relationship to it does. A first natal reading gives us the basic structure: the patterns, tensions, capacities, and recurring themes I want you to understand before we start layering current timing on top.
 
-## The rhythm that tends to work
+You do not need to keep rebooking the same reading. Years later, though, a natal chart can look different because *you* are different. The symbols have more lived history behind them, and something that was theoretical at twenty-five may be very concrete at forty.
 
-**A natal reading once.** Your birth chart doesn't change. A thorough natal reading is a foundation
-you keep, and most people never need a second one, though people who had theirs at twenty-two often
-find it lands very differently at thirty-five, because they have more life for it to describe.
+## Return when there is something to synthesize
 
-**A solar return annually, if you like a yearly rhythm.** Around your birthday the Sun comes back to
-its natal degree while everything else has moved, which makes a natural checkpoint. Some people find
-this genuinely orienting. Others find one year much like another. Try it once and see which you are.
+For many people, the next useful reading comes when life itself provides the reason.
 
-**Transit readings when the season actually changes.** Not quarterly by habit, but when something
-real is in motion: a move, a career shift, a relationship at a hinge, a Saturn return arriving.
-These are the readings that earn their money, because there is something to apply them to.
+A move, a change in work, a relationship decision, a major transition, a returning question, or a significant timing cycle can all give us something specific to examine. That is where astrology becomes more than description: we can put the current sky beside the natal chart and beside what is actually happening.
 
-**Follow-ups when a specific question surfaces.** After a natal reading, people often come back with
-one sharp question rather than a general request. Those are usually the most productive hours we
-spend.
+A [Life Changes reading](/readings/life-changes/) is built for that kind of moment. A [Solar Return reading](/readings/solar-return/) offers a yearly lens for clients who enjoy using the birthday as a natural checkpoint.
 
-## Signs you'd benefit from booking
+## A focused follow-up can be enough
 
-Something has genuinely changed, or is about to. You have a specific question you can state in a
-sentence. You're at a decision point and want another way of framing it. A pattern keeps recurring
-and you'd like to understand its shape. It's been years and your life is unrecognisable from when
-you last looked.
+Not every question needs another full-length reading. Sometimes the larger context is already clear and one issue has surfaced since we last talked. That is what a focused follow-up or [Quick Check-In](/readings/quick-check-in/) is for.
 
-## Signs you'd benefit from waiting
+The important distinction is that the session should be helping you understand something, not simply restarting the same uncertainty.
 
-You had a reading last month and nothing has changed except your anxiety. You're hoping to be told
-what to do. You want a different answer than the one you got. You're checking whether the timing has
-improved. You'd be booking to relieve a feeling rather than answer a question.
+## When a regular rhythm makes sense
 
-That last one is worth sitting with. Readings can be genuinely comforting, and there's nothing wrong
-with comfort, but if that's what you're buying, it's worth knowing that's what you're buying, and
-that it wears off faster than the fee suggests.
+I also offer [Monthly Personal Transits](/readings/monthly-personal-transits/) for established clients who want an ongoing timing conversation. That works best when the purpose is orientation: noticing what is developing, putting shorter cycles inside longer ones, and keeping perspective as circumstances evolve.
 
-## The monthly exception
+It is not meant to turn every month into a new set of instructions.
 
-I do offer a standing monthly session, which might look like it contradicts everything above. It
-works for a particular kind of client: someone established, who already has the natal foundation,
-using a short regular check-in to stay oriented to timing rather than to make decisions.
+## A useful reason to wait
 
-That's a different thing from repeatedly seeking reassurance, and in practice the people it suits
-know which they're doing.
+If nothing has changed and you are hoping the chart will give you a different answer because the first one was uncomfortable, more astrology may not add more clarity.
 
-## The honest summary
+The same is true if you feel you cannot make a decision until you have checked it astrologically. I want the work to strengthen your ability to recognize patterns and make choices, not make the chart another authority you have to consult before you trust yourself.
 
-For most people: one natal reading, then a transit or life-changes reading when life genuinely turns
-a corner. That might be twice in five years. That's a perfectly good relationship with astrology.
+## So how often?
 
-If you're unsure which reading fits your question, or whether one does, the
-[reading finder](/reading-finder/) takes about a minute, and emailing to ask costs nothing. I'll
-tell you if I don't think a reading is what you need.
+For one person, a natal reading followed by another session several years later may be plenty. Someone moving through a complex transition may benefit from several conversations in one year. Someone else may enjoy an annual solar return as a regular reflective practice.
+
+The calendar is not the deciding factor. **The question is.**
+
+If you know what you want to talk about but not which reading fits, the [Reading Finder](/reading-finder/) will narrow the options. If you are still wondering whether a reading is useful at all, start with [what an astrology reading can and can't do](/blog/what-astrology-can-and-cannot-do/).
