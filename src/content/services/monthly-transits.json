@@ -7,15 +7,15 @@
   "name": "Monthly Personal Transits: 1-on-1",
   "shortName": "Monthly Transits",
   "slug": "monthly-transits",
-  "purpose": "A standing 30-minute Zoom each month on how the month's planetary movements resonate with your personal chart: individualized, not a general forecast.",
-  "method": "Monthly transits read against your natal chart, one-on-one. This is personal and individualized: not the same general listing of transits posted publicly.",
+  "purpose": "A standing 30-minute session each month to look at how the current planetary movements are interacting with your chart and what may be most useful to notice now.",
+  "method": "Each month I read the current transits against your natal chart and we connect them with the plans, questions, and conditions already present in your life. This is individualized timing work, not the same general sky interpretation I publish for everyone.",
   "bestFor": [
-    "Established clients who want ongoing, personal timing guidance",
-    "Turning the monthly sky into decisions calibrated to your chart",
-    "A rhythm of reflection: same time, every month"
+    "Established clients who want an ongoing view of personal timing",
+    "People with active plans or decisions who want to understand the astrological context around the month",
+    "A regular rhythm of reflection that builds on our existing work together"
   ],
   "notFor": [
-    "New clients: a Natal Chart Reading comes first so there's a chart relationship to build on"
+    "New clients: a Natal Chart Reading comes first so we have a shared foundation to work from"
   ],
   "durationMinutes": 30,
   "durationLabel": "30 minutes, monthly",
@@ -32,15 +32,15 @@
     "What's on your plate this month"
   ],
   "includes": [
-    "How this month's planetary movements interact with your chart specifically",
-    "Timing worth knowing before you schedule your month",
-    "Continuity: each month builds on the last"
+    "How the month's planetary movements are interacting with your chart specifically",
+    "Timing and areas of emphasis worth noticing as you plan the month",
+    "Continuity: each conversation can build on what we have already seen together"
   ],
   "deliverables": [
     "Recording of each session"
   ],
   "preparation": [
-    "Bring your month: plans, decisions, and anything already feeling loud"
+    "Bring the month you're actually facing: plans, decisions, questions, and anything already asking for your attention"
   ],
   "bookingEventId": "monthly-transits",
   "related": [
