@@ -1,6 +1,6 @@
 ---
 title: "What a Chart Can Tell You About a Relationship, and What It Can't"
-description: "Synastry compares two charts; a composite treats the relationship as its own entity. Both are genuinely useful. Neither produces a compatibility score, and you should distrust anyone who says otherwise."
+description: "Relationship astrology can show patterns between two charts, but it cannot reduce a relationship to a score or verdict. Here is what synastry can actually add to the conversation."
 publishDate: 2026-08-04
 category: "Understanding Readings"
 tags: ["relationships", "synastry", "compatibility"]
@@ -9,75 +9,51 @@ draft: false
 ownerReview: true
 ---
 
-Relationship questions bring more people to astrology than anything else, and they carry the highest
-risk of being answered badly.
+Relationship astrology gets flattened very quickly online. Two signs are compared, a percentage appears, and a complicated relationship is turned into a verdict.
 
-The bad version is easy to sell: a percentage, a verdict, a list of signs you should never date.
-Here is what the technique actually supports.
+That is not how I find the work most useful.
 
-## What the methods are
+A relationship reading starts with **two whole natal charts** and then asks what happens when those charts meet. The interesting part is not whether one contact is "good" or "bad." It is the pattern created by many contacts, and how that pattern compares with what the two people are actually living.
 
-**Synastry** lays two birth charts over each other and reads the contacts between them, where your
-Venus meets their Mars, where their Saturn lands in your houses, which of your sensitive degrees
-they occupy without meaning to. It describes the dynamic between two specific people.
+## Synastry: two charts in relationship
 
-**Composite** charts create a third chart from the midpoints of two, treating the relationship
-itself as an entity with its own character. Useful for asking what this partnership tends to become,
-independent of either person's intentions.
+**Synastry** compares one natal chart with another. We can look at aspects between planets, where one person's planets fall in the other person's houses, how rulers interact, and which parts of either chart are strongly activated by the other.
 
-**House overlays** are the most immediately legible part of synastry: which areas of your life their
-planets fall into. Someone whose Jupiter sits in your second house has a different effect on you
-than someone whose Saturn sits in your seventh, and both of you will feel it long before either can
-name it.
+One contact by itself is rarely enough to tell a useful story. A Moon-Saturn aspect, for example, can carry themes of containment, responsibility, steadiness, distance, caution, or difficulty expressing vulnerability. Which of those matters depends on the condition of both planets, the surrounding chart, and the relationship itself.
 
-## What it genuinely does well
+That is why I would rather ask, _Do you recognize this pattern?_ than tell two people what their relationship must be.
 
-**It names the friction accurately.** Most couples know where their sticking points are. What they
-often lack is a neutral vocabulary for them, one that doesn't require either person to be the
-problem. "Your Moon and their Saturn are in a hard aspect" describes a real, recurring dynamic
-around emotional expression and restraint without assigning blame, and people can hear it.
+## Composite charts: another lens, not the same question
 
-**It explains the intensity that doesn't match the timeline.** Some connections feel enormous within
-weeks. The chart often shows why, heavy contacts to the angles, outer planets landing on personal
-points. Knowing that doesn't make it less real. It does help people distinguish intensity from
-compatibility, which are not the same thing and get confused constantly.
+Some astrologers also use a **composite chart**, built from midpoints between the two natal charts. It treats the relationship as a symbolic chart in its own right.
 
-**It shows what each person needs, in their own language.** A great deal of relationship trouble is
-two people offering care in a form the other doesn't recognise. Comparing Moon and Venus placements
-makes that mismatch concrete and, more importantly, fixable.
+That is a different technique from synastry. Synastry asks about the interaction between two people; a composite asks what appears when the relationship is treated as a third pattern. Different practitioners give the composite different weight, so it is worth knowing which method is being used rather than treating every relationship chart as interchangeable.
 
-**It's honest about the hard parts.** A chart comparison will show where sustained effort is
-required. That is useful information to have early, in a way that "we're both fire signs!" is not.
+## What relationship astrology can illuminate
 
-## What it cannot do
+It can help name **where two people naturally meet and where they do not**. Sometimes the chart describes ease of communication; sometimes it shows very different ways of handling closeness, conflict, responsibility, affection, or independence.
 
-**It cannot score compatibility.** There is no number. Charts that look difficult on paper belong to
-couples who've been happy for forty years; charts that look effortless belong to relationships that
-ended in eighteen months. Anyone selling a percentage is selling a percentage.
+It can also help explain why a particular connection feels unusually important or demanding without turning intensity into proof of compatibility. Strong contacts can describe a strong response. They do not tell us whether a relationship is healthy, sustainable, or right for either person.
 
-**It cannot tell you whether to stay or go.** I won't do it, and I'd be suspicious of anyone who
-would. A chart describes conditions and tendencies. Whether a relationship is worth what it costs is
-a judgement only the people in it can make, and outsourcing that to an astrologer is a way of
-avoiding it rather than answering it.
+Most importantly, synastry can give two people another vocabulary for a pattern they already recognize. That can be valuable because the conversation moves away from "which of us is the problem?" and toward "what keeps happening between us?"
 
-**It cannot be done properly on someone who hasn't consented.** I'll read a chart for a relationship
-you're in, with the other person's birth details, when they know. I won't work up a dossier on
-someone to give you leverage, or read a chart to help you decide whether to pursue somebody who
-doesn't know you're asking. That's not a technical limit, it's a line.
+## What it cannot settle for you
 
-**It cannot predict whether they'll come back.** This is the most common question I'm asked and the
-one astrology answers least well. Transits describe seasons of a person's life. They do not schedule
-other people's decisions.
+A chart cannot produce an honest **compatibility score**. Too many variables are involved, and real relationships are lived through choices, history, circumstances, development, and the willingness of both people to participate.
 
-## What I'd suggest asking instead
+It also cannot decide whether a relationship should continue. Astrology may add context to the question; it does not have access to everything that makes the answer yours.
 
-The questions that produce useful readings are the ones you could act on. _Where do we keep
-misunderstanding each other?_ _What does this person need that I keep not providing?_ _Why does this
-particular argument recur?_ _What season is this relationship in?_
+And it cannot turn another person's chart into complete knowledge of that person. A natal chart contains possibilities and patterns. The person living it remains the most important source of information about how those possibilities are expressing themselves.
 
-Those have real answers. _Are we compatible_ does not, in the form it's usually asked.
+## Better questions than "Are we compatible?"
 
-The [relationship reading](/readings/relationship/) covers both charts together and needs birth
-details for both people, with the other person's knowledge. The
-[aspects library](/explore/aspects/) explains what the contacts actually mean if you'd like to read
-ahead.
+I find relationship astrology more useful when the question has some texture to it:
+
+_Where do we keep misunderstanding each other?_  
+_What seems easy between us, and what repeatedly takes more work?_  
+_How do our ways of seeking closeness or security differ?_  
+_What pattern are we both participating in without fully seeing it?_
+
+Those questions leave room for both the astrology and the people involved.
+
+If you want to learn the technique, start with the [relationship astrology guide](/explore/relationship-astrology/) and the [aspects library](/explore/aspects/). If your question is about a relationship you are actually living, the [Relationship Reading](/readings/relationship/) is where the two charts can be read together with the context no general article can provide.
