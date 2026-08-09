@@ -88,7 +88,7 @@ export const planets: Planet[] = [
       "Modern astrology emphasizes the Moon as the emotional and attachment system, the inherited patterns of care, the felt sense of security, and the unconscious habits formed before conscious memory.",
     mo: "The Moon often tells me something important about what feels familiar, protective, or emotionally sustaining to a person. I handle it gently because early patterns can be deeply lived, but I never assume that a Moon placement tells me someone's history before they tell me how it has actually shown up.",
     misconception:
-      'That the Moon only matters for "moods." In astrology it is also associated with habit, memory, care, instinct, and the body's rhythms.',
+      "That the Moon only matters for \"moods.\" In astrology it is also associated with habit, memory, care, instinct, and the body's rhythms.",
     inYourChart:
       "The Moon's sign, house, aspects, phase, and condition all contribute to how needs, habits, memory, and responsiveness are expressed.",
     whenItLeads:
