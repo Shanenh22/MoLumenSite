@@ -11,7 +11,7 @@ const crumbs = [
 
 <BaseLayout
   title="The 12 Houses: areas of experience"
-  description="The twelve houses of the birth chart map areas of life: identity, money, communication, home, creativity, work, partnership, and more. A plain-language guide to each."
+  description="The twelve houses describe areas of life and experience. Learn what each house covers, why birth time matters, and why a house means more in relation to the planets and signs within it."
   path="/explore/houses/"
   breadcrumbs={crumbs}
 >
@@ -22,9 +22,9 @@ const crumbs = [
       <p class="eyebrow">Explore Astrology</p>
       <h1>The 12 houses</h1>
       <p class="lede">
-        Houses are the "where" of the chart, twelve arenas of experience, from your body and your
-        bank account to your partnerships and your dreams. Their layout depends on your exact
-        birth time, which is why astrologers keep asking for it.
+        Houses describe areas of experience: where the different parts of a chart are most visibly
+        expressed. They help move astrology from general symbolism into the actual arenas of a life,
+        and their placement depends on birth time and the house system being used.
       </p>
       </div>
       <img
@@ -41,6 +41,21 @@ const crumbs = [
   </section>
 
   <section class="section">
+    <div class="container prose flow" style="margin-bottom: var(--space-8);">
+      <h2>The house is the setting, not the whole story</h2>
+      <p>
+        A house tells us <em>where</em> something is operating, but not by itself what the experience
+        will look like. A planet in the 7th house brings its function into one-to-one relationships;
+        the sign, aspects, ruler, condition, and the rest of the chart tell us far more about how
+        that may be lived. The same house emphasis can show up very differently in two people.
+      </p>
+      <p>
+        This is also one of the clearest places to see why exact birth time matters. The Ascendant
+        anchors the chart's house structure, so uncertainty in the time can change which houses some
+        planets occupy. When the time is uncertain, a careful astrologer should say what is solid and
+        what is not.
+      </p>
+    </div>
     <div class="container grid grid--3">
       {
         houses.map((h) => (
@@ -59,12 +74,13 @@ const crumbs = [
 
   <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Related</h2>
+      <h2>How houses fit into the whole chart</h2>
       <p>
-        House positions depend on your exact birth time via
-        <a href="/explore/angles/">the four angles</a>, and on which
-        <a href="/explore/house-systems/">house system</a> your astrologer uses, a genuine open
-        question worth understanding before comparing two readings.
+        House positions are tied to <a href="/explore/angles/">the four angles</a>, and astrologers
+        may use different <a href="/explore/house-systems/">house systems</a>. That can change some
+        house placements without changing the planets' zodiac positions. Rather than treating that
+        as a reason to panic about which system is "right," I think it is more useful to understand
+        what each system is doing and then interpret consistently within it.
       </p>
     </div>
   </section>
