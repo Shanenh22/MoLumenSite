@@ -13,8 +13,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Mercury stations retrograde at 5° Scorpio, moves back into Libra, and turns direct on October 28 at 19° Libra. It is the year's third Mercury retrograde, and once again Mercury crosses a sign boundary during the cycle.
+Mercury stations retrograde at 5° Scorpio, moves back into Libra, and turns direct on October 28 at 19° Libra. It is the third Mercury retrograde of 2027, and like the other two, it crosses a sign boundary. That repetition is worth noticing once: the cycle keeps moving between two different interpretive environments rather than staying inside one sign.
 
-Scorpio is associated with depth, privacy, shared resources, trust, power, and what is not immediately visible. Libra emphasizes relationship, reciprocity, negotiation, fairness, and balance. Mercury moving between the two gives us a symbolic shift in how questions may be framed, but it does not mean secrets must surface or old conversations must return.
+Scorpio brings depth, privacy, trust, shared resources, power, and what is not immediately visible. Libra emphasizes relationship, reciprocity, fairness, and negotiation. Mercury moving between them can shift the kinds of questions we are asking, but it does not mean secrets must surface or old conversations must return.
 
-If this retrograde is personally significant, the natal houses and close contacts show where reconsideration may be more relevant. The rest is possibility, not script.
+I would pay attention to how much information is actually available, what belongs in conversation, and what still requires more context. If this retrograde is personally important, the natal houses and close contacts show where that inquiry has real specificity.
