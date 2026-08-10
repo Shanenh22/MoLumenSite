@@ -46,11 +46,13 @@ function categoryFor(route) {
 }
 
 function priorityFor(route) {
-  if (/^\/explore\/(saturn-return|house-systems|chart-patterns|retrogrades|birth-chart-basics)\/$/.test(route)) return 8;
-  if (route === '/birth-time/' || route === '/birth-time-toolkit/' || route === '/reading-finder/') return 8;
-  if (route.startsWith('/readings/') && route !== '/readings/') return 7;
-  if (route.startsWith('/explore/') && route.split('/').filter(Boolean).length === 2) return 6;
-  if (route === '/explore/' || route === '/readings/' || route === '/current-sky/' || route === '/blog/') return 2;
+  // Broad concept searches should lead with the durable reference page, not a
+  // dated event or an adjacent essay that happens to repeat the same phrase.
+  if (route.startsWith('/explore/') && route.split('/').filter(Boolean).length === 2) return 60;
+  if (route === '/birth-time/' || route === '/birth-time-toolkit/' || route === '/reading-finder/') return 45;
+  if (route.startsWith('/readings/') && route !== '/readings/') return 35;
+  if (['/privacy/', '/terms/', '/disclaimer/', '/booking-policy/', '/accessibility/'].includes(route)) return 30;
+  if (route === '/explore/' || route === '/readings/' || route === '/current-sky/' || route === '/blog/') return 5;
   return 0;
 }
 
