@@ -110,7 +110,15 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
           </section>
         ))
       }
-      {events.length === 0 && <p>New sky events are being added, check back shortly.</p>}
+      {events.length === 0 && (
+        <div class="prose flow">
+          <p>There are no published upcoming events in this view right now.</p>
+          <p>
+            You can browse the <a href="/current-sky/archive/">archive</a> or use the
+            <a href="/current-sky/calendar/">Sky Calendar</a> to move through the published timeline.
+          </p>
+        </div>
+      )}
     </div>
   </section>
 
