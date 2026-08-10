@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A full moon at 22° Taurus opposes the Scorpio Sun, returning us to an axis that has already appeared prominently in the year's lunation pattern.
+A full moon at 22° Taurus opposes the Scorpio Sun, returning us to an axis that has appeared several times in 2027. Repetition does not mean the sky is insisting on one storyline, but it can make a particular set of questions easier to recognize over time.
 
-Taurus is associated with possessions, money, material security, steadiness, and what can be relied upon. Scorpio brings shared resources, debt, inheritance, intimacy, trust, and the complications that come when lives or resources are joined. A full moon can make the relationship between those ends easier to notice, but it does not tell us that a financial result or material decision must arrive.
+Taurus brings possessions, money, material security, steadiness, and what can be held or relied upon. Scorpio brings shared resources, debt, inheritance, intimacy, trust, and the complications that appear when lives or resources are joined. The interesting territory is the relationship between them: what needs to remain yours, and what becomes possible or difficult when something is shared?
 
-The useful question is how personal security and shared obligation are interacting. The natal houses and exact contacts show where that question has real specificity.
+A full moon does not issue a financial verdict. The natal houses, exact contacts, and actual agreements involved are what make the symbolism specific enough to interpret responsibly.
