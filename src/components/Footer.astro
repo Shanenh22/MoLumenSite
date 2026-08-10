@@ -30,10 +30,10 @@ const year = new Date().getFullYear();
           <a href={site.social.instagram} rel="noopener">Instagram</a> ·
           <a href={site.social.facebook} rel="noopener">Facebook</a>
         </p>
-        <h2 id="footer-newsletter">The Sky This Month: free newsletter</h2>
+        <h2 id="footer-newsletter">A monthly note from Mo</h2>
         <p style="color: var(--color-stone); max-width: 38ch;">
-          What's moving overhead, what it means, and one practical thing to do about it. No spam,
-          ever.
+          The current sky is one part of it. I also write about questions, patterns, and whatever
+          has made me stop and look more closely that month.
         </p>
         <NewsletterForm source="footer" dark labelledby="footer-newsletter" />
       </div>
@@ -49,7 +49,7 @@ const year = new Date().getFullYear();
               ))}
             </ul>
           </nav>
-        ))
+        ))}
       }
     </div>
     <div class="footer-legal">
