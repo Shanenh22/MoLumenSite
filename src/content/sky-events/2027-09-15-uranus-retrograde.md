@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Uranus stations retrograde at 10° Gemini, seven months after stationing direct at 1°. Nine degrees of movement across that span is a useful reminder of how slowly outer-planet stories develop.
+Uranus stations retrograde at 10° Gemini, seven months after turning direct at 1°. That small span is a useful reality check. Outer-planet stories unfold slowly, and much of their meaning becomes visible only after we have had time to see the pattern.
 
-Uranus is associated with disruption, invention, independence, experimentation, and departures from established patterns. Gemini brings information, language, learning, mobility, exchange, and networks. That combination is likely to be more meaningful as a years-long background than as something people should expect to feel on September 15.
+Uranus is associated with disruption, experimentation, independence, invention, and departures from established forms. Gemini brings language, information, learning, movement, exchange, and networks. It is easy to turn that combination into headlines about sudden changes in communication or technology, but astrology is more useful when it stays curious longer than that.
 
-A station can become much more noticeable when it closely contacts a natal planet or angle. Without that personal connection, I would treat the date as one marker inside a larger cycle still taking shape.
+What forms of exchange are genuinely changing, and which apparent disruptions are only noise? That is a collective question we may be asking for years. The station becomes more personal when it closely contacts a natal planet or angle; otherwise, it is one marker in a much longer conversation.
