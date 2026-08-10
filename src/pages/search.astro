@@ -45,15 +45,16 @@ const crumbs = [{ label: 'Search', href: '/search/' }];
 <script>
   import { searchRecords } from '../lib/site-search.mjs';
 
-  const form = document.querySelector('[data-search-form]');
-  const input = document.querySelector('[data-search-input]');
-  const status = document.querySelector('[data-search-status]');
-  const results = document.querySelector('[data-search-results]');
-  let records = [];
+  const form = document.querySelector<HTMLFormElement>('[data-search-form]');
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let records: Array<Record<string, string>> = [];
 
-  const esc = (value) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
+  const esc = (value: unknown) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char] ?? char);
 
-  function render(query) {
+  function render(query: string) {
+    if (!input || !status || !results) return;
     if (!query.trim()) {
       status.textContent = '';
       results.innerHTML = '';
@@ -65,7 +66,7 @@ const crumbs = [{ label: 'Search', href: '/search/' }];
       results.innerHTML = `<div class="callout"><p><strong>Try a more specific astrology term or a shorter phrase.</strong></p><p>You can also browse <a href="/explore/">Explore Astrology</a>, <a href="/current-sky/">Current Sky</a>, or <a href="/readings/">Readings</a>.</p></div>`;
       return;
     }
-    results.innerHTML = matches.map((item) => `
+    results.innerHTML = matches.map((item: Record<string, string>) => `
       <article class="card search-result">
         <p class="card__meta">${esc(item.group)}${item.date ? ` · ${esc(item.date)}` : ''}</p>
         <h2><a href="${esc(item.path)}">${esc(item.title)}</a></h2>
@@ -75,6 +76,7 @@ const crumbs = [{ label: 'Search', href: '/search/' }];
   }
 
   async function init() {
+    if (!input || !status) return;
     try {
       const response = await fetch('/search-index.json', { credentials: 'same-origin' });
       if (!response.ok) throw new Error('Search index unavailable');
@@ -89,12 +91,13 @@ const crumbs = [{ label: 'Search', href: '/search/' }];
 
   form?.addEventListener('submit', (event) => {
     event.preventDefault();
+    if (!input) return;
     const query = input.value.trim();
     const url = new URL(location.href);
     if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
     history.replaceState({}, '', url);
     render(query);
-    if (query) window.mlTrack?.('site_search_used', { source: 'search-page' });
+    if (query) (window as any).mlTrack?.('site_search_used', { source: 'search-page' });
   });
 
   init();
