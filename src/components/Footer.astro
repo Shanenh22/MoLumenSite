@@ -39,7 +39,7 @@ const year = new Date().getFullYear();
       </div>
       {
         Object.entries(footerNav).map(([heading, links]) => (
-          <nav aria-label={`Footer: ${heading}`}>
+          <nav class="footer-nav-desktop" aria-label={`Footer: ${heading}`}>
             <h3>{heading}</h3>
             <ul>
               {links.map((link) => (
@@ -49,9 +49,36 @@ const year = new Date().getFullYear();
               ))}
             </ul>
           </nav>
-        ))}
+        ))
       }
     </div>
+
+    {/*
+      On phones, four fully expanded footer groups made the bottom of every
+      page another long navigation screen after the reader had already reached
+      the end of the content. The primary mobile menu already exposes the main
+      architecture. These disclosures keep the footer destinations available
+      without making every visitor scroll through all of them.
+
+      Desktop keeps the existing four-column navigation unchanged.
+    */}
+    <nav class="footer-nav-mobile" aria-label="Footer navigation">
+      {
+        Object.entries(footerNav).map(([heading, links]) => (
+          <details>
+            <summary>{heading}</summary>
+            <ul>
+              {links.map((link) => (
+                <li>
+                  <a href={link.href}>{link.label}</a>
+                </li>
+              ))}
+            </ul>
+          </details>
+        ))
+      }
+    </nav>
+
     <div class="footer-legal">
       <nav aria-label="Policies">
         <ul class="footer-policies">
@@ -85,3 +112,73 @@ const year = new Date().getFullYear();
     </div>
   </div>
 </footer>
+
+<style>
+  .footer-nav-mobile {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .footer-nav-desktop {
+      display: none;
+    }
+
+    .footer-nav-mobile {
+      display: block;
+      margin-top: var(--space-8);
+      border-top: 1px solid rgb(250 246 238 / 0.15);
+    }
+
+    .footer-nav-mobile details {
+      border-bottom: 1px solid rgb(250 246 238 / 0.15);
+    }
+
+    .footer-nav-mobile summary {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      min-height: 52px;
+      padding-block: var(--space-3);
+      cursor: pointer;
+      color: var(--color-ivory);
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      list-style: none;
+    }
+
+    .footer-nav-mobile summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .footer-nav-mobile summary::after {
+      content: '+';
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--color-gold-soft);
+    }
+
+    .footer-nav-mobile details[open] summary::after {
+      content: '−';
+    }
+
+    .footer-nav-mobile ul {
+      list-style: none;
+      margin: 0;
+      padding: 0 0 var(--space-3);
+      display: grid;
+      gap: var(--space-1);
+    }
+
+    .footer-nav-mobile li {
+      margin: 0;
+    }
+
+    .footer-nav-mobile a {
+      display: flex;
+      align-items: center;
+      min-height: 44px;
+      padding-inline: var(--space-2);
+    }
+  }
+</style>
