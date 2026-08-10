@@ -1,7 +1,7 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See /booking-policy/ for the current cancellation and refund terms.",
+  "reschedulingPolicy": "See /booking-policy/ for the current rescheduling terms.",
   "ownerReview": true,
   "available": true,
   "name": "Want More Clarity: Follow-Up Reading",
