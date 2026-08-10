@@ -9,63 +9,46 @@ import { celestial } from '../config/images';
 const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
 const isDev = import.meta.env.DEV;
 const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
-
-/**
- * Until real, permissioned testimonials exist, this page leads with things a
- * visitor can actually check. Every claim below is verifiable somewhere else on
- * the site — credentials on /credentials/, terms in /booking-policy/, the
- * "probably not the fit if" sections on each service page. Nothing here is a
- * stand-in for a client's words, because a stand-in for a client's words is a
- * fabricated testimonial.
- */
 const signals = [
   {
     icon: 'chart' as const,
     title: 'Training you can verify',
-    body: "A Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology, NCGR-PAA Levels 1 and 2 passed, and board service with OPA. Named schools, named examinations. The kind of thing you can look up rather than take on faith.",
+    body: "A Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology, NCGR-PAA Levels 1 and 2 passed, and board service with OPA. Named schools and named examinations, with the details gathered in one place.",
     href: '/credentials/',
     linkText: 'See the credentials',
   },
   {
     icon: 'book' as const,
-    title: 'The reasoning is published',
-    body: 'The reference library separates what is astronomical fact from what is traditional doctrine, what is modern interpretation, and what is my own synthesis, and says plainly where astrologers disagree. You can read how I think before you pay me to think about you.',
+    title: 'The reasoning is public',
+    body: 'The learning library separates astronomical fact, astrological tradition, contemporary interpretation, and my own synthesis. You can read how I think before deciding whether you want me to think through your chart with you.',
     href: '/explore/',
     linkText: 'Read the library',
   },
   {
     icon: 'moon' as const,
     title: 'The limits are stated up front',
-    body: 'Every reading page has a "this is probably not the fit if" section. The disclaimer lists what a reading will never be used for: no death predictions, no diagnoses, no telling you to leave a marriage. Knowing what someone refuses to sell you is worth more than a paragraph of praise.',
+    body: 'The reading pages explain what each service is and is not for, and the disclaimer states the boundaries around medical, legal, financial, and other high-stakes decisions.',
     href: '/disclaimer/',
     linkText: 'Read the disclaimer',
   },
   {
     icon: 'letter' as const,
-    title: 'Terms that favour you',
-    body: 'Cancel or reschedule at least 48 hours ahead at no charge; inside that window the fee is held as credit rather than lost. If I have to cancel, you choose between rescheduling and a full refund. Every live reading is recorded and the recording is yours to keep.',
+    title: 'The booking terms are visible',
+    body: 'Scheduling, cancellation, rescheduling, recording, and refund terms are available before you book. You should not have to pay first to discover the rules.',
     href: '/booking-policy/',
     linkText: 'Read the booking policy',
   },
   {
     icon: 'sun' as const,
     title: 'Your information stays yours',
-    body: 'Birth data is used to prepare your reading and nothing else. It is never sold, never shared, never used for marketing, never sent to analytics, and never placed in a web address. Ask for it to be deleted and it is deleted.',
+    body: 'Birth data is treated as information supplied for the reading, not as marketing material. The privacy policy explains how it is handled and what you can ask to have deleted.',
     href: '/privacy/',
     linkText: 'Read the privacy policy',
   },
-  /*
-   * This card used to send people to /videos/ as "the most honest preview of a
-   * reading" — and /videos/ is empty until Mo films. Pointing a trust page at a
-   * blank page costs more than the card was earning, so it now points at the
-   * reference library, which genuinely does show how she reasons: the same
-   * separation of fact, doctrine and opinion she uses out loud in a session.
-   * Swap it back to /videos/ once there is something to watch.
-   */
   {
     icon: 'book' as const,
-    title: 'Read how I think first',
-    body: "The reference library separates astronomical fact from traditional doctrine from my own synthesis, names the classical texts it rests on, and says plainly where astrologers disagree. You can judge the reasoning before you pay for it. Free, no booking, no email required.",
+    title: 'You can see the sources',
+    body: 'The sources page shows where the educational material comes from and where different traditions or methods do not agree. You do not have to take the methodology on faith.',
     href: '/explore/sources/',
     linkText: 'See the sources',
   },
@@ -74,7 +57,7 @@ const signals = [
 
 <BaseLayout
   title="Testimonials"
-  description="Every testimonial here is genuine and published with permission. Until clients have supplied them, here is what you can verify about readings with Mo Lumen instead."
+  description="Every testimonial here is genuine and published with permission. When client comments are sparse, you can also verify Mo Lumen's training, methods, policies, and published reasoning directly."
   path="/testimonials/"
   breadcrumbs={crumbs}
   noindex={approved.length === 0}
@@ -86,95 +69,60 @@ const signals = [
         <p class="eyebrow">Kind words</p>
         <h1>Testimonials</h1>
         <p class="lede">
-          Every testimonial here is genuine, published with the client's explicit permission, and
-          attributed the way that client chose. There are no exceptions to that, which is why this
-          page is sometimes shorter than a marketing team would like.
+          I will only publish a client's words with permission and with the attribution that person
+          chooses. If that makes this page shorter, I am comfortable with that. Trust should not
+          depend on filling a wall with praise.
         </p>
       </div>
-      <img
-        class="hero__img"
-        src={celestial.clearedTable.src}
-        srcset={celestial.clearedTable.srcset}
-        sizes="100vw"
-        alt={celestial.clearedTable.alt}
-        width={celestial.clearedTable.width}
-        height={celestial.clearedTable.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={celestial.clearedTable.src} srcset={celestial.clearedTable.srcset} sizes="100vw" alt={celestial.clearedTable.alt} width={celestial.clearedTable.width} height={celestial.clearedTable.height} fetchpriority="high" />
     </div>
   </section>
 
-  {
-    approved.length > 0 && (
-      <section class="section">
-        <div class="container">
-          <h2 class="visually-hidden">What clients say</h2>
-          {/*
-            Same card treatment as the homepage. These were bare blockquotes,
-            which inherit a blush tint from the global rule and read as
-            highlighted text rather than as somebody speaking. The quote cards
-            are one component's worth of styling shared across both pages, so
-            the two surfaces can't drift apart again.
-          */}
-          <div class="quote-grid quote-grid--wide">
-            {approved.map((t) => (
-              <figure class="quote-card">
-                <blockquote>{t.data.quote}</blockquote>
-                <figcaption>
-                  {t.data.attribution}
-                  {t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}
-                </figcaption>
-              </figure>
-            ))}
-          </div>
+  {approved.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2 class="visually-hidden">What clients say</h2>
+        <div class="quote-grid quote-grid--wide">
+          {approved.map((t) => (
+            <figure class="quote-card">
+              <blockquote>{t.data.quote}</blockquote>
+              <figcaption>
+                {t.data.attribution}
+                {t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}
+              </figcaption>
+            </figure>
+          ))}
         </div>
-      </section>
-    )
-  }
+      </div>
+    </section>
+  )}
 
-  {
-    approved.length === 0 && (
-      <section class="section">
-        <div class="container prose flow">
-          <h2>Why this page is empty</h2>
-          <p>
-            My practice runs almost entirely on referral, people send their friends. That is the
-            most meaningful endorsement there is, and it is also the kind that never gets written
-            down, because nobody thinks to ask.
-          </p>
-          <p>
-            So I'm asking now. Real testimonials, with permission, will appear here as clients send
-            them. What will not appear here is anything written by someone who was not actually a
-            client. Fabricated testimonials are illegal in the United States, they are trivially
-            easy to write, and a practice built on referrals would be found out by its own clients
-            within a week.
-          </p>
-          <p>
-            So in the meantime, here is what you can check for yourself instead.
-          </p>
-        </div>
-      </section>
-    )
-  }
+  {approved.length === 0 && (
+    <section class="section">
+      <div class="container prose flow">
+        <h2>What to use instead of testimonials</h2>
+        <p>
+          There are no approved client quotes to show here right now. Rather than substitute vague
+          praise or anonymous marketing copy, I would rather point you to things you can inspect for
+          yourself: how I trained, how I explain astrology, what I will not do in a reading, and the
+          terms you would be agreeing to.
+        </p>
+      </div>
+    </section>
+  )}
 
   <section class="section section--alt">
     <div class="container">
       <h2>What you can verify without taking anyone's word for it</h2>
       <div class="grid grid--3 trust-grid">
-        {
-          signals.map((s) => (
-            <div class="card">
-              <p class="card__icon" aria-hidden="true">
-                <Icon name={s.icon} size={28} />
-              </p>
-              <h3>{s.title}</h3>
-              <p>{s.body}</p>
-              <p style="margin-top: auto;">
-                <a href={s.href}>{s.linkText}</a>
-              </p>
-            </div>
-          ))
-        }
+        {signals.map((s) => (
+          <div class="card">
+            <p class="card__icon" aria-hidden="true"><Icon name={s.icon} size={28} /></p>
+            <h3>{s.title}</h3>
+            <p>{s.body}</p>
+            <p style="margin-top: auto;"><a href={s.href}>{s.linkText}</a></p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -183,30 +131,27 @@ const signals = [
     <div class="container prose flow">
       <h2>If we've worked together</h2>
       <p>
-        I would be glad to hear from you, and gladder still to publish it if you're happy for me to.
-        You decide how you're attributed: first name and last initial, first name only, or simply
-        "a client in Dallas." You can ask for it to come down at any time, for any reason, and it
-        will come down that day.
+        If you would like to share a few words about the experience, email
+        <a href="mailto:mo@molumen.com">mo@molumen.com</a>. You choose how you are attributed, and
+        you can ask for the testimonial to be removed later.
       </p>
-      <p>
-        Email <a href="mailto:mo@molumen.com">mo@molumen.com</a>. A few honest sentences are worth
-        more than a paragraph of superlatives: what you came in with, what actually shifted, and
-        who you would send here.
-      </p>
-      {
-        isDev && (
-          <div class="callout callout--review">
-            <p style="margin: 0;">
-              DEV NOTE: no approved testimonials in
-              src/content/testimonials/testimonials.json. Placeholders never render; this page is
-              noindexed until at least one approved testimonial exists. See
-              docs/collecting-testimonials.md for the request email and the permission wording.
-            </p>
-          </div>
-        )
-      }
+      {isDev && (
+        <div class="callout callout--review">
+          <p style="margin: 0;">
+            DEV NOTE: no approved testimonials in src/content/testimonials/testimonials.json.
+            Placeholders never render; this page is noindexed until at least one approved testimonial exists.
+          </p>
+        </div>
+      )}
     </div>
   </section>
 
-  <CTABand />
+  <CTABand
+    heading="Still deciding whether the approach fits?"
+    body="How Readings Work explains the conversation itself. If the approach makes sense but you are unsure which service fits your question, use the Reading Finder next."
+    buttonLabel="See How Readings Work"
+    buttonHref="/how-readings-work/"
+    secondaryLabel="Find the right reading"
+    secondaryHref="/reading-finder/"
+  />
 </BaseLayout>
