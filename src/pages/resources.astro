@@ -8,7 +8,7 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
 
 <BaseLayout
   title="Resources"
-  description="Everything free at Mo Lumen Astrology in one place: the learning hub, tools, current sky, videos, newsletter, and guides, plus what's coming."
+  description="Free astrology resources from Mo Lumen, organized by what you want to do: learn the chart, follow the current sky, read Mo's thinking, or prepare for a reading."
   path="/resources/"
   breadcrumbs={crumbs}
 >
@@ -16,9 +16,12 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Start anywhere</p>
+      <p class="eyebrow">Choose what you need</p>
       <h1>Resources</h1>
-      <p class="lede">Everything free on this site, gathered in one place.</p>
+      <p class="lede">
+        You do not need to know where everything lives on the site. Start with what you are trying
+        to do, then follow the path that fits.
+      </p>
       </div>
       <img
         class="hero__img"
@@ -32,21 +35,20 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
       />
     </div>
   </section>
+
   <section class="section">
     <div class="container grid grid--3">
       {
         [
-          ['Explore Astrology', '/explore/', 'The full learning hub: basics, planets, signs, houses, aspects, and more.'],
-          ['Explore Your Chart', '/tools/explore-your-chart/', 'Interactive chart anatomy: click and learn.'],
-          ['Reading Finder', '/reading-finder/', 'Five questions to the right reading.'],
-          ['Current Sky', '/current-sky/', 'Verified dates for lunations, eclipses, and retrogrades.'],
-          ['Horoscopes', '/horoscopes/', 'Rising-sign guidance with each lunation.'],
-          ['Videos', '/videos/', 'Mo on YouTube and Instagram.'],
-          ['Blog', '/blog/', 'Essays and guides from Mo.'],
-          ['Glossary', '/explore/glossary/', 'Every term, plainly defined.'],
-          ['Newsletter', '/newsletter/', 'The Sky This Month, free by email.'],
-          ['Find Your Birth Time', '/birth-time/', 'Where it is recorded, how to ask, and how much precision matters.'],
-          ['Guides', '/guides/', 'Practical downloadable references.'],
+          ['I want to learn astrology', '/start-here/', 'Begin with the chart as a system, then move into planets, signs, houses, aspects, and technique.'],
+          ['I want a reference library', '/explore/', 'Use Explore Astrology when you already know the term or technique you want to understand.'],
+          ['I want to follow what is happening now', '/current-sky/', 'Current Sky follows lunations, eclipses, retrogrades, stations, and larger cycles without turning them into personal predictions.'],
+          ['I want rising-sign guidance', '/horoscopes/', 'See which whole-sign house a lunation emphasizes, with clear limits on what a general horoscope can know.'],
+          ['I want to think with Mo', '/blog/', 'Essays about astrology, technique, questions, cycles, and how Mo approaches interpretation.'],
+          ['I want a monthly note', '/newsletter/', 'The Sky This Month is Mo’s free monthly correspondence: current sky, questions, observations, and new work when there is something worth sharing.'],
+          ['I need my birth time', '/birth-time/', 'Where to look, what to ask, what counts as reliable, and what can still be read if the exact time is unavailable.'],
+          ['I want practical guides', '/guides/', 'Longer reference material designed to help with a specific task, beginning with the Birth Time Toolkit.'],
+          ['I am considering a reading', '/reading-finder/', 'Five questions help narrow the options, then you can compare the recommendation with every other reading before choosing.'],
         ].map(([t, href, d]) => (
           <article class="card">
             <h2 style="font-size: var(--text-lg); margin: 0;">
@@ -58,5 +60,13 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
       }
     </div>
   </section>
-  <CTABand />
+
+  <CTABand
+    heading="Have a personal question rather than a general one?"
+    body="The free library can teach the pieces and show you the shared sky. If you want to know how several factors come together in your own chart and circumstances, the Reading Finder is the better next step."
+    buttonLabel="Find Your Reading"
+    buttonHref="/reading-finder/"
+    secondaryLabel="Keep learning"
+    secondaryHref="/explore/"
+  />
 </BaseLayout>
