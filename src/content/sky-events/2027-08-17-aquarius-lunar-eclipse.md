@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A penumbral lunar eclipse occurs at 24° Aquarius, two weeks after the total solar eclipse in Leo. Penumbral eclipses are visually subtle because the Moon moves through the lighter outer part of Earth's shadow, a striking contrast with the spectacle of the eclipse that opened this season.
+A penumbral lunar eclipse occurs at 24° Aquarius, two weeks after the total solar eclipse in Leo. The contrast is striking. One eclipse is visually spectacular; this one is much quieter because the Moon passes through the lighter outer part of Earth's shadow.
 
-Astrologically, the same Leo–Aquarius axis remains in view. Aquarius is associated with groups, friendship, systems, shared ideals, independence, and the wider collective; Leo with creativity, authorship, visibility, and individual expression. I am interested in how those ends depend on one another rather than casting one as the problem and the other as the lesson.
+Astrologically, though, the same axis remains in view. Aquarius brings groups, systems, friendship, shared ideals, independence, and the perspective that comes from seeing beyond the individual. Leo brings authorship, creativity, visibility, and personal expression. I do not see those as opposing moral choices. We need both a distinct self and a context larger than ourselves.
 
-As always, the eclipse becomes personal through the natal chart. The houses involved and close contacts to 24° Aquarius or Leo matter more than the eclipse label by itself.
+The eclipse gives that relationship another point of emphasis, but it does not tell us what must happen next. The houses involved, close contacts to 24° Aquarius or Leo, and the wider chart determine whether this is personally important at all.
