@@ -37,16 +37,7 @@ const breakImage = bandFor(a.slug, 5);
         <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
         <p class="lede">{a.angle}, {a.nature}</p>
       </div>
-      <img
-        class="hero__img"
-        src={heroImage.src}
-        srcset={heroImage.srcset}
-        sizes="100vw"
-        alt={heroImage.alt}
-        width={heroImage.width}
-        height={heroImage.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
   </section>
 
@@ -72,7 +63,6 @@ const breakImage = bandFor(a.slug, 5);
         universal standard: astrologers vary by technique, school, planet, and context. In general,
         tighter aspects are given more weight.
       </p>
-
     </div>
   </section>
 
@@ -82,12 +72,10 @@ const breakImage = bandFor(a.slug, 5);
     <div class="container prose flow">
       <h2>The relationship</h2>
       <p>{a.relationship}</p>
-
       <Layers kind="traditional"><p>{a.traditional}</p></Layers>
       <Layers kind="modern"><p>{a.modern}</p></Layers>
       <Layers kind="mo"><p>{a.mo}</p></Layers>
       <Layers kind="misconception"><p>{a.misconception}</p></Layers>
-
     </div>
   </section>
 
@@ -108,7 +96,7 @@ const breakImage = bandFor(a.slug, 5);
         </p>
       </div>
 
-      <nav aria-label="More aspects" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+      <nav aria-label="More aspects" class="reference-pager">
         <a href={`/explore/aspects/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/aspects/${next.slug}/`}>{next.name} →</a>
       </nav>
@@ -116,7 +104,11 @@ const breakImage = bandFor(a.slug, 5);
   </section>
 
   <CTABand
-    heading={`The ${a.name} is a relationship, not a verdict`}
-    body="A reading looks at the planets involved, the rest of their connections, and how the pattern is actually showing up in your life."
+    heading={`The ${a.name} is one relationship in a larger system`}
+    body="Keep asking which planets are involved, what they rule, how exact the contact is, and what else connects to them before turning the aspect into a story."
+    buttonLabel="Explore the Aspects"
+    buttonHref="/explore/aspects/"
+    secondaryLabel="See how the whole chart fits together"
+    secondaryHref="/explore/birth-chart-basics/"
   />
 </BaseLayout>
