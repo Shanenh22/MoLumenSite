@@ -1,26 +1,12 @@
 ---
 /**
- * "The next three lunations, and where each one lands for you."
- *
- * This is the module that justifies the rising-sign preference existing at all.
- *
- * /horoscopes/ promises guidance for all twelve rising signs with every new
- * moon and eclipse, and then shows eight cards of titles and dates. The
- * guidance is real — it is one click away on each event page — but the hub that
- * advertises it shows none of it. This puts three lunations' worth on the page
- * itself, with the house each falls in and what that house tends to ask.
+ * The next few lunations, with whole-sign-house guidance for each rising sign.
  *
  * Nothing here is new content. `houseFor()` is arithmetic on whole-sign houses
- * and the passages are the same 36 in src/data/lunation-guidance.ts that every
- * event page already renders. Twelve signs x three lunations are all rendered
- * into the HTML; the picker moves the reader's to the front of each. With no
- * preference set, or with no JavaScript, this is simply a fuller version of the
- * page — which is why it can be indexed without cloaking anything.
- *
- * Renders nothing at all when there are no upcoming lunations. That state is
- * practically unreachable because `test:content` fails below a 90-day horizon,
- * but "practically unreachable" is not "handled", and an empty shell under a
- * heading promising three lunations would be worse than no module.
+ * and the passages are the same guidance used on the individual event pages.
+ * All twelve signs remain server-rendered; the picker only changes what is most
+ * useful to see first, and on mobile it keeps the chosen sign in view without a
+ * long twelve-card scroll.
  */
 import { getCollection } from 'astro:content';
 import { guidanceForEvent, ordinal } from '../data/lunation-guidance';
@@ -53,17 +39,15 @@ const fmt = (d: Date) =>
     <section class="section section--sea" id="whats-coming-for-you">
       <div class="container">
         <div class="prose flow" style="margin-bottom: var(--space-6);">
-          <h2>What's coming, and where it lands for you</h2>
+          <h2>Where the next lunations fall for your rising sign</h2>
           <p>
-            The next {upcoming.length === 1 ? 'lunation' : `${upcoming.length} lunations`}, and the
-            house each one falls in for every rising sign. Tell me yours and I'll put it first.
-            It's kept on this device only, and everything here works the same if you'd rather not.
+            Choose your rising sign to see the whole-sign house each upcoming lunation occupies and
+            the life area that house describes.
           </p>
           <p class="card__meta">
-            I use <a href="/explore/house-systems/">whole-sign houses</a>, so the sign a lunation
-            falls in lands in the same house for everyone who shares a rising sign. That is
-            arithmetic rather than a prediction, and what each house tends to ask is written once
-            per house rather than freshly per event.
+            This is a broad structural lens, not a personal forecast. The rest of your chart, the
+            exact contacts involved, other timing factors, and your lived circumstances can change
+            the meaning considerably.
           </p>
         </div>
 
@@ -95,10 +79,9 @@ const fmt = (d: Date) =>
         ))}
 
         <p class="card__meta" style="margin-top: var(--space-8);">
-          A rising sign can tell us where to look, but not which exact contacts are active or what
-          is actually unfolding in your life. If one of these patterns has become a real personal
-          question, use the <a href="/reading-finder/">Reading Finder</a> to see which kind of
-          reading, if any, fits the question you are bringing.
+          If one of these patterns has raised a real personal question, the
+          <a href="/reading-finder/">Reading Finder</a> can help you decide whether a reading fits
+          and which kind would be useful.
         </p>
       </div>
     </section>
