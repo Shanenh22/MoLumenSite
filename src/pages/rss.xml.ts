@@ -10,31 +10,34 @@ const esc = (s: string) =>
     .replace(/"/g, "&quot;");
 
 export const GET: APIRoute = async () => {
-  const skyEvents = await getCollection("skyEvents");
-  const posts = (await getCollection("blog")).filter((a) => !a.data.draft);
-
-  const items = [
-    ...skyEvents.map((e) => ({
-      title: e.data.title,
-      description: e.data.summary,
-      link: `${site.url}/current-sky/events/${e.id.replace(/\.mdx?$/, "")}/`,
-      pubDate: e.data.start,
-    })),
-    ...posts.map((a) => ({
-      title: a.data.title,
-      description: a.data.description,
-      link: `${site.url}/blog/${a.id.replace(/\.mdx?$/, "")}/`,
-      pubDate: a.data.publishDate,
-    })),
-  ]
-    .sort((a, b) => b.pubDate.valueOf() - a.pubDate.valueOf())
+  /**
+   * RSS is a publication feed, so only collections with a real publication
+   * date belong here. Current Sky entries deliberately store the astronomical
+   * event date (`start`) and the research verification date (`lastVerified`),
+   * neither of which is the date the page was published. Treating either as
+   * `pubDate` would turn an astronomy date into editorial metadata and can make
+   * far-future events appear to be newly published articles.
+   *
+   * If Current Sky later gains a genuine `publishDate` field, it can be added
+   * back to this feed without inventing one in the meantime.
+   */
+  const posts = (await getCollection("blog"))
+    .filter((a) => !a.data.draft)
+    .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf())
     .slice(0, 30);
+
+  const items = posts.map((a) => ({
+    title: a.data.title,
+    description: a.data.description,
+    link: `${site.url}/blog/${a.id.replace(/\.mdx?$/, "")}/`,
+    pubDate: a.data.publishDate,
+  }));
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0"><channel>
-<title>${esc(site.name)}, Current Sky &amp; Blog</title>
+<title>${esc(site.name)}, Articles</title>
 <link>${site.url}</link>
-<description>${esc(site.description)}</description>
+<description>${esc(`Articles and essays from ${site.name}.`)}</description>
 <language>en-us</language>
 ${items
   .map(
