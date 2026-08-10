@@ -11,16 +11,6 @@ import {
   eligibilityLabel,
 } from '../../config/booking.ts';
 
-/**
- * Canonical order, then split by who may actually book.
- *
- * Five of the seven readings follow on from a natal reading. Presenting all
- * seven as one flat menu asked a first-time visitor to evaluate five things
- * they are not eligible for — including the cheapest row on the page — and the
- * old `featured` sort put the $275 two-person reading at the top of it. The
- * split is orientation, not gating: every reading keeps its page, its schema
- * entry and its booking link.
- */
 const services = orderServices(await getCollection('services'), (s) => s.data.slug);
 const startHere = services.filter((s) => s.data.audience !== 'established');
 const followUps = services.filter((s) => s.data.audience === 'established');
@@ -55,14 +45,14 @@ const schema = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Readings</p>
-      <h1>Astrology readings with Mo</h1>
-      <p class="lede">
-        A reading starts with the chart, but it does not stop there. I bring the preparation,
-        technique, and what I am noticing; you bring the life that chart belongs to. Together we
-        look for the patterns, timing, and possibilities that matter to the question in front of
-        you.
-      </p>
+        <p class="eyebrow">Readings</p>
+        <h1>Astrology readings with Mo</h1>
+        <p class="lede">
+          A reading starts with the chart, but it does not stop there. I bring the preparation,
+          technique, and what I am noticing; you bring the life that chart belongs to. Together we
+          look for the patterns, timing, and possibilities that matter to the question in front of
+          you.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -97,9 +87,7 @@ const schema = [
               <p>{s.data.purpose}</p>
               <p class="card__actions">
                 {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
-                    {a.label}
-                  </a>
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
                 ))}
                 <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
               </p>
@@ -138,9 +126,7 @@ const schema = [
               <p>{s.data.purpose}</p>
               <p class="card__actions">
                 {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
-                    {a.label}
-                  </a>
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
                 ))}
                 <a href={`/readings/${s.data.slug}/`}>Learn more →</a>
               </p>
@@ -154,9 +140,19 @@ const schema = [
   <section class="section section--alt">
     <div class="container">
       <h2>Compare readings at a glance</h2>
+      <p class="lede">
+        If you have already looked through the options above and want the details side by side, use
+        this quick comparison. On a phone it stays closed until you need it so you do not have to
+        scroll through the same readings twice.
+      </p>
 
-      <!-- Mobile: stacked cards -->
-      <div class="compare-cards">
+      <!-- Mobile: collapsed comparison, opened only when useful -->
+      <details class="compare-cards">
+        <summary
+          style="cursor: pointer; min-height: 48px; padding: var(--space-3) 0; font-weight: 700;"
+        >
+          Show the mobile comparison
+        </summary>
         {
           services.map((s) => (
             <article class="card">
@@ -181,16 +177,14 @@ const schema = [
               </dl>
               <p class="card__actions">
                 {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
-                    {a.label}
-                  </a>
+                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
                 ))}
                 <a href={`/readings/${s.data.slug}/`}>Full details →</a>
               </p>
             </article>
           ))
         }
-      </div>
+      </details>
 
       <!-- Desktop: accessible table -->
       <table class="compare-table">
@@ -210,9 +204,7 @@ const schema = [
           {
             services.map((s) => (
               <tr>
-                <th scope="row">
-                  <a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a>
-                </th>
+                <th scope="row"><a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a></th>
                 <td>{eligibilityLabel(s.data.audience) ?? 'Anyone'}</td>
                 <td>{s.data.bestFor[0]}</td>
                 <td>{s.data.durationLabel}</td>
