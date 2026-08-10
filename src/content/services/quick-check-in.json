@@ -1,7 +1,7 @@
 {
   "currency": "USD",
-  "cancellationPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
-  "reschedulingPolicy": "See the booking policy: cancellation and rescheduling windows being confirmed by owner.",
+  "cancellationPolicy": "See /booking-policy/ for the current cancellation and refund terms.",
+  "reschedulingPolicy": "See /booking-policy/ for the current rescheduling terms.",
   "ownerReview": true,
   "available": true,
   "name": "Quick Check-In: One Topic",
@@ -9,45 +9,20 @@
   "slug": "quick-check-in",
   "purpose": "Thirty focused minutes for one topic that needs your attention now: a decision, a change, a recurring issue, or one area you want to understand more clearly.",
   "method": "You name one topic in the intake form. I look at the current astrological influences connected with that area, then we use the time to understand what is active and what perspective the chart may add to the situation you are already living.",
-  "bestFor": [
-    "Established clients with one specific area that needs attention now",
-    "A focused question or situation that does not require a full-hour follow-up",
-    "A current issue you want to look at in the context of your chart"
-  ],
-  "notFor": [
-    "Multiple topics or a broader chart review: book Want More Clarity instead",
-    "New clients. The Natal Chart Reading comes first"
-  ],
+  "bestFor": ["Established clients with one specific area that needs attention now","A focused question or situation that does not require a full-hour follow-up","A current issue you want to look at in the context of your chart"],
+  "notFor": ["Multiple topics or a broader chart review: book Want More Clarity instead","New clients. The Natal Chart Reading comes first"],
   "durationMinutes": 30,
   "durationLabel": "30 minutes",
   "price": 60,
   "priceConfirmed": true,
   "audience": "established",
-  "format": [
-    "Zoom",
-    "Phone"
-  ],
+  "format": ["Zoom","Phone"],
   "birthDataRequired": "self",
-  "intakeRequirements": [
-    "Existing client relationship",
-    "Your one topic, written out in the appointment form"
-  ],
-  "includes": [
-    "One topic examined through the current influences on your chart",
-    "A clearer view of the astrological context surrounding that question or situation"
-  ],
-  "deliverables": [
-    "Recording of the session"
-  ],
-  "preparation": [
-    "Write your topic out clearly in the intake form: one focused question gives us the most room to go somewhere useful"
-  ],
+  "intakeRequirements": ["Existing client relationship","Your one topic, written out in the appointment form"],
+  "includes": ["One topic examined through the current influences on your chart","A clearer view of the astrological context surrounding that question or situation"],
+  "deliverables": ["Recording of the session"],
+  "preparation": ["Write your topic out clearly in the intake form: one focused question gives us the most room to go somewhere useful"],
   "bookingEventId": "quick-check-in",
-  "related": [
-    "want-more-clarity",
-    "life-changes"
-  ],
-  "relatedLearn": [
-    "/explore/transits/"
-  ]
+  "related": ["want-more-clarity","life-changes"],
+  "relatedLearn": ["/explore/transits/"]
 }
