@@ -1,4 +1,4 @@
-# One-time branch audit; removes itself after a green run. Final pass includes mobile booking spacing repair.
+# One-time branch audit; removes itself after a green run. Final pass uses a specific mobile booking spacing rule.
 name: Apply final MoLumen audit
 
 on:
@@ -36,7 +36,9 @@ jobs:
           sudo apt-get install -y -qq poppler-utils
 
       - name: Apply synchronization
-        run: python scripts/apply-final-audit-sync.py
+        run: |
+          python scripts/apply-final-audit-sync.py
+          python scripts/refine-mobile-booking.py
 
       - name: Build worksheet source
         run: npm run build
@@ -86,7 +88,7 @@ jobs:
 
       - name: Commit synchronized repository
         run: |
-          git rm .github/workflows/apply-final-audit.yml scripts/apply-final-audit-sync.py
+          git rm .github/workflows/apply-final-audit.yml scripts/apply-final-audit-sync.py scripts/refine-mobile-booking.py
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
