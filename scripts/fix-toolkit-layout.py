@@ -45,4 +45,13 @@ replace_once(
     """.layer__label a {\n  display: inline-flex;\n  align-items: center;\n  min-height: 32px;\n}\n\n.layer--astro {\n""",
 )
 
-print("Applied toolkit layout, hero contrast, and reference target-size repairs.")
+# axe-sweep historically printed violations but exited zero. That made CI look
+# green even when the report contained actionable WCAG failures. Make its exit
+# status match the report so future regressions cannot hide behind log output.
+replace_once(
+    "scripts/axe-sweep.mjs",
+    """  console.log(`\\nTotal violation types: ${total}`);\n}\n""",
+    """  console.log(`\\nTotal violation types: ${total}`);\n}\nprocess.exit(rows.length ? 1 : 0);\n""",
+)
+
+print("Applied toolkit layout, hero contrast, target-size, and strict accessibility-audit repairs.")
