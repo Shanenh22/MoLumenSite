@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Saturn stations direct at 21° Aries after a four-and-a-half-month retrograde phase. By year's end Saturn has moved substantially farther through Aries than where it began, but the transit itself is still a multi-year story.
+Saturn stations direct at 21° Aries after a four-and-a-half-month retrograde phase. The apparent direction changes, but the larger work of the transit does not suddenly become simple. Saturn moves through Aries over years, and one station is only a turn within that longer process.
 
-Saturn is associated with responsibility, limits, time, consequence, structure, and authority. Aries adds initiation, assertion, independence, and the desire to move. A direct station changes the rhythm of that cycle; it does not automatically make a difficult question more answerable or remove obstacles.
+Saturn brings limits, responsibility, time, structure, authority, and consequence. Aries brings initiative, assertion, independence, and the instinct to move before everything is settled. Their combination asks for something more nuanced than "be patient" or "push forward." What deserves commitment because it can hold up over time, and where has caution become a way of avoiding the risk of beginning?
 
-If Saturn is closely contacting a natal planet or angle, the station may mark one pass in an extended process. Otherwise, the broader Aries transit remains the more useful context.
+A close natal contact can make the station one meaningful pass in an extended personal cycle. Otherwise, the broader transit remains the more useful context.
