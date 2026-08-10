@@ -1,6 +1,6 @@
 # MoLumen Project State
 
-Last reviewed: 2026-08-09
+Last reviewed: 2026-08-10
 
 Read only when a task depends on current cross-session status. Code/config remains authoritative for implementation facts.
 
@@ -17,6 +17,8 @@ Read only when a task depends on current cross-session status. Code/config remai
 - Horoscopes/Current Sky distinguish rising-sign house guidance from individualized interpretation.
 - Newsletter positioning is **a monthly note from Mo**; "The Sky This Month" is one recurring section.
 - Welcome-video slots render only when a real video ID exists.
+- `llms.txt` maps the practice, free-learning boundaries, Current Sky/horoscope limits, readings, and machine-readable identity for answer engines.
+- Shared structured data now reserves `Article` for genuine editorial/reference pages. Hubs, calendars, archives, glossaries, and reference indexes receive `WebPage` freshness metadata rather than being mislabeled as articles.
 - Validation covers build, content, links, booking integrity, interactive flows, analytics privacy, accessibility, and performance.
 
 ## Editorial/product truths
@@ -33,6 +35,7 @@ Read only when a task depends on current cross-session status. Code/config remai
 ## Architecture truths
 - `src/config/site.ts` — brand/legal identity + public integration config.
 - `src/config/booking.ts` — reading/order/booking source of truth.
+- `src/layouts/BaseLayout.astro` — global metadata, privacy-safe analytics shell, and base structured-data classification.
 - `src/content.config.ts` + `.pages.yml` — live content/CMS system.
 - `docs/pages-cms-for-mo.md` — owner CMS workflow.
 - `src/content/services/*.json` — service data.
@@ -55,5 +58,7 @@ Read only when a task depends on current cross-session status. Code/config remai
 - Read live config for volatile IDs/facts.
 - Never choose among eligibility-dependent booking options for the visitor.
 - Keep birth data, free-text personal questions, and rising-sign preference out of analytics.
+- Do not describe celestial-event pages as hosted `Event` entities in schema merely because they have dates.
+- Do not classify navigation/collection pages as `Article` merely because they live under an editorial URL prefix.
 - Keep historical reports out of routine context.
 - When editorial strategy changes materially, update the canonical OS guide, relevant Claude skills, and owner-facing CMS guidance together.

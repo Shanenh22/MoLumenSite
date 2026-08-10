@@ -14,6 +14,7 @@ Priority labels: **P0** production blocker · **P1** high-value launch improveme
 - **OWNER** Perform and archive the manual screen-reader review required by the approved accessibility policy before production launch.
 
 ## P1 — high-value launch improvements
+- Regenerate `public/downloads/birth-time-toolkit.pdf` from the corrected worksheet/source wording with `npm run toolkit:pdf`, then visually verify the output before treating the PDF as current.
 - **OWNER** Supply the real YouTube welcome-video ID/poster when available; homepage and About slots are already wired and remain hidden until configured.
 - **OWNER** Test and approve Birth Time Toolkit newsletter delivery/automation before using the PDF as a live lead magnet.
 - **OWNER** Choose how the MLS program will be described publicly before credential changes.

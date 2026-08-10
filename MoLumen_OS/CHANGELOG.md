@@ -2,6 +2,16 @@
 
 This file contains only recent, human-useful project highlights. Git history is the complete implementation record. Older accumulated notes are preserved at `archive/CHANGELOG-through-2026-08-08.md` and are not current instructions.
 
+## 2026-08-10 — editorial ecosystem and machine-readable cleanup
+- Recentered public copy around Mo's practice: warm authority without mystique, collaborative astrological synthesis, wonder with complexity, and retained client agency.
+- Reworked the learning journey so Explore teaches and deepens, Current Sky interprets shared cycles, Horoscopes stay a broad rising-sign lens, Blog develops durable ideas, Newsletter remains broader monthly correspondence, and personal questions move toward the Reading Finder rather than directly to checkout.
+- Simplified mobile rising-sign controls and removed redundant visible state narration while preserving the all-sign view and preference behavior.
+- Tightened Current Sky calendar/archive continuity, event-page rising-sign guidance, horoscope limits, and several page-specific next steps.
+- Corrected celestial-event structured data so dated sky content is not falsely represented as a hosted `Event`.
+- Tightened global schema classification so genuine editorial/reference pages may receive `Article`, while hubs, calendars, archives, glossaries, and reference indexes remain truthful `WebPage`/collection experiences.
+- Updated `llms.txt` so answer engines see the one-astrologer practice, learning-library boundaries, collaborative method, Current Sky/horoscope limits, and machine-readable identity accurately.
+- Aligned the Brand/Editorial guide, Claude editorial skills/rules, templates, and owner CMS guidance with the public-site strategy.
+
 ## 2026-08-08 — post-funnel code pass
 - Stopped closing CTAs choosing between options that differ by eligibility rather than preference; Want More Clarity now offers "Review Booking Options" and returns the reader to its priced cards, in the Reading Finder as well as on the reading page.
 - Routed every remaining booking link through `src/config/booking.ts`, including schema offer URLs, and added `check:booking-links` to `verify:core`.

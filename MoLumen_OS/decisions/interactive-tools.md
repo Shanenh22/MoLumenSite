@@ -9,4 +9,6 @@
 - Rising-sign guidance is a broad whole-sign-house structural lens. It can tell the reader where to look, not what an event will mean personally without the whole chart, timing, and lived context.
 - Rising-sign preference must not be sent to analytics. Interactive-tool analytics follow the consent-aware shared tracking layer and exclude birth data and personal free text.
 - Do not add `Event` schema merely because a page describes a celestial event or a UI is calendar-like. Schema must describe the actual page/entity.
+- Global `Article` schema is reserved for genuine authored editorial/reference pages. Hubs, archives, calendars, glossaries, and reference indexes should remain `WebPage`/collection experiences unless they supply a more specific truthful schema of their own.
+- Article-specific Open Graph date metadata should not be emitted on ordinary website/collection pages merely because a real `dateModified` is available.
 - Do not add CMS fields merely because a UI is interactive; schema/CMS changes must match real content and editing requirements.
