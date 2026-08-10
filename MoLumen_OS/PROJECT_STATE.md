@@ -6,14 +6,14 @@ Read for cross-session status only. Code/config is authoritative for implementat
 
 ## Platform
 - Astro 5 static site: **Mo Lumen Astrology**; legal name **Mo Lumen Astrological Services**.
-- Seven readings, Reading Finder, and service-aware booking are implemented. `src/config/booking.ts` owns reading order, eligibility, actions, bare `/book/`, and event mappings; do not hand-write service booking URLs.
-- Pages CMS handles supported routine content; Explore remains code-managed. `src/content.config.ts` + `.pages.yml` are the live content/CMS contract.
-- Current Sky data extends through Dec. 2027; maintain a rolling horizon. There is no 2027 annual overview page.
+- Seven readings, Reading Finder, and service-aware booking are implemented. `src/config/booking.ts` owns reading order, eligibility, actions, bare `/book/`, and event mappings.
+- Pages CMS handles routine content; Explore remains code-managed. `src/content.config.ts` + `.pages.yml` are the live content/CMS contract.
+- Current Sky data extends through Dec. 2027; maintain a rolling horizon. There is no 2027 annual overview.
 - Birth Time guide/toolkit/PDF, sky calendar, Birth Time Confidence, and rising-sign preference are implemented.
 - Newsletter = **a monthly note from Mo**; “The Sky This Month” is one section. Welcome-video UI/schema requires real metadata.
-- Courses, Guides, and Videos are not promoted in navigation while they lack a distinct mature content job. Courses and Guides are noindexed; Videos is noindexed only while it has no published entries. Resources carries the useful learning/tool routes in the meantime.
-- Site search is a secondary retrieval utility at `/search/`, not a fifth navigation pillar. Its dependency-free client search uses a build-generated index of rendered, indexable `<main>` content; broad concept queries favor durable reference pages, Current Sky event results carry dates, and raw query text is not sent to analytics.
-- Sitemap filtering mirrors deliberate noindex policy for Courses, Guides, browser-only Birth Time worksheets, and the empty Videos hub; Videos becomes sitemap-eligible when real published entries exist.
+- Courses, Guides, and Videos stay out of navigation while they lack a mature content job. Courses/Guides are noindexed; Videos is noindexed while empty.
+- `/search/` is a secondary retrieval utility, not a navigation pillar. Its dependency-free search uses a build-generated index of rendered indexable content; durable reference pages lead broad concept queries, Current Sky events show dates, and query text stays out of analytics.
+- Sitemap filtering mirrors deliberate noindex routes, including browser Birth Time worksheets and empty Videos; Videos becomes eligible when published entries exist.
 - `llms.txt` maps practice identity, free-learning boundaries, readings, Current Sky, and horoscope limits for answer engines.
 - Base schema uses `Article` only for genuine editorial/reference pages; collection/index surfaces use `WebPage` freshness metadata.
 
@@ -43,7 +43,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 ## Durable traps
 - Re-verify old audit findings; read live config for volatile facts.
 - Never choose an eligibility-dependent booking option for a visitor.
-- Keep birth data, free-text personal questions, rising-sign preference, and site-search query text out of analytics.
+- Keep birth data, free-text personal questions, rising-sign preference, and site-search queries out of analytics.
 - Celestial-event pages are not hosted schema.org `Event` entities merely because they have dates; collection pages are not `Article` merely because they sit under editorial paths.
 - Keep historical reports out of routine context.
 - When editorial strategy changes materially, sync the canonical OS guide, relevant Claude skills, and owner CMS guidance.
