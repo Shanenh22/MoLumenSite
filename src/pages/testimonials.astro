@@ -48,7 +48,7 @@ const signals = [
   {
     icon: 'book' as const,
     title: 'You can see the sources',
-    body: 'The sources page shows where the educational material comes from and where different traditions or methods do not agree. You do not have to take the methodology on faith.',
+    body: 'The sources page shows where the educational material comes from and where different traditions or methods do not agree. You can see what informs the material and where interpretation begins.',
     href: '/explore/sources/',
     linkText: 'See the sources',
   },
@@ -57,7 +57,7 @@ const signals = [
 
 <BaseLayout
   title="Testimonials"
-  description="Every testimonial here is genuine and published with permission. When client comments are sparse, you can also verify Mo Lumen's training, methods, policies, and published reasoning directly."
+  description="Every testimonial here is genuine and published with permission. You can also verify Mo Lumen's training, methods, policies, and published reasoning directly."
   path="/testimonials/"
   breadcrumbs={crumbs}
   noindex={approved.length === 0}
@@ -69,9 +69,9 @@ const signals = [
         <p class="eyebrow">Kind words</p>
         <h1>Testimonials</h1>
         <p class="lede">
-          I will only publish a client's words with permission and with the attribution that person
-          chooses. If that makes this page shorter, I am comfortable with that. Trust should not
-          depend on filling a wall with praise.
+          I only publish a client's words with permission and with the attribution that person
+          chooses. Alongside them, you can also look directly at how I trained, how I work, and the
+          policies behind a reading.
         </p>
       </div>
       <img class="hero__img" src={celestial.clearedTable.src} srcset={celestial.clearedTable.srcset} sizes="100vw" alt={celestial.clearedTable.alt} width={celestial.clearedTable.width} height={celestial.clearedTable.height} fetchpriority="high" />
@@ -100,12 +100,11 @@ const signals = [
   {approved.length === 0 && (
     <section class="section">
       <div class="container prose flow">
-        <h2>What to use instead of testimonials</h2>
+        <h2>What you can look at instead</h2>
         <p>
-          There are no approved client quotes to show here right now. Rather than substitute vague
-          praise or anonymous marketing copy, I would rather point you to things you can inspect for
-          yourself: how I trained, how I explain astrology, what I will not do in a reading, and the
-          terms you would be agreeing to.
+          There are no approved client quotes to show here right now. You can still look directly
+          at how I trained, how I explain astrology, what I will not do in a reading, and the terms
+          you would be agreeing to.
         </p>
       </div>
     </section>
@@ -113,7 +112,7 @@ const signals = [
 
   <section class="section section--alt">
     <div class="container">
-      <h2>What you can verify without taking anyone's word for it</h2>
+      <h2>Other things you can check for yourself</h2>
       <div class="grid grid--3 trust-grid">
         {signals.map((s) => (
           <div class="card">
