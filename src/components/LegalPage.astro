@@ -10,6 +10,11 @@ interface Props {
   path: string;
   label: string;
 }
+interface JumpItem {
+  label: string;
+  href: string;
+  note?: string;
+}
 const { id, path, label } = Astro.props;
 const entry = await getEntry('legal', id);
 if (!entry) throw new Error(`Missing legal content: ${id}`);
@@ -18,7 +23,7 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const crumbs = [{ label, href: path }];
 const needsReview = entry.data.reviewStatus === 'attorney-review-required';
-const jumpLinks = {
+const legalJumpLinks: Record<string, JumpItem[]> = {
   'booking-policy': [
     { label: 'Cancel or reschedule', href: '#rescheduling', note: 'The 48-hour window and what happens inside it.' },
     { label: 'Refunds and credit', href: '#cancellation-and-refunds', note: 'When money is refunded or held for a future session.' },
@@ -43,7 +48,8 @@ const jumpLinks = {
     { label: 'Entertainment classification', href: '#legal-classification', note: 'What the legal label means and does not mean.' },
     { label: 'Educational content', href: '#educational-content-on-this-site', note: 'How fact, doctrine, interpretation, and synthesis are separated.' },
   ],
-}[id] ?? [];
+};
+const jumpLinks = legalJumpLinks[id] ?? [];
 ---
 
 <BaseLayout
