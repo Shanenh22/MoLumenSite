@@ -1,0 +1,73 @@
+---
+interface Props {
+  name: string;
+  degrees: number;
+  angleLabel?: string;
+}
+
+const { name, degrees, angleLabel = `${degrees}°` } = Astro.props;
+const center = 90;
+const radius = 58;
+const startAngle = -90;
+const endAngle = startAngle + degrees;
+const toPoint = (angle: number) => {
+  const radians = (angle * Math.PI) / 180;
+  return {
+    x: center + radius * Math.cos(radians),
+    y: center + radius * Math.sin(radians),
+  };
+};
+const start = toPoint(startAngle);
+const end = degrees === 0 ? { x: start.x + 8, y: start.y + 4 } : toPoint(endAngle);
+---
+
+<figure class="aspect-figure">
+  <svg viewBox="0 0 180 180" role="img" aria-labelledby={`aspect-title-${name}`}>
+    <title id={`aspect-title-${name}`}>{name} aspect geometry: {angleLabel}</title>
+    <circle class="aspect-figure__orbit" cx="90" cy="90" r="58" />
+    <line class="aspect-figure__line" x1={start.x} y1={start.y} x2={end.x} y2={end.y} />
+    <circle class="aspect-figure__point" cx={start.x} cy={start.y} r="7" />
+    <circle class="aspect-figure__point" cx={end.x} cy={end.y} r="7" />
+    <circle class="aspect-figure__center" cx="90" cy="90" r="2.5" />
+  </svg>
+  <figcaption><strong>{name}</strong> · {angleLabel}</figcaption>
+</figure>
+
+<style>
+  .aspect-figure {
+    margin: 0;
+    text-align: center;
+  }
+
+  .aspect-figure svg {
+    display: block;
+    width: min(100%, 12rem);
+    margin-inline: auto;
+  }
+
+  .aspect-figure__orbit {
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    opacity: 0.28;
+  }
+
+  .aspect-figure__line {
+    stroke: currentColor;
+    stroke-width: 3;
+  }
+
+  .aspect-figure__point {
+    fill: currentColor;
+  }
+
+  .aspect-figure__center {
+    fill: currentColor;
+    opacity: 0.45;
+  }
+
+  .aspect-figure figcaption {
+    margin-top: var(--space-2);
+    font-size: var(--text-sm);
+  }
+</style>
