@@ -12,6 +12,7 @@ const now = new Date();
 const events = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && ((e.data.end ?? e.data.start) >= now || e.data.start >= now))
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+const nextEvents = events.slice(0, 3);
 const types = [...new Set(events.map((e) => e.data.eventType))];
 const typeLabels = SKY_TYPE_LABELS;
 const fmt = (d: Date) =>
@@ -29,21 +30,22 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 
 <BaseLayout
   title="Current Sky: what's overhead now"
-  description="A verified timeline of current astrological events: lunations, eclipses, retrogrades, ingresses, and major planetary shifts, with Mo Lumen's plain-language interpretation and context."
+  description="See the next astrological events first, then explore the wider timeline with verified dates and Mo Lumen's plain-language interpretation and context."
   path="/current-sky/"
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero hero--split">
+
+  <section class="hero hero--split current-sky-hero">
     <div class="container">
       <div>
-      <p class="eyebrow">The sky right now</p>
-      <h1>Current sky</h1>
-      <p class="lede">
-        The sky never really holds still. Here you can see what's changing, when it changes, and
-        what I find worth noticing about it. The dates and positions are astronomy; the
-        interpretation is astrology. I keep those two things distinct on purpose.
-      </p>
+        <p class="eyebrow">The sky right now</p>
+        <h1>Current sky</h1>
+        <p class="lede">
+          See what is changing next, when it changes, and what I find worth noticing about it. The
+          dates and positions are astronomy; the interpretation is astrology. I keep those two
+          things distinct on purpose.
+        </p>
       </div>
       <img
         class="hero__img hero__img--portrait"
@@ -56,67 +58,93 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
     </div>
   </section>
 
-  <section class="section">
+  <section class="section current-sky-now">
     <div class="container">
-      <div class="prose flow" style="margin-bottom: var(--space-7);">
-        <h2>Look at the pattern before the prediction</h2>
-        <p>
-          I love watching planetary cycles because the movement itself is extraordinary: bodies
-          traveling on different rhythms, repeatedly forming new relationships with one another.
-          Astrology gives us a symbolic language for asking what those changing relationships may
-          mean. I don't think that requires turning every transit into an event that must happen to
-          you.
-        </p>
-        <p>
-          These notes stay at the level of the shared sky. Your own chart adds another layer: which
-          degrees are being contacted, which houses are involved, what other patterns are active,
-          and, most importantly, how any of it is actually showing up in your circumstances.
-        </p>
+      <div class="current-sky-now__heading">
+        <div>
+          <p class="eyebrow">Next up</p>
+          <h2>What is happening next?</h2>
+        </div>
+        <SkyViewTabs current="list" />
       </div>
 
-      <SkyViewTabs current="list" />
+      {nextEvents.length > 0 ? (
+        <div class="grid grid--3" style="margin-top: var(--space-6);">
+          {nextEvents.map((e, index) => (
+            <article class:list={['card', { 'current-sky-feature': index === 0 }]}>
+              <p class="card__meta" style="margin: 0;">{typeLabels[e.data.eventType] ?? e.data.eventType} · {fmt(e.data.start)}</p>
+              <h3><a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a></h3>
+              <p>{e.data.summary}</p>
+              <p style="margin-top: auto;"><a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>Why I'm watching this →</a></p>
+            </article>
+          ))}
+        </div>
+      ) : (
+        <p>There are no published upcoming events in this view right now.</p>
+      )}
+
+      <div class="current-sky-actions">
+        <a class="btn btn--primary" href="/current-sky/calendar/">Open the Sky Calendar</a>
+        <a class="btn btn--ghost" href="/current-sky/the-sky-in-2026/">See the larger 2026 picture</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--night">
+    <div class="container prose flow">
+      <p class="eyebrow">How I use this page</p>
+      <h2>Look at the pattern before the prediction</h2>
+      <p>
+        I love watching planetary cycles because the movement itself is extraordinary: bodies
+        traveling on different rhythms, repeatedly forming new relationships with one another.
+        Astrology gives us a symbolic language for asking what those changing relationships may
+        mean. That does not require turning every transit into an event that must happen to you.
+      </p>
+      <p>
+        These notes stay at the level of the shared sky. Your own chart adds another layer: which
+        degrees are being contacted, which houses are involved, what other patterns are active,
+        and, most importantly, how any of it is actually showing up in your circumstances.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Upcoming timeline</p>
+      <h2>Browse what's ahead</h2>
+      <p class="lede">Filter by the kind of event you want to follow, or move through the full timeline month by month.</p>
+
       <div class="filter-bar" role="group" aria-label="Filter events by type" data-sky-filters>
         <button type="button" aria-pressed="true" data-filter="all">All events</button>
-        {
-          types.map((t) => (
-            <button type="button" aria-pressed="false" data-filter={t}>
-              {typeLabels[t] ?? t}
-            </button>
-          ))
-        }
+        {types.map((t) => (
+          <button type="button" aria-pressed="false" data-filter={t}>{typeLabels[t] ?? t}</button>
+        ))}
       </div>
       <p class="visually-hidden" aria-live="polite" data-sky-status></p>
 
-      {
-        [...byMonth.entries()].map(([month, monthEvents]) => (
-          <section data-month>
-            <h2>{month}</h2>
-            <ol class="timeline" style="margin-bottom: var(--space-8);">
-              {monthEvents.map((e) => (
-                <li data-event-type={e.data.eventType}>
-                  <span class="event-type">{typeLabels[e.data.eventType] ?? e.data.eventType}</span>
-                  <h3 style="margin: var(--space-1) 0;">
-                    <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
-                  </h3>
-                  <p class="card__meta" style="margin: 0 0 var(--space-2);">
-                    {fmt(e.data.start)}
-                    {e.data.end ? ` – ${fmt(e.data.end)}` : ''}
-                    {e.data.sign ? ` · ${e.data.sign}` : ''}
-                  </p>
-                  <p style="margin: 0;">{e.data.summary}</p>
-                </li>
-              ))}
-            </ol>
-          </section>
-        ))
-      }
+      {[...byMonth.entries()].map(([month, monthEvents]) => (
+        <section data-month>
+          <h2>{month}</h2>
+          <ol class="timeline" style="margin-bottom: var(--space-8);">
+            {monthEvents.map((e) => (
+              <li data-event-type={e.data.eventType}>
+                <span class="event-type">{typeLabels[e.data.eventType] ?? e.data.eventType}</span>
+                <h3 style="margin: var(--space-1) 0;">
+                  <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
+                </h3>
+                <p class="card__meta" style="margin: 0 0 var(--space-2);">
+                  {fmt(e.data.start)}{e.data.end ? ` – ${fmt(e.data.end)}` : ''}{e.data.sign ? ` · ${e.data.sign}` : ''}
+                </p>
+                <p style="margin: 0;">{e.data.summary}</p>
+              </li>
+            ))}
+          </ol>
+        </section>
+      ))}
+
       {events.length === 0 && (
         <div class="prose flow">
-          <p>There are no published upcoming events in this view right now.</p>
-          <p>
-            You can browse the <a href="/current-sky/archive/">archive</a> or use the
-            <a href="/current-sky/calendar/">Sky Calendar</a> to move through the published timeline.
-          </p>
+          <p>You can browse the <a href="/current-sky/archive/">archive</a> or use the <a href="/current-sky/calendar/">Sky Calendar</a> to move through the published timeline.</p>
         </div>
       )}
     </div>
@@ -125,29 +153,22 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
   <section class="section section--alt">
     <div class="container grid grid--2">
       <div class="flow">
-        <h2>Keep exploring</h2>
+        <p class="eyebrow">Go deeper</p>
+        <h2>Follow the pattern, not just the date</h2>
         <p>
-          Past lunation letters and earlier sky writing live in the
-          <a href="/current-sky/archive/">Current Sky archive</a>.
+          Past sky writing lives in the <a href="/current-sky/archive/">Current Sky archive</a>. If
+          the terminology is new, start with <a href="/explore/transits/">how transits work</a>,
+          <a href="/explore/retrogrades/">retrogrades</a>, or <a href="/explore/eclipses/">eclipses</a>.
         </p>
-        <p>
-          If the terminology is new, start with <a href="/explore/transits/">how transits work</a>,
-          <a href="/explore/retrogrades/">retrogrades</a>, or
-          <a href="/explore/eclipses/">eclipses</a>, or use the
-          <a href="/explore/glossary/">glossary</a> whenever a term gets in the way of the idea.
-        </p>
-        <p>
-          <a href="/current-sky/the-sky-in-2026/"><strong>The Sky in 2026</strong></a> steps back
-          from individual dates to look at some of the larger movements shaping the year.
-        </p>
+        <p><a href="/current-sky/the-sky-in-2026/"><strong>The Sky in 2026</strong></a> steps back from individual dates to look at some of the larger movements shaping the year.</p>
       </div>
       <div class="flow">
-        <h2 id="sky-newsletter">A monthly note from me</h2>
+        <p class="eyebrow">A monthly note from me</p>
+        <h2 id="sky-newsletter">Stay with the conversation</h2>
         <p>
-          <strong>The Sky This Month</strong> is one recurring part of the newsletter. I also share
-          what has caught my attention, a question I've been sitting with, or a connection I think
-          is worth looking at a little more closely. Astrology is the anchor; curiosity gets some
-          room too.
+          <strong>The Sky This Month</strong> is one recurring part of my newsletter. I also share
+          what has caught my attention: a question, a pattern, a connection, or something in the
+          living world that made me look twice.
         </p>
         <NewsletterForm source="current-sky" labelledby="sky-newsletter" />
       </div>
@@ -159,6 +180,8 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
     body="The shared sky gives us the larger pattern. A personal reading adds your chart, your circumstances, and the conversation needed to understand which possibilities actually matter now."
     buttonLabel="Find Your Reading"
     buttonHref="/reading-finder/"
+    secondaryLabel="Learn How Transits Work"
+    secondaryHref="/explore/transits/"
   />
 </BaseLayout>
 
@@ -188,3 +211,30 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
     );
   }
 </script>
+
+<style>
+  .current-sky-now__heading {
+    display: flex;
+    gap: var(--space-6);
+    align-items: end;
+    justify-content: space-between;
+  }
+  .current-sky-feature {
+    border-color: rgb(15 110 107 / 0.35);
+    background: var(--color-teal-tint);
+  }
+  .current-sky-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+  }
+  @media (max-width: 767px) {
+    .current-sky-now__heading {
+      display: block;
+    }
+    .current-sky-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

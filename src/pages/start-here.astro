@@ -2,86 +2,62 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
-import Icon from '../components/Icon.astro';
 import { ocean } from '../config/images';
 import Interlude from '../components/Interlude.astro';
 
 const crumbs = [{ label: 'Start Here', href: '/start-here/' }];
 
-const path = [
+const stages = [
   {
-    href: '/explore/birth-chart-basics/',
-    title: 'What a birth chart actually is',
-    body: 'A map of the sky for one moment and place, and the main kinds of information astrologers study inside it.',
-    mins: '6 min',
+    eyebrow: 'Stage one',
+    title: 'Learn the pieces',
+    intro: 'Begin with the basic structure of a chart. You are learning vocabulary here, not memorizing a personality system.',
+    steps: [
+      ['/explore/birth-chart-basics/', 'What a birth chart actually is', 'The map itself, what it contains, and the difference between astronomical position and astrological interpretation.', '6 min'],
+      ['/explore/the-big-three/', 'Sun, Moon, and rising', 'Three important placements, why they can feel recognizable, and why they are still only part of a person.', '7 min'],
+      ['/tools/explore-your-chart/', 'See the basic layers together', 'Use the interactive teaching tool to connect planet, sign, and house before adding more technique.', '5 min'],
+    ],
   },
   {
-    href: '/explore/the-big-three/',
-    title: 'The big three: Sun, Moon, and rising',
-    body: 'Three important placements, why they often feel recognizable, and why they are still only part of the chart.',
-    mins: '7 min',
+    eyebrow: 'Stage two',
+    title: 'See how the pieces change one another',
+    intro: 'Definitions become much more interesting when one part of the chart begins modifying, supporting, or complicating another.',
+    steps: [
+      ['/explore/planets/', 'Planets: what is operating?', 'Different functions and drives within the chart, each changed by sign, house, aspects, and context.', '10 min'],
+      ['/explore/signs/', 'Signs: how does it express?', 'Twelve modes of expression and the elements and modalities that reveal relationships among them.', '10 min'],
+      ['/explore/houses/', 'Houses: where does it show up?', 'Areas of experience that help locate where a planet or pattern may be most visible.', '10 min'],
+      ['/explore/aspects/', 'Aspects: how do the parts relate?', 'Angular relationships among planets and one of the clearest reasons no placement stands alone.', '8 min'],
+    ],
   },
   {
-    href: '/explore/planets/',
-    title: 'The planets: different functions and drives',
-    body: 'The planets describe different functions within the chart. Their meaning changes through sign, house, aspects, and context.',
-    mins: '10 min',
+    eyebrow: 'Stage three',
+    title: 'Add timing, context, and judgment',
+    intro: 'Once the grammar is familiar, astrology becomes a practice of context: what is moving, what is being emphasized, and what the chart cannot decide for you.',
+    steps: [
+      ['/explore/transits/', 'Understanding transits', 'How the moving sky forms new relationships with a natal chart and adds a timing layer.', '7 min'],
+      ['/explore/misconceptions/', 'What astrology can and cannot tell you', 'Certainty, prediction, sun signs, free will, and assumptions that deserve a closer look.', '9 min'],
+    ],
   },
-  {
-    href: '/explore/signs/',
-    title: 'The signs: styles of expression',
-    body: 'Twelve different modes of expression, plus the elements and modalities that reveal relationships among them.',
-    mins: '10 min',
-  },
-  {
-    href: '/explore/houses/',
-    title: 'The houses: areas of experience',
-    body: 'Twelve areas of life that help locate where a planet or pattern may be most visible.',
-    mins: '10 min',
-  },
-  {
-    href: '/explore/aspects/',
-    title: 'Aspects: how the parts relate',
-    body: 'The angular relationships between planets, and one of the clearest places to see why no placement stands alone.',
-    mins: '8 min',
-  },
-  {
-    href: '/tools/explore-your-chart/',
-    title: 'Put the pieces together',
-    body: 'Use the interactive chart explorer to see how planet, sign, house, and aspect add layers to one another. No birth data needed.',
-    mins: '5 min',
-  },
-  {
-    href: '/explore/transits/',
-    title: 'Understanding transits',
-    body: 'How the moving sky forms new relationships with a natal chart, and why timing adds another layer to interpretation.',
-    mins: '7 min',
-  },
-  {
-    href: '/explore/misconceptions/',
-    title: 'What astrology can and cannot tell you',
-    body: 'A closer look at certainty, prediction, sun signs, free will, and some of the assumptions people bring to astrology.',
-    mins: '9 min',
-  },
-];
+] as const;
 ---
 
 <BaseLayout
   title="Start Here: learn astrology from the beginning"
-  description="A guided nine-step path through astrology for beginners: birth charts, Sun, Moon and rising, planets, signs, houses, aspects, transits, and the limits of general interpretation."
+  description="A guided path through astrology for beginners: learn the pieces of a birth chart, see how they interact, then add timing, context, and judgment."
   path="/start-here/"
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
+
   <section class="hero hero--split">
     <div class="container">
       <div>
         <p class="eyebrow">For complete beginners</p>
         <h1>Start here</h1>
         <p class="lede">
-          Astrology has a large vocabulary, but you do not need to learn it all at once. This is
-          the order I would teach it in: first the pieces, then the relationships among them, and
-          finally the question that matters most to me—how does all of this work together?
+          Astrology has a large vocabulary, but you do not need to learn it all at once. I would
+          begin with the pieces, then look at the relationships among them, and only after that add
+          timing and interpretation.
         </p>
       </div>
       <img
@@ -98,93 +74,105 @@ const path = [
   </section>
 
   <section class="section">
-    <div class="container prose">
-      <h2>Before you begin</h2>
-      <p>
-        You do not need to arrive already convinced of what astrology can do. You can learn how
-        astrologers use the chart, notice what makes sense to you, question what does not, and keep
-        your own judgment intact. Curiosity is enough to begin.
-      </p>
-      <p>
-        You also do not need your birth time to start learning, although it becomes important when
-        you want to calculate the angles and houses of a particular chart. And the first time
-        through, I recommend going in order. Each step gives you something the next one can build on.
-      </p>
-      <p>
-        Throughout these pages I try to distinguish astronomical facts from astrological
-        interpretation, historical conventions from modern practice, and general meanings from my
-        own synthesis. Those are not all the same kind of claim, and I think readers deserve to
-        know the difference.
-      </p>
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <p class="eyebrow">Before you begin</p>
+        <h2>Curiosity is enough</h2>
+        <p>
+          You do not need to arrive already convinced of what astrology can do. Learn how
+          astrologers use a chart, notice what makes sense to you, question what does not, and keep
+          your own judgment intact.
+        </p>
+        <p>
+          I also try to keep different kinds of claims distinct: astronomical fact, historical or
+          traditional doctrine, contemporary practice, and my own interpretation are not all the
+          same thing.
+        </p>
+      </div>
+      <aside class="callout" style="margin: 0;">
+        <p style="margin: 0;"><strong>No birth time needed to begin.</strong> Birth time becomes important when you want to calculate the angles and houses of a particular chart. If yours is uncertain, you can still learn the structure first.</p>
+      </aside>
     </div>
   </section>
 
   <Interlude
     image={ocean.lightRays}
     eyebrow="No exam at the end"
-    heading="Learn the pieces. Then keep asking how they fit."
-    body="A definition is useful, but astrology becomes much more interesting when one part of a chart begins modifying, supporting, or complicating another."
+    heading="Learn the grammar. Then keep asking what changes in context."
+    body="A definition gives you a foothold. Synthesis is what turns separate definitions into an astrological reading."
   />
 
   <section class="section section--alt">
-    <div class="container" style="max-width: 52rem;">
-      <p class="eyebrow">The path</p>
-      <h2>Nine steps</h2>
-      <div style="margin-top: var(--space-6);">
-        {
-          path.map((step, i) => (
-            <div class="path-step">
-              <span class="path-step__num" aria-hidden="true">{i + 1}</span>
-              <div>
-                <h3><a href={step.href}>{step.title}</a></h3>
-                <p>{step.body}</p>
-                <p class="card__meta">{step.mins} read</p>
-              </div>
+    <div class="container" style="max-width: 60rem;">
+      <p class="eyebrow">Your learning path</p>
+      <h2>Three stages, one question at a time</h2>
+      <p class="lede">
+        If you are brand new, go in order. If one stage already feels familiar, start where your
+        curiosity is strongest.
+      </p>
+
+      <div class="learning-stages" style="margin-top: var(--space-8);">
+        {stages.map((stage, stageIndex) => (
+          <section class="learning-stage">
+            <div class="learning-stage__heading">
+              <p class="eyebrow">{stage.eyebrow}</p>
+              <h3>{stage.title}</h3>
+              <p>{stage.intro}</p>
             </div>
-          ))
-        }
+            <div class="grid grid--2">
+              {stage.steps.map(([href, title, body, mins], stepIndex) => (
+                <article class="card">
+                  <p class="card__meta">Step {stages.slice(0, stageIndex).reduce((n, s) => n + s.steps.length, 0) + stepIndex + 1} · {mins}</p>
+                  <h4 style="font-size: var(--text-lg); margin: 0;"><a href={href}>{title}</a></h4>
+                  <p style="margin: 0;">{body}</p>
+                </article>
+              ))}
+            </div>
+            {stageIndex < stages.length - 1 && <hr />}
+          </section>
+        ))}
       </div>
+
       <p style="margin-top: var(--space-8);">
-        <a class="btn btn--accent" href={path[0].href}>Begin with step one</a>
+        <a class="btn btn--accent" href="/explore/birth-chart-basics/">Begin with the birth chart</a>
       </p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <p class="eyebrow">When you're ready for more</p>
-      <h2>Where to go next</h2>
-      <div class="grid grid--3" style="margin-top: var(--space-6);">
-        {
-          [
-            ['chart', 'Essential Dignities', '/explore/dignities/', 'A traditional framework for considering planetary condition and capability.'],
-            ['compass', 'The Four Angles', '/explore/angles/', 'Ascendant, Descendant, Midheaven, IC, and why an accurate birth time matters.'],
-            ['book', 'Schools & Traditions', '/explore/schools/', 'A look at several astrological traditions, where they differ, and why many astrologers study broadly.'],
-            ['star', 'Chart Patterns', '/explore/chart-patterns/', 'Stelliums, grand trines, T-squares, and the larger configurations that emerge across a chart.'],
-            ['moon', 'Current Sky', '/current-sky/', "What's moving overhead right now, with verified dates and Mo's interpretation."],
-            ['spark', 'Questions to Bring', '/explore/questions-to-bring/', 'How a good question can make an astrological conversation much more specific.'],
-          ].map(([icon, title, href, desc]) => (
-            <article class="card" style="gap: var(--space-2);">
-              <span style="color: var(--color-teal);">
-                <Icon name={icon as any} size={26} />
-              </span>
-              <h3 style="font-size: var(--text-lg); margin: 0;">
-                <a href={href}>{title}</a>
-              </h3>
-              <p style="margin: 0;">{desc}</p>
-            </article>
-          ))
-        }
-      </div>
+    <div class="container grid grid--3">
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/current-sky/">Watch the ideas in motion</a></h2>
+        <p style="margin: 0;">Current Sky is where I apply the language to shared planetary cycles without turning them into personal predictions.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/explore/">Browse by topic</a></h2>
+        <p style="margin: 0;">Already know what you want to study? Explore Astrology organizes the full reference library by the question you are trying to answer.</p>
+      </article>
+      <article class="card">
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/explore/questions-to-bring/">Bring it back to a real question</a></h2>
+        <p style="margin: 0;">A chart becomes more useful when the technique has somewhere meaningful to go.</p>
+      </article>
     </div>
   </section>
 
   <CTABand
-    heading="Keep following the pieces."
-    body="Explore Astrology goes deeper into the language and techniques. Current Sky shows how I use that language when I look at the cycles overhead now."
-    buttonLabel="Explore Astrology"
-    buttonHref="/explore/"
-    secondaryLabel="See Current Sky"
-    secondaryHref="/current-sky/"
+    heading="Ready for step one?"
+    body="Start with what a birth chart actually is. You can come back to this page whenever you want the larger path again."
+    buttonLabel="What a Birth Chart Is"
+    buttonHref="/explore/birth-chart-basics/"
+    secondaryLabel="Browse Explore Astrology"
+    secondaryHref="/explore/"
   />
 </BaseLayout>
+
+<style>
+  .learning-stages {
+    display: grid;
+    gap: var(--space-8);
+  }
+  .learning-stage__heading {
+    max-width: 46rem;
+    margin-bottom: var(--space-6);
+  }
+</style>

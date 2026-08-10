@@ -1,10 +1,11 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { photos, scenes } from '../config/images';
+import { photos } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import YouTubeFacade from '../components/YouTubeFacade.astro';
 import { site } from '../config/site';
+
 const crumbs = [{ label: 'About Mo', href: '/about/' }];
 const welcomeId = site.integrations.welcomeVideoId;
 const welcomePoster = site.integrations.welcomeVideoPoster;
@@ -51,135 +52,133 @@ const schema = [
   schema={[...schema, ...videoSchema]}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero hero--split">
+
+  <section class="hero hero--split about-hero">
     <div class="container">
       <div>
         <p class="eyebrow">About</p>
         <h1>Hello! I'm Maureen … a.k.a. Mo</h1>
-        <p class="lede">Astrologer. Teacher. Writer. Interpreter of the language of the planets, and a lifelong student of patterns, cycles, and people.</p>
+        <p class="lede">
+          Astrologer. Teacher. Writer. Lifelong observer of patterns, cycles, people, and the moment
+          when separate pieces suddenly reveal a larger whole.
+        </p>
       </div>
       <img
-        class="hero__img"
-        src={scenes.readingProcess.src}
-        srcset={scenes.readingProcess.srcset}
-        sizes="100vw"
-        alt={scenes.readingProcess.alt}
-        width={scenes.readingProcess.width}
-        height={scenes.readingProcess.height}
+        class="hero__img hero__img--portrait"
+        src={photos.moAbout.src}
+        alt={photos.moAbout.alt}
+        width={photos.moAbout.width}
+        height={photos.moAbout.height}
         fetchpriority="high"
       />
     </div>
   </section>
 
-  {
-    welcomeId && (
-      <section class="section">
-        <div class="container" style="max-width: 46rem;">
-          <p class="eyebrow">A minute with Mo</p>
-          <h2>Before you decide, hear how I actually talk</h2>
-          <p class="lede">
-            A reading is a conversation with a real person, not a performance. Here is a minute
-            with me before we ever sit down together.
-          </p>
-          <div style="margin-top: var(--space-6);">
-            <YouTubeFacade
-              videoId={welcomeId}
-              title="Meet Mo Lumen: a short introduction"
-              poster={welcomePoster || undefined}
-              context="about-welcome"
-            />
-          </div>
+  {welcomeId && (
+    <section class="section">
+      <div class="container" style="max-width: 46rem;">
+        <p class="eyebrow">A minute with Mo</p>
+        <h2>Before you decide, hear how I actually talk</h2>
+        <p class="lede">
+          A reading is a conversation with a real person, not a performance. Here is a minute with
+          me before we ever sit down together.
+        </p>
+        <div style="margin-top: var(--space-6);">
+          <YouTubeFacade
+            videoId={welcomeId}
+            title="Meet Mo Lumen: a short introduction"
+            poster={welcomePoster || undefined}
+            context="about-welcome"
+          />
         </div>
-      </section>
-    )
-  }
+      </div>
+    </section>
+  )}
 
-  <section class="section">
+  <section class="section section--alt">
     <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <p class="eyebrow">The long curiosity</p>
+        <h2>I have been following this question for a long time</h2>
+        <p>
+          Astrology has fascinated me since my age was in the single digits. I followed it for
+          years before I ever imagined making it my profession. Alongside that curiosity grew
+          another one: living systems, cycles within cycles, and the relationships that make a
+          whole more than a collection of separate parts.
+        </p>
+        <p>
+          As a science teacher, I loved the moment when separate facts stopped being separate: one
+          cycle connected to another, one system affected another, and the larger pattern came into
+          view. The closer I looked at living systems, the more extraordinary they became.
+        </p>
+        <p>
+          Astrology keeps me in that same state of curiosity—not because science proves astrology.
+          It does not. Teaching science trained me to observe carefully, ask better questions,
+          explain complicated ideas, and respect how much complexity can live inside one system.
+          Those habits come with me when I look at a chart.
+        </p>
+      </div>
       <figure class="portrait-card">
         <img
-          src={photos.moAbout.src}
-          alt={photos.moAbout.alt}
-          width={photos.moAbout.width}
-          height={photos.moAbout.height}
+          src={photos.moShelf.src}
+          alt={photos.moShelf.alt}
+          width={photos.moShelf.width}
+          height={photos.moShelf.height}
           loading="lazy"
         />
-        <figcaption>Maureen &ldquo;Mo&rdquo; Lumen: astrologer, teacher, writer</figcaption>
+        <figcaption>Still learning, still looking</figcaption>
       </figure>
-      <div class="prose flow">
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container prose flow">
+      <p class="eyebrow">How that became a practice</p>
+      <h2>I study widely because charts are complicated</h2>
+      <p>
+        My training has crossed traditional, horary, modern, Uranian, dwarf-planet, and other
+        contemporary approaches. I value technique, but I am less interested in forcing every
+        chart through one school than in understanding what the chart in front of me is saying as
+        a whole.
+      </p>
+      <p>
+        No two people live the same symbolism in exactly the same way. I may see several ways a
+        pattern could be expressing itself; the person living the chart brings the part I cannot
+        know from technique alone. That is why I think of a reading as synthesis and conversation,
+        not a performance in which I announce who you are.
+      </p>
+      <blockquote>There is fate and there is choice, and a good reading helps you tell the difference.</blockquote>
+      <p>
+        I want you to understand what I am seeing and why I am seeing it. I will tell you what I
+        notice, ask when I need to understand how something is showing up in your life, and leave
+        the decisions where they belong: with you.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="flow">
+        <p class="eyebrow">Away from the chart</p>
+        <h2>The things that keep me oriented</h2>
         <p>
-          Astrology has fascinated me since my age was in the single digits. It was something I
-          always followed, even though I did not pursue it as my profession until later. That long
-          curiosity grew alongside another: the way living systems fit together.
+          My family is the center of my life. I am drawn to spiritual practice, nature, travel,
+          learning, and especially the ocean—the places and practices that remind me I am part of
+          something larger and that there is always another way of seeing.
         </p>
         <p>
-          As a science teacher, I loved the point where separate facts stopped being separate: a
-          cycle connected to another cycle, one system affected another, and suddenly you could
-          see the larger pattern. The closer I looked at living systems, the more extraordinary
-          they became. Astrology keeps me in that same state of curiosity.
+          That sense of wonder matters to me. I do not want rigor to flatten it, and I do not want
+          wonder to become an excuse for certainty. I would rather stay curious enough to keep
+          looking.
         </p>
-        <p>
-          That does not mean I use science as proof of astrology. I don't. Science is part of how
-          I learned to observe carefully, ask better questions, explain complicated ideas, and
-          respect how much complexity can live inside one system. Those habits come with me when I
-          look at a chart.
-        </p>
-        <p>
-          I have studied widely across astrology, including horary and traditional techniques as
-          well as modern, Uranian, dwarf-planet, and other contemporary approaches. I am less
-          interested in asking every chart to fit one school of astrology than in understanding
-          what the chart in front of me is actually saying as a whole.
-        </p>
-        <p>
-          That whole matters because no two people live the same symbols in exactly the same way.
-          I may see several ways a pattern could be expressing itself; the person living the chart
-          brings the part I cannot know from technique alone. A good reading grows through that
-          meeting of chart, experience, questions, and conversation.
-        </p>
-        <blockquote>There is fate and there is choice, and a good reading helps you tell the difference.</blockquote>
-        <p>
-          I want you to understand what I'm seeing and why I'm seeing it. I will tell you what I
-          notice, ask when I need to understand how something is showing up in your life, and leave
-          the decisions where they belong: with you.
-        </p>
-        <h2>What matters to me</h2>
-        <ul>
-          <li><strong>My family</strong>: my husband and children are the center of my life.</li>
-          <li><strong>Spiritual practice</strong>: a way of tending my connection to the Whole and remembering that I am part of something larger than myself.</li>
-          <li><strong>Nature</strong>: where I feel both grounded and full of wonder, especially near the ocean, which soothes and invigorates me.</li>
-          <li><strong>Learning</strong>: there is always another question worth following.</li>
-          <li><strong>Travel</strong>: other cultures offer other ways of seeing.</li>
-        </ul>
       </div>
-      <aside class="flow">
-        <div class="card">
-          <h2 style="font-size: var(--text-lg); margin: 0;">Training & credentials</h2>
-          <ul style="margin: 0; padding-left: 1.1em;">
-            <li>Practitioner's Certificate in Horary Astrology, School of Traditional Astrology (STA)</li>
-            <li>NCGR-PAA Level 1 and Level 2 certification exams passed; Level 3 in progress</li>
-            <li>Diploma, Dwarf Planet University (DPU); current assistant teacher and tutor at DPU</li>
-            <li>
-              Board member &amp; treasurer,
-              <a href="https://opaastrology.org/about-opa/meet-the-board/" rel="noopener" target="_blank">Organization for Professional Astrologers (OPA)</a>
-            </li>
-            <li>Treasurer, NCGR-DFW chapter, 2024–2026</li>
-            <li>Bookkeeper, 2026 United Astrology Conference staff</li>
-            <li>
-              Member:
-              <a href="https://ncgrastrology.org/" rel="noopener" target="_blank">NCGR</a>,
-              <a href="https://opaastrology.org/" rel="noopener" target="_blank">OPA</a>, and
-              <a href="https://www.isarastrology.com/" rel="noopener" target="_blank">ISAR</a>
-            </li>
-          </ul>
-          <p style="margin: 0;"><a href="/credentials/">More on training & ethics →</a></p>
-        </div>
-        <div class="card">
-          <h2 style="font-size: var(--text-lg); margin: 0;">My approach</h2>
-          <p style="margin: 0;">
-            Technically grounded, curious, conversational, and open to intuition as a place to look more closely. Read about
-            <a href="/approach/">how I put the pieces together and how I use astrology in a reading</a>.
-          </p>
-        </div>
+      <aside class="card">
+        <h2 style="font-size: var(--text-xl); margin: 0;">Want the formal background?</h2>
+        <p>
+          My certifications, professional memberships, teaching roles, and ethics commitments live
+          on a separate page so this one can stay about the person behind the practice.
+        </p>
+        <p style="margin: 0;"><a class="btn btn--ghost" href="/credentials/">See Training & Credentials</a></p>
       </aside>
     </div>
   </section>
@@ -189,7 +188,7 @@ const schema = [
     body="See how I prepare, how the conversation unfolds, and where your own experience enters the interpretation before you decide whether to book."
     buttonLabel="How Readings Work"
     buttonHref="/how-readings-work/"
-    secondaryLabel="Not sure what would fit? Try the Reading Finder"
-    secondaryHref="/reading-finder/"
+    secondaryLabel="See How I Read a Chart"
+    secondaryHref="/approach/"
   />
 </BaseLayout>
