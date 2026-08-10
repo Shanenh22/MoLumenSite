@@ -9,6 +9,15 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Chart Patterns', href: '/explore/chart-patterns/' },
 ];
+
+const patterns = [
+  { name: 'Stellium', shape: '● ● ●', cue: 'Concentration', note: 'Several planets gathered in one sign or house.' },
+  { name: 'Grand trine', shape: '△', cue: 'Flow', note: 'Three planets linked by trines.' },
+  { name: 'T-square', shape: '⊥', cue: 'Focal tension', note: 'An opposition with both ends square a third planet.' },
+  { name: 'Grand cross', shape: '✚', cue: 'Competing demands', note: 'Two oppositions connected by four squares.' },
+  { name: 'Yod', shape: 'Y', cue: 'Adjustment', note: 'A sextile feeding two quincunxes to an apex.' },
+  { name: 'Kite', shape: '◇', cue: 'Flow plus direction', note: 'A grand trine extended by an opposition.' },
+];
 ---
 
 <BaseLayout
@@ -25,76 +34,46 @@ const crumbs = [
         <h1>Chart patterns</h1>
         <p class="lede">A chart is not a pile of separate placements. When several planets connect through a shared configuration, the larger pattern can tell us something no single aspect can explain by itself.</p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.shellsBeforeTide.src}
-        srcset={ocean.shellsBeforeTide.srcset}
-        sizes="100vw"
-        alt={ocean.shellsBeforeTide.alt}
-        width={ocean.shellsBeforeTide.width}
-        height={ocean.shellsBeforeTide.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.shellsBeforeTide.src} srcset={ocean.shellsBeforeTide.srcset} sizes="100vw" alt={ocean.shellsBeforeTide.alt} width={ocean.shellsBeforeTide.width} height={ocean.shellsBeforeTide.height} fetchpriority="high" />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-6);">
+        <p class="eyebrow">See the geometry</p>
+        <h2>Start with the relationship, then interpret it.</h2>
+        <p>These symbols are teaching sketches, not calculated charts. Their job is to make the basic geometry visible before the terminology gets technical.</p>
+      </div>
+      <div class="pattern-grid">
+        {patterns.map((pattern) => (
+          <article class="pattern-card">
+            <div class="pattern-shape" aria-hidden="true">{pattern.shape}</div>
+            <div><h3>{pattern.name}</h3><p class="pattern-cue">{pattern.cue}</p><p>{pattern.note}</p></div>
+          </article>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container prose flow">
       <h2>Why patterns matter</h2>
-      <p>
-        One of the most useful habits in chart interpretation is learning to step back before you
-        zoom in. A chart may contain many aspects, but some belong to the same larger configuration.
-        Reading those relationships together can reveal where the chart's emphasis sits, which
-        tensions repeat, and where several parts of the person are participating in the same story.
-      </p>
+      <p>One of the most useful habits in chart interpretation is learning to step back before you zoom in. A chart may contain many aspects, but some belong to the same larger configuration. Reading those relationships together can reveal where the chart's emphasis sits, which tensions repeat, and where several parts of the person are participating in the same story.</p>
 
       <h2>The configurations</h2>
       <h3>Stellium</h3>
-      <p>
-        A concentration of several planets in one sign or house. Different astrologers use slightly
-        different definitions, but the interpretive idea is similar: a large amount of the chart is
-        gathered in one area. That can make the sign, house, and planets involved especially
-        important, but the expression still depends on which planets are clustered and how they
-        connect to everything outside the stellium.
-      </p>
+      <p>A concentration of several planets in one sign or house. Different astrologers use slightly different definitions, but the interpretive idea is similar: a large amount of the chart is gathered in one area. That can make the sign, house, and planets involved especially important, but the expression still depends on which planets are clustered and how they connect to everything outside the stellium.</p>
       <h3>Grand trine</h3>
-      <p>
-        Three planets linked by <a href="/explore/aspects/trine/">trines</a>, often within one
-        element. It can describe a closed circuit of relative ease, familiarity, or talent. Ease is
-        not the same thing as automatic accomplishment, though. What matters is whether that flow is
-        recognized, developed, and connected to the rest of the chart.
-      </p>
+      <p>Three planets linked by <a href="/explore/aspects/trine/">trines</a>, often within one element. It can describe a closed circuit of relative ease, familiarity, or talent. Ease is not the same thing as automatic accomplishment, though. What matters is whether that flow is recognized, developed, and connected to the rest of the chart.</p>
       <h3>T-square</h3>
-      <p>
-        Two planets in <a href="/explore/aspects/opposition/">opposition</a>, both
-        <a href="/explore/aspects/square/">square</a> a third. The focal planet can become a place
-        where the tension is repeatedly experienced or worked through. Some astrologers also look
-        to the unoccupied point opposite the focal planet as a symbolic balancing place, but I would
-        treat that as one interpretive possibility, not a formula.
-      </p>
+      <p>Two planets in <a href="/explore/aspects/opposition/">opposition</a>, both <a href="/explore/aspects/square/">square</a> a third. The focal planet can become a place where the tension is repeatedly experienced or worked through. Some astrologers also look to the unoccupied point opposite the focal planet as a symbolic balancing place, but I would treat that as one interpretive possibility, not a formula.</p>
       <h3>Grand cross</h3>
-      <p>
-        Four planets forming two oppositions and four squares, usually in the same modality. There
-        is a great deal of movement inside this configuration because several competing demands are
-        active at once. That can describe strain, stamina, persistence, or a life that requires
-        repeated negotiation among equally strong priorities. The rest of the chart tells us how
-        that tension is carried.
-      </p>
+      <p>Four planets forming two oppositions and four squares, usually in the same modality. There is a great deal of movement inside this configuration because several competing demands are active at once. That can describe strain, stamina, persistence, or a life that requires repeated negotiation among equally strong priorities. The rest of the chart tells us how that tension is carried.</p>
       <h3>Yod</h3>
-      <p>
-        Two planets in sextile, each forming a quincunx to a third. The yod has accumulated dramatic
-        names, including "finger of fate," but the geometry is more useful than the mythology. It
-        links two planets that cooperate relatively easily with an apex planet that requires ongoing
-        adjustment. How significant it is depends on the planets involved, the orbs, and the chart
-        as a whole.
-      </p>
+      <p>Two planets in sextile, each forming a quincunx to a third. The yod has accumulated dramatic names, including "finger of fate," but the geometry is more useful than the mythology. It links two planets that cooperate relatively easily with an apex planet that requires ongoing adjustment. How significant it is depends on the planets involved, the orbs, and the chart as a whole.</p>
       <h3>Kite</h3>
-      <p>
-        A grand trine with an opposition extending from one point. The added opposition introduces
-        tension and direction into a configuration otherwise dominated by trines. It can make the
-        pattern more dynamic, but again, no geometry guarantees a particular outcome.
-      </p>
-
+      <p>A grand trine with an opposition extending from one point. The added opposition introduces tension and direction into a configuration otherwise dominated by trines. It can make the pattern more dynamic, but again, no geometry guarantees a particular outcome.</p>
     </div>
   </section>
 
@@ -103,51 +82,24 @@ const crumbs = [
   <section class="section section--sea">
     <div class="container prose flow">
       <h2>Chart shape</h2>
-      <p>
-        Astrologers also look at the overall distribution of planets around the wheel. Terms such as
-        bundle, bowl, bucket, locomotive, and splash describe broad visual arrangements. I find them
-        useful as orientation: they can show concentration, distribution, or imbalance at a glance.
-        I would not let a chart shape override more specific information from planets, rulers,
-        aspects, and houses.
-      </p>
-
-      <Layers kind="mo">
-        <p>
-          I look for relationships and larger patterns early because they help me understand where
-          the chart's weight sits. But I do not assume I already know how a configuration is being
-          lived. The pattern gives me somewhere to look, and often a very good question to ask.
-        </p>
-      </Layers>
-
-      <Layers kind="differs">
-        <p>
-          Pattern definitions and allowable orbs are not completely standardized. One astrologer
-          may count a wide grand trine or a three-planet stellium that another would not. That is
-          part of why technique matters: before interpreting a pattern, you need to know exactly what
-          you are calling a pattern and why.
-        </p>
-      </Layers>
-
-      <Layers kind="misconception">
-        <p>
-          A "difficult" pattern is not automatically bad news, and an apparently easy one is not a
-          guarantee of ease. Tension can become productive; ease can remain undeveloped. The chart
-          describes a structure of possibilities, not a moral scorecard.
-        </p>
-      </Layers>
-      <p>
-        Related: <a href="/explore/aspects/">the five major aspects</a> and
-        <a href="/explore/elements-and-modalities/">elements and modalities</a>.
-      </p>
+      <p>Astrologers also look at the overall distribution of planets around the wheel. Terms such as bundle, bowl, bucket, locomotive, and splash describe broad visual arrangements. I find them useful as orientation: they can show concentration, distribution, or imbalance at a glance. I would not let a chart shape override more specific information from planets, rulers, aspects, and houses.</p>
+      <Layers kind="mo"><p>I look for relationships and larger patterns early because they help me understand where the chart's weight sits. But I do not assume I already know how a configuration is being lived. The pattern gives me somewhere to look, and often a very good question to ask.</p></Layers>
+      <Layers kind="differs"><p>Pattern definitions and allowable orbs are not completely standardized. One astrologer may count a wide grand trine or a three-planet stellium that another would not. That is part of why technique matters: before interpreting a pattern, you need to know exactly what you are calling a pattern and why.</p></Layers>
+      <Layers kind="misconception"><p>A "difficult" pattern is not automatically bad news, and an apparently easy one is not a guarantee of ease. Tension can become productive; ease can remain undeveloped. The chart describes a structure of possibilities, not a moral scorecard.</p></Layers>
+      <p>Related: <a href="/explore/aspects/">the five major aspects</a> and <a href="/explore/elements-and-modalities/">elements and modalities</a>.</p>
     </div>
   </section>
 
-  <CTABand
-    heading="Want to understand the geometry behind these patterns?"
-    body="Chart configurations are built from aspects. Start with those relationships, then return to the larger pattern with a clearer sense of what each connection contributes."
-    buttonLabel="Explore the Aspects"
-    buttonHref="/explore/aspects/"
-    secondaryLabel="Review elements and modalities"
-    secondaryHref="/explore/elements-and-modalities/"
-  />
+  <CTABand heading="Want to understand the geometry behind these patterns?" body="Chart configurations are built from aspects. Start with those relationships, then return to the larger pattern with a clearer sense of what each connection contributes." buttonLabel="Explore the Aspects" buttonHref="/explore/aspects/" secondaryLabel="Review elements and modalities" secondaryHref="/explore/elements-and-modalities/" />
 </BaseLayout>
+
+<style>
+  .pattern-grid { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: var(--space-4); }
+  .pattern-card { display: grid; grid-template-columns: 5rem 1fr; gap: var(--space-4); align-items: center; padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .pattern-shape { display: grid; place-items: center; min-height: 5rem; font-family: var(--font-serif); font-size: 2.5rem; border: 1px solid var(--color-border); border-radius: 50%; }
+  .pattern-card h3, .pattern-card p { margin: 0; }
+  .pattern-cue { font-weight: 700; margin-top: var(--space-1) !important; }
+  .pattern-card p:last-child { margin-top: var(--space-2) !important; }
+  @media (max-width: 900px) { .pattern-grid { grid-template-columns: repeat(2,minmax(0,1fr)); } }
+  @media (max-width: 600px) { .pattern-grid { grid-template-columns: 1fr; } .pattern-card { grid-template-columns: 4rem 1fr; padding: var(--space-4); } .pattern-shape { min-height: 4rem; font-size: 2rem; } }
+</style>
