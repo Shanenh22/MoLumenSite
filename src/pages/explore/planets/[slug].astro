@@ -5,6 +5,7 @@ import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
 import ReferencePager from '../../../components/ReferencePager.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
 import { bandFor } from '../../../config/images';
 import { planets } from '../../../data/planets';
 
@@ -34,7 +35,7 @@ const breakImage = bandFor(p.slug, 5);
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">The Planets</p>
+        <p class="eyebrow">Planet · What?</p>
         <h1><span aria-hidden="true">{p.glyph}</span> {p.name}</h1>
         <p class="lede">{p.drive}</p>
       </div>
@@ -44,32 +45,15 @@ const breakImage = bandFor(p.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
+      <h2>Start with the function</h2>
+      <p>{p.inYourChart}</p>
       <p>
-        Start with the planet's function, then resist the temptation to stop there. A planet changes
-        expression through its sign, house, aspects, rulerships, condition, and relationship to the
-        rest of the chart. The material below gives you the vocabulary; the chart supplies the context.
+        Then add the rest of the grammar: the <strong>sign</strong> describes how this function
+        expresses, the <strong>house</strong> tells us where it is operating, and
+        <strong>aspects</strong> show what other chart functions participate. Rulerships, condition,
+        timing, and lived experience add still more context.
       </p>
-      <h2>At a glance</h2>
-      <table class="ref-table">
-        <caption class="visually-hidden">Attributes of {p.name}</caption>
-        <tbody>
-          <tr><th scope="row">Type</th><td>{p.classification}</td></tr>
-          <tr><th scope="row">Cycle</th><td>{p.cycle}</td></tr>
-          <tr><th scope="row">Retrograde</th><td>{p.retrograde}</td></tr>
-          {p.sect && <tr><th scope="row">Sect</th><td>{p.sect}</td></tr>}
-          <tr><th scope="row">Rules</th><td>{p.rules}</td></tr>
-          {p.exaltation && <tr><th scope="row">Exaltation</th><td>{p.exaltation}</td></tr>}
-          {p.detriment && <tr><th scope="row">Detriment</th><td>{p.detriment}</td></tr>}
-          {p.fall && <tr><th scope="row">Fall</th><td>{p.fall}</td></tr>}
-          {p.joy && <tr><th scope="row">Joy</th><td>{p.joy}</td></tr>}
-          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{p.glyph}</span>: {p.glyphMeaning}</td></tr>
-        </tbody>
-      </table>
-      <p class="card__meta">
-        Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables.
-        See <a href="/explore/dignities/">essential dignities</a>. "Joy" refers to a traditional
-        house association for the planet.
-      </p>
+      <ChartGrammar active="planet" heading={`Keep ${p.name.replace('The ', '')} inside the chart grammar`} />
     </div>
   </section>
 
@@ -87,34 +71,64 @@ const breakImage = bandFor(p.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <h2>In your chart</h2>
-      <p>{p.inYourChart}</p>
       <h2>When this function is emphasized</h2>
       <p>{p.whenItLeads}</p>
       <h2>Working with it</h2>
       <p>{p.workingWithIt}</p>
-      <p>
-        The useful next question is always contextual: what sign is {p.name} in, which house does it
-        occupy, what <a href="/explore/aspects/">aspects</a> does it make, what does it rule, and
-        what else is happening in the chart? No planet means the same thing in every life.
-      </p>
 
-      <ReferencePager
-        ariaLabel="More planets"
-        prevHref={`/explore/planets/${prev.slug}/`}
-        prevLabel={prev.name}
-        nextHref={`/explore/planets/${next.slug}/`}
-        nextLabel={next.name}
-      />
+      <details class="reference-details">
+        <summary>Technical reference for {p.name}</summary>
+        <div class="reference-details__body">
+          <table class="ref-table">
+            <caption class="visually-hidden">Attributes of {p.name}</caption>
+            <tbody>
+              <tr><th scope="row">Type</th><td>{p.classification}</td></tr>
+              <tr><th scope="row">Cycle</th><td>{p.cycle}</td></tr>
+              <tr><th scope="row">Retrograde</th><td>{p.retrograde}</td></tr>
+              {p.sect && <tr><th scope="row">Sect</th><td>{p.sect}</td></tr>}
+              <tr><th scope="row">Rules</th><td>{p.rules}</td></tr>
+              {p.exaltation && <tr><th scope="row">Exaltation</th><td>{p.exaltation}</td></tr>}
+              {p.detriment && <tr><th scope="row">Detriment</th><td>{p.detriment}</td></tr>}
+              {p.fall && <tr><th scope="row">Fall</th><td>{p.fall}</td></tr>}
+              {p.joy && <tr><th scope="row">Joy</th><td>{p.joy}</td></tr>}
+              <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{p.glyph}</span>: {p.glyphMeaning}</td></tr>
+            </tbody>
+          </table>
+          <p class="card__meta">
+            Cycle figures are astronomical approximations. Dignities follow the Ptolemaic tables.
+            See <a href="/explore/dignities/">essential dignities</a>. "Joy" refers to a traditional house association for the planet.
+          </p>
+        </div>
+      </details>
+
+      <ReferencePager ariaLabel="More planets" prevHref={`/explore/planets/${prev.slug}/`} prevLabel={prev.name} nextHref={`/explore/planets/${next.slug}/`} nextLabel={next.name} />
     </div>
   </section>
 
   <CTABand
     heading={`Keep ${p.name.replace('The ', '')} in the whole chart`}
-    body="You now have one piece of the vocabulary. Keep learning how planets, signs, houses, and aspects modify one another before turning a single placement into a conclusion."
+    body="You now have the function. Add style, area of experience, relationships, and lived context before turning one placement into a conclusion."
     buttonLabel="Explore the Planets"
     buttonHref="/explore/planets/"
-    secondaryLabel="See how the pieces fit together"
-    secondaryHref="/explore/birth-chart-basics/"
+    secondaryLabel="Practice combining the pieces"
+    secondaryHref="/tools/explore-your-chart/"
   />
 </BaseLayout>
+
+<style>
+  .reference-details {
+    margin-block: var(--space-8);
+    border: 1px solid var(--border-color, currentColor);
+    border-radius: var(--radius-lg, 1rem);
+  }
+
+  .reference-details summary {
+    cursor: pointer;
+    padding: var(--space-5);
+    font-weight: 700;
+  }
+
+  .reference-details__body {
+    padding: 0 var(--space-5) var(--space-5);
+  }
+</style>

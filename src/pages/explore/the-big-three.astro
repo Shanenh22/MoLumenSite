@@ -4,6 +4,7 @@ import FurtherReading from '../../components/FurtherReading.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import SeaBreak from '../../components/SeaBreak.astro';
+import ChartGrammar from '../../components/ChartGrammar.astro';
 import { ocean } from '../../config/images';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -22,47 +23,68 @@ const crumbs = [
     <div class="container">
       <div>
         <p class="eyebrow">Explore Astrology</p>
-        <h1>The Big Three: Sun, Moon, and rising</h1>
-        <p class="lede">The Sun, Moon, and rising sign are often the first three pieces people learn about themselves. They are useful starting points, but the interesting part is not collecting three labels. It is seeing how three different parts of the chart work together in one person.</p>
+        <h1>The Big Three: three different jobs in one chart</h1>
+        <p class="lede">
+          The Sun, Moon, and rising sign are useful starting points, but not because they give you
+          three personality labels. Each does a different job. The useful question is how those
+          three functions work together in one person.
+        </p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.ripplesSunset.src}
-        srcset={ocean.ripplesSunset.srcset}
-        sizes="100vw"
-        alt={ocean.ripplesSunset.alt}
-        width={ocean.ripplesSunset.width}
-        height={ocean.ripplesSunset.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.ripplesSunset.src} srcset={ocean.ripplesSunset.srcset} sizes="100vw" alt={ocean.ripplesSunset.alt} width={ocean.ripplesSunset.width} height={ocean.ripplesSunset.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow">
-      <h2>The short answer</h2>
-      <p>
-        I think of the <strong>Sun</strong> as a central organizing principle of identity, vitality,
-        and purpose; the <strong>Moon</strong> as instinct, emotional needs, memory, and the ways we
-        seek safety and familiarity; and the <strong>rising sign</strong> as the eastern horizon of
-        the chart, describing the way you enter experience and setting the framework of the houses.
-        All three matter. None of them tells the whole story by itself.
-      </p>
+    <div class="container">
+      <div class="prose flow">
+        <h2>Start with the job, not the label</h2>
+        <p>
+          These are starting shortcuts, not finished interpretations. The Sun can help us ask about
+          vitality, identity, purpose, and authorship. The Moon brings us toward instinct, habit,
+          memory, care, and what feels sustaining. The rising sign begins at the eastern horizon and
+          helps describe how a person enters experience while anchoring the chart's house structure.
+        </p>
+      </div>
 
-      <h2>The Sun: identity, vitality, and direction</h2>
-      <p>
-        When someone asks "what's your sign," they usually mean your Sun sign, the zodiac sign the
-        Sun occupied when you were born. Because the Sun moves through the zodiac over the course of
-        a year, it is the best-known placement in popular astrology.
-      </p>
-      <p>
-        Astrologically, the Sun is associated with identity, vitality, creative purpose, and the
-        qualities through which a person develops a stronger sense of self. I would not reduce that
-        to a fixed personality description. A Sun sign tells me something important about the chart,
-        but I still want to know where the Sun is placed, what aspects it makes, what rules it, and
-        how the person themselves experiences it. Read more about
-        <a href="/explore/planets/sun/">the Sun in astrology</a>.
-      </p>
+      <div class="big-three-grid">
+        <article class="big-three-card">
+          <span class="big-three-card__glyph" aria-hidden="true">☉</span>
+          <p class="eyebrow">Sun</p>
+          <h2>What am I becoming or authoring?</h2>
+          <p>Start with vitality, purpose, identity, visibility, and the impulse to become more fully yourself.</p>
+          <a href="/explore/planets/sun/">Explore the Sun</a>
+        </article>
+        <article class="big-three-card">
+          <span class="big-three-card__glyph" aria-hidden="true">☽</span>
+          <p class="eyebrow">Moon</p>
+          <h2>What feels familiar and sustaining?</h2>
+          <p>Start with instinct, emotional needs, memory, habit, care, and the conditions that help you settle.</p>
+          <a href="/explore/planets/moon/">Explore the Moon</a>
+        </article>
+        <article class="big-three-card">
+          <span class="big-three-card__glyph" aria-hidden="true">↑</span>
+          <p class="eyebrow">Rising sign</p>
+          <h2>How do I enter experience?</h2>
+          <p>Start with the eastern horizon, your way of meeting experience, and the point that anchors the houses.</p>
+          <a href="/explore/angles/">Explore the Ascendant and angles</a>
+        </article>
+      </div>
+
+      <div class="prose flow synthesis">
+        <h2>Read them as a conversation</h2>
+        <ol>
+          <li><strong>Name each job separately.</strong> Do not ask one placement to explain the whole person.</li>
+          <li><strong>Notice the styles.</strong> What signs are involved, and do they reinforce or complicate one another?</li>
+          <li><strong>Notice the relationships.</strong> Are the Sun and Moon connected by aspect? What else is tied into them?</li>
+          <li><strong>Add the rest of the chart.</strong> Houses, rulers, other planets, timing, and lived experience change the picture.</li>
+        </ol>
+        <p>
+          If the three seem to want different things, I do not see that as a flaw to fix. Internal
+          complexity is often part of what makes the chart useful to discuss.
+        </p>
+      </div>
+
+      <ChartGrammar heading="The Big Three are a beginning. This is the larger grammar." />
     </div>
   </section>
 
@@ -70,70 +92,47 @@ const crumbs = [
 
   <section class="section section--sea">
     <div class="container prose flow">
+      <h2>The Sun: a central organizing principle</h2>
+      <p>
+        When someone asks "what's your sign," they usually mean the zodiac sign the Sun occupied
+        when you were born. Astrologically, the Sun is associated with identity, vitality, creative
+        purpose, and the qualities through which a person develops a stronger sense of self. I would
+        not reduce that to a fixed personality description. Its house, aspects, rulerships,
+        condition, and the person's own experience all matter.
+      </p>
+
       <h2>The Moon: needs, instinct, and emotional memory</h2>
       <p>
-        The Moon moves quickly, traveling through the zodiac in about 27 days and usually spending
-        a little more than two days in each sign. For people born near a sign change, the birth time
-        can matter when determining the Moon sign.
-      </p>
-      <p>
         The Moon is associated with instinctive responses, emotional needs, memory, habits, and the
-        ways we restore a sense of safety. These qualities are often deeply familiar to us, but that
-        does not make them simple. A Moon sign can express differently depending on its house,
-        aspects, condition, and relationship to the rest of the chart. If the Sun and Moon seem to
-        want different things, I do not see that as a flaw to fix. I see it as part of the person's
-        internal complexity. See <a href="/explore/planets/moon/">the Moon in astrology</a>.
+        ways we restore a sense of safety. These qualities can feel deeply familiar without being
+        simple. A Moon sign changes expression through house, aspects, condition, and relationship
+        to the rest of the chart.
       </p>
     </div>
   </section>
 
-  <SeaBreak
-    image={ocean.seaStackMoonrise}
-    line="Three familiar pieces. One much larger pattern."
-  />
+  <SeaBreak image={ocean.seaStackMoonrise} line="Three familiar pieces. One much larger pattern." />
 
   <section class="section">
     <div class="container prose flow">
       <h2>The rising sign: the eastern horizon</h2>
       <p>
         The rising sign, or Ascendant, is the zodiac sign rising over the eastern horizon at the
-        moment and place of birth. Because the Earth rotates, it changes throughout the day, which
-        makes an accurate birth time especially important.
-      </p>
-      <p>
-        The Ascendant is often associated with the way a person approaches new situations and meets
-        the world, but its structural role matters just as much: it anchors the house framework of
-        the chart. That changes where planets and other chart factors fall by house, which can alter
-        the areas of life emphasized in interpretation. Two people born on the same day may share
-        many planet-in-sign placements and still have charts organized very differently.
+        moment and place of birth. Because Earth rotates, it changes throughout the day. The
+        Ascendant also anchors the house framework, so two people born on the same day may share many
+        planet-in-sign placements while having charts organized very differently.
       </p>
       <div class="callout">
         <p style="margin: 0;">
           <strong>This is why astrologers ask for your birth time.</strong> Without it, many planetary
           positions can still be used, but the Ascendant and house structure may be uncertain.
-          <a href="/birth-time/">Here is how to track your birth time down</a>, where it may be
-          recorded, what to ask, and how much precision can matter.
+          <a href="/birth-time/">Here is how to track your birth time down</a> and how much precision can matter.
         </p>
       </div>
-
-    </div>
-  </section>
-
-  <section class="section section--sea">
-    <div class="container prose flow">
-      <h2>Reading them together</h2>
       <p>
-        This is where astrology becomes more interesting to me. Instead of saying, "My Sun is this,
-        my Moon is that, and my rising sign is something else," ask what those three pieces are doing
-        together. Do they reinforce one another? Pull in different directions? Emphasize one element,
-        one modality, or one part of the chart? The relationships begin to tell us more than the
-        labels do.
-      </p>
-      <p>
-        And even then, we are only beginning. The rest of the planets, houses, aspects, timing, and
-        the life being lived all add context. Start with
-        <a href="/explore/birth-chart-basics/">birth chart basics</a>, or open the
-        <a href="/tools/explore-your-chart/">interactive chart explorer</a> to see how the pieces fit.
+        Even after the Big Three are clear, we are only beginning. The rest of the planets, houses,
+        aspects, timing, and the life being lived all add context. Open the
+        <a href="/tools/explore-your-chart/">interactive chart explorer</a> to practice combining the pieces.
       </p>
       <FurtherReading />
     </div>
@@ -141,10 +140,46 @@ const crumbs = [
 
   <CTABand
     heading="Three pieces are only the beginning"
-    body="Keep going into planets, signs, houses, and aspects, or use the chart explorer to see how those layers begin to modify one another."
-    buttonLabel="Explore the Planets"
-    buttonHref="/explore/planets/"
-    secondaryLabel="Open the chart explorer"
-    secondaryHref="/tools/explore-your-chart/"
+    body="Practice moving from labels to relationships: planet, sign, house, aspect, then the whole chart."
+    buttonLabel="Open the chart explorer"
+    buttonHref="/tools/explore-your-chart/"
+    secondaryLabel="Learn birth chart basics"
+    secondaryHref="/explore/birth-chart-basics/"
   />
 </BaseLayout>
+
+<style>
+  .big-three-grid {
+    display: grid;
+    gap: var(--space-4);
+    margin-block: var(--space-8);
+  }
+
+  .big-three-card {
+    padding: var(--space-6);
+    border: 1px solid var(--border-color, currentColor);
+    border-radius: var(--radius-lg, 1rem);
+  }
+
+  .big-three-card h2 {
+    margin-top: var(--space-2);
+    font-size: var(--text-xl);
+  }
+
+  .big-three-card__glyph {
+    display: block;
+    margin-bottom: var(--space-3);
+    font-size: clamp(2rem, 7vw, 3.5rem);
+    line-height: 1;
+  }
+
+  .synthesis {
+    margin-block: var(--space-10);
+  }
+
+  @media (min-width: 768px) {
+    .big-three-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+</style>

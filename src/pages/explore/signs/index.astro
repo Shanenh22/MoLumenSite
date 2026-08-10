@@ -2,88 +2,66 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
 import { signs } from '../../../data/signs';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'The 12 Signs', href: '/explore/signs/' },
 ];
+const elements = ['Fire', 'Earth', 'Air', 'Water'] as const;
+const modalities = ['Cardinal', 'Fixed', 'Mutable'] as const;
 ---
 
-<BaseLayout
-  title="The 12 Zodiac Signs. Styles of expression"
-  description="The twelve zodiac signs describe styles of expression, not twelve kinds of people. Learn elements, modalities, rulers, and how signs modify planets and houses in context."
-  path="/explore/signs/"
-  breadcrumbs={crumbs}
->
+<BaseLayout title="The 12 Zodiac Signs. Styles of expression" description="The twelve zodiac signs describe styles of expression, not twelve kinds of people. Learn elements, modalities, rulers, and how signs modify planets and houses in context." path="/explore/signs/" breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Explore Astrology</p>
-      <h1>The 12 signs</h1>
-      <p class="lede">
-        Signs describe style: the manner in which a planet or house expresses itself. They are not
-        twelve personality types. Every birth chart contains all twelve signs, and each one takes on
-        meaning through the planets, houses, rulers, and relationships connected to it.
-      </p>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>The signs answer: how does it express?</h1>
+        <p class="lede">Signs describe style, not twelve kinds of people. Every chart contains all twelve signs. Their meaning becomes useful when you know what planet, house, ruler, or other chart factor is expressing through that style.</p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.signs.src}
-        srcset={scenes.signs.srcset}
-        sizes="100vw"
-        alt={scenes.signs.alt}
-        width={scenes.signs.width}
-        height={scenes.signs.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.signs.src} srcset={scenes.signs.srcset} sizes="100vw" alt={scenes.signs.alt} width={scenes.signs.width} height={scenes.signs.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow" style="margin-bottom: var(--space-8);">
-      <h2>A sign tells you how, not the whole story</h2>
-      <p>
-        Aries can describe a direct, initiating style; Taurus a stabilizing one; Gemini a curious,
-        connective one. But the sign alone does not tell you what is being expressed, where in life
-        it is operating, or what other parts of the chart are modifying it. Venus in Aries and
-        Saturn in Aries share a style without doing the same job.
-      </p>
-      <p>
-        The twelve signs also form a beautifully ordered system: four elements—fire, earth, air,
-        and water—crossed with three modalities—cardinal, fixed, and mutable. Learning that structure
-        is more useful than memorizing twelve disconnected lists of traits.
-      </p>
-    </div>
-    <div class="container grid grid--3">
-      {
-        signs.map((s) => (
-          <article class="card">
-            <span class="glyph" aria-hidden="true">{s.glyph}</span>
-            <h2 style="font-size: var(--text-xl); margin: 0;">
-              <a href={`/explore/signs/${s.slug}/`}>{s.name}</a>
-            </h2>
-            <p class="card__meta">
-              {s.element} · {s.modality} · ruled by {s.ruler}
-            </p>
-            <p style="margin: 0;">{s.keywords.join(' · ')}</p>
-          </article>
-        ))
-      }
+    <div class="container">
+      <ChartGrammar active="sign" />
+      <div class="prose flow">
+        <h2>See the system underneath the twelve names</h2>
+        <p>The zodiac combines four elements with three modalities. That structure is more useful than memorizing twelve disconnected lists of traits. A sign tells you <em>how</em>; the planet tells you <em>what</em> is expressing.</p>
+      </div>
+      <div class="sign-matrix" role="table" aria-label="Signs by element and modality">
+        <div class="sign-matrix__corner" aria-hidden="true"></div>
+        {modalities.map((modality) => <div class="sign-matrix__header" role="columnheader">{modality}</div>)}
+        {elements.map((element) => (
+          <>
+            <div class="sign-matrix__header" role="rowheader">{element}</div>
+            {modalities.map((modality) => {
+              const sign = signs.find((s) => s.element === element && s.modality === modality);
+              return <div class="sign-matrix__cell" role="cell">{sign && <a href={`/explore/signs/${sign.slug}/`}><span aria-hidden="true">{sign.glyph}</span> <strong>{sign.name}</strong><span>{sign.keywords.join(' · ')}</span></a>}</div>;
+            })}
+          </>
+        ))}
+      </div>
+      <p class="prose"><a href="/explore/elements-and-modalities/">Go deeper into how elements and modalities work.</a></p>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Learn the pattern underneath the signs</h2>
-      <p>
-        Start with <a href="/explore/elements-and-modalities/">elements and modalities</a> to see
-        the architecture beneath the zodiac. Then notice which <a href="/explore/planets/">planet</a>
-        is expressing through a sign, which <a href="/explore/houses/">area of life</a> is involved,
-        and what <a href="/explore/aspects/">relationships</a> modify it. A sign becomes much more
-        meaningful when you stop asking "What is this sign like?" and start asking "What is this
-        sign doing here?"
-      </p>
+      <h2>A sign is a modifier</h2>
+      <p>Venus in Aries and Saturn in Aries share a cardinal-fire style without doing the same job. Keep asking what is expressing through the sign, where in life it is operating, and what relationships modify it. That is more revealing than asking what a sign is "like" in isolation.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .sign-matrix { display: grid; grid-template-columns: minmax(4.5rem, .65fr) repeat(3, minmax(8rem, 1fr)); gap: 1px; margin-block: var(--space-8); overflow-x: auto; border: 1px solid var(--border-color, currentColor); }
+  .sign-matrix__header, .sign-matrix__corner, .sign-matrix__cell { padding: var(--space-4); border: 1px solid var(--border-color, currentColor); }
+  .sign-matrix__header { font-weight: 700; }
+  .sign-matrix__cell a { display: flex; min-height: 7rem; flex-direction: column; justify-content: center; gap: var(--space-2); text-decoration: none; }
+  .sign-matrix__cell a > span:last-child { font-size: var(--text-sm); }
+  @media (max-width: 640px) { .sign-matrix { font-size: var(--text-sm); } .sign-matrix__header, .sign-matrix__corner, .sign-matrix__cell { padding: var(--space-3); } }
+</style>

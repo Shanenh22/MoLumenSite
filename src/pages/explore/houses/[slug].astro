@@ -5,12 +5,12 @@ import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
 import ReferencePager from '../../../components/ReferencePager.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
+import HouseWheel from '../../../components/HouseWheel.astro';
 import { bandFor } from '../../../config/images';
 import { houses } from '../../../data/houses';
 
-export function getStaticPaths() {
-  return houses.map((h) => ({ params: { slug: h.slug }, props: { house: h } }));
-}
+export function getStaticPaths() { return houses.map((h) => ({ params: { slug: h.slug }, props: { house: h } })); }
 const { house: h } = Astro.props;
 const i = houses.findIndex((x) => x.slug === h.slug);
 const prev = houses[(i + houses.length - 1) % houses.length];
@@ -30,19 +30,14 @@ const heroImage = bandFor(h.slug);
 const breakImage = bandFor(h.slug, 5);
 ---
 
-<BaseLayout
-  title={`The ${h.name}: meaning in the birth chart`}
-  description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it describes, how different traditions read it, and why planets there still need whole-chart context.`}
-  path={`/explore/houses/${h.slug}/`}
-  breadcrumbs={crumbs}
->
+<BaseLayout title={`The ${h.name}: meaning in the birth chart`} description={`The ${h.name.toLowerCase()} (${h.latin}, ${h.angularity.toLowerCase()}): what it describes, how different traditions read it, and why planets there still need whole-chart context.`} path={`/explore/houses/${h.slug}/`} breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">The 12 Houses</p>
+        <p class="eyebrow">House · Where?</p>
         <h1>{h.name}</h1>
-        <p class="lede">{h.traditionalName}</p>
+        <p class="lede">{h.arena}</p>
       </div>
       <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
@@ -50,33 +45,13 @@ const breakImage = bandFor(h.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <p>
-        A house describes an area of experience, not what will happen there. The planets occupying
-        it, the sign on its cusp, the house ruler, aspects, timing, and the rest of the chart all
-        change the interpretation. Think of the house as the setting; the chart tells us what is
-        happening in that setting and how important it may be for this person.
-      </p>
-      <h2>At a glance</h2>
-      <table class="ref-table">
-        <caption class="visually-hidden">Attributes of the {h.name}</caption>
-        <tbody>
-          <tr><th scope="row">Traditional name</th><td>{h.latin}</td></tr>
-          <tr><th scope="row">Angularity</th><td>{h.angularity}</td></tr>
-          <tr><th scope="row">Modern sign correspondence</th><td>{h.naturalSign}</td></tr>
-          <tr><th scope="row">Modern ruler correspondence</th><td>{h.naturalRuler}</td></tr>
-          <tr><th scope="row">Opposite house</th><td>{opposite ? <a href={`/explore/houses/${opposite.slug}/`}>{h.opposite}</a> : h.opposite}</td></tr>
-          {h.joy && <tr><th scope="row">Planetary joy</th><td>{h.joy}</td></tr>}
-        </tbody>
-      </table>
-      <p class="card__meta">
-        {angularityNote} The sign and ruler correspondences shown here are the common modern
-        “12-letter alphabet” associations. They are not inherent to the house and are not used as
-        equivalent meanings in every astrological tradition.
-      </p>
-      <h2>The arena</h2>
-      <p>{h.arena}</p>
-      <h2>What it can cover</h2>
+      <h2>The house is the setting</h2>
+      <p>A house describes an area of experience, not what will happen there. The planets occupying it, the sign on its cusp, the house ruler, aspects, timing, and the rest of the chart turn the setting into an interpretation.</p>
+      <HouseWheel activeHouse={h.number} />
+      <h2>What this setting can include</h2>
       <ul>{h.covers.map((c) => <li>{c}</li>)}</ul>
+      <p>{h.planetsHere}</p>
+      <ChartGrammar active="house" heading={`Keep the ${h.name} inside the chart grammar`} />
     </div>
   </section>
 
@@ -92,31 +67,36 @@ const breakImage = bandFor(h.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <h2>Planets here</h2>
-      <p>{h.planetsHere}</p>
-      <p>
-        Which sign begins this house, and which planets occupy it, depends on birth time and on the
-        <a href="/explore/house-systems/">house system</a> being used. When birth time is uncertain,
-        house placement may be uncertain too. That is information to name, not something to hide.
-        <a href="/explore/birth-chart-basics/">Here is how the pieces fit together.</a>
-      </p>
+      <h2>Birth time changes the map</h2>
+      <p>Which sign begins this house, and which planets occupy it, depends on birth time and on the <a href="/explore/house-systems/">house system</a> being used. When birth time is uncertain, house placement may be uncertain too. That is information to name, not something to hide.</p>
 
-      <ReferencePager
-        ariaLabel="More houses"
-        prevHref={`/explore/houses/${prev.slug}/`}
-        prevLabel={prev.name}
-        nextHref={`/explore/houses/${next.slug}/`}
-        nextLabel={next.name}
-      />
+      <details class="reference-details">
+        <summary>Technical reference for the {h.name}</summary>
+        <div class="reference-details__body">
+          <table class="ref-table">
+            <caption class="visually-hidden">Attributes of the {h.name}</caption>
+            <tbody>
+              <tr><th scope="row">Traditional name</th><td>{h.latin}</td></tr>
+              <tr><th scope="row">Angularity</th><td>{h.angularity}</td></tr>
+              <tr><th scope="row">Modern sign correspondence</th><td>{h.naturalSign}</td></tr>
+              <tr><th scope="row">Modern ruler correspondence</th><td>{h.naturalRuler}</td></tr>
+              <tr><th scope="row">Opposite house</th><td>{opposite ? <a href={`/explore/houses/${opposite.slug}/`}>{h.opposite}</a> : h.opposite}</td></tr>
+              {h.joy && <tr><th scope="row">Planetary joy</th><td>{h.joy}</td></tr>}
+            </tbody>
+          </table>
+          <p class="card__meta">{angularityNote} The sign and ruler correspondences shown here are common modern “12-letter alphabet” associations. They are not inherent to the house and are not used as equivalent meanings in every astrological tradition.</p>
+        </div>
+      </details>
+
+      <ReferencePager ariaLabel="More houses" prevHref={`/explore/houses/${prev.slug}/`} prevLabel={prev.name} nextHref={`/explore/houses/${next.slug}/`} nextLabel={next.name} />
     </div>
   </section>
 
-  <CTABand
-    heading={`The ${h.name} tells you where to look`}
-    body="Keep the area of life separate from the outcome. Planets, rulers, aspects, timing, and lived experience are what turn a house into an actual interpretation."
-    buttonLabel="Explore the Houses"
-    buttonHref="/explore/houses/"
-    secondaryLabel="Learn about house systems"
-    secondaryHref="/explore/house-systems/"
-  />
+  <CTABand heading={`The ${h.name} tells you where to look`} body="Keep the area of life separate from the outcome. Planet, sign, ruler, aspects, timing, and lived experience tell us what is happening in the setting." buttonLabel="Explore the Houses" buttonHref="/explore/houses/" secondaryLabel="Learn about house systems" secondaryHref="/explore/house-systems/" />
 </BaseLayout>
+
+<style>
+  .reference-details { margin-block: var(--space-8); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+  .reference-details summary { cursor: pointer; padding: var(--space-5); font-weight: 700; }
+  .reference-details__body { padding: 0 var(--space-5) var(--space-5); }
+</style>

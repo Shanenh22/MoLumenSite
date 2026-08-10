@@ -2,86 +2,75 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
+import HouseWheel from '../../../components/HouseWheel.astro';
 import { houses } from '../../../data/houses';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'The 12 Houses', href: '/explore/houses/' },
 ];
+const groups = ['Angular', 'Succedent', 'Cadent'] as const;
 ---
 
-<BaseLayout
-  title="The 12 Houses: areas of experience"
-  description="The twelve houses describe areas of life and experience. Learn what each house covers, why birth time matters, and why a house means more in relation to the planets and signs within it."
-  path="/explore/houses/"
-  breadcrumbs={crumbs}
->
+<BaseLayout title="The 12 Houses: areas of experience" description="The twelve houses describe areas of life and experience. Learn what each house covers, why birth time matters, and why a house means more in relation to the planets and signs within it." path="/explore/houses/" breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Explore Astrology</p>
-      <h1>The 12 houses</h1>
-      <p class="lede">
-        Houses describe areas of experience: where the different parts of a chart are most visibly
-        expressed. They help move astrology from general symbolism into the actual arenas of a life,
-        and their placement depends on birth time and the house system being used.
-      </p>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>The houses answer: where does it happen?</h1>
+        <p class="lede">Houses describe areas of experience. They move astrology from general symbolism into the arenas of a life, and their structure depends on birth time and the house system being used.</p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.houses.src}
-        srcset={scenes.houses.srcset}
-        sizes="100vw"
-        alt={scenes.houses.alt}
-        width={scenes.houses.width}
-        height={scenes.houses.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.houses.src} srcset={scenes.houses.srcset} sizes="100vw" alt={scenes.houses.alt} width={scenes.houses.width} height={scenes.houses.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow" style="margin-bottom: var(--space-8);">
-      <h2>The house is the setting, not the whole story</h2>
-      <p>
-        A house tells us <em>where</em> something is operating, but not by itself what the experience
-        will look like. A planet in the 7th house brings its function into one-to-one relationships;
-        the sign, aspects, ruler, condition, and the rest of the chart tell us far more about how
-        that may be lived. The same house emphasis can show up very differently in two people.
-      </p>
-      <p>
-        This is also one of the clearest places to see why exact birth time matters. The Ascendant
-        anchors the chart's house structure, so uncertainty in the time can change which houses some
-        planets occupy. When the time is uncertain, a careful astrologer should say what is solid and
-        what is not.
-      </p>
-    </div>
-    <div class="container grid grid--3">
-      {
-        houses.map((h) => (
-          <article class="card">
-            <span class="glyph" aria-hidden="true">{h.number}</span>
-            <h2 style="font-size: var(--text-lg); margin: 0;">
-              <a href={`/explore/houses/${h.slug}/`}>{h.name}</a>
-            </h2>
-            <p class="card__meta">{h.traditionalName}</p>
-            <p style="margin: 0;">{h.covers[0]}</p>
-          </article>
-        ))
-      }
+    <div class="container">
+      <ChartGrammar active="house" />
+      <div class="prose flow">
+        <h2>Houses are spatial</h2>
+        <p>A house tells us <em>where</em> a chart function is operating, not by itself what will happen there. The Ascendant anchors the house structure, while the four angles establish the chart's primary axes.</p>
+      </div>
+      <HouseWheel />
+      <div class="prose flow">
+        <p>This is also why birth time matters. If the Ascendant changes, the house structure can change. When the time is uncertain, a careful astrologer should say what is solid and what is not.</p>
+      </div>
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="container prose flow">
-      <h2>How houses fit into the whole chart</h2>
-      <p>
-        House positions are tied to <a href="/explore/angles/">the four angles</a>, and astrologers
-        may use different <a href="/explore/house-systems/">house systems</a>. That can change some
-        house placements without changing the planets' zodiac positions. Rather than treating that
-        as a reason to panic about which system is "right," I think it is more useful to understand
-        what each system is doing and then interpret consistently within it.
-      </p>
+    <div class="container">
+      <div class="prose flow">
+        <h2>Learn the houses by how they relate to the angles</h2>
+        <p>Numerical order is useful, but angularity gives another way to see the system. The groups below are traditional structural categories, not guarantees about what will happen in a house.</p>
+      </div>
+      <div class="house-groups">
+        {groups.map((group) => (
+          <section class="house-group">
+            <h2>{group}</h2>
+            <div class="house-group__grid">
+              {houses.filter((h) => h.angularity === group).map((h) => (
+                <a class="house-link" href={`/explore/houses/${h.slug}/`}>
+                  <span class="house-link__number">{h.number}</span>
+                  <span><strong>{h.name}</strong><small>{h.covers[0]}</small></span>
+                </a>
+              ))}
+            </div>
+          </section>
+        ))}
+      </div>
+      <p class="prose">Go next to <a href="/explore/angles/">the four angles</a> or compare <a href="/explore/house-systems/">house systems</a>.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .house-groups { display: grid; gap: var(--space-8); margin-top: var(--space-8); }
+  .house-group__grid { display: grid; gap: var(--space-3); }
+  .house-link { display: grid; grid-template-columns: auto 1fr; gap: var(--space-4); align-items: center; padding: var(--space-4); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); text-decoration: none; }
+  .house-link__number { display: grid; width: 2.75rem; height: 2.75rem; place-items: center; border: 1px solid currentColor; border-radius: 50%; font-weight: 700; }
+  .house-link strong, .house-link small { display: block; }
+  .house-link small { margin-top: var(--space-1); }
+  @media (min-width: 768px) { .house-group__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+</style>

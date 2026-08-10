@@ -2,6 +2,7 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
 import { planets } from '../../../data/planets';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -19,56 +20,43 @@ const crumbs = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Explore Astrology</p>
-      <h1>The planets</h1>
-      <p class="lede">
-        In astrology, planets describe functions or drives: ways a person thinks, feels, acts,
-        relates, grows, limits, transforms, and makes meaning. Everyone has every planet. What
-        changes is how each one is placed, conditioned, and connected to the rest of the chart.
-      </p>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>The planets answer: what is happening?</h1>
+        <p class="lede">
+          In astrology, planets describe functions or drives: ways a person thinks, feels, acts,
+          relates, grows, limits, transforms, and makes meaning. Everyone has every planet. What
+          changes is how each function is placed, conditioned, and connected to the rest of the chart.
+        </p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.planets.src}
-        srcset={scenes.planets.srcset}
-        sizes="100vw"
-        alt={scenes.planets.alt}
-        width={scenes.planets.width}
-        height={scenes.planets.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.planets.src} srcset={scenes.planets.srcset} sizes="100vw" alt={scenes.planets.alt} width={scenes.planets.width} height={scenes.planets.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow" style="margin-bottom: var(--space-8);">
-      <h2>Start with the function, then add context</h2>
-      <p>
-        A planet is not a personality verdict. It is one part of a much larger system. Mars may
-        describe how someone asserts, pursues, or responds to conflict, but Mars in Taurus is not
-        the same as Mars in Gemini; Mars in the 2nd house is not the same as Mars in the 10th; and
-        either one may be altered substantially by its aspects and condition. This is why isolated
-        placement descriptions are useful beginnings, not finished interpretations.
-      </p>
-      <p>
-        As you read, keep asking three questions: <strong>What function does this planet describe?</strong>
-        <strong>How is it expressing?</strong> And <strong>what else in the chart is it connected to?</strong>
-        That last question is where synthesis begins.
-      </p>
-    </div>
-    <div class="container grid grid--2">
-      {
-        planets.map((p) => (
-          <article class="card">
-            <span class="glyph" aria-hidden="true">{p.glyph}</span>
-            <h2 style="font-size: var(--text-xl); margin: 0;">
-              <a href={`/explore/planets/${p.slug}/`}>{p.name}</a>
-            </h2>
-            <p class="card__meta">Through the zodiac: {p.cycle}</p>
-            <p style="margin: 0;">{p.drive}</p>
-          </article>
-        ))
-      }
+    <div class="container">
+      <ChartGrammar active="planet" />
+
+      <div class="prose flow" style="margin-bottom: var(--space-8);">
+        <h2>Learn the function before the details</h2>
+        <p>
+          A planet is not a personality verdict. It is one part of a much larger system. Mars may
+          describe assertion or pursuit, but the sign tells us how that function expresses, the
+          house tells us where it is operating, and aspects show what other functions participate.
+        </p>
+        <p><strong>Use this page as a function map:</strong> choose the job you want to understand, then add context.</p>
+      </div>
+
+      <div class="function-list">
+        {planets.map((p) => (
+          <a class="function-row" href={`/explore/planets/${p.slug}/`}>
+            <span class="function-row__glyph" aria-hidden="true">{p.glyph}</span>
+            <span>
+              <strong>{p.name}</strong>
+              <span>{p.drive}</span>
+            </span>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
@@ -76,13 +64,51 @@ const crumbs = [
     <div class="container prose flow">
       <h2>Nothing works alone</h2>
       <p>
-        Planets are one vocabulary in the chart. <a href="/explore/signs/">Signs</a> describe style,
-        <a href="/explore/houses/">houses</a> describe areas of experience, and
-        <a href="/explore/aspects/">aspects</a> show relationships among chart factors. Some
+        After you know the planet's function, ask three more questions: <a href="/explore/signs/">how</a>
+        is it expressing, <a href="/explore/houses/">where</a> is it operating, and what
+        <a href="/explore/aspects/">relationships</a> connect it to the rest of the chart? Some
         traditions also use <a href="/explore/dignities/">essential dignities</a> to evaluate a
         planet's condition. The useful question is rarely "What does my Venus mean?" in isolation.
-        It is "What is Venus doing in this chart, and how does it belong to the larger pattern?"
+        It is "What is Venus doing here, and how does it belong to the larger pattern?"
       </p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .function-list {
+    display: grid;
+    gap: var(--space-3);
+  }
+
+  .function-row {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-4);
+    align-items: start;
+    padding: var(--space-5);
+    border: 1px solid var(--border-color, currentColor);
+    border-radius: var(--radius-lg, 1rem);
+    text-decoration: none;
+  }
+
+  .function-row__glyph {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .function-row strong,
+  .function-row span span {
+    display: block;
+  }
+
+  .function-row span span {
+    margin-top: var(--space-2);
+  }
+
+  @media (min-width: 768px) {
+    .function-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+</style>

@@ -5,12 +5,12 @@ import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
 import ReferencePager from '../../../components/ReferencePager.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
+import AspectDiagram from '../../../components/AspectDiagram.astro';
 import { bandFor } from '../../../config/images';
 import { aspects } from '../../../data/aspects';
 
-export function getStaticPaths() {
-  return aspects.map((a) => ({ params: { slug: a.slug }, props: { aspect: a } }));
-}
+export function getStaticPaths() { return aspects.map((a) => ({ params: { slug: a.slug }, props: { aspect: a } })); }
 const { aspect: a } = Astro.props;
 const i = aspects.findIndex((x) => x.slug === a.slug);
 const prev = aspects[(i + aspects.length - 1) % aspects.length];
@@ -24,19 +24,14 @@ const heroImage = bandFor(a.slug);
 const breakImage = bandFor(a.slug, 5);
 ---
 
-<BaseLayout
-  title={`The ${a.name}: aspect meaning, angle, and orb`}
-  description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature} Learn the geometry, traditional and modern perspectives, and why no aspect should be read outside the whole chart.`}
-  path={`/explore/aspects/${a.slug}/`}
-  breadcrumbs={crumbs}
->
+<BaseLayout title={`The ${a.name}: aspect meaning, angle, and orb`} description={`The ${a.name.toLowerCase()} aspect (${a.angle}): ${a.nature} Learn the geometry, traditional and modern perspectives, and why no aspect should be read outside the whole chart.`} path={`/explore/aspects/${a.slug}/`} breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">Aspects</p>
+        <p class="eyebrow">Aspect · Relationship?</p>
         <h1><span aria-hidden="true">{a.glyph}</span> {a.name}</h1>
-        <p class="lede">{a.angle}, {a.nature}</p>
+        <p class="lede">{a.nature}</p>
       </div>
       <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
@@ -44,26 +39,15 @@ const breakImage = bandFor(a.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <p>
-        An aspect describes a relationship between chart factors. It does not tell us the outcome of
-        that relationship by itself. Which planets are involved, how exact the aspect is, what those
-        planets rule, and what else they connect to can change the interpretation substantially.
-      </p>
-      <h2>At a glance</h2>
-      <table class="ref-table">
-        <caption class="visually-hidden">Attributes of the {a.name}</caption>
-        <tbody>
-          <tr><th scope="row">Exact angle</th><td>{a.degrees}°</td></tr>
-          <tr><th scope="row">Typical orb</th><td>{a.typicalOrb}</td></tr>
-          <tr><th scope="row">Sign relationship</th><td>{a.signRelationship}</td></tr>
-          <tr><th scope="row">Nature</th><td>{a.nature}</td></tr>
-        </tbody>
-      </table>
-      <p class="card__meta">
-        Orb is the allowance within which an aspect is considered operative. There is no single
-        universal standard: astrologers vary by technique, school, planet, and context. In general,
-        tighter aspects are given more weight.
-      </p>
+      <div class="aspect-lesson">
+        <AspectDiagram name={a.name} degrees={a.degrees} angleLabel={a.angle} />
+        <div>
+          <h2>Start with the relationship</h2>
+          <p>{a.relationship}</p>
+          <p>An aspect describes the geometry between chart factors. It does not tell us the outcome by itself. First name the functions involved; then ask what changes when they operate in this relationship.</p>
+        </div>
+      </div>
+      <ChartGrammar active="aspect" heading={`Keep the ${a.name.toLowerCase()} inside the chart grammar`} />
     </div>
   </section>
 
@@ -71,8 +55,6 @@ const breakImage = bandFor(a.slug, 5);
 
   <section class="section section--sea">
     <div class="container prose flow">
-      <h2>The relationship</h2>
-      <p>{a.relationship}</p>
       <Layers kind="traditional"><p>{a.traditional}</p></Layers>
       <Layers kind="modern"><p>{a.modern}</p></Layers>
       <Layers kind="mo"><p>{a.mo}</p></Layers>
@@ -87,32 +69,34 @@ const breakImage = bandFor(a.slug, 5);
       <h2>Working with it</h2>
       <p>{a.workingWithIt}</p>
 
-      <div class="callout">
-        <p style="margin: 0;">
-          <strong>Applying or separating?</strong> An aspect is <em>applying</em> when the faster
-          factor is moving toward exactness and <em>separating</em> after exactness has passed.
-          Traditional techniques may give that distinction substantial weight, especially in horary
-          and timing work. In natal interpretation, it is one more piece of context rather than a
-          stand-alone verdict.
-        </p>
-      </div>
+      <details class="reference-details">
+        <summary>Technical reference for the {a.name}</summary>
+        <div class="reference-details__body">
+          <table class="ref-table">
+            <caption class="visually-hidden">Attributes of the {a.name}</caption>
+            <tbody>
+              <tr><th scope="row">Exact angle</th><td>{a.degrees}°</td></tr>
+              <tr><th scope="row">Typical orb</th><td>{a.typicalOrb}</td></tr>
+              <tr><th scope="row">Sign relationship</th><td>{a.signRelationship}</td></tr>
+              <tr><th scope="row">Nature</th><td>{a.nature}</td></tr>
+            </tbody>
+          </table>
+          <p class="card__meta">Orb is the allowance within which an aspect is considered operative. There is no single universal standard: astrologers vary by technique, school, planet, and context. In general, tighter aspects are given more weight.</p>
+          <p><strong>Applying or separating?</strong> An aspect is <em>applying</em> when the faster factor is moving toward exactness and <em>separating</em> after exactness has passed. Traditional techniques may give that distinction substantial weight, especially in horary and timing work. In natal interpretation, it is one more piece of context rather than a stand-alone verdict.</p>
+        </div>
+      </details>
 
-      <ReferencePager
-        ariaLabel="More aspects"
-        prevHref={`/explore/aspects/${prev.slug}/`}
-        prevLabel={prev.name}
-        nextHref={`/explore/aspects/${next.slug}/`}
-        nextLabel={next.name}
-      />
+      <ReferencePager ariaLabel="More aspects" prevHref={`/explore/aspects/${prev.slug}/`} prevLabel={prev.name} nextHref={`/explore/aspects/${next.slug}/`} nextLabel={next.name} />
     </div>
   </section>
 
-  <CTABand
-    heading={`The ${a.name} is one relationship in a larger system`}
-    body="Keep asking which planets are involved, what they rule, how exact the contact is, and what else connects to them before turning the aspect into a story."
-    buttonLabel="Explore the Aspects"
-    buttonHref="/explore/aspects/"
-    secondaryLabel="See how the whole chart fits together"
-    secondaryHref="/explore/birth-chart-basics/"
-  />
+  <CTABand heading={`The ${a.name} is one relationship in a larger system`} body="Name the planets first, then the relationship, then the larger chart. Geometry gives structure; synthesis gives it meaning." buttonLabel="Explore the Aspects" buttonHref="/explore/aspects/" secondaryLabel="Practice combining the pieces" secondaryHref="/tools/explore-your-chart/" />
 </BaseLayout>
+
+<style>
+  .aspect-lesson { display: grid; gap: var(--space-6); align-items: center; margin-bottom: var(--space-8); }
+  .reference-details { margin-block: var(--space-8); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+  .reference-details summary { cursor: pointer; padding: var(--space-5); font-weight: 700; }
+  .reference-details__body { padding: 0 var(--space-5) var(--space-5); }
+  @media (min-width: 768px) { .aspect-lesson { grid-template-columns: minmax(14rem, .75fr) minmax(0, 1.25fr); } }
+</style>
