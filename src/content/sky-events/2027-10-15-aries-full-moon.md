@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A full moon at 22° Aries opposes the Libra Sun while Saturn and Neptune are also moving through Aries and Mercury is retrograde. There is a lot happening in the same part of the zodiac, which makes it especially important not to flatten everything into one forecast.
+A full moon at 22° Aries opposes the Libra Sun while Saturn and Neptune are also moving through Aries and Mercury is retrograde. There is a lot of symbolic material in the same part of the zodiac, which makes restraint more important, not less. Several cycles overlapping does not automatically produce one dramatic event.
 
-Aries and Libra describe an axis between individual direction and relationship, assertion and negotiation, acting from oneself and accounting for another person. Saturn adds questions of consequence and structure; Neptune adds ideals, uncertainty, and permeability. Those layers can sharpen the questions without giving us a predetermined answer.
+Aries and Libra describe a familiar tension between self-direction and relationship, assertion and negotiation, acting from your own center and accounting for another person. Saturn adds consequence and structure. Neptune adds ideals, uncertainty, and permeability. Together they make the question more layered: when does compromise preserve a relationship, and when does it obscure what one person actually needs to say or do?
 
-I would look at what part of the natal chart this axis occupies and whether 22° Aries contacts anything closely before deciding how much weight to give the lunation personally.
+That is still a general lens. The natal houses, exact contacts to 22° Aries or Libra, and the lived relationship in question determine whether this full moon is personally significant.
