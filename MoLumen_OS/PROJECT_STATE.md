@@ -11,6 +11,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 - Current Sky data extends through Dec. 2027; maintain a rolling horizon. There is no 2027 annual overview page.
 - Birth Time guide/toolkit/PDF, sky calendar, Birth Time Confidence, and rising-sign preference are implemented.
 - Newsletter = **a monthly note from Mo**; “The Sky This Month” is one section. Welcome-video UI/schema requires real metadata.
+- Courses, Guides, and Videos are not promoted in navigation while they lack a distinct mature content job. Courses and Guides are noindexed; Videos is noindexed only while it has no published entries. Resources carries the useful learning/tool routes in the meantime.
 - `llms.txt` maps practice identity, free-learning boundaries, readings, Current Sky, and horoscope limits for answer engines.
 - Base schema uses `Article` only for genuine editorial/reference pages; collection/index surfaces use `WebPage` freshness metadata.
 
