@@ -28,9 +28,6 @@ const navIcons: Record<string, string> = {
         {
           primaryNav.map((group) =>
             group.children ? (
-              /* Mark the whole section current on nested pages too — e.g.
-                 /readings/natal/ belongs to Readings and /blog/... belongs to
-                 From Mo even though neither URL is itself a submenu item. */
               <li data-nav-group data-current={groupIsCurrent(group) ? 'true' : undefined}>
                 <button type="button" aria-expanded="false">
                   {group.label}
@@ -41,18 +38,14 @@ const navIcons: Record<string, string> = {
                 <ul class="submenu">
                   {group.children.map((link) => (
                     <li>
-                      <a href={link.href} aria-current={navState(link.href)}>
-                        {link.label}
-                      </a>
+                      <a href={link.href} aria-current={navState(link.href)}>{link.label}</a>
                     </li>
                   ))}
                 </ul>
               </li>
             ) : (
               <li data-current={groupIsCurrent(group) ? 'true' : undefined}>
-                <a href={group.href} aria-current={navState(group.href)}>
-                  {group.label}
-                </a>
+                <a href={group.href} aria-current={navState(group.href)}>{group.label}</a>
               </li>
             )
           )
@@ -60,20 +53,6 @@ const navIcons: Record<string, string> = {
       </ul>
     </nav>
 
-    {/*
-      Visible at every width, including phones.
-
-      This used to be `display: none` below 480px, so on a 390px screen the
-      only route to booking was to open the hamburger — and on the homepage the
-      first Book button in the page body sits at roughly 85% scroll depth. The
-      primary conversion action was effectively hidden on the viewport most
-      visitors arrive on.
-
-      The label shortens rather than the button disappearing. `aria-label`
-      pins the accessible name to the full phrase at all widths, so screen
-      reader and voice-control users always hear and can say "Book a Reading"
-      even when the visible glyphs read "Book".
-    */}
     <a class="btn btn--accent header-cta" href={ctaNav.href} aria-label={ctaNav.label}>
       <span class="header-cta__long">{ctaNav.label}</span>
       <span class="header-cta__short">Book</span>
@@ -149,7 +128,7 @@ const navIcons: Record<string, string> = {
 </header>
 
 <script>
-  // Desktop dropdowns: click to toggle, Escape/outside-click to close.
+  // Desktop dropdowns: one section at a time, Escape/outside-click to close.
   const groups = document.querySelectorAll<HTMLElement>('[data-nav-group]');
   groups.forEach((li) => {
     const btn = li.querySelector('button')!;
@@ -180,12 +159,15 @@ const navIcons: Record<string, string> = {
     }
   });
 
-  // Mobile nav uses <dialog>: native focus trap, Escape handling, backdrop.
+  // Mobile nav uses <dialog>. Keep it accordion-like so opening Current Sky,
+  // Explore, or Readings does not turn a phone menu into several screens of
+  // simultaneous submenus. The current section still opens by default.
   const dialog = document.querySelector<HTMLDialogElement>('.mobile-nav');
   const opener = document.querySelector<HTMLButtonElement>('[data-open-mobile-nav]');
   if (dialog && opener) {
     opener.addEventListener('click', () => {
       dialog.showModal();
+      dialog.scrollTop = 0;
       document.documentElement.style.overflow = 'hidden';
     });
     dialog.addEventListener('close', () => {
@@ -194,12 +176,22 @@ const navIcons: Record<string, string> = {
     });
     dialog.querySelector('[data-close-mobile-nav]')?.addEventListener('click', () => dialog.close());
     dialog.addEventListener('click', (e) => {
-      if (e.target === dialog) dialog.close(); // backdrop click
+      if (e.target === dialog) dialog.close();
     });
     dialog.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dialog.close()));
-    dialog.querySelectorAll<HTMLButtonElement>('.mobile-group').forEach((btn) => {
+
+    const mobileGroups = [...dialog.querySelectorAll<HTMLButtonElement>('.mobile-group')];
+    mobileGroups.forEach((btn) => {
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
+
+        mobileGroups.forEach((other) => {
+          if (other === btn) return;
+          other.setAttribute('aria-expanded', 'false');
+          const otherPanel = document.getElementById(other.getAttribute('aria-controls')!);
+          if (otherPanel) otherPanel.hidden = true;
+        });
+
         btn.setAttribute('aria-expanded', String(!expanded));
         const panel = document.getElementById(btn.getAttribute('aria-controls')!);
         if (panel) panel.hidden = expanded;
