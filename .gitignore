@@ -16,3 +16,6 @@ npm-debug.log*
 
 # Screenshots from scripts/shot.mjs — local review only
 shots/
+
+# Generated audit evidence is ephemeral; durable checks belong in scripts/CI.
+audit-artifacts/
