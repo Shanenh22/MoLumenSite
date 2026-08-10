@@ -16,6 +16,20 @@ replace_once(
     'title={`${site.name}: Articles`}',
 )
 
+# On a 390x844 phone, the calendar CTA was 27px beyond the repository's
+# two-screen UX threshold. Keep every reading and the same behavior; only
+# reduce the oversized 64px top padding before the booking controls on phones.
+replace_once(
+    "src/pages/book.astro",
+    '<section class="section">',
+    '<section class="section booking-section">',
+)
+replace_once(
+    "src/pages/book.astro",
+    '  @media (max-width: 767px) {\n    .booking-mobile-next {',
+    '  @media (max-width: 767px) {\n    .booking-section {\n      padding-top: var(--space-8);\n    }\n\n    .booking-mobile-next {',
+)
+
 Path("MoLumen_OS/templates/video-template.md").write_text(
     '''# Video Item Template
 
@@ -213,4 +227,4 @@ if "check:publishing-contracts" not in core:
     )
 pkg_path.write_text(json.dumps(pkg, indent=2, ensure_ascii=False) + "\n", encoding="utf-8")
 
-print("Applied final RSS/template/CMS/Claude/OS synchronization.")
+print("Applied final RSS/template/CMS/Claude/OS synchronization and mobile booking spacing fix.")
