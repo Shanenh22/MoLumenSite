@@ -1,4 +1,4 @@
-name: Toolkit visual repair check
+name: Finalize verified MoLumen audit
 
 on:
   push:
@@ -8,15 +8,17 @@ on:
       - '.github/workflows/toolkit-visual-check.yml'
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
-  verify-toolkit:
+  finalize:
     runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Node
         uses: actions/setup-node@v4
@@ -32,41 +34,57 @@ jobs:
           sudo apt-get update -qq
           sudo apt-get install -y -qq poppler-utils
 
-      - name: Apply visual audit repairs
+      - name: Apply verified visual audit repairs
         run: python scripts/fix-toolkit-layout.py
 
-      - name: Build and regenerate toolkit
+      - name: Build and verify release candidate
         run: |
           npm run build
           npm run toolkit:pdf
           npm run verify:core
           npm run verify:interactive
 
-      - name: Run strict site audits
+      - name: Run strict release audits
         shell: bash
         run: |
           set -o pipefail
-          mkdir -p /tmp/toolkit-visual/pdf-pages
-          npm run audit | tee /tmp/toolkit-visual/site-audit.txt
-          npm run audit:a11y | tee /tmp/toolkit-visual/accessibility.txt
-          npm run check:contrast | tee /tmp/toolkit-visual/contrast.txt
-          npm run check:hero-contrast | tee /tmp/toolkit-visual/hero-contrast.txt
-
-      - name: Verify RSS and render PDF pages
-        run: |
+          mkdir -p /tmp/molumen-release/pdf-pages
+          npm run audit | tee /tmp/molumen-release/site-audit.txt
+          npm run audit:a11y | tee /tmp/molumen-release/accessibility.txt
+          npm run check:contrast | tee /tmp/molumen-release/contrast.txt
+          npm run check:hero-contrast | tee /tmp/molumen-release/hero-contrast.txt
           grep -q '<title>Mo Lumen Astrology, Articles</title>' dist/rss.xml
           grep -q 'title="Mo Lumen Astrology: Articles"' dist/index.html
           if grep -q '/current-sky/' dist/rss.xml; then
             echo 'Article-only RSS still contains a Current Sky URL.'
             exit 1
           fi
-          cp public/downloads/birth-time-toolkit.pdf /tmp/toolkit-visual/
-          pdftoppm -png -r 120 public/downloads/birth-time-toolkit.pdf /tmp/toolkit-visual/pdf-pages/page
+          cp public/downloads/birth-time-toolkit.pdf /tmp/molumen-release/
+          pdftoppm -png -r 120 public/downloads/birth-time-toolkit.pdf /tmp/molumen-release/pdf-pages/page
 
-      - name: Upload visual artifact
+      - name: Upload final release evidence
         uses: actions/upload-artifact@v4
         with:
-          name: molumen-strict-final-audit
-          path: /tmp/toolkit-visual
+          name: molumen-release-candidate
+          path: /tmp/molumen-release
           if-no-files-found: error
           retention-days: 7
+
+      - name: Remove temporary audit machinery and commit
+        shell: bash
+        run: |
+          git rm -r --ignore-unmatch audit-artifacts
+          git rm .github/workflows/toolkit-visual-check.yml scripts/fix-toolkit-layout.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          changed=$(git diff --cached --name-only)
+          echo "$changed"
+          if echo "$changed" | grep -E '^(audit-artifacts/|scripts/fix-toolkit-layout.py$|\.github/workflows/toolkit-visual-check.yml$)'; then
+            echo 'Temporary audit paths remain in the release tree.'
+            exit 1
+          fi
+
+          git commit -m "Complete final site audit and toolkit repair"
+          git push
