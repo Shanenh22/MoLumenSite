@@ -14,8 +14,9 @@ export interface NavGroup {
 }
 
 /**
- * Four top-level concepts: what you can book, what you can learn, what's
- * happening overhead, and who Mo is.
+ * Four top-level content concepts: what you can book, what you can learn,
+ * what's happening overhead, and who Mo is. Search is a utility beside those
+ * concepts rather than another content section.
  *
  * Current Sky remains top-level because it is both a recurring-content engine
  * and a search entry point. Giving it children does not bury it; it makes the
@@ -77,6 +78,7 @@ export const primaryNav: NavGroup[] = [
       { label: "Contact Mo", href: "/contact/" },
     ],
   },
+  { label: "Search", href: "/search/" },
 ];
 
 export const ctaNav: NavLink = { label: "Book a Reading", href: "/book/" };
@@ -104,6 +106,7 @@ export const footerNav: Record<string, NavLink[]> = {
     { label: "Newsletter", href: "/newsletter/" },
   ],
   Site: [
+    { label: "Search", href: "/search/" },
     { label: "About Mo", href: "/about/" },
     { label: "Testimonials", href: "/testimonials/" },
     { label: "Resources", href: "/resources/" },

@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+const crumbs = [{ label: 'Search', href: '/search/' }];
+---
+
+<BaseLayout
+  title="Search"
+  description="Search Mo Lumen Astrology for learning pages, Current Sky notes, articles, readings, resources, and practical policies."
+  path="/search/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+  <section class="hero">
+    <div class="container prose flow" style="max-width: 48rem;">
+      <p class="eyebrow">Find something specific</p>
+      <h1>Search Mo Lumen Astrology</h1>
+      <p class="lede">
+        Search is for the moment when you already have a word, technique, question, or page in mind.
+        If you are exploring rather than retrieving something specific, <a href="/explore/">Explore Astrology</a>
+        and <a href="/resources/">Resources</a> will give you a more guided path.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width: 54rem;">
+      <form class="site-search" role="search" data-search-form>
+        <label for="site-search-input">What are you looking for?</label>
+        <div class="site-search__controls">
+          <input id="site-search-input" name="q" type="search" autocomplete="off" spellcheck="true" placeholder="Try “Saturn return” or “birth time”" data-search-input />
+          <button class="btn btn--primary" type="submit">Search</button>
+        </div>
+      </form>
+      <p class="card__meta" style="margin-top: var(--space-3);">
+        Your search words stay in your browser and are not sent to analytics.
+      </p>
+      <p class="search-status" aria-live="polite" data-search-status></p>
+      <div class="search-results" data-search-results></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { searchRecords } from '../lib/site-search.mjs';
+
+  const form = document.querySelector<HTMLFormElement>('[data-search-form]');
+  const input = document.querySelector<HTMLInputElement>('[data-search-input]');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let records: Array<Record<string, string>> = [];
+
+  const esc = (value: unknown) => String(value).replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char] ?? char);
+
+  function render(query: string) {
+    if (!input || !status || !results) return;
+    if (!query.trim()) {
+      status.textContent = '';
+      results.innerHTML = '';
+      return;
+    }
+    const matches = searchRecords(records, query, 12);
+    status.textContent = matches.length ? `${matches.length} result${matches.length === 1 ? '' : 's'} for “${query}”` : `No results for “${query}”`;
+    if (!matches.length) {
+      results.innerHTML = `<div class="callout"><p><strong>Try a more specific astrology term or a shorter phrase.</strong></p><p>You can also browse <a href="/explore/">Explore Astrology</a>, <a href="/current-sky/">Current Sky</a>, or <a href="/readings/">Readings</a>.</p></div>`;
+      return;
+    }
+    results.innerHTML = matches.map((item: Record<string, string>) => `
+      <article class="card search-result">
+        <p class="card__meta">${esc(item.group)}${item.date ? ` · ${esc(item.date)}` : ''}</p>
+        <h2><a href="${esc(item.path)}">${esc(item.title)}</a></h2>
+        <p>${esc(item.description || 'Open this page to read more.')}</p>
+      </article>
+    `).join('');
+  }
+
+  async function init() {
+    if (!input || !status) return;
+    try {
+      const response = await fetch('/search-index.json', { credentials: 'same-origin' });
+      if (!response.ok) throw new Error('Search index unavailable');
+      records = await response.json();
+      const query = new URLSearchParams(location.search).get('q') || '';
+      input.value = query;
+      if (query) render(query);
+    } catch {
+      status.textContent = 'Search is temporarily unavailable. Please use the site navigation instead.';
+    }
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    if (!input) return;
+    const query = input.value.trim();
+    const url = new URL(location.href);
+    if (query) url.searchParams.set('q', query); else url.searchParams.delete('q');
+    history.replaceState({}, '', url);
+    render(query);
+    if (query) (window as any).mlTrack?.('site_search_used', { source: 'search-page' });
+  });
+
+  init();
+</script>
+
+<style>
+  .site-search label {
+    display: block;
+    margin-bottom: var(--space-2);
+    font-weight: 700;
+  }
+  .site-search__controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--space-3);
+  }
+  .site-search input {
+    width: 100%;
+    min-height: 52px;
+    padding: 0 var(--space-4);
+    border: var(--border-hairline);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--ink);
+    font: inherit;
+  }
+  .site-search input:focus-visible {
+    outline: 3px solid var(--color-gold);
+    outline-offset: 2px;
+  }
+  .search-status {
+    min-height: 1.5em;
+    margin: var(--space-6) 0 var(--space-4);
+    font-weight: 700;
+  }
+  .search-results {
+    display: grid;
+    gap: var(--space-4);
+  }
+  .search-result h2 {
+    margin: 0;
+    font-size: var(--text-xl);
+  }
+  .search-result p:last-child {
+    margin-bottom: 0;
+  }
+  @media (max-width: 620px) {
+    .site-search__controls {
+      grid-template-columns: 1fr;
+    }
+    .site-search__controls .btn {
+      width: 100%;
+    }
+  }
+</style>
