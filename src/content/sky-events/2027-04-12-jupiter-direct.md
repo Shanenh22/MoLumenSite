@@ -12,8 +12,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Jupiter stations direct at 17° Leo after a retrograde phase that began the previous year. It remains in Leo until late July.
+Jupiter stations direct at 17° Leo after a retrograde phase that began the previous year. It remains in Leo until late July, so this station belongs to the closing stretch of a much longer passage through the sign rather than standing alone as a one-day event.
 
-Jupiter is associated with growth, meaning, confidence, belief, opportunity, generosity, and excess. Leo brings visibility, creativity, authorship, and the desire to express something distinctly one's own. A direct station can mark a turn in that longer cycle, but it does not mean growth suddenly resumes on schedule.
+Jupiter is associated with growth, meaning, confidence, belief, generosity, opportunity, judgment, and the tendency to enlarge whatever it touches. Leo brings authorship, creative expression, visibility, pride, play, and the wish to offer something distinctly one's own. Those symbols can sound wonderfully expansive together, but expansion is not automatically improvement. More confidence can help. So can knowing when confidence has outrun proportion.
 
-I would watch what has been developing around participation, confidence, creative risk, and visibility rather than assume the station itself delivers an event. Natal contacts and house placement are what make the symbolism personal.
+That is where I find the station useful. What has the past several months shown about the difference between taking up enough space and needing to fill all of it? Where has creative risk opened something, and where has enthusiasm asked for more discernment?
+
+Jupiter turning direct does not deliver opportunity on schedule. If 17° Leo is strongly connected to the natal chart, the station may mark a meaningful point in an ongoing personal cycle. Otherwise, it is a collective timing marker whose significance is better understood by watching what develops around it than by assigning an outcome in advance.
