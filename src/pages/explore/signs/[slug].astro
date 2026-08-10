@@ -5,12 +5,11 @@ import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
 import ReferencePager from '../../../components/ReferencePager.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
 import { bandFor } from '../../../config/images';
 import { signs } from '../../../data/signs';
 
-export function getStaticPaths() {
-  return signs.map((s) => ({ params: { slug: s.slug }, props: { sign: s } }));
-}
+export function getStaticPaths() { return signs.map((s) => ({ params: { slug: s.slug }, props: { sign: s } })); }
 const { sign: s } = Astro.props;
 const i = signs.findIndex((x) => x.slug === s.slug);
 const prev = signs[(i + signs.length - 1) % signs.length];
@@ -25,19 +24,14 @@ const heroImage = bandFor(s.slug);
 const breakImage = bandFor(s.slug, 5);
 ---
 
-<BaseLayout
-  title={`${s.name}: meaning, dignities, and how to read it`}
-  description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Learn the sign as a style of expression and how its meaning changes by planet, house, and chart context.`}
-  path={`/explore/signs/${s.slug}/`}
-  breadcrumbs={crumbs}
->
+<BaseLayout title={`${s.name}: meaning, dignities, and how to read it`} description={`${s.name} in astrology: ${s.element}, ${s.modality}, ruled by ${s.ruler}. Learn the sign as a style of expression and how its meaning changes by planet, house, and chart context.`} path={`/explore/signs/${s.slug}/`} breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">The 12 Signs</p>
+        <p class="eyebrow">Sign · How?</p>
         <h1><span aria-hidden="true">{s.glyph}</span> {s.name}</h1>
-        <p class="lede">{s.keywords.join(' · ')}</p>
+        <p class="lede">{s.style}</p>
       </div>
       <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
@@ -45,31 +39,15 @@ const breakImage = bandFor(s.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <p>
-        A sign describes a style, not a complete person. {s.name} changes meaning depending on which
-        planet is expressing through it, which house it occupies, what rules that house, and what
-        relationships connect it to the rest of the chart. Use the page as a vocabulary guide, not a personality test.
-      </p>
-      <h2>At a glance</h2>
-      <table class="ref-table">
-        <caption class="visually-hidden">Structural attributes of {s.name}</caption>
-        <tbody>
-          <tr><th scope="row">Element</th><td>{s.element}</td></tr>
-          <tr><th scope="row">Modality</th><td>{s.modality}</td></tr>
-          <tr><th scope="row">Polarity</th><td>{s.polarity}</td></tr>
-          <tr><th scope="row">Ruler</th><td>{s.ruler}{s.modernRuler ? ` (traditional) · ${s.modernRuler} (modern)` : ''}</td></tr>
-          {s.exaltation && <tr><th scope="row">Exaltation</th><td>{s.exaltation}</td></tr>}
-          <tr><th scope="row">Detriment</th><td>{s.detriment}</td></tr>
-          {s.fall && <tr><th scope="row">Fall</th><td>{s.fall}</td></tr>}
-          <tr><th scope="row">Opposite sign</th><td>{opposite ? <a href={`/explore/signs/${opposite.slug}/`}>{s.opposite}</a> : s.opposite}</td></tr>
-          <tr><th scope="row">Sun season</th><td>{s.dates}</td></tr>
-          <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{s.glyph}</span>, {s.glyphMeaning}</td></tr>
-        </tbody>
-      </table>
-      <p class="card__meta">
-        Dignities follow the Ptolemaic tables used in traditional astrology. See
-        <a href="/explore/dignities/">essential dignities explained</a>.
-      </p>
+      <h2>{s.name} is a style, not a whole person</h2>
+      <p>A sign modifies whatever is expressing through it. The same {s.name} style can belong to the Sun, Moon, Mercury, Venus, Mars, a house cusp, or another chart factor without doing the same job.</p>
+      <div class="modifier-demo">
+        <div><strong>{s.name} + Mercury</strong><span>A thinking and communication function using this style.</span></div>
+        <div><strong>{s.name} + Venus</strong><span>A relating and valuing function using this style.</span></div>
+        <div><strong>{s.name} on a house cusp</strong><span>An area of experience approached through this style.</span></div>
+      </div>
+      <p>These are teaching examples, not personal interpretations. House, aspects, rulerships, condition, and the rest of the chart still matter.</p>
+      <ChartGrammar active="sign" heading={`Keep ${s.name} inside the chart grammar`} />
     </div>
   </section>
 
@@ -77,8 +55,7 @@ const breakImage = bandFor(s.slug, 5);
 
   <section class="section section--sea">
     <div class="container prose flow">
-      <h2>The style</h2>
-      <p>{s.style}</p>
+      <h2>The style in context</h2>
       <p>{s.season}</p>
       <Layers kind="traditional"><p>{s.traditional}</p></Layers>
       <Layers kind="modern"><p>{s.modern}</p></Layers>
@@ -90,40 +67,46 @@ const breakImage = bandFor(s.slug, 5);
 
   <section class="section">
     <div class="container prose flow">
-      <h2>Possible strengths</h2>
+      <h2>Possible range of expression</h2>
       <p>{s.strengths}</p>
-      <h2>Possible tension or growth edge</h2>
       <p>{s.watchFor}</p>
-      <h2>In relationship</h2>
-      <p>{s.inRelationship}</p>
-      <h2>At work</h2>
-      <p>{s.atWork}</p>
 
-      <div class="callout">
-        <p style="margin: 0;">
-          <strong>Keep the sign in context.</strong> Saying you "are {s.name}" usually means the Sun
-          was in {s.name} when you were born. Your Moon, rising sign, and every planet have signs of
-          their own, and each placement is modified by house, aspect, rulership, and the rest of the
-          chart. See <a href="/explore/the-big-three/">the Big Three</a>.
-        </p>
-      </div>
+      <details class="reference-details">
+        <summary>Technical reference for {s.name}</summary>
+        <div class="reference-details__body">
+          <table class="ref-table">
+            <caption class="visually-hidden">Structural attributes of {s.name}</caption>
+            <tbody>
+              <tr><th scope="row">Element</th><td>{s.element}</td></tr>
+              <tr><th scope="row">Modality</th><td>{s.modality}</td></tr>
+              <tr><th scope="row">Polarity</th><td>{s.polarity}</td></tr>
+              <tr><th scope="row">Ruler</th><td>{s.ruler}{s.modernRuler ? ` (traditional) · ${s.modernRuler} (modern)` : ''}</td></tr>
+              {s.exaltation && <tr><th scope="row">Exaltation</th><td>{s.exaltation}</td></tr>}
+              <tr><th scope="row">Detriment</th><td>{s.detriment}</td></tr>
+              {s.fall && <tr><th scope="row">Fall</th><td>{s.fall}</td></tr>}
+              <tr><th scope="row">Opposite sign</th><td>{opposite ? <a href={`/explore/signs/${opposite.slug}/`}>{s.opposite}</a> : s.opposite}</td></tr>
+              <tr><th scope="row">Sun season</th><td>{s.dates}</td></tr>
+              <tr><th scope="row">Glyph</th><td><span class="glyph-cell" aria-hidden="true">{s.glyph}</span>, {s.glyphMeaning}</td></tr>
+            </tbody>
+          </table>
+          <p class="card__meta">Dignities follow the Ptolemaic tables used in traditional astrology. See <a href="/explore/dignities/">essential dignities explained</a>.</p>
+        </div>
+      </details>
 
-      <ReferencePager
-        ariaLabel="More signs"
-        prevHref={`/explore/signs/${prev.slug}/`}
-        prevLabel={prev.name}
-        nextHref={`/explore/signs/${next.slug}/`}
-        nextLabel={next.name}
-      />
+      <ReferencePager ariaLabel="More signs" prevHref={`/explore/signs/${prev.slug}/`} prevLabel={prev.name} nextHref={`/explore/signs/${next.slug}/`} nextLabel={next.name} />
     </div>
   </section>
 
-  <CTABand
-    heading={`${s.name} is a style, not a whole person`}
-    body="Keep going until you can see what is expressing through the sign, where it is operating, and how it relates to the rest of the chart."
-    buttonLabel="Explore the Signs"
-    buttonHref="/explore/signs/"
-    secondaryLabel="See how the Big Three work together"
-    secondaryHref="/explore/the-big-three/"
-  />
+  <CTABand heading={`${s.name} is a style, not a whole person`} body="Ask what is expressing through the sign, where it is operating, and what relationships modify it before turning the sign into a story." buttonLabel="Explore the Signs" buttonHref="/explore/signs/" secondaryLabel="See how the Big Three work together" secondaryHref="/explore/the-big-three/" />
 </BaseLayout>
+
+<style>
+  .modifier-demo { display: grid; gap: var(--space-3); margin-block: var(--space-6); }
+  .modifier-demo > div { padding: var(--space-4); border-left: 3px solid currentColor; }
+  .modifier-demo strong, .modifier-demo span { display: block; }
+  .modifier-demo span { margin-top: var(--space-2); }
+  .reference-details { margin-block: var(--space-8); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+  .reference-details summary { cursor: pointer; padding: var(--space-5); font-weight: 700; }
+  .reference-details__body { padding: 0 var(--space-5) var(--space-5); }
+  @media (min-width: 768px) { .modifier-demo { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+</style>
