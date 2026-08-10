@@ -12,8 +12,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Uranus stations direct at 1° Gemini, ending the retrograde phase that began the previous year and resuming forward apparent motion through a sign it entered only recently.
+Uranus stations direct at 1° Gemini, ending the retrograde phase that began the previous year. Astronomically, a station marks the point at which the planet's apparent motion changes direction from our perspective on Earth. With a planet as slow-moving as Uranus, I think the date is best understood as a marker inside a much longer story rather than a switch that flips overnight.
 
-Because Uranus moves slowly, I think of this less as a single-day event and more as part of a much longer change in context. Gemini is associated with language, information, learning, exchange, movement, and networks. Uranus brings symbolism around disruption, invention, independence, and departures from established patterns. Together they give us a long conversation to watch rather than a prediction to announce.
+Gemini has to do with language, information, learning, exchange, movement, and the connections through which ideas travel. Uranus carries astrological associations with invention, independence, disruption, surprise, and departures from familiar patterns. Put those together and there is plenty to be curious about, especially in a period when the ways people communicate and exchange information are already changing rapidly.
 
-A station can matter more personally when it falls close to a natal planet or angle. Otherwise, it may be most useful as a marker inside a collective cycle whose meaning becomes clearer over time.
+But astrology becomes less useful when every collective symbol is turned into a prediction. A Uranus station may pass almost unnoticed in an individual life. It tends to become more personally interesting when 1° Gemini is closely connected to a natal planet or angle, or when Uranus is already moving through an important part of the chart.
+
+For the shared sky, this is a moment to mark and keep watching. Slow planets reveal their stories over time.
