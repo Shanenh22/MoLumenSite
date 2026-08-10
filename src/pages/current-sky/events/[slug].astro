@@ -21,6 +21,13 @@ const slug = event.id.replace(/\.mdx?$/, '');
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
+const allEvents = (await getCollection('skyEvents'))
+  .filter((item) => !item.data.draft)
+  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
+const currentIndex = allEvents.findIndex((item) => item.id === event.id);
+const nextEvent = currentIndex >= 0 ? allEvents[currentIndex + 1] : undefined;
+const nextSlug = nextEvent?.id.replace(/\.mdx?$/, '');
+
 const monthYear = e.start.toLocaleDateString('en-US', {
   month: 'long',
   year: 'numeric',
@@ -34,11 +41,7 @@ const crumbs = [
 
 const HERO_BY_TYPE: Record<string, SiteImage[]> = {
   eclipse: [celestial.distanceUnderEclipse, ocean.lightBreakingStorm],
-  lunation: [
-    celestial.moonPhasesInWater,
-    ocean.seaStackMoonrise,
-    ocean.ripplesSunset,
-  ],
+  lunation: [celestial.moonPhasesInWater, ocean.seaStackMoonrise, ocean.ripplesSunset],
   retrograde: [celestial.emptyChair, celestial.platform, ocean.currents],
 };
 function heroFor(): SiteImage {
@@ -133,10 +136,39 @@ const schema = [
 
     <RisingSignGuidance eventType={e.eventType} title={e.title} sign={e.sign} />
   </article>
+
+  <section class="section section--alt">
+    <div class="container prose flow">
+      <p class="eyebrow">Keep following the sky</p>
+      {nextEvent && nextSlug ? (
+        <>
+          <h2>Next: {nextEvent.data.title}</h2>
+          <p>
+            {fmt(nextEvent.data.start)}. Continue with the next pattern as it develops rather than
+            treating any one event as the whole story.
+          </p>
+          <p><a href={`/current-sky/events/${nextSlug}/`}>Read the next sky note →</a></p>
+        </>
+      ) : (
+        <>
+          <h2>Keep the larger cycle in view</h2>
+          <p>The calendar gathers the dates so you can see what comes before and after this event.</p>
+        </>
+      )}
+      <p>
+        <a href="/current-sky/calendar/">See the Sky Calendar</a> ·
+        <a href="/current-sky/">Return to Current Sky</a> ·
+        <a href="/newsletter/">Get Mo's monthly note</a>
+      </p>
+    </div>
+  </section>
+
   <CTABand
     heading="What does this touch in your chart?"
-    body="The shared sky gives us a pattern to watch. A personal reading adds your houses, natal contacts, timing, and the life you are actually living."
+    body="If this shared pattern has raised a real personal question, the Reading Finder can help you decide whether a reading fits and which kind would be useful."
     buttonLabel="Find Your Reading"
     buttonHref="/reading-finder/"
+    secondaryLabel="Keep following the shared sky"
+    secondaryHref="/current-sky/calendar/"
   />
 </BaseLayout>
