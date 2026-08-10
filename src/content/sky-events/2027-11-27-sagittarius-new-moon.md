@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A new moon forms at 6° Sagittarius, opening the final full lunar cycle of the year. Near year's end it is easy to turn any new moon into a resolution prompt, but Sagittarius deserves more room than that.
+A new moon forms at 6° Sagittarius, opening the final full lunar cycle of 2027. Near the end of a calendar year, it is easy to turn a Sagittarius new moon into a speech about resolutions, optimism, or taking a leap. I would rather stay with the sign's deeper appetite for perspective.
 
-The sign is associated with meaning, belief, travel, study, teaching, perspective, and the desire for a wider horizon. A new moon here can invite curiosity about direction: not a command to make a grand plan, but an opportunity to notice which questions seem large enough to keep following.
+Sagittarius brings meaning, belief, study, travel, teaching, and the desire to understand how one experience fits into a larger world. Its strength is not certainty for certainty's sake. It is the willingness to keep following a question far enough that your view has to widen.
 
-Practicality and vision are not opposites. The natal house and close contacts show where this symbolic opening may have more personal relevance and what other chart factors are participating.
+What is worth learning because it may change how you understand the problem, not merely confirm what you already think? That is the kind of question this lunation can hold. The natal house and close contacts show where it becomes personal.
