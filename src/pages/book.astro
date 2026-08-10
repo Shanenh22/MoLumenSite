@@ -157,6 +157,9 @@ const groups = [
               ))
             }
           </div>
+          <p class="booking-mobile-next">
+            <a class="btn btn--primary" href="#pick-a-time">Choose a time ↓</a>
+          </p>
         </div>
 
         <div class="flow">
@@ -231,7 +234,20 @@ const groups = [
 </script>
 
 <style is:global>
+  .booking-mobile-next {
+    display: none;
+  }
+
   @media (max-width: 767px) {
+    .booking-mobile-next {
+      display: block;
+      margin-top: var(--space-5);
+    }
+
+    .booking-mobile-next .btn {
+      width: 100%;
+    }
+
     fieldset.booking-group--returning {
       margin-top: var(--space-2);
       padding: var(--space-5);
