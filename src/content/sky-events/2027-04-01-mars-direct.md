@@ -12,8 +12,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Mars stations direct in Leo, ending the retrograde phase that began in Virgo in January. The planet will still spend time retracing degrees it has already crossed before reaching entirely new ground.
+Mars stations direct in Leo, ending the retrograde phase that began in Virgo in January. From Earth, the planet appears almost motionless at the station before resuming forward movement. It will still retrace degrees it has already crossed, so this is a turn in the cycle rather than an instant arrival on completely new ground.
 
-Astrologically, Mars brings action, effort, assertion, conflict, desire, and courage into focus. Leo adds visibility, authorship, creativity, and pride. I would treat the station as a change in the rhythm of the cycle rather than a promise that stalled plans suddenly move.
+Mars is associated with action, desire, assertion, anger, courage, competition, and the way force gets directed. Leo brings authorship, creative expression, visibility, pride, and the willingness to put something of oneself into the world. After months of retracing Virgo and Leo, the direct station raises a useful question: what has become clearer about the difference between effort that is genuinely yours and effort spent proving that it is?
 
-What matters personally is whether this station contacts something important in the natal chart and what has actually been developing through the retrograde period. A station marks a turn. It does not dictate the story.
+I would not treat April 1 as the day everything starts moving again. Astrology is more interesting when the symbol is allowed to be a marker rather than turned into a promise. A project can have moved all winter; another can remain unresolved after the station.
+
+Personal relevance depends on what Mars has been crossing in the natal chart and what actually happened during the retrograde. The station marks a change in direction. The lived story tells us what changed with it.
