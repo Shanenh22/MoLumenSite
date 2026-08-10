@@ -7,8 +7,8 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
 ---
 
 <BaseLayout
-  title="Downloadable Guides"
-  description="Practical astrology guides from Mo Lumen, starting with the Birth Time Toolkit: where your birth time is recorded, how to find it, and what a reading can tell you without it."
+  title="Guides"
+  description="Practical astrology guides from Mo Lumen, beginning with the Birth Time Toolkit: where to look, what to ask, and what an uncertain birth time changes."
   path="/guides/"
   breadcrumbs={crumbs}
 >
@@ -16,11 +16,11 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Free to read</p>
+      <p class="eyebrow">Free to use</p>
       <h1>Guides</h1>
       <p class="lede">
-        Short, practical, beautifully-made references. Written to be used, not just downloaded.
-        The first is in progress now.
+        Longer than a glossary entry, more practical than an essay. Each guide is built around a
+        task you may actually need to work through.
       </p>
       </div>
       <img
@@ -35,40 +35,29 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
       />
     </div>
   </section>
+
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">
-      {/*
-        This page used to be entirely forward-looking: "Reading the Road Ahead"
-        as the headline guide, with "a birth-time hunting checklist" listed
-        under things being considered. The checklist is the one that got
-        written, so it leads now and the page stops being a promise.
-
-        "Reading the Road Ahead" is still named because it is still intended —
-        but as an intention, without a release date attached, since inventing
-        one is how a coming-soon page becomes a broken promise.
-      */}
       <div class="prose flow">
         <h2>Available now</h2>
         <p>
-          <strong><a href="/birth-time-toolkit/">The Birth Time Toolkit</a></strong>: where your
-          birth time is actually recorded, how to go and get it, better questions to ask the people
-          who might remember, and what a reading can still tell you if it turns out to be genuinely
-          lost. Free to read in full on the site; join the newsletter and I'll send the PDF.
-        </p>
-        <h2>Being written</h2>
-        <p>
-          <strong>Reading the Road Ahead</strong>: how an astrology reading helps you recognize
-          opportunities before they arrive: seasons, windows, and the practical art of noticing
-          doors while they're still opening. No date on it yet; subscribers hear first.
+          <strong><a href="/birth-time-toolkit/">The Birth Time Toolkit</a></strong> walks through
+          where a birth time may be recorded, better questions to ask family, how to think about
+          confidence in the time you find, and what changes when the exact time remains unknown.
+          It is free to read on the site.
         </p>
         <p>
-          Others under consideration: a lunation-cycle workbook, and a plain-language preparation
-          guide for first readings.
+          If you are just beginning to learn astrology rather than solving a specific problem,
+          <a href="/start-here/">Start Here</a> is the more useful path. If you already know the
+          concept you want, use <a href="/explore/">Explore Astrology</a> as the reference library.
         </p>
       </div>
       <div class="card flow">
-        <h2 id="guide-interest" style="font-size: var(--text-xl); margin: 0;">Get them first</h2>
-        <p style="margin: 0;">Guides are delivered through the newsletter as they're released.</p>
+        <h2 id="guide-interest" style="font-size: var(--text-xl); margin: 0;">Future guides</h2>
+        <p style="margin: 0;">
+          When I publish another guide, I will mention it in the monthly letter. I do not want to
+          promise topics or dates before the material is ready.
+        </p>
         <NewsletterForm source="guides-interest" labelledby="guide-interest" />
       </div>
     </div>
