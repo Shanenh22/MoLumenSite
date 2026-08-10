@@ -4,16 +4,46 @@ import SeaBreak from '../components/SeaBreak.astro';
 import { celestial, photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
+
 const crumbs = [{ label: 'Approach', href: '/approach/' }];
+
+const principles = [
+  {
+    title: 'The whole chart matters more than one label',
+    idea: 'Planets, signs, houses, aspects, condition, and timing change one another. A single placement can be useful, but it is never the finished story.',
+    practice: 'If one placement looks important, I keep looking: What supports it? What complicates it? Is another pattern louder? Then I bring that larger picture into the conversation.',
+  },
+  {
+    title: 'Your experience is part of the interpretation',
+    idea: 'The same configuration can be lived in more than one way. Technique gives me possibilities; your life helps us understand which possibilities are actually relevant.',
+    practice: 'If something I see does not match your experience, I do not treat that as resistance or a failed reading. I get curious about the mismatch and look again.',
+  },
+  {
+    title: 'Intuition points; it does not pronounce',
+    idea: 'Intuition can draw my attention toward a possibility or a question worth asking. I do not treat an impression as unquestionable fact.',
+    practice: 'I may say, “This is making me wonder about…” and then check the chart, the technique, and what you tell me before deciding how much weight it deserves.',
+  },
+  {
+    title: 'Timing creates perspective, not orders',
+    idea: 'Astrology can describe conditions, seasons, pressure points, openings, and recurring themes. It cannot make the decision for you.',
+    practice: 'We can talk about what appears active and what choices may deserve more attention. I will not tell you that a transit requires you to quit, marry, move, stay, or leave.',
+  },
+  {
+    title: 'Candor and compassion belong together',
+    idea: 'I will not make difficult symbolism disappear, and I will not turn it into punishment or doom.',
+    practice: 'I will name what looks challenging, explain why I am saying it, and keep the focus on understanding the pattern and the choices around it rather than frightening you with certainty.',
+  },
+] as const;
 ---
 
 <BaseLayout
   title="My Approach: how I read a chart"
-  description="How Mo Lumen practices astrology: technically grounded, synthesis-oriented, conversational, and centered on the client's lived experience and choices."
+  description="How Mo Lumen practices astrology in an actual reading: whole-chart synthesis, collaborative interpretation, careful intuition, timing, candor, and client agency."
   path="/approach/"
   breadcrumbs={crumbs}
 >
   <Breadcrumbs crumbs={crumbs} />
+
   <section class="hero hero--split">
     <div class="container">
       <div>
@@ -21,7 +51,7 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
         <h1>How I read a chart</h1>
         <p class="lede">
           Technique matters. So do context, curiosity, conversation, and the person actually living
-          the chart.
+          the chart. Here is what those ideas change when we are sitting together in a reading.
         </p>
       </div>
       <img
@@ -38,92 +68,143 @@ const crumbs = [{ label: 'Approach', href: '/approach/' }];
   </section>
 
   <section class="section">
-    <div class="container prose flow">
-      <figure class="portrait-card portrait-card--inline">
-        <img src={photos.moApproach.src} alt={photos.moApproach.alt} width={photos.moApproach.width} height={photos.moApproach.height} loading="lazy" />
+    <div class="container grid grid--2" style="align-items: start;">
+      <figure class="portrait-card">
+        <img
+          src={photos.moApproach.src}
+          alt={photos.moApproach.alt}
+          width={photos.moApproach.width}
+          height={photos.moApproach.height}
+          loading="lazy"
+        />
         <figcaption>Mo Lumen in her studio</figcaption>
       </figure>
-      <h2>The whole chart, not isolated labels</h2>
-      <p>
-        Astrology gives us a remarkable number of pieces to work with: planets, signs, houses,
-        aspects, condition, timing, and more. Knowing what each piece can mean is important. The
-        art is synthesis: seeing which pieces are speaking most strongly, how they modify one
-        another, and what kind of pattern begins to emerge when you stop looking at them one at a
-        time.
-      </p>
-      <p>
-        Even then, a chart is not a finished biography. The same configuration can show up in more
-        than one way. I may see a path that looks important and ask whether it matches what you are
-        actually experiencing. Your answer is not an interruption to the reading; it is part of
-        how the reading becomes more specific to you.
-      </p>
-      <h2>A conversation, not a performance</h2>
-      <p>
-        You do not need to arrive knowing astrology, and you do not need to be especially talkative.
-        I will guide the reading, explain what I see, and make room for your questions and feedback
-        as we go. Some clients have a lot to say right away. Others need time to listen before they
-        know what they want to add. Both are completely workable.
-      </p>
+      <div class="prose flow">
+        <p class="eyebrow">The short version</p>
+        <h2>I am not reading a chart at you.</h2>
+        <p>
+          I prepare carefully and I will guide the conversation. I will also ask questions, explain
+          what I am seeing, and pay attention to the way the symbolism is—or is not—showing up in
+          your actual life.
+        </p>
+        <p>
+          That is not a compromise in the technique. It is how a general symbolic language becomes
+          specific enough to be useful to one person.
+        </p>
+        <blockquote>There is fate and there is choice, and a good reading helps you tell the difference.</blockquote>
+      </div>
     </div>
   </section>
 
   <SeaBreak image={celestial.galaxyTidepool} />
 
   <section class="section section--sea">
+    <div class="container" style="max-width: 68rem;">
+      <p class="eyebrow">Principles in practice</p>
+      <h2>What my approach changes in a reading</h2>
+      <div class="approach-principles" style="margin-top: var(--space-7);">
+        {principles.map((principle, index) => (
+          <article class="approach-principle">
+            <div class="approach-principle__number" aria-hidden="true">{index + 1}</div>
+            <div>
+              <h3>{principle.title}</h3>
+              <p>{principle.idea}</p>
+              <div class="callout" style="margin-bottom: 0;">
+                <p class="approach-principle__label">What this looks like in practice</p>
+                <p style="margin: 0;">{principle.practice}</p>
+              </div>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container grid grid--2" style="align-items: start;">
+      <div class="prose flow">
+        <p class="eyebrow">Technique and judgment</p>
+        <h2>I study broadly, then choose what serves the chart and question</h2>
+        <p>
+          I have studied traditional and horary techniques alongside modern, Uranian,
+          dwarf-planet, and other contemporary approaches. I am less interested in making every
+          chart conform to one school than in understanding which techniques illuminate the
+          question in front of us.
+        </p>
+        <p>
+          When a method makes a stronger or more specific claim, I will tell you that. When the
+          symbolism supports several possibilities, I will tell you that too. I would rather be
+          precise about uncertainty than manufacture confidence.
+        </p>
+      </div>
+      <aside class="card">
+        <h2 style="font-size: var(--text-xl); margin: 0;">What I won't do</h2>
+        <ul style="margin: 0;">
+          <li>Use fear, doom timelines, or “the stars say you must.”</li>
+          <li>Present an intuitive impression as unquestionable fact.</li>
+          <li>Give medical, psychological, legal, or financial advice in place of a licensed professional.</li>
+          <li>Pressure you to agree, rebook, or hand over your decisions.</li>
+        </ul>
+      </aside>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Technique, intuition, and questions</h2>
+      <p class="eyebrow">Ethics in practice</p>
+      <h2>Your chart is personal information, not content</h2>
       <p>
-        I have studied across astrological methods and traditions, including horary and traditional
-        techniques as well as modern and other contemporary approaches. I use the tools that help
-        me understand the chart and the question in front of me rather than asking every chart to
-        conform to one school.
-      </p>
-      <p>
-        Intuition is part of how I notice. It may point my attention toward a possibility or a
-        question worth asking, but I do not treat an intuitive impression as unquestionable fact.
-        It belongs in the same conversation as the chart and your lived experience. Intuition can
-        suggest where to look; it does not end the inquiry.
-      </p>
-      <h2>Fate and choice, both</h2>
-      <p>
-        I use astrology to look at conditions, tendencies, seasons, and timing. It can widen the
-        view around a decision or help name a pattern that has been difficult to see from the
-        inside. It does not cast your vote, take your job, choose your partner, or make your next
-        move. There is fate and there is choice, and I use astrology to create perspective rather
-        than deliver a verdict.
-      </p>
-      <h2>Candor with compassion</h2>
-      <p>
-        I will tell you what I see, including the parts that may be uncomfortable or complicated.
-        Difficult configurations are not punishments, and awareness does not magically make them
-        easy. It can, however, give you more room to recognize a pattern, understand the choices
-        around it, and decide how you want to meet it. Expect honesty delivered kindly, and kindness
-        that does not dodge the truth.
-      </p>
-      <h2>What I won't do</h2>
-      <ul>
-        <li>No fear-based predictions, doom timelines, or "the stars say you must."</li>
-        <li>No false certainty. Some branches of astrology, including horary, are designed to answer a specific question directly. When I use them, I will be clear about what the method supports rather than promise an outcome astrology cannot responsibly guarantee.</li>
-        <li>No medical, psychological, legal, or financial advice; those belong with licensed professionals, and I'll say so.</li>
-        <li>No pressure to book, rebook, agree with me, or continue.</li>
-      </ul>
-      <h2>Ethics, in practice</h2>
-      <p>
-        Your birth data and everything you share in a session are treated as confidential and
-        sensitive. I follow the ethical standards of the professional organizations I belong to
-        and serve, NCGR, OPA, and ISAR, and readings are for adults 18 and over. The
-        <a href="/disclaimer/">disclaimer</a> and <a href="/privacy/">privacy policy</a> spell out
-        the details in plain language.
+        Your birth data and what you share in a session are treated as confidential and sensitive.
+        Readings are for adults 18 and over, and I follow the ethical standards of the professional
+        organizations I belong to and serve. The <a href="/disclaimer/">disclaimer</a> and
+        <a href="/privacy/">privacy policy</a> spell out the details in plain language.
       </p>
     </div>
   </section>
 
   <CTABand
-    heading="Bring me your life and your question."
-    body="I'll bring the chart, the preparation, and what I'm noticing. Before you decide to book, see exactly how that conversation works."
+    heading="Want to see how this feels in the room?"
+    body="How Readings Work walks through the preparation, the conversation itself, and what happens afterward so you can decide whether this way of working fits you."
     buttonLabel="How Readings Work"
     buttonHref="/how-readings-work/"
-    secondaryLabel="Not sure which reading would fit? Try the Reading Finder"
+    secondaryLabel="Not sure which reading fits? Try the Reading Finder"
     secondaryHref="/reading-finder/"
   />
 </BaseLayout>
+
+<style>
+  .approach-principles {
+    display: grid;
+    gap: var(--space-8);
+  }
+  .approach-principle {
+    display: grid;
+    grid-template-columns: 3rem minmax(0, 1fr);
+    gap: var(--space-5);
+    align-items: start;
+  }
+  .approach-principle__number {
+    display: grid;
+    place-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 999px;
+    background: var(--color-teal-tint);
+    color: var(--color-teal);
+    font-weight: 800;
+  }
+  .approach-principle__label {
+    margin-bottom: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-teal);
+  }
+  @media (max-width: 520px) {
+    .approach-principle {
+      grid-template-columns: 1fr;
+      gap: var(--space-3);
+    }
+  }
+</style>
