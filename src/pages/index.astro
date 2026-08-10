@@ -2,78 +2,24 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
-import Icon from '../components/Icon.astro';
 import { photos, scenes } from '../config/images';
 import { orderServices, eligibilityLabel } from '../config/booking.ts';
 import YouTubeFacade from '../components/YouTubeFacade.astro';
 import { site } from '../config/site';
 
-/**
- * Mo's short introduction, if a real video has been configured.
- *
- * Guarded on the ID exactly as /about/ is, so nothing renders while the value
- * is empty — no placeholder card, no fabricated thumbnail, no dead play
- * button. The slot belongs directly after the first time the page introduces
- * her, where a stranger is deciding whether to keep reading.
- */
 const welcomeId = site.integrations.welcomeVideoId;
 const welcomePoster = site.integrations.welcomeVideoPoster;
-
-/**
- * Canonical order, not `featured`. The old sort was a no-op between two
- * featured services and let file order decide, so the homepage led with the
- * $275 Relationship Consultation while the copy directly beneath it said new
- * clients start with the natal reading. See src/config/booking.ts.
- */
 const services = orderServices(await getCollection('services'), (s) => s.data.slug);
 const skyEvents = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
-  .slice(0, 3);
-/**
- * Three testimonials for the homepage, chosen by which objection they answer
- * rather than by which is most flattering: "will this mean anything to me",
- * "will she just tell me what to do", "I know nothing about astrology".
- *
- * Filtered on `approved` like every other surface — an unapproved testimonial
- * must never render anywhere. If one of these is ever withdrawn the filter drops
- * it and the grid simply shows fewer, which is the correct failure mode.
- */
+  .slice(0, 2);
 const HOME_QUOTE_IDS = ['claire-m-natal', 'rachel-t-life-changes', 'jennifer-l-natal'];
 const homeQuotes = (await getCollection('testimonials'))
   .filter((t) => t.data.approved && HOME_QUOTE_IDS.includes(t.id))
   .sort((a, b) => HOME_QUOTE_IDS.indexOf(a.id) - HOME_QUOTE_IDS.indexOf(b.id));
-
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
-
-const serviceIcons: Record<string, string> = {
-  natal: 'chart',
-  relationship: 'people',
-  'solar-return': 'sun',
-  'life-changes': 'mountains',
-  'want-more-clarity': 'spark',
-  'monthly-transits': 'moon',
-  'quick-check-in': 'clock',
-};
-const serviceImages: Record<string, (typeof scenes)[keyof typeof scenes]> = {
-  natal: scenes.natal,
-  relationship: scenes.relationship,
-  'solar-return': scenes.solarReturn,
-  'life-changes': scenes.lifeChanges,
-  'want-more-clarity': scenes.moreClarity,
-  'monthly-transits': scenes.monthlyTransits,
-  'quick-check-in': scenes.quickCheckIn,
-};
-
-const values = [
-  ['spark', 'Wonder', 'Look closely enough and there is always more to notice'],
-  ['chart', 'Synthesis', 'See how the pieces change one another'],
-  ['people', 'Conversation', 'Your lived experience belongs in the reading'],
-  ['choice', 'Agency', 'Perspective without giving away your decisions'],
-  ['sun', 'Clarity', 'Complex astrology, explained in plain language'],
-  ['compass', 'Individuality', 'Your chart is yours, not a set of labels'],
-] as const;
 ---
 
 <BaseLayout
@@ -81,7 +27,6 @@ const values = [
   description="Thoughtful astrology readings with Mo Lumen: natal, relationship, solar return, and transit consultations that connect chart patterns with real life while keeping your choices your own."
   path="/"
 >
-  <!-- Hero: night workspace photograph + real photo of Mo -->
   <section class="hero hero--home" style={`--hero-image: url('${scenes.heroWorkspace.src}');`}>
     <div class="container">
       <div>
@@ -96,11 +41,6 @@ const values = [
           <a class="btn btn--accent" href="/reading-finder/">Find Your Reading</a>
           <a class="btn btn--ghost" href="/about/">Meet Mo</a>
         </div>
-        <p class="hero__reassure">
-          I use astrology as an interpretive tool: another way to look at patterns, timing, and
-          possibilities from a different angle. No doom, no scare tactics, and no handing your
-          decisions over to the chart.
-        </p>
         <p class="hero__tagline">
           There is fate and there is choice, and a good reading helps you tell the difference.
         </p>
@@ -120,56 +60,22 @@ const values = [
     </div>
   </section>
 
-  <!-- Value row (icon strip) -->
-  <section class="section section--strip">
-    <div class="container">
-      <h2 class="visually-hidden">What shapes a reading with Mo</h2>
-      <div class="value-row value-row--6">
-        {
-          values.map(([icon, title, desc]) => (
-            <div class="value">
-              <span class="value__icon"><Icon name={icon as any} size={26} /></span>
-              <h3>{title}</h3>
-              <p>{desc}</p>
-            </div>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Map, not mandate — night band -->
-  <section class="section section--night center">
-    <div class="container flow" style="max-width: 46rem;">
-      <div class="divider"><Icon name="star" size={18} /></div>
-      <h2 style="font-size: var(--text-3xl);">Astrology is a map, not a mandate.</h2>
-      <p class="lede" style="margin-inline: auto;">
-        A chart can describe conditions, tendencies, timing, and patterns. It cannot live your
-        life for you. A good reading can widen the view, help name what has been difficult to see
-        from the inside, and give you more room to choose what comes next.
-      </p>
-    </div>
-  </section>
-
-  <!-- Recognition -->
   <section class="section">
     <div class="container feature-split">
       <div class="flow">
         <p class="eyebrow">Why people come</p>
-        <h2 style="max-width: 22ch;">You don't need to know astrology. You just need a real question.</h2>
+        <h2>You don't need to know astrology. You just need a real question.</h2>
         <p>
-          People often find me when something matters enough that the usual explanations are no
-          longer enough: a decision they keep weighing, a relationship they cannot quite see
-          clearly, a pattern that keeps returning, or a season of change that has made the old map
-          feel incomplete.
+          Maybe you are weighing a decision, trying to understand a relationship, noticing a
+          pattern that keeps returning, or moving through a season when the old map no longer fits.
+          Those are useful places to begin.
         </p>
         <p>
-          That is where astrology can be useful. I am not looking for a single placement or
-          technique that dictates what you should do. I am looking at how the pieces fit together,
-          what is active now, and what becomes clearer when we put that picture beside the life
-          you are actually living.
+          I am not looking for one placement that tells you who you are or what you should do. I am
+          looking at how the chart works as a whole, what is active now, and what becomes clearer
+          when we put that picture beside the life you are actually living.
         </p>
-        <p><a class="btn btn--primary" href="/reading-finder/">Try the Reading Finder</a></p>
+        <p><a class="btn btn--primary" href="/reading-finder/">Tell Me What Brings You Here</a></p>
       </div>
       <img
         src={scenes.chartDetail.src}
@@ -181,131 +87,130 @@ const values = [
     </div>
   </section>
 
-  <!-- Readings preview -->
   <section class="section section--alt">
     <div class="container">
-      <p class="eyebrow">Readings</p>
-      <h2>One approach, wherever you are</h2>
-      <p class="lede">
-        Every reading starts from the same premise: a chart contains patterns and possibilities,
-        but your life tells us how they are actually being lived. New clients begin with the natal
-        foundation; returning clients can come back for a year ahead, a transition, a focused
-        question, or ongoing timing work.
-      </p>
-      <div class="grid grid--3" style="margin-top: var(--space-8);">
-        {
-          services.slice(0, 3).map((s) => {
-            const im = serviceImages[s.data.slug];
-            return (
-              <article class:list={['card', 'card--img', { 'card--featured': s.data.featured }]}>
-                {im && <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />}
-                <div class="card__body">
-                  <h3 style="display: flex; align-items: center; gap: var(--space-2); font-size: var(--text-xl);">
-                    <span style="color: var(--color-teal);"><Icon name={serviceIcons[s.data.slug] as any} size={24} /></span>
-                    <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
-                  </h3>
-                  <p class="card__meta" style="margin: 0;">{s.data.durationLabel}</p>
-                  {eligibilityLabel(s.data.audience) && (
-                    <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
-                  )}
-                  <p style="margin: 0;">{s.data.purpose}</p>
-                  <p class="price" style="margin-top: auto;">
-                    {s.data.priceLabel ?? (s.data.price ? `$${s.data.price}` : '')}
-                  </p>
-                </div>
-              </article>
-            );
-          })
-        }
+      <p class="eyebrow">Choose your path</p>
+      <h2>What would be most useful right now?</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        <article class="card">
+          <h3><a href="/start-here/">I want to understand astrology</a></h3>
+          <p>Start with the pieces of a chart, then learn how they modify and complicate one another.</p>
+          <p style="margin-top: auto;"><a href="/start-here/">Start from the beginning →</a></p>
+        </article>
+        <article class="card">
+          <h3><a href="/reading-finder/">I'm considering a reading</a></h3>
+          <p>Answer a few plain-language questions and see which reading I would point you toward, and why.</p>
+          <p style="margin-top: auto;"><a href="/reading-finder/">Use the Reading Finder →</a></p>
+        </article>
+        <article class="card">
+          <h3><a href="/current-sky/">I want to see what Mo is noticing now</a></h3>
+          <p>Follow the current sky, verified dates, and the patterns I think are worth watching without turning them into personal predictions.</p>
+          <p style="margin-top: auto;"><a href="/current-sky/">See the Current Sky →</a></p>
+        </article>
       </div>
-      <div class="grid grid--4" style="margin-top: var(--space-6);">
-        {
-          services.slice(3).map((s) => (
-            <article class="card" style="gap: var(--space-2);">
-              <span style="color: var(--color-teal);">
-                <Icon name={serviceIcons[s.data.slug] as any} size={26} />
-              </span>
-              <h3 style="font-size: var(--text-lg); margin: 0;">
-                <a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a>
-              </h3>
-              <p class="card__meta" style="margin: 0;">
-                {s.data.durationLabel} · {s.data.priceLabel ?? `$${s.data.price}`}
-              </p>
-              {eligibilityLabel(s.data.audience) && (
-                <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
-              )}
-            </article>
-          ))
-        }
-      </div>
-      <p style="margin-top: var(--space-6);">
-        <a href="/readings/">Compare all readings side by side →</a>
-      </p>
-
-      <ul class="assurances">
-        <li>
-          <strong>Reschedule free</strong> up to 48 hours before. Inside that window your fee is
-          held as credit, not lost.
-        </li>
-        <li>
-          <strong>If I have to cancel</strong>, you choose: reschedule, or a full refund.
-        </li>
-        <li>
-          <strong>Every reading is recorded</strong>, and the recording is yours to keep.
-        </li>
-        <li>
-          <strong>Your birth data stays yours.</strong> Never sold, never shared, deleted on
-          request. <a href="/privacy/">The privacy policy</a> says so in plain words.
-        </li>
-      </ul>
     </div>
   </section>
+
+  <section class="section section--night center">
+    <div class="container flow" style="max-width: 46rem;">
+      <h2>Astrology is a map, not a mandate.</h2>
+      <p class="lede" style="margin-inline: auto;">
+        A chart can describe conditions, tendencies, timing, and patterns. It cannot live your life
+        for you. I use astrology to widen the view, name what may be difficult to see from the
+        inside, and give you more room to decide what comes next.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <p class="eyebrow">Readings</p>
+      <h2>If you're new to me, begin with the foundation</h2>
+      <p class="lede">
+        Most first-time clients begin with a Natal Chart Reading. If the reason you are coming is a
+        relationship between two people, the Relationship Consultation is also open to new clients.
+        Returning-client readings build on the natal work we have already done together.
+      </p>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {services.slice(0, 2).map((s) => (
+          <article class="card">
+            <h3><a href={`/readings/${s.data.slug}/`}>{s.data.name}</a></h3>
+            <p class="card__meta">{s.data.durationLabel} · {s.data.priceLabel ?? (s.data.price ? `$${s.data.price}` : '')}</p>
+            {eligibilityLabel(s.data.audience) && <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>}
+            <p>{s.data.purpose}</p>
+            <p style="margin-top: auto;"><a href={`/readings/${s.data.slug}/`}>See whether it fits →</a></p>
+          </article>
+        ))}
+        <article class="card" style="background: var(--bg-alt);">
+          <h3><a href="/readings/">Already worked with me?</a></h3>
+          <p>Follow-up readings focus on a year ahead, a transition, a specific question, or ongoing timing after we already know your natal foundation.</p>
+          <p style="margin-top: auto;"><a href="/readings/#follow-ups">See follow-up readings →</a></p>
+        </article>
+      </div>
+      <p style="margin-top: var(--space-6);"><a href="/readings/">Compare all readings →</a></p>
+    </div>
+  </section>
+
+  {welcomeId && (
+    <section class="section section--alt">
+      <div class="container" style="max-width: 46rem;">
+        <p class="eyebrow">A minute with Mo</p>
+        <h2>Before you decide, hear how I actually talk</h2>
+        <p class="lede">A reading is a conversation with a real person. Here is a minute with me before we ever sit down together.</p>
+        <div style="margin-top: var(--space-6);">
+          <YouTubeFacade videoId={welcomeId} title="Meet Mo Lumen: a short introduction" poster={welcomePoster || undefined} context="home-welcome" />
+        </div>
+      </div>
+    </section>
+  )}
+
+  {skyEvents.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <p class="eyebrow">Current sky</p>
+        <h2>What I'm watching next</h2>
+        <div class="grid grid--2" style="margin-top: var(--space-6);">
+          {skyEvents.map((e) => (
+            <article class="card">
+              <p class="card__meta">{fmt(e.data.start)}</p>
+              <h3><a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a></h3>
+              <p>{e.data.summary}</p>
+            </article>
+          ))}
+        </div>
+        <p style="margin-top: var(--space-6);"><a href="/current-sky/">See the full Current Sky →</a></p>
+      </div>
+    </section>
+  )}
 
   <section class="section section--alt">
     <div class="container">
       <p class="eyebrow">In their words</p>
-      <h2>What people say afterwards</h2>
+      <h2>What people say after a reading</h2>
       <div class="quote-grid">
-        {
-          homeQuotes.map((t) => (
-            <figure class="quote-card">
-              <blockquote>{t.data.quote}</blockquote>
-              <figcaption>
-                {t.data.attribution}
-                {t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}
-              </figcaption>
-            </figure>
-          ))
-        }
+        {homeQuotes.map((t) => (
+          <figure class="quote-card">
+            <blockquote>{t.data.quote}</blockquote>
+            <figcaption>{t.data.attribution}{t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}</figcaption>
+          </figure>
+        ))}
       </div>
-      <p style="margin-top: var(--space-6);">
-        <a href="/testimonials/">Read more client experiences and see how I work →</a>
-      </p>
+      <p style="margin-top: var(--space-6);"><a href="/testimonials/">Read more client experiences →</a></p>
     </div>
   </section>
 
-  <!-- About preview -->
   <section class="section">
     <div class="container feature-split feature-split--rev">
       <div class="flow">
         <p class="eyebrow">About Mo</p>
-        <h2>Astrologer. Teacher. Lifelong observer.</h2>
+        <h2>Curiosity first. Complexity welcome.</h2>
         <p>
-          Astrology has fascinated me since my age was in the single digits, something I always
-          followed even though I did not pursue it professionally until later. Alongside it grew
-          another fascination: living systems, cycles within cycles, and the relationships that
-          make a whole more than a collection of separate parts.
+          I have been fascinated by astrology since childhood and spent years teaching natural
+          sciences. Science is not my proof of astrology; it is part of how I learned to observe
+          carefully, ask better questions, respect complexity, and explain complicated systems in
+          plain language.
         </p>
-        <p>
-          Teaching natural sciences gave me years of practice observing carefully, asking better
-          questions, and making complex ideas understandable. I bring that way of looking to
-          astrology. Science is not my proof of astrology; it is part of how I learned to respect
-          complexity and keep wondering.
-        </p>
-        <p>
-          <a class="btn btn--ghost" href="/about/">Meet Mo</a>
-          <a class="btn btn--ghost" href="/credentials/">Credentials</a>
-        </p>
+        <p><a class="btn btn--ghost" href="/about/">Meet Mo</a></p>
       </div>
       <img
         class="img-portrait"
@@ -321,177 +226,19 @@ const values = [
     </div>
   </section>
 
-  {
-    welcomeId && (
-      <section class="section section--alt">
-        <div class="container" style="max-width: 46rem;">
-          <p class="eyebrow">A minute with Mo</p>
-          <h2>Before you decide, hear how I actually talk</h2>
-          <p class="lede">
-            A reading is a conversation with a real person. Here is a minute with me before we
-            ever sit down together.
-          </p>
-          <div style="margin-top: var(--space-6);">
-            <YouTubeFacade
-              videoId={welcomeId}
-              title="Meet Mo Lumen: a short introduction"
-              poster={welcomePoster || undefined}
-              context="home-welcome"
-            />
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  <!-- How it works -->
   <section class="section section--alt">
-    <div class="container">
-      <p class="eyebrow">How it works</p>
-      <h2>From booking to conversation, step by step</h2>
-      <ol class="grid grid--3" style="list-style: none; padding: 0; margin-top: var(--space-8);">
-        {
-          [
-            ['calendar', 'Choose', 'Pick a reading, or let the Reading Finder suggest one.'],
-            ['clock', 'Schedule', 'Choose a time that works; times show in your own time zone.'],
-            ['star', 'Pay', 'Pay securely online when you book. No surprises later.'],
-            ['letter', 'Share', 'Send your birth details and the questions on your mind through the intake form.'],
-            ['book', 'Prepare', "You'll get simple preparation notes, nothing to study."],
-            ['people', 'Meet', 'I guide the reading, explain what I see, and make room for your questions and feedback.'],
-          ].map(([icon, t, d], i) => (
-            <li class="card" style="gap: var(--space-2);">
-              <span style="display: flex; align-items: center; gap: var(--space-3); color: var(--accent-ink);">
-                <Icon name={icon as any} size={26} />
-                <span class="eyebrow" style="margin: 0;">Step {i + 1}</span>
-              </span>
-              <h3 style="margin: 0;">{t}</h3>
-              <p style="margin: 0;">{d}</p>
-            </li>
-          ))
-        }
-      </ol>
-      <p style="margin-top: var(--space-6);">
-        <a href="/how-readings-work/">Everything to expect, step by step →</a>
-      </p>
-    </div>
-  </section>
-
-  <!-- Current Sky + Explorer — night band -->
-  <section class="section section--night">
-    <div class="container grid grid--2">
+    <div class="container grid grid--2" style="align-items: start;">
       <div class="flow">
-        <p class="eyebrow">The sky right now</p>
-        <h2>Current Sky</h2>
+        <p class="eyebrow">Not ready to book?</p>
+        <h2>Stay curious with me</h2>
         <p>
-          What is moving overhead, when it happens, and what I think is worth noticing about it.
-          Dates and positions are verified; the interpretation is mine, with rising-sign guidance
-          on each lunation. Free, no email required.
-        </p>
-        {
-          skyEvents.length > 0 && (
-            <ul class="sky-teaser" style="padding-left: 1.1em;">
-              {skyEvents.map((e) => (
-                <li>
-                  <strong>{fmt(e.data.start)}</strong>:{' '}
-                  <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
-                </li>
-              ))}
-            </ul>
-          )
-        }
-        <p>
-          <a class="btn btn--accent" href="/current-sky/">See the full timeline</a>
-        </p>
-        <p class="card__meta" style="margin: 0;">
-          Or see it <a href="/current-sky/calendar/">month by month on the calendar</a>.
+          My monthly note includes the sky I'm watching, along with questions, patterns, connections,
+          and occasional observations from the living world that made me look twice.
         </p>
       </div>
-      <div class="flow">
-        <p class="eyebrow">Free interactive tool</p>
-        <h2>Explore Your Chart</h2>
-        <p>
-          An interactive tour of how a birth chart works: planets as drives or functions, signs as
-          styles of expression, houses as areas of experience, and the reminder that the pieces
-          make more sense in relationship to one another. No birth data needed; it is education,
-          not a reading.
-        </p>
-        <p><a class="btn btn--accent" href="/tools/explore-your-chart/">Open the explorer</a></p>
+      <div>
+        <NewsletterForm source="home" />
       </div>
-    </div>
-  </section>
-
-  <!-- Photo mosaic + learning pathways -->
-  <section class="section">
-    <div class="container flow">
-      <div class="mosaic">
-        {
-          [scenes.planets, scenes.signs, scenes.currentSkyWide, scenes.duskMountains].map((im) => (
-            <img src={im.src} alt={im.alt} width={im.width} height={im.height} loading="lazy" />
-          ))
-        }
-      </div>
-      <div class="grid grid--4" style="margin-top: var(--space-6);">
-        {
-          [
-            ['book', 'Start Here', '/start-here/', 'New to astrology? Nine steps, in order.'],
-            ['star', 'The 12 Signs', '/explore/signs/', 'Styles of expression, Aries to Pisces.'],
-            ['planet', 'The Planets', '/explore/planets/', 'Ten planetary functions used throughout the chart.'],
-            ['book', 'Glossary', '/explore/glossary/', 'Plain-language definitions when a term gets in the way.'],
-          ].map(([icon, t, href, d]) => (
-            <article class="card" style="gap: var(--space-2);">
-              <span style="color: var(--color-teal);">
-                <Icon name={icon as any} size={26} />
-              </span>
-              <h3 style="font-size: var(--text-lg); margin: 0;">
-                <a href={href}>{t}</a>
-              </h3>
-              <p style="margin: 0;">{d}</p>
-            </article>
-          ))
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Newsletter -->
-  <section class="section section--alt">
-    <div class="container feature-split">
-      <div class="flow">
-        <p class="eyebrow">Free newsletter</p>
-        <h2 id="home-newsletter">A monthly note from Mo</h2>
-        <p>
-          <strong>The Sky This Month</strong> is one recurring section: what is moving overhead
-          and what I think is worth noticing. Alongside it, I will share something that caught my
-          attention — a question, a pattern, a connection, or a piece of the living world I keep
-          thinking about. Astrology is the anchor; curiosity gets some room to wander.
-        </p>
-        <NewsletterForm source="homepage" labelledby="home-newsletter" />
-      </div>
-      <img
-        src={scenes.newsletterLetters.src}
-        alt={scenes.newsletterLetters.alt}
-        width={scenes.newsletterLetters.width}
-        height={scenes.newsletterLetters.height}
-        loading="lazy"
-      />
-    </div>
-  </section>
-
-  <!-- Final invitation -->
-  <section class="section section--night center">
-    <div class="container flow">
-      <div class="divider"><Icon name="moon" size={20} /></div>
-      <h2>Bring me your real question.</h2>
-      <p class="lede" style="margin-inline: auto;">
-        You do not need to know astrology to start. Bring what is actually on your mind. I will
-        bring the chart, the preparation, and what I am noticing, and we will look at the pattern
-        together.
-      </p>
-      <p><a class="btn btn--accent" href="/book/">Book a Reading</a></p>
-      <p class="card__meta" style="margin-inline: auto;">
-        Not sure which one? <a href="/reading-finder/">Answer five questions</a> and I'll tell you
-        what I'd suggest.
-      </p>
     </div>
   </section>
 </BaseLayout>
