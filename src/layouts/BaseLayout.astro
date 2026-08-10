@@ -107,7 +107,11 @@ function resolveModified(): string | null {
 }
 const dateModified = resolveModified();
 
-/** Mo as a resolvable entity — engines cite sources they can attribute. */
+/**
+ * Mo as a resolvable entity. Keep this practice-led and broad: structured data
+ * should describe what she actually works with without classifying her into a
+ * single astrological school.
+ */
 const moPerson = {
   '@type': 'Person',
   name: 'Maureen "Mo" Lumen',
@@ -116,11 +120,11 @@ const moPerson = {
   sameAs: [site.social.instagram, site.social.facebook, site.social.youtube].filter(Boolean),
   knowsAbout: [
     'Astrology',
-    'Natal chart interpretation',
-    'Traditional astrology',
+    'Astrological chart interpretation',
+    'Astrological synthesis',
+    'Natal astrology',
     'Horary astrology',
-    'Electional astrology',
-    'Astrological transits',
+    'Astrological transits and timing',
   ],
   worksFor: { '@type': 'ProfessionalService', name: site.name, url: site.url },
 };
