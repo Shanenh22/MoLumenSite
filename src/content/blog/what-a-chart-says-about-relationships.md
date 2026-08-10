@@ -56,4 +56,4 @@ _What pattern are we both participating in without fully seeing it?_
 
 Those questions leave room for both the astrology and the people involved.
 
-If you want to learn the technique, start with the [relationship astrology guide](/explore/relationship-astrology/) and the [aspects library](/explore/aspects/). If your question is about a relationship you are actually living, the [Relationship Reading](/readings/relationship/) is where the two charts can be read together with the context no general article can provide.
+If you want to learn the technique, start with the [relationship astrology guide](/explore/relationships/) and the [aspects library](/explore/aspects/). If your question is about a relationship you are actually living, the [Relationship Reading](/readings/relationship/) is where the two charts can be read together with the context no general article can provide.
