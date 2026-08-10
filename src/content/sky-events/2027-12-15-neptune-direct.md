@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Neptune stations direct at 4° Aries after five months of retrograde motion. Across an entire year Neptune moves only a few degrees, which puts the station in its proper scale.
+Neptune stations direct at 4° Aries after five months of retrograde motion. Across an entire year it moves only a few degrees, which is a good reminder not to confuse a station date with the meaning of the whole transit.
 
-Modern astrology associates Neptune with imagination, ideals, permeability, spirituality, ambiguity, inspiration, and dissolution. Aries brings initiative, assertion, separateness, and beginning. The relationship between those symbols will unfold over years, not reveal itself in a single day.
+Modern astrology associates Neptune with imagination, ideals, permeability, inspiration, ambiguity, and dissolution. Aries emphasizes initiative, assertion, separateness, and beginning. I keep returning to the tension between them because it does not resolve neatly. How do you act on an ideal without pretending you can already see the entire path? How do you stay receptive without losing the clarity needed to move?
 
-When the station is closely contacting a natal planet or angle, it may mark another pass through a personally important theme. Otherwise, the longer transit is the more useful object of attention.
+Those are questions for the longer Aries transit, not predictions for December 15. A close natal contact may make the station more noticeable personally; otherwise, it is one turn inside a multi-year cycle still unfolding.
