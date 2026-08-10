@@ -55,9 +55,11 @@ try {
   const desktopResults = await desktop.$$eval('.search-result', (cards) => cards.slice(0, 10).map((card) => ({
     title: card.querySelector('h2')?.textContent?.trim(),
     meta: card.querySelector('.search-result__meta')?.textContent?.trim(),
+    href: card.querySelector('a')?.getAttribute('href') || '',
   })));
-  ok(desktopResults.some((item) => /Current Sky/.test(item.meta || '')), 'Mercury retrograde returns Current Sky material');
-  ok(desktopResults.filter((item) => /Current Sky/.test(item.meta || '')).every((item) => /\d{4}/.test(item.meta || '')), 'dated Current Sky results show a year');
+  const skyEvents = desktopResults.filter((item) => item.href.startsWith('/current-sky/events/'));
+  ok(skyEvents.length > 0, 'Mercury retrograde returns Current Sky event material');
+  ok(skyEvents.every((item) => /\d{4}/.test(item.meta || '')), 'dated Current Sky event results show a year');
   const desktopLayout = await desktop.evaluate(() => ({
     overflow: document.documentElement.scrollWidth - window.innerWidth,
     headerSearch: !!document.querySelector('.header-search[href="/search/"]'),
