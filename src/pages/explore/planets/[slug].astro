@@ -37,16 +37,7 @@ const breakImage = bandFor(p.slug, 5);
         <h1><span aria-hidden="true">{p.glyph}</span> {p.name}</h1>
         <p class="lede">{p.drive}</p>
       </div>
-      <img
-        class="hero__img"
-        src={heroImage.src}
-        srcset={heroImage.srcset}
-        sizes="100vw"
-        alt={heroImage.alt}
-        width={heroImage.width}
-        height={heroImage.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
   </section>
 
@@ -55,8 +46,7 @@ const breakImage = bandFor(p.slug, 5);
       <p>
         Start with the planet's function, then resist the temptation to stop there. A planet changes
         expression through its sign, house, aspects, rulerships, condition, and relationship to the
-        rest of the chart. The material below gives you the vocabulary; the chart supplies the
-        context.
+        rest of the chart. The material below gives you the vocabulary; the chart supplies the context.
       </p>
       <h2>At a glance</h2>
       <table class="ref-table">
@@ -91,7 +81,6 @@ const breakImage = bandFor(p.slug, 5);
       <Layers kind="mo"><p>{p.mo}</p></Layers>
       {p.differs && <Layers kind="differs"><p>{p.differs}</p></Layers>}
       <Layers kind="misconception"><p set:html={p.misconception} /></Layers>
-
     </div>
   </section>
 
@@ -109,7 +98,7 @@ const breakImage = bandFor(p.slug, 5);
         what else is happening in the chart? No planet means the same thing in every life.
       </p>
 
-      <nav aria-label="More planets" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+      <nav aria-label="More planets" class="reference-pager">
         <a href={`/explore/planets/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/planets/${next.slug}/`}>{next.name} →</a>
       </nav>
@@ -117,9 +106,11 @@ const breakImage = bandFor(p.slug, 5);
   </section>
 
   <CTABand
-    heading={`Curious how ${p.name.replace('The ', '')} fits your chart?`}
-    body="A natal reading looks at this planet in relationship with the rest of your chart and with the life you are actually living."
-    buttonLabel="About the Natal Reading"
-    buttonHref="/readings/natal/"
+    heading={`Keep ${p.name.replace('The ', '')} in the whole chart`}
+    body="You now have one piece of the vocabulary. Keep learning how planets, signs, houses, and aspects modify one another before turning a single placement into a conclusion."
+    buttonLabel="Explore the Planets"
+    buttonHref="/explore/planets/"
+    secondaryLabel="See how the pieces fit together"
+    secondaryHref="/explore/birth-chart-basics/"
   />
 </BaseLayout>
