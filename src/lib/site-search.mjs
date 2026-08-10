@@ -12,7 +12,6 @@ export function normalize(value = '') {
 
 function stem(token) {
   if (token.length > 4 && token.endsWith('ies')) return token.slice(0, -3) + 'y';
-  if (token.length > 4 && token.endsWith('es')) return token.slice(0, -2);
   if (token.length > 3 && token.endsWith('s') && !token.endsWith('ss')) return token.slice(0, -1);
   return token;
 }
