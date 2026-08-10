@@ -13,8 +13,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Mercury stations retrograde at 6° Pisces, moves back into Aquarius, and turns direct on March 3 at 21° Aquarius. It is the first Mercury retrograde of the year, and the movement across a sign boundary is what catches my attention.
+Mercury stations retrograde at 6° Pisces, crosses back into Aquarius, and turns direct on March 3 at 21° Aquarius. All three Mercury retrogrades in 2027 cross a sign boundary backward, and this is the first. Rather than treating that as a warning, I find it useful because we get to watch the same planet move through two quite different symbolic environments.
 
-Mercury symbolizes thinking, language, learning, exchange, and interpretation. Pisces and Aquarius frame those functions differently: Pisces is associated with receptivity, imagination, ambiguity, and what is sensed before it is neatly explained; Aquarius brings systems, ideas, networks, distance, and pattern. The retrograde lets us watch Mercury move back through both contexts.
+Mercury is associated with thinking, language, learning, exchange, naming, and interpretation. Pisces is less interested in clean edges. It can describe imagination, receptivity, ambiguity, symbolism, and what is apprehended before it can be neatly explained. Aquarius shifts the emphasis toward systems, concepts, networks, pattern, and the distance that sometimes helps us see a problem differently.
 
-That does not mean emails must fail, travel must go wrong, or decisions must wait. Those are popular retrograde scripts, not inevitable outcomes. If this cycle is personally significant, the natal houses and contacts tell us much more about where the review or reconsideration may be happening.
+What interests me here is not the usual list of Mercury-retrograde mishaps. An email does not fail because a planet appears to move backward, and the sky does not prohibit a contract, trip, or decision. The astrological value is in watching how thought changes when a question moves from impression toward pattern, or when a tidy idea has to make room for information that does not fit it.
+
+If this cycle is personally prominent, the houses involved and close contacts to natal planets or angles tell us where that process may have particular relevance. Otherwise, it remains what it is for everyone: a visible planetary cycle and an interpretive lens, not a sentence handed down by the sky.
