@@ -1,0 +1,64 @@
+---
+interface Props {
+  currentSlug: string;
+}
+
+const { currentSlug } = Astro.props;
+
+const choices = [
+  {
+    slug: 'quick-check-in',
+    name: 'Quick Check-In',
+    prompt: 'One focused issue',
+    description: 'Use when one question or situation can fit comfortably into a focused 30-minute conversation.',
+  },
+  {
+    slug: 'want-more-clarity',
+    name: 'Want More Clarity',
+    prompt: 'Something needs more depth',
+    description: 'Use when you want a full hour to return to the natal chart, a placement, a pattern, or several connected questions.',
+  },
+  {
+    slug: 'life-changes',
+    name: 'Life Changes',
+    prompt: 'The situation itself is changing',
+    description: 'Use when a move, job change, transition, or new direction is the center of the conversation.',
+  },
+  {
+    slug: 'solar-return',
+    name: 'Solar Return',
+    prompt: 'You want the broader personal year',
+    description: 'Use for an annual view around your birthday, read in relationship with the natal chart.',
+  },
+  {
+    slug: 'monthly-transits',
+    name: 'Monthly Personal Transits',
+    prompt: 'You want a regular timing conversation',
+    description: 'Use when you want a month-to-month view of how current planetary movements are interacting with your chart.',
+  },
+];
+---
+
+<section class="section section--sea" aria-labelledby="follow-up-heading">
+  <div class="container">
+    <p class="eyebrow">Established clients</p>
+    <h2 id="follow-up-heading">Which follow-up fits the question?</h2>
+    <p class="lede" style="max-width: 52rem;">
+      These readings share the natal foundation we have already established. The difference is the
+      job you need the next conversation to do.
+    </p>
+    <div class="grid grid--3" style="margin-top: var(--space-6);">
+      {choices.map((choice) => (
+        <article class:list={['card', choice.slug === currentSlug && 'card--active']} aria-current={choice.slug === currentSlug ? 'page' : undefined}>
+          <p class="eyebrow" style="margin: 0;">{choice.prompt}</p>
+          <h3 style="margin: 0;"><a href={`/readings/${choice.slug}/`}>{choice.name}</a></h3>
+          <p style="margin: 0;">{choice.description}</p>
+          {choice.slug === currentSlug && <p class="card__meta" style="margin: auto 0 0;">You are viewing this option.</p>}
+        </article>
+      ))}
+    </div>
+    <p class="card__meta" style="margin-top: var(--space-5);">
+      Still not sure? <a href="/reading-finder/">Use the Reading Finder</a> instead of guessing.
+    </p>
+  </div>
+</section>
