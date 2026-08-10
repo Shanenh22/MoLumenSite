@@ -9,14 +9,12 @@ import YouTubeFacade from '../components/YouTubeFacade.astro';
 import { site } from '../config/site';
 
 /**
- * Mo's ~60-second introduction, if it exists yet.
+ * Mo's short introduction, if a real video has been configured.
  *
  * Guarded on the ID exactly as /about/ is, so nothing renders while the value
  * is empty — no placeholder card, no fabricated thumbnail, no dead play
- * button. The slot is here rather than waiting to be built because the video
- * is coming and this is where it belongs: directly after the first time the
- * page introduces her, on the page where a stranger decides whether to keep
- * reading.
+ * button. The slot belongs directly after the first time the page introduces
+ * her, where a stranger is deciding whether to keep reading.
  */
 const welcomeId = site.integrations.welcomeVideoId;
 const welcomePoster = site.integrations.welcomeVideoPoster;
@@ -281,7 +279,7 @@ const values = [
         }
       </div>
       <p style="margin-top: var(--space-6);">
-        <a href="/testimonials/">Read the rest, and what you can verify without taking my word for it →</a>
+        <a href="/testimonials/">Read more client experiences and see how I work →</a>
       </p>
     </div>
   </section>
@@ -412,9 +410,10 @@ const values = [
         <p class="eyebrow">Free interactive tool</p>
         <h2>Explore Your Chart</h2>
         <p>
-          An interactive tour of how a birth chart works: planets as drives, signs as styles,
-          houses as arenas, and the reminder that the pieces make more sense in relationship to
-          one another. No birth data needed; it is education, not a reading.
+          An interactive tour of how a birth chart works: planets as drives or functions, signs as
+          styles of expression, houses as areas of experience, and the reminder that the pieces
+          make more sense in relationship to one another. No birth data needed; it is education,
+          not a reading.
         </p>
         <p><a class="btn btn--accent" href="/tools/explore-your-chart/">Open the explorer</a></p>
       </div>
@@ -436,8 +435,8 @@ const values = [
           [
             ['book', 'Start Here', '/start-here/', 'New to astrology? Nine steps, in order.'],
             ['star', 'The 12 Signs', '/explore/signs/', 'Styles of expression, Aries to Pisces.'],
-            ['planet', 'The Planets', '/explore/planets/', 'Ten drives every chart contains.'],
-            ['video', 'Videos', '/videos/', 'Mo on YouTube and Instagram.'],
+            ['planet', 'The Planets', '/explore/planets/', 'Ten planetary functions used throughout the chart.'],
+            ['book', 'Glossary', '/explore/glossary/', 'Plain-language definitions when a term gets in the way.'],
           ].map(([icon, t, href, d]) => (
             <article class="card" style="gap: var(--space-2);">
               <span style="color: var(--color-teal);">
