@@ -8,6 +8,7 @@ import CTABand from '../../components/CTABand.astro';
 const terms = (await getCollection('glossary')).sort((a, b) =>
   a.data.term.localeCompare(b.data.term)
 );
+const letters = [...new Set(terms.map((t) => t.data.term.charAt(0).toUpperCase()))];
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Glossary', href: '/explore/glossary/' },
@@ -27,8 +28,9 @@ const crumbs = [
         <p class="eyebrow">Reference</p>
         <h1>Glossary</h1>
         <p class="lede">
-          Every term on this site, defined the way I define things: plainly. {terms.length} terms
-          and growing.
+          Astrology has a large vocabulary. Use this page when a term interrupts your reading; you
+          do not need to memorize the language before you can understand the idea. {terms.length}
+          terms and growing.
         </p>
       </div>
       <img
@@ -45,29 +47,105 @@ const crumbs = [
   </section>
 
   <section class="section">
-    <div class="container prose">
-      <dl>
-        {
-          terms.map((t) => (
-            <div id={t.data.id} style="margin-bottom: var(--space-6);">
-              <dt style="font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600;">
-                {t.data.term}
-              </dt>
-              <dd style="margin: var(--space-2) 0 0;">
-                {t.data.definition}
-                {t.data.learnLink && (
-                  <>
-                    {' '}
-                    <a href={t.data.learnLink}>Learn more →</a>
-                  </>
-                )}
-              </dd>
-            </div>
-          ))
-        }
-      </dl>
+    <div class="container">
+      <div class="card flow" style="margin-bottom: var(--space-8);">
+        <p class="eyebrow">Find a term</p>
+        <label for="glossary-search"><strong>Search the glossary</strong></label>
+        <input
+          id="glossary-search"
+          type="search"
+          placeholder="Try ascendant, transit, synastry…"
+          autocomplete="off"
+          data-glossary-search
+          style="width: 100%; max-width: 38rem;"
+        />
+        <p class="card__meta" data-glossary-status aria-live="polite">
+          Showing all {terms.length} terms.
+        </p>
+        <nav aria-label="Glossary letters" style="display: flex; flex-wrap: wrap; gap: var(--space-2);">
+          {letters.map((letter) => (
+            <a class="btn btn--ghost" style="padding: .45rem .7rem;" href={`#letter-${letter}`}>
+              {letter}
+            </a>
+          ))}
+        </nav>
+        <noscript>
+          <p class="card__meta">Search needs JavaScript; the full alphabetical glossary remains below.</p>
+        </noscript>
+      </div>
+
+      <div class="prose" data-glossary-list>
+        <dl>
+          {
+            terms.map((t, index) => {
+              const letter = t.data.term.charAt(0).toUpperCase();
+              const firstForLetter = index === 0 || terms[index - 1].data.term.charAt(0).toUpperCase() !== letter;
+              return (
+                <div
+                  id={t.data.id}
+                  data-glossary-term
+                  data-search={`${t.data.term} ${t.data.definition}`.toLowerCase()}
+                  style="margin-bottom: var(--space-6);"
+                >
+                  {firstForLetter && (
+                    <p id={`letter-${letter}`} class="eyebrow" style="padding-top: var(--space-4);">
+                      {letter}
+                    </p>
+                  )}
+                  <dt style="font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600;">
+                    {t.data.term}
+                  </dt>
+                  <dd style="margin: var(--space-2) 0 0;">
+                    {t.data.definition}
+                    {t.data.learnLink && (
+                      <>
+                        {' '}
+                        <a href={t.data.learnLink}>See it in context →</a>
+                      </>
+                    )}
+                  </dd>
+                </div>
+              );
+            })
+          }
+        </dl>
+        <p data-glossary-empty hidden>
+          I do not have that term in the glossary yet. Try a shorter word, or use
+          <a href="/explore/"> Explore Astrology</a> to browse by topic.
+        </p>
+      </div>
     </div>
   </section>
 
-  <CTABand />
+  <CTABand
+    heading="A definition is the beginning, not the interpretation."
+    body="When you know the word, follow it into the larger system. Explore Astrology connects the terms to the relationships that make a chart meaningful."
+    buttonLabel="Explore by Topic"
+    buttonHref="/explore/"
+    secondaryLabel="Start with chart structure"
+    secondaryHref="/explore/birth-chart-basics/"
+  />
+
+  <script>
+    const input = document.querySelector('[data-glossary-search]');
+    const rows = [...document.querySelectorAll('[data-glossary-term]')];
+    const status = document.querySelector('[data-glossary-status]');
+    const empty = document.querySelector('[data-glossary-empty]');
+
+    if (input instanceof HTMLInputElement && status && empty) {
+      input.addEventListener('input', () => {
+        const query = input.value.trim().toLowerCase();
+        let visible = 0;
+        rows.forEach((row) => {
+          const match = !query || (row.getAttribute('data-search') || '').includes(query);
+          row.toggleAttribute('hidden', !match);
+          if (match) visible += 1;
+        });
+        empty.toggleAttribute('hidden', visible !== 0);
+        status.textContent = query
+          ? `${visible} ${visible === 1 ? 'term' : 'terms'} match “${input.value.trim()}”.`
+          : `Showing all ${rows.length} terms.`;
+      });
+    }
+  </script>
 </BaseLayout>
