@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
+import ReferencePager from '../../../components/ReferencePager.astro';
 import { bandFor } from '../../../config/images';
 import { houses } from '../../../data/houses';
 
@@ -61,13 +62,17 @@ const breakImage = bandFor(h.slug, 5);
         <tbody>
           <tr><th scope="row">Traditional name</th><td>{h.latin}</td></tr>
           <tr><th scope="row">Angularity</th><td>{h.angularity}</td></tr>
-          <tr><th scope="row">Natural sign</th><td>{h.naturalSign}</td></tr>
-          <tr><th scope="row">Natural ruler</th><td>{h.naturalRuler}</td></tr>
+          <tr><th scope="row">Modern sign correspondence</th><td>{h.naturalSign}</td></tr>
+          <tr><th scope="row">Modern ruler correspondence</th><td>{h.naturalRuler}</td></tr>
           <tr><th scope="row">Opposite house</th><td>{opposite ? <a href={`/explore/houses/${opposite.slug}/`}>{h.opposite}</a> : h.opposite}</td></tr>
           {h.joy && <tr><th scope="row">Planetary joy</th><td>{h.joy}</td></tr>}
         </tbody>
       </table>
-      <p class="card__meta">{angularityNote}</p>
+      <p class="card__meta">
+        {angularityNote} The sign and ruler correspondences shown here are the common modern
+        “12-letter alphabet” associations. They are not inherent to the house and are not used as
+        equivalent meanings in every astrological tradition.
+      </p>
       <h2>The arena</h2>
       <p>{h.arena}</p>
       <h2>What it can cover</h2>
@@ -96,10 +101,13 @@ const breakImage = bandFor(h.slug, 5);
         <a href="/explore/birth-chart-basics/">Here is how the pieces fit together.</a>
       </p>
 
-      <nav aria-label="More houses" class="reference-pager">
-        <a href={`/explore/houses/${prev.slug}/`}>← {prev.name}</a>
-        <a href={`/explore/houses/${next.slug}/`}>{next.name} →</a>
-      </nav>
+      <ReferencePager
+        ariaLabel="More houses"
+        prevHref={`/explore/houses/${prev.slug}/`}
+        prevLabel={prev.name}
+        nextHref={`/explore/houses/${next.slug}/`}
+        nextLabel={next.name}
+      />
     </div>
   </section>
 
