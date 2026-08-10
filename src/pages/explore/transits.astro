@@ -11,121 +11,69 @@ const crumbs = [
 ];
 ---
 
-<BaseLayout
-  title="Transits, the astrology of timing"
-  description="Transits describe relationships between the moving sky and a birth chart. Learn how astrologers use them for timing, why one transit can show up in many ways, and where interpretation begins."
-  path="/explore/transits/"
-  breadcrumbs={crumbs}
->
+<BaseLayout title="Transits, the astrology of timing" description="Transits describe relationships between the moving sky and a birth chart. Learn how astrologers use them for timing, why one transit can show up in many ways, and where interpretation begins." path="/explore/transits/" breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Explore Astrology</p>
-      <h1>Transits: the astrology of timing</h1>
-      <p class="lede">
-        A natal chart is calculated for one moment. The sky keeps moving. Transits describe the
-        new relationships the moving planets form with the positions in a birth chart, adding a
-        changing layer of timing to a chart that otherwise stays fixed.
-      </p>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Transits: when the moving sky meets the natal chart</h1>
+        <p class="lede">A natal chart is calculated for one moment. The sky keeps moving. A transit begins with a relationship between a moving planet and a natal chart factor; interpretation begins when that relationship is placed back into the whole chart and the life being lived.</p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.currents.src}
-        srcset={ocean.currents.srcset}
-        sizes="100vw"
-        alt={ocean.currents.alt}
-        width={ocean.currents.width}
-        height={ocean.currents.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.currents.src} srcset={ocean.currents.srcset} sizes="100vw" alt={ocean.currents.alt} width={ocean.currents.width} height={ocean.currents.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
+    <div class="container">
+      <div class="transit-flow" aria-label="How a transit becomes a personal interpretation">
+        <div><span>1</span><strong>Moving sky</strong><p>A planet continues through the zodiac.</p></div>
+        <div><span>2</span><strong>Contact</strong><p>It forms an aspect to a natal planet or angle.</p></div>
+        <div><span>3</span><strong>Natal context</strong><p>The natal chart shows what that factor already means in this chart.</p></div>
+        <div><span>4</span><strong>Other timing</strong><p>Other active cycles can reinforce, complicate, or redirect attention.</p></div>
+        <div><span>5</span><strong>Lived context</strong><p>The person's actual circumstances help determine which possibilities matter.</p></div>
+      </div>
+
+      <div class="prose flow">
+        <h2>Current Sky is shared. A personal transit is chart-specific.</h2>
+        <p><strong>Current Sky</strong> asks what is happening overhead and what a shared cycle may be worth noticing. A <strong>personal transit</strong> asks where that moving sky contacts your natal chart, what else is active, and whether the symbolism fits what is actually unfolding.</p>
+        <p><a href="/current-sky/">See the shared sky now</a> if that is the question you came with.</p>
+
+        <h2>A transit describes a condition, not a script</h2>
+        <p>A transit can be astrologically specific and still have more than one possible expression. Saturn contacting the Midheaven, for example, may coincide with added responsibility, restructuring, recognition, delay, commitment, or a change in how someone relates to vocation and public life. Which expression matters depends on the natal chart, other timing factors, and the person's circumstances.</p>
+        <p>Technique can narrow the field. It does not remove the need for context and synthesis, and it does not turn a planetary contact into a promised event.</p>
+      </div>
+    </div>
+  </section>
+
+  <Interlude image={ocean.dawnWave} eyebrow="Timing" heading="The sky repeats its cycles. Your life does not repeat in exactly the same way." body="A transit gives us a relationship to examine. The natal chart, the rest of the sky, and your lived circumstances help tell us which possibilities deserve attention." />
+
+  <section class="section">
     <div class="container prose flow">
-      <h2>A transit describes a condition, not a script</h2>
-      <p>
-        A transit can be very specific astrologically and still have more than one possible
-        expression in a life. Saturn contacting the Midheaven, for example, may coincide with a
-        period of added responsibility, restructuring, recognition, delay, commitment, or a change
-        in how someone relates to vocation and public life. Which expression matters depends on the
-        natal chart, the other timing factors, and what is actually happening for that person.
-      </p>
-      <p>
-        This is one reason I am wary of transit interpretations that jump directly from a planetary
-        contact to a promised event. Technique can narrow the field. It does not remove the need
-        for context and synthesis.
-      </p>
       <h2>Different cycles move at different speeds</h2>
-      <p>
-        The Moon moves quickly and makes repeated contacts throughout a month. Mercury, Venus, the
-        Sun, and Mars work on shorter cycles than Jupiter, Saturn, Uranus, Neptune, and Pluto. The
-        slower planets can remain within range of an important natal point for much longer, often
-        returning to it during retrograde motion. That difference in duration is one reason
-        astrologers tend to give slower transits more weight when looking at longer chapters of life.
-      </p>
-      <p>
-        The cycles themselves are part of what I find so compelling: the same planets keep moving,
-        repeating rhythms we can calculate, while no two people meet those cycles through exactly
-        the same chart or life.
-      </p>
-    </div>
-  </section>
+      <p>The Moon moves quickly and makes repeated contacts throughout a month. Mercury, Venus, the Sun, and Mars work on shorter cycles than Jupiter, Saturn, Uranus, Neptune, and Pluto. Slower planets can remain within range of an important natal point much longer, sometimes returning to it during retrograde motion. Duration is one reason astrologers often give slower transits more weight when looking at longer chapters of life.</p>
 
-  <Interlude
-    image={ocean.dawnWave}
-    eyebrow="Timing"
-    heading="The sky repeats its cycles. Your life does not repeat in exactly the same way."
-    body="A transit gives us a relationship to examine. The natal chart, the rest of the sky, and your lived circumstances help tell us which possibilities deserve attention."
-  />
-
-  <section class="section">
-    <div class="container prose flow">
       <h2>About retrogrades</h2>
-      <p>
-        Retrograde motion is an apparent reversal caused by the changing positions of Earth and the
-        other planet; the planet does not literally reverse its orbit. Astrologers have long given
-        retrograde periods interpretive significance, but that does not make every delay, typo, or
-        bad day the fault of Mercury. <a href="/explore/retrogrades/">Retrogrades deserve more
-        nuance than that.</a>
-      </p>
+      <p>Retrograde motion is an apparent reversal caused by the changing positions of Earth and the other planet; the planet does not literally reverse its orbit. Astrologers have long given retrograde periods interpretive significance, but that does not make every delay, typo, or bad day the fault of Mercury. <a href="/explore/retrogrades/">Retrogrades deserve more nuance than that.</a></p>
+
       <h2>How transits become personal</h2>
-      <p>
-        A general sky event tells us what is happening overhead. A personal transit asks where that
-        event is contacting your natal chart, what else is active at the same time, and whether the
-        symbolism fits what is actually unfolding. That is the movement from general astrology to
-        individualized interpretation.
-      </p>
-      <p>
-        In a reading, I may see several plausible ways a transit could be expressing itself. I can
-        explain what I am seeing and ask questions rather than pretending the chart has already told
-        me which version of the story is yours. The conversation helps us get more specific.
-      </p>
+      <p>In a reading, I may see several plausible ways a transit could be expressing itself. I can explain what I am seeing and ask questions rather than pretending the chart has already told me which version of the story is yours. The conversation helps us get more specific.</p>
+
       <h2>Using timing without giving away your authorship</h2>
-      <p>
-        Timing can be useful when it helps you recognize what is developing, understand why a period
-        feels different, or consider when a particular issue may be more active. It is less useful
-        when it becomes a reason to stop making your own decisions. Astrology can add another layer
-        of perspective to timing; it does not have to become a command.
-      </p>
-      <p>
-        If you want to see the collective sky rather than a personal chart, visit
-        <a href="/current-sky/">Current Sky</a>. For individualized timing, established clients can
-        use <a href="/readings/solar-return/">Solar Return</a>,
-        <a href="/readings/life-changes/">Life Changes</a>, or
-        <a href="/readings/monthly-transits/">Monthly Personal Transits</a> depending on the question.
-      </p>
+      <p>Timing can be useful when it helps you recognize what is developing, understand why a period feels different, or consider when a particular issue may be more active. It is less useful when it becomes a reason to stop making your own decisions. Astrology can add another layer of perspective to timing; it does not have to become a command.</p>
+      <p>If your question is personal, the <a href="/reading-finder/">Reading Finder</a> can account for whether you are new or returning and point you toward the appropriate verified service.</p>
       <FurtherReading />
     </div>
   </section>
 
-  <CTABand
-    heading="General sky. Particular chart. Particular life."
-    body="If your timing question has become personal, the Reading Finder can account for whether you are new or returning and point you toward the right place to begin."
-    buttonLabel="Use the Reading Finder"
-    buttonHref="/reading-finder/"
-    secondaryLabel="Keep following Current Sky"
-    secondaryHref="/current-sky/"
-  />
+  <CTABand heading="General sky. Particular chart. Particular life." body="Follow the shared sky when you want context. Use the Reading Finder when the timing question has become personal." buttonLabel="Keep following Current Sky" buttonHref="/current-sky/" secondaryLabel="Use the Reading Finder" secondaryHref="/reading-finder/" />
 </BaseLayout>
+
+<style>
+  .transit-flow { display: grid; gap: var(--space-3); margin-bottom: var(--space-10); }
+  .transit-flow > div { position: relative; padding: var(--space-5); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+  .transit-flow span { display: grid; width: 2rem; height: 2rem; place-items: center; margin-bottom: var(--space-3); border: 1px solid currentColor; border-radius: 50%; font-weight: 700; }
+  .transit-flow strong { display: block; font-size: var(--text-lg); }
+  .transit-flow p { margin: var(--space-2) 0 0; }
+  @media (min-width: 900px) { .transit-flow { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+</style>
