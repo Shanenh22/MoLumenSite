@@ -5,7 +5,7 @@
  */
 export const site = {
   name: "Mo Lumen Astrology",
-  legalName: "Mo Lumen Astrological Services", // confirm with owner (open-questions Q8)
+  legalName: "Mo Lumen Astrological Services",
   /**
    * Brand tagline. Chosen by Shane on 2026-08-05, and taken from Mo's own words
    * on /about/ — "There is fate and there is choice, and a good reading helps
