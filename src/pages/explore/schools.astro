@@ -10,6 +10,13 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Schools & Traditions', href: '/explore/schools/' },
 ];
+const schools = [
+  ['Hellenistic', 'Planetary condition, sect, houses, lots, and timing techniques.'],
+  ['Medieval & Renaissance', 'Planetary condition, rulership, prediction, elections, and horary.'],
+  ['Modern psychological', 'Character, meaning, development, and the inner life.'],
+  ['Evolutionary', 'Pluto, the lunar nodes, and a developmental or spiritual framework.'],
+  ['Jyotish', 'A distinct Indian tradition with its own texts, techniques, timing systems, and philosophical context.'],
+];
 ---
 
 <BaseLayout
@@ -24,41 +31,45 @@ const crumbs = [
       <div>
         <p class="eyebrow">Explore Astrology</p>
         <h1>Schools and traditions</h1>
-        <p class="lede">
-          Astrology is not one single method. It is a long conversation made up of different
-          traditions, techniques, assumptions, and ways of interpreting a chart. Knowing some of
-          that history helps you understand why two thoughtful astrologers may not work the same way.
-        </p>
+        <p class="lede">Astrology is not one single method. It is a long conversation made up of different traditions, techniques, assumptions, and ways of interpreting a chart. Knowing some of that history helps you understand why two thoughtful astrologers may not work the same way.</p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.meetingWaves.src}
-        srcset={ocean.meetingWaves.srcset}
-        sizes="100vw"
-        alt={ocean.meetingWaves.alt}
-        width={ocean.meetingWaves.width}
-        height={ocean.meetingWaves.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.meetingWaves.src} srcset={ocean.meetingWaves.srcset} sizes="100vw" alt={ocean.meetingWaves.alt} width={ocean.meetingWaves.width} height={ocean.meetingWaves.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
     <div class="container prose flow">
-      <h2>Why this page exists</h2>
+      <h2>Why this matters to you</h2>
       <p>
-        A great deal of astrology writing simply calls itself "astrology," as though every
-        practitioner were drawing from the same toolbox. In practice, astrologers may use
-        different house systems, planets, timing methods, philosophical assumptions, and historical
-        traditions. Those differences can change what they notice and how they frame a reading.
+        Different schools may use different house systems, timing methods, planets, philosophical
+        assumptions, and rules for judging planetary condition. Those choices can change what an
+        astrologer notices and how a reading is framed. The labels below are orientation points,
+        not complete definitions.
       </p>
+      <div class="school-grid">
+        {schools.map(([name, emphasis]) => (
+          <article>
+            <h3>{name}</h3>
+            <p>{emphasis}</p>
+          </article>
+        ))}
+      </div>
+
+      <h2>What to ask an astrologer</h2>
+      <ul>
+        <li>What have you studied, and which techniques do you use most often?</li>
+        <li>How do you decide which techniques matter for a particular question?</li>
+        <li>Which house system or systems do you use, and why?</li>
+        <li>How do you approach prediction, uncertainty, and client choice?</li>
+      </ul>
       <p>
-        I do not think that means one school has to own the whole subject. It does mean it is useful
-        to know where techniques come from, what assumptions accompany them, and why an astrologer
-        chooses to use them.
+        The value of these questions is not that there is one correct answer. It is that the answer
+        tells you how the astrologer thinks. A practitioner should be able to explain the methods
+        they use without asking you to accept a label as proof of expertise. More in
+        <a href="/blog/how-to-choose-an-astrologer/">how to choose an astrologer</a>.
       </p>
 
-      <h2>Hellenistic astrology (roughly 1st century BCE – 7th century CE)</h2>
+      <h2>Hellenistic astrology <span class="card__meta">roughly 1st century BCE–7th century CE</span></h2>
       <p>
         Much of the technical foundation of Western astrology developed in the Hellenistic world,
         especially in Greco-Roman Egypt. Surviving texts describe the seven visible planets, whole
@@ -76,7 +87,7 @@ const crumbs = [
         horary is one part of my training, not a label for my entire practice.
       </p>
 
-      <h2>Modern psychological astrology (20th century)</h2>
+      <h2>Modern psychological astrology <span class="card__meta">20th century</span></h2>
       <p>
         Modern Western astrology increasingly emphasized character, meaning, development, and the
         inner life. It incorporated Uranus, Neptune, and Pluto and often drew from psychological
@@ -84,7 +95,6 @@ const crumbs = [
         traditional dignity and concrete prediction and more on how a person experiences and
         develops the chart.
       </p>
-
     </div>
   </section>
 
@@ -119,20 +129,6 @@ const crumbs = [
           the pattern is actually being lived. <a href="/approach/">More on how I work.</a>
         </p>
       </Layers>
-
-      <h2>What to ask an astrologer</h2>
-      <ul>
-        <li>What have you studied, and which techniques do you use most often?</li>
-        <li>How do you decide which techniques matter for a particular question?</li>
-        <li>Which house system or systems do you use, and why?</li>
-        <li>How do you approach prediction, uncertainty, and client choice?</li>
-      </ul>
-      <p>
-        The value of these questions is not that there is one correct answer. It is that the answer
-        tells you how the astrologer thinks. A practitioner should be able to explain the methods
-        they use without asking you to accept a label as proof of expertise. More in
-        <a href="/blog/how-to-choose-an-astrologer/">how to choose an astrologer</a>.
-      </p>
       <FurtherReading />
     </div>
   </section>
@@ -143,4 +139,11 @@ const crumbs = [
     buttonLabel="Read about Mo's approach"
     buttonHref="/approach/"
   />
+
+  <style>
+    .school-grid { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-block: var(--space-6); }
+    .school-grid article { padding: var(--space-5); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+    .school-grid h3, .school-grid p { margin-bottom: 0; }
+    @media (min-width: 768px) { .school-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  </style>
 </BaseLayout>
