@@ -12,7 +12,7 @@ const crumbs = [
 
 <BaseLayout
   title="Birth Chart Basics. How a natal chart works"
-  description="A birth chart is a map of the sky at your moment of birth. Learn what planets, signs, houses, and aspects contribute, and why astrologers read them together rather than in isolation."
+  description="A birth chart is a map of the sky at your moment of birth. Learn what planets, signs, houses, angles, and aspects contribute, and why astrologers read them together."
   path="/explore/birth-chart-basics/"
   breadcrumbs={crumbs}
 >
@@ -20,68 +20,65 @@ const crumbs = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Start here</p>
-      <h1>Birth chart basics</h1>
-      <p class="lede">
-        A birth chart, or natal chart, is a map of the sky calculated for the date, time, and place
-        you were born. The map is made of many parts. Astrology begins by learning those parts and
-        becomes much more interesting when you start seeing how they work together.
-      </p>
+        <p class="eyebrow">Start here</p>
+        <h1>Birth chart basics</h1>
+        <p class="lede">
+          Before learning what every symbol means, it helps to know what you are actually looking at.
+          A birth chart is a map of a particular sky from a particular place and moment. Astrology
+          begins with the interpretation of that map.
+        </p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.birthChartBasics.src}
-        srcset={scenes.birthChartBasics.srcset}
-        sizes="100vw"
-        alt={scenes.birthChartBasics.alt}
-        width={scenes.birthChartBasics.width}
-        height={scenes.birthChartBasics.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.birthChartBasics.src} srcset={scenes.birthChartBasics.srcset} sizes="100vw" alt={scenes.birthChartBasics.alt} width={scenes.birthChartBasics.width} height={scenes.birthChartBasics.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow">
-      <h2>What a chart actually is</h2>
-      <p>
-        Imagine standing where you were born at the moment you were born and mapping the sky all
-        around you, including the half below the horizon. The positions of the planets, the zodiac,
-        the horizon, and the meridian can all be calculated astronomically. Astrology begins when
-        we interpret the relationships among those positions and ask what they may describe about
-        a person's tendencies, experiences, and timing.
-      </p>
-      <p>
-        I think that distinction matters. The planetary positions are astronomical data. What an
-        astrologer makes of them is interpretation.
-      </p>
-      <h2>Four useful ways into the chart</h2>
-      <p>For a beginner, four categories make the wheel much easier to understand:</p>
-      <ul>
-        <li>
-          <strong><a href="/explore/planets/">Planets</a></strong> describe different functions or
-          drives within the chart. The same planet belongs to everyone, but it will not operate the
-          same way in every chart.
-        </li>
-        <li>
-          <strong><a href="/explore/signs/">Signs</a></strong> describe styles of expression. They
-          modify how a planet tends to operate; they are not personalities by themselves.
-        </li>
-        <li>
-          <strong><a href="/explore/houses/">Houses</a></strong> describe areas of experience. They
-          help us ask where a planet or pattern may be most visible in a person's life.
-        </li>
-        <li>
-          <strong><a href="/explore/aspects/">Aspects</a></strong> describe angular relationships
-          among planets. They show us that the chart is not a collection of separate definitions:
-          its parts are constantly modifying one another.
-        </li>
-      </ul>
-      <p>
-        You can learn each category separately, and that is exactly what the rest of this section
-        will help you do. But no single planet, sign, house, or aspect tells the whole story. The
-        work of interpretation is in the combination.
-      </p>
+    <div class="container basics-map">
+      <div class="basics-map__visual" role="img" aria-label="Simplified teaching diagram showing the zodiac around a chart, houses inside it, the horizon and meridian crossing the wheel, planets placed within the chart, and aspect lines connecting planets">
+        <div class="basics-map__zodiac">ZODIAC</div>
+        <div class="basics-map__houses">HOUSES</div>
+        <div class="basics-map__horizon"><span>HORIZON</span></div>
+        <div class="basics-map__meridian"><span>MERIDIAN</span></div>
+        <span class="basics-map__planet basics-map__planet--one" aria-hidden="true">☉</span>
+        <span class="basics-map__planet basics-map__planet--two" aria-hidden="true">☽</span>
+        <span class="basics-map__planet basics-map__planet--three" aria-hidden="true">♂</span>
+        <svg class="basics-map__aspects" viewBox="0 0 300 300" aria-hidden="true">
+          <path d="M92 87 L211 111 L145 221 Z" />
+        </svg>
+      </div>
+      <div class="prose flow">
+        <p class="eyebrow">Read the picture first</p>
+        <h2>What the wheel is showing you</h2>
+        <p>
+          Imagine standing where you were born at the moment you were born and mapping the sky all
+          around you, including the half below the horizon. The planetary positions, zodiac,
+          horizon, and meridian can be calculated astronomically. Astrology begins when we interpret
+          the relationships among those positions.
+        </p>
+        <dl class="factlist">
+          <dt>Zodiac</dt><dd>The twelve signs form the reference band against which planetary positions are described.</dd>
+          <dt>Houses</dt><dd>The chart is divided into areas of experience, anchored to the local place and time.</dd>
+          <dt>Angles</dt><dd>The horizon and meridian create four important orientation points, including the Ascendant and Midheaven.</dd>
+          <dt>Planets</dt><dd>The Sun, Moon, and planets occupy positions within that structure.</dd>
+          <dt>Aspects</dt><dd>Angular relationships connect planets to one another and help show how separate functions interact.</dd>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <h2>Four useful questions make the chart easier to enter</h2>
+        <p>These are teaching shortcuts, not a complete interpretation.</p>
+      </div>
+      <div class="grid grid--4">
+        <article class="card"><h3><a href="/explore/planets/">Planet</a></h3><p><strong>What is operating?</strong></p><p>A drive or function within the chart.</p></article>
+        <article class="card"><h3><a href="/explore/signs/">Sign</a></h3><p><strong>How does it express?</strong></p><p>A style or mode through which a planet operates.</p></article>
+        <article class="card"><h3><a href="/explore/houses/">House</a></h3><p><strong>Where does it show up?</strong></p><p>An area of experience where the symbolism may become visible.</p></article>
+        <article class="card"><h3><a href="/explore/aspects/">Aspect</a></h3><p><strong>How do the parts relate?</strong></p><p>An angular relationship that connects planetary functions.</p></article>
+      </div>
+      <p style="margin-top: var(--space-6);"><a class="btn btn--primary" href="/tools/explore-your-chart/">Try these layers in the chart explorer</a></p>
     </div>
   </section>
 
@@ -91,47 +88,80 @@ const crumbs = [
     <div class="container prose flow">
       <h2>Why your birth time matters</h2>
       <p>
-        The rising sign is the zodiac sign on the eastern horizon at birth, and it changes
-        throughout the day. The birth time also determines the chart's angles and house structure.
-        That means two people born on the same date in the same city can share many planetary
-        placements while having very different chart orientations. This is why astrologers ask for
-        the most accurate birth time available. If you do not know yours,
-        <a href="/birth-time/">there are still useful ways to work with what is known</a>.
+        Birth time anchors the chart to the local horizon and meridian. It determines the rising
+        sign, exact angles, and house structure, which is why two people born on the same date in
+        the same city can share many planetary placements while having different chart orientations.
+        If you do not know yours, <a href="/birth-time/">there are still useful ways to work with what is known</a>.
       </p>
-      <h2>Why a placement is never the whole person</h2>
+
+      <h2>Why one placement is never the whole person</h2>
       <p>
-        Online astrology often makes one placement sound self-contained: "Mars in Aries means
-        this" or "Moon in Pisces means that." Those descriptions can teach vocabulary, but they
-        are only starting points. Mars may be in Aries, but it is also in a house, making aspects,
-        ruling other parts of the chart, and operating inside one particular life.
+        Online astrology often makes one placement sound self-contained: “Mars in Aries means this”
+        or “Moon in Pisces means that.” Those descriptions can teach vocabulary, but Mars is also in
+        a house, making aspects, ruling other parts of the chart, and operating inside one particular
+        life. The ingredients repeat across charts. The combinations do not.
       </p>
-      <p>
-        This is the part of astrology I find endlessly fascinating. The ingredients repeat across
-        charts. The combinations do not. A chart becomes individual through relationship and
-        context.
-      </p>
+
       <h2>What a chart is not</h2>
       <p>
-        A chart is not a verdict, a personality prison, or a set of instructions. It offers a way
-        to look at patterns, tensions, capacities, and timing from another perspective. How those
-        possibilities are lived depends on the person, the circumstances, and the choices made
-        along the way.
-      </p>
-      <h2>Where to go next</h2>
-      <p>
-        Use the <a href="/tools/explore-your-chart/">interactive chart explorer</a> to see how the
-        categories relate, or continue with <a href="/explore/the-big-three/">the Sun, Moon, and
-        rising sign</a> before moving through planets, signs, houses, and aspects.
+        A chart is not a verdict, a personality prison, or a set of instructions. It offers another
+        way to look at patterns, tensions, capacities, and timing. How those possibilities are lived
+        depends on the person, the circumstances, and the choices made along the way.
       </p>
     </div>
   </section>
 
   <CTABand
-    heading="Ready for the next layer?"
-    body="Continue with the Sun, Moon, and rising sign, or use the interactive chart explorer to see how planets, signs, houses, and aspects relate."
-    buttonLabel="Learn the Big Three"
-    buttonHref="/explore/the-big-three/"
-    secondaryLabel="Open the chart explorer"
-    secondaryHref="/tools/explore-your-chart/"
+    heading="Now try reading the layers yourself."
+    body="The chart explorer turns this map into a guided lesson: choose a planet, sign, and house, then see why synthesis matters more than isolated labels."
+    buttonLabel="Open the Chart Explorer"
+    buttonHref="/tools/explore-your-chart/"
+    secondaryLabel="Continue to the Big Three"
+    secondaryHref="/explore/the-big-three/"
   />
 </BaseLayout>
+
+<style>
+  .basics-map {
+    display: grid;
+    gap: var(--space-8);
+    align-items: center;
+  }
+  .basics-map__visual {
+    position: relative;
+    width: min(82vw, 420px);
+    aspect-ratio: 1;
+    margin-inline: auto;
+    border: 26px solid var(--color-teal-tint);
+    outline: 2px solid var(--color-teal);
+    border-radius: 50%;
+    background: radial-gradient(circle, var(--color-parchment) 0 45%, transparent 46%), var(--surface);
+    box-shadow: var(--shadow-1);
+    overflow: hidden;
+  }
+  .basics-map__zodiac,
+  .basics-map__houses {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: var(--text-xs);
+    font-weight: 800;
+    letter-spacing: .12em;
+  }
+  .basics-map__zodiac { top: 10px; color: var(--color-teal-deep); }
+  .basics-map__houses { top: 72px; color: var(--ink-soft); }
+  .basics-map__horizon,
+  .basics-map__meridian { position: absolute; inset: 50% 4%; height: 1px; background: var(--color-clay); }
+  .basics-map__horizon span { position: absolute; right: 0; top: 6px; font-size: .7rem; font-weight: 700; }
+  .basics-map__meridian { transform: rotate(90deg); }
+  .basics-map__meridian span { position: absolute; right: 0; top: 6px; font-size: .7rem; font-weight: 700; transform: rotate(-90deg); }
+  .basics-map__planet { position: absolute; z-index: 2; font-size: 1.7rem; color: var(--color-navy); }
+  .basics-map__planet--one { left: 21%; top: 20%; }
+  .basics-map__planet--two { right: 18%; top: 31%; }
+  .basics-map__planet--three { left: 43%; bottom: 18%; }
+  .basics-map__aspects { position: absolute; inset: 0; width: 100%; height: 100%; }
+  .basics-map__aspects path { fill: none; stroke: var(--color-gold); stroke-width: 2; opacity: .75; }
+  @media (min-width: 900px) {
+    .basics-map { grid-template-columns: .85fr 1.15fr; }
+  }
+</style>

@@ -3,61 +3,16 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
-import Icon from '../components/Icon.astro';
 import { celestial } from '../config/images';
 
 const approved = (await getCollection('testimonials')).filter((t) => t.data.approved);
 const isDev = import.meta.env.DEV;
 const crumbs = [{ label: 'Testimonials', href: '/testimonials/' }];
-const signals = [
-  {
-    icon: 'chart' as const,
-    title: 'Training you can verify',
-    body: "A Practitioner's Certificate in Horary Astrology from the School of Traditional Astrology, NCGR-PAA Levels 1 and 2 passed, and board service with OPA. Named schools and named examinations, with the details gathered in one place.",
-    href: '/credentials/',
-    linkText: 'See the credentials',
-  },
-  {
-    icon: 'book' as const,
-    title: 'The reasoning is public',
-    body: 'The learning library separates astronomical fact, astrological tradition, contemporary interpretation, and my own synthesis. You can read how I think before deciding whether you want me to think through your chart with you.',
-    href: '/explore/',
-    linkText: 'Read the library',
-  },
-  {
-    icon: 'moon' as const,
-    title: 'The limits are stated up front',
-    body: 'The reading pages explain what each service is and is not for, and the disclaimer states the boundaries around medical, legal, financial, and other high-stakes decisions.',
-    href: '/disclaimer/',
-    linkText: 'Read the disclaimer',
-  },
-  {
-    icon: 'letter' as const,
-    title: 'The booking terms are visible',
-    body: 'Scheduling, cancellation, rescheduling, recording, and refund terms are available before you book. You should not have to pay first to discover the rules.',
-    href: '/booking-policy/',
-    linkText: 'Read the booking policy',
-  },
-  {
-    icon: 'sun' as const,
-    title: 'Your information stays yours',
-    body: 'Birth data is treated as information supplied for the reading, not as marketing material. The privacy policy explains how it is handled and what you can ask to have deleted.',
-    href: '/privacy/',
-    linkText: 'Read the privacy policy',
-  },
-  {
-    icon: 'book' as const,
-    title: 'You can see the sources',
-    body: 'The sources page shows where the educational material comes from and where different traditions or methods do not agree. You can see what informs the material and where interpretation begins.',
-    href: '/explore/sources/',
-    linkText: 'See the sources',
-  },
-];
 ---
 
 <BaseLayout
   title="Testimonials"
-  description="Every testimonial here is genuine and published with permission. You can also verify Mo Lumen's training, methods, policies, and published reasoning directly."
+  description="Genuine, permissioned client words about astrology readings with Mo Lumen, plus direct links to Mo's approach, training, and reading process."
   path="/testimonials/"
   breadcrumbs={crumbs}
   noindex={approved.length === 0}
@@ -66,22 +21,31 @@ const signals = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-        <p class="eyebrow">Kind words</p>
-        <h1>Testimonials</h1>
+        <p class="eyebrow">In their words</p>
+        <h1>What clients say</h1>
         <p class="lede">
-          I only publish a client's words with permission and with the attribution that person
-          chooses. Alongside them, you can also look directly at how I trained, how I work, and the
-          policies behind a reading.
+          A reading is personal, so another person's experience cannot tell you exactly what yours
+          will be. It can tell you something about what it felt like to sit down with me, look at a
+          chart together, and have that conversation.
         </p>
+        <p class="card__meta">Every quote here is published with permission and the attribution the client chose.</p>
       </div>
       <img class="hero__img" src={celestial.clearedTable.src} srcset={celestial.clearedTable.srcset} sizes="100vw" alt={celestial.clearedTable.alt} width={celestial.clearedTable.width} height={celestial.clearedTable.height} fetchpriority="high" />
     </div>
   </section>
 
-  {approved.length > 0 && (
+  {approved.length > 0 ? (
     <section class="section">
       <div class="container">
-        <h2 class="visually-hidden">What clients say</h2>
+        <div class="prose flow" style="margin-bottom: var(--space-7);">
+          <p class="eyebrow">The experience</p>
+          <h2>Different charts, different questions, different conversations</h2>
+          <p>
+            I do not edit client words into a single story about what a reading is supposed to feel
+            like. The useful part is the variation: what stood out to each person, what they found
+            clarifying, and how the conversation landed for them.
+          </p>
+        </div>
         <div class="quote-grid quote-grid--wide">
           {approved.map((t) => (
             <figure class="quote-card">
@@ -95,16 +59,14 @@ const signals = [
         </div>
       </div>
     </section>
-  )}
-
-  {approved.length === 0 && (
+  ) : (
     <section class="section">
       <div class="container prose flow">
-        <h2>What you can look at instead</h2>
+        <h2>No client quotes are published here yet</h2>
         <p>
-          There are no approved client quotes to show here right now. You can still look directly
-          at how I trained, how I explain astrology, what I will not do in a reading, and the terms
-          you would be agreeing to.
+          I would rather leave this page empty than fill it with placeholders. You can still see
+          exactly how I work, what I have studied, and what happens in a reading before deciding
+          whether the approach fits you.
         </p>
       </div>
     </section>
@@ -112,16 +74,24 @@ const signals = [
 
   <section class="section section--alt">
     <div class="container">
-      <h2>Other things you can check for yourself</h2>
-      <div class="grid grid--3 trust-grid">
-        {signals.map((s) => (
-          <div class="card">
-            <p class="card__icon" aria-hidden="true"><Icon name={s.icon} size={28} /></p>
-            <h3>{s.title}</h3>
-            <p>{s.body}</p>
-            <p style="margin-top: auto;"><a href={s.href}>{s.linkText}</a></p>
-          </div>
-        ))}
+      <div class="prose flow" style="margin-bottom: var(--space-6);">
+        <p class="eyebrow">Prefer to verify for yourself?</p>
+        <h2>Look at the work behind the testimonials</h2>
+        <p>You do not have to rely on praise alone. These three pages show the parts you can inspect directly.</p>
+      </div>
+      <div class="grid grid--3">
+        <article class="card">
+          <h3><a href="/approach/">How I read a chart</a></h3>
+          <p>How technique, synthesis, intuition, conversation, uncertainty, and your lived experience enter the work.</p>
+        </article>
+        <article class="card">
+          <h3><a href="/credentials/">Training & credentials</a></h3>
+          <p>The programs, examinations, teaching roles, and professional organizations behind my practice.</p>
+        </article>
+        <article class="card">
+          <h3><a href="/how-readings-work/">What a reading is like</a></h3>
+          <p>What happens before, during, and after a session, including what I ask from you and what I bring.</p>
+        </article>
       </div>
     </div>
   </section>
@@ -136,21 +106,18 @@ const signals = [
       </p>
       {isDev && (
         <div class="callout callout--review">
-          <p style="margin: 0;">
-            DEV NOTE: no approved testimonials in src/content/testimonials/testimonials.json.
-            Placeholders never render; this page is noindexed until at least one approved testimonial exists.
-          </p>
+          <p style="margin: 0;">DEV NOTE: no approved testimonials in src/content/testimonials/testimonials.json. Placeholders never render; this page is noindexed until at least one approved testimonial exists.</p>
         </div>
       )}
     </div>
   </section>
 
   <CTABand
-    heading="Still deciding whether the approach fits?"
-    body="How Readings Work explains the conversation itself. If the approach makes sense but you are unsure which service fits your question, use the Reading Finder next."
+    heading="Want to know what the conversation itself is like?"
+    body="Client words are one view. How Readings Work shows the process, where your own experience enters, and what you can expect before you decide."
     buttonLabel="See How Readings Work"
     buttonHref="/how-readings-work/"
-    secondaryLabel="Find the right reading"
+    secondaryLabel="Find the reading that fits"
     secondaryHref="/reading-finder/"
   />
 </BaseLayout>

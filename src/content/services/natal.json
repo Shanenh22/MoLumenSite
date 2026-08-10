@@ -7,12 +7,12 @@
   "name": "Natal Chart Reading",
   "shortName": "Natal",
   "slug": "natal",
-  "purpose": "A first look at your birth chart as a whole, together with the important transits, progressions, and current conditions surrounding the life you're living now.",
-  "method": "We begin with the natal chart as the foundation, then bring in relevant transits, progressions, and other timing techniques to understand what is active now. I guide the conversation and explain what I'm seeing; your questions and feedback help us discover how those patterns are actually showing up in your life.",
+  "purpose": "A first look at your birth chart as a whole: the patterns that repeat across it, the current conditions surrounding you now, and the questions that become clearer when those pieces are read together.",
+  "method": "We begin by looking for the patterns that carry the most weight across the natal chart rather than moving through a list of placements. Then I bring in relevant transits, progressions, and other timing techniques to understand what is especially active now. I explain what I am seeing and why; your questions and lived experience help us refine which possibilities are actually meaningful in your life.",
   "bestFor": [
-    "New clients: this is the reading that establishes our shared understanding of your chart",
-    "A first professional reading when you want the whole pattern, not an app-style list of placements",
-    "A meaningful crossroads, recurring pattern, or season of change that could use a wider view"
+    "New clients who want to understand the chart as a whole rather than collect separate placement meanings",
+    "Seeing which themes repeat strongly enough to deserve attention and how you are actually living them",
+    "A meaningful crossroads, recurring pattern, or season of change that could use a wider view of what is active now"
   ],
   "notFor": [
     "Existing clients wanting a focused follow-up: Want More Clarity or a Quick Check-In fits better",
@@ -51,9 +51,9 @@
     "The focus you want, via the intake form after booking"
   ],
   "includes": [
-    "A whole-chart natal interpretation focused on how the pieces work together",
+    "The strongest repeating patterns across the chart, rather than an isolated tour of placements",
     "Relevant transits, progressions, and current planetary conditions around your natal chart",
-    "Your chosen focus, set in advance through the intake form",
+    "Connections between the symbolism and the questions or circumstances you are actually living",
     "A guided conversation with room for as much or as little feedback as feels natural to you"
   ],
   "deliverables": [

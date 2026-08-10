@@ -26,61 +26,13 @@ const { service } = Astro.props;
 const s = service.data;
 const all = await getCollection('services');
 const related = all.filter((x) => s.related.includes(x.data.slug));
-
-/**
- * Every booking action on this page comes from one function, so the hero, the
- * option cards and the closing band cannot disagree.
- *
- * They used to. The hero passed `s.bookingEventId` and the CTA band passed
- * `s.slug`, which /book/ resolves through `serviceToEvent` — so on
- * /readings/want-more-clarity/ the hero deep-linked to the $130 tier and the
- * band, with an identical label, deep-linked to the $100 one.
- */
 const actions = bookingActions(s);
 const multiOption = actions.length > 1;
-
-/**
- * The closing band's action. For a reading whose options differ by an
- * eligibility condition rather than by preference — Want More Clarity, priced
- * on how long ago the natal reading was — this resolves to a neutral
- * "Review Booking Options" that returns the reader to the priced cards above
- * instead of choosing a condition on their behalf. See finalCtaAction.
- */
 const finalCta = finalCtaAction(s);
-
-/**
- * One matched testimonial, near the decision.
- *
- * Nine real, permissioned quotes existed on /testimonials/, which almost
- * nobody reaches, and none of them appeared on the seven pages where the
- * purchase is actually decided. Matched strictly on the `service` field —
- * there is no fallback to a general quote, because implying a client said
- * something about a reading they did not have is the same fabrication the
- * testimonial rules exist to prevent. Readings with no matching quote simply
- * show none, and four currently do.
- */
 const testimonial = (await getCollection('testimonials'))
   .filter((t) => t.data.approved && t.data.service === s.slug)
   .sort((a, b) => a.id.localeCompare(b.id))[0];
-/* A breath between the detail of the reading and the questions people ask about
-   it. Slug-derived so each service keeps its own. */
 const breakImage = bandFor(s.slug, 7);
-/**
- * This reading's own questions first, then the general ones.
- *
- * The old sort was on `order` alone across both scopes, and every FAQ in the
- * collection was `scope: "global"` — so all seven reading pages rendered the
- * identical four questions ("What actually happens in a reading?", "Can
- * astrology predict my future?", and the two birth-time ones), in the block
- * that sits directly between the reading detail and the closing CTA. On the
- * page where the purchase is decided, the last thing before the button
- * answered nothing about the thing being bought.
- *
- * Sorting by scope first means a scoped question can never be pushed out of
- * the slice by a general one, which is what would have happened here — the
- * six new scoped entries all carry low `order` values that collide with the
- * globals.
- */
 const faqs = (await getCollection('faqs'))
   .filter((f) => f.data.scope === 'global' || f.data.scope === s.slug)
   .sort((a, b) => {
@@ -100,19 +52,6 @@ const schema: object[] = [
     description: s.purpose,
     provider: { '@type': 'ProfessionalService', name: site.name, url: site.url },
     url: new URL(`/readings/${s.slug}/`, site.url).href,
-    /**
-     * Offers, and why a multi-price reading gets an AggregateOffer.
-     *
-     * This used to emit a single Offer carrying `s.price` even for readings
-     * sold at two lengths — so the natal reading advertised $150 to search
-     * engines while the page plainly offered $150 and $200. Schema has to agree
-     * with the visible page or it is the schema that is wrong.
-     *
-     * `url` is the other addition. An Offer without one describes a price but
-     * gives an engine nowhere to send anybody; pointing it at the deep-linked
-     * booking path makes the offer actionable and lands the visitor on the
-     * booking page with the right reading already selected.
-     */
     ...(s.priceConfirmed && s.price
       ? {
           offers:
@@ -123,11 +62,6 @@ const schema: object[] = [
                   lowPrice: Math.min(...s.options.map((o) => o.price)),
                   highPrice: Math.max(...s.options.map((o) => o.price)),
                   offerCount: s.options.length,
-                  /* Offer URLs come from the same bookingActions() the visible
-                     buttons use. Built by hand they were a fourth copy of the
-                     service-to-event mapping, in the one format specifically
-                     designed to be trusted by a machine — an offer that
-                     disagreed with the page would be the schema that is wrong. */
                   offers: s.options.map((o, i) => ({
                     '@type': 'Offer',
                     name: o.label,
@@ -148,9 +82,6 @@ const schema: object[] = [
       : {}),
   },
 ];
-
-// The Q&A already rendered below is real, owner-written content; mark it up so
-// answer engines and AI search can quote it instead of guessing.
 if (faqs.length > 0) {
   schema.push({
     '@context': 'https://schema.org',
@@ -179,254 +110,158 @@ if (faqs.length > 0) {
         <p class="eyebrow">Readings</p>
         <h1>{s.name}</h1>
         <p class="lede">{s.purpose}</p>
-        {/* Real data from the service record — duration, price, formats, and
-            who may book. Never invented; priceLabel only renders when the
-            price is confirmed. */}
         <ul class="hero__meta" aria-label="At a glance">
           <li>{s.durationLabel}</li>
-          {s.priceConfirmed && (s.priceLabel || s.price) && (
-            <li class="hero__meta--price">{s.priceLabel ?? `$${s.price}`}</li>
-          )}
-          {s.format.slice(0, 2).map((f) => (
-            <li>{f}</li>
-          ))}
+          {s.priceConfirmed && (s.priceLabel || s.price) && <li class="hero__meta--price">{s.priceLabel ?? `$${s.price}`}</li>}
           {s.audience === 'established' && <li>Established clients</li>}
         </ul>
-        {/*
-          One button per bookable option. A reading sold at two prices offers
-          both here — the customer makes the choice that costs them money, not
-          a lookup table. Single-option readings are unchanged: one
-          "Book this reading".
-        */}
         <p class="hero__cta">
-          {
-            actions.map((a) => (
-              <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
-                {a.label}
-              </a>
-            ))
-          }
+          <a class="btn btn--accent" href="#fit">See if this reading fits</a>
           <a class="btn btn--ghost" href="/reading-finder/">Not sure? Find your reading</a>
         </p>
       </div>
-      {
-        serviceImages[s.slug] && (
-          <img
-            class="hero__img"
-            src={serviceImages[s.slug].src}
-            srcset={serviceImages[s.slug].srcset}
-            sizes="100vw"
-            alt={serviceImages[s.slug].alt}
-            width={serviceImages[s.slug].width}
-            height={serviceImages[s.slug].height}
-            fetchpriority="high"
-          />
-        )
-      }
+      {serviceImages[s.slug] && (
+        <img
+          class="hero__img"
+          src={serviceImages[s.slug].src}
+          srcset={serviceImages[s.slug].srcset}
+          sizes="100vw"
+          alt={serviceImages[s.slug].alt}
+          width={serviceImages[s.slug].width}
+          height={serviceImages[s.slug].height}
+          fetchpriority="high"
+        />
+      )}
+    </div>
+  </section>
+
+  <section class="section" id="fit">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <p class="eyebrow">Start with the reason</p>
+        <h2>What this reading can help you see</h2>
+        <p>{s.method}</p>
+      </div>
+      <div class="grid grid--2">
+        <article class="card">
+          <h3>This is likely a good fit if…</h3>
+          <ul>{s.bestFor.map((b) => <li>{b}</li>)}</ul>
+        </article>
+        <article class="card">
+          <h3>Choose something else if…</h3>
+          <ul>{s.notFor.map((b) => <li>{b}</li>)}</ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Practical details</p>
+      <h2>What to know before you choose a time</h2>
+      <dl class="factlist" style="margin-top: var(--space-6);">
+        <dt>Investment</dt>
+        <dd>{s.priceConfirmed && s.price ? <span class="price">{s.priceLabel ?? `$${s.price}`}</span> : <span class="price--unconfirmed">Final price is being confirmed, shown clearly before you book.</span>}</dd>
+        <dt>Length</dt><dd>{s.durationLabel}</dd>
+        <dt>Where</dt><dd>{s.format.join(' · ')}</dd>
+        <dt>Who can book</dt>
+        <dd>{s.audience === 'new' ? 'New clients: no prior reading needed' : s.audience === 'established' ? 'Established clients: after a natal reading with Mo' : 'New and returning clients'}</dd>
+        <dt>Birth data</dt>
+        <dd>{s.birthDataRequired === 'none' ? 'Not needed' : s.birthDataRequired === 'both' ? 'Date, time, and place for both people' : 'Your date, exact time, and place of birth'}</dd>
+        <dt>Afterward</dt><dd>{s.deliverables.join(' + ')}</dd>
+      </dl>
+
+      {s.options.length > 0 && (
+        <section id="options" tabindex="-1" aria-labelledby="options-heading">
+          <h2 id="options-heading">Choose your option</h2>
+          <div class="grid grid--2" style="margin-bottom: var(--space-7);">
+            {s.options.map((o, i) => {
+              const a = actions[i] ?? actions[0];
+              return (
+                <article class="card">
+                  <h3 style="font-size: var(--text-lg); margin: 0;">{o.label}</h3>
+                  <p class="card__meta" style="margin: 0;">{o.durationLabel}</p>
+                  <p class="price" style="margin: 0;">${o.price}</p>
+                  {o.note && <p style="margin: 0;">{o.note}</p>}
+                  {multiOption && <p class="card__actions" style="margin-top: auto;"><a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a></p>}
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
+
+      {!multiOption && actions[0] && (
+        <p><a class="btn btn--accent" href={actions[0].href} aria-label={actions[0].ariaLabel}>{actions[0].label}</a></p>
+      )}
     </div>
   </section>
 
   <section class="section">
-    <div class="container">
-      <dl class="factlist">
-        <dt>Investment</dt>
-        <dd>
-          {
-            s.priceConfirmed && s.price ? (
-              <span class="price">{s.priceLabel ?? `$${s.price}`}</span>
-            ) : (
-              <span class="price--unconfirmed">
-                Final price is being confirmed, shown clearly before you book.
-              </span>
-            )
-          }
-        </dd>
-        <dt>Length</dt>
-        <dd>{s.durationLabel}</dd>
-        <dt>Where</dt>
-        <dd>{s.format.join(' · ')}</dd>
-        <dt>For</dt>
-        <dd>
-          {
-            s.audience === 'new'
-              ? 'New clients: no prior reading needed'
-              : s.audience === 'established'
-                ? 'Established clients: after a natal reading with Mo'
-                : 'New and returning clients'
-          }
-        </dd>
-        <dt>Birth data</dt>
-        <dd>
-          {
-            s.birthDataRequired === 'none'
-              ? 'Not needed'
-              : s.birthDataRequired === 'both'
-                ? 'Date, time, and place for both people'
-                : 'Your date, exact time, and place of birth'
-          }
-        </dd>
-        <dt>Afterward</dt>
-        <dd>{s.deliverables.join(' + ')}</dd>
-      </dl>
-
-      {/*
-        `tabindex="-1"` is what makes the closing band's "Review Booking
-        Options" link work for a keyboard user. Following an in-page anchor
-        scrolls the viewport but does not move focus unless the target is
-        focusable, so without it the reader is looking at the options while
-        Tab continues from the button at the bottom of the page.
-
-        The heading is visually hidden rather than absent: a region a link
-        sends people to should be nameable, and `aria-labelledby` gives the
-        landmark an accessible name for anyone navigating by region.
-      */}
-      {
-        s.options.length > 0 && (
-          <section id="options" tabindex="-1" aria-labelledby="options-heading">
-          <h2 id="options-heading" class="visually-hidden">
-            Booking options for the {s.name}
-          </h2>
-          <div class="grid grid--2" style="margin-bottom: var(--space-8);">
-            {s.options.map((o, i) => {
-              /* Pair each option card with its own action. actions[] is built
-                 from s.options in order, so index alignment holds; for a
-                 single-option service there is one action and one card. */
-              const a = actions[i] ?? actions[0];
-              return (
-                <div class="card">
-                  {/* h3, not h2: these sit under the "Booking options" heading
-                      that names this section, so h2 here would flatten a real
-                      parent/child relationship into siblings. */}
-                  <h3 style="font-size: var(--text-lg); margin: 0;">{o.label}</h3>
-                  <p class="card__meta" style="margin: 0;">
-                    {o.durationLabel}
-                  </p>
-                  <p class="price" style="margin: 0;">${o.price}</p>
-                  {o.note && <p style="margin: 0;">{o.note}</p>}
-                  {multiOption && (
-                    <p class="card__actions" style="margin-top: auto;">
-                      <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>
-                        {a.label}
-                      </a>
-                    </p>
-                  )}
-                </div>
-              );
-            })}
-          </div>
-          </section>
-        )
-      }
-
-      <div class="grid grid--2">
-        <div class="prose flow">
-          <h2>This reading is for you if…</h2>
-          <ul>{s.bestFor.map((b) => <li>{b}</li>)}</ul>
-          <h2>It's probably not the fit if…</h2>
-          <ul>{s.notFor.map((b) => <li>{b}</li>)}</ul>
-          <h2>How it works</h2>
-          <p>{s.method}</p>
-        </div>
-        <div class="prose flow">
-          <h2>What you'll get</h2>
-          <ul>{s.includes.map((b) => <li>{b}</li>)}</ul>
-          <h2>How to prepare</h2>
-          <ul>{s.preparation.map((b) => <li>{b}</li>)}</ul>
-          <p>
-            More in <a href="/prepare-for-your-reading/">prepare for your reading</a> and the
-            <a href="/booking-policy/">booking policy</a>.
-          </p>
-        </div>
+    <div class="container grid grid--2">
+      <div class="prose flow">
+        <p class="eyebrow">Inside the session</p>
+        <h2>What we'll actually explore</h2>
+        <ul>{s.includes.map((b) => <li>{b}</li>)}</ul>
+      </div>
+      <div class="prose flow">
+        <p class="eyebrow">Before we meet</p>
+        <h2>What I need from you</h2>
+        <ul>{s.preparation.map((b) => <li>{b}</li>)}</ul>
+        <p>You do not need to study astrology. More in <a href="/prepare-for-your-reading/">prepare for your reading</a>.</p>
       </div>
     </div>
   </section>
 
-  {
-    testimonial && (
-      <section class="section section--alt">
-        <div class="container" style="max-width: 46rem;">
-          <p class="eyebrow">In their words</p>
-          <figure class="quote-card">
-            <blockquote>{testimonial.data.quote}</blockquote>
-            <figcaption>
-              {testimonial.data.attribution} · {s.shortName.toLowerCase()} reading
-            </figcaption>
-          </figure>
-          <p class="card__meta" style="margin-top: var(--space-4);">
-            <a href="/testimonials/">Read what other clients said →</a>
-          </p>
-        </div>
-      </section>
-    )
-  }
+  {testimonial && (
+    <section class="section section--alt">
+      <div class="container" style="max-width: 46rem;">
+        <p class="eyebrow">In their words</p>
+        <figure class="quote-card">
+          <blockquote>{testimonial.data.quote}</blockquote>
+          <figcaption>{testimonial.data.attribution} · {s.shortName.toLowerCase()} reading</figcaption>
+        </figure>
+        <p class="card__meta" style="margin-top: var(--space-4);"><a href="/testimonials/">Read what other clients said →</a></p>
+      </div>
+    </section>
+  )}
 
   <SeaBreak image={breakImage} />
 
-  {
-    faqs.length > 0 && (
-      <section class="section section--alt">
-        <div class="container prose">
-          <h2>Common questions</h2>
-          {faqs.map((f) => (
-            <details class="faq">
-              <summary>{f.data.question}</summary>
-              <div class="faq__body">
-                <p>{f.data.answer}</p>
-              </div>
-            </details>
+  {faqs.length > 0 && (
+    <section class="section section--alt">
+      <div class="container prose">
+        <h2>Questions people ask before booking</h2>
+        {faqs.map((f) => (
+          <details class="faq">
+            <summary>{f.data.question}</summary>
+            <div class="faq__body"><p>{f.data.answer}</p></div>
+          </details>
+        ))}
+        <p><a href="/frequently-asked-questions/">All frequently asked questions →</a></p>
+      </div>
+    </section>
+  )}
+
+  {related.length > 0 && (
+    <section class="section">
+      <div class="container">
+        <h2>If this is not quite the fit</h2>
+        <div class="grid grid--2" style="margin-top: var(--space-6);">
+          {related.map((r) => (
+            <article class="card">
+              <h3 style="margin: 0;"><a href={`/readings/${r.data.slug}/`}>{r.data.name}</a></h3>
+              <p style="margin: 0;">{r.data.purpose}</p>
+            </article>
           ))}
-          <p>
-            <a href="/frequently-asked-questions/">All frequently asked questions →</a>
-          </p>
         </div>
-      </section>
-    )
-  }
+      </div>
+    </section>
+  )}
 
-  {
-    related.length > 0 && (
-      <section class="section">
-        <div class="container">
-          <h2>Where people go from here</h2>
-          <div class="grid grid--2" style="margin-top: var(--space-6);">
-            {related.map((r) => (
-              <article class="card">
-                <h3 style="margin: 0;">
-                  <a href={`/readings/${r.data.slug}/`}>{r.data.name}</a>
-                </h3>
-                <p style="margin: 0;">{r.data.purpose}</p>
-              </article>
-            ))}
-          </div>
-        </div>
-      </section>
-    )
-  }
-
-  {/*
-    The closing band takes its action from finalCtaAction, which is the only
-    place that decides whether this page may choose an option for the reader.
-
-    Two earlier versions of this were wrong in opposite directions. It first
-    passed `s.slug`, which /book/ resolved through `serviceToEvent`, so this
-    button and the hero button — both reading "Book this reading" — deep-linked
-    to different prices. Fixing that pointed it at primaryBookingAction, which
-    falls back to the FIRST option when nothing is marked recommended: on
-    Want More Clarity that produced "Book within 3 months of your natal
-    reading — $100", a button asserting an eligibility fact about the reader's
-    own history that the site has no way to know.
-
-    Now: one option, book it. Several with one recommended (natal-90), book that
-    and say what it costs. Several with none recommended, send them back to the
-    priced cards and let them choose.
-  */}
   <CTABand
     heading={`Ready for your ${s.shortName.toLowerCase()} reading?`}
-    body={
-      finalCta.kind === 'choose'
-        ? 'This reading is priced by how recently we last worked together, so the choice is yours. Both options are above, and every price is confirmed before you pay.'
-        : 'Sessions are one-on-one with Mo. Times show in your own time zone at booking, and every price is confirmed before you pay.'
-    }
+    body={finalCta.kind === 'choose' ? 'This reading has more than one booking condition, so review the options above and choose the one that applies to you.' : 'Times display in your own time zone, and the price is shown again before you pay.'}
     buttonLabel={finalCta.label}
     buttonHref={finalCta.href}
     buttonAriaLabel={finalCta.ariaLabel}

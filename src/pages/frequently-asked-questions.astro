@@ -8,6 +8,30 @@ import CTABand from '../components/CTABand.astro';
 const faqs = (await getCollection('faqs'))
   .filter((f) => f.data.scope === 'global')
   .sort((a, b) => a.data.order - b.data.order);
+
+const groups = [
+  {
+    title: 'Before you book',
+    intro: 'The questions that usually decide whether a reading feels like the right next step.',
+    match: (q: string) => /which reading|online readings|what actually happens/i.test(q),
+  },
+  {
+    title: 'Your chart & birth time',
+    intro: 'What accuracy matters, what happens when the time is uncertain, and what remains usable.',
+    match: (q: string) => /birth time/i.test(q),
+  },
+  {
+    title: 'During & after the reading',
+    intro: 'Preparation, recording, and what the session asks from you.',
+    match: (q: string) => /prepare|recorded/i.test(q),
+  },
+  {
+    title: 'Prediction, belief & limits',
+    intro: 'Where I draw the line between useful astrological perspective and claims astrology should not make.',
+    match: (q: string) => /predict|therapy|faith|belief/i.test(q),
+  },
+];
+const grouped = groups.map((g) => ({ ...g, items: faqs.filter((f) => g.match(f.data.question)) }));
 const crumbs = [{ label: 'FAQs', href: '/frequently-asked-questions/' }];
 const schema = [
   {
@@ -36,8 +60,8 @@ const schema = [
         <p class="eyebrow">Good questions</p>
         <h1>Frequently asked questions</h1>
         <p class="lede">
-          The questions people ask most often, answered the same way I would answer you directly:
-          clearly and candidly.
+          Start with the question that is actually in your way. You do not need to read these in
+          order, and you do not need to know astrology to understand the answers.
         </p>
       </div>
       <img
@@ -53,28 +77,44 @@ const schema = [
     </div>
   </section>
 
+  <section class="section section--alt">
+    <div class="container">
+      <p class="eyebrow">Most useful first</p>
+      <h2>Three questions that stop people most often</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        {faqs.filter((f) => ['Which reading should I start with?', "What if I don't know my birth time?", 'Can astrology predict my future?'].includes(f.data.question)).map((f) => (
+          <article class="card">
+            <h3>{f.data.question}</h3>
+            <p>{f.data.answer}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container prose">
-      {
-        faqs.map((f) => (
-          <details class="faq">
-            <summary>{f.data.question}</summary>
-            <div class="faq__body">
-              <p>{f.data.answer}</p>
-            </div>
-          </details>
-        ))
-      }
-      <p style="margin-top: var(--space-8);">
-        Didn't find your question? <a href="/contact/">Ask me directly</a>: I read every message
-        myself.
+      {grouped.map((g) => (
+        <section style="margin-bottom: var(--space-10);">
+          <h2>{g.title}</h2>
+          <p class="card__meta">{g.intro}</p>
+          {g.items.map((f) => (
+            <details class="faq">
+              <summary>{f.data.question}</summary>
+              <div class="faq__body"><p>{f.data.answer}</p></div>
+            </details>
+          ))}
+        </section>
+      ))}
+      <p>
+        Didn't find your question? <a href="/contact/">Ask me directly</a>. I read every message myself.
       </p>
     </div>
   </section>
 
   <CTABand
     heading="Still deciding whether a reading fits?"
-    body="You do not have to choose from a list of services by yourself. Tell me what is bringing you here and the Reading Finder will point you toward the most likely fit and explain why."
+    body="Tell me what is bringing you here and the Reading Finder will point you toward the most likely fit and explain why."
     buttonLabel="Try the Reading Finder"
     buttonHref="/reading-finder/"
     secondaryLabel="See what a reading is actually like"

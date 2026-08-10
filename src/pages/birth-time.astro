@@ -1,27 +1,4 @@
 ---
-/**
- * Layer 1 of the birth-time funnel: the public, free, evergreen resource.
- *
- * URL is `/birth-time/` rather than `/how-to-find-your-birth-time/`. The site's
- * convention for durable hub pages is a short noun path — /start-here/,
- * /horoscopes/, /credentials/, /approach/ — with the descriptive phrasing
- * carried by the title and h1 where it actually helps a searcher. A shorter
- * path also survives the page growing beyond "how to find" into what to do when
- * you cannot.
- *
- * Nothing here is gated. Birth time is the single most common reason someone
- * decides not to book, so the page that answers it completely is worth more in
- * search — and more to the person reading it — than a teaser would be in
- * signups. The toolkit is offered as a working process for people who have
- * read this and now need to go and do it.
- *
- * Written from approved material already on the site (the two birth-time blog
- * posts, /prepare-for-your-reading/, the FAQs) plus researched record-retrieval
- * guidance. Three things are kept deliberately separate throughout: what is a
- * matter of record-keeping fact, what is astrological technique, and what is
- * Mo's own judgement. Where jurisdictions vary the page says so rather than
- * describing one country's process as if it were universal.
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
@@ -29,362 +6,109 @@ import { scenes } from '../config/images';
 import { site } from '../config/site';
 
 const crumbs = [{ label: 'Find your birth time', href: '/birth-time/' }];
-const description =
-  'Where a birth time is recorded, how to request it, what to ask relatives, and how much precision actually matters. Plus what a reading can still do when the time is uncertain.';
-
+const description = 'Where a birth time is recorded, how to request it, what to ask relatives, and how much precision actually matters. Plus what a reading can still do when the time is uncertain.';
 const schema = [
   {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: 'How to find your birth time',
-    description,
+    '@context': 'https://schema.org', '@type': 'Article', headline: 'How to find your birth time', description,
     mainEntityOfPage: { '@type': 'WebPage', '@id': new URL('/birth-time/', site.url).href },
-    author: {
-      '@type': 'Person',
-      name: 'Maureen "Mo" Lumen',
-      url: new URL('/about/', site.url).href,
-    },
-    publisher: { '@type': 'Organization', name: site.name, url: site.url },
-    inLanguage: 'en-US',
-    isAccessibleForFree: true,
-    about: [
-      { '@type': 'Thing', name: 'Birth time' },
-      { '@type': 'Thing', name: 'Ascendant' },
-      { '@type': 'Thing', name: 'Natal chart' },
-    ],
+    author: { '@type': 'Person', name: 'Maureen "Mo" Lumen', url: new URL('/about/', site.url).href },
+    publisher: { '@type': 'Organization', name: site.name, url: site.url }, inLanguage: 'en-US', isAccessibleForFree: true,
+    about: [{ '@type': 'Thing', name: 'Birth time' }, { '@type': 'Thing', name: 'Ascendant' }, { '@type': 'Thing', name: 'Natal chart' }],
   },
-  /**
-   * FAQPage on four questions that are genuinely asked and genuinely answered
-   * on the page — not markup invented to win a rich result. Each answer is the
-   * same answer a reader gets in the body; if one is ever edited, edit both.
-   */
   {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: [
-      {
-        '@type': 'Question',
-        name: 'How accurate does a birth time need to be for astrology?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'There is no single number of minutes that is always enough. Birth time determines the rising sign and exact ascendant degree, and different house systems use that information differently. A broad time range may be enough to establish the rising sign in some charts, while a chart near a sign boundary or a technique that depends on exact angles can require much greater precision. The useful question is how certain the time is and which techniques the reading needs.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Where is a birth time officially recorded?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Most often on the long-form or full birth certificate held by the government office responsible for vital records where the birth took place. The short certificate many households keep frequently omits the time. Whether a time was recorded at all, and whether it is released on request, varies by country, state or province, and by how old the record is. Hospital medical records, baby books, family papers and newspaper birth announcements are the other places worth looking.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'What if two family members remember different birth times?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Keep both. Recorded conflict is more useful than a premature decision, because two candidate times can be compared while a single guessed time can quietly acquire more certainty than it deserves. Note who said what, how confident they were, and what they were anchoring the memory to. A documented time from a certificate generally deserves more weight than recollection.',
-        },
-      },
-      {
-        '@type': 'Question',
-        name: 'Can you read a chart without a birth time?',
-        acceptedAnswer: {
-          '@type': 'Answer',
-          text: 'Yes, with stated limits. Without a birth time the rising sign and exact angles are unavailable, house placement may be unavailable or handled differently depending on technique, and the Moon may need to be treated as a range across the day. Many planetary sign positions and aspects remain usable. A careful reading works with what is known and says plainly what remains uncertain.',
-        },
-      },
-    ],
-  },
+    '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: [
+      { '@type': 'Question', name: 'How accurate does a birth time need to be for astrology?', acceptedAnswer: { '@type': 'Answer', text: 'There is no single number of minutes that is always enough. Birth time determines the rising sign and exact ascendant degree, and different house systems use that information differently. A broad time range may be enough to establish the rising sign in some charts, while a chart near a sign boundary or a technique that depends on exact angles can require much greater precision. The useful question is how certain the time is and which techniques the reading needs.' } },
+      { '@type': 'Question', name: 'Where is a birth time officially recorded?', acceptedAnswer: { '@type': 'Answer', text: 'Most often on the long-form or full birth certificate held by the government office responsible for vital records where the birth took place. The short certificate many households keep frequently omits the time. Whether a time was recorded at all, and whether it is released on request, varies by country, state or province, and by how old the record is. Hospital medical records, baby books, family papers and newspaper birth announcements are the other places worth looking.' } },
+      { '@type': 'Question', name: 'What if two family members remember different birth times?', acceptedAnswer: { '@type': 'Answer', text: 'Keep both. Recorded conflict is more useful than a premature decision, because two candidate times can be compared while a single guessed time can quietly acquire more certainty than it deserves. Note who said what, how confident they were, and what they were anchoring the memory to. A documented time from a certificate generally deserves more weight than recollection.' } },
+      { '@type': 'Question', name: 'Can you read a chart without a birth time?', acceptedAnswer: { '@type': 'Answer', text: 'Yes, with stated limits. Without a birth time the rising sign and exact angles are unavailable, house placement may be unavailable or handled differently depending on technique, and the Moon may need to be treated as a range across the day. Many planetary sign positions and aspects remain usable. A careful reading works with what is known and says plainly what remains uncertain.' } },
+    ]
+  }
 ];
 ---
 
-<BaseLayout
-  title="How to find your birth time"
-  description={description}
-  path="/birth-time/"
-  breadcrumbs={crumbs}
-  schema={schema}
-  ogType="article"
->
+<BaseLayout title="How to find your birth time" description={description} path="/birth-time/" breadcrumbs={crumbs} schema={schema} ogType="article">
   <Breadcrumbs crumbs={crumbs} />
-
   <section class="hero hero--split">
     <div class="container">
       <div>
         <p class="eyebrow">Free guide</p>
         <h1>How to find your birth time</h1>
-        <p class="lede">
-          Not knowing your birth time can make a chart feel off-limits. It usually is not. The time
-          is often findable, and when it is not, the useful question is what we can know with
-          confidence and what we should leave open.
-        </p>
+        <p class="lede">Not knowing your birth time can make a chart feel off-limits. It usually is not. The time is often findable, and when it is not, the useful question is what we can know with confidence and what we should leave open.</p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.prepareReading.src}
-        srcset={scenes.prepareReading.srcset}
-        sizes="100vw"
-        alt={scenes.prepareReading.alt}
-        width={scenes.prepareReading.width}
-        height={scenes.prepareReading.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.prepareReading.src} srcset={scenes.prepareReading.srcset} sizes="100vw" alt={scenes.prepareReading.alt} width={scenes.prepareReading.width} height={scenes.prepareReading.height} fetchpriority="high" />
     </div>
   </section>
 
-  <section class="section">
+  <section class="section birth-time-routes">
+    <div class="container">
+      <p class="eyebrow">Go straight to your situation</p>
+      <h2>What do you know right now?</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        <a class="card birth-time-route" href="#accuracy"><strong>I have a time</strong><span>I want to know whether it is accurate enough.</span></a>
+        <a class="card birth-time-route" href="#records"><strong>I want the official record</strong><span>Show me where to look and what to request.</span></a>
+        <a class="card birth-time-route" href="#family"><strong>I only have family memory</strong><span>Help me ask better questions and keep track of uncertainty.</span></a>
+        <a class="card birth-time-route" href="#disagree"><strong>I have two different times</strong><span>Help me compare them without guessing too soon.</span></a>
+        <a class="card birth-time-route" href="#unknown"><strong>I have no birth time</strong><span>Tell me what a chart can still do reliably.</span></a>
+        <a class="card birth-time-route" href="/birth-time-toolkit/#confidence-check"><strong>I want a quick confidence check</strong><span>Three questions, about ninety seconds.</span></a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container prose flow" style="max-width: 42rem;">
-      {/*
-        Concise-answer passages under descriptive headings, throughout. The
-        heading states the question a searcher typed and the first sentence
-        answers it, so the page is quotable by an answer engine without the
-        reader having to hunt. The nuance follows the answer rather than
-        replacing it.
-      */}
       <h2>What a birth time actually changes</h2>
-      <p>
-        The birth time sets the <a href="/explore/angles/">rising sign and exact ascendant</a>,
-        which anchor the chart to a particular place and moment. It also affects how houses are
-        established. Different <a href="/explore/house-systems/">house systems</a> use that
-        information differently: in whole-sign houses the rising sign establishes the sequence of
-        houses, while quadrant systems also depend on the exact angles and cusps.
-      </p>
-      <p>
-        That matters beyond having one more sign to talk about. Houses describe areas of life, and
-        an uncertain birth time can change which house a planet occupies or how close it is to an
-        angle. Those are meaningful differences in interpretation, but they are not a reason to act
-        as though every four-minute discrepancy creates an entirely different person.
-      </p>
-      <p>
-        What matters is the degree of uncertainty, where the chart falls, and which techniques are
-        being used. That brings us to the question people usually want answered first.
-      </p>
+      <p>The birth time sets the <a href="/explore/angles/">rising sign and exact ascendant</a>, which anchor the chart to a particular place and moment. It also affects how houses are established. Different <a href="/explore/house-systems/">house systems</a> use that information differently.</p>
+      <p>That matters beyond having one more sign to talk about. An uncertain birth time can change which house a planet occupies or how close it is to an angle. Those are meaningful differences, but they are not a reason to act as though every four-minute discrepancy creates an entirely different person.</p>
 
-      <h2>How accurate does it need to be?</h2>
-      <p>
-        <strong>There is no single number of minutes that is always enough.</strong> A broad time
-        range may still settle the rising sign in one chart, while another birth near a sign
-        boundary can make a much smaller difference important.
-      </p>
-      <p>
-        Exactness matters more when a planet or angle sits close to a boundary, or when a technique
-        depends closely on the ascendant, midheaven, house cusps, or fine timing. Other parts of a
-        reading may be much less sensitive to a modest uncertainty in the clock time.
-      </p>
-      <p>
-        So I would rather know <em>how you know the time</em> than receive a precise-looking number
-        with no context. "From the certificate," "my mother remembers around 3 p.m.," and "the time
-        is completely unknown" are different kinds of information, and each tells me how carefully
-        to use the chart.
-      </p>
+      <h2 id="accuracy">How accurate does it need to be?</h2>
+      <p><strong>There is no single number of minutes that is always enough.</strong> A broad time range may still settle the rising sign in one chart, while another birth near a sign boundary can make a much smaller difference important.</p>
+      <p>Exactness matters more when a planet or angle sits close to a boundary, or when a technique depends closely on the ascendant, midheaven, house cusps, or fine timing.</p>
+      <p>So I would rather know <em>how you know the time</em> than receive a precise-looking number with no context. “From the certificate,” “my mother remembers around 3 p.m.,” and “the time is completely unknown” are different kinds of information.</p>
 
-      <h2>Start with the records you already have</h2>
-      <p>
-        Before requesting anything, check what is already in the house. Time of birth is the sort of
-        detail written down once, in the moment, and then filed.
-      </p>
-      <ul>
-        <li>
-          <strong>Your birth certificate</strong>, but check which one you have. Many households
-          keep an abbreviated or wallet-sized certificate that omits the time. The full or long-form
-          version is the one worth finding.
-        </li>
-        <li>
-          <strong>A baby book or hospital keepsake.</strong> These sometimes preserve a time copied
-          from paperwork created around the birth.
-        </li>
-        <li>
-          <strong>Family papers.</strong> A parent's diary, a family bible, a letter written that
-          week, the back of a photograph, an old address book.
-        </li>
-        <li>
-          <strong>Newspaper birth announcements.</strong> Some historical notices included a time,
-          so local library and newspaper archives can be worth checking.
-        </li>
-      </ul>
+      <h2 id="records">Start with the records you already have</h2>
+      <p>Before requesting anything, check what is already in the house. Useful places include the full or long-form birth certificate, baby books or hospital keepsakes, family papers, and sometimes historical newspaper birth announcements.</p>
 
       <h2>Requesting an official record</h2>
-      <p>
-        <strong>Birth records are held by whichever authority registers births where you were
-        born</strong>: typically a national, state or provincial vital records office, sometimes
-        with a county or municipal counterpart that holds the local copy.
-      </p>
-      <p>
-        Beyond that, the specifics genuinely vary, and anyone who tells you otherwise is describing
-        their own country. What differs from place to place:
-      </p>
+      <p><strong>Birth records are held by whichever authority registers births where you were born</strong>: typically a national, state, or provincial vital-records office, sometimes with a county or municipal counterpart.</p>
+      <p>The specifics vary. The time may not have been recorded, may not appear on the abbreviated certificate normally issued, and identification, fees, and processing time differ by jurisdiction. Look for wording such as “long form,” “full certificate,” or “certified copy with all details” and read that office's instructions before paying.</p>
+      <p>If the time is absent from the certificate, the hospital's medical-records department may be another avenue, subject to its own retention and release rules.</p>
+      <p class="card__meta">This is guidance on where to look, not legal advice. The office that holds your record is the authority on its own process.</p>
+
+      <h2 id="family">Asking your family well</h2>
+      <p><strong>Ask about the shape of the day rather than only the number on the clock.</strong> Memories are often anchored to daylight, meals, work shifts, who had arrived, or what happened immediately before and after the birth.</p>
       <ul>
-        <li>
-          <strong>Whether the time was recorded at all.</strong> Some jurisdictions did not capture
-          time of birth on every certificate, and older records can be less consistent.
-        </li>
-        <li>
-          <strong>Whether the time appears on the copy you can obtain.</strong> Some offices issue
-          an abbreviated certificate by default and a fuller copy only on request.
-        </li>
-        <li>
-          <strong>What identification and fee are required</strong>, and how long it takes.
-        </li>
+        <li>Was it light or dark outside?</li><li>Before or after a meal?</li><li>Had someone already left for work, or come home?</li><li>Did anyone miss something because of the birth?</li><li>Who else was there, and when did they arrive?</li><li>Was it the same day labor started?</li><li>Did hospital staff change shifts while you were there?</li>
       </ul>
-      <p>
-        The practical move is to search for the vital records office for the place of birth, look
-        for wording like "long form," "full certificate," or "certified copy with all details," and
-        read what that particular office says before paying for anything. If the time is not on the
-        certificate, the hospital's medical-records department may be another avenue, subject to its
-        own retention and release rules.
-      </p>
-      <p class="card__meta">
-        This is guidance on where to look, not legal advice, and it is not specific to your
-        jurisdiction. The office that holds your record is the authority on its own process.
-      </p>
+      <p>Treat those answers as clues, not certificates. Write down who remembers what and how confident they are.</p>
 
-      <h2>Asking your family well</h2>
-      <p>
-        <strong>Ask about the shape of the day rather than only the number on the clock.</strong>
-        Memories are often anchored to events: daylight, a meal, a work shift, who had arrived, or
-        what happened immediately before and after the birth.
-      </p>
-      <p>Useful prompts include:</p>
-      <ul>
-        <li>Was it light or dark outside?</li>
-        <li>Before or after a meal, which one?</li>
-        <li>Had someone already left for work, or come home?</li>
-        <li>Did anyone miss something because of the birth: a shift, a class, a service?</li>
-        <li>Who else was there, and had they arrived yet or come later?</li>
-        <li>Was it the same day labor started?</li>
-        <li>Did the hospital staff change over while you were there?</li>
-      </ul>
-      <p>
-        Treat those answers as clues, not certificates. Write down who remembers what and how
-        confident they are. A remembered range can be useful precisely because it admits the part
-        that is still uncertain.
-      </p>
+      <h2 id="disagree">When the records disagree</h2>
+      <p><strong>Keep both times rather than picking one too quickly.</strong> A recorded conflict is more useful than a premature decision. Write down each candidate, where it came from, and how confident that source is. A documented time generally deserves more weight than recollection.</p>
 
-      <h2>When the records disagree</h2>
-      <p>
-        <strong>Keep both times rather than picking one too quickly.</strong> A recorded conflict is
-        more useful than a premature decision, because candidate times can be compared while a
-        single guess can quietly start behaving like a fact.
-      </p>
-      <p>
-        Write down each candidate, where it came from, and how confident that source is. A
-        documented time generally deserves more weight than recollection. If two candidate times
-        produce the same rising sign or similar chart structure, the disagreement may matter less
-        for some questions than for others.
-      </p>
-
-      <h2>If the time cannot be found</h2>
-      <p>
-        <strong>You can still have a real reading.</strong> It will be a reading with stated limits,
-        and those limits should be part of the interpretation rather than something hidden behind a
-        guessed time.
-      </p>
-      <p>
-        <strong>What becomes uncertain:</strong> the rising sign and exact angles are unavailable;
-        house placement may be unavailable or approached differently depending on the technique;
-        and the Moon's position may need to be treated as a range across the birth date because it
-        moves quickly.
-      </p>
-      <p>
-        <strong>What often remains usable:</strong> the slower planets' sign positions, many aspects
-        between planets, planetary condition, and current transits to natal placements that do not
-        depend on an exact angle. The exact usable set depends on the date and the question, so I
-        would rather state the uncertainty than pretend it is not there.
-      </p>
-      <p>
-        A chart without a known birth time is not a consolation prize. It is a chart with fewer
-        reliable layers. Good technique means knowing the difference.
-      </p>
+      <h2 id="unknown">If the time cannot be found</h2>
+      <p><strong>You can still have a real reading.</strong> It will be a reading with stated limits, and those limits should be part of the interpretation rather than hidden behind a guessed time.</p>
+      <p><strong>What becomes uncertain:</strong> the rising sign and exact angles are unavailable; house placement may be unavailable or approached differently depending on technique; and the Moon may need to be treated as a range across the day.</p>
+      <p><strong>What often remains usable:</strong> slower planets' sign positions, many aspects between planets, planetary condition, and current transits to natal placements that do not depend on an exact angle.</p>
+      <p>A chart without a known birth time is not a consolation prize. It is a chart with fewer reliable layers. Good technique means knowing the difference.</p>
 
       <h2>What rectification is, and is not</h2>
-      <p>
-        <strong>Rectification is an astrological technique for narrowing a probable birth time by
-        working backward from known life events.</strong> It can be careful, substantial work, and
-        some astrologers specialize in it.
-      </p>
-      <p>
-        The important distinction is that rectification produces a reasoned astrological estimate,
-        not a recovered historical record. Different practitioners can weigh the evidence
-        differently. When an official record is obtainable, I would look there before asking
-        astrology to reconstruct what the clock may have said.
-      </p>
+      <p><strong>Rectification is an astrological technique for narrowing a probable birth time by working backward from known life events.</strong> It can be careful, substantial work, and some astrologers specialize in it.</p>
+      <p>It produces a reasoned astrological estimate, not a recovered historical record. When an official record is obtainable, I would look there before asking astrology to reconstruct what the clock may have said.</p>
 
       <h2>What to bring to a reading</h2>
-      <p>
-        Send the birth date, the birth city and country, and the time <em>with your confidence
-        attached</em>. "From the certificate," "between 2 and 4 p.m.," "sometime in the morning," and
-        "genuinely no idea" each lead somewhere different, and all four give me useful information.
-      </p>
-      <p>
-        Not sure which of those you have? <a href="/birth-time-toolkit/#confidence-check">Three
-        questions will help you assess it</a> and point you toward a sensible next step.
-      </p>
-      <p>
-        If you are already preparing for an appointment,
-        <a href="/prepare-for-your-reading/">How to Prepare for Your Reading</a> covers everything
-        else worth bringing.
-      </p>
-    </div>
-  </section>
-
-  {/*
-    The toolkit offer sits here, after the reader has the answer — not before it
-    and not interrupting it. Someone who has read this far knows what they are
-    looking for and now has to go and do it, which is exactly the moment a
-    working process is worth having.
-  */}
-  <section class="section section--alt">
-    <div class="container feature-split">
-      <div class="flow">
-        <p class="eyebrow">The next step</p>
-        <h2>Working with an uncertain birth time?</h2>
-        <p>
-          This page explains the why. The <strong>Birth Time Toolkit</strong> turns it into a working
-          process: what you already know, which records to request, what to ask relatives, how to
-          compare times that disagree, and how to write the result down so an astrologer can see the
-          uncertainty rather than accidentally erase it.
-        </p>
-        <p>
-          The toolkit is free. You can use the direct download, and the page also gives you the
-          option to receive Mo's broader monthly note if you would like to stay connected.
-        </p>
-        <p>
-          <a class="btn btn--accent" href="/birth-time-toolkit/" data-toolkit-cta="birth-time-article">
-            Use the Birth Time Toolkit
-          </a>
-        </p>
-      </div>
-      <img
-        src={scenes.newsletterLetters.src}
-        alt={scenes.newsletterLetters.alt}
-        width={scenes.newsletterLetters.width}
-        height={scenes.newsletterLetters.height}
-        loading="lazy"
-      />
+      <p>Send the birth date, birth city and country, and the time <em>with your confidence attached</em>. “From the certificate,” “between 2 and 4 p.m.,” “sometime in the morning,” and “genuinely no idea” each lead somewhere different.</p>
+      <p>Not sure which of those you have? <a href="/birth-time-toolkit/#confidence-check">The confidence check</a> will help you label it and choose a sensible next step.</p>
     </div>
   </section>
 
   <section class="section">
-    <div class="container grid grid--3">
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/explore/the-big-three/">The Big Three</a>
-        </h2>
-        <p style="margin: 0;">See what the rising sign contributes once you have it.</p>
-      </article>
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/explore/house-systems/">House systems</a>
-        </h2>
-        <p style="margin: 0;">Why astrologers can divide the same chart in different ways.</p>
-      </article>
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/horoscopes/">Rising-sign horoscopes</a>
-        </h2>
-        <p style="margin: 0;">Use your rising sign as a broad whole-sign lens on upcoming lunations.</p>
-      </article>
+    <div class="container feature-split">
+      <div class="flow">
+        <p class="eyebrow">Turn the answer into a process</p>
+        <h2>Working with an uncertain birth time?</h2>
+        <p>The <strong>Birth Time Toolkit</strong> gives you record-search checklists, family interview sheets, a way to compare times that disagree, and a clean summary to bring to a reading.</p>
+        <p><a class="btn btn--accent" href="/birth-time-toolkit/" data-toolkit-cta="birth-time-article">Use the Birth Time Toolkit</a></p>
+      </div>
+      <img src={scenes.newsletterLetters.src} alt={scenes.newsletterLetters.alt} width={scenes.newsletterLetters.width} height={scenes.newsletterLetters.height} loading="lazy" />
     </div>
   </section>
 
@@ -397,3 +121,9 @@ const schema = [
     secondaryHref="/explore/"
   />
 </BaseLayout>
+
+<style>
+  .birth-time-route { text-decoration: none; color: inherit; min-height: 120px; }
+  .birth-time-route strong { font-family: var(--font-serif); font-size: var(--text-lg); color: var(--ink); }
+  .birth-time-route span { color: var(--ink-soft); }
+</style>
