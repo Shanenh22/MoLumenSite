@@ -1,4 +1,4 @@
-# One-time branch audit; removes itself after a green run. Final pass includes repaired canonical article links.
+# One-time branch audit; removes itself after a green run. Final pass includes mobile booking spacing repair.
 name: Apply final MoLumen audit
 
 on:
