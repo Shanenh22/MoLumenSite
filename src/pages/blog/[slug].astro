@@ -36,7 +36,7 @@ const crumbs = [
   { label: d.title, href: `/blog/${slug}/` },
 ];
 /** Reading time from the real word count at 220 wpm, rounded up. */
-const readingMinutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
+const readingMinutes = Math.max(1, Math.ceil((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
 
 /**
  * A blog article should not assume that finishing an article means the reader
@@ -159,7 +159,7 @@ const schema = [
             {d.updatedDate && <li>Updated {fmt(d.updatedDate)}</li>}
           </ul>
           <p class="card__meta">
-            By <a href="/about/">Mo Lumen</a> · <a href="/credentials/">how I trained</a>
+            By <a href="/about/">Mo Lumen</a> · <a href="/credentials/">Credentials</a>
           </p>
         </div>
         <img
