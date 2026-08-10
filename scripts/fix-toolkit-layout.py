@@ -27,4 +27,22 @@ replace_once(
     """await page.addStyleTag({ content: PDF_CSS });\n\n// A checklist item that becomes unusually tall is a strong signal that its text\n// has collapsed into a narrow anonymous grid column. That failure can still\n// produce a syntactically valid PDF, so stop before writing a broken artifact.\nconst brokenChecklist = await page.$$eval('.ws-check li', (items) =>\n  items\n    .map((item, index) => {\n      const rect = item.getBoundingClientRect();\n      return { index: index + 1, width: rect.width, height: rect.height };\n    })\n    .filter((item) => item.width < 300 || item.height > 180),\n);\nif (brokenChecklist.length) {\n  throw new Error(`Toolkit checklist layout collapsed: ${JSON.stringify(brokenChecklist)}`);\n}\n\nawait page.pdf({\n""",
 )
 
-print("Applied toolkit checklist layout repair and generation guard.")
+# The homepage tagline was the one hero text element below WCAG AA when sampled
+# against its photograph. Use the existing on-dark text token rather than a
+# decorative gold that can fall below 4.5:1 on the lightest sampled area.
+replace_once(
+    "src/styles/global.css",
+    """  font-size: var(--text-lg);\n  line-height: 1.45;\n  color: var(--color-gold-soft);\n  max-width: 40ch;\n""",
+    """  font-size: var(--text-lg);\n  line-height: 1.45;\n  color: var(--ink-on-dark);\n  max-width: 40ch;\n""",
+)
+
+# Traditional/Modern source labels were exactly 24px tall on mobile. They are
+# links, so give those labels a deliberate touch target without changing the
+# surrounding reference-card semantics or visible wording.
+replace_once(
+    "src/styles/global.css",
+    """.layer--astro {\n""",
+    """.layer__label a {\n  display: inline-flex;\n  align-items: center;\n  min-height: 32px;\n}\n\n.layer--astro {\n""",
+)
+
+print("Applied toolkit layout, hero contrast, and reference target-size repairs.")
