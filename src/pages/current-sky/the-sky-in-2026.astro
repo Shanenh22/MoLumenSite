@@ -1,7 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import CTABand from '../../components/CTABand.astro';
 import { photos } from '../../config/images';
 const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
@@ -183,11 +182,4 @@ const crumbs = [
       </p>
     </div>
   </section>
-
-  <CTABand
-    heading="Where do these shifts meet your chart?"
-    body="The same planetary movement can become a very different story in two different lives. Your houses, natal contacts, timing, and lived circumstances are what make the interpretation personal."
-    buttonLabel="Find Your Reading"
-    buttonHref="/reading-finder/"
-  />
 </BaseLayout>
