@@ -22,7 +22,10 @@ export interface NavGroup {
  * ecosystem underneath it visible: the main timeline, rising-sign guidance,
  * calendar, annual overview, and archive.
  *
- * No URL changed. This file only changes how existing destinations are exposed.
+ * Dormant or duplicate hubs stay out of primary navigation until they have a
+ * distinct job. Courses has nothing to sell yet, Guides currently duplicates
+ * Resources/Birth Time, and Videos has no published entries. Their URLs remain
+ * available for future use without asking visitors to choose empty sections.
  */
 export const primaryNav: NavGroup[] = [
   {
@@ -68,7 +71,7 @@ export const primaryNav: NavGroup[] = [
     children: [
       { label: "About Mo", href: "/about/" },
       { label: "Blog", href: "/blog/" },
-      { label: "Videos", href: "/videos/" },
+      { label: "Newsletter", href: "/newsletter/" },
       { label: "Credentials", href: "/credentials/" },
       { label: "Testimonials", href: "/testimonials/" },
       { label: "Contact Mo", href: "/contact/" },
@@ -98,14 +101,12 @@ export const footerNav: Record<string, NavLink[]> = {
     { label: "Sky Calendar", href: "/current-sky/calendar/" },
     { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
     { label: "Horoscopes", href: "/horoscopes/" },
-    { label: "Videos", href: "/videos/" },
+    { label: "Newsletter", href: "/newsletter/" },
   ],
   Site: [
     { label: "About Mo", href: "/about/" },
     { label: "Testimonials", href: "/testimonials/" },
     { label: "Resources", href: "/resources/" },
-    { label: "Courses", href: "/courses/" },
-    { label: "Guides", href: "/guides/" },
     { label: "Contact", href: "/contact/" },
   ],
 };
@@ -121,5 +122,4 @@ export const policyNav: NavLink[] = [
   { label: "Disclaimer", href: "/disclaimer/" },
   { label: "Booking Policy", href: "/booking-policy/" },
   { label: "Accessibility", href: "/accessibility/" },
-  { label: "Newsletter", href: "/newsletter/" },
 ];

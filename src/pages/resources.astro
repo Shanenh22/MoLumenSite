@@ -4,11 +4,52 @@ import { scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 const crumbs = [{ label: 'Resources', href: '/resources/' }];
+
+const paths = [
+  {
+    eyebrow: 'Learn the chart',
+    title: 'I want to understand astrology',
+    body: 'Begin with a guided sequence, then move into the reference library when you want to look up a specific idea or technique.',
+    links: [
+      ['Start Here', '/start-here/'],
+      ['Explore Astrology', '/explore/'],
+      ['Explore Your Chart', '/tools/explore-your-chart/'],
+    ],
+  },
+  {
+    eyebrow: 'Follow the sky',
+    title: 'I want to know what is happening now',
+    body: 'Follow verified dates, Mo’s notes on the larger patterns, and a broad rising-sign lens without turning shared astrology into a personal prediction.',
+    links: [
+      ['Current Sky', '/current-sky/'],
+      ['Sky Calendar', '/current-sky/calendar/'],
+      ['Horoscopes', '/horoscopes/'],
+    ],
+  },
+  {
+    eyebrow: 'Think with Mo',
+    title: 'I want more than definitions',
+    body: 'The blog gives longer questions room to develop. The monthly note is a quieter, more personal way to keep following what Mo is noticing.',
+    links: [
+      ['Read the Blog', '/blog/'],
+      ['A Monthly Note from Mo', '/newsletter/'],
+    ],
+  },
+  {
+    eyebrow: 'Solve a practical problem',
+    title: 'I need help with my birth time',
+    body: 'Find the record, assess how reliable the time is, and understand what can still be read when the exact time remains uncertain.',
+    links: [
+      ['How to Find Your Birth Time', '/birth-time/'],
+      ['Birth Time Toolkit', '/birth-time-toolkit/'],
+    ],
+  },
+] as const;
 ---
 
 <BaseLayout
   title="Resources"
-  description="Free astrology resources from Mo Lumen, organized by what you want to do: learn the chart, follow the current sky, read Mo's thinking, or prepare for a reading."
+  description="Free astrology resources from Mo Lumen, organized by what you want to do: learn the chart, follow the current sky, think with Mo, or solve a practical birth-time question."
   path="/resources/"
   breadcrumbs={crumbs}
 >
@@ -16,12 +57,12 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Choose what you need</p>
-      <h1>Resources</h1>
-      <p class="lede">
-        Start with what you want to understand or do. Each path takes you deeper without asking
-        you to learn everything at once.
-      </p>
+        <p class="eyebrow">Choose what you need</p>
+        <h1>Resources</h1>
+        <p class="lede">
+          You do not need another directory of links. Start with the thing you are trying to do and
+          I will point you toward the smallest useful path.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -37,36 +78,53 @@ const crumbs = [{ label: 'Resources', href: '/resources/' }];
   </section>
 
   <section class="section">
-    <div class="container grid grid--3">
-      {
-        [
-          ['I want to learn astrology', '/start-here/', 'Begin with the chart as a system, then move into planets, signs, houses, aspects, and technique.'],
-          ['I want a reference library', '/explore/', 'Use Explore Astrology when you already know the term or technique you want to understand.'],
-          ['I want to follow what is happening now', '/current-sky/', 'Current Sky follows lunations, eclipses, retrogrades, stations, and larger cycles without turning them into personal predictions.'],
-          ['I want rising-sign guidance', '/horoscopes/', 'See which whole-sign house a lunation emphasizes, with clear limits on what a general horoscope can know.'],
-          ['I want to think with Mo', '/blog/', 'Essays about astrology, technique, questions, cycles, and how Mo approaches interpretation.'],
-          ['I want a monthly note', '/newsletter/', 'Mo’s free monthly correspondence includes The Sky This Month along with questions, observations, connections, and new work when there is something worth sharing.'],
-          ['I need my birth time', '/birth-time/', 'Where to look, what to ask, what counts as reliable, and what can still be read if the exact time is unavailable.'],
-          ['I want practical guides', '/guides/', 'Longer reference material designed to help with a specific task, beginning with the Birth Time Toolkit.'],
-          ['I am considering a reading', '/reading-finder/', 'Five questions help narrow the options, then you can compare the recommendation with every other reading before choosing.'],
-        ].map(([t, href, d]) => (
-          <article class="card">
-            <h2 style="font-size: var(--text-lg); margin: 0;">
-              <a href={href}>{t}</a>
-            </h2>
-            <p style="margin: 0;">{d}</p>
-          </article>
-        ))
-      }
+    <div class="container grid grid--2">
+      {paths.map((path) => (
+        <article class="card flow resource-path">
+          <p class="eyebrow" style="margin: 0;">{path.eyebrow}</p>
+          <h2 style="font-size: var(--text-xl); margin: 0;">{path.title}</h2>
+          <p style="margin: 0;">{path.body}</p>
+          <ul class="resource-path__links">
+            {path.links.map(([label, href]) => (
+              <li><a href={href}>{label} →</a></li>
+            ))}
+          </ul>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container prose flow" style="max-width: 46rem;">
+      <p class="eyebrow">When the question becomes personal</p>
+      <h2>The free material teaches the pieces. A reading puts your pieces together.</h2>
+      <p>
+        Explore, Current Sky, horoscopes, the blog, and the birth-time tools are intentionally useful
+        without a booking. They can teach structure, context, and shared timing. What they cannot do
+        is decide which factors matter most in your own chart and circumstances.
+      </p>
     </div>
   </section>
 
   <CTABand
     heading="Have a personal question rather than a general one?"
-    body="The free library can teach the pieces and show you the shared sky. If you want to know how several factors come together in your own chart and circumstances, the Reading Finder is the better next step."
+    body="If you want to know how several factors come together in your own chart and circumstances, the Reading Finder can narrow the options without deciding for you."
     buttonLabel="Find Your Reading"
     buttonHref="/reading-finder/"
     secondaryLabel="Keep learning"
-    secondaryHref="/explore/"
+    secondaryHref="/start-here/"
   />
 </BaseLayout>
+
+<style>
+  .resource-path__links {
+    display: grid;
+    gap: var(--space-2);
+    margin: var(--space-2) 0 0;
+    padding: 0;
+    list-style: none;
+  }
+  .resource-path__links a {
+    font-weight: 700;
+  }
+</style>

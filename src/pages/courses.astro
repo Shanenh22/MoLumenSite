@@ -7,22 +7,23 @@ const crumbs = [{ label: 'Courses', href: '/courses/' }];
 ---
 
 <BaseLayout
-  title="Courses: in development"
-  description="Astrology courses from Mo Lumen are planned for the future. For now, learn free through Explore Astrology and join the monthly letter for course news when there is something concrete to share."
+  title="Courses: not open yet"
+  description="Mo Lumen does not have a course open for enrollment yet. Learn free through Start Here and Explore Astrology, or join the monthly note for future course news."
   path="/courses/"
   breadcrumbs={crumbs}
+  noindex={true}
 >
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">In development</p>
-      <h1>Courses</h1>
-      <p class="lede">
-        Teaching matters to me, and I plan to bring more structured astrology education here. For
-        now, the free learning library is the best place to begin. When a course is ready, this page
-        will have the details.
-      </p>
+        <p class="eyebrow">Not open yet</p>
+        <h1>Courses</h1>
+        <p class="lede">
+          I plan to teach structured courses here, but there is nothing open for enrollment right
+          now. I would rather say that plainly than ask you to browse a course catalog that does not
+          exist yet.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -40,25 +41,22 @@ const crumbs = [{ label: 'Courses', href: '/courses/' }];
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">
       <div class="prose flow">
-        <h2>Learn with me now</h2>
+        <p class="eyebrow">Learn now</p>
+        <h2>You do not need to wait for a course.</h2>
         <p>
-          If you are new to astrology, begin with <a href="/start-here/">Start Here</a>. It gives
-          the material an order instead of asking you to learn a pile of disconnected definitions.
+          If you are new to astrology, <a href="/start-here/">Start Here</a> gives the material an
+          order. If you already know the basics, <a href="/explore/">Explore Astrology</a> is the
+          deeper reference library. Both are free and designed to show how the pieces relate rather
+          than hand you isolated definitions.
         </p>
-        <p>
-          If you already know your way around a chart, <a href="/explore/">Explore Astrology</a>
-          is the deeper reference library. It separates the pieces, shows how they relate, and
-          makes clear where general education ends and personal synthesis begins.
-        </p>
-        <p>
-          That free material is also the best preview of how I teach: explain the structure, show
-          the relationships, say where astrologers differ, and leave room for questions.
-        </p>
+        <p><a class="btn btn--primary" href="/start-here/">Start learning</a></p>
       </div>
       <div class="card flow">
-        <h2 id="course-interest" style="font-size: var(--text-xl); margin: 0;">Hear when a course is ready</h2>
+        <p class="eyebrow" style="margin: 0;">Future course news</p>
+        <h2 id="course-interest" style="font-size: var(--text-xl); margin: 0;">Hear when something is actually ready</h2>
         <p style="margin: 0;">
-          I will share course news in the monthly letter when there is something ready to announce.
+          Course announcements will go to the monthly note when there is a real course, date, and
+          enrollment path to share.
         </p>
         <NewsletterForm source="courses-interest" labelledby="course-interest" />
       </div>

@@ -10,12 +10,22 @@ const posts = (await getCollection('blog'))
   .filter((p) => !p.data.draft)
   .sort((a, b) => b.data.publishDate.valueOf() - a.data.publishDate.valueOf());
 
-const categories = [...new Set(posts.map((p) => p.data.category))].sort();
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const slugOf = (id: string) => id.replace(/\.mdx?$/, '');
 const heroFor = (key?: string) =>
   (key && (scenes as Record<string, (typeof scenes)['natal']>)[key]) || scenes.newsletterLetters;
+
+const featuredSlugs = [
+  'what-astrology-can-and-cannot-do',
+  'how-to-choose-an-astrologer',
+  'should-you-read-your-horoscope',
+];
+const featured = posts
+  .filter((p) => featuredSlugs.includes(slugOf(p.id)))
+  .sort((a, b) => featuredSlugs.indexOf(slugOf(a.id)) - featuredSlugs.indexOf(slugOf(b.id)));
+const remaining = posts.filter((p) => !featuredSlugs.includes(slugOf(p.id)));
+const categories = [...new Set(remaining.map((p) => p.data.category))].sort();
 
 const crumbs = [{ label: 'Blog', href: '/blog/' }];
 const schema =
@@ -52,8 +62,8 @@ const schema =
         <h1>Blog</h1>
         <p class="lede">
           This is where I follow the questions that do not fit neatly into a definition or a sky
-          update: how astrologers know what they know, where a technique has limits, what makes a
-          reading useful, and what gets more interesting the longer you look.
+          update: what astrology can reasonably tell us, how techniques are used, and what becomes
+          more interesting when certainty is not the goal.
         </p>
       </div>
       <img
@@ -69,93 +79,91 @@ const schema =
     </div>
   </section>
 
+  {featured.length > 0 && (
+    <section class="section section--sea">
+      <div class="container">
+        <p class="eyebrow">Start with a question</p>
+        <h2>You do not need to browse chronologically.</h2>
+        <div class="grid grid--3" style="margin-top: var(--space-6);">
+          {featured.map((p) => (
+            <article class="card">
+              <p class="card__meta" style="margin: 0;">{p.data.category}</p>
+              <h3 style="margin: 0;"><a href={`/blog/${slugOf(p.id)}/`}>{p.data.title}</a></h3>
+              <p style="margin: 0;">{p.data.description}</p>
+              <p style="margin-top: auto; margin-bottom: 0;"><a href={`/blog/${slugOf(p.id)}/`}>Read this first →</a></p>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
   <section class="section">
     <div class="container">
-      <div class="prose flow" style="margin-bottom: var(--space-8);">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <p class="eyebrow">Keep reading</p>
+        <h2>Recent writing</h2>
         <p>
-          If you are deciding whether a reading is right for you, start with
-          <a href="/blog/what-astrology-can-and-cannot-do/">what a reading can and cannot do</a> or
-          <a href="/blog/how-to-choose-an-astrologer/">how to choose an astrologer</a>. If you are
-          here to learn the language itself, the <a href="/start-here/">Start Here path</a> and
-          <a href="/explore/">Explore Astrology</a> are the more systematic route. The blog is less
-          textbook and more conversation.
+          If you want systematic instruction rather than essays, use <a href="/start-here/">Start
+          Here</a> or <a href="/explore/">Explore Astrology</a>. The blog is deliberately more
+          conversational: one question at a time, with room to follow it further.
         </p>
       </div>
-      {
-        posts.length > 0 ? (
-          <>
-            {categories.length > 1 && (
-              <div class="filter-bar" role="group" aria-label="Filter posts by category" data-blog-filters>
-                <button type="button" aria-pressed="true" data-filter="all">
-                  All posts
-                </button>
-                {categories.map((c) => (
-                  <button type="button" aria-pressed="false" data-filter={c}>
-                    {c}
-                  </button>
-                ))}
-              </div>
-            )}
-            <p class="visually-hidden" aria-live="polite" data-blog-status />
-
-            <div class="grid grid--3">
-              {posts.map((p) => {
-                const im = heroFor(p.data.heroImage);
-                return (
-                  <article class="card card--img" data-post-category={p.data.category}>
-                    <img src={im.src} alt="" width={im.width} height={im.height} loading="lazy" />
-                    <div class="card__body">
-                      <p class="card__meta" style="margin: 0;">
-                        {fmt(p.data.publishDate)} · {p.data.category}
-                      </p>
-                      <h2 style="font-size: var(--text-xl); margin: 0;">
-                        <a href={`/blog/${slugOf(p.id)}/`}>{p.data.title}</a>
-                      </h2>
-                      <p style="margin: 0;">{p.data.description}</p>
-                      <p style="margin-top: auto; margin-bottom: 0;">
-                        <a href={`/blog/${slugOf(p.id)}/`}>Read the post →</a>
-                      </p>
-                    </div>
-                  </article>
-                );
-              })}
+      {remaining.length > 0 ? (
+        <>
+          {categories.length > 1 && (
+            <div class="filter-bar" role="group" aria-label="Filter posts by category" data-blog-filters>
+              <button type="button" aria-pressed="true" data-filter="all">All posts</button>
+              {categories.map((c) => <button type="button" aria-pressed="false" data-filter={c}>{c}</button>)}
             </div>
-          </>
-        ) : (
-          <div class="prose flow">
-            <h2>No published posts yet</h2>
-            <p>
-              For now, use <a href="/explore/">Explore Astrology</a> for structured learning or
-              <a href="/current-sky/">Current Sky</a> for Mo's interpretation of the cycles overhead.
-            </p>
+          )}
+          <p class="visually-hidden" aria-live="polite" data-blog-status />
+          <div class="grid grid--3">
+            {remaining.map((p) => {
+              const im = heroFor(p.data.heroImage);
+              return (
+                <article class="card card--img" data-post-category={p.data.category}>
+                  <img src={im.src} alt="" width={im.width} height={im.height} loading="lazy" />
+                  <div class="card__body">
+                    <p class="card__meta" style="margin: 0;">{fmt(p.data.publishDate)} · {p.data.category}</p>
+                    <h3 style="font-size: var(--text-xl); margin: 0;"><a href={`/blog/${slugOf(p.id)}/`}>{p.data.title}</a></h3>
+                    <p style="margin: 0;">{p.data.description}</p>
+                    <p style="margin-top: auto; margin-bottom: 0;"><a href={`/blog/${slugOf(p.id)}/`}>Read the post →</a></p>
+                  </div>
+                </article>
+              );
+            })}
           </div>
-        )
-      }
+        </>
+      ) : posts.length === 0 ? (
+        <div class="prose flow">
+          <h2>No published posts yet</h2>
+          <p>For now, use <a href="/explore/">Explore Astrology</a> or <a href="/current-sky/">Current Sky</a>.</p>
+        </div>
+      ) : null}
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="container feature-split">
+    <div class="container grid grid--2" style="align-items: start;">
       <div class="flow">
         <p class="eyebrow">A monthly note from Mo</p>
         <h2 id="blog-newsletter">Keep the conversation going</h2>
         <p>
-          My monthly note brings together what I have been noticing, a look at the sky, new writing,
-          and the questions I am still turning over. It is correspondence, not another feed to keep
-          up with.
+          The monthly note brings together what I have been noticing, a look at the sky, new
+          writing, and the questions I am still turning over. It is correspondence, not another
+          feed to keep up with.
         </p>
         <NewsletterForm source="blog" labelledby="blog-newsletter" />
-        <p class="card__meta">
-          Prefer a reader? <a href="/rss.xml">Subscribe by RSS</a>.
-        </p>
+        <p class="card__meta">Prefer a reader? <a href="/rss.xml">Subscribe by RSS</a>.</p>
       </div>
       <div class="flow">
         <h2>Choose the next path</h2>
         <ul>
-          <li><a href="/readings/">Readings</a>, when a real question needs individual synthesis</li>
           <li><a href="/current-sky/">Current Sky</a>, to follow the cycles moving overhead</li>
           <li><a href="/start-here/">Start Here</a>, for a guided introduction to chart language</li>
           <li><a href="/explore/">Explore Astrology</a>, for the full reference library</li>
+          <li><a href="/reading-finder/">Reading Finder</a>, when the question has become personal</li>
         </ul>
       </div>
     </div>
