@@ -31,30 +31,52 @@ Write or paste the article into the **Article** rich-text editor.
 
 A strong MoLumen article should:
 
-- start with the reader's real question, experience, or situation rather than a generic introduction;
+- start with the reader's real question, experience, curiosity, or situation rather than a generic introduction;
+- sound like Mo: warm authority without mystique, intelligent, grounded, candid, curious, technically informed in plain language, conversational, and agency-first;
+- explain complicated astrology clearly without flattening its complexity;
+- preserve wonder without using science as proof of astrology;
+- distinguish astronomical fact, astrological tradition/practice, and Mo's interpretation where that distinction matters;
+- prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than a verdict or command;
+- avoid hype, guru language, fear-based astrology, belief tests, deterministic planetary language, scientific-sounding causation claims, and certainty the astrology cannot support;
+- avoid formulaic self-help conclusions, repetitive slogans, excessive lists, and generic AI phrasing;
 - use descriptive headings when the article is long enough to need them;
 - keep paragraphs comfortable to read on a phone;
-- sound warm, grounded, intelligent, and human;
-- avoid hype, fear-based astrology, and certainty the astrology cannot support;
 - verify factual, historical, astronomical, medical, legal, financial, or other checkable claims with reliable sources;
 - link naturally to relevant MoLumen pages when those links help the reader;
-- end with a sensible next step when one is relevant, such as another article, a useful resource, the Reading Finder, or an appropriate reading.
+- end with a next step that matches what the reader is doing now rather than automatically sending them to Book.
+
+A useful voice test: could Mo say this to a thoughtful person face to face, explain what she sees and why, and still leave that person with their own judgment intact?
 
 Do not force keywords, internal links, or sales language merely for SEO.
 
-## 4. Add images only when they help
+## 4. Choose a useful next step
+
+The Blog is where Mo develops durable ideas and lets readers think with her. The ending should continue that conversation.
+
+Typical paths:
+
+- foundational concept → **Start Here** or the relevant **Explore Astrology** page;
+- technique or terminology → **Explore Astrology** or **Glossary**;
+- timing or cycles → **Current Sky** or **Transits**;
+- a topic that naturally becomes personal → **Reading Finder**;
+- reading-process or service-choice article → **How Readings Work**, **Readings**, or **Reading Finder**;
+- broader ongoing relationship → the **monthly note from Mo**.
+
+Do not send every article directly to Book. Booking is appropriate when the article has already helped the reader understand that a personal reading is the logical next step.
+
+## 5. Add images only when they help
 
 Use the **Content images** media area in Pages CMS.
 
 An article does not need an image simply to have one. Add an image when it improves understanding, context, or atmosphere.
 
-## 5. Save without publishing
+## 6. Save without publishing
 
 You can save as often as you want while **Draft remains ON**.
 
 Saving in Pages CMS creates a GitHub commit automatically. You do not need to use GitHub yourself.
 
-## 6. Run the quality check
+## 7. Run the quality check
 
 Before publishing, use **Run site quality check** in Pages CMS.
 
@@ -62,7 +84,7 @@ The check validates the content structure, Astro/type checks, the production bui
 
 If it passes, the article is technically healthy. If it fails and the message is not obvious, ask Claude to diagnose it rather than changing code yourself.
 
-## 7. Review staging
+## 8. Review staging
 
 Review the article on:
 
@@ -75,9 +97,11 @@ Check:
 - images;
 - internal/external links;
 - mobile readability;
-- the final call to action or next step.
+- whether any paragraph merely repeats or explains the interface;
+- the final call to action or next step;
+- whether the article still sounds like Mo rather than generic website copy.
 
-## 8. Publish
+## 9. Publish
 
 1. Open the article again in Pages CMS.
 2. Confirm the title, summary, publish date, category, tags, article text, links, and images.
@@ -100,7 +124,7 @@ Use Claude when:
 
 A useful request is:
 
-> Use the MoLumen Editor and Publisher skills. Help me turn the following notes/draft into a finished MoLumen article. Preserve my voice, verify factual claims that need verification, suggest natural internal links and a useful next step, and return the article ready for me to paste into Pages CMS. Do not change the website code.
+> Use the MoLumen Editor and Publisher skills. Help me turn the following notes/draft into a finished MoLumen article. Follow the canonical Brand and Editorial Guide, preserve Mo's warm, grounded, curious, agency-first voice, verify factual claims that need verification, suggest natural internal links and an intent-appropriate next step, and return the article ready for me to paste into Pages CMS. Do not change the website code.
 
 ## What not to edit yourself for a normal article
 
@@ -123,9 +147,12 @@ Ask Claude for those changes.
 - [ ] The title says what the article is actually about.
 - [ ] The summary accurately describes the article.
 - [ ] Claims that need verification have been checked.
+- [ ] Fact, tradition/practice, and Mo's interpretation are not blurred together where the distinction matters.
+- [ ] The piece sounds warm, intelligent, grounded, curious, conversational, and agency-first.
+- [ ] It avoids deterministic, guru-like, belief-test, or pseudo-scientific framing.
 - [ ] Headings and paragraphs are easy to scan on mobile.
 - [ ] Internal links are useful and natural.
-- [ ] The ending gives the reader a sensible next step when relevant.
+- [ ] The ending gives the reader the right next step for this article's role.
 - [ ] The quality check passes.
 - [ ] The staging version looks right.
 - [ ] Draft is turned OFF only after the final review.
