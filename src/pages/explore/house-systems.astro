@@ -10,6 +10,11 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'House Systems', href: '/explore/house-systems/' },
 ];
+const systems = [
+  { name: 'Whole Sign', anchor: 'Rising sign', division: '12 whole signs', changes: 'A planet can land in a different house than in quadrant systems.' },
+  { name: 'Placidus', anchor: 'Local horizon + time', division: 'Unequal houses', changes: 'Intermediate cusps vary; planets near cusps may move houses.' },
+  { name: 'Equal House', anchor: 'Ascendant degree', division: '12 equal 30° houses', changes: 'House cusps differ from both Whole Sign and Placidus.' },
+];
 ---
 
 <BaseLayout
@@ -30,40 +35,44 @@ const crumbs = [
     </div>
   </section>
 
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-6);">
+        <p class="eyebrow">Same sky, different divisions</p>
+        <h2>The planets do not move. The house boundaries do.</h2>
+        <p>Think of house systems as different ways of drawing the twelve local divisions around the same planetary positions. That can change a planet's house without changing its sign, degree, or aspects.</p>
+      </div>
+      <div class="system-grid">
+        {systems.map((system) => (
+          <article class="card">
+            <h3>{system.name}</h3>
+            <dl class="system-facts">
+              <div><dt>Starts from</dt><dd>{system.anchor}</dd></div>
+              <div><dt>House shape</dt><dd>{system.division}</dd></div>
+              <div><dt>What you may notice</dt><dd>{system.changes}</dd></div>
+            </dl>
+          </article>
+        ))}
+      </div>
+      <div class="change-strip">
+        <div><strong>Does not change</strong><span>Planet signs & degrees · aspects · Ascendant/MC degrees</span></div>
+        <div><strong>Can change</strong><span>Planet houses · intermediate cusps · house-based emphasis</span></div>
+      </div>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container prose flow">
       <h2>The problem being solved</h2>
-      <p>
-        The zodiac is a 360° circle divided into twelve signs. Houses are also twelve divisions, but
-        they are tied to a local horizon and meridian. Different systems solve the problem of
-        dividing that local space in different ways. The result is not one chart with different
-        planets; it is the same planetary positions organized through different house frameworks.
-      </p>
-
+      <p>The zodiac is a 360° circle divided into twelve signs. Houses are also twelve divisions, but they are tied to a local horizon and meridian. Different systems solve the problem of dividing that local space in different ways. The result is not one chart with different planets; it is the same planetary positions organized through different house frameworks.</p>
       <h2>The systems you will meet most often</h2>
       <h3>Whole sign houses</h3>
-      <p>
-        In whole sign houses, the entire sign containing the Ascendant becomes the first house, the
-        next sign becomes the second, and so on. The method is simple and has deep historical roots.
-        The Midheaven remains an important point but does not have to define the tenth-house cusp.
-      </p>
+      <p>In whole sign houses, the entire sign containing the Ascendant becomes the first house, the next sign becomes the second, and so on. The method is simple and has deep historical roots. The Midheaven remains an important point but does not have to define the tenth-house cusp.</p>
       <h3>Placidus</h3>
-      <p>
-        Placidus is common in modern Western astrology and produces houses of unequal size. It is
-        calculated differently from whole sign and can move planets into neighboring houses,
-        especially when they are close to a cusp.
-      </p>
+      <p>Placidus is common in modern Western astrology and produces houses of unequal size. It is calculated differently from whole sign and can move planets into neighboring houses, especially when they are close to a cusp.</p>
       <h3>Equal house</h3>
-      <p>
-        Equal house begins the first house at the Ascendant degree and then divides the chart into
-        twelve equal 30° houses. Like whole sign, it does not require the Midheaven to be the
-        tenth-house cusp.
-      </p>
-      <p>
-        Other systems in regular use include Koch, Porphyry, Regiomontanus, Campanus, and Alcabitius.
-        Horary astrologers may favor systems that differ from those used in natal work. The method
-        should fit the technique rather than functioning as a badge of identity.
-      </p>
+      <p>Equal house begins the first house at the Ascendant degree and then divides the chart into twelve equal 30° houses. Like whole sign, it does not require the Midheaven to be the tenth-house cusp.</p>
+      <p>Other systems in regular use include Koch, Porphyry, Regiomontanus, Campanus, and Alcabitius. Horary astrologers may favor systems that differ from those used in natal work. The method should fit the technique rather than functioning as a badge of identity.</p>
     </div>
   </section>
 
@@ -73,63 +82,31 @@ const crumbs = [
     <div class="container prose flow">
       <h2>What changes, and what does not</h2>
       <p><strong>House system does not change:</strong></p>
-      <ul>
-        <li>the zodiacal sign and degree of each planet</li>
-        <li>the aspects between planets</li>
-        <li>the Ascendant and Midheaven degrees themselves</li>
-      </ul>
+      <ul><li>the zodiacal sign and degree of each planet</li><li>the aspects between planets</li><li>the Ascendant and Midheaven degrees themselves</li></ul>
       <p><strong>House system can change:</strong></p>
-      <ul>
-        <li>which house a planet occupies</li>
-        <li>which signs fall on intermediate house cusps</li>
-        <li>some rulership chains and house-based interpretive emphasis</li>
-      </ul>
-      <p>
-        That is not a trivial difference, but it is also not a completely different chart. I think
-        this is a useful example of why astrology benefits from humility: technique matters, and
-        technique does not erase judgment.
-      </p>
-
-      <Layers kind="mo">
-        <p>
-          I have studied and used more than one house system. I do not need every chart to prove one
-          system universally correct. If a placement changes houses between methods and that change
-          matters to the question, I am comfortable looking more closely rather than pretending the
-          ambiguity is embarrassing. The chart belongs to the person, not to my need for a tidy rule.
-        </p>
-      </Layers>
-
-      <Layers kind="differs">
-        <p>
-          Different traditions and techniques favor different systems, and astrologers often arrive
-          at their preferences through training, historical method, and experience with charts. That
-          disagreement is real. It is also one reason it is useful to ask an astrologer what method
-          they are using rather than assuming every chart is being divided the same way.
-        </p>
-      </Layers>
-
+      <ul><li>which house a planet occupies</li><li>which signs fall on intermediate house cusps</li><li>some rulership chains and house-based interpretive emphasis</li></ul>
+      <p>That is not a trivial difference, but it is also not a completely different chart. I think this is a useful example of why astrology benefits from humility: technique matters, and technique does not erase judgment.</p>
+      <Layers kind="mo"><p>I have studied and used more than one house system. I do not need every chart to prove one system universally correct. If a placement changes houses between methods and that change matters to the question, I am comfortable looking more closely rather than pretending the ambiguity is embarrassing. The chart belongs to the person, not to my need for a tidy rule.</p></Layers>
+      <Layers kind="differs"><p>Different traditions and techniques favor different systems, and astrologers often arrive at their preferences through training, historical method, and experience with charts. That disagreement is real. It is also one reason it is useful to ask an astrologer what method they are using rather than assuming every chart is being divided the same way.</p></Layers>
       <h2>What to do about it as a client</h2>
-      <p>
-        You do not need to pick a side before having a reading. Ask which system is being used and,
-        if a placement is close to a boundary or another technique is relevant, ask whether the
-        astrologer considers more than one framework. The explanation should make sense without
-        requiring you to adopt an astrology-school identity of your own.
-      </p>
-      <p>
-        Related: <a href="/explore/angles/">the four angles</a>,
-        <a href="/explore/houses/">the twelve houses</a>, and
-        <a href="/explore/schools/">schools and traditions</a>.
-      </p>
+      <p>You do not need to pick a side before having a reading. Ask which system is being used and, if a placement is close to a boundary or another technique is relevant, ask whether the astrologer considers more than one framework. The explanation should make sense without requiring you to adopt an astrology-school identity of your own.</p>
+      <p>Related: <a href="/explore/angles/">the four angles</a>, <a href="/explore/houses/">the twelve houses</a>, and <a href="/explore/schools/">schools and traditions</a>.</p>
       <FurtherReading />
     </div>
   </section>
 
-  <CTABand
-    heading="Want to keep following how chart structure works?"
-    body="House systems make more sense alongside the angles and houses themselves. Keep building the structure before asking one method to explain the whole chart."
-    buttonLabel="Explore the Four Angles"
-    buttonHref="/explore/angles/"
-    secondaryLabel="Explore the Twelve Houses"
-    secondaryHref="/explore/houses/"
-  />
+  <CTABand heading="Want to keep following how chart structure works?" body="House systems make more sense alongside the angles and houses themselves. Keep building the structure before asking one method to explain the whole chart." buttonLabel="Explore the Four Angles" buttonHref="/explore/angles/" secondaryLabel="Explore the Twelve Houses" secondaryHref="/explore/houses/" />
 </BaseLayout>
+
+<style>
+  .system-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-4); }
+  .system-grid h3 { margin-top: 0; }
+  .system-facts { margin: 0; display: grid; gap: var(--space-3); }
+  .system-facts div { display: grid; gap: var(--space-1); }
+  .system-facts dt { font-size: var(--text-xs); font-weight: 700; text-transform: uppercase; letter-spacing: .04em; color: var(--color-text-muted); }
+  .system-facts dd { margin: 0; }
+  .change-strip { margin-top: var(--space-5); display: grid; grid-template-columns: 1fr 1fr; border: 1px solid var(--color-border); border-radius: var(--radius-lg); overflow: hidden; }
+  .change-strip div { padding: var(--space-4); display: grid; gap: var(--space-1); }
+  .change-strip div + div { border-left: 1px solid var(--color-border); }
+  @media (max-width: 760px) { .system-grid, .change-strip { grid-template-columns: 1fr; } .change-strip div + div { border-left: 0; border-top: 1px solid var(--color-border); } }
+</style>
