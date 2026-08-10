@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A new moon forms at 7° Libra, eight days before Mercury stations retrograde in Scorpio. The approaching station is part of the surrounding sky, but I would not use it to divide the month into a "good" window for agreements and a "bad" one afterward.
+A new moon forms at 7° Libra, eight days before Mercury stations retrograde in Scorpio. I would not use that approaching station to create a deadline for agreements. Astrology becomes less useful when every date is sorted into "safe" and "unsafe."
 
-Libra is associated with partnership, reciprocity, fairness, aesthetics, negotiation, and the effort to hold more than one point of view at once. A new moon here can offer a symbolic opening around those subjects, especially where a relationship or agreement is already asking for closer attention.
+Libra brings partnership, reciprocity, fairness, aesthetics, negotiation, and the effort to hold more than one point of view at once. What interests me here is not balance as a perfect state, but balance as an ongoing act of adjustment. A relationship or agreement can be fair and still need revision; two people can care about each other and still see the same situation differently.
 
-What that means personally depends on the natal house and contacts. The sky can frame the question; it does not decide what anyone should agree to.
+The new moon offers that symbolic territory to notice. It does not decide what anyone should agree to. The natal house, close contacts, and the real relationship in front of you are what turn a general pattern into a specific question.
