@@ -12,8 +12,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-An annular solar eclipse occurs at 17° Aquarius. Because the Moon appears slightly smaller than the Sun from Earth, it does not cover the solar disk completely, leaving a ring of light along the eclipse path. The astronomy alone is worth noticing.
+An annular solar eclipse occurs at 17° Aquarius. During an annular eclipse, the Moon passes in front of the Sun but appears too small to cover it completely, leaving a ring of sunlight visible along the central eclipse path. Before we assign any meaning to it, that geometry is remarkable in its own right.
 
-Astrologically, eclipses are given more weight than ordinary lunations, but I do not treat them as automatic turning points in every life. Aquarius brings questions of groups, friendship, systems, independence, shared ideals, and the future we imagine together. The useful question is not, "What will the eclipse make happen?" but, "Where does this symbolism meet something already alive?"
+Astrologically, eclipses are traditionally given more weight than ordinary new and full moons. More weight, however, is not the same thing as a guaranteed event. I do not assume that an eclipse must announce a dramatic turning point simply because it appears on the calendar.
 
-That becomes personal through the natal chart: the house containing 17° Aquarius, close contacts to planets or angles, and the wider timing picture. The eclipse describes a shared pattern. It does not write the outcome.
+Aquarius brings the collective into view: groups, friendships, networks, systems, shared ideas, independence, and the question of how an individual participates in something larger without disappearing into it. At an Aquarius eclipse, I am interested in the relationship between belonging and freedom. Which structures make genuine participation possible? Where has distance created perspective, and where has it become disconnection? What future are we imagining, and who is included in the imagining?
+
+Those questions become personal only when the eclipse meets a particular chart and a particular life. The house containing 17° Aquarius, close contacts to natal planets or angles, and the wider timing picture tell us far more than the eclipse label alone. The shared sky gives us a striking pattern to notice. It does not write anyone's outcome.
