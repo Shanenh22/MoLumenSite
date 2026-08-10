@@ -9,6 +9,14 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Retrogrades', href: '/explore/retrogrades/' },
 ];
+const motionStages = [
+  ['Direct', 'The planet appears to move forward through the zodiac.'],
+  ['Slowing', 'Its apparent daily motion decreases as the viewing geometry changes.'],
+  ['Station', 'It appears nearly still before the apparent direction changes.'],
+  ['Retrograde', 'From Earth, it appears to move backward against the zodiac.'],
+  ['Station', 'The apparent backward motion slows to another standstill.'],
+  ['Direct', 'Forward apparent motion resumes.'],
+];
 ---
 
 <BaseLayout
@@ -25,21 +33,34 @@ const crumbs = [
         <h1>Retrogrades, explained</h1>
         <p class="lede">Retrograde motion is one of those places where the astronomy is simple and the mythology gets loud. Nothing in space suddenly reverses course. What changes is our perspective, and astrologers have long treated that change in apparent motion as meaningful.</p>
       </div>
-      <img
-        class="hero__img"
-        src={ocean.glassWave.src}
-        srcset={ocean.glassWave.srcset}
-        sizes="100vw"
-        alt={ocean.glassWave.alt}
-        width={ocean.glassWave.width}
-        height={ocean.glassWave.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={ocean.glassWave.src} srcset={ocean.glassWave.srcset} sizes="100vw" alt={ocean.glassWave.alt} width={ocean.glassWave.width} height={ocean.glassWave.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
     <div class="container prose flow">
+      <h2>First, see the motion</h2>
+      <ol class="motion-sequence" aria-label="Apparent retrograde motion sequence">
+        {motionStages.map(([label, note], index) => (
+          <li>
+            <span class="motion-sequence__number">{index + 1}</span>
+            <div><strong>{label}</strong><span>{note}</span></div>
+          </li>
+        ))}
+      </ol>
+      <div class="retrograde-layers">
+        <article>
+          <p class="eyebrow">Astronomy</p>
+          <h3>An apparent change in direction</h3>
+          <p>Earth and the other planet continue in their orbits. The backward-looking path comes from our changing viewing angle.</p>
+        </article>
+        <article>
+          <p class="eyebrow">Astrology</p>
+          <h3>A change of emphasis, not a command</h3>
+          <p>Astrologers may associate the period with review, return, reconsideration, revision, or a less straightforward expression of the planet involved.</p>
+        </article>
+      </div>
+
       <h2>The astronomy</h2>
       <p>
         Retrograde motion is an effect of perspective. Earth and the other planets orbit the Sun at
@@ -72,27 +93,26 @@ const crumbs = [
   <section class="section section--sea">
     <div class="container prose flow">
       <h2>The ones people tend to notice</h2>
-      <h3>Mercury: roughly three times a year, about three weeks each</h3>
-      <p>
-        <a href="/explore/planets/mercury/">Mercury</a> is associated with communication,
-        information, movement, agreements, and everyday logistics. During a Mercury retrograde I
-        pay more attention to what is being reconsidered, clarified, corrected, or brought back for
-        another look. That can make ordinary precautions — rereading, confirming, backing up —
-        sensible without turning the period into a superstition.
-      </p>
-      <h3>Venus: about every 18 months, roughly six weeks</h3>
-      <p>
-        <a href="/explore/planets/venus/">Venus</a> retrograde can bring questions of relationship,
-        value, taste, money, and desire back under examination. The interesting question is not
-        “What am I forbidden to do?” but “What am I seeing differently now about what or whom I
-        value?”
-      </p>
-      <h3>Mars: about every two years, roughly two to three months</h3>
-      <p>
-        <a href="/explore/planets/mars/">Mars</a> retrograde can complicate the usual forward motion
-        of action, desire, conflict, and initiative. It is often worth noticing whether effort needs
-        redirection, whether frustration has been building, or whether a strategy needs adjustment.
-      </p>
+      <div class="retrograde-cards">
+        <article>
+          <h3>Mercury</h3>
+          <p class="card__meta">Roughly three times a year · about three weeks each</p>
+          <p>Communication, information, movement, agreements, and everyday logistics. I pay more attention to what is being reconsidered, clarified, corrected, or brought back for another look.</p>
+          <a href="/explore/planets/mercury/">Mercury in the chart</a>
+        </article>
+        <article>
+          <h3>Venus</h3>
+          <p class="card__meta">About every 18 months · roughly six weeks</p>
+          <p>Relationship, value, taste, money, and desire can come back under examination. The useful question is what you are seeing differently about what or whom you value.</p>
+          <a href="/explore/planets/venus/">Venus in the chart</a>
+        </article>
+        <article>
+          <h3>Mars</h3>
+          <p class="card__meta">About every two years · roughly two to three months</p>
+          <p>Action, desire, conflict, and initiative can feel less straightforward. Effort may need redirection, frustration may need naming, or strategy may need adjustment.</p>
+          <a href="/explore/planets/mars/">Mars in the chart</a>
+        </article>
+      </div>
 
       <h3>The outer planets</h3>
       <p>
@@ -124,4 +144,20 @@ const crumbs = [
     secondaryLabel="Find the right reading"
     secondaryHref="/reading-finder/"
   />
+
+  <style>
+    .motion-sequence { display: grid; grid-template-columns: 1fr; gap: var(--space-3); padding: 0; list-style: none; }
+    .motion-sequence li { display: flex; gap: var(--space-3); align-items: flex-start; padding: var(--space-4); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+    .motion-sequence__number { display: grid; width: 2rem; height: 2rem; flex: 0 0 2rem; place-items: center; border: 1px solid currentColor; border-radius: 999px; font-weight: 700; }
+    .motion-sequence li div { display: flex; flex-direction: column; gap: var(--space-1); }
+    .motion-sequence li span:last-child { font-size: var(--text-sm); }
+    .retrograde-layers, .retrograde-cards { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-block: var(--space-6); }
+    .retrograde-layers article, .retrograde-cards article { padding: var(--space-5); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+    .retrograde-layers h3, .retrograde-layers p:last-child, .retrograde-cards p:last-of-type { margin-bottom: 0; }
+    @media (min-width: 768px) {
+      .motion-sequence { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .retrograde-layers { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .retrograde-cards { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+  </style>
 </BaseLayout>

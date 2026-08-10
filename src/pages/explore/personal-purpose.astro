@@ -8,6 +8,12 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Personal Purpose', href: '/explore/personal-purpose/' },
 ];
+const purposeLenses = [
+  { label: 'Contribution', question: 'What wants to be expressed or offered?', note: 'Look for repeated themes around visibility, authorship, service, leadership, teaching, making, or other forms of contribution.' },
+  { label: 'Conditions', question: 'What helps that expression work?', note: 'Autonomy, collaboration, depth, variety, structure, audience, pace, and environment can matter as much as a job title.' },
+  { label: 'Resources', question: 'What supports the work?', note: 'Skills, values, money, stamina, relationships, training, and practical responsibilities all belong in the conversation.' },
+  { label: 'Timing', question: 'Why is the question alive now?', note: 'Transits and other timing factors can describe when an old question becomes harder to ignore or newly possible to examine.' },
+];
 ---
 
 <BaseLayout
@@ -34,6 +40,29 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
+      <h2>Start with four lenses, not one placement</h2>
+      <p>
+        Purpose is easier to think about when the question is broken into parts. These are not four
+        astrological rules. They are four lenses that help keep the chart connected to the life being
+        lived.
+      </p>
+      <div class="purpose-grid">
+        {purposeLenses.map((lens) => (
+          <article class="purpose-card">
+            <p class="eyebrow">{lens.label}</p>
+            <h3>{lens.question}</h3>
+            <p>{lens.note}</p>
+          </article>
+        ))}
+      </div>
+      <div class="callout">
+        <p style="margin: 0;">
+          <strong>A pattern is not a profession.</strong> A chart might repeat themes of communication,
+          autonomy, and public visibility. That still does not equal “you should become a writer.” It
+          gives us qualities we can compare against several real options.
+        </p>
+      </div>
+
       <h2>There is no single “purpose placement”</h2>
       <p>
         This is exactly the kind of question that shows why synthesis matters. Astrologers may look
@@ -91,4 +120,23 @@ const crumbs = [
     secondaryLabel="About the Natal Reading"
     secondaryHref="/readings/natal/"
   />
+
+  <style>
+    .purpose-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-block: var(--space-6);
+    }
+    .purpose-card {
+      padding: var(--space-5);
+      border: 1px solid var(--border-color, currentColor);
+      border-radius: var(--radius-lg, 1rem);
+    }
+    .purpose-card h3,
+    .purpose-card p:last-child { margin-bottom: 0; }
+    @media (min-width: 768px) {
+      .purpose-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </BaseLayout>

@@ -35,6 +35,33 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
+      <h2>Four levels to keep separate</h2>
+      <div class="relationship-model" aria-label="Four levels used in relationship astrology">
+        <article>
+          <span aria-hidden="true">A</span>
+          <h3>Person A</h3>
+          <p>One complete natal chart, with its own needs, patterns, timing, and lived history.</p>
+        </article>
+        <article>
+          <span aria-hidden="true">B</span>
+          <h3>Person B</h3>
+          <p>Another complete natal chart. Neither person disappears when the relationship begins.</p>
+        </article>
+        <article>
+          <span aria-hidden="true">↔</span>
+          <h3>Synastry</h3>
+          <p>How one person's chart contacts and activates the other person's chart, in both directions.</p>
+        </article>
+        <article>
+          <span aria-hidden="true">◎</span>
+          <h3>Composite</h3>
+          <p>A separate symbolic technique for looking at the relationship pattern as a whole.</p>
+        </article>
+      </div>
+      <div class="callout">
+        <p style="margin: 0;"><strong>Synastry does not ask “Are we compatible?”</strong> It asks what happens when these particular functions, needs, and patterns meet.</p>
+      </div>
+
       <h2>Synastry: how two charts meet</h2>
       <p>
         Synastry compares the placements in one natal chart with those in another. The aspects
@@ -97,4 +124,33 @@ const crumbs = [
     buttonLabel="About the Relationship Consultation"
     buttonHref="/readings/relationship/"
   />
+
+  <style>
+    .relationship-model {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-block: var(--space-6);
+    }
+    .relationship-model article {
+      padding: var(--space-5);
+      border: 1px solid var(--border-color, currentColor);
+      border-radius: var(--radius-lg, 1rem);
+    }
+    .relationship-model article > span {
+      display: grid;
+      width: 2.5rem;
+      height: 2.5rem;
+      margin-bottom: var(--space-3);
+      place-items: center;
+      border: 1px solid currentColor;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .relationship-model h3,
+    .relationship-model p { margin-bottom: 0; }
+    @media (min-width: 768px) {
+      .relationship-model { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+  </style>
 </BaseLayout>

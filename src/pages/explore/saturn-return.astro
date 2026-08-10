@@ -9,6 +9,12 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Saturn Return', href: '/explore/saturn-return/' },
 ];
+const returnTimeline = [
+  ['Birth', 'Natal Saturn sets the degree, sign, house, aspects, and condition that the return will revisit.'],
+  ['~29–30', 'The first Saturn return.'],
+  ['~58–59', 'The second Saturn return.'],
+  ['~88–89', 'A third return is possible later in life.'],
+];
 ---
 
 <BaseLayout
@@ -31,6 +37,19 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
+      <h2>Age tells you when to look. Your Saturn tells you what you're looking at.</h2>
+      <div class="return-timeline" aria-label="Saturn return timeline">
+        {returnTimeline.map(([age, note]) => (
+          <article>
+            <strong>{age}</strong>
+            <p>{note}</p>
+          </article>
+        ))}
+      </div>
+      <div class="callout">
+        <p style="margin: 0;"><strong>A return is a period, not one birthday.</strong> Saturn can cross its natal degree more than once because of retrograde motion, so the exact passes may unfold across months.</p>
+      </div>
+
       <h2>The mechanics, first</h2>
       <p>
         <a href="/explore/planets/saturn/">Saturn</a> takes approximately 29.5 years to travel the
@@ -105,4 +124,23 @@ const crumbs = [
     secondaryLabel="Keep learning about transits"
     secondaryHref="/explore/transits/"
   />
+
+  <style>
+    .return-timeline {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: var(--space-4);
+      margin-block: var(--space-6);
+    }
+    .return-timeline article {
+      padding: var(--space-5);
+      border-top: 3px solid currentColor;
+      border-radius: 0 0 var(--radius-lg, 1rem) var(--radius-lg, 1rem);
+    }
+    .return-timeline strong { display: block; font-size: var(--text-xl); margin-bottom: var(--space-2); }
+    .return-timeline p { margin: 0; }
+    @media (min-width: 768px) {
+      .return-timeline { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+  </style>
 </BaseLayout>

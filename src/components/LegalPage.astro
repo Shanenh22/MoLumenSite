@@ -3,11 +3,17 @@ import { getEntry, render } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { ocean } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
+import PageJumpLinks from '../components/PageJumpLinks.astro';
 
 interface Props {
   id: string;
   path: string;
   label: string;
+}
+interface JumpItem {
+  label: string;
+  href: string;
+  note?: string;
 }
 const { id, path, label } = Astro.props;
 const entry = await getEntry('legal', id);
@@ -17,6 +23,33 @@ const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 const crumbs = [{ label, href: path }];
 const needsReview = entry.data.reviewStatus === 'attorney-review-required';
+const legalJumpLinks: Record<string, JumpItem[]> = {
+  'booking-policy': [
+    { label: 'Cancel or reschedule', href: '#rescheduling', note: 'The 48-hour window and what happens inside it.' },
+    { label: 'Refunds and credit', href: '#cancellation-and-refunds', note: 'When money is refunded or held for a future session.' },
+    { label: 'Running late', href: '#late-arrival-and-missed-sessions', note: 'Late arrival and missed-session terms.' },
+    { label: 'Recording', href: '#recordings', note: 'What is recorded and how to opt out.' },
+    { label: 'Birth information', href: '#what-we-need-from-you-and-when', note: 'What Mo needs before the reading.' },
+    { label: 'Booked the wrong reading', href: '#choosing-the-right-reading', note: 'What happens if the service is not the right fit.' },
+  ],
+  privacy: [
+    { label: 'Birth data', href: '#what-we-collect-and-why', note: 'What is collected and what it is used for.' },
+    { label: 'Analytics and cookies', href: '#information-collected-automatically', note: 'What the site measures and what stays off by default.' },
+    { label: 'Who handles data', href: '#who-else-touches-your-data', note: 'Booking, payment, newsletter, hosting, analytics, and video providers.' },
+    { label: 'How long data is kept', href: '#how-long-we-keep-things', note: 'Retention for records, notes, subscriptions, and correspondence.' },
+    { label: 'Your rights', href: '#your-rights-over-your-information', note: 'Access, correction, deletion, copies, and marketing choices.' },
+    { label: 'Security', href: '#security', note: 'How payments, client records, and birth data are handled.' },
+  ],
+  disclaimer: [
+    { label: 'What astrology offers', href: '#perspective-not-certainty', note: 'Perspective, timing, pattern recognition, and reflection.' },
+    { label: 'Who makes the decision', href: '#you-remain-the-author-of-your-life', note: 'Your agency remains yours.' },
+    { label: 'Professional limits', href: '#not-professional-services', note: 'Medical, mental-health, legal, financial, and tax boundaries.' },
+    { label: 'Questions Mo will not use astrology for', href: '#what-a-reading-will-not-be-used-for', note: 'Clear ethical limits on readings.' },
+    { label: 'Entertainment classification', href: '#legal-classification', note: 'What the legal label means and does not mean.' },
+    { label: 'Educational content', href: '#educational-content-on-this-site', note: 'How fact, doctrine, interpretation, and synthesis are separated.' },
+  ],
+};
+const jumpLinks = legalJumpLinks[id] ?? [];
 ---
 
 <BaseLayout
@@ -58,6 +91,7 @@ const needsReview = entry.data.reviewStatus === 'attorney-review-required';
           </div>
         )
       }
+      {jumpLinks.length > 0 && <PageJumpLinks items={jumpLinks} />}
       <Content />
     </div>
   </section>
