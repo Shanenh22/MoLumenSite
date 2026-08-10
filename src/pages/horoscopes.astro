@@ -8,20 +8,10 @@ import CTABand from '../components/CTABand.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import NextLunations from '../components/NextLunations.astro';
 
-/**
- * Split on today, not just sorted descending.
- * Upcoming and past are different things to a reader: one is a pattern to
- * watch as it approaches; the other is something to look back on. Both lists
- * are filtered against today so a future event is never labeled "recent."
- */
 const allLunations = (await getCollection('skyEvents')).filter(
   (e) => e.data.eventType === 'lunation' || e.data.eventType === 'eclipse'
 );
 const now = new Date();
-const upcoming = allLunations
-  .filter((e) => e.data.start >= now)
-  .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
-  .slice(0, 4);
 const recent = allLunations
   .filter((e) => e.data.start < now)
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
@@ -41,14 +31,14 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">A rising-sign lens</p>
-      <h1>Horoscopes</h1>
-      <p class="lede">
-        A horoscope can give you somewhere useful to look without pretending to know the whole
-        story. With each new moon and eclipse, I use your rising sign and whole-sign houses to show
-        the broad area of the chart the lunation occupies. From there, I offer questions and
-        possibilities to consider, not a prediction of what will happen.
-      </p>
+        <p class="eyebrow">A rising-sign lens</p>
+        <h1>Horoscopes</h1>
+        <p class="lede">
+          A horoscope can give you somewhere useful to look without pretending to know the whole
+          story. With each new moon and eclipse, I use your rising sign and whole-sign houses to show
+          the broad area of the chart the lunation occupies. From there, I offer questions and
+          possibilities to consider, not a prediction of what will happen.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -65,82 +55,58 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
 
   <section class="section">
     <div class="container prose flow" style="margin-bottom: var(--space-4);">
-      <h2>What these horoscopes can tell you</h2>
+      <h2>What this lens can and cannot do</h2>
       <p>
-        Your rising sign gives us a reliable piece of structure. In whole-sign houses, once I know
-        the sign of a lunation and your rising sign, I can identify which house it falls in. That
-        tells us the broad territory involved: perhaps relationships, home, work, money, creativity,
-        or another part of life.
+        In whole-sign houses, your rising sign tells us which house contains a lunation. That gives
+        us a broad area to consider, such as relationships, home, work, money, creativity, or
+        another part of life.
       </p>
       <p>
-        What it cannot tell us is whether that lunation is especially important in your chart, what
-        natal planets it touches, what other timing is active, or what is already happening in your
-        life. Those details can change the interpretation considerably. So I treat a horoscope as a
-        lens rather than a verdict: it helps narrow the field without pretending the field is the
-        whole chart.
+        It does not tell us whether that lunation is especially important in your chart, what natal
+        planets it touches, what other timing is active, or what is already happening in your life.
+        I treat the horoscope as a starting point for attention, not a verdict.
       </p>
       <p>
-        If you know your rising sign, start there. Your Sun sign can offer a second symbolic point of
-        view, but it is not interchangeable with the rising sign for house placement.
-      </p>
-    </div>
-  </section>
-
-  <section class="section section--alt">
-    <div class="container">
-      {
-        upcoming.length > 0 && (
-          <>
-            <h2>Coming up</h2>
-            <div class="grid grid--2" style="margin-top: var(--space-6);">
-              {upcoming.map((e) => (
-                <article class="card">
-                  <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
-                  <h3 style="margin: 0;">
-                    <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>
-                      {e.data.title}
-                    </a>
-                  </h3>
-                  <p style="margin: 0;">{e.data.summary}</p>
-                </article>
-              ))}
-            </div>
-          </>
-        )
-      }
-      {
-        recent.length > 0 && (
-          <>
-            <h2 style="margin-top: var(--space-12);">Recent lunation notes</h2>
-            <div class="grid grid--2" style="margin-top: var(--space-6);">
-              {recent.map((e) => (
-                <article class="card">
-                  <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
-                  <h3 style="margin: 0;">
-                    <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>
-                      {e.data.title}
-                    </a>
-                  </h3>
-                  <p style="margin: 0;">{e.data.summary}</p>
-                </article>
-              ))}
-            </div>
-          </>
-        )
-      }
-      <p style="margin-top: var(--space-6);">
-        Every past note lives in the <a href="/current-sky/archive/">Current Sky archive</a>.
-      </p>
-      <p>
-        Don't know your rising sign? It comes from your exact birth time:
-        <a href="/birth-time/">here's how to find it</a>, and if you have a time but aren't sure
-        how much to trust it, <a href="/birth-time-toolkit/#confidence-check">three questions will
-        help you assess it</a>.
+        If you know your rising sign, use it below. Your Sun sign can offer a second symbolic point
+        of view, but it is not a substitute for the rising sign when we are locating houses.
       </p>
     </div>
   </section>
 
   <NextLunations />
+
+  {
+    recent.length > 0 && (
+      <section class="section section--alt">
+        <div class="container">
+          <h2>Recent lunation notes</h2>
+          <div class="grid grid--2" style="margin-top: var(--space-6);">
+            {recent.map((e) => (
+              <article class="card">
+                <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
+                <h3 style="margin: 0;">
+                  <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>
+                    {e.data.title}
+                  </a>
+                </h3>
+                <p style="margin: 0;">{e.data.summary}</p>
+              </article>
+            ))}
+          </div>
+          <p style="margin-top: var(--space-6);">
+            Every past note lives in the <a href="/current-sky/archive/">Current Sky archive</a>.
+          </p>
+          <p>
+            Don't know your rising sign? <a href="/birth-time/">Start with your birth time</a>. If
+            you have a recorded time but are unsure how reliable it is, the
+            <a href="/birth-time-toolkit/#confidence-check">Birth Time Toolkit</a> can help you
+            assess it.
+          </p>
+        </div>
+      </section>
+    )
+  }
+
   <section class="section section--alt">
     <div class="container" style="max-width: 42rem;">
       <h2 id="horo-newsletter">Keep looking with me</h2>
@@ -159,5 +125,7 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
     body="A personal reading adds the rest of your chart, the timing around you, and the life you are actually living. That is where broad symbolism can become individual synthesis."
     buttonLabel="Find Your Reading"
     buttonHref="/reading-finder/"
+    secondaryLabel="Keep following Current Sky"
+    secondaryHref="/current-sky/"
   />
 </BaseLayout>
