@@ -5,52 +5,102 @@ interface Props {
   body?: string;
   buttonLabel?: string;
   buttonHref?: string;
-  /**
-   * Accessible name for the primary button, when the visible label is not
-   * self-describing out of context. "Review Booking Options" is fine on the
-   * page but tells a screen-reader user listing links nothing about which
-   * reading, so the reading pages pass the disambiguated name here.
-   */
+  /** Accessible name when the visible primary label needs more context. */
   buttonAriaLabel?: string;
-  /**
-   * The quieter second action. Defaults to the Reading Finder and can be
-   * turned off per page with `secondary={false}`.
-   */
   secondaryLabel?: string;
   secondaryHref?: string;
   secondary?: boolean;
 }
-const {
-  heading = 'Ready to see your chart in a new light?',
-  body = 'Sessions are one-on-one with Mo. Choose a reading, pick a time, and come with your questions.',
-  buttonLabel = 'Book a Reading',
-  buttonHref = '/book/',
-  buttonAriaLabel,
-  secondaryLabel = 'Not sure which one? Find your reading',
-  secondaryHref = '/reading-finder/',
-  secondary = true,
-} = Astro.props;
+
+const path = Astro.url.pathname;
 
 /**
- * Two exits, weighted by intent — the same principle the Reading Finder's
- * result already uses, applied to the closer that ends 48 pages.
- *
- * This band is the last thing on every blog post, every sky event, every
- * reference page and every sign, planet, house and aspect page. Until now it
- * offered exactly one action: book. A visitor who arrived from search on
- * "what is a Saturn return", finished reading, and felt genuinely curious was
- * asked to jump straight from a free article to a $150–$275 purchase, and
- * given nothing else to do if they were not ready. Measured before this
- * change: zero of the ~140 educational pages linked to the Reading Finder at
- * all — the one tool built for exactly that person.
- *
- * The booking button is unchanged and still primary, so nothing is taken away
- * from someone with high intent. This only adds a rung below it.
- *
- * The suppression rule matters: a band whose primary action already IS the
- * finder must not offer it twice, so the secondary is dropped automatically
- * rather than relying on every call site to remember.
+ * The closer should match the visitor's likely intent, not treat every page as
+ * the last step before checkout. Explicit props always win; these are only the
+ * defaults for pages that use the shared band without choosing their own next
+ * step.
  */
+const defaults = (() => {
+  if (path === '/explore/') {
+    return {
+      heading: 'Not sure where to begin?',
+      body: 'Start with the foundations, then follow whatever makes you curious. The pieces are learnable; the whole becomes meaningful in relationship.',
+      buttonLabel: 'Start Here',
+      buttonHref: '/start-here/',
+      secondaryLabel: 'Or look at what is happening now',
+      secondaryHref: '/current-sky/',
+    };
+  }
+
+  if (path.startsWith('/explore/') || path === '/start-here/' || path.startsWith('/tools/')) {
+    return {
+      heading: 'Keep following the thread',
+      body: 'One placement or technique is a beginning. Explore how the pieces relate before asking any one of them to explain the whole chart.',
+      buttonLabel: 'Explore Astrology',
+      buttonHref: '/explore/',
+      secondaryLabel: 'See how Mo looks at the current sky',
+      secondaryHref: '/current-sky/',
+    };
+  }
+
+  if (path === '/current-sky/calendar/') {
+    return {
+      heading: 'Want the story behind the dates?',
+      body: 'The calendar gives you the timing. Current Sky adds the pattern, the questions it raises, and the distinction between shared symbolism and personal interpretation.',
+      buttonLabel: 'Read Current Sky',
+      buttonHref: '/current-sky/',
+      secondaryLabel: "Get Mo's monthly note",
+      secondaryHref: '/newsletter/',
+    };
+  }
+
+  if (path.startsWith('/current-sky/') || path === '/horoscopes/') {
+    return {
+      heading: 'Keep following the sky',
+      body: 'Notice the pattern, learn the cycle, and keep your own chart and circumstances in the conversation.',
+      buttonLabel: 'See the Sky Calendar',
+      buttonHref: '/current-sky/calendar/',
+      secondaryLabel: "Get Mo's monthly note",
+      secondaryHref: '/newsletter/',
+    };
+  }
+
+  if (
+    path === '/about/' ||
+    path === '/approach/' ||
+    path === '/credentials/' ||
+    path === '/testimonials/'
+  ) {
+    return {
+      heading: 'Want to know what a reading actually feels like?',
+      body: 'The next useful step is not checkout. See how Mo prepares, what happens in the conversation, and where your own experience enters the interpretation.',
+      buttonLabel: 'How Readings Work',
+      buttonHref: '/how-readings-work/',
+      secondaryLabel: 'Not sure what would fit? Try the Reading Finder',
+      secondaryHref: '/reading-finder/',
+    };
+  }
+
+  return {
+    heading: 'Ready to see your chart in a new light?',
+    body: 'Sessions are one-on-one with Mo. Choose a reading, pick a time, and come with your questions.',
+    buttonLabel: 'Book a Reading',
+    buttonHref: '/book/',
+    secondaryLabel: 'Not sure which one? Find your reading',
+    secondaryHref: '/reading-finder/',
+  };
+})();
+
+const props = Astro.props as Props;
+const heading = props.heading ?? defaults.heading;
+const body = props.body ?? defaults.body;
+const buttonLabel = props.buttonLabel ?? defaults.buttonLabel;
+const buttonHref = props.buttonHref ?? defaults.buttonHref;
+const buttonAriaLabel = props.buttonAriaLabel;
+const secondaryLabel = props.secondaryLabel ?? defaults.secondaryLabel;
+const secondaryHref = props.secondaryHref ?? defaults.secondaryHref;
+const secondary = props.secondary ?? true;
+
 const sameTarget = secondaryHref === buttonHref;
 const showSecondary = secondary && !sameTarget;
 ---
@@ -60,7 +110,7 @@ const showSecondary = secondary && !sameTarget;
     <div class="divider"><Icon name="star" size={18} /></div>
     <h2>{heading}</h2>
     <p class="lede" style="margin-inline: auto; color: var(--color-stone);">{body}</p>
-    <p>
+    <p class="cta-band__primary">
       <a class="btn btn--accent" href={buttonHref} aria-label={buttonAriaLabel}>{buttonLabel}</a>
     </p>
     {
@@ -72,3 +122,21 @@ const showSecondary = secondary && !sameTarget;
     }
   </div>
 </section>
+
+<style>
+  .cta-band__secondary a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  @media (max-width: 480px) {
+    .cta-band__primary .btn {
+      width: 100%;
+    }
+
+    .cta-band__secondary a {
+      padding-block: var(--space-2);
+    }
+  }
+</style>
