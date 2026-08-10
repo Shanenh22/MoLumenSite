@@ -5,7 +5,6 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import RisingSignGuidance from '../../../components/RisingSignGuidance.astro';
 import { bandFor, celestial, ocean, type SiteImage } from '../../../config/images';
-import { site } from '../../../config/site';
 
 export async function getStaticPaths() {
   const events = (await getCollection('skyEvents')).filter((e) => !e.data.draft);
@@ -52,40 +51,6 @@ function heroFor(): SiteImage {
   return pool[h % pool.length];
 }
 const heroImage = heroFor();
-const schema = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Article',
-    headline: e.title,
-    description: e.summary,
-    datePublished: e.start.toISOString(),
-    dateModified: (e.lastVerified ?? e.start).toISOString(),
-    author: { '@type': 'Person', name: 'Maureen "Mo" Lumen', url: `${site.url}/about/` },
-    publisher: { '@type': 'Organization', name: site.name, url: site.url },
-    mainEntityOfPage: `${site.url}/current-sky/events/${slug}/`,
-  },
-  {
-    '@context': 'https://schema.org',
-    '@type': 'Event',
-    name: e.title,
-    description: e.summary,
-    startDate: e.start.toISOString(),
-    endDate: e.start.toISOString(),
-    eventStatus: 'https://schema.org/EventScheduled',
-    eventAttendanceMode: 'https://schema.org/OnlineEventAttendanceMode',
-    location: {
-      '@type': 'VirtualLocation',
-      url: `${site.url}/current-sky/events/${slug}/`,
-    },
-    image: new URL('/og-default.png', site.url).href,
-    isAccessibleForFree: true,
-    organizer: { '@type': 'Organization', name: site.name, url: site.url },
-    about: {
-      '@type': 'Thing',
-      name: e.sign ? `${e.eventType} in ${e.sign}` : e.eventType,
-    },
-  },
-];
 ---
 
 <BaseLayout
@@ -94,8 +59,6 @@ const schema = [
   path={`/current-sky/events/${slug}/`}
   breadcrumbs={crumbs}
   ogType="article"
-  publishedDate={e.start}
-  schema={schema}
 >
   <Breadcrumbs crumbs={crumbs} />
   <article>
