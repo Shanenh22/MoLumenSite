@@ -47,10 +47,39 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     </select>
   </div>
 
+  <div class="rising-picker__state" data-rising-state hidden>
+    <span data-rising-state-text></span>
+    <button type="button" class="rising-picker__clear" data-rising-clear>
+      Clear preference
+    </button>
+  </div>
+
   <p class="visually-hidden" aria-live="polite" data-rising-status></p>
 </div>
 
 <style>
+  .rising-picker__state {
+    align-items: center;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 0.75rem;
+    margin-top: 0.75rem;
+  }
+
+  .rising-picker__state[hidden] {
+    display: none;
+  }
+
+  .rising-picker__clear {
+    background: transparent;
+    border: 0;
+    color: inherit;
+    cursor: pointer;
+    padding: 0;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
   @media (max-width: 767px) {
     [data-rising-grid][data-has-rising='true'] > [data-sign]:not(.is-yours) {
       display: none;
@@ -70,6 +99,9 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     const context = picker.dataset.context || 'unknown';
     const chips = picker.querySelectorAll<HTMLButtonElement>('[data-rising]');
     const select = picker.querySelector<HTMLSelectElement>('[data-rising-select]')!;
+    const clear = picker.querySelector<HTMLButtonElement>('[data-rising-clear]')!;
+    const state = picker.querySelector<HTMLElement>('[data-rising-state]')!;
+    const stateText = picker.querySelector<HTMLElement>('[data-rising-state-text]')!;
     const status = picker.querySelector<HTMLElement>('[data-rising-status]')!;
 
     const track = (event: string, params: Record<string, string> = {}) =>
@@ -81,6 +113,10 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     function apply(slug: string | null, announce: boolean) {
       chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.rising === slug)));
       select.value = slug ?? '';
+      state.hidden = !slug;
+      stateText.textContent = slug
+        ? `${capitalise(slug)} rising is shown first. All other signs are still listed.`
+        : '';
 
       grids().forEach((grid) => {
         const cards = [...grid.querySelectorAll<HTMLElement>('[data-sign]')];
@@ -102,8 +138,8 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
 
       if (announce) {
         status.textContent = slug
-          ? `${capitalise(slug)} rising selected.`
-          : 'Showing all twelve rising signs.';
+          ? `${capitalise(slug)} rising selected. The other signs are still listed.`
+          : 'Rising-sign preference cleared. Showing all twelve rising signs.';
       }
     }
 
@@ -119,18 +155,20 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
       });
     }
 
+    function clearPreference() {
+      clearRising();
+      apply(null, true);
+      track('rising_sign_cleared', { context });
+    }
+
     chips.forEach((chip) =>
       chip.addEventListener('click', () => choose(chip.dataset.rising!, 'chip')),
     );
     select.addEventListener('change', () => {
-      if (select.value === '') {
-        clearRising();
-        apply(null, true);
-        track('rising_sign_cleared', { context });
-      } else {
-        choose(select.value, 'select');
-      }
+      if (select.value === '') clearPreference();
+      else choose(select.value, 'select');
     });
+    clear.addEventListener('click', clearPreference);
 
     grids().forEach((grid) =>
       grid.addEventListener('click', (e) => {
