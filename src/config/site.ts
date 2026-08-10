@@ -23,7 +23,7 @@ export const site = {
    */
   tagline: "There is fate and there is choice.",
   description:
-    "Thoughtful astrology readings with Mo Lumen: technically grounded, conversational, and centered on clarity, context, and personal agency.",
+    "Thoughtful astrology readings with Mo Lumen: technically grounded, conversational, and attentive to the whole chart, real-life context, and your choices.",
   url: import.meta.env.PUBLIC_SITE_URL ?? "https://molumen.com",
   email: "mo@molumen.com",
   locale: "en-US",
