@@ -4,7 +4,10 @@ import { searchRecords } from '../src/lib/site-search.mjs';
 const records = JSON.parse(await fs.readFile(new URL('../dist/search-index.json', import.meta.url), 'utf8'));
 
 function assert(condition, message) {
-  if (!condition) throw new Error(message);
+  if (!condition) {
+    console.error(`::error title=Search relevance::${message}`);
+    throw new Error(message);
+  }
 }
 
 function paths(query, limit = 8) {
