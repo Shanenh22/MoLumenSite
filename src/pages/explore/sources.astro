@@ -11,11 +11,17 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import SeaBreak from '../../components/SeaBreak.astro';
+import PageJumpLinks from '../../components/PageJumpLinks.astro';
 import { celestial, ocean } from '../../config/images';
 
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Sources', href: '/explore/sources/' },
+];
+const sourceRoutes = [
+  { label: 'Where “traditional” comes from', href: '#traditional-sources', note: 'Hellenistic, Persian, Arabic, medieval, Renaissance, and horary lineages.' },
+  { label: 'Where “modern” comes from', href: '#modern-practice', note: 'Later psychological, humanistic, and outer-planet-era developments.' },
+  { label: 'What “Mo’s synthesis” means', href: '#mos-synthesis', note: 'Where studied technique ends and Mo’s own interpretation begins.' },
 ];
 ---
 
@@ -53,7 +59,16 @@ const crumbs = [
 
   <section class="section">
     <div class="container prose flow">
-      <h2>Why I name the sources</h2>
+      <h2>Use this page as a map, not a reading list</h2>
+      <p>
+        When a reference page says <em>traditional view</em>, <em>modern view</em>, or <em>Mo's
+        synthesis</em>, those labels are doing different jobs. You do not need to read every source
+        below to use the site. This index is here so you can see where a claim belongs and follow it
+        further when you want to.
+      </p>
+      <PageJumpLinks heading="Which layer are you trying to trace?" items={sourceRoutes} />
+
+      <h2 id="traditional-sources">Why I name the traditional sources</h2>
       <p>
         When I say <em>traditional view</em>, I want that phrase to point somewhere specific. The
         techniques did not arrive as one seamless system, and astrologers across periods did not
@@ -72,56 +87,55 @@ const crumbs = [
         the Greek-speaking Mediterranean of the Hellenistic and late-antique periods. These are
         among the works most often referenced when this site discusses older doctrine and technique.
       </p>
-      <ul>
-        <li>
-          <strong>Dorotheus of Sidon, <em>Carmen Astrologicum</em></strong> (1st century CE), an
-          early surviving instructional text whose material includes triplicity rulers and timing
-          techniques.
-        </li>
-        <li>
-          <strong>Claudius Ptolemy, <em>Tetrabiblos</em></strong> (2nd century CE), one of the most
-          influential works in the later Western astrological tradition and an important source for
-          planetary condition and rulership doctrine.
-        </li>
-        <li>
-          <strong>Vettius Valens, <em>Anthology</em></strong> (2nd century CE), a large collection
-          of techniques and chart examples that gives modern readers a view of astrology in
-          practice during the period.
-        </li>
-        <li>
-          <strong>Firmicus Maternus, <em>Mathesis</em></strong> (4th century CE), a substantial
-          Latin astrological compendium preserving a different part of the late-antique tradition.
-        </li>
-      </ul>
+      <div class="source-index">
+        <article>
+          <h3>Dorotheus of Sidon</h3>
+          <p class="card__meta"><em>Carmen Astrologicum</em> · 1st century CE</p>
+          <p>Early instructional material including triplicity rulers and timing techniques.</p>
+        </article>
+        <article>
+          <h3>Claudius Ptolemy</h3>
+          <p class="card__meta"><em>Tetrabiblos</em> · 2nd century CE</p>
+          <p>Influential later Western source for planetary condition and rulership doctrine.</p>
+        </article>
+        <article>
+          <h3>Vettius Valens</h3>
+          <p class="card__meta"><em>Anthology</em> · 2nd century CE</p>
+          <p>A large collection of techniques and chart examples showing astrology in practice.</p>
+        </article>
+        <article>
+          <h3>Firmicus Maternus</h3>
+          <p class="card__meta"><em>Mathesis</em> · 4th century CE</p>
+          <p>A substantial Latin compendium preserving another strand of late-antique practice.</p>
+        </article>
+      </div>
 
       <h2>Persian, Arabic, and medieval transmission</h2>
-      <ul>
-        <li>
-          <strong>Abu Ma'shar</strong> (9th century), an influential astrologer whose works became
-          important in the transmission of astrological material through Arabic and later Latin
-          intellectual traditions.
-        </li>
-        <li>
-          <strong>Guido Bonatti, <em>Liber Astronomiae</em></strong> (13th century), a major
-          medieval synthesis frequently referenced in discussions of horary and electional
-          technique.
-        </li>
-      </ul>
+      <div class="source-index">
+        <article>
+          <h3>Abu Ma'shar</h3>
+          <p class="card__meta">9th century</p>
+          <p>An influential astrologer in the transmission of astrological material through Arabic and later Latin intellectual traditions.</p>
+        </article>
+        <article>
+          <h3>Guido Bonatti</h3>
+          <p class="card__meta"><em>Liber Astronomiae</em> · 13th century</p>
+          <p>A major medieval synthesis frequently referenced in horary and electional technique.</p>
+        </article>
+      </div>
 
       <h2>The English horary tradition</h2>
-      <p>
-        This is one strand in which I have formal training, so it is especially relevant to how I
-        describe my own background.
-      </p>
-      <ul>
-        <li>
-          <strong>William Lilly, <em>Christian Astrology</em></strong> (1647), an important
-          English-language source for horary practice. My Practitioner's Certificate in Horary
-          Astrology is from the
+      <p>This is one strand in which I have formal training, so it is especially relevant to how I describe my own background.</p>
+      <article class="source-feature">
+        <h3>William Lilly</h3>
+        <p class="card__meta"><em>Christian Astrology</em> · 1647</p>
+        <p>
+          An important English-language source for horary practice. My Practitioner's Certificate
+          in Horary Astrology is from the
           <a href="https://www.sta.co/" rel="noopener" target="_blank">School of Traditional Astrology</a>,
           which teaches within this lineage.
-        </li>
-      </ul>
+        </p>
+      </article>
 
       <h2>Modern recovery and scholarship</h2>
       <p>
@@ -130,21 +144,23 @@ const crumbs = [
         editions, and historical work. That recovery helped make older techniques much more visible
         in contemporary practice.
       </p>
-      <ul>
-        <li>
-          <strong>Project Hindsight</strong> (from the 1990s), associated with translators and
-          scholars including Robert Hand, Robert Schmidt, and Robert Zoller, helped bring a number
-          of Hellenistic and medieval texts into modern English-language astrological study.
-        </li>
-        <li>
-          <strong>Chris Brennan, <em>Hellenistic Astrology: The Study of Fate and Fortune</em></strong>
-          (2017), a modern synthesis of historical sources and the revival of Hellenistic practice.
-        </li>
-        <li>
-          <strong>Deborah Houlding</strong>, whose writing and teaching are widely referenced in
-          contemporary work on houses, traditional symbolism, and horary practice.
-        </li>
-      </ul>
+      <div class="source-index">
+        <article>
+          <h3>Project Hindsight</h3>
+          <p class="card__meta">From the 1990s</p>
+          <p>Translation and recovery work associated with figures including Robert Hand, Robert Schmidt, and Robert Zoller.</p>
+        </article>
+        <article>
+          <h3>Chris Brennan</h3>
+          <p class="card__meta"><em>Hellenistic Astrology: The Study of Fate and Fortune</em> · 2017</p>
+          <p>A modern synthesis of historical sources and the revival of Hellenistic practice.</p>
+        </article>
+        <article>
+          <h3>Deborah Houlding</h3>
+          <p class="card__meta">Contemporary scholarship and teaching</p>
+          <p>Widely referenced work on houses, traditional symbolism, and horary practice.</p>
+        </article>
+      </div>
     </div>
   </section>
 
@@ -152,7 +168,7 @@ const crumbs = [
 
   <section class="section section--sea">
     <div class="container prose flow">
-      <h2>Where modern practice develops differently</h2>
+      <h2 id="modern-practice">Where modern practice develops differently</h2>
       <p>
         When a page here says <em>modern view</em>, it usually points to approaches that developed
         well after the older texts above, including the twentieth-century psychological and
@@ -165,7 +181,7 @@ const crumbs = [
         period into one tradition.
       </p>
 
-      <h2>And when it's just me</h2>
+      <h2 id="mos-synthesis">And when it's just me</h2>
       <p>
         <em>Mo's synthesis</em> means my own reading: the way I put studied techniques, chart
         context, observation, and the question in front of me together. I label it separately so
@@ -182,4 +198,11 @@ const crumbs = [
     secondaryLabel="See Current Sky"
     secondaryHref="/current-sky/"
   />
+
+  <style>
+    .source-index { display: grid; grid-template-columns: 1fr; gap: var(--space-4); margin-block: var(--space-5) var(--space-8); }
+    .source-index article, .source-feature { padding: var(--space-5); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); }
+    .source-index h3, .source-index p:last-child, .source-feature h3, .source-feature p:last-child { margin-bottom: 0; }
+    @media (min-width: 768px) { .source-index { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  </style>
 </BaseLayout>
