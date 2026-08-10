@@ -2,26 +2,26 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
 const crumbs = [{ label: 'Guides', href: '/guides/' }];
 ---
 
 <BaseLayout
   title="Guides"
-  description="Practical astrology guides from Mo Lumen, beginning with the Birth Time Toolkit: where to look, what to ask, and what an uncertain birth time changes."
+  description="The practical astrology guides now live with Mo Lumen's Resources. Start with the Birth Time guide or toolkit, or browse all free resources by what you want to do."
   path="/guides/"
   breadcrumbs={crumbs}
+  noindex={true}
 >
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Free to use</p>
-      <h1>Guides</h1>
-      <p class="lede">
-        Longer than a glossary entry, more practical than an essay. Each guide is built around a
-        task you may actually need to work through.
-      </p>
+        <p class="eyebrow">A simpler path</p>
+        <h1>Practical guides</h1>
+        <p class="lede">
+          This section is not large enough to need its own library yet. The useful material is still
+          here; I have simply put it closer to the problem it helps you solve.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -37,29 +37,22 @@ const crumbs = [{ label: 'Guides', href: '/guides/' }];
   </section>
 
   <section class="section">
-    <div class="container grid grid--2" style="align-items: start;">
-      <div class="prose flow">
-        <h2>Available now</h2>
-        <p>
-          <strong><a href="/birth-time-toolkit/">The Birth Time Toolkit</a></strong> walks through
-          where a birth time may be recorded, better questions to ask family, how to think about
-          confidence in the time you find, and what changes when the exact time remains unknown.
-          It is free to read on the site.
-        </p>
-        <p>
-          If you are just beginning to learn astrology rather than solving a specific problem,
-          <a href="/start-here/">Start Here</a> is the more useful path. If you already know the
-          concept you want, use <a href="/explore/">Explore Astrology</a> as the reference library.
-        </p>
-      </div>
-      <div class="card flow">
-        <h2 id="guide-interest" style="font-size: var(--text-xl); margin: 0;">Want the next guide?</h2>
-        <p style="margin: 0;">
-          I mention new guides in the monthly letter when they are ready, along with whatever else
-          I have been noticing and thinking about that month.
-        </p>
-        <NewsletterForm source="guides-interest" labelledby="guide-interest" />
-      </div>
+    <div class="container grid grid--3">
+      <article class="card">
+        <p class="eyebrow" style="margin: 0;">Read</p>
+        <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/birth-time/">How to Find Your Birth Time</a></h2>
+        <p style="margin: 0;">Where to look, what to ask, how much precision matters, and what remains usable if the time stays uncertain.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow" style="margin: 0;">Work through it</p>
+        <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/birth-time-toolkit/">The Birth Time Toolkit</a></h2>
+        <p style="margin: 0;">A confidence check, record-search process, family prompts, and worksheets you can use while investigating.</p>
+      </article>
+      <article class="card">
+        <p class="eyebrow" style="margin: 0;">Browse by need</p>
+        <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/resources/">All Resources</a></h2>
+        <p style="margin: 0;">Learning, Current Sky, Mo's writing, practical tools, and the path toward a personal reading.</p>
+      </article>
     </div>
   </section>
 </BaseLayout>
