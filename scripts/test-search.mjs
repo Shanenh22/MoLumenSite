@@ -2,29 +2,35 @@ import fs from 'node:fs/promises';
 import { searchDocuments } from '../src/lib/search.mjs';
 
 const documents = JSON.parse(await fs.readFile('dist/search-index.json', 'utf8'));
+const failures = [];
 
 function paths(query, limit = 10) {
   return searchDocuments(documents, query, limit).map((item) => item.url);
 }
 
+function fail(message) {
+  failures.push(message);
+  console.error(`::error title=Search relevance::${message}`);
+}
+
 function expectTop(query, expected, top = 1) {
   const got = paths(query, Math.max(top, 10));
   if (!got.slice(0, top).includes(expected)) {
-    throw new Error(`${JSON.stringify(query)} expected ${expected} in top ${top}; got ${got.slice(0, top).join(', ')}`);
+    fail(`${JSON.stringify(query)} expected ${expected} in top ${top}; got ${got.slice(0, top).join(', ') || '(none)'}`);
   }
 }
 
 function expectIncluded(query, expected, top = 5) {
   const got = paths(query, top);
   if (!got.includes(expected)) {
-    throw new Error(`${JSON.stringify(query)} expected ${expected} in top ${top}; got ${got.join(', ')}`);
+    fail(`${JSON.stringify(query)} expected ${expected} in top ${top}; got ${got.join(', ') || '(none)'}`);
   }
 }
 
 function expectExcluded(query, forbidden) {
   const got = paths(query, 30);
   if (got.includes(forbidden)) {
-    throw new Error(`${JSON.stringify(query)} must not return ${forbidden}`);
+    fail(`${JSON.stringify(query)} must not return ${forbidden}`);
   }
 }
 
@@ -45,10 +51,10 @@ expectIncluded('refund', '/booking-policy/', 8);
 // Current-sky searches may have several dated matches, but they must remain searchable.
 const mercury = searchDocuments(documents, 'Mercury retrograde', 20);
 if (!mercury.some((item) => item.category === 'Current Sky')) {
-  throw new Error('Mercury retrograde should return at least one dated Current Sky result');
+  fail('Mercury retrograde should return at least one dated Current Sky result');
 }
 if (mercury.some((item) => item.category === 'Current Sky' && !item.date)) {
-  throw new Error('Current Sky event search results must carry an event date');
+  fail('Current Sky event search results must carry an event date');
 }
 
 // Noindex/dormant/support routes should never leak into visitor search.
@@ -60,10 +66,15 @@ expectExcluded('videos', '/videos/');
 // Search itself is not useful as a search result.
 expectExcluded('search', '/search/');
 
-console.log(`Search relevance: passed against ${documents.length} indexable pages`);
-for (const query of ['Saturn return', 'birth time', 'Yod', 'retrograde', 'relationship reading', 'refund', 'Mercury retrograde']) {
+for (const query of ['Saturn return', 'house systems', 'birth chart basics', 'birth time', 'Yod', 'retrograde', 'relationship reading', 'refund', 'Mercury retrograde']) {
   const sample = searchDocuments(documents, query, 5)
-    .map((item) => `${item.title} [${item.category}]`)
+    .map((item) => `${item.title} [${item.category}] ${item.url}`)
     .join(' | ');
-  console.log(`${query}: ${sample}`);
+  console.log(`${query}: ${sample || '(no results)'}`);
 }
+
+if (failures.length) {
+  console.error(`Search relevance: ${failures.length} failure(s) against ${documents.length} indexable pages`);
+  process.exit(1);
+}
+console.log(`Search relevance: passed against ${documents.length} indexable pages`);
