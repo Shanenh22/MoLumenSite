@@ -33,26 +33,30 @@ const categories = [
 ] as const;
 const crumbs = [{ label: 'Videos', href: '/videos/' }];
 const ig = site.integrations.instagramHandle;
+const hasVideos = videos.length > 0;
 ---
 
 <BaseLayout
-  title="Videos: watch Mo teach"
-  description="Astrology videos from Mo Lumen: current sky, astrology basics, relationships, and other topics, with the same context-first approach used across the site."
+  title={hasVideos ? 'Videos: watch Mo teach' : 'Videos: coming later'}
+  description={hasVideos
+    ? "Astrology videos from Mo Lumen: current sky, astrology basics, relationships, and other topics, with the same context-first approach used across the site."
+    : "There are no published Mo Lumen video lessons on the site yet. Learn now through Explore Astrology, Current Sky, and the blog."}
   path="/videos/"
   breadcrumbs={crumbs}
   schema={videoSchema}
+  noindex={!hasVideos}
 >
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Watch & learn</p>
-      <h1>Videos</h1>
-      <p class="lede">
-        Another way to learn with me: more conversational than a reference page, and still
-        interested in the same question: what can this technique actually tell us, and what context
-        do we need before saying more?
-      </p>
+        <p class="eyebrow">{hasVideos ? 'Watch & learn' : 'Not a library yet'}</p>
+        <h1>Videos</h1>
+        <p class="lede">
+          {hasVideos
+            ? 'Another way to learn with me: more conversational than a reference page, with the same attention to what a technique can actually tell us and what context it still needs.'
+            : 'I do not have a published video library here yet. Rather than give an empty section a prominent place in the site, I am leaving the useful learning paths below until there is something substantial to watch.'}
+        </p>
       </div>
       <img class="hero__img" src={scenes.videosStudio.src} srcset={scenes.videosStudio.srcset} sizes="100vw" alt={scenes.videosStudio.alt} width={scenes.videosStudio.width} height={scenes.videosStudio.height} fetchpriority="high" />
     </div>
@@ -60,56 +64,63 @@ const ig = site.integrations.instagramHandle;
 
   <section class="section">
     <div class="container">
-      {
-        videos.length > 0 ? (
-          <>
-            <div class="filter-bar" role="group" aria-label="Filter videos by category" data-video-filters>
-              <button type="button" aria-pressed="true" data-filter="all">All</button>
-              {categories.map(([key, label]) => <button type="button" aria-pressed="false" data-filter={key}>{label}</button>)}
-            </div>
-            <div class="grid grid--2">
-              {videos.map((v) => (
-                <article class="card" data-video-category={v.data.category}>
-                  {v.data.platform === 'youtube' ? (
-                    <YouTubeFacade videoId={v.data.externalId} title={v.data.title} poster={v.data.thumbnail || undefined} context="videos-hub" />
-                  ) : (
-                    <a class="video-facade" href={v.data.externalId} rel="noopener" target="_blank" data-instagram-link style="display: grid; place-content: center; color: var(--color-ivory); text-decoration: none;">
-                      <span>Watch on Instagram ↗ (opens instagram.com)</span>
-                    </a>
-                  )}
-                  <h2 style="font-size: var(--text-lg); margin: 0;">{v.data.title}</h2>
-                  <p style="margin: 0;">{v.data.description}</p>
-                </article>
-              ))}
-            </div>
-          </>
-        ) : (
-          <div class="prose flow">
-            <p>
-              There are no published videos here yet. You can still find me on
-              <a href={site.social.youtube} rel="noopener">YouTube ↗</a> (opens youtube.com) and
-              <a href={`https://www.instagram.com/${ig}/`} rel="noopener">Instagram ↗</a> (opens instagram.com).
-            </p>
-            <p>
-              For learning on the site now, <a href="/blog/">the blog</a> is where I think through
-              longer questions, <a href="/explore/">Explore Astrology</a> is the structured learning
-              library, and <a href="/current-sky/">Current Sky</a> is where those ideas meet the sky
-              as it changes.
-            </p>
+      {hasVideos ? (
+        <>
+          <div class="filter-bar" role="group" aria-label="Filter videos by category" data-video-filters>
+            <button type="button" aria-pressed="true" data-filter="all">All</button>
+            {categories.map(([key, label]) => <button type="button" aria-pressed="false" data-filter={key}>{label}</button>)}
           </div>
-        )
-      }
+          <div class="grid grid--2">
+            {videos.map((v) => (
+              <article class="card" data-video-category={v.data.category}>
+                {v.data.platform === 'youtube' ? (
+                  <YouTubeFacade videoId={v.data.externalId} title={v.data.title} poster={v.data.thumbnail || undefined} context="videos-hub" />
+                ) : (
+                  <a class="video-facade" href={v.data.externalId} rel="noopener" target="_blank" data-instagram-link style="display: grid; place-content: center; color: var(--color-ivory); text-decoration: none;">
+                    <span>Watch on Instagram ↗ (opens instagram.com)</span>
+                  </a>
+                )}
+                <h2 style="font-size: var(--text-lg); margin: 0;">{v.data.title}</h2>
+                <p style="margin: 0;">{v.data.description}</p>
+              </article>
+            ))}
+          </div>
+        </>
+      ) : (
+        <div class="grid grid--3">
+          <article class="card">
+            <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/start-here/">Start Here</a></h2>
+            <p style="margin: 0;">A guided introduction when you want the chart to make sense in an order.</p>
+          </article>
+          <article class="card">
+            <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/explore/">Explore Astrology</a></h2>
+            <p style="margin: 0;">The deeper reference library for planets, signs, houses, aspects, timing, and technique.</p>
+          </article>
+          <article class="card">
+            <h2 style="font-size: var(--text-xl); margin: 0;"><a href="/current-sky/">Current Sky</a></h2>
+            <p style="margin: 0;">See the ideas applied to verified cycles as they unfold overhead.</p>
+          </article>
+        </div>
+      )}
+      {!hasVideos && (
+        <p style="margin-top: var(--space-7);">
+          You can also find Mo on <a href={site.social.youtube} rel="noopener">YouTube ↗</a> and
+          <a href={`https://www.instagram.com/${ig}/`} rel="noopener">Instagram ↗</a>.
+        </p>
+      )}
     </div>
   </section>
 
-  <CTABand
-    heading="Want to keep learning?"
-    body="Use Explore Astrology for the structured reference library, or Current Sky if you want to see the ideas applied to what is happening overhead now."
-    buttonLabel="Explore Astrology"
-    buttonHref="/explore/"
-    secondaryLabel="See Current Sky"
-    secondaryHref="/current-sky/"
-  />
+  {hasVideos && (
+    <CTABand
+      heading="Want to keep learning?"
+      body="Use Explore Astrology for the structured reference library, or Current Sky if you want to see the ideas applied to what is happening overhead now."
+      buttonLabel="Explore Astrology"
+      buttonHref="/explore/"
+      secondaryLabel="See Current Sky"
+      secondaryHref="/current-sky/"
+    />
+  )}
 </BaseLayout>
 
 <script>
