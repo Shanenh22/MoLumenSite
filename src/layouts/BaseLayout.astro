@@ -173,19 +173,35 @@ const baseSchema: object[] = [
 ];
 
 /**
- * Reference and editorial pages get an Article so their freshness and
- * authorship are machine-readable. Skipped where the page already supplies its
- * own article-ish type (blog posts emit BlogPosting) and on transactional or
- * legal pages, where Article would be a misdescription.
+ * Only genuinely editorial/reference pages get Article schema. Hubs,
+ * calendars, archives, glossaries and reference indexes are collection or
+ * navigation experiences, not authored articles, even when they live under an
+ * editorial URL prefix. Those pages still get a WebPage node and a real
+ * dateModified below.
  */
-const ARTICLE_PREFIXES = ['/explore/', '/start-here/', '/current-sky/', '/horoscopes/', '/approach/'];
-const suppliesOwnArticle = JSON.stringify(schema).includes('"BlogPosting"')
-  || JSON.stringify(schema).includes('"Article"');
-if (
-  dateModified &&
-  !suppliesOwnArticle &&
-  ARTICLE_PREFIXES.some((p) => path === p || path.startsWith(p))
-) {
+const ARTICLE_EXACT = new Set([
+  '/start-here/',
+  '/approach/',
+  '/current-sky/the-sky-in-2026/',
+]);
+const EXPLORE_COLLECTIONS = new Set([
+  '/explore/',
+  '/explore/glossary/',
+  '/explore/planets/',
+  '/explore/signs/',
+  '/explore/houses/',
+  '/explore/aspects/',
+]);
+const isArticleLike =
+  ARTICLE_EXACT.has(path) ||
+  path.startsWith('/current-sky/events/') ||
+  (path.startsWith('/explore/') && !EXPLORE_COLLECTIONS.has(path));
+const serializedSchema = JSON.stringify(schema);
+const suppliesOwnArticle =
+  serializedSchema.includes('"BlogPosting"') || serializedSchema.includes('"Article"');
+const usesArticleMetadata = ogType === 'article' || suppliesOwnArticle || isArticleLike;
+
+if (dateModified && !suppliesOwnArticle && isArticleLike) {
   baseSchema.push({
     '@context': 'https://schema.org',
     '@type': 'Article',
@@ -200,9 +216,8 @@ if (
     isAccessibleForFree: true,
   });
 } else if (dateModified && !suppliesOwnArticle) {
-  // Service, booking and legal pages are not articles — describing them as one
-  // would be a lie to the crawler. They still deserve a freshness signal, so
-  // they get a WebPage node carrying the same real date.
+  // Non-article pages still deserve a freshness signal, so they get a WebPage
+  // node carrying the same real date rather than a misleading Article.
   baseSchema.push({
     '@context': 'https://schema.org',
     '@type': 'WebPage',
@@ -263,8 +278,8 @@ const ga4Id = site.integrations.ga4Id;
     <meta property="og:image:alt" content={fullTitle} />
     <meta property="og:locale" content="en_US" />
     <meta name="twitter:card" content="summary_large_image" />
-    {publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
-    {dateModified && <meta property="article:modified_time" content={dateModified} />}
+    {usesArticleMetadata && publishedDate && <meta property="article:published_time" content={publishedDate.toISOString()} />}
+    {usesArticleMetadata && dateModified && <meta property="article:modified_time" content={dateModified} />}
     <script is:inline type="application/ld+json" set:html={JSON.stringify(allSchema)} />
     {
       ga4Id && (
