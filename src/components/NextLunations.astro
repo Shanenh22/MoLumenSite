@@ -40,8 +40,6 @@ const upcoming = (await getCollection('skyEvents'))
     slug: e.id.replace(/\.mdx?$/, ''),
     title: e.data.title,
     start: e.data.start,
-    // Guidance is empty for anything without a lunation sign. Filtered below
-    // rather than rendered as a heading with nothing under it.
     guidance: guidanceForEvent(e.data.eventType, e.data.title, e.data.sign),
   }))
   .filter((e) => e.guidance.length > 0);
@@ -97,9 +95,10 @@ const fmt = (d: Date) =>
         ))}
 
         <p class="card__meta" style="margin-top: var(--space-8);">
-          What this activates in your own chart, which planets it touches, and what a rising sign
-          alone cannot tell you, is what a{' '}
-          <a href="/readings/monthly-transits/">personal transits reading</a> is for.
+          A rising sign can tell us where to look, but not which exact contacts are active or what
+          is actually unfolding in your life. If one of these patterns has become a real personal
+          question, use the <a href="/reading-finder/">Reading Finder</a> to see which kind of
+          reading, if any, fits the question you are bringing.
         </p>
       </div>
     </section>
