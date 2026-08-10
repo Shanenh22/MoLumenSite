@@ -2,7 +2,6 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
-import CTABand from '../../components/CTABand.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import { scenes } from '../../config/images';
 import { site } from '../../config/site';
@@ -124,11 +123,10 @@ const schema =
           </>
         ) : (
           <div class="prose flow">
-            <h2>Posts are on their way</h2>
+            <h2>No published posts yet</h2>
             <p>
-              Mo's writing is being gathered and will appear here shortly. In the meantime, the
-              <a href="/explore/">Explore Astrology</a> library and the
-              <a href="/current-sky/">Current Sky</a> letters are full of reading.
+              For now, use <a href="/explore/">Explore Astrology</a> for structured learning or
+              <a href="/current-sky/">Current Sky</a> for Mo's interpretation of the cycles overhead.
             </p>
           </div>
         )
@@ -162,8 +160,6 @@ const schema =
       </div>
     </div>
   </section>
-
-  <CTABand />
 </BaseLayout>
 
 <script>
