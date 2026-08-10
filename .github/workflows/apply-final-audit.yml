@@ -1,4 +1,4 @@
-# One-time branch audit; removes itself after a green run. Final pass uses a specific mobile booking spacing rule.
+# One-time branch audit; removes itself after a green run. Final pass includes the restored rising-sign preference contract.
 name: Apply final MoLumen audit
 
 on:
