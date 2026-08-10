@@ -2,6 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 
 const DIST = path.resolve('dist');
+const BODY_LIMIT = 8000;
 
 function decodeEntities(value = '') {
   return value
@@ -79,9 +80,10 @@ for (const file of await walk(DIST)) {
   const title = textFromHtml(matchOne(html, /<title>([\s\S]*?)<\/title>/i)).replace(/\s*\|\s*Mo Lumen(?: Astrology)?\s*$/i, '');
   const description = decodeEntities(matchOne(html, /<meta\s+name=["']description["']\s+content=["']([^"']*)["']/i) || matchOne(html, /<meta\s+content=["']([^"']*)["']\s+name=["']description["']/i));
   const headings = [...main.matchAll(/<h[1-3]\b[^>]*>([\s\S]*?)<\/h[1-3]>/gi)].map((m) => textFromHtml(m[1])).join(' · ');
-  const body = textFromHtml(main).slice(0, 16000);
+  const fullBody = textFromHtml(main);
+  const body = fullBody.slice(0, BODY_LIMIT);
   const date = route.startsWith('/current-sky/events/')
-    ? (body.match(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}\b/)?.[0] ?? '')
+    ? (fullBody.match(/\b(?:January|February|March|April|May|June|July|August|September|October|November|December) \d{1,2}, \d{4}\b/)?.[0] ?? '')
     : '';
 
   if (!title || !description || !body) continue;
@@ -98,5 +100,6 @@ for (const file of await walk(DIST)) {
 }
 
 documents.sort((a, b) => a.url.localeCompare(b.url));
-await fs.writeFile(path.join(DIST, 'search-index.json'), JSON.stringify(documents));
-console.log(`Search index: ${documents.length} indexable pages`);
+const output = JSON.stringify(documents);
+await fs.writeFile(path.join(DIST, 'search-index.json'), output);
+console.log(`Search index: ${documents.length} indexable pages, ${(Buffer.byteLength(output) / 1024).toFixed(0)} KiB raw`);
