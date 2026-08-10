@@ -1,0 +1,113 @@
+---
+interface Props {
+  activeHouse?: number;
+}
+
+const { activeHouse } = Astro.props;
+const labels = Array.from({ length: 12 }, (_, index) => {
+  const number = index + 1;
+  const angle = -90 + index * 30 + 15;
+  const radians = (angle * Math.PI) / 180;
+  const radius = 124;
+  return {
+    number,
+    x: 180 + radius * Math.cos(radians),
+    y: 180 + radius * Math.sin(radians),
+  };
+});
+const spokes = Array.from({ length: 12 }, (_, index) => {
+  const angle = -90 + index * 30;
+  const radians = (angle * Math.PI) / 180;
+  return {
+    x: 180 + 145 * Math.cos(radians),
+    y: 180 + 145 * Math.sin(radians),
+  };
+});
+---
+
+<figure class="house-wheel">
+  <svg viewBox="0 0 360 360" role="img" aria-labelledby="house-wheel-title house-wheel-desc">
+    <title id="house-wheel-title">The twelve houses arranged around the chart wheel</title>
+    <desc id="house-wheel-desc">A simplified teaching diagram showing twelve numbered house sectors and the four primary angles at houses one, four, seven, and ten.</desc>
+    <circle class="house-wheel__ring" cx="180" cy="180" r="145" />
+    <circle class="house-wheel__inner" cx="180" cy="180" r="54" />
+    {spokes.map((point) => <line class="house-wheel__spoke" x1="180" y1="180" x2={point.x} y2={point.y} />)}
+    {labels.map((label) => (
+      <g class:list={{ 'house-wheel__label--active': activeHouse === label.number }}>
+        <circle class="house-wheel__label-bg" cx={label.x} cy={label.y} r="17" />
+        <text class="house-wheel__label" x={label.x} y={label.y} text-anchor="middle" dominant-baseline="central">{label.number}</text>
+      </g>
+    ))}
+    <text class="house-wheel__angle" x="180" y="26" text-anchor="middle">MC</text>
+    <text class="house-wheel__angle" x="336" y="185" text-anchor="middle">DSC</text>
+    <text class="house-wheel__angle" x="180" y="347" text-anchor="middle">IC</text>
+    <text class="house-wheel__angle" x="24" y="185" text-anchor="middle">ASC</text>
+  </svg>
+  <figcaption>
+    Houses are spatial. The Ascendant begins the 1st-house side of the chart; the other primary angles anchor the 4th, 7th, and 10th-house axes.
+  </figcaption>
+</figure>
+
+<style>
+  .house-wheel {
+    max-width: 34rem;
+    margin: var(--space-8) auto;
+    text-align: center;
+  }
+
+  .house-wheel svg {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .house-wheel__ring,
+  .house-wheel__inner,
+  .house-wheel__label-bg {
+    fill: none;
+    stroke: currentColor;
+  }
+
+  .house-wheel__ring {
+    stroke-width: 3;
+  }
+
+  .house-wheel__inner {
+    stroke-width: 1.5;
+    opacity: 0.4;
+  }
+
+  .house-wheel__spoke {
+    stroke: currentColor;
+    stroke-width: 1.5;
+    opacity: 0.42;
+  }
+
+  .house-wheel__label-bg {
+    fill: var(--surface, transparent);
+    stroke-width: 1.5;
+  }
+
+  .house-wheel__label {
+    fill: currentColor;
+    font-size: 13px;
+    font-weight: 700;
+  }
+
+  .house-wheel__label--active .house-wheel__label-bg {
+    stroke-width: 4;
+  }
+
+  .house-wheel__angle {
+    fill: currentColor;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+  }
+
+  .house-wheel figcaption {
+    max-width: 42rem;
+    margin: var(--space-4) auto 0;
+    font-size: var(--text-sm);
+  }
+</style>
