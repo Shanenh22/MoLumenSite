@@ -1,6 +1,6 @@
 ---
 title: "Why Do Astrologers Disagree About House Systems?"
-description: "Two competent astrologers can put your Venus in different houses and both be working correctly. Here is what house systems are, why the disagreement exists, and what it means for your reading."
+description: "Different house systems divide the chart in different ways, which can move planets from one house to another. Here is why that happens and what it means for interpretation."
 publishDate: 2026-08-04
 category: "Technique"
 tags: ["house systems", "houses", "technique", "where astrologers differ"]
@@ -9,77 +9,52 @@ draft: false
 ownerReview: true
 ---
 
-If you have had charts done by two different astrologers and noticed that a planet moved house
-between them, you have run into one of the oldest unsettled arguments in the field.
+If you have had your chart calculated in more than one program, you may have noticed something unsettling: a planet can appear in one house in one chart and a different house in another.
 
-I would rather explain it than paper over it, because how a practitioner handles this question tells
-you a lot about how they handle everything else.
+That does not automatically mean one chart is wrong. It usually means the charts are using different **house systems**.
 
-## The problem being solved
+## What a house system is doing
 
-The twelve houses divide the chart into areas of life. To draw them, you have to divide something,
-and there is more than one thing you could reasonably divide.
+The houses are an astrological way of organizing the chart into areas of life. The disagreement begins with a technical question: how should those twelve houses be constructed from the relationship among the zodiac, the horizon, the meridian, time, and space?
 
-You could divide the ecliptic into twelve equal thirty-degree slices. You could divide the space
-between the horizon and the meridian, which produces unequal houses because that space is not
-symmetrical. You could divide time rather than space. The hours it takes a degree to rise. Each of
-those is a defensible answer to a real geometric problem, and each produces a different chart.
+Astrologers have developed more than one answer.
 
-The disagreement is not sloppiness. It is that the sky does not come pre-divided, and the choice of
-how to divide it is a choice.
+Some systems divide the zodiac into equal sections. Some use the exact ascendant degree as the starting point. Some divide arcs of time or space connected with the local horizon and meridian. Because the geometry differs, the resulting house cusps can differ too.
 
-## The main candidates
+The sky is observable. The house division is an astrological framework applied to it.
 
-**Whole Sign** gives each house one entire sign, starting with the rising sign as the first house.
-It is the oldest system in the Hellenistic material, fell out of use for centuries, and has been
-substantially revived over the last few decades.
+## Four systems you are likely to encounter
 
-**Placidus** divides by time, and is what most astrology software has defaulted to since the
-twentieth century. It is the system most Western astrologers of the last hundred years learned
-first. It behaves poorly at extreme latitudes, where houses become wildly distorted or fail
-entirely.
+**Whole Sign Houses** assigns the entire rising sign to the first house, the next sign to the second, and so on. The exact ascendant degree still matters as an angle, but it does not serve as the first-house cusp in the same way it does in many quadrant systems.
 
-**Equal House** gives each house thirty degrees measured from the exact ascendant degree. Simple,
-stable at all latitudes, and it separates the midheaven from the tenth-house cusp, which some
-astrologers consider a feature and others a defect.
+**Placidus** is a time-based quadrant system and has been widely used in modern Western astrology and astrology software. At very high latitudes it can produce extreme house sizes or become impractical to calculate in the usual way.
 
-**Koch, Regiomontanus, Campanus, Porphyry** and others each have their advocates and their internal
-logic.
+**Equal House** begins the first house at the exact ascendant degree and gives every house thirty degrees. In this system the Midheaven does not necessarily coincide with the tenth-house cusp.
 
-## Where I sit, and why I'm telling you
+**Regiomontanus, Campanus, Porphyry, Koch**, and other systems divide the chart according to different geometric principles and are favored in different traditions and techniques.
 
-I work primarily in Whole Sign, with the angles noted separately. That is a considered position, not
-a neutral one, and you are entitled to know it before I read your chart.
+## Does one of them have to be right?
 
-The reasoning: Whole Sign keeps the relationship between sign and house clean, which makes the
-traditional techniques I rely on, rulership, sect, angularity, behave consistently. When a house
-is a whole sign, the ruler of that sign is unambiguously the ruler of that house, and a great deal
-of traditional interpretation depends on that being unambiguous.
+Astrologers have argued about house division for a very long time, and practice has not converged on one universally accepted system.
 
-**Astrologers I respect work differently and get results.** That is not diplomatic hedging; it is
-the actual state of the evidence. There is no controlled study settling this, and anyone who tells
-you their system is proven is overstating what exists.
+That is worth saying plainly. Methodological disagreement is part of astrology, and I think readers are better served when practitioners explain their choices rather than hiding them behind software defaults.
 
-## What it means for your reading
+For the **rising-sign guidance on this site**, I use whole-sign houses because the purpose is intentionally broad: once the rising sign is known, we can identify the whole-sign house occupied by a lunation without pretending we have performed a complete natal analysis.
 
-Usually less than you'd fear. Planets near the middle of a sign tend to land in the same house
-regardless of system. Planets near a sign boundary are the ones that move, and those are precisely
-the placements where I'd want to look at both readings and ask you which one describes your life.
+A personal reading can involve more technique and more context than a general rising-sign column, so the important question is not simply "Which house system does this astrologer use?" but also "Why are they using it for this question?"
 
-That last part is not a cop-out. Where technique is genuinely ambiguous, the person whose chart it
-is has information the chart doesn't. If a placement reads one way in Whole Sign and another in
-Placidus, and one of them matches your actual experience of the last decade, that is evidence and I
-will treat it as evidence.
+## What changes when a planet changes houses
 
-## The thing to take away
+The planet itself has not changed. Its sign, degree, aspects, and astronomical position remain the same. What changes is the astrological **area of life** through which that planet is being interpreted.
 
-Astrology contains a great deal that is asserted with more confidence than it has earned. House
-systems are the clearest example, because the disagreement is old, unresolved, and impossible to
-hide.
+That can matter considerably. It is also why I would not use a house placement by itself as a verdict. If one system places a planet in the sixth house and another places it in the seventh, the useful response is not to panic about which version is "really you." It is to understand what each framework is doing, look at the rest of the chart, and see which interpretation is actually supported by the larger synthesis.
 
-What you should want from a practitioner is not certainty. It is that they tell you which choice
-they made, why they made it, and where that choice might be doing work you can't see. Anything else
-is asking you to take a methodological decision on faith without being told a decision was made.
+The person living the chart is part of that inquiry too.
 
-The [house systems page](/explore/house-systems/) sets out each system's geometry in more detail,
-and the [houses overview](/explore/houses/) covers what each house actually signifies.
+## What I would want from an astrologer
+
+Not certainty for certainty's sake. I would want them to know which system they are using, understand enough of its logic to explain it, and be willing to distinguish a technical choice from an observable fact.
+
+That is a good standard well beyond house systems.
+
+The [House Systems guide](/explore/house-systems/) compares the approaches in more detail. If you are still learning what the houses represent before worrying about how they are calculated, start with the [Houses overview](/explore/houses/). And if this question came up because your birth time is uncertain, [What If You Don't Know Your Birth Time?](/blog/dont-know-your-birth-time/) is the more useful next stop.
