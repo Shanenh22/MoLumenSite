@@ -1,0 +1,42 @@
+---
+interface Props {
+  prevHref: string;
+  prevLabel: string;
+  nextHref: string;
+  nextLabel: string;
+  ariaLabel?: string;
+}
+const { prevHref, prevLabel, nextHref, nextLabel, ariaLabel = 'More reference pages' } = Astro.props;
+---
+
+<nav class="reference-pager" aria-label={ariaLabel}>
+  <a href={prevHref}>← {prevLabel}</a>
+  <a href={nextHref}>{nextLabel} →</a>
+</nav>
+
+<style>
+  .reference-pager {
+    display: flex;
+    justify-content: space-between;
+    gap: var(--space-4);
+    flex-wrap: wrap;
+    margin-top: var(--space-6);
+  }
+
+  .reference-pager a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  @media (max-width: 480px) {
+    .reference-pager a {
+      width: 100%;
+    }
+
+    .reference-pager a:last-child {
+      justify-content: flex-end;
+      text-align: right;
+    }
+  }
+</style>
