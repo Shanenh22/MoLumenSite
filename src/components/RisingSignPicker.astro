@@ -55,6 +55,11 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     [data-rising-grid][data-has-rising='true'] > [data-sign]:not(.is-yours) {
       display: none;
     }
+
+    /* The dropdown already identifies the chosen sign on mobile. */
+    [data-rising-grid][data-has-rising='true'] .card__yours {
+      display: none;
+    }
   }
 </style>
 
