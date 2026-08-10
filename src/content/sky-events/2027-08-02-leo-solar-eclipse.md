@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A total solar eclipse occurs at 10° Leo, with more than six minutes of totality along parts of its path across southern Spain, North Africa, Egypt, and the Arabian Peninsula. Astronomically, this is one of the year's most remarkable events. I do not want the astrology to erase the wonder of the event itself.
+A total solar eclipse occurs at 10° Leo, with more than six minutes of totality along parts of its path across southern Spain, North Africa, Egypt, and the Arabian Peninsula. Before we assign it any meaning, that is worth sitting with. The geometry alone produces one of the most extraordinary sights nature offers.
 
-Astrologically, the eclipse continues the Leo–Aquarius series already active in this period. Leo brings creativity, authorship, visibility, heart, and individual expression; Aquarius brings groups, systems, friendship, shared ideals, and the wider collective. An eclipse can give that axis more interpretive weight, but it does not guarantee a dramatic personal turning point.
+Astrologically, eclipses are given more weight than ordinary lunations, and this one continues the Leo–Aquarius story active through 2027. Leo brings authorship, creativity, visibility, heart, and the desire to express something distinctly one's own. Aquarius widens the frame to groups, systems, friendship, shared ideals, and collective participation. Neither side cancels the other.
 
-Personal significance depends on whether 10° Leo closely contacts natal planets or angles, which houses are involved, and what else is active in the chart. The shared sky supplies the pattern; a person's life supplies the context.
+I would not assume that a visually dramatic eclipse must produce an equally dramatic personal event. Its importance depends on whether 10° Leo closely contacts natal planets or angles, which houses are involved, and what is already unfolding there. The sky can be spectacular without prescribing the story.
