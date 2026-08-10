@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
+import ReferencePager from '../../../components/ReferencePager.astro';
 import { bandFor } from '../../../config/images';
 import { planets } from '../../../data/planets';
 
@@ -98,10 +99,13 @@ const breakImage = bandFor(p.slug, 5);
         what else is happening in the chart? No planet means the same thing in every life.
       </p>
 
-      <nav aria-label="More planets" class="reference-pager">
-        <a href={`/explore/planets/${prev.slug}/`}>← {prev.name}</a>
-        <a href={`/explore/planets/${next.slug}/`}>{next.name} →</a>
-      </nav>
+      <ReferencePager
+        ariaLabel="More planets"
+        prevHref={`/explore/planets/${prev.slug}/`}
+        prevLabel={prev.name}
+        nextHref={`/explore/planets/${next.slug}/`}
+        nextLabel={next.name}
+      />
     </div>
   </section>
 
