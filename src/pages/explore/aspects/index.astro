@@ -2,6 +2,8 @@
 import BaseLayout from '../../../layouts/BaseLayout.astro';
 import { scenes } from '../../../config/images';
 import Breadcrumbs from '../../../components/Breadcrumbs.astro';
+import ChartGrammar from '../../../components/ChartGrammar.astro';
+import AspectDiagram from '../../../components/AspectDiagram.astro';
 import { aspects } from '../../../data/aspects';
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
@@ -9,80 +11,50 @@ const crumbs = [
 ];
 ---
 
-<BaseLayout
-  title="Aspects. Relationships within the chart"
-  description="Aspects are meaningful angular relationships between planets. Learn conjunctions, sextiles, squares, trines, and oppositions without reducing them to good or bad."
-  path="/explore/aspects/"
-  breadcrumbs={crumbs}
->
+<BaseLayout title="Aspects. Relationships within the chart" description="Aspects are meaningful angular relationships between planets. Learn conjunctions, sextiles, squares, trines, and oppositions without reducing them to good or bad." path="/explore/aspects/" breadcrumbs={crumbs}>
   <Breadcrumbs crumbs={crumbs} />
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Explore Astrology</p>
-      <h1>Aspects</h1>
-      <p class="lede">
-        Aspects are relationships between chart factors: the angles planets make to one another.
-        They show how different functions in the chart meet, reinforce, challenge, interrupt, or
-        complicate one another. This is one of the places where astrology stops being a list and
-        starts becoming a pattern.
-      </p>
+        <p class="eyebrow">Explore Astrology</p>
+        <h1>Aspects answer: how do chart factors relate?</h1>
+        <p class="lede">Aspects are angular relationships between chart factors. They show how different functions meet, reinforce, challenge, interrupt, or complicate one another. This is one of the places where astrology stops being a list and starts becoming a pattern.</p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.aspects.src}
-        srcset={scenes.aspects.srcset}
-        sizes="100vw"
-        alt={scenes.aspects.alt}
-        width={scenes.aspects.width}
-        height={scenes.aspects.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.aspects.src} srcset={scenes.aspects.srcset} sizes="100vw" alt={scenes.aspects.alt} width={scenes.aspects.width} height={scenes.aspects.height} fetchpriority="high" />
     </div>
   </section>
 
   <section class="section">
-    <div class="container prose flow" style="margin-bottom: var(--space-8);">
-      <h2>Not simply good or bad</h2>
-      <p>
-        I am cautious with the old shorthand of "easy" and "hard" aspects. Some aspects tend to
-        describe more friction; others more flow. But flow can be underused, friction can become
-        productive, and neither tells you by itself how a person will live the configuration. A
-        square is not a verdict. A trine is not a guarantee.
-      </p>
-      <p>
-        What matters is which planets are involved, how close the aspect is, what else those planets
-        are doing in the chart, and how the pattern is actually showing up in the person's life. The
-        geometry gives structure. Interpretation still requires synthesis.
-      </p>
-    </div>
-    <div class="container grid grid--3">
-      {
-        aspects.map((a) => (
-          <article class="card">
-            <span class="glyph" aria-hidden="true">{a.glyph}</span>
-            <h2 style="font-size: var(--text-xl); margin: 0;">
-              <a href={`/explore/aspects/${a.slug}/`}>{a.name}</a>
-            </h2>
-            <p class="card__meta">{a.angle}</p>
-            <p style="margin: 0;">{a.nature}</p>
-          </article>
-        ))
-      }
+    <div class="container">
+      <ChartGrammar active="aspect" />
+      <div class="prose flow">
+        <h2>See the geometry before naming the story</h2>
+        <p>The angle gives the relationship structure. It does not tell us the outcome by itself. Which planets are involved, how exact the aspect is, what those planets rule, and how the person actually lives the pattern all matter.</p>
+      </div>
+      <div class="aspect-grid">
+        {aspects.map((a) => (
+          <a class="aspect-card" href={`/explore/aspects/${a.slug}/`}>
+            <AspectDiagram name={a.name} degrees={a.degrees} angleLabel={a.angle} />
+            <p>{a.nature}</p>
+          </a>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="container prose flow">
-      <h2>Where relationships become patterns</h2>
-      <p>
-        When several planets connect through multiple aspects, larger
-        <a href="/explore/chart-patterns/">chart patterns</a> can emerge: T-squares, grand trines,
-        stelliums, and other configurations. Aspects are also central to
-        <a href="/explore/transits/">timing</a>, because moving planets form new relationships to
-        natal chart factors over time. In both cases, the meaning comes from the network, not from
-        one line drawn across the wheel.
-      </p>
+      <h2>Not simply good or bad</h2>
+      <p>I am cautious with the shorthand of "easy" and "hard" aspects. Flow can be underused, friction can become productive, and neither tells you by itself how a person will live a configuration. A square is not a verdict. A trine is not a guarantee.</p>
+      <p>When several planets connect through multiple aspects, larger <a href="/explore/chart-patterns/">chart patterns</a> can emerge. Aspects are also central to <a href="/explore/transits/">timing</a>, because moving planets form new relationships to natal chart factors over time.</p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .aspect-grid { display: grid; gap: var(--space-4); margin-top: var(--space-8); }
+  .aspect-card { display: block; padding: var(--space-5); border: 1px solid var(--border-color, currentColor); border-radius: var(--radius-lg, 1rem); text-decoration: none; }
+  .aspect-card p { margin: var(--space-4) 0 0; }
+  @media (min-width: 700px) { .aspect-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  @media (min-width: 1050px) { .aspect-grid { grid-template-columns: repeat(5, minmax(0, 1fr)); } }
+</style>
