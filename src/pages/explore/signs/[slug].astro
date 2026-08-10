@@ -4,6 +4,7 @@ import Breadcrumbs from '../../../components/Breadcrumbs.astro';
 import CTABand from '../../../components/CTABand.astro';
 import Layers from '../../../components/Layers.astro';
 import SeaBreak from '../../../components/SeaBreak.astro';
+import ReferencePager from '../../../components/ReferencePager.astro';
 import { bandFor } from '../../../config/images';
 import { signs } from '../../../data/signs';
 
@@ -107,10 +108,13 @@ const breakImage = bandFor(s.slug, 5);
         </p>
       </div>
 
-      <nav aria-label="More signs" class="reference-pager">
-        <a href={`/explore/signs/${prev.slug}/`}>← {prev.name}</a>
-        <a href={`/explore/signs/${next.slug}/`}>{next.name} →</a>
-      </nav>
+      <ReferencePager
+        ariaLabel="More signs"
+        prevHref={`/explore/signs/${prev.slug}/`}
+        prevLabel={prev.name}
+        nextHref={`/explore/signs/${next.slug}/`}
+        nextLabel={next.name}
+      />
     </div>
   </section>
 
