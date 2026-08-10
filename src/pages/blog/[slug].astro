@@ -35,14 +35,89 @@ const crumbs = [
   { label: 'Blog', href: '/blog/' },
   { label: d.title, href: `/blog/${slug}/` },
 ];
-/* No decorative band on a post, deliberately. One was tried and removed: a post
-   is a single <Content /> block with no seam inside it, so the band could only
-   land between the article and the related posts — decoration in the one place
-   the reader has already finished reading. Long-form prose wants an
-   uninterrupted column. The heading rhythm in `.prose.flow > h2` is what breaks
-   these pages up, and it costs nothing. */
 /** Reading time from the real word count at 220 wpm, rounded up. */
 const readingMinutes = Math.max(1, Math.round((post.body ?? '').split(/\s+/).filter(Boolean).length / 220));
+
+/**
+ * A blog article should not assume that finishing an article means the reader
+ * is ready to buy. The closer follows the intent implied by the article's
+ * category instead:
+ *
+ * - learning articles keep teaching;
+ * - timing/misconception articles move into the live sky;
+ * - reading-decision articles help the visitor choose a service.
+ *
+ * The quieter second link leaves an adjacent route available without making
+ * every educational page end in the same Book button.
+ */
+const nextStepByCategory: Record<
+  string,
+  {
+    heading: string;
+    body: string;
+    buttonLabel: string;
+    buttonHref: string;
+    secondaryLabel: string;
+    secondaryHref: string;
+  }
+> = {
+  'Chart Basics': {
+    heading: 'Want to keep building the chart?',
+    body: 'Move from one idea into the larger structure: planets, signs, houses, aspects, and how they begin to work together.',
+    buttonLabel: 'Explore Astrology',
+    buttonHref: '/explore/',
+    secondaryLabel: 'Start from the beginning',
+    secondaryHref: '/start-here/',
+  },
+  Technique: {
+    heading: 'Ready for the next layer?',
+    body: 'Technique becomes useful when it is connected to the rest of the chart. Continue into the reference library and keep the pieces in context.',
+    buttonLabel: 'Explore the Techniques',
+    buttonHref: '/explore/',
+    secondaryLabel: 'Browse the glossary',
+    secondaryHref: '/explore/glossary/',
+  },
+  Timing: {
+    heading: 'See the timing in the sky now',
+    body: 'Current Sky follows the actual planetary cycles and separates what is happening overhead from what would require your personal chart to interpret.',
+    buttonLabel: 'Go to Current Sky',
+    buttonHref: '/current-sky/',
+    secondaryLabel: 'Explore transits',
+    secondaryHref: '/explore/transits/',
+  },
+  Misconceptions: {
+    heading: 'Keep the astrology in context',
+    body: 'Explore the underlying techniques, or look at the current sky without the doom, hype, or one-size-fits-all predictions.',
+    buttonLabel: 'Explore Astrology',
+    buttonHref: '/explore/',
+    secondaryLabel: 'See Current Sky',
+    secondaryHref: '/current-sky/',
+  },
+  'Understanding Readings': {
+    heading: 'Have a personal question in mind?',
+    body: 'The Reading Finder listens for what you are actually asking, explains which reading fits, and leaves the final choice with you.',
+    buttonLabel: 'Find My Reading',
+    buttonHref: '/reading-finder/',
+    secondaryLabel: 'Compare all readings',
+    secondaryHref: '/readings/',
+  },
+  'Choosing a Reading': {
+    heading: 'Not sure what fits yet?',
+    body: 'Use five quick questions to narrow the options, see why a reading is being suggested, and decide whether you want to book at all.',
+    buttonLabel: 'Use the Reading Finder',
+    buttonHref: '/reading-finder/',
+    secondaryLabel: 'Compare all readings',
+    secondaryHref: '/readings/',
+  },
+};
+const nextStep = nextStepByCategory[d.category] ?? {
+  heading: 'Where would you like to go next?',
+  body: 'Keep learning in the astrology library, or move toward a reading only if your question has become personal.',
+  buttonLabel: 'Explore Astrology',
+  buttonHref: '/explore/',
+  secondaryLabel: 'Find a reading',
+  secondaryHref: '/reading-finder/',
+};
 
 const schema = [
   {
@@ -83,20 +158,6 @@ const schema = [
             <li>{readingMinutes} min read</li>
             {d.updatedDate && <li>Updated {fmt(d.updatedDate)}</li>}
           </ul>
-          {/*
-            A path to the credentials, not a recitation of them.
-
-            The E-E-A-T audit scored Expertise down because someone arriving on
-            a post from search sees a byline with nothing behind it — the
-            credentials are specific and verifiable but live on two pages they
-            have no reason to visit. The full credential block was removed from
-            article pages on purpose, because listing qualifications under every
-            article reads as gatekeeping to part of this audience.
-
-            So: four words and a link. The reader who wants to know who is
-            talking can find out in one click; the reader who doesn't is not
-            lectured. Do not grow this back into a list.
-          */}
           <p class="card__meta">
             By <a href="/about/">Mo Lumen</a> · <a href="/credentials/">how I trained</a>
           </p>
@@ -158,5 +219,12 @@ const schema = [
     )
   }
 
-  <CTABand />
+  <CTABand
+    heading={nextStep.heading}
+    body={nextStep.body}
+    buttonLabel={nextStep.buttonLabel}
+    buttonHref={nextStep.buttonHref}
+    secondaryLabel={nextStep.secondaryLabel}
+    secondaryHref={nextStep.secondaryHref}
+  />
 </BaseLayout>
