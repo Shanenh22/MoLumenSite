@@ -1,3 +1,4 @@
+# One-time branch audit; removed automatically after a green run.
 name: Apply final MoLumen audit
 
 on:
