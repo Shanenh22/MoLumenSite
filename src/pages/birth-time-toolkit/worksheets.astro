@@ -20,7 +20,6 @@
  */
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { site } from '../../config/site';
-import { defaultBookingHref } from '../../config/booking.ts';
 
 const crumbs = [
   { label: 'Birth Time Toolkit', href: '/birth-time-toolkit/' },
@@ -43,8 +42,9 @@ const lines = (n: number) => Array.from({ length: n });
       <p class="eyebrow">Mo Lumen Astrology</p>
       <h1>The Birth Time Toolkit</h1>
       <p class="lede">
-        A working process for finding a birth time, and for being honest about it when you can't.
-        Print it, or work through it on screen and keep your notes wherever you keep notes.
+        A working process for finding a birth time, and for staying clear about what you know when
+        the exact time remains uncertain. Print it, or work through it on screen and keep your notes
+        wherever you keep notes.
       </p>
       <p>
         The background, why the time matters, how much precision actually matters, and what a
@@ -90,37 +90,38 @@ const lines = (n: number) => Array.from({ length: n });
 
       <h2 id="record-search">2 · Record search checklist</h2>
       <p>
-        Work down in order. Most people find the time at the first or second step, and the later
-        ones exist for the cases where they don't.
+        Start with the sources most likely to have been recorded close to the birth, then widen the
+        search if you need to. Availability, retention, fees, and whether a time appears at all vary
+        by place and by record.
       </p>
       <div class="ws">
         <ul class="ws-check">
           <li>
-            <strong>Check which birth certificate you have.</strong> Many households keep an
-            abbreviated copy that omits the time. Look for the long-form or full version.
+            <strong>Check which birth certificate you have.</strong> Some abbreviated copies omit
+            information that appears on a fuller record. Look for a long-form or full version if
+            your jurisdiction offers one.
           </li>
           <li>
             <strong>Request the full certificate</strong> from the vital records authority for the
-            place of birth. Search for that office by name and read its own instructions,
-            requirements, fees and whether the time is even included vary by jurisdiction and by
-            how old the record is.
+            place of birth. Search for that office by name and read its own instructions;
+            requirements, fees, and whether the time is included vary by jurisdiction and record.
           </li>
           <li>
-            <strong>Try the hospital's medical records department.</strong> Separate from the
-            registry, with its own release process. Some retain birth records for decades.
+            <strong>Try the hospital's medical records department.</strong> It is separate from the
+            civil registry and has its own release and retention rules.
           </li>
-          <li><strong>Baby book, hospital keepsake or bracelet card.</strong></li>
+          <li><strong>Baby book, hospital keepsake, or bracelet card.</strong></li>
           <li>
-            <strong>Family papers</strong>: a parent's diary, a family bible, a letter written that
-            week, the back of a photograph.
+            <strong>Family papers</strong>: a parent's diary, a family Bible, a letter written that
+            week, or the back of a photograph.
           </li>
           <li>
             <strong>Religious or community records</strong> where a birth or naming was registered
             locally.
           </li>
           <li>
-            <strong>Newspaper birth announcements.</strong> Library and newspaper archives
-            occasionally carry times.
+            <strong>Newspaper birth announcements.</strong> Library and newspaper archives may be
+            worth checking, especially when other records are unavailable.
           </li>
         </ul>
         <div class="ws-grid ws-grid--wide">
@@ -139,9 +140,9 @@ const lines = (n: number) => Array.from({ length: n });
 
       <h2 id="family-interview">3 · Family interview</h2>
       <p>
-        Ask about the shape of the day, not the number on the clock. People remember events far
-        better than times, and asking "what time was I born?" invites a rounded guess that then
-        hardens into a fact nobody meant to assert.
+        Ask about the shape of the day as well as the number on the clock. A remembered event can
+        give useful context to an approximate time and helps you keep a recollection from becoming
+        more precise on paper than it was in the person's memory.
       </p>
       <p>Prompts worth using:</p>
       <ul>
@@ -179,15 +180,14 @@ const lines = (n: number) => Array.from({ length: n });
 
       <h2 id="when-times-disagree">4 · When times disagree</h2>
       <p>
-        Keep every candidate. A recorded conflict is more useful than a premature decision, because
-        two candidate times can be tested against a chart and a single guessed time cannot be tested
-        against anything.
+        Keep every candidate. A recorded conflict is more useful than choosing one too early,
+        because the disagreement itself tells you what still needs checking.
       </p>
       <p>
-        A documented time outranks any recollection. Between two recollections, the one anchored to
-        an event usually beats the one anchored to a number. And if two candidates produce the same
-        rising sign, the disagreement may not matter at all, worth checking before anyone spends
-        effort resolving it.
+        A contemporaneous record will usually carry more weight than a later recollection, but keep
+        any conflict visible rather than treating one source as infallible. If two candidate times
+        produce the same rising sign, one important uncertainty may be reduced, but the exact
+        ascendant, angles, and house placements can still change with time and house system.
       </p>
       <div class="ws">
         <table class="ws-table">
@@ -227,15 +227,15 @@ const lines = (n: number) => Array.from({ length: n });
       </p>
       <dl class="ws-scale">
         <dt>Documented</dt>
-        <dd>Written on a birth certificate, hospital record or contemporaneous document you have seen.</dd>
+        <dd>Written on a birth certificate, hospital record, or contemporaneous document you have seen.</dd>
         <dt>Strongly remembered</dt>
-        <dd>One consistent account from someone who was there, anchored to an event rather than a number.</dd>
+        <dd>One consistent account from someone who was there, anchored to an event as well as a time.</dd>
         <dt>Approximate</dt>
-        <dd>A window rather than a time: "sometime in the morning", "between two and four".</dd>
+        <dd>A window rather than an exact time: "sometime in the morning" or "between two and four".</dd>
         <dt>Conflicting</dt>
-        <dd>More than one candidate, none clearly better. Bring them all.</dd>
+        <dd>More than one candidate, none clearly better. Keep and share them all.</dd>
         <dt>Unknown</dt>
-        <dd>No usable information. Say so plainly; it is workable.</dd>
+        <dd>No usable time information. Say so plainly so the chart can be handled accordingly.</dd>
       </dl>
       <div class="ws">
         <div class="ws-grid">
@@ -248,20 +248,21 @@ const lines = (n: number) => Array.from({ length: n });
 
       <h2 id="if-it-stays-unknown">6 · If it stays unknown</h2>
       <p>
-        You can still have a real reading. What is unavailable without a time is the rising sign,
-        the house structure, and the Moon's exact degree on a fast-moving day. What remains is every
-        planet's sign, the aspects between them, the condition of each planet by dignity, and the
-        current transits, most of a chart, and where a great deal of character lives.
+        An unknown birth time changes what can be interpreted confidently; it does not erase the
+        chart. The rising sign, exact ascendant and other angles, and houses cannot be established
+        reliably from an unknown time. The Moon also moves quickly enough that its degree is
+        uncertain across the day and, on some dates, its sign can change.
       </p>
       <p>
-        A reading built on that answers <em>what are these patterns</em> very well, and <em>where in
-        your life do they land</em> only in outline. Say plainly what you know and don't know, and a
-        good astrologer will stay off the parts that depend on the time rather than guessing at
-        them.
+        A substantial amount of information may still be usable, including planetary signs and many
+        aspects when the positions are stable across the possible time range. Timing work can also
+        use contacts to reliably placed natal planets, while avoiding claims that depend on houses,
+        angles, or another time-sensitive factor. The exact limits depend on the chart, the date,
+        and the technique being used.
       </p>
       <p>
-        The only genuinely bad option is a guess presented as exact. That produces a detailed,
-        coherent reading about the life of someone born two hours after you.
+        The important thing is to label a guess as a guess. Apparent precision can make an
+        interpretation sound firmer than the underlying birth data supports.
       </p>
 
       <hr class="rule-print" />
@@ -269,26 +270,28 @@ const lines = (n: number) => Array.from({ length: n });
       <h2 id="rectification">7 · About rectification</h2>
       <p>
         Rectification is an astrological technique for narrowing a probable birth time by working
-        backwards from known life events. It is a real discipline, and specialists do careful work.
+        backward from known life events and testing candidate times against astrological timing
+        techniques.
       </p>
       <p>
-        Two things to hold on to. It is substantial work and priced accordingly. And it produces a
-        well-reasoned hypothesis that fits the events you supplied, not a recovered fact, and not
-        verification in any external sense. Different rectifiers can reach different answers from
-        the same life. Certainty is not something the method can offer.
+        It can produce a reasoned hypothesis; it does not recover a missing timestamp or verify a
+        birth time in the way an external record can. Different practitioners may use different
+        methods or reach different conclusions from the same life history, so the result should be
+        described with the level of confidence the method supports.
       </p>
       <p>
-        If you are choosing where to spend first, the full birth certificate is usually the better
-        bet. If you do pursue rectification, the dated life events in the next section are exactly
-        what a rectifier will ask for.
+        If a fuller record may still exist, it is worth checking that first. If you do pursue
+        rectification, the dated life events in the next section are the kind of information a
+        rectifier is likely to ask for.
       </p>
 
       <hr class="rule-print" />
 
       <h2 id="preparing">8 · Preparing for your reading</h2>
       <p>
-        The summary to bring. This is what makes the difference between an astrologer guessing at
-        your certainty and knowing it.
+        Use this summary to show the time you have, where it came from, and how confident you are in
+        it. That gives the astrologer a clearer basis for deciding which parts of the chart can
+        carry more interpretive weight.
       </p>
       <div class="ws">
         <div class="ws-grid">
@@ -313,16 +316,16 @@ const lines = (n: number) => Array.from({ length: n });
 
       <p class="toolkit__close">
         That's the whole process. If you found the time, bring it. If you found a range, bring the
-        range. If you found nothing, bring that. It is a smaller problem than it feels like, and I
-        would rather start from what is true than from a number that looks tidy.
+        range. If you found nothing, bring that. I would rather start from the information you
+        actually have than from a tidy number carrying more certainty than it deserves.
       </p>
       <p class="no-print">
-        <a class="btn btn--accent" href={defaultBookingHref()}>Book This Reading</a>
+        <a class="btn btn--accent" href="/reading-finder/">Find the right reading</a>
         <a href="/birth-time/" style="margin-left: var(--space-4);">Back to the guide</a>
       </p>
       <p class="print-only">
-        {site.name} · {site.url.replace('https://', '')} · Readings by Zoom, phone, or in person in
-        the Dallas–Fort Worth area.
+        {site.name} · {site.url.replace('https://', '')} · Readings by Zoom or phone, with in-person
+        appointments in the Dallas–Fort Worth area by arrangement.
       </p>
     </div>
   </section>
