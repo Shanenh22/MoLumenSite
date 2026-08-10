@@ -15,6 +15,7 @@ export const GET: APIRoute = async () => {
   const services = (await getCollection("services"))
     .filter((s) => s.data.available)
     .sort((a, b) => a.data.name.localeCompare(b.data.name));
+  const videos = (await getCollection("videos")).filter((v) => !v.data.draft);
 
   const serviceLines = services.map((s) => {
     const price =
@@ -22,6 +23,8 @@ export const GET: APIRoute = async () => {
     const bits = [s.data.durationLabel, price].filter(Boolean).join(" · ");
     return `- [${s.data.name}](${site.url}/readings/${s.data.slug}/): ${s.data.purpose} (${bits})`;
   });
+
+  const videoLine = videos.length > 0 ? `- [Videos](${site.url}/videos/)` : "";
 
   const body = `# ${site.name}
 
@@ -57,6 +60,7 @@ ${serviceLines.join("\n")}
 - [All readings](${site.url}/readings/): the full list, with what each is and isn't for
 - [Reading finder](${site.url}/reading-finder/): a short guided chooser
 - [How readings work](${site.url}/how-readings-work/): what happens in a session
+- [Questions to bring](${site.url}/explore/questions-to-bring/): how to turn a broad topic into a useful question
 - [Prepare for your reading](${site.url}/prepare-for-your-reading/): what to bring
 - [Book](${site.url}/book/): scheduling and payment
 - [Frequently asked questions](${site.url}/frequently-asked-questions/)
@@ -71,6 +75,9 @@ ${serviceLines.join("\n")}
 - [The planets](${site.url}/explore/planets/): planetary symbolism, rulerships, sect, joys, and cycles
 - [The houses](${site.url}/explore/houses/): all twelve, with angularity and house-system caveats
 - [The aspects](${site.url}/explore/aspects/): relationships among chart factors, with major and minor aspects and orbs
+- [Transits](${site.url}/explore/transits/): how the moving sky is read against a natal chart without turning timing into a script
+- [Relationship astrology](${site.url}/explore/relationships/): natal charts, synastry, composite techniques, and why compatibility is not a score
+- [Personal purpose](${site.url}/explore/personal-purpose/): vocation and contribution without a predetermined career answer
 - [Essential dignities](${site.url}/explore/dignities/): the traditional dignity framework, explained in context
 - [House systems](${site.url}/explore/house-systems/): why astrologers disagree about house division
 - [Elements and modalities](${site.url}/explore/elements-and-modalities/)
@@ -81,6 +88,7 @@ ${serviceLines.join("\n")}
 - [The Saturn return](${site.url}/explore/saturn-return/)
 - [Common misconceptions](${site.url}/explore/misconceptions/): recurring claims and where nuance is needed
 - [Schools of astrology](${site.url}/explore/schools/): where traditions differ and why
+- [Sources](${site.url}/explore/sources/): where traditional material, modern practice, and Mo's synthesis come from
 - [Glossary](${site.url}/explore/glossary/): plain-language definitions
 - [Explore your chart](${site.url}/tools/explore-your-chart/): a structural learning tool, not a personal reading generator
 
@@ -99,7 +107,7 @@ ${serviceLines.join("\n")}
 - [Credentials](${site.url}/credentials/): training, professional involvement, and ethics
 - [Blog](${site.url}/blog/): durable essays and guides — a place to think with Mo
 - [Newsletter](${site.url}/newsletter/): a monthly note from Mo; not a mini forecast product
-- [Videos](${site.url}/videos/)
+${videoLine}
 - [Contact](${site.url}/contact/): ${site.email}
 
 ## Birth-time help
