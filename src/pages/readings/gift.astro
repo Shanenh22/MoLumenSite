@@ -23,8 +23,8 @@ const crumbs = [
       <p class="eyebrow">A different kind of gift</p>
       <h1>Gift a reading</h1>
       <p class="lede">
-        A reading is a remarkable gift: an unhurried hour of full attention, a new way of seeing
-        oneself, and a recording to keep. Here's how gifting works.
+        A reading can be a thoughtful gift: unhurried attention, another way of seeing a question
+        or pattern, and a recording to keep. Here's how gifting works.
       </p>
       </div>
       <img
@@ -43,7 +43,7 @@ const crumbs = [
     <div class="container prose flow">
       <h2>How it works</h2>
       <ol>
-        <li>Choose the reading you'd like to give, for a first reading, the <a href="/readings/natal/">natal reading</a> is the classic choice.</li>
+        <li>Choose the reading you'd like to give. For someone who has not worked with me before, the <a href="/readings/natal/">Natal Chart Reading</a> is the usual starting point.</li>
         <li>Email me at <a href={`mailto:${site.email}?subject=Gift%20reading`}>{site.email}</a> with the reading and your recipient's name; I'll arrange payment and send you a gift confirmation to share.</li>
         <li>Your recipient books their own time and shares their own birth details privately. Birth data stays between them and Mo.</li>
       </ol>
@@ -55,5 +55,12 @@ const crumbs = [
       </div>
     </div>
   </section>
-  <CTABand heading="Questions about gifting?" body="Email me and I'll walk you through it." buttonLabel="Contact Mo" buttonHref="/contact/" />
+  <CTABand
+    heading="Questions about gifting?"
+    body="Email me and I'll walk you through it."
+    buttonLabel="Contact Mo"
+    buttonHref="/contact/"
+    secondaryLabel="Compare the readings first"
+    secondaryHref="/readings/"
+  />
 </BaseLayout>
