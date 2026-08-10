@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A full moon at 21° Gemini opposes the Sagittarius Sun while Uranus is also moving through Gemini. Uranus is part of a much slower transit, so I would keep its background influence distinct from the faster lunar cycle rather than expect a sudden announcement simply because the symbols overlap.
+A full moon at 21° Gemini opposes the Sagittarius Sun while Uranus is also moving through Gemini. Uranus belongs to a much slower cycle, so I would not treat its presence as a promise of sudden news. It is better understood as part of the changing background through which this faster lunation moves.
 
-Gemini is associated with information, questions, language, exchange, and the movement of ideas. Sagittarius looks for meaning, interpretation, belief, and a wider frame. Full moons on this axis give us a useful moment to notice the relationship between what we know and the story we are making from it.
+Gemini gathers information, asks questions, compares versions, and keeps ideas in motion. Sagittarius looks for meaning, direction, belief, and the larger story those facts seem to support. The axis becomes especially useful when certainty arrives too quickly. Do we actually know more, or have we simply found a story that makes the information feel settled?
 
-The natal houses and exact contacts determine whether this lunation is personally prominent. The shared sky offers a question, not a guaranteed conversation.
+The full moon can bring that relationship into view, but the natal houses and exact contacts determine whether it matters strongly in an individual chart. The shared sky offers the question; synthesis requires the whole picture.
