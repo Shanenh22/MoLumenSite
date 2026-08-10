@@ -79,10 +79,10 @@ jobs:
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
 
-          changed=$(git diff --cached --name-only)
-          echo "$changed"
-          if echo "$changed" | grep -E '^(audit-artifacts/|scripts/fix-toolkit-layout.py$|\.github/workflows/toolkit-visual-check.yml$)'; then
-            echo 'Temporary audit paths remain in the release tree.'
+          echo 'Release-candidate diff:'
+          git diff --cached --name-status
+          if git ls-files audit-artifacts scripts/fix-toolkit-layout.py .github/workflows/toolkit-visual-check.yml | grep -q .; then
+            echo 'Temporary audit paths remain tracked in the release tree.'
             exit 1
           fi
 
