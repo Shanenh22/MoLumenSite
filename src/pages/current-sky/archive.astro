@@ -11,6 +11,7 @@ const events = (await getCollection('skyEvents'))
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+const years = [...new Set(events.map((e) => e.data.start.getUTCFullYear()))].sort((a, b) => b - a);
 const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: 'Archive', href: '/current-sky/archive/' },
@@ -19,7 +20,7 @@ const crumbs = [
 
 <BaseLayout
   title="Current Sky Archive"
-  description="Past sky events and lunation letters from Mo Lumen Astrology, collected chronologically so you can revisit the astrology in context."
+  description="Past sky events and lunation letters from Mo Lumen Astrology, grouped by year so you can revisit the astrology in chronological context."
   path="/current-sky/archive/"
   breadcrumbs={crumbs}
 >
@@ -30,9 +31,9 @@ const crumbs = [
         <p class="eyebrow">Past sky, kept in context</p>
         <h1>Current Sky archive</h1>
         <p class="lede">
-          Astrology is easier to understand when you can look back as well as ahead. This archive keeps
-          Mo's past sky notes and lunation letters in chronological context: what was happening, what
-          patterns stood out, and what questions they raised at the time.
+          Looking back is one of the best ways to learn how astrological cycles actually unfold.
+          These are the notes written around earlier events, kept with their dates rather than
+          rewritten after we know what happened.
         </p>
         <p>
           For what is active now or coming next, use the <a href="/current-sky/">Current Sky timeline</a>
@@ -49,29 +50,50 @@ const crumbs = [
       />
     </div>
   </section>
-  <section class="section">
-    <div class="container">
-      <p style="max-width: 46rem; margin-bottom: var(--space-8);">
-        These pieces are records of the sky as Mo interpreted it then. They are useful for learning
-        how cycles unfold and for comparing an earlier moment with what you now know happened. They
-        are not personal readings; your own chart and lived circumstances add the layer an archive
-        cannot provide.
+
+  <section class="section section--sea">
+    <div class="container prose flow" style="max-width: 46rem;">
+      <p class="eyebrow">How to use an archive</p>
+      <h2>Compare the interpretation with what you know now.</h2>
+      <p>
+        Each piece records what the sky looked like and what questions or patterns stood out at the
+        time. Reading it later gives you a chance to see what proved useful, what remained too broad,
+        and how a cycle developed beyond its first moment.
       </p>
-      <ol class="timeline">
-        {
-          events.map((e) => (
-            <li>
-              <span class="event-type">{e.data.eventType}</span>
-              <h2 style="font-size: var(--text-lg); margin: var(--space-1) 0;">
-                <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
-              </h2>
-              <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
-            </li>
-          ))
-        }
-      </ol>
+      <p>
+        These are still shared-sky interpretations, not retroactive personal readings. Your own
+        chart and circumstances add a layer the archive cannot know.
+      </p>
     </div>
   </section>
+
+  <section class="section">
+    <div class="container archive-years">
+      {years.map((year) => {
+        const items = events.filter((e) => e.data.start.getUTCFullYear() === year);
+        return (
+          <section class="archive-year" aria-labelledby={`archive-${year}`}>
+            <div class="archive-year__heading">
+              <h2 id={`archive-${year}`}>{year}</h2>
+              <p class="card__meta">{items.length} note{items.length === 1 ? '' : 's'}</p>
+            </div>
+            <ol class="timeline">
+              {items.map((e) => (
+                <li>
+                  <span class="event-type">{e.data.eventType}</span>
+                  <h3 style="font-size: var(--text-lg); margin: var(--space-1) 0;">
+                    <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
+                  </h3>
+                  <p class="card__meta" style="margin: 0;">{fmt(e.data.start)}</p>
+                </li>
+              ))}
+            </ol>
+          </section>
+        );
+      })}
+    </div>
+  </section>
+
   <CTABand
     heading="Want to see what is unfolding now?"
     body="Move from the archive back into the current sequence, or use the calendar when you want the dates at a glance."
@@ -81,3 +103,16 @@ const crumbs = [
     secondaryHref="/current-sky/calendar/"
   />
 </BaseLayout>
+
+<style>
+  .archive-years { display: grid; gap: var(--space-10); }
+  .archive-year__heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--space-4);
+    margin-bottom: var(--space-5);
+  }
+  .archive-year__heading h2,
+  .archive-year__heading p { margin: 0; }
+</style>
