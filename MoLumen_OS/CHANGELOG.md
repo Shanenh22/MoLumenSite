@@ -5,7 +5,7 @@ This file contains only recent, human-useful project highlights. Git history is 
 ## 2026-08-10 — editorial ecosystem and machine-readable cleanup
 - Recentered public copy around Mo's practice: warm authority without mystique, collaborative astrological synthesis, wonder with complexity, and retained client agency.
 - Reworked the learning journey so Explore teaches and deepens, Current Sky interprets shared cycles, Horoscopes stay a broad rising-sign lens, Blog develops durable ideas, Newsletter remains broader monthly correspondence, and personal questions move toward the Reading Finder rather than directly to checkout.
-- Simplified mobile rising-sign controls and removed redundant visible state narration while preserving the all-sign view and preference behavior.
+- Kept the rising-sign preference concise while restoring an explicit selected-sign state, a clear-preference control, and confirmation that every other sign remains available.
 - Tightened Current Sky calendar/archive continuity, event-page rising-sign guidance, horoscope limits, and several page-specific next steps.
 - Corrected celestial-event structured data so dated sky content is not falsely represented as a hosted `Event`.
 - Tightened global schema classification so genuine editorial/reference pages may receive `Article`, while hubs, calendars, archives, glossaries, and reference indexes remain truthful `WebPage`/collection experiences.
