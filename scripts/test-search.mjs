@@ -34,19 +34,26 @@ function expectExcluded(query, forbidden) {
   }
 }
 
-// Direct-reference queries: the canonical teaching page should win.
+// Broad concepts: durable reference pages should beat dated events or adjacent essays.
 expectTop('Saturn return', '/explore/saturn-return/');
 expectTop('house systems', '/explore/house-systems/');
 expectTop('birth chart basics', '/explore/birth-chart-basics/');
+expectTop('moon phases', '/explore/moon-phases/');
+expectTop('eclipses', '/explore/eclipses/');
+expectTop('aspects', '/explore/aspects/');
 expectTop('privacy', '/privacy/');
 
-// Specific terms buried inside broader teaching pages still need to be findable.
+// Specific terms and real visitor intent should route to useful, not merely matching, pages.
 expectIncluded('Yod', '/explore/chart-patterns/', 5);
 expectIncluded('retrograde', '/explore/retrogrades/', 5);
 expectIncluded('birth time', '/birth-time/', 5);
 expectIncluded('birth time', '/birth-time-toolkit/', 8);
+expectIncluded('relationship astrology', '/explore/relationships/', 5);
 expectIncluded('relationship reading', '/readings/relationship/', 5);
+expectIncluded('cancellation', '/booking-policy/', 5);
 expectIncluded('refund', '/booking-policy/', 8);
+expectIncluded('recording', '/booking-policy/', 8);
+expectIncluded('career purpose', '/explore/personal-purpose/', 8);
 
 // Current-sky searches may have several dated matches. Event-detail results,
 // unlike the Current Sky hub or annual overview, must always carry the date.
@@ -64,11 +71,14 @@ expectExcluded('worksheets', '/birth-time-toolkit/worksheets/');
 expectExcluded('courses', '/courses/');
 expectExcluded('guides', '/guides/');
 expectExcluded('videos', '/videos/');
-
-// Search itself is not useful as a search result.
 expectExcluded('search', '/search/');
 
-for (const query of ['Saturn return', 'house systems', 'birth chart basics', 'birth time', 'Yod', 'retrograde', 'relationship reading', 'refund', 'Mercury retrograde']) {
+const samples = [
+  'Saturn return', 'house systems', 'birth chart basics', 'moon phases', 'eclipses', 'aspects',
+  'birth time', 'Yod', 'retrograde', 'relationship astrology', 'relationship reading',
+  'career purpose', 'cancellation', 'refund', 'recording', 'Mercury retrograde',
+];
+for (const query of samples) {
   const sample = searchDocuments(documents, query, 5)
     .map((item) => `${item.title} [${item.category}] ${item.url}`)
     .join(' | ');
