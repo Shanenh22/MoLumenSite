@@ -10,6 +10,13 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Common Misconceptions', href: '/explore/misconceptions/' },
 ];
+const claimGroups = [
+  { label: 'Signs & zodiac', links: [['Sun sign = whole person','#sun-sign'],['The dates shifted','#precession'],['A thirteenth sign','#ophiuchus']] },
+  { label: 'Prediction & fate', links: [['Vague or perfectly predictive','#prediction'],['Hard aspect = bad event','#hard-aspects'],['If it is in the chart, I am stuck','#fate']] },
+  { label: 'Science & worldview', links: [['A proven scientific mechanism','#mechanism'],['One required worldview','#worldview']] },
+  { label: 'Popular shortcuts', links: [['Two Sun signs = compatibility','#compatibility'],['Retrograde = danger','#retrograde']] },
+  { label: 'Professional boundaries', links: [['Astrology replaces expert care','#boundaries']] },
+];
 ---
 
 <BaseLayout
@@ -26,39 +33,27 @@ const crumbs = [
         <h1>Common misconceptions</h1>
         <p class="lede">Astrology attracts both devotion and dismissal, and both can flatten a complicated subject. These are some of the claims I think are worth slowing down and looking at more carefully.</p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.approachPhilosophy.src}
-        srcset={scenes.approachPhilosophy.srcset}
-        sizes="100vw"
-        alt={scenes.approachPhilosophy.alt}
-        width={scenes.approachPhilosophy.width}
-        height={scenes.approachPhilosophy.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.approachPhilosophy.src} srcset={scenes.approachPhilosophy.srcset} sizes="100vw" alt={scenes.approachPhilosophy.alt} width={scenes.approachPhilosophy.width} height={scenes.approachPhilosophy.height} fetchpriority="high" />
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-6);"><p class="eyebrow">Which claim have you heard?</p><h2>Jump to the question instead of reading in order.</h2></div>
+      <div class="claim-groups">
+        {claimGroups.map((group) => (
+          <section class="claim-group"><h3>{group.label}</h3><ul>{group.links.map(([label,href]) => <li><a href={href}>{label} →</a></li>)}</ul></section>
+        ))}
+      </div>
     </div>
   </section>
 
   <section class="section">
     <div class="container prose flow">
-      <h2>"My Sun sign tells you who I am"</h2>
-      <p>
-        The Sun is important, but it is one factor in a chart containing many planets, houses,
-        aspects, rulers, and other relationships. Two people with the same Sun sign can have very
-        different charts and very different lives. <a href="/explore/the-big-three/">The Big
-        Three</a> offers a wider starting point, and the full chart widens the picture again.
-      </p>
-
-      <h2>"The dates shifted, so I'm not really my sign"</h2>
-      <p>
-        This claim usually refers to precession, the slow change in Earth's rotational orientation
-        that alters the relationship between the equinoxes and the background constellations over
-        long periods of time. Western tropical astrology measures the zodiac from the equinoxes and
-        solstices rather than from the current boundaries of the constellations. Sidereal systems use
-        a different reference framework. These are different zodiac systems, not evidence that one
-        forgot to update the calendar.
-      </p>
-
+      <h2 id="sun-sign">"My Sun sign tells you who I am"</h2>
+      <p>The Sun is important, but it is one factor in a chart containing many planets, houses, aspects, rulers, and other relationships. Two people with the same Sun sign can have very different charts and very different lives. <a href="/explore/the-big-three/">The Big Three</a> offers a wider starting point, and the full chart widens the picture again.</p>
+      <h2 id="precession">"The dates shifted, so I'm not really my sign"</h2>
+      <p>This claim usually refers to precession, the slow change in Earth's rotational orientation that alters the relationship between the equinoxes and the background constellations over long periods of time. Western tropical astrology measures the zodiac from the equinoxes and solstices rather than from the current boundaries of the constellations. Sidereal systems use a different reference framework. These are different zodiac systems, not evidence that one forgot to update the calendar.</p>
     </div>
   </section>
 
@@ -66,105 +61,44 @@ const crumbs = [
 
   <section class="section section--sea">
     <div class="container prose flow">
-      <h2>"There's a thirteenth sign"</h2>
-      <p>
-        Ophiuchus is a real constellation along the Sun's apparent path, but the tropical zodiac is
-        a twelve-part division of 360 degrees into equal 30-degree signs. The signs and the
-        constellations are related historically and symbolically, but they are not the same kind of
-        division.
-      </p>
-
-      <h2>"Astrology can only be either vague or perfectly predictive"</h2>
-      <p>
-        Astrology contains many techniques with different purposes. Natal and transit work often
-        describe patterns, conditions, timing, and ranges of possibility. Horary astrology is a
-        separate branch designed to address a specific question directly and can be much more
-        concrete in its judgment. Neither fact means every astrological statement is certain, or
-        that every technique should be asked to do the same job.
-      </p>
-
-      <h2>"A hard aspect means something bad will happen"</h2>
-      <p>
-        <a href="/explore/aspects/square/">Squares</a> and
-        <a href="/explore/aspects/opposition/">oppositions</a> describe tension or competing
-        functions, not automatic misfortune. Friction can become effort, skill, conflict, pressure,
-        motivation, or many other things depending on the planets involved and the life being lived.
-        Likewise, a trine is not a guarantee that everything will be easy.
-      </p>
-
+      <h2 id="ophiuchus">"There's a thirteenth sign"</h2>
+      <p>Ophiuchus is a real constellation along the Sun's apparent path, but the tropical zodiac is a twelve-part division of 360 degrees into equal 30-degree signs. The signs and the constellations are related historically and symbolically, but they are not the same kind of division.</p>
+      <h2 id="prediction">"Astrology can only be either vague or perfectly predictive"</h2>
+      <p>Astrology contains many techniques with different purposes. Natal and transit work often describe patterns, conditions, timing, and ranges of possibility. Horary astrology is a separate branch designed to address a specific question directly and can be much more concrete in its judgment. Neither fact means every astrological statement is certain, or that every technique should be asked to do the same job.</p>
+      <h2 id="hard-aspects">"A hard aspect means something bad will happen"</h2>
+      <p><a href="/explore/aspects/square/">Squares</a> and <a href="/explore/aspects/opposition/">oppositions</a> describe tension or competing functions, not automatic misfortune. Friction can become effort, skill, conflict, pressure, motivation, or many other things depending on the planets involved and the life being lived. Likewise, a trine is not a guarantee that everything will be easy.</p>
     </div>
   </section>
 
-  <Interlude
-    image={ocean.lightBreakingStorm}
-    eyebrow="Worth being clear about"
-    heading="A chart is information, not a sentence handed down about your life."
-    body="Technique can narrow possibilities and sometimes answer specific questions. Interpretation still requires judgment, context, and respect for the person living the chart."
-  />
-
+  <Interlude image={ocean.lightBreakingStorm} eyebrow="Worth being clear about" heading="A chart is information, not a sentence handed down about your life." body="Technique can narrow possibilities and sometimes answer specific questions. Interpretation still requires judgment, context, and respect for the person living the chart." />
 
   <section class="section">
     <div class="container prose flow">
-      <h2>"Astrology has a proven scientific mechanism"</h2>
-      <p>
-        I do not present one. My background in science shapes how I observe, question, explain, and
-        respect complexity; it is not evidence that biology or physics has established astrology's
-        mechanism. Astrology is the practice I use to interpret symbolic relationships among cycles,
-        charts, and lived experience. Questions about why those correspondences may exist are
-        interesting to me, but I do not turn speculation into scientific fact.
-      </p>
-
-      <h2>"Compatibility can be judged from two Sun signs"</h2>
-      <p>
-        Actual <a href="/explore/relationships/">relationship astrology</a> looks at two complete
-        charts and the relationships among many factors. Even then, the goal is not to issue a
-        verdict on whether two people should stay together. Astrology can describe dynamics;
-        relationships are lived by people.
-      </p>
-
-      <h2>"Retrograde periods are automatically dangerous"</h2>
-      <p>
-        <a href="/explore/retrogrades/">Retrograde motion</a> is an apparent reversal produced by
-        relative orbital motion. Astrologers interpret retrogrades in different ways depending on
-        the planet, technique, and context. I would not treat "Mercury retrograde" as a universal
-        explanation for every delay, broken appliance, or mistake.
-      </p>
-
-      <h2>"Astrology requires a particular worldview"</h2>
-      <p>
-        People come to astrology from religious, spiritual, philosophical, and secular points of
-        view. In my work, you do not need to adopt one of them. I use astrology as an interpretive
-        tool, explain what I am seeing and why, and leave you free to question it, compare it with
-        your own experience, and decide what is useful.
-      </p>
-
-      <h2>"If it's in the chart, I'm stuck with it"</h2>
-      <p>
-        No single placement has only one expression. Technique can describe tendencies, conditions,
-        strengths, tensions, and possibilities, but people make choices, develop capacities, change
-        environments, and live the same symbolism in very different ways. That is one reason I want
-        the person's lived experience in the conversation.
-      </p>
-
-      <h2>"Astrology replaces medical, legal, financial, or mental-health expertise"</h2>
-      <p>
-        It does not. A responsible astrologer should know when a question belongs with another
-        professional. See the <a href="/disclaimer/">disclaimer</a> for the site's formal boundaries.
-      </p>
-      <p>
-        If a claim you've encountered isn't covered here, <a href="/contact/">ask</a>. Genuine
-        questions and disagreement are welcome.
-      </p>
+      <h2 id="mechanism">"Astrology has a proven scientific mechanism"</h2>
+      <p>I do not present one. My background in science shapes how I observe, question, explain, and respect complexity; it is not evidence that biology or physics has established astrology's mechanism. Astrology is the practice I use to interpret symbolic relationships among cycles, charts, and lived experience. Questions about why those correspondences may exist are interesting to me, but I do not turn speculation into scientific fact.</p>
+      <h2 id="compatibility">"Compatibility can be judged from two Sun signs"</h2>
+      <p>Actual <a href="/explore/relationships/">relationship astrology</a> looks at two complete charts and the relationships among many factors. Even then, the goal is not to issue a verdict on whether two people should stay together. Astrology can describe dynamics; relationships are lived by people.</p>
+      <h2 id="retrograde">"Retrograde periods are automatically dangerous"</h2>
+      <p><a href="/explore/retrogrades/">Retrograde motion</a> is an apparent reversal produced by relative orbital motion. Astrologers interpret retrogrades in different ways depending on the planet, technique, and context. I would not treat "Mercury retrograde" as a universal explanation for every delay, broken appliance, or mistake.</p>
+      <h2 id="worldview">"Astrology requires a particular worldview"</h2>
+      <p>People come to astrology from religious, spiritual, philosophical, and secular points of view. In my work, you do not need to adopt one of them. I use astrology as an interpretive tool, explain what I am seeing and why, and leave you free to question it, compare it with your own experience, and decide what is useful.</p>
+      <h2 id="fate">"If it's in the chart, I'm stuck with it"</h2>
+      <p>No single placement has only one expression. Technique can describe tendencies, conditions, strengths, tensions, and possibilities, but people make choices, develop capacities, change environments, and live the same symbolism in very different ways. That is one reason I want the person's lived experience in the conversation.</p>
+      <h2 id="boundaries">"Astrology replaces medical, legal, financial, or mental-health expertise"</h2>
+      <p>It does not. A responsible astrologer should know when a question belongs with another professional. See the <a href="/disclaimer/">disclaimer</a> for the site's formal boundaries.</p>
+      <p>If a claim you've encountered isn't covered here, <a href="/contact/">ask</a>. Genuine questions and disagreement are welcome.</p>
       <FurtherReading />
     </div>
   </section>
 
-  <CTABand
-    heading="Want to see the ideas applied?"
-    body="Current Sky is where I use this language to look at shared cycles as they happen, while keeping general symbolism separate from a personal forecast."
-    buttonLabel="See Current Sky"
-    buttonHref="/current-sky/"
-    secondaryLabel="See how readings work"
-    secondaryHref="/how-readings-work/"
-  />
+  <CTABand heading="Want to see the ideas applied?" body="Current Sky is where I use this language to look at shared cycles as they happen, while keeping general symbolism separate from a personal forecast." buttonLabel="See Current Sky" buttonHref="/current-sky/" secondaryLabel="See how readings work" secondaryHref="/how-readings-work/" />
 </BaseLayout>
+
+<style>
+  .claim-groups { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: var(--space-4); }
+  .claim-group { padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .claim-group h3 { margin-top: 0; }
+  .claim-group ul { margin-bottom: 0; padding-left: 1.2rem; }
+  @media (max-width: 800px) { .claim-groups { grid-template-columns: 1fr; } .claim-group { padding: var(--space-4); } }
+  :target { scroll-margin-top: 6rem; }
+</style>
