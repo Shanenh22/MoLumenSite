@@ -13,12 +13,6 @@ const services = orderServices(
 );
 const calUser = site.integrations.calcomUsername;
 const crumbs = [{ label: 'Book a Reading', href: '/book/' }];
-/**
- * One entry per Cal.com event type, not per service. Readings sold at more
- * than one length (natal 60/90, the clarity follow-up) become separate
- * choices in the list rather than hiding a second picker behind a selection —
- * the price differs, so it is a different thing being bought.
- */
 const bookables = services.flatMap((s) =>
   s.data.options.length > 1
     ? s.data.options.map((o) => ({
@@ -49,15 +43,6 @@ const bookables = services.flatMap((s) =>
 );
 const serviceData = Object.fromEntries(bookables.map((b) => [b.key, b]));
 
-/**
- * The reading a bare /book/ opens on.
- *
- * Read from config rather than inferred from render order — see
- * src/config/booking.ts for why. The throw is deliberate and is the whole
- * point of the constant: a default naming an event that does not exist would
- * fall back to "whatever renders first", which is exactly the silent failure
- * this replaces. Failing the build is the only outcome that cannot be missed.
- */
 if (!serviceData[DEFAULT_BOOKING_EVENT]) {
   throw new Error(
     `DEFAULT_BOOKING_EVENT "${DEFAULT_BOOKING_EVENT}" is not a bookable event. ` +
@@ -66,16 +51,6 @@ if (!serviceData[DEFAULT_BOOKING_EVENT]) {
   );
 }
 
-/**
- * Service slug -> default event key.
- *
- * The Reading Finder recommends by SERVICE slug ("want-more-clarity") while
- * the booking radios are keyed by Cal.com EVENT ("clarity-3mo"). Those two
- * vocabularies diverged when multi-price readings became separate rows, and
- * the old prefix match silently sent "want-more-clarity" to natal-90 — the
- * $200 new-client reading — for anyone asking about a follow-up.
- * Built from the data so it cannot drift again.
- */
 const serviceToEvent = Object.fromEntries(
   services.map((sv) => {
     const first = bookables.find((b) => b.service === sv.data.slug);
@@ -83,12 +58,6 @@ const serviceToEvent = Object.fromEntries(
   })
 );
 
-/**
- * Split by who may book. A first-time visitor should see the three readings
- * actually open to them, not scan nine and work out which say "established
- * clients". Same radio group name across both fieldsets, so it stays one
- * choice.
- */
 const firstReadings = bookables.filter((b) => b.audience !== 'established');
 const returningReadings = bookables.filter((b) => b.audience === 'established');
 const groups = [
@@ -115,21 +84,18 @@ const groups = [
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Let's meet</p>
-      <h1>Book a reading</h1>
-      {/*
-        "Perspective you can use" lives here now. It was the closing half of the
-        homepage reassurance line until the dream-outcome rewrite replaced it,
-        and Shane wanted to keep the phrase — this is the better home for it
-        anyway. On the homepage it was a promise made to a stranger; on the
-        booking page it is a description of what the person is about to pay for,
-        arriving at the exact moment they are deciding.
-      */}
-      <p class="lede">
-        You're one step away from an hour of <strong>perspective you can use</strong>. Choose a
-        reading below. Times display in your own time zone, payment is secure, and you'll get
-        confirmation, preparation notes, and a reminder by email.
-      </p>
+        <p class="eyebrow">Let's meet</p>
+        <h1>Book a reading</h1>
+        <p class="lede">
+          You're at the practical part now. Choose the reading that fits your question, then pick a
+          time. Times display in your own time zone, payment is secure, and you'll receive
+          confirmation, preparation notes, and a reminder by email.
+        </p>
+        <p class="card__meta">
+          Still deciding? <a href="/reading-finder/">The Reading Finder</a> can help, and
+          <a href="/how-readings-work/">How Readings Work</a> explains what happens before, during,
+          and after a session.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -216,8 +182,8 @@ const groups = [
         {
           [
             ['Right away', 'Confirmation email with your session link and a calendar invite.'],
-            ['Before we meet', 'Preparation notes and a reminder: nothing to study, just how to get the most from your hour.'],
-            ['Afterward', 'Your recording and chart, plus rescheduling links if life intervenes.'],
+            ['Before we meet', 'Preparation notes and a reminder: nothing to study, just a few ways to make the most of your session.'],
+            ['Afterward', 'Your recording and any materials included with your reading, plus rescheduling links if life intervenes.'],
           ].map(([t, d]) => (
             <li class="card" style="gap: var(--space-2);">
               <h3 style="margin: 0; font-size: var(--text-lg);">{t}</h3>
@@ -231,32 +197,6 @@ const groups = [
 </BaseLayout>
 
 <script>
-  /**
-   * Collapse the "returning clients" group on phones.
-   *
-   * Measured at 390px before this: nine reading rows ran 1,479px, so the
-   * "Show available times" button sat 2,368px down a 6,374px page — about 2.8
-   * screens of scrolling past options before a first-time visitor reached any
-   * availability. Six of those nine are follow-ups that explicitly require a
-   * natal reading the visitor has not had yet.
-   *
-   * So the second group starts closed on narrow viewports only. Three relevant
-   * choices instead of nine, and the calendar moves roughly a screen closer.
-   *
-   * Three things this must not break, in order of how easily they would have
-   * been missed:
-   *
-   * 1. Deep links. /book/?service=clarity lands on a reading inside this
-   *    group. If it stayed shut the radio would be display:none, BookingEmbed's
-   *    scrollIntoView would land on nothing, and test:finder would fail. The
-   *    group is therefore opened whenever the checked radio is inside it.
-   * 2. Ordering. BookingEmbed preselects from its own inline script, so this
-   *    runs after a frame rather than racing it — it reads whatever ended up
-   *    checked rather than re-parsing the query string, which keeps one source
-   *    of truth for the service/event mapping.
-   * 3. No-JS. The markup ships expanded; this only ever collapses. Someone
-   *    without JavaScript sees every option, which is the safe failure.
-   */
   const secondary = document.querySelector<HTMLFieldSetElement>('[data-group-index="1"]');
   if (secondary && window.matchMedia('(max-width: 767px)').matches) {
     requestAnimationFrame(() => {
