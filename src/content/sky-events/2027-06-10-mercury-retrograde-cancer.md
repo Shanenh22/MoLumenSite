@@ -13,8 +13,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Mercury stations retrograde at 6° Cancer, moves back into Gemini, and turns direct on July 4 at 27° Gemini. As with the year's first Mercury retrograde, the crossing of a sign boundary gives us two symbolic contexts to compare.
+Mercury stations retrograde at 6° Cancer, crosses back into Gemini, and turns direct on July 4 at 27° Gemini. Like February's retrograde, this one moves backward across a sign boundary, giving us two different symbolic settings for the same Mercury cycle.
 
-Cancer is associated with memory, care, home, belonging, protection, and what feels personally familiar. Gemini emphasizes language, information, questions, movement, and exchange. Mercury moving between them can be read as a period in which thought and communication are moving through both feeling and analysis, but that is a symbolic possibility rather than a prediction about family conversations or old correspondence.
+Cancer remembers through attachment. It is associated with home, care, belonging, protection, memory, family, and the experiences that become personally familiar enough to feel like part of us. Gemini sorts experience differently, through language, information, questions, comparison, and exchange. Watching Mercury move from Cancer back into Gemini makes me curious about the relationship between what we remember and how we describe what happened.
 
-Retrogrades do not require mishaps. If this one is important in an individual chart, the houses involved and close contacts will show where reconsideration may be more noticeable.
+Memory is not a transcript. Language is not neutral. Sometimes finding different words changes what becomes visible in a familiar story; sometimes more information complicates a memory we had already organized into something tidy. That is an interesting Mercury-retrograde inquiry without needing to predict that an old family issue will return or a message will go astray.
+
+Retrograde motion does not require mishaps, delays, or a moratorium on decisions. If this cycle is personally important, the natal houses Mercury crosses and any close contacts it makes show where the symbolism may be especially relevant. The cycle suggests a way of looking. It does not manufacture the event.
