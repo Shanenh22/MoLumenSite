@@ -1,7 +1,9 @@
 import fs from 'node:fs/promises';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const DIST = new URL('../dist/', import.meta.url);
+const DIST_PATH = fileURLToPath(DIST);
 
 async function walk(dir) {
   const entries = await fs.readdir(dir, { withFileTypes: true });
@@ -70,14 +72,14 @@ function dateFor(mainText, urlPath) {
   return match?.[0];
 }
 
-const files = await walk(path.fileURLToPath(DIST));
+const files = await walk(DIST_PATH);
 const records = [];
 for (const file of files) {
   const html = await fs.readFile(file, 'utf8');
   const robots = meta(html, 'robots').toLowerCase();
   if (robots.includes('noindex')) continue;
 
-  const relative = path.relative(path.fileURLToPath(DIST), file).replaceAll(path.sep, '/');
+  const relative = path.relative(DIST_PATH, file).replaceAll(path.sep, '/');
   const urlPath = relative === 'index.html' ? '/' : `/${relative.replace(/index\.html$/, '')}`;
   if (urlPath === '/search/' || urlPath === '/404/') continue;
 
