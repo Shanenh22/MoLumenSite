@@ -1,22 +1,4 @@
 ---
-/**
- * Layer 2 landing page.
- *
- * This page previously held the whole guide. That content now lives at
- * /birth-time/, free and ungated, because it is the page that answers the
- * search and it was doing that job while also being asked to sell something —
- * two jobs, neither done cleanly.
- *
- * So the split is: /birth-time/ answers the question, this page offers the
- * process. It describes what the toolkit does, and it is honest that the
- * information itself is free elsewhere. The exchange being offered is a
- * working format and the monthly letter, not access to withheld facts.
- *
- * There is a plain download link as well as the signup. Someone who does not
- * want the newsletter should not have to pretend they do, and a lead magnet
- * that traps people is a poor first impression from a practice whose whole
- * position is candour.
- */
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
@@ -28,28 +10,19 @@ const crumbs = [{ label: 'Birth Time Toolkit', href: '/birth-time-toolkit/' }];
 const pdfPath = '/downloads/birth-time-toolkit.pdf';
 const description =
   'A worksheet set for finding your birth time: record search checklist, family interview prompts, a way to compare times that disagree, and a summary to bring to a reading.';
-
-const schema = [
-  {
-    '@context': 'https://schema.org',
-    '@type': 'WebPage',
-    name: 'The Birth Time Toolkit',
-    description,
-    url: new URL('/birth-time-toolkit/', site.url).href,
-    inLanguage: 'en-US',
-    isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
-    publisher: { '@type': 'Organization', name: site.name, url: site.url },
-  },
-];
+const schema = [{
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'The Birth Time Toolkit',
+  description,
+  url: new URL('/birth-time-toolkit/', site.url).href,
+  inLanguage: 'en-US',
+  isPartOf: { '@type': 'WebSite', name: site.name, url: site.url },
+  publisher: { '@type': 'Organization', name: site.name, url: site.url },
+}];
 ---
 
-<BaseLayout
-  title="The Birth Time Toolkit"
-  description={description}
-  path="/birth-time-toolkit/"
-  breadcrumbs={crumbs}
-  schema={schema}
->
+<BaseLayout title="The Birth Time Toolkit" description={description} path="/birth-time-toolkit/" breadcrumbs={crumbs} schema={schema}>
   <Breadcrumbs crumbs={crumbs} />
 
   <section class="hero hero--split">
@@ -58,109 +31,70 @@ const schema = [
         <p class="eyebrow">Free worksheet set</p>
         <h1>The Birth Time Toolkit</h1>
         <p class="lede">
-          Knowing where to look is one thing. Actually working through it, the offices, the
-          relatives, the two times that don't agree, is another. This is the part that keeps you
-          organised while you do it.
+          Knowing where to look is one thing. Working through records, family memories, and two
+          times that do not agree is another. Start by finding out how much confidence the time you
+          already have deserves.
         </p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.newsletterLetters.src}
-        srcset={scenes.newsletterLetters.srcset}
-        sizes="100vw"
-        alt={scenes.newsletterLetters.alt}
-        width={scenes.newsletterLetters.width}
-        height={scenes.newsletterLetters.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.newsletterLetters.src} srcset={scenes.newsletterLetters.srcset} sizes="100vw" alt={scenes.newsletterLetters.alt} width={scenes.newsletterLetters.width} height={scenes.newsletterLetters.height} fetchpriority="high" />
+    </div>
+  </section>
+
+  <section class="section section--sea">
+    <div class="container" style="max-width: 46rem;">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <p class="eyebrow">Start here · about ninety seconds</p>
+        <h2>How good is the time you have?</h2>
+        <p>
+          Three questions about where your birth time came from. This does not work out what your
+          time is; it works out how much weight it can carry. You will get one of the toolkit's five
+          confidence labels and a practical next step.
+        </p>
+        <p class="card__meta">Nothing is stored or sent. I do not ask for your birth date, birth time, or birthplace.</p>
+      </div>
+      <BirthTimeConfidence />
     </div>
   </section>
 
   <section class="section">
     <div class="container" style="max-width: 46rem;">
       <div class="prose flow">
-        <h2>What's in it</h2>
-        <p>
-          Eight sections, printable, designed to be filled in as you go rather than read once and
-          filed.
-        </p>
+        <p class="eyebrow">If you need to investigate</p>
+        <h2>What's in the toolkit</h2>
+        <p>Eight printable sections designed to be filled in while you work, not simply read and filed.</p>
       </div>
       <ul class="assurances" style="margin-top: var(--space-6);">
-        <li><strong>What you already know</strong>: a place to write down the time you were told, who told you, and how sure they were.</li>
-        <li><strong>Record search checklist</strong>: the offices and documents worth trying, in the order most likely to work, with room to log who you contacted and what they said.</li>
-        <li><strong>Family interview sheets</strong>: prompts that get better answers than "what time was I born?", with space for two conversations.</li>
-        <li><strong>When times disagree</strong>: a comparison table for candidate times, so you keep all of them instead of guessing early.</li>
-        <li><strong>A confidence scale</strong>: five plain labels, from <em>documented</em> to <em>unknown</em>, that stop a guess quietly becoming a fact.</li>
-        <li><strong>If it stays unknown</strong>: what a reading can and cannot do when the exact time is unavailable.</li>
-        <li><strong>Rectification</strong>: what the technique is, how it is used, and what it cannot promise.</li>
-        <li><strong>A reading preparation sheet</strong>: the summary to send me, including the dated life events a rectifier would ask for anyway.</li>
+        <li><strong>What you already know</strong>: the time you were told, who told you, and how sure they were.</li>
+        <li><strong>Record search checklist</strong>: offices and documents worth trying, with space to log the result.</li>
+        <li><strong>Family interview sheets</strong>: prompts that get better answers than “what time was I born?”</li>
+        <li><strong>When times disagree</strong>: a comparison table so you keep the evidence instead of guessing early.</li>
+        <li><strong>A confidence scale</strong>: five plain labels from <em>documented</em> to <em>unknown</em>.</li>
+        <li><strong>If it stays unknown</strong>: what a reading can and cannot do without an exact time.</li>
+        <li><strong>Rectification</strong>: what the technique is and what it cannot promise.</li>
+        <li><strong>A reading preparation sheet</strong>: a clean summary to bring to an astrologer.</li>
       </ul>
-    </div>
-  </section>
-
-  {/*
-    The confidence check sits here — after the reader knows what the toolkit is,
-    before they are asked for an email address.
-
-    It goes on this page rather than on /birth-time/ or a new /tools/ URL, for
-    two reasons. /birth-time/ is the page built to rank and it is already long;
-    a widget there would push the record-retrieval prose further down the
-    search result for no gain this page cannot deliver. And the birth-time topic
-    was deliberately split into two layers on 2026-08-08 — a fourth URL would
-    undo that.
-
-    What it does for this page: /birth-time-toolkit/ was previously a
-    description of a PDF and a form, with nothing for a reader to do. The check
-    demonstrates the toolkit's own method in ninety seconds and hands back a
-    labelled position with a next step, which is a better argument for the
-    download than any paragraph about it.
-  */}
-  <section class="section section--sea">
-    <div class="container" style="max-width: 46rem;">
-      <div class="prose flow" style="margin-bottom: var(--space-8);">
-        <p class="eyebrow">Ninety seconds</p>
-        <h2>How good is the time you have?</h2>
-        <p>
-          Three quick questions about where your birth time came from. This doesn't work out what
-          your time <em>is</em>: it works out how much weight it can carry, which is the thing
-          that changes how I read a chart. You'll get one of the five labels from the toolkit's own
-          confidence scale, and the section that goes with it.
-        </p>
-        <p class="card__meta">
-          Nothing is stored and nothing is sent. I never ask for your birth date, your birth time,
-          or where you were born.
-        </p>
-      </div>
-      <BirthTimeConfidence />
     </div>
   </section>
 
   <section class="section section--alt">
     <div class="container feature-split">
       <div class="flow">
-        <p class="eyebrow">Two ways to get it</p>
-        <h2 id="get-the-toolkit">Have it as a PDF</h2>
+        <p class="eyebrow">Use it your way</p>
+        <h2 id="get-the-toolkit">PDF, browser worksheets, or both</h2>
         <p>
-          Join my monthly note and I'll send you the toolkit, useful at the records office or to
-          forward to whoever might remember. The letter is broader than a forecast: the current sky
-          may be part of it, along with a question, a pattern, or something that has caught my
-          attention and made me look twice. Unsubscribe anytime.
+          You can join my monthly note and receive the toolkit, download it directly without
+          subscribing, or work through the worksheets in your browser. The information itself is
+          not being held behind an email address.
         </p>
         <NewsletterForm source="birth-time-toolkit" labelledby="get-the-toolkit" />
         <p class="card__meta" style="margin-top: var(--space-4);">
-          Rather not subscribe? <a href={pdfPath} data-toolkit-download download>Download it
-          directly</a>: no address needed. You can also
-          <a href="/birth-time-toolkit/worksheets/">work through it in your browser</a>.
+          Rather not subscribe? <a href={pdfPath} data-toolkit-download download>Download the PDF directly</a>,
+          or <a href="/birth-time-toolkit/worksheets/">use the browser worksheets</a>.
         </p>
       </div>
       <div class="flow">
         <div class="callout">
-          <p style="margin: 0;">
-            <strong>The information is free either way.</strong> Everything the toolkit is built on
-            is on <a href="/birth-time/">how to find your birth time</a>, in full, with nothing held
-            back. What you're getting here is the format, the checklists and worksheets that turn
-            it into something you can work through.
-          </p>
+          <p style="margin: 0;"><strong>The information is free either way.</strong> The complete explanation is already on <a href="/birth-time/">How to Find Your Birth Time</a>. The toolkit gives you a working format for doing the search.</p>
         </div>
       </div>
     </div>
@@ -168,32 +102,15 @@ const schema = [
 
   <section class="section">
     <div class="container grid grid--3">
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/birth-time/">How to find your birth time</a>
-        </h2>
-        <p style="margin: 0;">The full guide, free and ungated.</p>
-      </article>
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/prepare-for-your-reading/">Prepare for your reading</a>
-        </h2>
-        <p style="margin: 0;">Everything else worth bringing.</p>
-      </article>
-      <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;">
-          <a href="/reading-finder/">Reading Finder</a>
-        </h2>
-        <p style="margin: 0;">Five questions to help narrow which reading may fit your question.</p>
-      </article>
+      <article class="card"><h2 style="font-size: var(--text-lg); margin: 0;"><a href="/birth-time/">How to find your birth time</a></h2><p style="margin: 0;">The full guide, free and ungated.</p></article>
+      <article class="card"><h2 style="font-size: var(--text-lg); margin: 0;"><a href="/prepare-for-your-reading/">Prepare for your reading</a></h2><p style="margin: 0;">Everything else worth bringing.</p></article>
+      <article class="card"><h2 style="font-size: var(--text-lg); margin: 0;"><a href="/reading-finder/">Reading Finder</a></h2><p style="margin: 0;">Five questions to help narrow which reading may fit your question.</p></article>
     </div>
   </section>
 </BaseLayout>
 
 <script>
-  document
-    .querySelector('[data-toolkit-download]')
-    ?.addEventListener('click', () =>
-      (window as any).mlTrack?.('toolkit_download', { toolkit: 'birth-time' })
-    );
+  document.querySelector('[data-toolkit-download]')?.addEventListener('click', () =>
+    (window as any).mlTrack?.('toolkit_download', { toolkit: 'birth-time' })
+  );
 </script>
