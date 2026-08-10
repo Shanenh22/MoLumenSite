@@ -197,124 +197,59 @@ const explainData = {
           </div>
 
           <div class="category-tabs" role="tablist" aria-label="Chart layers">
-            <button
-              type="button"
-              role="tab"
-              aria-selected="true"
-              aria-controls="planet-choices"
-              id="planet-tab"
-              data-tab="planets"
-            >
+            <button type="button" role="tab" aria-selected="true" aria-controls="planet-choices" id="planet-tab" data-tab="planets">
               <span>Planet</span>
               <small>What</small>
             </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="sign-choices"
-              id="sign-tab"
-              data-tab="signs"
-              tabindex="-1"
-            >
+            <button type="button" role="tab" aria-selected="false" aria-controls="sign-choices" id="sign-tab" data-tab="signs" tabindex="-1">
               <span>Sign</span>
               <small>How</small>
             </button>
-            <button
-              type="button"
-              role="tab"
-              aria-selected="false"
-              aria-controls="house-choices"
-              id="house-tab"
-              data-tab="houses"
-              tabindex="-1"
-            >
+            <button type="button" role="tab" aria-selected="false" aria-controls="house-choices" id="house-tab" data-tab="houses" tabindex="-1">
               <span>House</span>
               <small>Where</small>
             </button>
           </div>
 
-          <div
-            class="choice-group"
-            id="planet-choices"
-            role="tabpanel"
-            aria-labelledby="planet-tab"
-            data-choice-group="planets"
-          >
+          <div class="choice-group" id="planet-choices" role="tabpanel" aria-labelledby="planet-tab" data-choice-group="planets">
             <div class="choice-group__heading">
               <h3>Choose a planet</h3>
               <p>Astrology conventionally groups the Sun and Moon with the planets.</p>
             </div>
             <div class="choice-grid">
-              {
-                planets.map((p) => (
-                  <button
-                    type="button"
-                    data-kind="planets"
-                    data-key={p.slug}
-                    aria-pressed="false"
-                  >
-                    <span aria-hidden="true">{p.glyph}</span>
-                    {p.name.replace('The ', '')}
-                  </button>
-                ))
-              }
+              {planets.map((p) => (
+                <button type="button" data-kind="planets" data-key={p.slug} aria-pressed="false">
+                  <span aria-hidden="true">{p.glyph}</span>{p.name.replace('The ', '')}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div
-            class="choice-group"
-            id="sign-choices"
-            role="tabpanel"
-            aria-labelledby="sign-tab"
-            data-choice-group="signs"
-          >
+          <div class="choice-group" id="sign-choices" role="tabpanel" aria-labelledby="sign-tab" data-choice-group="signs">
             <div class="choice-group__heading">
               <h3>Choose a sign</h3>
               <p>The sign describes a style of expression, not a personality verdict.</p>
             </div>
             <div class="choice-grid">
-              {
-                signs.map((s) => (
-                  <button
-                    type="button"
-                    data-kind="signs"
-                    data-key={s.slug}
-                    aria-pressed="false"
-                  >
-                    <span aria-hidden="true">{s.glyph}</span>
-                    {s.name}
-                  </button>
-                ))
-              }
+              {signs.map((s) => (
+                <button type="button" data-kind="signs" data-key={s.slug} aria-pressed="false">
+                  <span aria-hidden="true">{s.glyph}</span>{s.name}
+                </button>
+              ))}
             </div>
           </div>
 
-          <div
-            class="choice-group"
-            id="house-choices"
-            role="tabpanel"
-            aria-labelledby="house-tab"
-            data-choice-group="houses"
-          >
+          <div class="choice-group" id="house-choices" role="tabpanel" aria-labelledby="house-tab" data-choice-group="houses">
             <div class="choice-group__heading">
               <h3>Choose a house</h3>
               <p>Houses describe areas of experience. They are not the same thing as signs.</p>
             </div>
             <div class="choice-grid choice-grid--houses">
-              {
-                houses.map((h) => (
-                  <button
-                    type="button"
-                    data-kind="houses"
-                    data-key={h.slug}
-                    aria-pressed="false"
-                  >
-                    <span aria-hidden="true">{h.number}</span>
-                    {h.name.replace(' House', '')}
-                  </button>
-                ))
-              }
+              {houses.map((h) => (
+                <button type="button" data-kind="houses" data-key={h.slug} aria-pressed="false">
+                  <span aria-hidden="true">{h.number}</span>{h.name.replace(' House', '')}
+                </button>
+              ))}
             </div>
           </div>
 
@@ -325,53 +260,30 @@ const explainData = {
               <span data-result-name>Pick any planet, sign, or house</span>
             </h3>
             <p data-result-intro>
-              You can move in any order. Each choice gives you the core idea and then Mo's lens on
-              why the symbol needs context.
+              You can move in any order. Each choice gives you the core idea and then Mo's lens on why the symbol needs context.
             </p>
-
             <div data-result-detail hidden>
               <p class="result-label">Core idea</p>
               <p data-result-text></p>
               <p class="result-label">Mo's lens</p>
               <p data-result-mo></p>
-              <p class="explorer-result__link">
-                <a href="/explore/" data-result-link>Read the full reference page →</a>
-              </p>
+              <p class="explorer-result__link"><a href="/explore/" data-result-link>Read the full reference page →</a></p>
             </div>
-
-            <button class="next-step" type="button" data-next-step hidden>
-              Next: choose a sign
-            </button>
+            <button class="next-step" type="button" data-next-step hidden>Next: choose a sign</button>
           </div>
 
           <div class="synthesis-panel" data-synthesis hidden aria-live="polite">
             <p class="eyebrow">Now comes the important part</p>
             <h3>Put the layers in conversation</h3>
             <div class="synthesis-pieces">
-              <article>
-                <span>Planet · what</span>
-                <strong data-synthesis-name="planets"></strong>
-                <p data-synthesis-text="planets"></p>
-              </article>
-              <article>
-                <span>Sign · how</span>
-                <strong data-synthesis-name="signs"></strong>
-                <p data-synthesis-text="signs"></p>
-              </article>
-              <article>
-                <span>House · where</span>
-                <strong data-synthesis-name="houses"></strong>
-                <p data-synthesis-text="houses"></p>
-              </article>
+              <article><span>Planet · what</span><strong data-synthesis-name="planets"></strong><p data-synthesis-text="planets"></p></article>
+              <article><span>Sign · how</span><strong data-synthesis-name="signs"></strong><p data-synthesis-text="signs"></p></article>
+              <article><span>House · where</span><strong data-synthesis-name="houses"></strong><p data-synthesis-text="houses"></p></article>
             </div>
             <p>
-              This is where interpretation starts—not where it ends. An astrologer would also look
-              at aspects, planetary condition, the rest of the chart, and the person's lived
-              experience. The same combination can be lived in more than one way.
+              This is where interpretation starts—not where it ends. An astrologer would also look at aspects, planetary condition, the rest of the chart, and the person's lived experience. The same combination can be lived in more than one way.
             </p>
-            <p class="synthesis-panel__next">
-              <a href="/explore/aspects/">Next layer: see how aspects connect planets →</a>
-            </p>
+            <p class="synthesis-panel__next"><a href="/explore/aspects/">Next layer: see how aspects connect planets →</a></p>
           </div>
         </div>
 
@@ -379,88 +291,24 @@ const explainData = {
           <div class="wheel-visual__heading">
             <p class="eyebrow">Visual map</p>
             <h3 id="wheel-heading">See the layers on a chart wheel</h3>
-            <p>
-              Tap a sign or house here if you prefer the diagram. Your selection stays in sync with
-              the lesson.
-            </p>
+            <p>Tap a sign or house here if you prefer the diagram. Your selection stays in sync with the lesson.</p>
           </div>
-
-          <svg
-            class="chart-wheel"
-            viewBox="0 0 600 600"
-            role="group"
-            aria-label="Teaching chart wheel with 12 zodiac signs in the outer ring and 12 houses in the inner ring"
-          >
-            {
-              signSegs.map((s) => (
-                <path
-                  class="seg"
-                  d={s.d}
-                  tabindex="0"
-                  role="button"
-                  aria-pressed="false"
-                  aria-label={`${s.name}, sign`}
-                  data-kind="signs"
-                  data-key={s.slug}
-                />
-              ))
-            }
-            {
-              houseSegs.map((h) => (
-                <path
-                  class="seg"
-                  d={h.d}
-                  tabindex="0"
-                  role="button"
-                  aria-pressed="false"
-                  aria-label={`${h.name}, house`}
-                  data-kind="houses"
-                  data-key={h.slug}
-                  style="fill: var(--color-ivory);"
-                />
-              ))
-            }
+          <svg class="chart-wheel" viewBox="0 0 600 600" role="group" aria-label="Teaching chart wheel with 12 zodiac signs in the outer ring and 12 houses in the inner ring">
             {signSegs.map((s) => (
-              <text
-                x={s.lx}
-                y={s.ly}
-                text-anchor="middle"
-                dominant-baseline="central"
-                font-size="22"
-              >
-                {s.glyph}
-              </text>
+              <path class="seg" d={s.d} tabindex="0" role="button" aria-pressed="false" aria-label={`${s.name}, sign`} data-kind="signs" data-key={s.slug} />
             ))}
             {houseSegs.map((h) => (
-              <text
-                x={h.lx}
-                y={h.ly}
-                text-anchor="middle"
-                dominant-baseline="central"
-                font-size="16"
-              >
-                {h.number}
-              </text>
+              <path class="seg" d={h.d} tabindex="0" role="button" aria-pressed="false" aria-label={`${h.name}, house`} data-kind="houses" data-key={h.slug} style="fill: var(--color-ivory);" />
             ))}
-            <circle
-              cx="300"
-              cy="300"
-              r="150"
-              fill="var(--color-parchment)"
-              stroke="var(--color-brown)"
-              stroke-width="0.6"
-            />
+            {signSegs.map((s) => (<text x={s.lx} y={s.ly} text-anchor="middle" dominant-baseline="central" font-size="22">{s.glyph}</text>))}
+            {houseSegs.map((h) => (<text x={h.lx} y={h.ly} text-anchor="middle" dominant-baseline="central" font-size="16">{h.number}</text>))}
+            <circle cx="300" cy="300" r="150" fill="var(--color-parchment)" stroke="var(--color-brown)" stroke-width="0.6" />
             <text x="300" y="286" text-anchor="middle" font-size="15">SIGN · HOW</text>
             <text x="300" y="309" text-anchor="middle" font-size="15">HOUSE · WHERE</text>
           </svg>
-
           <div class="wheel-note">
             <strong>Teaching diagram, not a calculated birth chart.</strong>
-            <p>
-              Real house cusps depend on birth time, location, and the house system being used.
-              Houses and signs are different layers, even when a diagram makes them look neatly
-              aligned.
-            </p>
+            <p>Real house cusps depend on birth time, location, and the house system being used. Houses and signs are different layers, even when a diagram makes them look neatly aligned.</p>
             <a href="/explore/house-systems/">Why house systems change the wheel →</a>
           </div>
         </aside>
@@ -473,19 +321,9 @@ const explainData = {
       <div class="verdict-callout">
         <p class="eyebrow">A placement isn't a verdict</p>
         <h2>The goal is a better question, not a faster label</h2>
-        <p>
-          “Mars in Taurus” is more useful as the beginning of an inquiry than as a one-line
-          personality description. How does this Mars act? What makes effort sustainable? What
-          complicates action? What else in the chart is participating?
-        </p>
-        <p>
-          That is the difference between collecting meanings and reading a chart: the symbols have
-          to be interpreted in relationship with one another and with the person living them.
-        </p>
-        <p class="verdict-callout__link">
-          Want to see what that conversation looks like in practice?
-          <a href="/how-readings-work/">See how Mo approaches a reading →</a>
-        </p>
+        <p>“Mars in Taurus” is more useful as the beginning of an inquiry than as a one-line personality description. How does this Mars act? What makes effort sustainable? What complicates action? What else in the chart is participating?</p>
+        <p>That is the difference between collecting meanings and reading a chart: the symbols have to be interpreted in relationship with one another and with the person living them.</p>
+        <p class="verdict-callout__link">Want to see what that conversation looks like in practice? <a href="/how-readings-work/">See how Mo approaches a reading →</a></p>
       </div>
     </div>
   </section>
@@ -505,16 +343,11 @@ const explainData = {
     const content = JSON.parse(root.dataset.content || '{}');
     root.dataset.enhanced = 'true';
 
-    const targets = Array.from(
-      root.querySelectorAll<HTMLElement>('[data-kind][data-key]')
-    );
+    const targets = Array.from(root.querySelectorAll<HTMLElement>('[data-kind][data-key]'));
     const tabs = Array.from(root.querySelectorAll<HTMLButtonElement>('[data-tab]'));
     const groups = Array.from(root.querySelectorAll<HTMLElement>('[data-choice-group]'));
     const selectedLabels = new Map(
-      Array.from(root.querySelectorAll<HTMLElement>('[data-selected]')).map((el) => [
-        el.dataset.selected!,
-        el,
-      ])
+      Array.from(root.querySelectorAll<HTMLElement>('[data-selected]')).map((el) => [el.dataset.selected!, el])
     );
 
     const resultKind = root.querySelector<HTMLElement>('[data-result-kind]')!;
@@ -528,33 +361,22 @@ const explainData = {
     const nextStep = root.querySelector<HTMLButtonElement>('[data-next-step]')!;
     const synthesis = root.querySelector<HTMLElement>('[data-synthesis]')!;
 
-    const selections: Record<string, any> = {
-      planets: null,
-      signs: null,
-      houses: null,
-    };
-
+    const selections: Record<string, any> = { planets: null, signs: null, houses: null };
     let activeKind = 'planets';
     let started = false;
 
-    // mlTrack is the site's only analytics entry point. The selected keys are
-    // generic reference symbols, not birth data or a calculated personal chart.
     const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).mlTrack?.(event, params);
 
     function activateCategory(kind: string, focusTab = false) {
       activeKind = kind;
-
       tabs.forEach((tab) => {
         const active = tab.dataset.tab === kind;
         tab.setAttribute('aria-selected', String(active));
         tab.tabIndex = active ? 0 : -1;
         if (active && focusTab) tab.focus();
       });
-
-      groups.forEach((group) => {
-        group.hidden = group.dataset.choiceGroup !== kind;
-      });
+      groups.forEach((group) => { group.hidden = group.dataset.choiceGroup !== kind; });
     }
 
     function updatePressedState(kind: string, key: string) {
@@ -568,11 +390,10 @@ const explainData = {
       const complete = selections.planets && selections.signs && selections.houses;
       synthesis.hidden = !complete;
       if (!complete) return;
-
       (['planets', 'signs', 'houses'] as const).forEach((kind) => {
         const item = selections[kind];
-        const name = root.querySelector<HTMLElement>(`[data-synthesis-name="${kind}"]`)!;
-        const text = root.querySelector<HTMLElement>(`[data-synthesis-text="${kind}"]`)!;
+        const name = root!.querySelector<HTMLElement>(`[data-synthesis-name="${kind}"]`)!;
+        const text = root!.querySelector<HTMLElement>(`[data-synthesis-text="${kind}"]`)!;
         name.textContent = item.name;
         text.textContent = item.text;
       });
@@ -580,7 +401,6 @@ const explainData = {
 
     function configureNextStep(kind: string) {
       nextStep.hidden = false;
-
       if (kind === 'planets') {
         nextStep.textContent = selections.signs ? 'Review the sign layer' : 'Next: choose a sign';
         nextStep.dataset.nextKind = 'signs';
@@ -601,24 +421,14 @@ const explainData = {
       const key = el.dataset.key!;
       const item = content[kind]?.[key];
       if (!item) return;
-
-      if (!started) {
-        started = true;
-        track('chart_explorer_start');
-      }
-
+      if (!started) { started = true; track('chart_explorer_start'); }
       selections[kind] = item;
       updatePressedState(kind, key);
       activateCategory(kind);
-
       const selectedLabel = selectedLabels.get(kind);
       if (selectedLabel) selectedLabel.textContent = item.shortName;
-
       track('chart_explorer_interaction', { kind, key });
-
-      const kindLabel =
-        kind === 'planets' ? 'Planet · what' : kind === 'signs' ? 'Sign · how' : 'House · where';
-
+      const kindLabel = kind === 'planets' ? 'Planet · what' : kind === 'signs' ? 'Sign · how' : 'House · where';
       resultKind.textContent = kindLabel;
       resultGlyph.textContent = item.glyph;
       resultName.textContent = item.name;
@@ -628,7 +438,6 @@ const explainData = {
       resultMo.textContent = item.mo;
       resultLink.href = item.link;
       resultLink.textContent = `Read the full ${item.shortName} page →`;
-
       configureNextStep(kind);
       updateSynthesis();
     }
@@ -638,13 +447,11 @@ const explainData = {
       tab.addEventListener('keydown', (event) => {
         if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
         event.preventDefault();
-
         let nextIndex = index;
         if (event.key === 'ArrowRight') nextIndex = (index + 1) % tabs.length;
         if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
         if (event.key === 'Home') nextIndex = 0;
         if (event.key === 'End') nextIndex = tabs.length - 1;
-
         activateCategory(tabs[nextIndex].dataset.tab!, true);
       });
     });
@@ -652,28 +459,21 @@ const explainData = {
     targets.forEach((el) => {
       el.addEventListener('click', () => select(el));
       el.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter' || event.key === ' ') {
-          event.preventDefault();
-          select(el);
-        }
+        if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); select(el); }
       });
     });
 
     nextStep.addEventListener('click', () => {
       const nextKind = nextStep.dataset.nextKind;
       if (!nextKind) return;
-
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (nextKind === 'synthesis') {
-        synthesis.scrollIntoView({
-          behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
-          block: 'start',
-        });
+        synthesis.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
         return;
       }
-
       activateCategory(nextKind, true);
       root.querySelector<HTMLElement>(`[data-choice-group="${nextKind}"]`)?.scrollIntoView({
-        behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+        behavior: reducedMotion ? 'auto' : 'smooth',
         block: 'nearest',
       });
     });
@@ -683,490 +483,87 @@ const explainData = {
 </script>
 
 <style>
-  .chart-intro {
-    padding-block: var(--space-12);
-  }
-
-  .chart-intro__copy {
-    margin-bottom: var(--space-8);
-  }
-
-  .chart-formula {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-3);
-  }
-
-  .chart-formula__item {
-    position: relative;
-    min-width: 0;
-    padding: var(--space-4);
-    border: var(--border-hairline);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-  }
-
-  .chart-formula__item p {
-    margin-bottom: var(--space-1);
-  }
-
-  .chart-formula__number {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 1.75rem;
-    height: 1.75rem;
-    margin-bottom: var(--space-3);
-    border-radius: 999px;
-    background: var(--color-teal-tint);
-    color: var(--color-teal);
-    font-weight: 700;
-  }
-
-  .chart-formula__term {
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-    font-weight: 600;
-    color: var(--ink);
-  }
-
-  .chart-formula__question {
-    font-weight: 700;
-    color: var(--color-teal);
-  }
-
-  .chart-formula__item p:last-child {
-    color: var(--ink-soft);
-    margin-bottom: 0;
-  }
-
-  .explorer-heading {
-    margin-bottom: var(--space-6);
-  }
-
-  .interactive-only {
-    display: none;
-  }
-
-  [data-explorer][data-enhanced] .interactive-only {
-    display: grid;
-  }
-
-  [data-explorer][data-enhanced] .no-js-fallback {
-    display: none;
-  }
-
-  .no-js-fallback {
-    padding: var(--space-4);
-    border: var(--border-hairline);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-  }
-
-  .explorer-workspace {
-    gap: var(--space-8);
-  }
-
-  .explorer-guide {
-    min-width: 0;
-  }
-
-  .selection-progress {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2);
-    margin-bottom: var(--space-4);
-  }
-
-  .selection-progress > div {
-    min-width: 0;
-    padding: var(--space-3);
-    border: var(--border-hairline);
-    border-radius: var(--radius-sm);
-    background: var(--surface);
-  }
-
-  .selection-progress span,
-  .selection-progress strong {
-    display: block;
-  }
-
-  .selection-progress span {
-    margin-bottom: var(--space-1);
-    color: var(--ink-soft);
-    font-size: var(--text-sm);
-  }
-
-  .selection-progress strong {
-    overflow-wrap: anywhere;
-    color: var(--ink);
-  }
-
-  .category-tabs {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: var(--space-2);
-    margin-bottom: var(--space-5);
-  }
-
-  .category-tabs button {
-    min-height: 56px;
-    padding: var(--space-2) var(--space-3);
-    border: 1px solid var(--color-navy);
-    border-radius: var(--radius-md);
-    background: transparent;
-    color: var(--ink);
-    font: inherit;
-    cursor: pointer;
-  }
-
-  .category-tabs button span,
-  .category-tabs button small {
-    display: block;
-  }
-
-  .category-tabs button span {
-    font-weight: 700;
-  }
-
-  .category-tabs button small {
-    margin-top: 2px;
-    color: var(--ink-soft);
-    font-size: var(--text-sm);
-  }
-
-  .category-tabs button[aria-selected="true"] {
-    background: var(--color-navy);
-    color: var(--color-ivory);
-  }
-
-  .category-tabs button[aria-selected="true"] small {
-    color: var(--color-ivory);
-  }
-
-  .choice-group {
-    scroll-margin-top: 6rem;
-  }
-
-  .choice-group__heading {
-    margin-bottom: var(--space-4);
-  }
-
-  .choice-group__heading h3 {
-    margin-bottom: var(--space-1);
-  }
-
-  .choice-group__heading p {
-    margin-bottom: 0;
-    color: var(--ink-soft);
-    font-size: var(--text-sm);
-  }
-
-  .choice-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: var(--space-2);
-    margin-bottom: var(--space-5);
-  }
-
-  .choice-grid button {
-    display: flex;
-    align-items: center;
-    gap: var(--space-2);
-    min-height: 50px;
-    min-width: 0;
-    padding: var(--space-2) var(--space-3);
-    border: var(--border-hairline);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    color: var(--ink);
-    font: inherit;
-    font-weight: 600;
-    text-align: left;
-    cursor: pointer;
-  }
-
-  .choice-grid button span {
-    flex: 0 0 auto;
-    min-width: 1.5rem;
-    color: var(--color-teal);
-    font-size: 1.25rem;
-    text-align: center;
-  }
-
-  .choice-grid button:hover {
-    border-color: var(--color-teal);
-  }
-
-  .choice-grid button[aria-pressed="true"] {
-    border-color: var(--color-teal);
-    background: var(--color-teal-tint);
-    box-shadow: inset 0 0 0 1px var(--color-teal);
-  }
-
-  .explorer-result {
-    scroll-margin-top: 6rem;
-    padding: var(--space-5);
-    border: 1px solid rgb(15 110 107 / 0.28);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-    box-shadow: var(--shadow-1);
-  }
-
-  .explorer-result__title {
-    display: flex;
-    align-items: center;
-    gap: var(--space-3);
-    margin-bottom: var(--space-4);
-  }
-
-  .explorer-result__glyph {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    flex: 0 0 auto;
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 999px;
-    background: var(--color-teal-tint);
-    color: var(--color-teal);
-    font-family: var(--font-sans);
-  }
-
-  .result-label {
-    margin: var(--space-4) 0 var(--space-1);
-    color: var(--color-teal);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    letter-spacing: 0.06em;
-    text-transform: uppercase;
-  }
-
-  .explorer-result__link {
-    margin: var(--space-4) 0 0;
-  }
-
-  .next-step {
-    width: 100%;
-    min-height: 48px;
-    margin-top: var(--space-4);
-    padding: var(--space-2) var(--space-4);
-    border: 0;
-    border-radius: var(--radius-md);
-    background: var(--color-navy);
-    color: var(--color-ivory);
-    font: inherit;
-    font-weight: 700;
-    cursor: pointer;
-  }
-
-  .synthesis-panel {
-    scroll-margin-top: 6rem;
-    margin-top: var(--space-6);
-    padding: var(--space-5);
-    border: 1px solid rgb(15 110 107 / 0.28);
-    border-inline-start: 4px solid var(--color-teal);
-    border-radius: var(--radius-lg);
-    background: var(--color-teal-tint);
-  }
-
-  .synthesis-pieces {
-    display: grid;
-    gap: var(--space-3);
-    margin: var(--space-5) 0;
-  }
-
-  .synthesis-pieces article {
-    padding: var(--space-4);
-    border: var(--border-hairline);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-  }
-
-  .synthesis-pieces span,
-  .synthesis-pieces strong {
-    display: block;
-  }
-
-  .synthesis-pieces span {
-    margin-bottom: var(--space-1);
-    color: var(--color-teal);
-    font-size: var(--text-sm);
-    font-weight: 700;
-    text-transform: uppercase;
-  }
-
-  .synthesis-pieces strong {
-    margin-bottom: var(--space-2);
-    font-family: var(--font-serif);
-    font-size: var(--text-lg);
-  }
-
-  .synthesis-pieces p {
-    margin-bottom: 0;
-    color: var(--ink-soft);
-    font-size: var(--text-sm);
-  }
-
-  .synthesis-panel__next {
-    margin-bottom: 0;
-    font-weight: 700;
-  }
-
-  .wheel-visual {
-    min-width: 0;
-  }
-
-  .wheel-visual__heading {
-    margin-bottom: var(--space-4);
-  }
-
-  .wheel-visual__heading h3 {
-    margin-bottom: var(--space-2);
-  }
-
-  .wheel-visual__heading p:last-child {
-    margin-bottom: 0;
-    color: var(--ink-soft);
-  }
-
-  .chart-wheel {
-    width: 100%;
-    max-width: 560px;
-    margin-inline: auto;
-  }
-
-  .chart-wheel .seg {
-    fill: var(--color-parchment);
-    stroke: var(--color-brown);
-    stroke-width: 0.6;
-    cursor: pointer;
-  }
-
-  .chart-wheel .seg:hover,
-  .chart-wheel .seg:focus-visible,
-  .chart-wheel .seg[aria-pressed="true"] {
-    fill: var(--color-blush) !important;
-  }
-
-  .chart-wheel text {
-    font-family: var(--font-sans);
-    fill: var(--color-navy);
-    pointer-events: none;
-  }
-
-  .wheel-note {
-    margin-top: var(--space-4);
-    padding: var(--space-4);
-    border: var(--border-hairline);
-    border-radius: var(--radius-md);
-    background: var(--surface);
-    color: var(--ink-soft);
-    font-size: var(--text-sm);
-  }
-
-  .wheel-note strong {
-    display: block;
-    margin-bottom: var(--space-2);
-    color: var(--ink);
-  }
-
-  .wheel-note p {
-    margin-bottom: var(--space-2);
-  }
-
-  .verdict-section {
-    padding-block: var(--space-12);
-  }
-
-  .verdict-callout {
-    max-width: 52rem;
-    margin-inline: auto;
-    padding: var(--space-6);
-    border: var(--border-hairline);
-    border-inline-start: 4px solid var(--color-clay);
-    border-radius: var(--radius-lg);
-    background: var(--surface);
-  }
-
-  .verdict-callout__link {
-    margin-bottom: 0;
-    font-weight: 600;
-  }
-
+  .chart-intro { padding-block: var(--space-12); }
+  .chart-intro__copy { margin-bottom: var(--space-8); }
+  .chart-formula { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-3); }
+  .chart-formula__item { position: relative; min-width: 0; padding: var(--space-4); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); }
+  .chart-formula__item p { margin-bottom: var(--space-1); }
+  .chart-formula__number { display: inline-flex; align-items: center; justify-content: center; width: 1.75rem; height: 1.75rem; margin-bottom: var(--space-3); border-radius: 999px; background: var(--color-teal-tint); color: var(--color-teal); font-weight: 700; }
+  .chart-formula__term { font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600; color: var(--ink); }
+  .chart-formula__question { font-weight: 700; color: var(--color-teal); }
+  .chart-formula__item p:last-child { color: var(--ink-soft); margin-bottom: 0; }
+  .explorer-heading { margin-bottom: var(--space-6); }
+  .interactive-only { display: none; }
+  [data-explorer][data-enhanced] .interactive-only { display: grid; }
+  [data-explorer][data-enhanced] .no-js-fallback { display: none; }
+  .no-js-fallback { padding: var(--space-4); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); }
+  .explorer-workspace { gap: var(--space-8); }
+  .explorer-guide, .wheel-visual { min-width: 0; }
+  .selection-progress { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-4); }
+  .selection-progress > div { min-width: 0; padding: var(--space-3); border: var(--border-hairline); border-radius: var(--radius-sm); background: var(--surface); }
+  .selection-progress span, .selection-progress strong { display: block; }
+  .selection-progress span { margin-bottom: var(--space-1); color: var(--ink-soft); font-size: var(--text-sm); }
+  .selection-progress strong { overflow-wrap: anywhere; color: var(--ink); }
+  .category-tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-5); }
+  .category-tabs button { min-height: 56px; padding: var(--space-2) var(--space-3); border: 1px solid var(--color-navy); border-radius: var(--radius-md); background: transparent; color: var(--ink); font: inherit; cursor: pointer; }
+  .category-tabs button span, .category-tabs button small { display: block; }
+  .category-tabs button span { font-weight: 700; }
+  .category-tabs button small { margin-top: 2px; color: var(--ink-soft); font-size: var(--text-sm); }
+  .category-tabs button[aria-selected="true"] { background: var(--color-navy); color: var(--color-ivory); }
+  .category-tabs button[aria-selected="true"] small { color: var(--color-ivory); }
+  .choice-group, .explorer-result, .synthesis-panel { scroll-margin-top: 6rem; }
+  .choice-group__heading { margin-bottom: var(--space-4); }
+  .choice-group__heading h3 { margin-bottom: var(--space-1); }
+  .choice-group__heading p { margin-bottom: 0; color: var(--ink-soft); font-size: var(--text-sm); }
+  .choice-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--space-2); margin-bottom: var(--space-5); }
+  .choice-grid button { display: flex; align-items: center; gap: var(--space-2); min-height: 50px; min-width: 0; padding: var(--space-2) var(--space-3); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); color: var(--ink); font: inherit; font-weight: 600; text-align: left; cursor: pointer; }
+  .choice-grid button span { flex: 0 0 auto; min-width: 1.5rem; color: var(--color-teal); font-size: 1.25rem; text-align: center; }
+  .choice-grid button:hover { border-color: var(--color-teal); }
+  .choice-grid button[aria-pressed="true"] { border-color: var(--color-teal); background: var(--color-teal-tint); box-shadow: inset 0 0 0 1px var(--color-teal); }
+  .explorer-result { padding: var(--space-5); border: 1px solid rgb(15 110 107 / 0.28); border-radius: var(--radius-lg); background: var(--surface); box-shadow: var(--shadow-1); }
+  .explorer-result__title { display: flex; align-items: center; gap: var(--space-3); margin-bottom: var(--space-4); }
+  .explorer-result__glyph { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--color-teal-tint); color: var(--color-teal); font-family: var(--font-sans); }
+  .result-label { margin: var(--space-4) 0 var(--space-1); color: var(--color-teal); font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+  .explorer-result__link { margin: var(--space-4) 0 0; }
+  .next-step { width: 100%; min-height: 48px; margin-top: var(--space-4); padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-md); background: var(--color-navy); color: var(--color-ivory); font: inherit; font-weight: 700; cursor: pointer; }
+  .synthesis-panel { margin-top: var(--space-6); padding: var(--space-5); border: 1px solid rgb(15 110 107 / 0.28); border-inline-start: 4px solid var(--color-teal); border-radius: var(--radius-lg); background: var(--color-teal-tint); }
+  .synthesis-pieces { display: grid; gap: var(--space-3); margin: var(--space-5) 0; }
+  .synthesis-pieces article { padding: var(--space-4); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); }
+  .synthesis-pieces span, .synthesis-pieces strong { display: block; }
+  .synthesis-pieces span { margin-bottom: var(--space-1); color: var(--color-teal); font-size: var(--text-sm); font-weight: 700; text-transform: uppercase; }
+  .synthesis-pieces strong { margin-bottom: var(--space-2); font-family: var(--font-serif); font-size: var(--text-lg); }
+  .synthesis-pieces p { margin-bottom: 0; color: var(--ink-soft); font-size: var(--text-sm); }
+  .synthesis-panel__next { margin-bottom: 0; font-weight: 700; }
+  .wheel-visual__heading { margin-bottom: var(--space-4); }
+  .wheel-visual__heading h3 { margin-bottom: var(--space-2); }
+  .wheel-visual__heading p:last-child { margin-bottom: 0; color: var(--ink-soft); }
+  .chart-wheel { width: 100%; max-width: 560px; margin-inline: auto; }
+  .chart-wheel .seg { fill: var(--color-parchment); stroke: var(--color-brown); stroke-width: 0.6; cursor: pointer; }
+  .chart-wheel .seg:hover, .chart-wheel .seg:focus-visible, .chart-wheel .seg[aria-pressed="true"] { fill: var(--color-blush) !important; }
+  .chart-wheel text { font-family: var(--font-sans); fill: var(--color-navy); pointer-events: none; }
+  .wheel-note { margin-top: var(--space-4); padding: var(--space-4); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); color: var(--ink-soft); font-size: var(--text-sm); }
+  .wheel-note strong { display: block; margin-bottom: var(--space-2); color: var(--ink); }
+  .wheel-note p { margin-bottom: var(--space-2); }
+  .verdict-section { padding-block: var(--space-12); }
+  .verdict-callout { max-width: 52rem; margin-inline: auto; padding: var(--space-6); border: var(--border-hairline); border-inline-start: 4px solid var(--color-clay); border-radius: var(--radius-lg); background: var(--surface); }
+  .verdict-callout__link { margin-bottom: 0; font-weight: 600; }
   @media (min-width: 700px) {
-    .chart-formula {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-    }
-
-    .choice-grid {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
-
-    .synthesis-pieces {
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-    }
+    .chart-formula { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .choice-grid, .synthesis-pieces { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
-
   @media (min-width: 1024px) {
-    .explorer-workspace {
-      grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr);
-      grid-template-areas: "wheel guide";
-      align-items: start;
-      gap: var(--space-8);
-    }
-
-    .explorer-guide {
-      grid-area: guide;
-    }
-
-    .wheel-visual {
-      grid-area: wheel;
-      position: sticky;
-      top: 6rem;
-    }
+    .explorer-workspace { grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); grid-template-areas: "wheel guide"; align-items: start; gap: var(--space-8); }
+    .explorer-guide { grid-area: guide; }
+    .wheel-visual { grid-area: wheel; position: sticky; top: 6rem; }
   }
-
-  @media (max-width: 899px) {
-    .chart-hero {
-      min-block-size: 0;
-      padding-block: var(--space-8) var(--space-6);
-    }
-  }
-
+  @media (max-width: 899px) { .chart-hero { min-block-size: 0; padding-block: var(--space-8) var(--space-6); } }
   @media (max-width: 560px) {
-    .chart-intro,
-    .verdict-section {
-      padding-block: var(--space-8);
-    }
-
-    .selection-progress > div {
-      padding: var(--space-2);
-    }
-
-    .selection-progress span {
-      font-size: 0.75rem;
-    }
-
-    .selection-progress strong {
-      font-size: 0.9rem;
-    }
-
-    .category-tabs button {
-      min-height: 60px;
-      padding-inline: var(--space-2);
-    }
-
-    .explorer-result,
-    .synthesis-panel,
-    .verdict-callout {
-      padding: var(--space-4);
-    }
-
-    .wheel-visual {
-      margin-top: var(--space-2);
-      padding-top: var(--space-6);
-      border-top: var(--border-hairline);
-    }
+    .chart-intro, .verdict-section { padding-block: var(--space-8); }
+    .selection-progress > div { padding: var(--space-2); }
+    .selection-progress span { font-size: 0.75rem; }
+    .selection-progress strong { font-size: 0.9rem; }
+    .category-tabs button { min-height: 60px; padding-inline: var(--space-2); }
+    .explorer-result, .synthesis-panel, .verdict-callout { padding: var(--space-4); }
+    .wheel-visual { margin-top: var(--space-2); padding-top: var(--space-6); border-top: var(--border-hairline); }
   }
 </style>
