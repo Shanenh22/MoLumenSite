@@ -1,0 +1,93 @@
+name: Apply final MoLumen audit
+
+on:
+  push:
+    branches:
+      - audit-finalization-2026-08-10
+    paths:
+      - '.github/workflows/apply-final-audit.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  apply-and-verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm run audit:install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Apply synchronization
+        run: python scripts/apply-final-audit-sync.py
+
+      - name: Build worksheet source
+        run: npm run build
+
+      - name: Regenerate Birth Time Toolkit PDF
+        run: npm run toolkit:pdf
+
+      - name: Run core verification
+        run: npm run verify:core
+
+      - name: Run interactive verification
+        run: npm run verify:interactive
+
+      - name: Run repository audit
+        run: |
+          mkdir -p audit-artifacts/pdf-pages
+          npm run audit | tee audit-artifacts/site-audit.txt
+
+      - name: Run accessibility and contrast audits
+        run: |
+          npm run audit:a11y | tee audit-artifacts/accessibility.txt
+          npm run check:contrast | tee audit-artifacts/contrast.txt
+          npm run check:hero-contrast | tee audit-artifacts/hero-contrast.txt
+
+      - name: Verify RSS output and render PDF
+        run: |
+          grep -q '<title>Mo Lumen Astrology, Articles</title>' dist/rss.xml
+          grep -q 'title="Mo Lumen Astrology: Articles"' dist/index.html
+          if grep -q '/current-sky/' dist/rss.xml; then
+            echo 'Article-only RSS still contains a Current Sky URL.'
+            exit 1
+          fi
+          test -s public/downloads/birth-time-toolkit.pdf
+          bytes=$(wc -c < public/downloads/birth-time-toolkit.pdf)
+          echo "Generated PDF: $bytes bytes"
+          if [ "$bytes" -lt 20000 ]; then exit 1; fi
+          cp public/downloads/birth-time-toolkit.pdf audit-artifacts/
+          pdftoppm -png -r 120 public/downloads/birth-time-toolkit.pdf audit-artifacts/pdf-pages/page
+
+      - name: Upload audit artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: molumen-final-audit
+          path: audit-artifacts
+          if-no-files-found: error
+          retention-days: 7
+
+      - name: Commit synchronized repository
+        run: |
+          git rm .github/workflows/apply-final-audit.yml scripts/apply-final-audit-sync.py
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "Finish publishing-system audit and regenerate toolkit PDF"
+          git push
