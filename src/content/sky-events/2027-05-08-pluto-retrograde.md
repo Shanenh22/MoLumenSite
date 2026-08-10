@@ -13,8 +13,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Pluto stations retrograde at 7° Aquarius and remains retrograde until October 17. Pluto spends a substantial part of every year in retrograde motion, so there is nothing inherently unusual or ominous about the station.
+Pluto stations retrograde at 7° Aquarius and remains retrograde until October 17. Pluto spends months of every year in apparent retrograde motion and moves only a small distance during that time. That scale matters. A Pluto station is not an astronomical rarity and does not need to be treated as an omen simply because the symbolism attached to Pluto is weighty.
 
-What interests me is the scale. Pluto moves so slowly that Aquarius is a long-term background rather than a short-lived mood. Modern astrology associates Pluto with power, compulsion, elimination, survival, and deep forms of change; Aquarius brings groups, systems, networks, collective structures, and questions of belonging or independence.
+In modern astrology, Pluto is associated with power, compulsion, survival, elimination, exposure, and forms of change that reach below the surface. Aquarius turns attention toward groups, networks, systems, collective structures, independence, and the ways people organize around shared ideas. Pluto will be working through this sign for years, which makes the larger questions far more interesting to me than trying to predict what happens on May 8.
 
-A single station is one small movement inside that much larger pattern. It becomes personally specific only through close natal contacts, house placement, and the life already unfolding there.
+What kinds of power become visible inside networks and systems? What gets concentrated, distributed, protected, or challenged? Which structures look impersonal until we notice who actually has influence inside them? Those are long-horizon questions, not a forecast for a particular Tuesday.
+
+For an individual, the station becomes more specific when 7° Aquarius closely contacts a natal planet or angle or when Pluto is moving through a consequential part of the chart. Otherwise, this is best kept in proportion: one turn in a slow collective cycle whose meaning will be clearer in retrospect than in a headline.
