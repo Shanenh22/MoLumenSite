@@ -2,36 +2,9 @@
 /**
  * The Current Sky calendar view.
  *
- * WHY THIS IS A SECOND URL RATHER THAN A TOGGLE ON /current-sky/
- *
- * A client-side view switch would have made the calendar invisible to crawlers,
- * absent without JavaScript, and unlinkable — three costs for the saving of one
- * URL. The two pages also have genuinely different jobs, which is what makes
- * two of them defensible rather than duplicative:
- *
- *   /current-sky/          editorial — every event with Mo's summary under it,
- *                          meant to be read top to bottom.
- *   /current-sky/calendar/ navigational — when is the next eclipse, what does
- *                          October look like, does Mercury retrograde land on
- *                          my trip. Nobody reads a calendar; they scan it and
- *                          leave through it.
- *
- * The calendar carries **no summary text at all**, so the overlap between the
- * two pages is titles and dates. There is no duplicated prose, which is why
- * both pages are self-canonical and neither is noindexed. Canonicalising this
- * one onto the list would deindex a page built to answer date-shaped queries
- * ("eclipse dates 2027", "mercury retrograde calendar") that the list page
- * serves poorly.
- *
- * NO Event STRUCTURED DATA, DELIBERATELY. schema.org/Event describes something
- * with a location and an organiser that a person attends. A lunar eclipse is
- * not one, every sky event already has its own page carrying Article, and
- * DECISIONS.md rules out emitting schema because a type happens to exist.
- *
- * The `?m=YYYY-MM` deep link is convenience state written with replaceState. It
- * is never a distinct indexable page: the canonical is always parameter-free
- * and @astrojs/sitemap only emits real routes, so nothing needs configuring to
- * keep it out.
+ * /current-sky/ is editorial: events with Mo's notes, meant to be read.
+ * /current-sky/calendar/ is navigational: dates and sequence, meant to be scanned.
+ * Keeping both makes the calendar useful without duplicating the editorial prose.
  */
 import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
@@ -73,9 +46,9 @@ const crumbs = [
         <p class="eyebrow">Month by month</p>
         <h1>Current sky calendar</h1>
         <p class="lede">
-          The same verified events as the timeline, laid out by month, so you can see what is
-          coming, when a retrograde starts and ends, and where the next eclipse falls. Every date
-          links to what it tends to mean.
+          The same verified events as Current Sky, laid out by month so you can see the sequence at
+          a glance: when a retrograde begins and ends, where the lunations fall, and what comes next.
+          Each date links to Mo's note on the pattern and the questions she finds worth considering.
         </p>
       </div>
       <img
@@ -99,10 +72,10 @@ const crumbs = [
   <section class="section section--alt">
     <div class="container grid grid--2">
       <div class="flow">
-        <h2>Prefer to read it?</h2>
+        <h2>Prefer the story behind the dates?</h2>
         <p>
-          The <a href="/current-sky/">Current Sky timeline</a> is the same events with Mo's notes
-          underneath each one, newest first. Everything past and future lives in the
+          <a href="/current-sky/">Current Sky</a> puts Mo's notes alongside upcoming events so you
+          can follow the pattern rather than only the date. Past notes live in the
           <a href="/current-sky/archive/">archive</a>.
         </p>
         <p>
@@ -115,20 +88,23 @@ const crumbs = [
         <h2>Where the dates come from</h2>
         <p>
           Every event carries a recorded astronomical source and a date it was last verified. The
-          positions and dates are verified astronomy; the interpretation on each event page is
-          Mo's, and your choices remain your own.
+          positions and dates are the observable framework; the interpretation on each event page
+          is astrology, and an individual chart adds context this calendar cannot know.
         </p>
         <p>
-          <a href="/horoscopes/">Rising-sign guidance</a> accompanies each new moon and eclipse.
+          <a href="/horoscopes/">Rising-sign guidance</a> gives a broad whole-sign-house lens for
+          lunations and eclipses without pretending to be a personal reading.
         </p>
       </div>
     </div>
   </section>
 
   <CTABand
-    heading="Wondering what this sky means for your chart?"
-    body="General sky-weather is here for everyone. What it activates in your chart. That's a personal reading, monthly or yearly."
-    buttonLabel="Monthly Personal Transits"
-    buttonHref="/readings/monthly-transits/"
+    heading="Want the story behind the dates?"
+    body="The calendar shows when. Current Sky is where Mo slows down and asks what the pattern may be describing, while keeping shared symbolism separate from personal interpretation."
+    buttonLabel="Read Current Sky"
+    buttonHref="/current-sky/"
+    secondaryLabel="Get Mo's monthly note"
+    secondaryHref="/newsletter/"
   />
 </BaseLayout>
