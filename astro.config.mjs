@@ -2,10 +2,25 @@
 import { defineConfig } from "astro/config";
 import sitemap from "@astrojs/sitemap";
 import pageDates from "./src/data/page-dates.json" with { type: "json" };
+import videos from "./src/content/videos/videos.json" with { type: "json" };
 
 // Site URL comes from env so staging and production build correctly.
 // Falls back to the production domain for local builds.
 const site = process.env.PUBLIC_SITE_URL || "https://molumen.com";
+
+/**
+ * Keep sitemap guidance aligned with intentional noindex pages. These routes
+ * remain reachable for humans, but they are not useful landing pages for a
+ * search engine while they are empty, duplicate, or worksheet-only surfaces.
+ * Videos becomes indexable automatically as soon as a real published video is
+ * present, matching the page's own conditional noindex behavior.
+ */
+const alwaysNoindex = new Set([
+  "/courses/",
+  "/guides/",
+  "/birth-time-toolkit/worksheets/",
+]);
+const hasPublishedVideos = Array.isArray(videos) && videos.some((video) => !video.draft);
 
 export default defineConfig({
   site,
@@ -13,7 +28,12 @@ export default defineConfig({
   output: "static",
   integrations: [
     sitemap({
-      filter: (page) => !page.includes("/404"),
+      filter: (page) => {
+        const pathname = new URL(page).pathname;
+        if (pathname === "/404/" || alwaysNoindex.has(pathname)) return false;
+        if (pathname === "/videos/" && !hasPublishedVideos) return false;
+        return true;
+      },
       /**
        * lastmod tells crawlers which pages are worth re-fetching. Without it
        * every URL looks equally stale and a 129-page site gets crawled slowly.

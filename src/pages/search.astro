@@ -1,0 +1,184 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+const crumbs = [{ label: 'Search', href: '/search/' }];
+---
+
+<BaseLayout
+  title="Search"
+  description="Search Mo Lumen Astrology for learning pages, Current Sky notes, blog articles, readings, and practical policies."
+  path="/search/"
+  breadcrumbs={crumbs}
+>
+  <Breadcrumbs crumbs={crumbs} />
+
+  <section class="hero hero--compact">
+    <div class="container" style="max-width: 54rem;">
+      <p class="eyebrow">Find something specific</p>
+      <h1>Search Mo Lumen Astrology</h1>
+      <p class="lede">
+        Search is for when you already have a word, topic, or question in mind. If you are still
+        figuring out where to begin, <a href="/start-here/">Start Here</a> or
+        <a href="/explore/">Explore Astrology</a> will give the subject more structure.
+      </p>
+    </div>
+  </section>
+
+  <section class="section search-page">
+    <div class="container" style="max-width: 54rem;">
+      <form role="search" class="search-form" data-site-search>
+        <label for="site-search"><strong>What are you looking for?</strong></label>
+        <div class="search-form__row">
+          <input id="site-search" name="q" type="search" autocomplete="off" enterkeyhint="search" placeholder="Try “Saturn return” or “birth time”" />
+          <button class="btn btn--primary" type="submit">Search</button>
+        </div>
+        <p class="card__meta">Your search stays in this browser. The words you type are not sent to analytics.</p>
+      </form>
+
+      <p class="search-status" aria-live="polite" data-search-status>Enter a topic to search the site.</p>
+      <div class="search-results" data-search-results></div>
+
+      <noscript>
+        <div class="callout">
+          <p><strong>Search needs JavaScript.</strong> You can still browse by intent through <a href="/resources/">Resources</a> or the full <a href="/explore/">Explore Astrology</a> library.</p>
+        </div>
+      </noscript>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { searchDocuments } from '../lib/search.mjs';
+
+  const form = document.querySelector<HTMLFormElement>('[data-site-search]');
+  const input = document.querySelector<HTMLInputElement>('#site-search');
+  const status = document.querySelector<HTMLElement>('[data-search-status]');
+  const results = document.querySelector<HTMLElement>('[data-search-results]');
+  let documents: any[] = [];
+
+  function escapeHtml(value: string) {
+    return value.replace(/[&<>'"]/g, (char) => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
+    })[char] || char);
+  }
+
+  async function ensureIndex() {
+    if (documents.length) return documents;
+    const response = await fetch('/search-index.json', { credentials: 'same-origin' });
+    if (!response.ok) throw new Error('Search index unavailable');
+    documents = await response.json();
+    return documents;
+  }
+
+  function render(query: string, matches: any[]) {
+    if (!status || !results) return;
+    if (!query.trim()) {
+      status.textContent = 'Enter a topic to search the site.';
+      results.innerHTML = '';
+      return;
+    }
+    status.textContent = matches.length
+      ? `${matches.length} result${matches.length === 1 ? '' : 's'} for “${query}”`
+      : `No close matches for “${query}”. Try a shorter term, or browse Explore Astrology.`;
+    results.innerHTML = matches.map((item) => `
+      <article class="search-result">
+        <p class="search-result__meta">${escapeHtml(item.category)}${item.date ? ` · ${escapeHtml(item.date)}` : ''}</p>
+        <h2><a href="${escapeHtml(item.url)}" data-search-result data-result-category="${escapeHtml(item.category)}">${escapeHtml(item.title)}</a></h2>
+        <p>${escapeHtml(item.description)}</p>
+      </article>
+    `).join('');
+  }
+
+  async function run(query: string) {
+    if (!status || !results) return;
+    const cleaned = query.trim();
+    if (!cleaned) return render('', []);
+    status.textContent = 'Searching…';
+    try {
+      const index = await ensureIndex();
+      render(cleaned, searchDocuments(index, cleaned, 20));
+      // Intentionally do not send the query. Only the fact that search was used.
+      (window as any).mlTrack?.('site_search_used', { has_results: results.children.length > 0 });
+    } catch {
+      status.textContent = 'Search is unavailable right now. Browse Explore Astrology or Resources instead.';
+      results.innerHTML = '';
+    }
+  }
+
+  form?.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const query = input?.value ?? '';
+    const url = new URL(location.href);
+    if (query.trim()) url.searchParams.set('q', query.trim());
+    else url.searchParams.delete('q');
+    history.replaceState(null, '', url);
+    run(query);
+  });
+
+  results?.addEventListener('click', (event) => {
+    const link = event.target instanceof Element ? event.target.closest<HTMLAnchorElement>('[data-search-result]') : null;
+    if (!link) return;
+    (window as any).mlTrack?.('site_search_result_click', { result_type: link.dataset.resultCategory || 'unknown' });
+  });
+
+  const initial = new URL(location.href).searchParams.get('q') || '';
+  if (input && initial) {
+    input.value = initial;
+    run(initial);
+  }
+</script>
+
+<style>
+  .search-form {
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-6);
+    border: var(--border-hairline);
+    border-radius: var(--radius-lg);
+    background: var(--surface);
+  }
+  .search-form__row {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: var(--space-3);
+  }
+  .search-form input {
+    width: 100%;
+    min-height: 48px;
+    padding: 0 var(--space-4);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    font: inherit;
+    background: var(--color-ivory);
+    color: var(--ink);
+  }
+  .search-status {
+    margin: var(--space-7) 0 var(--space-4);
+    color: var(--ink-soft);
+  }
+  .search-results {
+    display: grid;
+    gap: var(--space-3);
+  }
+  .search-result {
+    padding: var(--space-5) 0;
+    border-top: var(--border-hairline);
+  }
+  .search-result h2 {
+    margin: var(--space-1) 0 var(--space-2);
+    font-size: var(--text-xl);
+  }
+  .search-result p { margin: 0; }
+  .search-result__meta {
+    color: var(--ink-soft);
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  @media (max-width: 560px) {
+    .search-form { padding: var(--space-4); }
+    .search-form__row { grid-template-columns: 1fr; }
+    .search-form__row .btn { width: 100%; }
+  }
+</style>
