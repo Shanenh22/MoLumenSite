@@ -12,7 +12,6 @@ Priority labels: **P0** production blocker · **P1** high-value launch improveme
 - **OWNER** Approve the final cutover runbook before production DNS/domain attachment.
 - **OWNER** Complete professional legal review for Terms, Privacy, Booking Policy, and Disclaimer before production launch.
 - **OWNER** Perform and archive the manual screen-reader review required by the approved accessibility policy before production launch.
-- **OWNER** Verify remaining business/brand facts marked owner-required in `docs/owner-guide.md`.
 
 ## P1 — high-value launch improvements
 - **OWNER** Supply the real YouTube welcome-video ID/poster when available; homepage and About slots are already wired and remain hidden until configured.
@@ -29,6 +28,7 @@ Priority labels: **P0** production blocker · **P1** high-value launch improveme
 
 ## P2 — post-launch / growth
 - Maintain the rolling Current Sky horizon; present coverage currently extends through December 2027.
+- Decide when to create the 2027 annual Current Sky overview; do not invent it merely because 2027 event entries already exist.
 - Expand blog clusters using Search Console and real query performance.
 - After real funnel traffic exists, use Reading Finder step data and `booking_complete` attribution to decide whether any question, homepage section, or CTA needs simplification; do not optimize by page length alone.
 - Add testimonials/case studies only when real content and permission exist.
