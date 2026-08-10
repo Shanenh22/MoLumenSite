@@ -9,7 +9,7 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
 
 <BaseLayout
   title="Contact Mo"
-  description="Get in touch with Mo Lumen Astrology: questions about readings, bookings, or anything astrological. I read every message myself."
+  description="Get in touch with Mo Lumen Astrology with questions about readings, bookings, or the practice. Mo reads every message herself."
   path="/contact/"
   breadcrumbs={crumbs}
 >
@@ -20,7 +20,7 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
       <p class="eyebrow">Say hello</p>
       <h1>Get in touch</h1>
       <p class="lede">
-        If you have any questions, or you just want to learn more about my astrology readings,
+        If you have a question about a reading or want to know whether working together makes sense,
         email me. I read every message myself.
       </p>
       </div>
@@ -43,25 +43,16 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
         <p>
           <a
             class="btn btn--primary"
-            href={`mailto:${site.email}?subject=${encodeURIComponent('I want to know more about...')}`}
+            href={`mailto:${site.email}?subject=${encodeURIComponent('Question for Mo')}`}
             data-contact-email>{site.email}</a
           >
         </p>
         <p>
-          Booking questions? The <a href="/frequently-asked-questions/">FAQs</a> answer most
-          things; the <a href="/book/">booking page</a> handles scheduling directly.
+          If you are deciding which reading fits, the <a href="/reading-finder/">Reading Finder</a>
+          is the quickest place to start. The <a href="/frequently-asked-questions/">FAQs</a> cover
+          common booking questions, and if you already know what you want, you can
+          <a href="/book/">choose a time directly</a>.
         </p>
-        {/*
-          Where the practice is based, stated to the visitor and not only to
-          search engines. Shane confirmed "Dallas–Fort Worth Metroplex" on
-          2026-08-05 and is setting up a Google Business Profile to match, which
-          is what will make this independently checkable.
-
-          The in-person line is here because the FAQs, /how-readings-work/, the
-          terms and the privacy policy all already say it. Leaving it off this
-          page made /contact/ — the one page a local visitor lands on to find
-          out — the only page that didn't.
-        */}
         <h2>Where I am</h2>
         <p>
           Based in the <strong>Dallas–Fort Worth Metroplex</strong>. Most readings happen over Zoom,
@@ -82,10 +73,11 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
       </div>
       <div class="card flow">
         <h2 id="contact-newsletter" style="font-size: var(--text-xl); margin: 0;">
-          Prefer a slower hello?
+          Want to get a feel for my work first?
         </h2>
         <p style="margin: 0;">
-          The monthly letter is a fine way to get a feel for how I work before you reach out.
+          The monthly note is a low-pressure way to see what I notice, how I think, and what I keep
+          returning to before you ever decide whether to reach out.
         </p>
         <NewsletterForm source="contact" labelledby="contact-newsletter" />
       </div>
