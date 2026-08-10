@@ -16,14 +16,14 @@ const crumbs = [{ label: 'Newsletter', href: '/newsletter/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Newsletter</p>
-      <h1>A monthly note from Mo</h1>
-      <p class="lede">
-        Once a month I send a letter about what has caught my attention: something moving in the
-        sky, a pattern I keep noticing, a question worth carrying for a while, or a connection I
-        have been thinking about. <strong>The Sky This Month</strong> is one recurring part of the
-        letter, but the letter itself is broader. It is correspondence.
-      </p>
+        <p class="eyebrow">Newsletter</p>
+        <h1>A monthly note from Mo</h1>
+        <p class="lede">
+          Once a month I send a letter about what has caught my attention: something moving in the
+          sky, a pattern I keep noticing, a question worth carrying for a while, or a connection I
+          have been thinking about. It is correspondence, not a daily forecast or another feed to
+          keep up with.
+        </p>
       </div>
       <img
         class="hero__img"
@@ -41,40 +41,59 @@ const crumbs = [{ label: 'Newsletter', href: '/newsletter/' }];
   <section class="section">
     <div class="container grid grid--2" style="align-items: start;">
       <div class="flow">
+        <p class="eyebrow">Once a month</p>
         <h2 id="nl-signup">Join the list</h2>
+        <p>
+          If you want a regular way to hear how I am thinking—not only what is happening in the sky,
+          but what I am noticing around it—this is the place.
+        </p>
         <NewsletterForm source="newsletter-page" labelledby="nl-signup" />
         <p class="card__meta">
-          Your email is used for this newsletter only, never sold, never shared. Marketing
-          consent is always separate from booking. See the <a href="/privacy/">privacy policy</a>.
+          Your email is used for this newsletter only, never sold or shared. Marketing consent is
+          separate from booking. See the <a href="/privacy/">privacy policy</a>.
         </p>
       </div>
-      <div class="card flow">
-        <p class="eyebrow">If you want to read first</p>
-        <h2 style="font-size: var(--text-xl); margin: 0;">See what the letter grows out of</h2>
-        <p>
-          <a href="/current-sky/">Current Sky</a> follows the cycles overhead as they happen.
-          <a href="/blog/">The blog</a> is where longer ideas have room to develop, and
-          <a href="/explore/">Explore Astrology</a> teaches the language and structure underneath
-          both. None requires an email address.
-        </p>
+      <div class="flow">
+        <p class="eyebrow">What tends to arrive</p>
+        <div class="grid newsletter-preview">
+          <article class="card">
+            <h3>The Sky This Month</h3>
+            <p>A look at the larger pattern I think is worth noticing, with the limits of a shared-sky reading kept clear.</p>
+          </article>
+          <article class="card">
+            <h3>A question or connection</h3>
+            <p>Something from astrology, cycles, nature, teaching, or lived experience that has made me look twice.</p>
+          </article>
+          <article class="card">
+            <h3>New work, when there is some</h3>
+            <p>A new article, guide, class, or other project only when there is something concrete to share.</p>
+          </article>
+        </div>
       </div>
     </div>
   </section>
 
   <section class="section section--alt">
-    <div class="container prose flow">
-      <h2>What tends to appear in the letter</h2>
+    <div class="container prose flow" style="max-width: 46rem;">
+      <p class="eyebrow">Prefer to read first?</p>
+      <h2>You do not need to subscribe to use the site.</h2>
       <p>
-        The mix changes because attention changes. You may find a Current Sky observation, a
-        question that stayed with me after studying a chart, something from biology or the natural
-        world that sharpened the way I was thinking about cycles, or a note about a new article,
-        guide, or class when there is actually something ready to share.
+        <a href="/current-sky/">Current Sky</a> follows the cycles overhead as they happen.
+        <a href="/blog/">The blog</a> gives longer ideas room to develop, and
+        <a href="/explore/">Explore Astrology</a> teaches the language and structure underneath
+        both. All of that remains free without an email address.
       </p>
       <p>
-        I am not trying to turn every month into instructions. I would rather give you something
-        worth noticing and leave room for you to decide what, if anything, it means in your own
-        life.
+        The newsletter is simply the more personal thread connecting those parts of the work from
+        month to month.
       </p>
     </div>
   </section>
 </BaseLayout>
+
+<style>
+  .newsletter-preview { gap: var(--space-4); }
+  .newsletter-preview .card { padding: var(--space-5); }
+  .newsletter-preview h3 { margin: 0; font-size: var(--text-lg); }
+  .newsletter-preview p { margin: 0; }
+</style>
