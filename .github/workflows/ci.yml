@@ -36,6 +36,8 @@ jobs:
         run: npm run test:content
       - name: Build
         run: npm run build
+      - name: Search relevance
+        run: npm run test:search
       - name: Internal links
         run: npm run test:links
       - name: Install browser test tools
