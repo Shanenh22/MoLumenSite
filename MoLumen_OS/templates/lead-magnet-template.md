@@ -1,3 +1,9 @@
+<!--
+Planning scaffold only. There is no live lead-magnet content collection or Pages CMS editor.
+Do not treat the fields below as a runtime schema; add a real collection/CMS contract only when
+an owner-approved lead magnet beyond the Birth Time Toolkit is implemented.
+-->
+
 ---
 title: ""
 subtitle: ""

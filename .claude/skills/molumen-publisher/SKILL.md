@@ -19,7 +19,7 @@ Protect the ecosystem boundaries: Explore teaches the language and structure; Cu
 
 Use `molumen-editor` for substantial research or prose creation. For routine content, prefer fields/rich text Mo can edit without touching Astro, YAML, JSON, or layout code. Visitor-facing CMS instructions should be clear and should not narrate implementation details unnecessarily.
 
-The live schema/CMS is the source of truth. Do not reintroduce obsolete fields from old templates. For videos, use real YouTube metadata and the privacy-conscious click-to-load facade; never invent IDs or dates.
+The live schema/CMS is the source of truth. Do not reintroduce obsolete fields from old templates. When an OS template represents a configured content type, keep its field names aligned with the live schema/CMS; mark templates for unimplemented content types as planning-only. For videos, use real YouTube metadata and the privacy-conscious click-to-load facade; never invent IDs or dates.
 
 Preserve business-critical facts exactly unless owner-verified: service names, prices, durations, eligibility, credentials, policies, legal identity, and integration mappings.
 

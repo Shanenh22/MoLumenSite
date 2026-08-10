@@ -1,0 +1,10 @@
+
+> molumen-website@0.1.0 audit:a11y
+> node scripts/axe-sweep.mjs
+
+VIEWPORT | PAGE | VIOLATION | NODE
+mobile | /explore/signs/aries/ | target-size <24px (wcag22aa) x2 | Traditional view (147x24); Modern view (110x24)
+mobile | /explore/planets/saturn/ | target-size <24px (wcag22aa) x2 | Traditional view (147x24); Modern view (110x24)
+mobile | /explore/houses/first-house/ | target-size <24px (wcag22aa) x2 | Traditional view (147x24); Modern view (110x24)
+
+Total violation types: 6

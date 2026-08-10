@@ -1,0 +1,26 @@
+
+> molumen-website@0.1.0 audit
+> node scripts/audit.mjs
+
+AUDIT — 174 pages
+
+1. DUPLICATE TITLES: none
+2. DUPLICATE DESCRIPTIONS: none
+3. TITLES >60 chars: 0 
+4. DESCRIPTIONS outside 70–160: 0 
+5. PAGES WITHOUT EXACTLY ONE H1: 0 
+6. HEADING-LEVEL SKIPS: 0 
+7. IMAGES MISSING ALT: 0 | MISSING width/height: 0
+8. PAGES WITHOUT JSON-LD: 0
+9. PAGES WITHOUT CANONICAL: 0
+10. THIN PAGES (<350 words incl. chrome): 0 
+11. ORPHAN PAGES (no internal inbound links): 0 
+12. PAGES >3 CLICKS FROM HOME (or unreachable): 0 
+13. PAGES WITH <3 INBOUND INTERNAL LINKS: 7 
+   1 /explore/moon-phases/
+   2 /birth-time-toolkit/
+   2 /current-sky/events/2024-11-01-scorpio-new-moon/
+   2 /explore/misconceptions/
+   2 /explore/personal-purpose/
+   2 /explore/questions-to-bring/
+   2 /readings/gift/

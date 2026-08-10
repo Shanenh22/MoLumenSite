@@ -1,0 +1,22 @@
+
+> molumen-website@0.1.0 check:contrast
+> node scripts/check-contrast.mjs
+
+element                      ratio   needs   size
+hero meta chip               7.30:1  4.5:1   14px  PASS
+hero price chip              6.12:1  4.5:1   14px  PASS
+hero eyebrow                 6.39:1  4.5:1   14px  PASS
+hero lede                    14.97:1  4.5:1   19.52px  PASS
+blog meta chip               7.30:1  4.5:1   14px  PASS
+booking price                6.06:1  4.5:1   19.52px  PASS
+booking duration chip        5.88:1  4.5:1   12.48px  PASS
+booking group note           7.14:1  4.5:1   14px  PASS
+eligibility chip — homepage card 5.88:1  4.5:1   12.48px  PASS
+eligibility chip — readings hub 5.88:1  4.5:1   12.48px  PASS
+calendar chip — lunation     6.06:1  4.5:1   11.2px  PASS
+calendar chip — eclipse      5.80:1  4.5:1   11.2px  PASS
+calendar chip — retrograde   6.74:1  4.5:1   11.2px  PASS
+calendar span note           6.77:1  4.5:1   12px  PASS
+calendar day number          7.69:1  4.5:1   14px  PASS
+
+All measured pairings meet WCAG AA.
