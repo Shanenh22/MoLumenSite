@@ -1,8 +1,12 @@
 import fs from 'node:fs/promises';
 import { searchDocuments } from '../src/lib/search.mjs';
 
-const documents = JSON.parse(await fs.readFile('dist/search-index.json', 'utf8'));
+const indexPath = 'dist/search-index.json';
+const raw = await fs.readFile(indexPath, 'utf8');
+const documents = JSON.parse(raw);
 const failures = [];
+const rawBytes = Buffer.byteLength(raw);
+const MAX_RAW_BYTES = 1_500_000;
 
 function paths(query, limit = 10) {
   return searchDocuments(documents, query, limit).map((item) => item.url);
@@ -11,6 +15,10 @@ function paths(query, limit = 10) {
 function fail(message) {
   failures.push(message);
   console.error(`::error title=Search relevance::${message}`);
+}
+
+if (rawBytes > MAX_RAW_BYTES) {
+  fail(`search index is ${(rawBytes / 1024).toFixed(0)} KiB raw; maximum is ${(MAX_RAW_BYTES / 1024).toFixed(0)} KiB`);
 }
 
 function expectTop(query, expected, top = 1) {
@@ -85,6 +93,7 @@ for (const query of samples) {
   console.log(`${query}: ${sample || '(no results)'}`);
 }
 
+console.log(`Search index payload: ${(rawBytes / 1024).toFixed(0)} KiB raw for ${documents.length} pages`);
 if (failures.length) {
   console.error(`Search relevance: ${failures.length} failure(s) against ${documents.length} indexable pages`);
   process.exit(1);
