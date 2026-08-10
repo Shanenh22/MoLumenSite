@@ -23,7 +23,7 @@ const expectations = [
   ['relationship compatibility', ['/explore/relationships/', '/readings/relationship/'], 5],
   ['current sky', ['/current-sky/'], 2],
   ['eclipse', ['/explore/eclipses/'], 3],
-  ['monthly transits', ['/readings/monthly-personal-transits/'], 4],
+  ['monthly transits', ['/readings/monthly-transits/'], 4],
 ];
 
 for (const [query, acceptable, maxRank] of expectations) {
@@ -38,7 +38,7 @@ assert(dated.some((r) => r.group === 'Current Sky' && r.path.startsWith('/curren
 assert(dated.filter((r) => r.group === 'Current Sky').every((r) => !r.path.startsWith('/current-sky/events/') || r.date), 'dated Current Sky search results must carry a visible date');
 console.log(`✓ mercury retrograde 2026: ${dated.slice(0, 4).map((r) => `${r.path}${r.date ? ` (${r.date})` : ''}`).join(' | ')}`);
 
-const noindexForbidden = ['/courses/', '/guides/', '/birth-time-toolkit/worksheets/'];
+const noindexForbidden = ['/courses/', '/guides/', '/videos/', '/birth-time-toolkit/worksheets/'];
 for (const forbidden of noindexForbidden) {
   assert(!records.some((r) => r.path === forbidden), `${forbidden} must not be present in search-index.json`);
 }
