@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A new moon forms at 6° Scorpio one day after Mercury turns direct. The close timing links two different cycles, but I would resist turning that into a rule that everything suddenly becomes clear or begins moving again.
+A new moon forms at 6° Scorpio one day after Mercury turns direct. The timing is close, but I would not turn it into a promise that something hidden is suddenly revealed or that a stalled situation finally moves. The cycles overlap; they do not dictate one outcome.
 
-Scorpio is associated with privacy, depth, trust, shared resources, intimacy, power, and material that is not immediately visible. A new moon here can offer a symbolic opening around those themes. That opening may be private, relational, financial, emotional, or barely noticeable at all.
+Scorpio brings privacy, trust, shared resources, intimacy, power, and material that often requires more than surface-level attention. A new moon here can be a useful place to notice what is still developing out of sight. Not everything important announces itself early, and not everything private is secretive or dangerous.
 
-The natal chart tells us where Scorpio falls and whether 6° makes close contact with anything important. Without that context, the most useful thing is simply to observe what themes are gathering rather than predict what will happen.
+What matters is whether this degree is actually active in the natal chart and what is already unfolding in the relevant house. The sky gives us a symbolic opening. The person and the circumstances tell us what, if anything, is opening.
