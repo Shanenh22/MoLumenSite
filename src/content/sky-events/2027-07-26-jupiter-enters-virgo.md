@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Jupiter leaves Leo and enters Virgo, where it remains into 2028. Compared with the cluster of slow-planet sign changes in 2026, 2027 is comparatively settled, which makes this ingress stand out.
+Jupiter leaves Leo and enters Virgo, where it remains into 2028. In a year with no outer-planet sign changes, this is the one slower ingress that noticeably changes the background language of the sky.
 
-Jupiter is associated with growth, confidence, meaning, belief, generosity, opportunity, and excess. Virgo is associated with discernment, craft, work, maintenance, analysis, and refinement. In traditional astrology Jupiter is in detriment in Virgo, which does not mean the transit is "bad." It means Jupiter is operating in a sign whose methods are different from its own preferred mode.
+Jupiter enlarges, seeks meaning, connects experience to a larger frame, and can sometimes take more than is useful. Virgo works differently. It sorts, tests, edits, maintains, and asks whether the parts actually function. Traditional astrology calls Jupiter in Virgo a detriment, but I would not translate that into "bad." Dignity is a vocabulary of condition, not moral worth. The planet is operating in a sign whose methods are not its easiest ones.
 
-That tension is what interests me: expansion meeting discrimination, the big picture meeting the detail that makes it usable. In an individual chart, the house Virgo occupies and Jupiter's natal contacts show where that longer conversation is taking place.
+That friction is what makes the transit interesting to me. What does growth look like when it has to survive scrutiny? Which big idea becomes more valuable after the unnecessary pieces are removed? In a personal chart, Virgo's house and Jupiter's natal contacts show where that longer inquiry may become specific.
