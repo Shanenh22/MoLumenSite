@@ -14,22 +14,15 @@ export interface NavGroup {
 }
 
 /**
- * Four groups, not six flat items.
+ * Four top-level concepts: what you can book, what you can learn, what's
+ * happening overhead, and who Mo is.
  *
- * Readings, Explore Astrology, Current Sky, Blog, Videos and About Mo used to
- * sit at the same level, so the page that sells readings had the same visual
- * weight as the page listing Mo's videos. Blog, Videos, About, Credentials,
- * Testimonials and Contact are all answers to one question a visitor is
- * actually asking — "who is this person and can I trust her?" — so they now
- * live together under "From Mo", and the top level reads as: what you can
- * book, what you can learn, what's overhead, who I am.
+ * Current Sky remains top-level because it is both a recurring-content engine
+ * and a search entry point. Giving it children does not bury it; it makes the
+ * ecosystem underneath it visible: the main timeline, rising-sign guidance,
+ * calendar, annual overview, and archive.
  *
- * Current Sky stays at the top level on purpose. It is the one asset no
- * comparable astrologer's site has and it is a search entry point in its own
- * right; burying it under a group would be a downgrade, not a tidy-up.
- *
- * No URL changed. This is a grouping change only — every destination here
- * already existed at exactly this path.
+ * No URL changed. This file only changes how existing destinations are exposed.
  */
 export const primaryNav: NavGroup[] = [
   {
@@ -58,7 +51,17 @@ export const primaryNav: NavGroup[] = [
       { label: "Glossary", href: "/explore/glossary/" },
     ],
   },
-  { label: "Current Sky", href: "/current-sky/" },
+  {
+    label: "Current Sky",
+    href: "/current-sky/",
+    children: [
+      { label: "Current Sky", href: "/current-sky/" },
+      { label: "Horoscopes", href: "/horoscopes/" },
+      { label: "Sky Calendar", href: "/current-sky/calendar/" },
+      { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
+      { label: "Archive", href: "/current-sky/archive/" },
+    ],
+  },
   {
     label: "From Mo",
     href: "/about/",
