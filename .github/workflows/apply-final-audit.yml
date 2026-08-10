@@ -1,4 +1,4 @@
-# One-time branch audit; removed automatically after a green run.
+# One-time branch audit; removes itself after a green run. Third pass follows the enforced state-budget cleanup.
 name: Apply final MoLumen audit
 
 on:
