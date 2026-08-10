@@ -1,0 +1,84 @@
+---
+type GrammarKind = 'planet' | 'sign' | 'house' | 'aspect';
+
+interface Props {
+  active?: GrammarKind;
+  heading?: string;
+}
+
+const { active, heading = 'The four questions that organize a chart' } = Astro.props;
+const items: Array<{ kind: GrammarKind; label: string; question: string; href: string; note: string }> = [
+  { kind: 'planet', label: 'Planet', question: 'What?', href: '/explore/planets/', note: 'The function or drive.' },
+  { kind: 'sign', label: 'Sign', question: 'How?', href: '/explore/signs/', note: 'The style of expression.' },
+  { kind: 'house', label: 'House', question: 'Where?', href: '/explore/houses/', note: 'The area of experience.' },
+  { kind: 'aspect', label: 'Aspect', question: 'Relationship?', href: '/explore/aspects/', note: 'How chart factors connect.' },
+];
+---
+
+<div class="grammar" aria-label="Chart reading grammar">
+  <p class="grammar__heading">{heading}</p>
+  <div class="grammar__grid">
+    {items.map((item) => (
+      <a
+        class:list={['grammar__item', { 'grammar__item--active': active === item.kind }]}
+        href={item.href}
+        aria-current={active === item.kind ? 'page' : undefined}
+      >
+        <span class="grammar__label">{item.label}</span>
+        <strong>{item.question}</strong>
+        <span>{item.note}</span>
+      </a>
+    ))}
+  </div>
+</div>
+
+<style>
+  .grammar {
+    margin-block: var(--space-8);
+  }
+
+  .grammar__heading {
+    margin: 0 0 var(--space-4);
+    font-weight: 700;
+  }
+
+  .grammar__grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .grammar__item {
+    display: flex;
+    min-height: 8.5rem;
+    flex-direction: column;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-5);
+    border: 1px solid var(--border-color, currentColor);
+    border-radius: var(--radius-lg, 1rem);
+    text-decoration: none;
+  }
+
+  .grammar__item strong {
+    font-size: var(--text-xl);
+  }
+
+  .grammar__label {
+    font-size: var(--text-sm);
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .grammar__item--active {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  @media (min-width: 768px) {
+    .grammar__grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+</style>
