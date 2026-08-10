@@ -15,7 +15,7 @@ concurrency:
 jobs:
   validate:
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
         with:
@@ -30,6 +30,8 @@ jobs:
         run: npm run format:check
       - name: Agent instruction integrity
         run: npm run check:agent-docs
+      - name: Publishing contracts
+        run: npm run check:publishing-contracts
       - name: Astro/type checks
         run: npm run check
       - name: Content integrity
@@ -40,6 +42,8 @@ jobs:
         run: npm run test:links
       - name: Search relevance
         run: npm run test:search
+      - name: Booking-link source of truth
+        run: npm run check:booking-links
       - name: Install browser test tools
         run: |
           npm run audit:install
@@ -48,6 +52,8 @@ jobs:
         run: npm run test:booking
       - name: Reading Finder handoff
         run: npm run test:finder
+      - name: Analytics privacy
+        run: npm run test:analytics
       # The calendar check forces two browser time zones 24 hours apart and
       # asserts an identical grid. CI runs in UTC, where a getDate()/getUTCDate()
       # mix-up is invisible — which is exactly why this has to run here.
@@ -61,3 +67,9 @@ jobs:
         run: npm run test:chart-explorer
       - name: Search mobile and desktop
         run: npm run test:search-browser
+      - name: Accessibility sweep, mobile and desktop
+        run: npm run audit:a11y
+      - name: Static contrast
+        run: npm run check:contrast
+      - name: Hero-image contrast
+        run: npm run check:hero-contrast
