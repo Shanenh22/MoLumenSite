@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A full moon at 23° Pisces opposes the Virgo Sun on the same day Uranus stations retrograde in Gemini. Several patterns overlap, but I would keep their different timescales distinct rather than blend them into one dramatic message.
+A full moon at 23° Pisces opposes the Virgo Sun on the same day Uranus stations retrograde in Gemini. Several timing layers overlap, but I would resist turning them into one sweeping message. The lunation is immediate and monthly; Uranus belongs to a cycle measured in years.
 
-Virgo and Pisces form an axis between discernment and receptivity, practical maintenance and imagination, making distinctions and allowing complexity to remain unresolved. It is tempting to turn that into a simple question of what can be fixed versus what must be accepted, but real lives are rarely divided that neatly.
+The Virgo–Pisces axis asks us to hold two forms of intelligence together. Virgo separates, tests, edits, and tends what can be improved. Pisces receives, imagines, connects, and leaves room for what cannot yet be neatly categorized. Neither one is the correction for the other. Sometimes precision needs imagination; sometimes openness needs enough form to become useful.
 
-The full moon gives us a moment to notice that relationship. Jupiter's presence in Virgo adds another layer, while the natal houses and exact contacts determine how personally significant any of it is.
+Jupiter's presence in Virgo adds another layer to that conversation. Whether any of it is personally prominent depends on the natal houses, close contacts, and what is already happening in the life behind the chart.
