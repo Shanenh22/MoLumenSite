@@ -69,8 +69,6 @@ const windowStart = new Date(
 );
 const first = windowStart > firstEvent ? windowStart : firstEvent;
 const months = monthsInRange(first, last);
-/** Events older than the window are reachable, but not from this grid. */
-const olderThanWindow = sorted.filter((e) => e.start < first).length;
 const byDay = eventsByDay(sorted);
 
 /**
@@ -173,16 +171,6 @@ const dayOfWeek = (key: string) =>
                 {week.map((cell) =>
                   cell.inMonth ? (
                     <td data-day={cell.key}>
-                      {/*
-                        Just the number. A visually-hidden full date on every
-                        cell was tried and removed: it is what a `<caption>` and
-                        a `<th scope="col">` already tell a screen reader in
-                        table mode ("October 2026, Saturday, 24"), and repeating
-                        it 1,596 times added 143KB to this page. The one place
-                        the full date genuinely earns its bytes is the event
-                        link below, whose accessible name has to stand alone in
-                        a list of links.
-                      */}
                       <span class="cal-grid__num">{cell.day}</span>
                       {(byDay.get(cell.key) ?? []).map((e) => (
                         <a
@@ -190,19 +178,8 @@ const dayOfWeek = (key: string) =>
                           href={`/current-sky/events/${e.slug}/`}
                           data-event-type={e.eventType}
                         >
-                          {/*
-                            Type is carried by a text chip, never by the colour
-                            alone (SC 1.4.1) — the colour coding matches the
-                            Current Sky timeline and is the second signal, not
-                            the first.
-                          */}
                           <span class="event-type">{SKY_TYPE_SHORT[e.eventType] ?? e.eventType}</span>
                           <span class="cal-event__title">{e.title}</span>
-                          {/*
-                            A screen-reader user pulling a list of links must not
-                            get twelve entries called "New Moon". The date makes
-                            every accessible name stand alone out of context.
-                          */}
                           <span class="visually-hidden">, {cell.label}</span>
                           {e.end && utcKey(e.end) !== utcKey(e.start) && (
                             <span class="cal-event__span">{spanLabel(e.start, e.end)}</span>
@@ -211,10 +188,6 @@ const dayOfWeek = (key: string) =>
                       ))}
                     </td>
                   ) : (
-                    /* An empty cell is silent to a screen reader on its own.
-                       `aria-hidden` here would remove it from the row and throw
-                       off the table's column arithmetic, which is the one thing
-                       making a calendar navigable. */
                     <td class="cal-grid__pad" />
                   )
                 )}
@@ -249,13 +222,6 @@ const dayOfWeek = (key: string) =>
             )}
         </ol>
 
-        {/*
-          Two different empty states, because they mean different things and one
-          of them has to be true without JavaScript. A month with nothing
-          published says so in the server output; a month emptied by a filter is
-          revealed by the script, which is the only thing that knows a filter is
-          on.
-        */}
         <p class="cal-empty" hidden={byDayCount(m) > 0}>No events this month.</p>
         <p class="cal-empty" data-cal-filtered hidden>No events of that kind this month.</p>
       </section>
@@ -263,35 +229,11 @@ const dayOfWeek = (key: string) =>
   }
 
   <p class="cal-legend card__meta">
-    Dates are the published dates for each event, in US Central time. They do not shift with your
-    device's time zone. What you see here is the same date shown everywhere else on the site.
-    {
-      olderThanWindow > 0 && (
-        <>
-          {' '}
-          {olderThanWindow} earlier {olderThanWindow === 1 ? 'event' : 'events'} sit before this
-          window and are in the <a href="/current-sky/archive/">archive</a>.
-        </>
-      )
-    }
+    Dates are shown in US Central time and do not shift with your device's time zone. The date shown
+    here matches the date used elsewhere on the site.
   </p>
 </div>
 
-{/*
-  Bootstrap, deliberately `is:inline` and deliberately here rather than in the
-  module script below.
-
-  A module script is deferred: it runs after the document has parsed and, on a
-  38-month calendar, well after the browser has painted all of it. The reader
-  would see the entire published record flash past before it collapsed to one
-  month. This runs synchronously during parse, immediately after the markup it
-  operates on, so the single-month view is in place before the first paint.
-
-  It reads its data from `data-` attributes rather than from interpolation, so
-  there is no template-literal escaping to get wrong — the trap recorded in
-  PROJECT_MEMORY where one backtick inside an inline script silently turned the
-  rest of the file into code.
-*/}
 <script is:inline>
   (function () {
     var root = document.querySelector("[data-sky-calendar]");
@@ -299,9 +241,6 @@ const dayOfWeek = (key: string) =>
     var months = (root.getAttribute("data-months") || "").split(",").filter(Boolean);
     if (!months.length) return;
 
-    // Today from the reader's LOCAL calendar. Someone in Chicago at 8pm on the
-    // 23rd is already the 24th in UTC, and highlighting tomorrow is a bug they
-    // would spot instantly. Compared as a string, never subtracted as a date.
     var now = new Date();
     var todayKey =
       now.getFullYear() +
@@ -320,9 +259,6 @@ const dayOfWeek = (key: string) =>
 
     var target = months.indexOf(requested) !== -1 ? requested : null;
     if (!target) {
-      // Clamp rather than fail. If today sits outside the published range —
-      // a very stale build, or an archive-only range — open on the nearest
-      // edge instead of rendering a calendar with no visible month.
       if (months.indexOf(todayMonth) !== -1) target = todayMonth;
       else if (todayMonth < months[0]) target = months[0];
       else target = months[months.length - 1];
@@ -342,11 +278,6 @@ const dayOfWeek = (key: string) =>
 </script>
 
 <script>
-  /**
-   * Interactive wiring. Everything here is enhancement — the bootstrap above
-   * has already produced a usable single-month view, and without this script
-   * the page is still a complete, readable, linkable calendar.
-   */
   const root = document.querySelector<HTMLElement>('[data-sky-calendar]');
   if (root) {
     const months = (root.dataset.months || '').split(',').filter(Boolean);
@@ -356,8 +287,6 @@ const dayOfWeek = (key: string) =>
     });
     const jump = root.querySelector<HTMLSelectElement>('[data-cal-jump]')!;
     const status = root.querySelector<HTMLElement>('[data-cal-status]')!;
-    // Resolved once, outside render(): TypeScript loses the null narrowing on
-    // `root` inside a closure, and re-querying on every repaint is pointless.
     const prevBtn = root.querySelector<HTMLButtonElement>('[data-cal-step="-1"]')!;
     const nextBtn = root.querySelector<HTMLButtonElement>('[data-cal-step="1"]')!;
     const todayBtn = root.querySelector<HTMLButtonElement>('[data-cal-today]')!;
@@ -367,14 +296,9 @@ const dayOfWeek = (key: string) =>
     let current = root.dataset.current || months[0];
     let filter = 'all';
 
-    // mlTrack is the site's only analytics entry point and it drops any string
-    // parameter containing four or more digits — so a month key like "2026-10"
-    // would be silently discarded. Month movement is reported as a NUMBER and a
-    // direction word, both of which survive the sanitiser intact.
     const track = (event: string, params: Record<string, string | number> = {}) =>
       (window as any).mlTrack?.(event, params);
 
-    /** Visible, filter-surviving entries in the month currently on screen. */
     function visibleCount(): number {
       const section = sections.get(current);
       if (!section) return 0;
@@ -396,26 +320,16 @@ const dayOfWeek = (key: string) =>
       const n = visibleCount();
       status.textContent = `${label}, ${n} event${n === 1 ? '' : 's'} shown`;
 
-      // Only the filter-produced empty state is script-owned. A month with
-      // nothing published already says so in the server output.
       const published = Number(section?.dataset.count ?? 0);
       const filteredEmpty = section?.querySelector<HTMLElement>('[data-cal-filtered]');
       if (filteredEmpty) filteredEmpty.hidden = !(published > 0 && n === 0);
 
-      // Focus the month heading rather than leaving focus on a button whose
-      // label just changed underneath the reader. Keyboard and screen-reader
-      // users land inside the month they asked for.
       if (moveFocus) section?.querySelector<HTMLElement>('.sky-calendar__heading')?.focus();
 
-      // Written only on deliberate navigation. Stamping `?m=` onto the URL on
-      // every page load would hand every visitor a parameterised address to
-      // copy and share for a page they never navigated.
       if (syncUrl) {
         try {
           const url = new URL(location.href);
           url.searchParams.set('m', current);
-          // replaceState, not pushState: Back should leave the page, not step
-          // the reader backwards through however many months they browsed.
           history.replaceState(null, '', url);
         } catch (e) {
           /* URL state is a convenience; never let it break navigation */
@@ -457,10 +371,6 @@ const dayOfWeek = (key: string) =>
       btn.addEventListener('click', () => {
         filter = btn.dataset.filter!;
         filterButtons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-        // One selector covers both layouts: the grid's entries are the <a>
-        // elements and the agenda's are the <li> wrappers, and both carry
-        // data-event-type. Hiding the agenda's <li> rather than its link is
-        // what stops the list keeping a blank row where an event was.
         root.querySelectorAll<HTMLElement>('[data-event-type]').forEach((el) => {
           el.hidden = filter !== 'all' && el.dataset.eventType !== filter;
         });
@@ -469,8 +379,6 @@ const dayOfWeek = (key: string) =>
       });
     });
 
-    // Event opens are attributed by type, never by slug: slugs begin with a
-    // four-digit year and the sanitiser would drop the parameter entirely.
     root.addEventListener('click', (e) => {
       const link = (e.target as Element)?.closest<HTMLElement>('[data-event-type]');
       if (link && link.tagName === 'A') {
