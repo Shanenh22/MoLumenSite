@@ -9,6 +9,12 @@ const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Moon Phases', href: '/explore/moon-phases/' },
 ];
+const phases = [
+  { symbol: '●', name: 'New Moon', cue: 'Beginning', prompt: 'What is starting or not yet fully visible?' },
+  { symbol: '◐', name: 'First Quarter', cue: 'Friction', prompt: 'What now needs action, choice, or adjustment?' },
+  { symbol: '○', name: 'Full Moon', cue: 'Visibility', prompt: 'What has become clearer or reached a turning point?' },
+  { symbol: '◑', name: 'Last Quarter', cue: 'Reassessment', prompt: 'What is ready to change, complete, or be carried forward differently?' },
+];
 ---
 
 <BaseLayout
@@ -29,43 +35,32 @@ const crumbs = [
     </div>
   </section>
 
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-6);">
+        <p class="eyebrow">One visible cycle</p>
+        <h2>New → first quarter → full → last quarter → new</h2>
+        <p>The Moon moves continuously; these four turning points are simply an easy way to orient yourself within the roughly 29.5-day cycle.</p>
+      </div>
+      <ol class="phase-cycle">
+        {phases.map((phase) => (
+          <li><span class="phase-symbol" aria-hidden="true">{phase.symbol}</span><div><h3>{phase.name}</h3><strong>{phase.cue}</strong><p>{phase.prompt}</p></div></li>
+        ))}
+      </ol>
+      <p class="card__meta">These prompts are invitations to notice, not instructions about what you must do on a particular day.</p>
+    </div>
+  </section>
+
   <section class="section">
     <div class="container prose flow">
       <h2>The cycle itself</h2>
-      <p>
-        A complete cycle from one new moon to the next — a <em>lunation</em> — takes about 29.5
-        days. The phases come from the changing geometry among Sun, Moon, and Earth, which changes
-        how much of the Moon's sunlit half we can see.
-      </p>
-      <p>
-        Astrologers often divide that cycle into eight phases. Four turning points make an easy
-        structure for understanding the rhythm.
-      </p>
-
+      <p>A complete cycle from one new moon to the next — a <em>lunation</em> — takes about 29.5 days. The phases come from the changing geometry among Sun, Moon, and Earth, which changes how much of the Moon's sunlit half we can see.</p>
+      <p>Astrologers often divide that cycle into eight phases. Four turning points make an easy structure for understanding the rhythm.</p>
       <h2>The four turning points</h2>
-      <h3>New moon</h3>
-      <p>
-        Sun and Moon meet at the same zodiacal longitude and the Moon is largely hidden from view.
-        Astrologically, the new moon is often treated as the opening of a cycle: something beginning,
-        gathering, or not yet fully visible.
-      </p>
-      <h3>First quarter</h3>
-      <p>
-        About a week later, the Moon forms a <a href="/explore/aspects/square/">square</a> to the
-        Sun. Symbolically this is often read as the point where an emerging direction encounters
-        friction and has to become more concrete.
-      </p>
-      <h3>Full moon</h3>
-      <p>
-        At the full moon, Sun and Moon oppose one another and the lunar face is fully illuminated.
-        Astrologers often associate this phase with culmination, visibility, contrast, or something
-        becoming easier to see.
-      </p>
-      <h3>Last quarter</h3>
-      <p>
-        The second square arrives as the cycle wanes. It is commonly read as a phase of reassessment,
-        completion, release, or deciding what should continue into the next cycle.
-      </p>
+      <h3>New moon</h3><p>Sun and Moon meet at the same zodiacal longitude and the Moon is largely hidden from view. Astrologically, the new moon is often treated as the opening of a cycle: something beginning, gathering, or not yet fully visible.</p>
+      <h3>First quarter</h3><p>About a week later, the Moon forms a <a href="/explore/aspects/square/">square</a> to the Sun. Symbolically this is often read as the point where an emerging direction encounters friction and has to become more concrete.</p>
+      <h3>Full moon</h3><p>At the full moon, Sun and Moon oppose one another and the lunar face is fully illuminated. Astrologers often associate this phase with culmination, visibility, contrast, or something becoming easier to see.</p>
+      <h3>Last quarter</h3><p>The second square arrives as the cycle wanes. It is commonly read as a phase of reassessment, completion, release, or deciding what should continue into the next cycle.</p>
     </div>
   </section>
 
@@ -74,50 +69,30 @@ const crumbs = [
   <section class="section section--sea">
     <div class="container prose flow">
       <h2>Using the rhythm without being ruled by it</h2>
-      <p>
-        I like the lunar cycle as a framework for attention. A month is short enough to notice
-        change and long enough for a question, project, or feeling to develop. You can use the
-        phases as prompts: What is beginning? Where is friction appearing? What is becoming clear?
-        What is ready to be released or revised?
-      </p>
-      <p>
-        What I would not do is turn those prompts into laws. You do not have to launch at a new moon,
-        finish at a full moon, or postpone your life because a phase is supposedly wrong for the
-        task. If following the Moon makes you more attentive, wonderful. If it makes you anxious
-        about doing something on the “wrong” day, the tool has stopped being useful.
-      </p>
+      <p>I like the lunar cycle as a framework for attention. A month is short enough to notice change and long enough for a question, project, or feeling to develop. You can use the phases as prompts: What is beginning? Where is friction appearing? What is becoming clear? What is ready to be released or revised?</p>
+      <p>What I would not do is turn those prompts into laws. You do not have to launch at a new moon, finish at a full moon, or postpone your life because a phase is supposedly wrong for the task. If following the Moon makes you more attentive, wonderful. If it makes you anxious about doing something on the “wrong” day, the tool has stopped being useful.</p>
     </div>
   </section>
 
-  <Interlude
-    image={ocean.currents}
-    eyebrow="One month at a time"
-    heading="The value is in noticing the cycle, not obeying it."
-    body="The Moon gives you a visible rhythm to return to. What you notice within that rhythm is more interesting than following a list of rules."
-  />
+  <Interlude image={ocean.currents} eyebrow="One month at a time" heading="The value is in noticing the cycle, not obeying it." body="The Moon gives you a visible rhythm to return to. What you notice within that rhythm is more interesting than following a list of rules." />
 
   <section class="section">
     <div class="container prose flow">
       <h2>Making it personal</h2>
-      <p>
-        A lunation becomes more specific when you place it into a natal chart: which house it falls
-        in, which natal planets it aspects, and what else is active at the same time. Your own natal
-        Moon and its phase add another layer. This is the difference between knowing the phase and
-        understanding how that particular phase may belong in a particular life.
-      </p>
-      <p>
-        See the <a href="/current-sky/">current new and full moons</a> with dates and signs, or read
-        about <a href="/explore/planets/moon/">the Moon in the chart</a>.
-      </p>
+      <p>A lunation becomes more specific when you place it into a natal chart: which house it falls in, which natal planets it aspects, and what else is active at the same time. Your own natal Moon and its phase add another layer. This is the difference between knowing the phase and understanding how that particular phase may belong in a particular life.</p>
+      <p>See the <a href="/current-sky/">current new and full moons</a> with dates and signs, or read about <a href="/explore/planets/moon/">the Moon in the chart</a>.</p>
     </div>
   </section>
 
-  <CTABand
-    heading="Want to watch the lunar cycle as it unfolds?"
-    body="Current Sky follows the actual new moons, full moons, and eclipses. Horoscopes add a broad rising-sign lens without pretending to know the rest of your chart."
-    buttonLabel="See Current Sky"
-    buttonHref="/current-sky/"
-    secondaryLabel="See rising-sign guidance"
-    secondaryHref="/horoscopes/"
-  />
+  <CTABand heading="Want to watch the lunar cycle as it unfolds?" body="Current Sky follows the actual new moons, full moons, and eclipses. Horoscopes add a broad rising-sign lens without pretending to know the rest of your chart." buttonLabel="See Current Sky" buttonHref="/current-sky/" secondaryLabel="See rising-sign guidance" secondaryHref="/horoscopes/" />
 </BaseLayout>
+
+<style>
+  .phase-cycle { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: var(--space-4); }
+  .phase-cycle li { position: relative; display: grid; gap: var(--space-3); padding: var(--space-5); background: var(--color-surface); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .phase-cycle li:not(:last-child)::after { content: '→'; position: absolute; right: calc(var(--space-4) * -1); top: 2.4rem; z-index: 1; font-weight: 700; }
+  .phase-symbol { font-size: 2.4rem; line-height: 1; }
+  .phase-cycle h3, .phase-cycle p { margin: 0; }
+  .phase-cycle p { margin-top: var(--space-2); }
+  @media (max-width: 760px) { .phase-cycle { grid-template-columns: 1fr; } .phase-cycle li { grid-template-columns: 3rem 1fr; align-items: start; padding: var(--space-4); } .phase-cycle li:not(:last-child)::after { content: '↓'; right: auto; left: 1.2rem; top: auto; bottom: calc(var(--space-4) * -1); } }
+</style>
