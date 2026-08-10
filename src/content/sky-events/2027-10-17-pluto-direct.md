@@ -12,8 +12,8 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-Pluto stations direct at 5° Aquarius, ending the retrograde phase that began in May. Across the year Pluto covers only a small span of the zodiac, which is a useful reminder of the timescale we are dealing with.
+Pluto stations direct at 5° Aquarius, ending the retrograde phase that began in May. Across an entire year Pluto covers only a small span of the zodiac. That scale matters: this is a marker inside a slow transit, not a switch flipping on October 17.
 
-Modern astrology associates Pluto with power, compulsion, elimination, survival, and deep change. Aquarius brings systems, groups, networks, shared ideals, and collective structures. That combination unfolds over years. A station is a marker within the process, not proof that something should visibly change on October 17.
+Modern astrology associates Pluto with power, compulsion, survival, elimination, and profound forms of change. Aquarius brings systems, groups, networks, shared ideals, and collective structures. It is tempting to use that combination to make sweeping predictions about society, but the symbolism is more useful as a long observation than as a headline.
 
-When Pluto is closely contacting a natal planet or angle, the station may be one meaningful pass in a much longer sequence. Otherwise, the broader transit is usually the more useful story.
+Where are systems redistributing power? Which structures are proving harder to change than expected? Those are questions that may take years to answer. In a personal chart, a close contact to a planet or angle can make one station more noticeable; otherwise, the broader transit is the story.
