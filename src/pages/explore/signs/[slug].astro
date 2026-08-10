@@ -38,16 +38,7 @@ const breakImage = bandFor(s.slug, 5);
         <h1><span aria-hidden="true">{s.glyph}</span> {s.name}</h1>
         <p class="lede">{s.keywords.join(' · ')}</p>
       </div>
-      <img
-        class="hero__img"
-        src={heroImage.src}
-        srcset={heroImage.srcset}
-        sizes="100vw"
-        alt={heroImage.alt}
-        width={heroImage.width}
-        height={heroImage.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={heroImage.src} srcset={heroImage.srcset} sizes="100vw" alt={heroImage.alt} width={heroImage.width} height={heroImage.height} fetchpriority="high" />
     </div>
   </section>
 
@@ -56,8 +47,7 @@ const breakImage = bandFor(s.slug, 5);
       <p>
         A sign describes a style, not a complete person. {s.name} changes meaning depending on which
         planet is expressing through it, which house it occupies, what rules that house, and what
-        relationships connect it to the rest of the chart. Use the page as a vocabulary guide, not a
-        personality test.
+        relationships connect it to the rest of the chart. Use the page as a vocabulary guide, not a personality test.
       </p>
       <h2>At a glance</h2>
       <table class="ref-table">
@@ -89,13 +79,11 @@ const breakImage = bandFor(s.slug, 5);
       <h2>The style</h2>
       <p>{s.style}</p>
       <p>{s.season}</p>
-
       <Layers kind="traditional"><p>{s.traditional}</p></Layers>
       <Layers kind="modern"><p>{s.modern}</p></Layers>
       <Layers kind="mo"><p>{s.mo}</p></Layers>
       {s.differs && <Layers kind="differs"><p>{s.differs}</p></Layers>}
       <Layers kind="misconception"><p>{s.misconception}</p></Layers>
-
     </div>
   </section>
 
@@ -119,7 +107,7 @@ const breakImage = bandFor(s.slug, 5);
         </p>
       </div>
 
-      <nav aria-label="More signs" style="display: flex; justify-content: space-between; gap: var(--space-4);">
+      <nav aria-label="More signs" class="reference-pager">
         <a href={`/explore/signs/${prev.slug}/`}>← {prev.name}</a>
         <a href={`/explore/signs/${next.slug}/`}>{next.name} →</a>
       </nav>
@@ -127,7 +115,11 @@ const breakImage = bandFor(s.slug, 5);
   </section>
 
   <CTABand
-    heading={`${s.name} is one part of a larger chart`}
-    body="A reading looks at what is expressing through this sign, where it is operating, and how it belongs to the rest of the pattern."
+    heading={`${s.name} is a style, not a whole person`}
+    body="Keep going until you can see what is expressing through the sign, where it is operating, and how it relates to the rest of the chart."
+    buttonLabel="Explore the Signs"
+    buttonHref="/explore/signs/"
+    secondaryLabel="See how the Big Three work together"
+    secondaryHref="/explore/the-big-three/"
   />
 </BaseLayout>
