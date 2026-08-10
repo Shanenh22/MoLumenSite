@@ -12,8 +12,10 @@ lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-The full moon at 2° Leo stands opposite the Aquarius Sun while Mars is retrograde. Full moons make an opposition visible by definition: two ends of an axis illuminated at once.
+The full moon at 2° Leo faces the Sun in Aquarius while Mars is retrograde. A full moon is an opposition by definition: Sun and Moon occupy opposite sides of the zodiac, making an axis part of the picture rather than asking us to read either sign alone.
 
-Leo is associated with creative authorship, visibility, heart, and the wish to express something distinctly one's own. Aquarius brings the wider group, shared systems, friendship, and the perspective that comes from stepping outside the purely personal. I find the relationship between those two signs more interesting than reducing the lunation to a promise of recognition. What deserves to be expressed because it is genuinely yours, and what changes when that expression has to exist among other people?
+Leo is concerned with authorship, creative expression, visibility, heart, and the experience of making something distinctly one's own. Aquarius widens the frame toward groups, friendships, systems, shared ideals, and the view that becomes possible when we step outside the purely personal. Neither side cancels the other. That is what makes the axis interesting.
 
-Mars retrograde adds context around effort and direction, but not a universal instruction to hold back. The natal chart tells us whether this full moon is personally prominent and where the Leo–Aquarius axis is operating.
+I would rather stay with that relationship than turn a Leo full moon into a generic promise of recognition. What wants to be expressed because it is genuinely yours? What changes when that expression has to live among other people, their needs, and a larger system? Those are different questions from simply asking whether it is time to be seen.
+
+Mars retrograde adds a background question about effort and direction, but it does not tell everyone to hold back. Whether this lunation is personally important depends on where 2° Leo and Aquarius fall in the natal chart, what they closely contact, and what is already unfolding there. The opposition gives us something to examine. It does not decide what the answer should be.
