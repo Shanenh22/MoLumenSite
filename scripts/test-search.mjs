@@ -48,12 +48,14 @@ expectIncluded('birth time', '/birth-time-toolkit/', 8);
 expectIncluded('relationship reading', '/readings/relationship/', 5);
 expectIncluded('refund', '/booking-policy/', 8);
 
-// Current-sky searches may have several dated matches, but they must remain searchable.
+// Current-sky searches may have several dated matches. Event-detail results,
+// unlike the Current Sky hub or annual overview, must always carry the date.
 const mercury = searchDocuments(documents, 'Mercury retrograde', 20);
-if (!mercury.some((item) => item.category === 'Current Sky')) {
-  fail('Mercury retrograde should return at least one dated Current Sky result');
+const mercuryEvents = mercury.filter((item) => item.url.startsWith('/current-sky/events/'));
+if (mercuryEvents.length === 0) {
+  fail('Mercury retrograde should return at least one dated Current Sky event');
 }
-if (mercury.some((item) => item.category === 'Current Sky' && !item.date)) {
+if (mercuryEvents.some((item) => !item.date)) {
   fail('Current Sky event search results must carry an event date');
 }
 
