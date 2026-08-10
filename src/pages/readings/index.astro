@@ -4,15 +4,11 @@ import { scenes } from '../../config/images';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
-
-import {
-  orderServices,
-  bookingActions,
-  eligibilityLabel,
-} from '../../config/booking.ts';
+import { orderServices, bookingActions, eligibilityLabel } from '../../config/booking.ts';
 
 const services = orderServices(await getCollection('services'), (s) => s.data.slug);
-const startHere = services.filter((s) => s.data.audience !== 'established');
+const natal = services.find((s) => s.data.slug === 'natal');
+const relationship = services.find((s) => s.data.slug === 'relationship');
 const followUps = services.filter((s) => s.data.audience === 'established');
 const crumbs = [{ label: 'Readings', href: '/readings/' }];
 const priceCell = (s: (typeof services)[0]) =>
@@ -36,22 +32,22 @@ const schema = [
 
 <BaseLayout
   title="Astrology Readings"
-  description="Astrology consultations with Mo Lumen for natal charts, relationships, life changes, solar returns, and personal timing. Clear pricing, recordings included, and guidance without giving away your choices."
+  description="Find the astrology reading that fits: first readings with Mo Lumen, relationship consultations, and follow-up work for established clients, with clear prices and booking options."
   path="/readings/"
   breadcrumbs={crumbs}
   schema={schema}
 >
   <Breadcrumbs crumbs={crumbs} />
-  <section class="hero hero--split">
+
+  <section class="hero hero--split readings-hero">
     <div class="container">
       <div>
         <p class="eyebrow">Readings</p>
         <h1>Astrology readings with Mo</h1>
         <p class="lede">
-          A reading starts with the chart, but it does not stop there. I bring the preparation,
-          technique, and what I am noticing; you bring the life that chart belongs to. Together we
-          look for the patterns, timing, and possibilities that matter to the question in front of
-          you.
+          A reading starts with the chart, but it does not stop there. I bring the preparation and
+          technique; you bring the life that chart belongs to. Together we look for the patterns,
+          timing, and possibilities that matter to the question in front of you.
         </p>
       </div>
       <img
@@ -67,190 +63,148 @@ const schema = [
     </div>
   </section>
 
-  <section class="section">
+  <section class="section readings-decision">
     <div class="container">
-      <h2 id="start-here">New to Mo? Start here</h2>
-      <p class="lede">
-        Most new clients begin with the Natal Chart Reading. It gives us the foundation of your
-        chart, a first understanding of how you are actually living it, and a look at important
-        current conditions. The Relationship Consultation is also open to new clients when the
-        relationship itself is the reason you are coming.
-      </p>
+      <p class="eyebrow">Start with the situation</p>
+      <h2>Which of these sounds most like you?</h2>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
-        {
-          startHere.map((s) => (
-            <article class="card">
-              <h3 style="font-size: var(--text-xl); margin: 0;">
-                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
-              </h3>
-              <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
-              <p>{s.data.purpose}</p>
-              <p class="card__actions">
-                {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
-                ))}
-                <a href={`/readings/${s.data.slug}/`}>See reading details →</a>
-              </p>
-            </article>
-          ))
-        }
-        <article class="card" style="background: var(--bg-alt);">
-          <h3 style="font-size: var(--text-xl); margin: 0;">Not sure where to begin?</h3>
+        {natal && (
+          <article class="card reading-decision-card reading-decision-card--primary">
+            <p class="card__meta">First time with Mo</p>
+            <h3>I want to understand my chart and what is active now</h3>
+            <p>{natal.data.purpose}</p>
+            <p class="card__meta">{natal.data.durationLabel} · {priceCell(natal)}</p>
+            <p class="card__actions" style="margin-top: auto;">
+              <a class="btn btn--accent" href={`/readings/${natal.data.slug}/`}>See the Natal Reading</a>
+            </p>
+          </article>
+        )}
+        {relationship && (
+          <article class="card reading-decision-card">
+            <p class="card__meta">New or returning clients</p>
+            <h3>The reason I'm coming is a relationship between two people</h3>
+            <p>{relationship.data.purpose}</p>
+            <p class="card__meta">{relationship.data.durationLabel} · {priceCell(relationship)}</p>
+            <p class="card__actions" style="margin-top: auto;">
+              <a class="btn btn--primary" href={`/readings/${relationship.data.slug}/`}>See the Relationship Consultation</a>
+            </p>
+          </article>
+        )}
+        <article class="card reading-decision-card">
+          <p class="card__meta">Not sure yet</p>
+          <h3>I know why I'm here, but I don't know which reading fits</h3>
           <p>
-            The Reading Finder asks five plain-language questions about what brings you here and
-            suggests the reading I would point you toward. It is a recommendation, not a rule.
+            The Reading Finder asks a few plain-language questions and explains which reading I
+            would point you toward. It is a recommendation, not a rule.
           </p>
-          <p style="margin: 0;"><a class="btn btn--primary" href="/reading-finder/">Reading Finder</a></p>
+          <p class="card__actions" style="margin-top: auto;">
+            <a class="btn btn--primary" href="/reading-finder/">Use the Reading Finder</a>
+          </p>
         </article>
       </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--alt" id="follow-ups">
     <div class="container">
-      <h2 id="follow-ups">Already had your natal reading?</h2>
+      <p class="eyebrow">Returning clients</p>
+      <h2>Already had your natal reading?</h2>
       <p class="lede">
-        Follow-up readings begin with a chart and a lived context we already know together. That
-        shared foundation means we can spend less time establishing the basics and more time on
-        the question, transition, year, or timing that matters now.
+        Follow-up readings begin with a chart and lived context we already know together. That
+        shared foundation lets us spend less time establishing the basics and more time on the
+        question, transition, year, or timing that matters now.
       </p>
       <div class="grid grid--3" style="margin-top: var(--space-6);">
-        {
-          followUps.map((s) => (
-            <article class="card">
-              <h3 style="font-size: var(--text-xl); margin: 0;">
-                <a href={`/readings/${s.data.slug}/`}>{s.data.name}</a>
-              </h3>
-              <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
-              <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
-              <p>{s.data.purpose}</p>
-              <p class="card__actions">
-                {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
-                ))}
-                <a href={`/readings/${s.data.slug}/`}>See reading details →</a>
-              </p>
-            </article>
-          ))
-        }
+        {followUps.map((s) => (
+          <article class="card">
+            <h3 style="font-size: var(--text-xl); margin: 0;"><a href={`/readings/${s.data.slug}/`}>{s.data.name}</a></h3>
+            <p class="card__meta">{s.data.durationLabel} · {priceCell(s)}</p>
+            <p class="eligibility-chip">{eligibilityLabel(s.data.audience)}</p>
+            <p>{s.data.purpose}</p>
+            <p class="card__actions" style="margin-top: auto;">
+              <a href={`/readings/${s.data.slug}/`}>See whether it fits →</a>
+            </p>
+          </article>
+        ))}
       </div>
     </div>
   </section>
 
-  <section class="section section--alt">
+  <section class="section">
     <div class="container">
-      <h2>Compare readings at a glance</h2>
+      <p class="eyebrow">Need the practical differences?</p>
+      <h2>Compare every reading</h2>
       <p class="lede">
-        Want the practical differences side by side? Compare who each reading is for, what it is
-        best suited to, how long it lasts, what birth data is needed, and the price.
+        Open the comparison only if you need the details side by side. It covers who can book,
+        what each reading is best suited to, length, birth-data needs, price, and booking options.
       </p>
 
-      <!-- Mobile: collapsed comparison, opened only when useful -->
-      <details class="compare-cards">
-        <summary
-          style="cursor: pointer; min-height: 48px; padding: var(--space-3) 0; font-weight: 700;"
-        >
-          Compare all readings
-        </summary>
-        {
-          services.map((s) => (
-            <article class="card">
-              <h3 style="margin: 0;">{s.data.shortName}</h3>
-              <dl class="factlist" style="margin: 0; padding: var(--space-4);">
-                <dt>Who can book</dt>
-                <dd>{eligibilityLabel(s.data.audience) ?? 'Anyone: no prior reading needed'}</dd>
-                <dt>Best for</dt>
-                <dd>{s.data.bestFor[0]}</dd>
-                <dt>Length</dt>
-                <dd>{s.data.durationLabel}</dd>
-                <dt>Birth data</dt>
-                <dd>
-                  {s.data.birthDataRequired === 'none'
-                    ? 'Not needed'
-                    : s.data.birthDataRequired === 'both'
-                      ? 'Both people'
-                      : 'Date, time, place'}
-                </dd>
-                <dt>Price</dt>
-                <dd>{priceCell(s)}</dd>
-              </dl>
-              <p class="card__actions">
-                {bookingActions(s.data).map((a) => (
-                  <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>
-                ))}
-                <a href={`/readings/${s.data.slug}/`}>Full details →</a>
-              </p>
-            </article>
-          ))
-        }
+      <details class="compare-cards readings-compare-mobile">
+        <summary>Compare all readings</summary>
+        {services.map((s) => (
+          <article class="card">
+            <h3 style="margin: 0;">{s.data.shortName}</h3>
+            <dl class="factlist" style="margin: 0; padding: var(--space-4);">
+              <dt>Who can book</dt><dd>{eligibilityLabel(s.data.audience) ?? 'Anyone: no prior reading needed'}</dd>
+              <dt>Best for</dt><dd>{s.data.bestFor[0]}</dd>
+              <dt>Length</dt><dd>{s.data.durationLabel}</dd>
+              <dt>Birth data</dt>
+              <dd>{s.data.birthDataRequired === 'none' ? 'Not needed' : s.data.birthDataRequired === 'both' ? 'Both people' : 'Date, time, place'}</dd>
+              <dt>Price</dt><dd>{priceCell(s)}</dd>
+            </dl>
+            <p class="card__actions">
+              {bookingActions(s.data).map((a) => <a class="btn btn--accent" href={a.href} aria-label={a.ariaLabel}>{a.label}</a>)}
+              <a href={`/readings/${s.data.slug}/`}>Full details →</a>
+            </p>
+          </article>
+        ))}
       </details>
 
-      <!-- Desktop: accessible table -->
-      <table class="compare-table">
-        <caption class="visually-hidden">Comparison of all readings</caption>
-        <thead>
-          <tr>
-            <th scope="col">Reading</th>
-            <th scope="col">Who can book</th>
-            <th scope="col">Best for</th>
-            <th scope="col">Length</th>
-            <th scope="col">Birth data</th>
-            <th scope="col">Price</th>
-            <th scope="col">Book</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            services.map((s) => (
+      <div class="readings-compare-desktop">
+        <table class="compare-table">
+          <caption class="visually-hidden">Comparison of all readings</caption>
+          <thead>
+            <tr>
+              <th scope="col">Reading</th><th scope="col">Who can book</th><th scope="col">Best for</th><th scope="col">Length</th><th scope="col">Birth data</th><th scope="col">Price</th><th scope="col">Book</th>
+            </tr>
+          </thead>
+          <tbody>
+            {services.map((s) => (
               <tr>
                 <th scope="row"><a href={`/readings/${s.data.slug}/`}>{s.data.shortName}</a></th>
                 <td>{eligibilityLabel(s.data.audience) ?? 'Anyone'}</td>
                 <td>{s.data.bestFor[0]}</td>
                 <td>{s.data.durationLabel}</td>
-                <td>
-                  {s.data.birthDataRequired === 'none'
-                    ? 'Not needed'
-                    : s.data.birthDataRequired === 'both'
-                      ? 'Both people'
-                      : 'Yes'}
-                </td>
+                <td>{s.data.birthDataRequired === 'none' ? 'Not needed' : s.data.birthDataRequired === 'both' ? 'Both people' : 'Yes'}</td>
                 <td>{priceCell(s)}</td>
                 <td>
                   <ul class="compare-book">
                     {bookingActions(s.data).map((a) => (
-                      <li>
-                        <a href={a.href} aria-label={a.ariaLabel}>
-                          {bookingActions(s.data).length > 1 ? a.durationLabel : 'Book'}
-                        </a>
-                      </li>
+                      <li><a href={a.href} aria-label={a.ariaLabel}>{bookingActions(s.data).length > 1 ? a.durationLabel : 'Book'}</a></li>
                     ))}
                   </ul>
                 </td>
               </tr>
-            ))
-          }
-        </tbody>
-      </table>
-      <p class="card__meta">
-        Prices are shown here and again before you pay. Readings marked "established clients"
-        build on a prior Natal Chart Reading with me.
-      </p>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
-  <section class="section">
+  <section class="section section--alt">
     <div class="container grid grid--3">
       <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/readings/gift/">Gift a reading</a></h2>
-        <p style="margin: 0;">If you are considering a reading for someone else, start with how gifting works.</p>
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/how-readings-work/">What actually happens in a reading?</a></h2>
+        <p style="margin: 0;">See the preparation, conversation, recording, and where your own experience enters the interpretation.</p>
       </article>
       <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/how-readings-work/">What to expect</a></h2>
-        <p style="margin: 0;">From booking and intake to the conversation itself and your recording afterward.</p>
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/frequently-asked-questions/">Have a practical question?</a></h2>
+        <p style="margin: 0;">Birth time, preparation, prediction, privacy, and other straightforward answers.</p>
       </article>
       <article class="card">
-        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/frequently-asked-questions/">Reading FAQs</a></h2>
-        <p style="margin: 0;">Straight answers about birth time, preparation, prediction, and what a reading can and cannot do.</p>
+        <h2 style="font-size: var(--text-lg); margin: 0;"><a href="/readings/gift/">Considering a gift?</a></h2>
+        <p style="margin: 0;">Start with how gifting works before choosing a reading for someone else.</p>
       </article>
     </div>
   </section>
@@ -258,6 +212,34 @@ const schema = [
   <CTABand
     heading="Bring me the question that matters."
     body="If you know what you need, choose the reading that fits. If you do not, the Reading Finder will point you toward a place to start."
-    secondaryLabel="Start with the Reading Finder"
+    buttonLabel="Use the Reading Finder"
+    buttonHref="/reading-finder/"
+    secondaryLabel="Book a Reading"
+    secondaryHref="/book/"
   />
 </BaseLayout>
+
+<style>
+  .reading-decision-card--primary {
+    border-color: rgb(15 110 107 / 0.35);
+    background: var(--color-teal-tint);
+  }
+  .readings-compare-mobile > summary {
+    cursor: pointer;
+    min-height: 52px;
+    padding: var(--space-4) 0;
+    font-weight: 700;
+  }
+  .readings-compare-desktop {
+    display: none;
+  }
+  @media (min-width: 900px) {
+    .readings-compare-mobile {
+      display: none;
+    }
+    .readings-compare-desktop {
+      display: block;
+      margin-top: var(--space-6);
+    }
+  }
+</style>
