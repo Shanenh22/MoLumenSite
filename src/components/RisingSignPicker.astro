@@ -2,35 +2,19 @@
 /**
  * "Which of these twelve is yours?" — a display preference, not a profile.
  *
- * WHAT THIS DELIBERATELY IS NOT
+ * This does one honest thing: it puts the reader's card first among the twelve
+ * rising-sign possibilities and remembers that display preference on the
+ * device. On narrow screens, once a reader chooses a sign, the other eleven
+ * cards are visually collapsed so the useful answer is not buried in a very
+ * long mobile scroll. Clearing the preference restores all twelve. Every card
+ * remains in the DOM and desktop continues to show the complete set.
  *
- * It is not a personalization system, because there is almost nothing on this
- * site keyed to a rising sign to personalize *toward*. No collection schema has
- * a sign field; blog tags are topical; the sign pages under /explore/signs/ are
- * about the sign in general and say so. The one genuine rising-sign asset is
- * the whole-sign arithmetic in src/data/lunation-guidance.ts, which already
- * produces correct guidance for all twelve signs on every lunation.
- *
- * So this does one honest thing: it puts the reader's card first among twelve
- * that were all going to be shown anyway, and it remembers which one on that
- * device. A module claiming to be personalization while carrying one real item
- * would promise more than the content can pay for.
- *
- * TWO IMPLEMENTATION RULES
- *
- * 1. **Reordering moves DOM nodes; it never uses CSS `order`.** Flexbox and
- *    grid `order` change the painted sequence and leave the reading and tab
- *    sequence untouched, which desynchronises them and fails SC 1.3.2. Moving
- *    the node keeps them the same thing.
- *
- * 2. **All twelve cards stay in the DOM, visible, always.** Nothing is hidden,
- *    removed or gated. What a crawler sees with no stored preference is
- *    byte-identical to what it sees with JavaScript disabled, and every card
- *    remains readable for someone who wants to look up a partner's sign.
+ * Reordering moves DOM nodes; it never uses CSS `order`, so reading, visual,
+ * and tab order remain aligned.
  *
  * Below 768px the twelve chips become a native <select>. Twelve 44px targets is
  * four rows of furniture above the content on a 375px screen; one row using the
- * platform picker is better on touch and better for everyone.
+ * platform picker is better on touch.
  */
 import { ZODIAC } from '../data/lunation-guidance';
 
@@ -47,7 +31,6 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     Know your rising sign? I'll put yours first.
   </p>
 
-  {/* Wide: twelve chips, the same control the sky filters use. */}
   <div
     class="filter-bar rising-picker__chips"
     role="group"
@@ -62,7 +45,6 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     }
   </div>
 
-  {/* Narrow: one row, the platform picker. Both write the same value. */}
   <div class="rising-picker__select">
     <label for={`rising-select-${context}`}>Your rising sign</label>
     <select id={`rising-select-${context}`} data-rising-select>
@@ -73,16 +55,19 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
 
   <p class="rising-picker__state" data-rising-state hidden>
     <span data-rising-state-text></span>
-    <button type="button" class="rising-picker__clear" data-rising-clear>Clear</button>
+    <button type="button" class="rising-picker__clear" data-rising-clear>Show all signs</button>
   </p>
 
-  {/*
-    Polite, never assertive. Reordering a list the reader asked to reorder is
-    not urgent, and an assertive region would interrupt whatever they were
-    reading to tell them what they just did.
-  */}
   <p class="visually-hidden" aria-live="polite" data-rising-status></p>
 </div>
+
+<style>
+  @media (max-width: 767px) {
+    [data-rising-grid][data-has-rising='true'] > [data-sign]:not(.is-yours) {
+      display: none;
+    }
+  }
+</style>
 
 <script>
   import { getRising, setRising, clearRising, isRisingSlug } from '../lib/prefs';
@@ -99,25 +84,19 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
     const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).mlTrack?.(event, params);
 
-    /**
-     * Grids this picker reorders. Scoped to the whole document rather than to
-     * the picker, because on /horoscopes/ one control drives three lunation
-     * blocks — and a second picker further down the page would then fight it.
-     */
     const grids = () => document.querySelectorAll<HTMLElement>('[data-rising-grid]');
-
     const capitalise = (slug: string) => slug.charAt(0).toUpperCase() + slug.slice(1);
 
     function apply(slug: string | null, announce: boolean) {
       chips.forEach((c) => c.setAttribute('aria-pressed', String(c.dataset.rising === slug)));
       select.value = slug ?? '';
       state.hidden = !slug;
-      if (slug) stateText.textContent = `Showing ${capitalise(slug)} rising first.`;
+      if (slug) {
+        stateText.textContent = `Showing ${capitalise(slug)} rising first. On mobile, the other signs are collapsed.`;
+      }
 
       grids().forEach((grid) => {
         const cards = [...grid.querySelectorAll<HTMLElement>('[data-sign]')];
-        // Restore zodiacal order first, so switching signs does not accumulate
-        // the effects of previous choices.
         cards
           .slice()
           .sort((a, b) => Number(a.dataset.order) - Number(b.dataset.order))
@@ -128,16 +107,15 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
           const badge = card.querySelector<HTMLElement>('[data-yours-badge]');
           if (badge) badge.hidden = !mine;
         });
+        grid.dataset.hasRising = slug ? 'true' : 'false';
         if (!slug) return;
         const mine = cards.find((c) => c.dataset.sign === slug);
-        // prepend, not CSS order: the reading order and the tab order have to
-        // move with the visual order or they stop describing the same page.
         if (mine) grid.insertBefore(mine, grid.firstChild);
       });
 
       if (announce) {
         status.textContent = slug
-          ? `${capitalise(slug)} rising shown first. All twelve signs are still listed.`
+          ? `${capitalise(slug)} rising shown first. On a small screen, the other signs are collapsed; use Show all signs to restore them.`
           : 'Showing all twelve signs in order.';
       }
     }
@@ -147,15 +125,9 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
       const previous = getRising();
       const stored = setRising(slug);
       apply(slug, true);
-      // The sign itself is never reported. mlTrack's sanitiser would not catch
-      // it — "virgo" is a short non-numeric string and would pass straight
-      // through — so this is a rule the call site has to hold, and
-      // test-rising-pref.mjs asserts that it does.
       track(previous ? 'rising_sign_changed' : 'rising_sign_selected', {
         context,
         control: how,
-        // Whether the choice survives the visit, not what it was. In private
-        // mode `stored` is false and the preference lasts this page only.
         persisted: stored ? 'yes' : 'session-only',
       });
     }
@@ -176,12 +148,10 @@ const signs = ZODIAC.map((name) => ({ name, slug: name.toLowerCase() }));
       clearRising();
       apply(null, true);
       track('rising_sign_cleared', { context });
-      // Focus back to the prompt's control rather than to a button that just
-      // disappeared underneath the reader.
-      chips[0]?.focus();
+      if (window.matchMedia('(max-width: 767px)').matches) select.focus();
+      else chips[0]?.focus();
     });
 
-    // Attribute personalized clicks without naming the sign.
     grids().forEach((grid) =>
       grid.addEventListener('click', (e) => {
         const card = (e.target as Element)?.closest<HTMLElement>('[data-sign]');
