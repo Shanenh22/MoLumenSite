@@ -2,7 +2,6 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
-import NewsletterForm from '../components/NewsletterForm.astro';
 import { site } from '../config/site';
 const crumbs = [{ label: 'Contact', href: '/contact/' }];
 ---
@@ -17,69 +16,60 @@ const crumbs = [{ label: 'Contact', href: '/contact/' }];
   <section class="hero hero--split">
     <div class="container">
       <div>
-      <p class="eyebrow">Say hello</p>
-      <h1>Get in touch</h1>
-      <p class="lede">
-        If you have a question about a reading or want to know whether working together makes sense,
-        email me. I read every message myself.
-      </p>
+        <p class="eyebrow">Say hello</p>
+        <h1>Get in touch</h1>
+        <p class="lede">
+          If you have a question about a reading or want to know whether working together makes
+          sense, email me. I read every message myself.
+        </p>
       </div>
-      <img
-        class="hero__img"
-        src={scenes.aboutMo.src}
-        srcset={scenes.aboutMo.srcset}
-        sizes="100vw"
-        alt={scenes.aboutMo.alt}
-        width={scenes.aboutMo.width}
-        height={scenes.aboutMo.height}
-        fetchpriority="high"
-      />
+      <img class="hero__img" src={scenes.aboutMo.src} srcset={scenes.aboutMo.srcset} sizes="100vw" alt={scenes.aboutMo.alt} width={scenes.aboutMo.width} height={scenes.aboutMo.height} fetchpriority="high" />
     </div>
   </section>
+
   <section class="section">
+    <div class="container">
+      <p class="eyebrow">Choose the shortest path</p>
+      <h2>What do you need?</h2>
+      <div class="grid grid--3" style="margin-top: var(--space-6);">
+        <article class="card">
+          <h3>Ask Mo directly</h3>
+          <p>For a question that is specific to you, the practice, or something the site has not answered.</p>
+          <p style="margin-top: auto;"><a class="btn btn--primary" href={`mailto:${site.email}?subject=${encodeURIComponent('Question for Mo')}`} data-contact-email>Email Mo</a></p>
+        </article>
+        <article class="card">
+          <h3>Not sure which reading fits?</h3>
+          <p>Answer five plain-language questions and see the reading I would point you toward and why.</p>
+          <p style="margin-top: auto;"><a class="btn btn--ghost" href="/reading-finder/">Use the Reading Finder</a></p>
+        </article>
+        <article class="card">
+          <h3>Ready to book?</h3>
+          <p>If you already know which reading you want, go straight to the available times and prices.</p>
+          <p style="margin-top: auto;"><a class="btn btn--ghost" href="/book/">Choose a time</a></p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
     <div class="container grid grid--2" style="align-items: start;">
-      <div class="flow">
-        <h2>Email</h2>
-        <p>
-          <a
-            class="btn btn--primary"
-            href={`mailto:${site.email}?subject=${encodeURIComponent('Question for Mo')}`}
-            data-contact-email>{site.email}</a
-          >
-        </p>
-        <p>
-          If you are deciding which reading fits, the <a href="/reading-finder/">Reading Finder</a>
-          is the quickest place to start. The <a href="/frequently-asked-questions/">FAQs</a> cover
-          common booking questions, and if you already know what you want, you can
-          <a href="/book/">choose a time directly</a>.
-        </p>
+      <div class="prose flow">
         <h2>Where I am</h2>
         <p>
           Based in the <strong>Dallas–Fort Worth Metroplex</strong>. Most readings happen over Zoom,
-          or by phone if you'd rather not be on camera, so you can book from anywhere and you don't
-          need to be near me. Times show in your own time zone when you pick one. If you are local
-          and would rather meet in person, ask. It can sometimes be arranged.
-        </p>
-
-        <h2>Elsewhere</h2>
-        <p>
-          <a href={site.social.instagram} rel="noopener">Instagram ↗</a> ·
-          <a href={site.social.facebook} rel="noopener">Facebook ↗</a>
-        </p>
-        <p class="card__meta">
-          Please don't send birth data by email unless I've asked you for it as part of a booked
-          reading. It's sensitive information and deserves a proper home.
+          or by phone if you'd rather not be on camera, so you can book from anywhere. Times show in
+          your own time zone when you choose one. If you are local and would rather meet in person,
+          ask. It can sometimes be arranged.
         </p>
       </div>
-      <div class="card flow">
-        <h2 id="contact-newsletter" style="font-size: var(--text-xl); margin: 0;">
-          Want to get a feel for my work first?
-        </h2>
-        <p style="margin: 0;">
-          The monthly note is a low-pressure way to see what I notice, how I think, and what I keep
-          returning to before you ever decide whether to reach out.
+      <div class="prose flow">
+        <h2>Before you email birth information</h2>
+        <p>
+          Please do not send birth data by email unless I've asked you for it as part of a booked
+          reading. It is sensitive information and deserves a proper home. If your question is about
+          finding or confirming your birth time, start with the <a href="/birth-time/">Birth Time guide</a>.
         </p>
-        <NewsletterForm source="contact" labelledby="contact-newsletter" />
+        <p><a href={site.social.instagram} rel="noopener">Instagram ↗</a> · <a href={site.social.facebook} rel="noopener">Facebook ↗</a></p>
       </div>
     </div>
   </section>
