@@ -14,6 +14,8 @@ Mo-facing instructions live in:
 - `MoLumen_OS/02_BRAND_AND_EDITORIAL_GUIDE.md` — canonical voice, framing, page-role, and CTA guidance.
 - `MoLumen_OS/templates/` and `workflows/` — on-demand publishing aids; they must follow the live schema/CMS and canonical editorial guide rather than override them.
 
+Templates tied to a configured content type must mirror the live schema/CMS field names. Templates for content types that do not yet exist must say explicitly that they are planning scaffolds rather than runtime schemas.
+
 ## Routine CMS scope
 Pages CMS supports configured routine content such as blog posts, Current Sky, videos, FAQs, glossary, testimonials, and approved editable reading/service copy. A content area is not CMS-editable merely because documentation says it is; the collection/config must exist.
 

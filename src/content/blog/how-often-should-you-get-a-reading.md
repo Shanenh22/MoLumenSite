@@ -39,7 +39,7 @@ The important distinction is that the session should be helping you understand s
 
 ## When a regular rhythm makes sense
 
-I also offer [Monthly Personal Transits](/readings/monthly-personal-transits/) for established clients who want an ongoing timing conversation. That works best when the purpose is orientation: noticing what is developing, putting shorter cycles inside longer ones, and keeping perspective as circumstances evolve.
+I also offer [Monthly Personal Transits](/readings/monthly-transits/) for established clients who want an ongoing timing conversation. That works best when the purpose is orientation: noticing what is developing, putting shorter cycles inside longer ones, and keeping perspective as circumstances evolve.
 
 It is not meant to turn every month into a new set of instructions.
 

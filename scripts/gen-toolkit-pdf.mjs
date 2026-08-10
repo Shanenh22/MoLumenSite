@@ -154,11 +154,28 @@ const PDF_CSS = `
   }
 
   .ws-check {
-    margin-bottom: 0.2in !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 0 0.2in !important;
   }
 
   .ws-check li {
+    display: block !important;
+    position: relative !important;
+    padding-left: 0.25in !important;
     margin-bottom: 0.09in !important;
+  }
+
+  .ws-check li::before {
+    content: '' !important;
+    position: absolute !important;
+    left: 0 !important;
+    top: 0.035in !important;
+    width: 0.13in !important;
+    height: 0.13in !important;
+    border: 0.75pt solid #777 !important;
+    border-radius: 1px !important;
+    box-sizing: border-box !important;
   }
 
   .ws-block {
@@ -244,6 +261,22 @@ await page.goto(`http://localhost:${PORT}/birth-time-toolkit/worksheets/`, { wai
 await page.emulateMedia({ media: 'print' });
 await page.evaluate(() => document.fonts.ready);
 await page.addStyleTag({ content: PDF_CSS });
+
+// A checklist item that becomes unusually tall is a strong signal that its text
+// has collapsed into a narrow anonymous grid column. That failure can still
+// produce a syntactically valid PDF, so stop before writing a broken artifact.
+const brokenChecklist = await page.$$eval('.ws-check li', (items) =>
+  items
+    .map((item, index) => {
+      const rect = item.getBoundingClientRect();
+      return { index: index + 1, width: rect.width, height: rect.height };
+    })
+    .filter((item) => item.width < 300 || item.height > 180),
+);
+if (brokenChecklist.length) {
+  throw new Error(`Toolkit checklist layout collapsed: ${JSON.stringify(brokenChecklist)}`);
+}
+
 await page.pdf({
   path: OUT,
   format: 'Letter',

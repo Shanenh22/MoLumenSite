@@ -224,3 +224,4 @@ if (rows.length === 0) {
   for (const r of rows) console.log(r.join(" | "));
   console.log(`\nTotal violation types: ${total}`);
 }
+process.exit(rows.length ? 1 : 0);

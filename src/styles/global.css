@@ -1630,6 +1630,12 @@ blockquote {
 .layer__body > :last-child {
   margin-bottom: 0;
 }
+.layer__label a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+}
+
 .layer--astro {
   border-inline-start-color: var(--color-blue-muted);
   background: rgb(91 110 143 / 0.06);
@@ -2658,7 +2664,7 @@ fieldset.booking-group > legend span {
   font-style: italic;
   font-size: var(--text-lg);
   line-height: 1.45;
-  color: var(--color-gold-soft);
+  color: var(--ink-on-dark);
   max-width: 40ch;
   text-wrap: balance;
 }

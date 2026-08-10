@@ -2,63 +2,45 @@
 
 Last reviewed: 2026-08-10
 
-Read only when a task depends on current cross-session status. Code/config remains authoritative for implementation facts.
+Read for cross-session status only. Code/config is authoritative for implementation facts.
 
-## Current platform
-- Astro 5 static site. Public brand: **Mo Lumen Astrology**. Confirmed legal name: **Mo Lumen Astrological Services**.
-- Seven paid reading pages, Reading Finder, and service-aware booking handoff are live in the codebase.
-- `src/config/booking.ts` owns reading order, eligibility labels, booking actions, bare `/book/` default, and service/event mappings. Do not hand-write `/book/?service=`.
-- Primary nav: Readings / Explore Astrology / Current Sky / From Mo + Book. Current Sky dropdown includes Current Sky, Horoscopes, Sky Calendar, The Sky in 2026, and Archive.
-- Shared CTA behavior is intent-aware rather than Book-first.
-- Pages CMS is the normal interface for supported routine content. Explore remains code-managed until a deliberate content migration exists.
-- Current Sky coverage extends through December 2027; maintain a rolling horizon.
+## Platform
+- Astro 5 static site: **Mo Lumen Astrology**; legal name **Mo Lumen Astrological Services**.
+- Seven readings, Reading Finder, and service-aware booking are implemented. `src/config/booking.ts` owns reading order, eligibility, actions, bare `/book/`, and event mappings; do not hand-write service booking URLs.
+- Pages CMS handles supported routine content; Explore remains code-managed. `src/content.config.ts` + `.pages.yml` are the live content/CMS contract.
+- Current Sky data extends through Dec. 2027; maintain a rolling horizon. There is no 2027 annual overview page.
 - Birth Time guide/toolkit/PDF, sky calendar, Birth Time Confidence, and rising-sign preference are implemented.
-- Mobile rising-sign UI uses one dropdown; selecting a sign isolates it and "Show all signs" restores all. Redundant explanatory UI copy was removed.
-- Horoscopes/Current Sky distinguish rising-sign house guidance from individualized interpretation.
-- Newsletter positioning is **a monthly note from Mo**; "The Sky This Month" is one recurring section.
-- Welcome-video slots render only when a real video ID exists.
-- `llms.txt` maps the practice, free-learning boundaries, Current Sky/horoscope limits, readings, and machine-readable identity for answer engines.
-- Shared structured data now reserves `Article` for genuine editorial/reference pages. Hubs, calendars, archives, glossaries, and reference indexes receive `WebPage` freshness metadata rather than being mislabeled as articles.
-- Validation covers build, content, links, booking integrity, interactive flows, analytics privacy, accessibility, and performance.
+- Newsletter = **a monthly note from Mo**; “The Sky This Month” is one section. Welcome-video UI/schema requires real metadata.
+- `llms.txt` maps practice identity, free-learning boundaries, readings, Current Sky, and horoscope limits for answer engines.
+- Base schema uses `Article` only for genuine editorial/reference pages; collection/index surfaces use `WebPage` freshness metadata.
 
 ## Editorial/product truths
 - Audience: thoughtful adults at meaningful crossroads who want perspective without surrendering judgment or agency.
 - Promise: clarity without surrendering agency. Mo gives another map; the client still drives.
-- Practice: collaborative astrological synthesis. Technique, intuition, lived experience, and conversation inform one another; intuition can suggest where to look but does not end the inquiry.
-- Voice: warm authority without mystique; intelligent, grounded, candid, curious, technically informed in plain language, conversational, agency-first.
-- Wonder matters as much as credibility. Natural-science experience informs observation/systems thinking; it does not prove astrology.
-- Prefer practice/tool language over belief/faith framing. Do not use resonance/frequency/causation claims as established fact.
-- Content roles: Explore teaches; Current Sky interprets shared cycles; Horoscopes give a broad rising-sign lens; Blog develops ideas; Newsletter builds relationship; paid readings provide individualized synthesis.
-- Preferred journey: **Learn → deepen → observe Mo's thinking → understand the reading experience → identify the right reading → book.**
-- Canonical editorial guidance: `MoLumen_OS/02_BRAND_AND_EDITORIAL_GUIDE.md`.
+- Practice: collaborative astrological synthesis; technique, intuition, lived experience, and conversation inform one another.
+- Voice: warm authority without mystique; grounded, candid, curious, technically informed in plain language, conversational, agency-first.
+- Natural-science experience informs observation/systems thinking; it does not prove astrology. Do not present resonance, frequency, or causation claims as established fact.
+- Roles: Explore teaches; Current Sky interprets shared cycles; Horoscopes give a broad rising-sign lens; Blog develops ideas; Newsletter builds relationship; readings provide individualized synthesis.
+- Journey: **Learn → deepen → observe Mo's thinking → understand the reading experience → identify the right reading → book.**
+- Canonical guide: `MoLumen_OS/02_BRAND_AND_EDITORIAL_GUIDE.md`.
 
-## Architecture truths
-- `src/config/site.ts` — brand/legal identity + public integration config.
-- `src/config/booking.ts` — reading/order/booking source of truth.
-- `src/layouts/BaseLayout.astro` — global metadata, privacy-safe analytics shell, and base structured-data classification.
-- `src/content.config.ts` + `.pages.yml` — live content/CMS system.
-- `docs/pages-cms-for-mo.md` — owner CMS workflow.
-- `src/content/services/*.json` — service data.
-- `src/content/sky-events/*.md` — Current Sky data.
+## Sources of truth
+- `src/config/site.ts` — identity/integrations; `src/config/booking.ts` — readings/booking.
+- `src/layouts/BaseLayout.astro` — global metadata, privacy-safe analytics, base schema.
+- `src/content.config.ts` + `.pages.yml` — content/CMS; `docs/pages-cms-for-mo.md` — owner workflow.
+- `src/content/services/*.json` and `src/content/sky-events/*.md` — service and Current Sky facts.
 
-## Release posture
-- Staging canonicals/sitemap point at molumen.com by design; there is no staging noindex/robots block. See `docs/deployment.md` before changing this.
-- `molumen.com` cutover remains owner-gated.
-- Repository checks prove code readiness; external-account state must be verified separately.
-
-## Unresolved owner/external work
-- Complete/verify Cal.com account-side setup in `docs/calcom-setup-for-mo.md`, then run an end-to-end booking/payment/confirmation/intake test.
-- Verify newsletter delivery and GA4 reception/consent events.
-- Complete owner/legal/accessibility items in `BACKLOG.md`.
-- Supply welcome-video ID/poster and additional permissioned testimonials when ready.
-- No 2027 annual overview page exists; do not invent one merely because 2027 event entries exist.
+## Release posture / owner gates
+- Staging canonicals/sitemap intentionally point at molumen.com; read `docs/deployment.md` before changing indexing behavior.
+- Production `molumen.com` cutover is owner-gated. Repo checks prove code readiness, not external-account readiness.
+- Verify Cal.com account setup plus one full booking/payment/confirmation/intake flow.
+- Verify newsletter delivery and GA4 reception/consent events; complete owner/legal/accessibility items in `BACKLOG.md`.
+- Add welcome-video metadata or more permissioned testimonials only when supplied.
 
 ## Durable traps
-- Re-verify old audit findings before acting.
-- Read live config for volatile IDs/facts.
-- Never choose among eligibility-dependent booking options for the visitor.
+- Re-verify old audit findings; read live config for volatile facts.
+- Never choose an eligibility-dependent booking option for a visitor.
 - Keep birth data, free-text personal questions, and rising-sign preference out of analytics.
-- Do not describe celestial-event pages as hosted `Event` entities in schema merely because they have dates.
-- Do not classify navigation/collection pages as `Article` merely because they live under an editorial URL prefix.
+- Celestial-event pages are not hosted schema.org `Event` entities merely because they have dates; collection pages are not `Article` merely because they sit under editorial paths.
 - Keep historical reports out of routine context.
-- When editorial strategy changes materially, update the canonical OS guide, relevant Claude skills, and owner-facing CMS guidance together.
+- When editorial strategy changes materially, sync the canonical OS guide, relevant Claude skills, and owner CMS guidance.

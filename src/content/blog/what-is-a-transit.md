@@ -69,4 +69,4 @@ That can help answer questions such as: *Why does this feel especially active no
 
 Those are different questions from *What exactly will happen on Tuesday?*
 
-The [transits page](/explore/transits/) goes deeper into the technique, and [Current Sky](/current-sky/) tracks the shared sky. For individualized timing, [Monthly Personal Transits](/readings/monthly-personal-transits/) is for established clients, while a [Life Changes reading](/readings/life-changes/) is a better fit when a larger transition or decision is the real reason you are looking.
+The [transits page](/explore/transits/) goes deeper into the technique, and [Current Sky](/current-sky/) tracks the shared sky. For individualized timing, [Monthly Personal Transits](/readings/monthly-transits/) is for established clients, while a [Life Changes reading](/readings/life-changes/) is a better fit when a larger transition or decision is the real reason you are looking.
