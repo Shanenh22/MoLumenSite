@@ -223,5 +223,22 @@ if (rows.length === 0) {
   console.log("VIEWPORT | PAGE | VIOLATION | NODE");
   for (const r of rows) console.log(r.join(" | "));
   console.log(`\nTotal violation types: ${total}`);
+
+  // GitHub's zipped job log is awkward to inspect through automation clients.
+  // Emit one standard workflow annotation per finding so a failed launch gate
+  // says exactly which viewport/page/rule failed without requiring a human to
+  // download logs. Escape workflow-command metacharacters before writing it.
+  if (process.env.GITHUB_ACTIONS) {
+    const esc = (value) =>
+      String(value)
+        .replaceAll("%", "%25")
+        .replaceAll("\r", "%0D")
+        .replaceAll("\n", "%0A");
+    for (const [viewport, path, violation, node] of rows) {
+      console.error(
+        `::error title=Accessibility sweep::${esc(`${viewport} | ${path} | ${violation} | ${node}`)}`,
+      );
+    }
+  }
 }
 process.exit(rows.length ? 1 : 0);
