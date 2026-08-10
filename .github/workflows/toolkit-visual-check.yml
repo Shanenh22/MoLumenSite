@@ -1,0 +1,56 @@
+name: Toolkit visual repair check
+
+on:
+  push:
+    branches:
+      - audit-finalization-2026-08-10
+    paths:
+      - '.github/workflows/toolkit-visual-check.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  verify-toolkit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: |
+          npm ci
+          npm run audit:install
+          npx playwright install --with-deps chromium
+          sudo apt-get update -qq
+          sudo apt-get install -y -qq poppler-utils
+
+      - name: Apply toolkit layout repair
+        run: python scripts/fix-toolkit-layout.py
+
+      - name: Build and regenerate toolkit
+        run: |
+          npm run build
+          npm run toolkit:pdf
+          npm run verify:core
+
+      - name: Render PDF pages
+        run: |
+          mkdir -p /tmp/toolkit-visual/pdf-pages
+          cp public/downloads/birth-time-toolkit.pdf /tmp/toolkit-visual/
+          pdftoppm -png -r 120 public/downloads/birth-time-toolkit.pdf /tmp/toolkit-visual/pdf-pages/page
+
+      - name: Upload visual artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: toolkit-visual-repair
+          path: /tmp/toolkit-visual
+          if-no-files-found: error
+          retention-days: 7
