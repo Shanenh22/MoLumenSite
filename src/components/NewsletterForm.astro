@@ -113,4 +113,26 @@ const scriptUrl = site.integrations.kitFormScriptUrl;
     min-height: 2.75rem;
     cursor: pointer;
   }
+
+  /* On a phone the form should read as one simple action, not a squeezed
+     desktop row. Kit controls are injected after load, so the component owns
+     this responsive rule rather than depending on third-party defaults. */
+  @media (max-width: 480px) {
+    .newsletter-form--kit .formkit-fields,
+    .newsletter-form--kit .formkit-field,
+    .newsletter-form--kit .formkit-submit,
+    .newsletter-form--kit .kit-form-fallback,
+    .newsletter-form--kit .kit-form-fallback .btn {
+      width: 100%;
+    }
+
+    .newsletter-form--kit .formkit-field {
+      flex-basis: 100%;
+    }
+
+    .newsletter-form--kit .formkit-input,
+    .newsletter-form--kit .formkit-submit {
+      min-height: 48px;
+    }
+  }
 </style>
