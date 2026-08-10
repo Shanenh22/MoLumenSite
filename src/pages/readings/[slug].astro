@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
+import EstablishedClientChooser from '../../components/EstablishedClientChooser.astro';
 import { site } from '../../config/site';
 import SeaBreak from '../../components/SeaBreak.astro';
 import { bandFor, scenes } from '../../config/images';
@@ -154,6 +155,8 @@ if (faqs.length > 0) {
       </div>
     </div>
   </section>
+
+  {s.audience === 'established' && <EstablishedClientChooser currentSlug={s.slug} />}
 
   <section class="section section--alt">
     <div class="container">
