@@ -1,11 +1,22 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CTABand from '../../components/CTABand.astro';
 import { photos } from '../../config/images';
 const crumbs = [
   { label: 'Current Sky', href: '/current-sky/' },
   { label: 'The Sky in 2026', href: '/current-sky/the-sky-in-2026/' },
 ];
+
+const shifts = [
+  { date: 'January 26', shift: 'Neptune enters Aries', note: 'from Pisces, where it had been since 2011', until: '2039' },
+  { date: 'February 13', shift: 'Saturn enters Aries', note: 'from Pisces, since 2023', until: '2028' },
+  { date: 'February 20', shift: 'Saturn conjunct Neptune at 0° Aries', note: '', until: '' },
+  { date: 'April 25', shift: 'Uranus enters Gemini', note: 'from Taurus, since 2018', until: '2033' },
+  { date: 'June 19', shift: 'Chiron enters Taurus', note: '', until: '' },
+  { date: 'June 30', shift: 'Jupiter enters Leo', note: 'from Cancer', until: 'July 2027' },
+  { date: 'July 26', shift: 'North Node enters Aquarius, South Node enters Leo', note: '', until: '2028' },
+] as const;
 ---
 
 <BaseLayout
@@ -21,10 +32,9 @@ const crumbs = [
         <p class="eyebrow">The bigger picture</p>
         <h1>The sky in 2026</h1>
         <p class="lede">
-          Some years are astrologically quieter than others. In 2026 several slow-moving planets
-          changed signs within the same stretch of months, while the lunar nodes changed signs as
-          well. I find years like this especially interesting because several long cycles are
-          changing context at once.
+          Several slow-moving planets changed signs within the same stretch of months in 2026, and
+          the lunar nodes changed signs as well. The useful story is not that one dramatic thing
+          must happen; it is that several long cycles are changing symbolic context at once.
         </p>
       </div>
       <img
@@ -39,88 +49,65 @@ const crumbs = [
   </section>
 
   <section class="section">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-7);">
+        <p class="eyebrow">At a glance</p>
+        <h2>Four threads I am watching across the year</h2>
+        <p>
+          These are collective themes to observe, not forecasts of what will happen to an individual.
+          A slow transit becomes personal through the natal chart and the circumstances already being lived.
+        </p>
+      </div>
+      <div class="grid grid--2">
+        <article class="card"><h3>Vision meeting structure</h3><p>Saturn and Neptune coming together at 0° Aries raises questions about what happens when an ideal has to take form.</p></article>
+        <article class="card"><h3>Information changing shape</h3><p>Uranus entering Gemini brings communication, knowledge, technology, movement, and networks into a longer period of experimentation and disruption.</p></article>
+        <article class="card"><h3>Visibility and participation</h3><p>Jupiter entering Leo brings growth and enlargement into conversation with creativity, authorship, visibility, and self-expression.</p></article>
+        <article class="card"><h3>Individual and collective</h3><p>The lunar nodes moving to Aquarius and Leo shifts the eclipse axis toward questions of personal expression, belonging, and participation in something larger.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="prose flow" style="margin-bottom: var(--space-6);">
+        <p class="eyebrow">The astronomical framework</p>
+        <h2>The year's major shifts</h2>
+        <p>
+          I like to begin with the movement itself before rushing to interpretation. The dates and
+          positions are the framework; the meaning we make from them is astrology.
+        </p>
+      </div>
+      <div class="grid grid--2">
+        {shifts.map((item) => (
+          <article class="card sky-shift">
+            <p class="card__meta" style="margin: 0;">{item.date}</p>
+            <h3 style="margin: 0;">{item.shift}</h3>
+            {item.note && <p style="margin: 0;">{item.note}</p>}
+            {item.until && <p class="card__meta" style="margin: 0;">Remains in this phase until {item.until}</p>}
+          </article>
+        ))}
+      </div>
+      <p class="card__meta" style="margin-top: var(--space-6);">
+        Dates verified against two independent astrological ephemerides, August 2026. Positions are astronomy; the interpretation below is astrology.
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="container prose flow">
-      <h2>Why I am watching this year closely</h2>
-      <p>
-        The slower planets spend years in a sign, so a sign change alters the symbolic background
-        against which shorter cycles unfold. That does not mean everyone experiences a dramatic
-        event when an outer planet crosses 0° of a new sign. It does mean the collective astrology
-        is changing vocabulary, and several of those changes arrived close together in 2026.
-      </p>
-      <p>
-        I like to begin with the movement itself before rushing to interpretation. These are very
-        different bodies moving on very different cycles, and yet from Earth we can watch their
-        changing positions form patterns over years and decades. Astrology asks what we make of
-        those patterns. The dates below are the astronomical framework; what follows is my reading
-        of some of the themes worth considering.
-      </p>
-
-      <h2>The year's major ingresses</h2>
-      <table>
-        <caption class="visually-hidden">Planetary sign changes in 2026</caption>
-        <thead>
-          <tr>
-            <th scope="col">Date</th>
-            <th scope="col">Shift</th>
-            <th scope="col">Stays until</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <th scope="row">January 26</th>
-            <td>Neptune enters Aries (from Pisces, where it had been since 2011)</td>
-            <td>2039</td>
-          </tr>
-          <tr>
-            <th scope="row">February 13</th>
-            <td>Saturn enters Aries (from Pisces, since 2023)</td>
-            <td>2028</td>
-          </tr>
-          <tr>
-            <th scope="row">February 20</th>
-            <td>Saturn conjunct Neptune at 0° Aries</td>
-            <td>n/a</td>
-          </tr>
-          <tr>
-            <th scope="row">April 25</th>
-            <td>Uranus enters Gemini (from Taurus, since 2018)</td>
-            <td>2033</td>
-          </tr>
-          <tr>
-            <th scope="row">June 19</th>
-            <td>Chiron enters Taurus</td>
-            <td>n/a</td>
-          </tr>
-          <tr>
-            <th scope="row">June 30</th>
-            <td>Jupiter enters Leo (from Cancer)</td>
-            <td>July 2027</td>
-          </tr>
-          <tr>
-            <th scope="row">July 26</th>
-            <td>North Node enters Aquarius, South Node enters Leo</td>
-            <td>2028</td>
-          </tr>
-        </tbody>
-      </table>
-      <p class="card__meta">
-        Dates verified against two independent astrological ephemerides, August 2026. Positions are
-        astronomy; the reading below is interpretation.
-      </p>
-
       <h2>Saturn and Neptune together in Aries</h2>
       <p>
-        <a href="/explore/planets/saturn/">Saturn</a> and
-        <a href="/explore/planets/neptune/">Neptune</a> carry very different symbolic meanings.
-        Saturn is associated with structure, limits, responsibility, and form; Neptune with
-        permeability, imagination, idealization, and dissolution. Their conjunction at 0° Aries
-        places those contrasting ideas at the beginning of the zodiac.
+        <a href="/explore/planets/saturn/">Saturn</a> and <a href="/explore/planets/neptune/">Neptune</a>
+        carry very different symbolic meanings. Saturn is associated with structure, limits,
+        responsibility, and form; Neptune with permeability, imagination, idealization, and
+        dissolution. Their conjunction at 0° Aries places those contrasting ideas at the beginning
+        of the zodiac.
       </p>
       <p>
         One question I keep returning to is: <em>what happens when an ideal has to take form?</em>
-        Aries adds themes of initiation, assertion, and beginning. That does not give us one event
-        or one answer. It gives us a field of tension to watch: vision and structure, inspiration
-        and consequence, the impulse to begin and the reality of what beginning requires.
+        Aries adds themes of initiation, assertion, and beginning. That gives us a field of tension
+        to watch rather than one event or one answer: vision and structure, inspiration and
+        consequence, the impulse to begin and the reality of what beginning requires.
       </p>
 
       <h2>Uranus into Gemini</h2>
@@ -153,16 +140,11 @@ const crumbs = [
 
       <h2>The nodes to Leo–Aquarius</h2>
       <p>
-        In late July the <a href="/explore/lunar-nodes/">lunar nodes</a> moved onto the
-        Leo–Aquarius axis, shifting the signs involved in upcoming
-        <a href="/explore/eclipses/">eclipse seasons</a>. Leo and Aquarius are opposite signs, so
-        astrologers often consider them as two ends of one conversation: individual expression and
-        participation in a larger group, personal authorship and collective context, being seen and
-        belonging to something beyond oneself.
-      </p>
-      <p>
-        I am much more interested in the relationship between those ends than in declaring one the
-        lesson and the other the problem. An axis asks us to hold both.
+        In late July the <a href="/explore/lunar-nodes/">lunar nodes</a> moved onto the Leo–Aquarius
+        axis, shifting the signs involved in upcoming <a href="/explore/eclipses/">eclipse seasons</a>.
+        I am more interested in the relationship between those ends—individual expression and
+        collective context, being seen and belonging—than in declaring one the lesson and the other
+        the problem. An axis asks us to hold both.
       </p>
 
       <h2>What to do with all this</h2>
@@ -172,14 +154,15 @@ const crumbs = [
         Which houses are involved? Are exact aspects being made? What else is active? And what is
         actually happening in the person's life?
       </p>
-      <p>
-        That last question matters. Astrology can describe a range of possibilities, but a life is
-        not lived in the abstract. If you want to keep watching the shared pattern, follow the
-        <a href="/current-sky/">Current Sky timeline</a>. If you want to explore how these cycles
-        intersect with your own chart and circumstances, the
-        <a href="/reading-finder/">Reading Finder</a> can point you toward the most appropriate
-        conversation.
-      </p>
     </div>
   </section>
+
+  <CTABand
+    heading="Keep watching the pattern as it unfolds."
+    body="The annual view shows the long threads. Current Sky follows the individual events and changing sequence as the year moves forward."
+    buttonLabel="Read Current Sky"
+    buttonHref="/current-sky/"
+    secondaryLabel="Open the Sky Calendar"
+    secondaryHref="/current-sky/calendar/"
+  />
 </BaseLayout>
