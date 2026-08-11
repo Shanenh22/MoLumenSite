@@ -105,7 +105,7 @@ ${serviceLines.join("\n")}
 - [About Mo](${site.url}/about/): background, training, wonder, and how she works
 - [Approach](${site.url}/approach/): the philosophy and collaborative synthesis behind the readings
 - [Credentials](${site.url}/credentials/): training, professional involvement, and ethics
-- [Blog](${site.url}/blog/): durable essays and guides — a place to think with Mo
+- [Blog](${site.url}/blog/): durable essays and guides: a place to think with Mo
 - [Newsletter](${site.url}/newsletter/): a monthly note from Mo; not a mini forecast product
 ${videoLine}
 - [Contact](${site.url}/contact/): ${site.email}
