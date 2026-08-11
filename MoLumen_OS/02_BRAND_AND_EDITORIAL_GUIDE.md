@@ -53,6 +53,7 @@ A useful Explore principle: this is the grammar; your chart is the poem.
 - Link deeper material rather than overloading one page.
 - Remove copy that merely explains an obvious interface action.
 - Avoid repeating the same limitation, slogan, or reassurance on adjacent pages.
+- Do not use em dashes in reader-facing copy. Rewrite with commas, colons, parentheses, or a separate sentence. Preserve punctuation inside verbatim client testimonials. En dashes remain appropriate for ranges and paired terms such as Dallas–Fort Worth or Leo–Aquarius.
 
 ## Page-role and CTA logic
 Every substantial page should answer "what next?" according to the visitor's current intent rather than sending everyone straight to booking.
