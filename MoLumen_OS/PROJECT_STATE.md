@@ -1,6 +1,6 @@
 # MoLumen Project State
 
-Last reviewed: 2026-08-10
+Last reviewed: 2026-08-11
 
 Read for cross-session status only. Code/config is authoritative for implementation facts.
 
@@ -36,7 +36,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 ## Release posture / owner gates
 - Staging canonicals/sitemap intentionally point at molumen.com; read `docs/deployment.md` before changing indexing behavior.
 - Production `molumen.com` cutover is owner-gated. Repo checks prove code readiness, not external-account readiness.
-- Verify Cal.com account setup plus one full booking/payment/confirmation/intake flow.
+- Cal.com Zoom + attendee phone location choices are configured and visible. Remaining account work is intake/question/label/description validation plus one full booking/payment/confirmation/intake flow.
 - Verify newsletter delivery and GA4 reception/consent events; complete owner/legal/accessibility items in `BACKLOG.md`.
 - Add welcome-video metadata or more permissioned testimonials only when supplied.
 
