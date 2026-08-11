@@ -9,6 +9,10 @@ const terms = (await getCollection('glossary')).sort((a, b) =>
   a.data.term.localeCompare(b.data.term)
 );
 const letters = [...new Set(terms.map((t) => t.data.term.charAt(0).toUpperCase()))];
+const termsByLetter = letters.map((letter) => ({
+  letter,
+  terms: terms.filter((term) => term.data.term.charAt(0).toUpperCase() === letter),
+}));
 const crumbs = [
   { label: 'Explore Astrology', href: '/explore/' },
   { label: 'Glossary', href: '/explore/glossary/' },
@@ -75,40 +79,38 @@ const crumbs = [
       </div>
 
       <div class="prose" data-glossary-list>
-        <dl>
-          {
-            terms.map((t, index) => {
-              const letter = t.data.term.charAt(0).toUpperCase();
-              const firstForLetter = index === 0 || terms[index - 1].data.term.charAt(0).toUpperCase() !== letter;
-              return (
-                <div
-                  id={t.data.id}
-                  data-glossary-term
-                  data-search={`${t.data.term} ${t.data.definition}`.toLowerCase()}
-                  style="margin-bottom: var(--space-6);"
-                >
-                  {firstForLetter && (
-                    <p id={`letter-${letter}`} class="eyebrow" style="padding-top: var(--space-4);">
-                      {letter}
-                    </p>
-                  )}
-                  <dt style="font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600;">
-                    {t.data.term}
-                  </dt>
-                  <dd style="margin: var(--space-2) 0 0;">
-                    {t.data.definition}
-                    {t.data.learnLink && (
-                      <>
-                        {' '}
-                        <a href={t.data.learnLink}>See it in context →</a>
-                      </>
-                    )}
-                  </dd>
-                </div>
-              );
-            })
-          }
-        </dl>
+        {
+          termsByLetter.map(({ letter, terms: letterTerms }) => (
+            <section data-glossary-letter>
+              <p id={`letter-${letter}`} class="eyebrow" style="padding-top: var(--space-4);">
+                {letter}
+              </p>
+              <dl>
+                {letterTerms.map((t) => (
+                  <div
+                    id={t.data.id}
+                    data-glossary-term
+                    data-search={`${t.data.term} ${t.data.definition}`.toLowerCase()}
+                    style="margin-bottom: var(--space-6);"
+                  >
+                    <dt style="font-family: var(--font-serif); font-size: var(--text-lg); font-weight: 600;">
+                      {t.data.term}
+                    </dt>
+                    <dd style="margin: var(--space-2) 0 0;">
+                      {t.data.definition}
+                      {t.data.learnLink && (
+                        <>
+                          {' '}
+                          <a href={t.data.learnLink}>See it in context →</a>
+                        </>
+                      )}
+                    </dd>
+                  </div>
+                ))}
+              </dl>
+            </section>
+          ))
+        }
         <p data-glossary-empty hidden>
           I do not have that term in the glossary yet. Try a shorter word, or use
           <a href="/explore/"> Explore Astrology</a> to browse by topic.
@@ -129,6 +131,7 @@ const crumbs = [
   <script>
     const input = document.querySelector('[data-glossary-search]');
     const rows = [...document.querySelectorAll('[data-glossary-term]')];
+    const letterGroups = [...document.querySelectorAll('[data-glossary-letter]')];
     const status = document.querySelector('[data-glossary-status]');
     const empty = document.querySelector('[data-glossary-empty]');
 
@@ -140,6 +143,12 @@ const crumbs = [
           const match = !query || (row.getAttribute('data-search') || '').includes(query);
           row.toggleAttribute('hidden', !match);
           if (match) visible += 1;
+        });
+        letterGroups.forEach((group) => {
+          const hasVisibleTerm = [...group.querySelectorAll('[data-glossary-term]')].some(
+            (row) => !row.hasAttribute('hidden')
+          );
+          group.toggleAttribute('hidden', !hasVisibleTerm);
         });
         empty.toggleAttribute('hidden', visible !== 0);
         status.textContent = query
