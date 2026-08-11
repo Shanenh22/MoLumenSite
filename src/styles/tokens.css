@@ -40,12 +40,20 @@
   --link: var(--color-teal-ink); /* on ivory: 6.6:1 */
   --border: var(--color-stone);
 
+  /* Compatibility aliases used by newer component-local styles. Keep new work
+     on the semantic names above so the token system does not fragment again. */
+  --color-surface: var(--surface);
+  --color-border: var(--border);
+  --border-color: var(--border);
+  --color-text-muted: var(--ink-soft);
+
   /* -- type -- */
   --font-serif:
     "Fraunces", "Georgia", serif; /* self-hosted, OFL — see fonts note */
   --font-sans: "Source Sans 3", "Segoe UI", system-ui, sans-serif;
   --text-base: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
   --text-sm: 0.875rem;
+  --text-xs: var(--text-sm);
   --text-lg: clamp(1.08rem, 1.04rem + 0.3vw, 1.22rem);
   --text-xl: clamp(1.3rem, 1.18rem + 0.6vw, 1.55rem);
   --text-2xl: clamp(1.55rem, 1.38rem + 0.9vw, 1.95rem);
@@ -60,7 +68,9 @@
   --space-4: 1rem;
   --space-5: 1.25rem;
   --space-6: 1.5rem;
+  --space-7: 1.75rem;
   --space-8: 2rem;
+  --space-10: 2.5rem;
   --space-12: 3rem;
   --space-16: 4rem;
   --space-24: 6rem;

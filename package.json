@@ -12,7 +12,7 @@
     "check": "astro check",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "test:content": "node scripts/content-integrity.mjs",
+    "test:content": "node scripts/content-integrity.mjs && node scripts/editorial-punctuation.mjs",
     "test:links": "node scripts/internal-link-check.mjs",
     "check:agent-docs": "node scripts/check-agent-docs.mjs",
     "verify:core": "npm run check:agent-docs && npm run check:publishing-contracts && npm run check && npm run test:content && npm run build && npm run test:links && npm run test:search && npm run check:booking-links",

@@ -15,7 +15,7 @@ Protect Mo's core practice model: a reading is collaborative astrological synthe
 
 Keep wonder alive without overstating science. Mo's biology/natural-science background informs observation, systems thinking, curiosity, and respect for complexity; it does not prove astrology. Do not present resonance, frequency, planetary causation, or similar scientific-sounding mechanisms as established fact.
 
-Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than verdict. Avoid deterministic planetary agency, doom, certainty, formulaic self-help endings, repeated slogans, therapy language, generic AI prose, interface narration, and belief/faith framing when practice/tool language works better.
+Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than verdict. Avoid deterministic planetary agency, doom, certainty, formulaic self-help endings, repeated slogans, therapy language, generic AI prose, interface narration, and belief/faith framing when practice/tool language works better. Do not introduce em dashes in reader-facing copy; rewrite them with other punctuation or sentence structure. Preserve verbatim testimonial punctuation, and keep en dashes where they correctly express ranges or paired terms.
 
 For educational content, teach → contextualize → personalize. Free content should teach the grammar and limits of astrology without becoming a free automated personal astrologer.
 

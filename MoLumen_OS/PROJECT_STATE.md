@@ -1,6 +1,6 @@
 # MoLumen Project State
 
-Last reviewed: 2026-08-10
+Last reviewed: 2026-08-11
 
 Read for cross-session status only. Code/config is authoritative for implementation facts.
 
@@ -8,11 +8,11 @@ Read for cross-session status only. Code/config is authoritative for implementat
 - Astro 5 static site: **Mo Lumen Astrology**; legal name **Mo Lumen Astrological Services**.
 - Seven readings, Reading Finder, and service-aware booking are implemented. `src/config/booking.ts` owns reading order, eligibility, actions, bare `/book/`, and event mappings.
 - Pages CMS handles routine content; Explore remains code-managed. `src/content.config.ts` + `.pages.yml` are the live content/CMS contract.
-- Current Sky data extends through Dec. 2027; maintain a rolling horizon. There is no 2027 annual overview.
+- Current Sky extends through Dec. 2027; maintain a rolling horizon. No 2027 annual overview exists.
 - Birth Time guide/toolkit/PDF, sky calendar, Birth Time Confidence, and rising-sign preference are implemented.
 - Newsletter = **a monthly note from Mo**; “The Sky This Month” is one section. Welcome-video UI/schema requires real metadata.
 - Courses, Guides, and Videos stay out of navigation while they lack a mature content job. Courses/Guides are noindexed; Videos is noindexed while empty.
-- `/search/` is a secondary retrieval utility, not a navigation pillar. Its dependency-free search uses a build-generated index of rendered indexable content; durable reference pages lead broad concept queries, Current Sky events show dates, and query text stays out of analytics.
+- `/search/` is a secondary retrieval utility. Its build-generated index uses rendered indexable content; reference pages lead broad concept queries, Current Sky events show dates, and query text stays out of analytics.
 - Sitemap filtering mirrors deliberate noindex routes, including browser Birth Time worksheets and empty Videos; Videos becomes eligible when published entries exist.
 - `llms.txt` maps practice identity, free-learning boundaries, readings, Current Sky, and horoscope limits for answer engines.
 - Base schema uses `Article` only for genuine editorial/reference pages; collection/index surfaces use `WebPage` freshness metadata.
@@ -36,7 +36,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 ## Release posture / owner gates
 - Staging canonicals/sitemap intentionally point at molumen.com; read `docs/deployment.md` before changing indexing behavior.
 - Production `molumen.com` cutover is owner-gated. Repo checks prove code readiness, not external-account readiness.
-- Verify Cal.com account setup plus one full booking/payment/confirmation/intake flow.
+- Cal.com Zoom + attendee phone locations are live. Remaining: intake/label/description checks plus one full booking/payment/confirmation/intake test.
 - Verify newsletter delivery and GA4 reception/consent events; complete owner/legal/accessibility items in `BACKLOG.md`.
 - Add welcome-video metadata or more permissioned testimonials only when supplied.
 
