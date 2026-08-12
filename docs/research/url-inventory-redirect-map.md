@@ -39,6 +39,10 @@ Implement as Cloudflare Pages `_redirects` (301 unless noted). Verify against Se
 - Mo1's URL design is adopted wholesale (its sitemap already targets molumen.com paths), so no redirects are needed between Mo1 paths and the new site.
 - Keep this file in sync with `public/_redirects`; test every row pre-launch (see docs/testing plan).
 
+## Internal restructure (2026-08-12)
+
+`/testimonials/` was retired as a standalone destination. A small set of permissioned, service-matched client quotes remains contextual on the relevant reading pages. Existing links/bookmarks to `/testimonials` or `/testimonials/` permanently redirect to `/how-readings-work/`, the durable page explaining the reading experience.
+
 ## Internal restructure (2026-08-02)
 
 `/articles/` was folded into `/blog/` so Mo has exactly one place for written posts. The content
