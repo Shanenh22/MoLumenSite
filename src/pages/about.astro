@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { photos } from '../config/images';
+import { photos, scenes } from '../config/images';
 import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import YouTubeFacade from '../components/YouTubeFacade.astro';
@@ -64,11 +64,13 @@ const schema = [
         </p>
       </div>
       <img
-        class="hero__img hero__img--portrait"
-        src={photos.moAbout.src}
-        alt={photos.moAbout.alt}
-        width={photos.moAbout.width}
-        height={photos.moAbout.height}
+        class="hero__img"
+        src={scenes.aboutMo.src}
+        srcset={scenes.aboutMo.srcset}
+        sizes="100vw"
+        alt={scenes.aboutMo.alt}
+        width={scenes.aboutMo.width}
+        height={scenes.aboutMo.height}
         fetchpriority="high"
       />
     </div>
@@ -120,13 +122,13 @@ const schema = [
       </div>
       <figure class="portrait-card">
         <img
-          src={photos.moShelf.src}
-          alt={photos.moShelf.alt}
-          width={photos.moShelf.width}
-          height={photos.moShelf.height}
+          src={photos.moAbout.src}
+          alt={photos.moAbout.alt}
+          width={photos.moAbout.width}
+          height={photos.moAbout.height}
           loading="lazy"
         />
-        <figcaption>Still learning, still looking</figcaption>
+        <figcaption>Mo Lumen</figcaption>
       </figure>
     </div>
   </section>
