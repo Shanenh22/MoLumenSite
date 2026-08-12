@@ -67,6 +67,8 @@ jobs:
         run: npm run test:chart-explorer
       - name: Search mobile and desktop
         run: npm run test:search-browser
+      - name: Navigation breakpoints and behavior
+        run: npm run test:navigation
       - name: Accessibility sweep, mobile and desktop
         run: npm run audit:a11y
       - name: Static contrast

@@ -34,10 +34,9 @@ export const primaryNav: NavGroup[] = [
     label: "Readings",
     href: "/readings/",
     children: [
-      { label: "All Readings", href: "/readings/" },
       { label: "Reading Finder", href: "/reading-finder/" },
+      { label: "All Readings", href: "/readings/" },
       { label: "How Readings Work", href: "/how-readings-work/" },
-      { label: "Prepare for Your Reading", href: "/prepare-for-your-reading/" },
       { label: "FAQs", href: "/frequently-asked-questions/" },
     ],
   },
@@ -48,7 +47,7 @@ export const primaryNav: NavGroup[] = [
       { label: "Start Here", href: "/start-here/" },
       { label: "Explore All Topics", href: "/explore/" },
       { label: "How a Chart Works", href: "/explore/birth-chart-basics/" },
-      { label: "Explore Your Chart", href: "/tools/explore-your-chart/" },
+      { label: "Interactive Chart Guide", href: "/tools/explore-your-chart/" },
       { label: "Glossary", href: "/explore/glossary/" },
     ],
   },
@@ -68,7 +67,6 @@ export const primaryNav: NavGroup[] = [
       { label: "About Mo", href: "/about/" },
       { label: "Blog", href: "/blog/" },
       { label: "Newsletter", href: "/newsletter/" },
-      { label: "Credentials", href: "/credentials/" },
       { label: "Contact Mo", href: "/contact/" },
     ],
   },
@@ -76,32 +74,39 @@ export const primaryNav: NavGroup[] = [
 
 export const ctaNav: NavLink = { label: "Book a Reading", href: "/book/" };
 
+/**
+ * The footer is the deeper version of the same four visitor concepts used in
+ * the header. It may expose secondary destinations, but it should not invent a
+ * second taxonomy for the site.
+ */
 export const footerNav: Record<string, NavLink[]> = {
   Readings: [
     { label: "All Readings", href: "/readings/" },
     { label: "Reading Finder", href: "/reading-finder/" },
     { label: "How Readings Work", href: "/how-readings-work/" },
     { label: "Book a Reading", href: "/book/" },
+    { label: "Gift a Reading", href: "/readings/gift/" },
   ],
-  Learn: [
+  "Explore Astrology": [
     { label: "Start Here", href: "/start-here/" },
-    { label: "Explore Astrology", href: "/explore/" },
-    { label: "The Big Three", href: "/explore/the-big-three/" },
-    { label: "Explore Your Chart", href: "/tools/explore-your-chart/" },
+    { label: "Explore All Topics", href: "/explore/" },
+    { label: "Interactive Chart Guide", href: "/tools/explore-your-chart/" },
     { label: "Glossary", href: "/explore/glossary/" },
+    { label: "Resources", href: "/resources/" },
   ],
-  "From Mo": [
-    { label: "Blog", href: "/blog/" },
+  "Current Sky": [
     { label: "Current Sky", href: "/current-sky/" },
+    { label: "Horoscopes", href: "/horoscopes/" },
     { label: "Sky Calendar", href: "/current-sky/calendar/" },
     { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
-    { label: "Horoscopes", href: "/horoscopes/" },
-    { label: "Newsletter", href: "/newsletter/" },
+    { label: "Archive", href: "/current-sky/archive/" },
   ],
-  Site: [
+  "From Mo": [
     { label: "About Mo", href: "/about/" },
-    { label: "Resources", href: "/resources/" },
-    { label: "Contact", href: "/contact/" },
+    { label: "Blog", href: "/blog/" },
+    { label: "Newsletter", href: "/newsletter/" },
+    { label: "Contact Mo", href: "/contact/" },
+    { label: "Credentials", href: "/credentials/" },
   ],
 };
 
