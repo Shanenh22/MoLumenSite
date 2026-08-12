@@ -18,9 +18,11 @@ export interface NavGroup {
  * happening overhead, and who Mo is.
  *
  * Current Sky remains top-level because it is both a recurring-content engine
- * and a search entry point. Giving it children does not bury it; it makes the
- * ecosystem underneath it visible: the main timeline, rising-sign guidance,
- * calendar, annual overview, and archive.
+ * and a search entry point. Its dropdown exposes the three distinct ways a
+ * visitor can enter the ecosystem: Mo's live editorial timeline, rising-sign
+ * guidance, or a date-first calendar view. Annual overviews and the archive
+ * remain available contextually from the Current Sky pages and through search
+ * rather than competing for primary-navigation attention.
  *
  * Dormant or duplicate hubs stay out of primary navigation until they have a
  * distinct job. Courses has nothing to sell yet, Guides currently duplicates
@@ -57,8 +59,6 @@ export const primaryNav: NavGroup[] = [
       { label: "Current Sky", href: "/current-sky/" },
       { label: "Horoscopes", href: "/horoscopes/" },
       { label: "Sky Calendar", href: "/current-sky/calendar/" },
-      { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
-      { label: "Archive", href: "/current-sky/archive/" },
     ],
   },
   {
@@ -90,7 +90,7 @@ export const footerNav: Record<string, NavLink[]> = {
     { label: "Explore Your Chart", href: "/tools/explore-your-chart/" },
     { label: "Glossary", href: "/explore/glossary/" },
   ],
-  Writing: [
+  "From Mo": [
     { label: "Blog", href: "/blog/" },
     { label: "Current Sky", href: "/current-sky/" },
     { label: "Sky Calendar", href: "/current-sky/calendar/" },
