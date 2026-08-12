@@ -30,3 +30,8 @@
 /privacy-copy          /privacy/                  301
 /terms-copy            /terms/                    301
 /site-credit-copy      /                          301
+
+# Retired new-site route. Client perspective now appears only where it helps
+# someone evaluate a matching reading; the process itself is the durable trust page.
+/testimonials          /how-readings-work/        301
+/testimonials/         /how-readings-work/        301

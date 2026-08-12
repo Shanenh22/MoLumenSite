@@ -14,10 +14,6 @@ const skyEvents = (await getCollection('skyEvents'))
   .filter((e) => !e.data.draft && e.data.start >= new Date())
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf())
   .slice(0, 2);
-const HOME_QUOTE_IDS = ['claire-m-natal', 'rachel-t-life-changes', 'jennifer-l-natal'];
-const homeQuotes = (await getCollection('testimonials'))
-  .filter((t) => t.data.approved && HOME_QUOTE_IDS.includes(t.id))
-  .sort((a, b) => HOME_QUOTE_IDS.indexOf(a.id) - HOME_QUOTE_IDS.indexOf(b.id));
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', timeZone: 'UTC' });
 ---
@@ -182,22 +178,6 @@ const fmt = (d: Date) =>
       </div>
     </section>
   )}
-
-  <section class="section section--alt">
-    <div class="container">
-      <p class="eyebrow">In their words</p>
-      <h2>What people say after a reading</h2>
-      <div class="quote-grid">
-        {homeQuotes.map((t) => (
-          <figure class="quote-card">
-            <blockquote>{t.data.quote}</blockquote>
-            <figcaption>{t.data.attribution}{t.data.service ? <span> · {t.data.service.replace(/-/g, ' ')} reading</span> : null}</figcaption>
-          </figure>
-        ))}
-      </div>
-      <p style="margin-top: var(--space-6);"><a href="/testimonials/">Read more client experiences →</a></p>
-    </div>
-  </section>
 
   <section class="section">
     <div class="container feature-split feature-split--rev">

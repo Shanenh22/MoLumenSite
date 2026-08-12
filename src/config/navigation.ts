@@ -73,7 +73,6 @@ export const primaryNav: NavGroup[] = [
       { label: "Blog", href: "/blog/" },
       { label: "Newsletter", href: "/newsletter/" },
       { label: "Credentials", href: "/credentials/" },
-      { label: "Testimonials", href: "/testimonials/" },
       { label: "Contact Mo", href: "/contact/" },
     ],
   },
@@ -105,7 +104,6 @@ export const footerNav: Record<string, NavLink[]> = {
   ],
   Site: [
     { label: "About Mo", href: "/about/" },
-    { label: "Testimonials", href: "/testimonials/" },
     { label: "Resources", href: "/resources/" },
     { label: "Contact", href: "/contact/" },
   ],
