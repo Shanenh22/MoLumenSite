@@ -15,7 +15,7 @@
  * this could be done without SEO risk goes away.
  */
 import { chromiumPath } from "./lib/chromium-path.mjs";
-import { readdirSync } from "node:fs";
+import { readFileSync, readdirSync } from "node:fs";
 import { startDistServer } from "./lib/dist-server.mjs";
 
 const { chromium } = await import("playwright");
@@ -42,16 +42,21 @@ const ZODIAC = [
 const KEY = "ml-rising-v1";
 const base = `http://localhost:${PORT}`;
 const HOROSCOPES = `${base}/horoscopes/`;
+const SKY_DIR = "src/content/sky-events";
+
+/** Draft source files exist for future years but deliberately have no public route. */
+const isPublished = (file) =>
+  !/^draft:\s*true\s*$/m.test(readFileSync(`${SKY_DIR}/${file}`, "utf8"));
 
 /** A published lunation page, found rather than hard-coded so it cannot rot. */
-const lunationSlug = readdirSync("src/content/sky-events")
-  .filter((f) => /new-moon|full-moon/.test(f))
+const lunationSlug = readdirSync(SKY_DIR)
+  .filter((f) => /\.mdx?$/.test(f) && /new-moon|full-moon/.test(f) && isPublished(f))
   .map((f) => f.replace(/\.mdx?$/, ""))
   .sort()
   .reverse()[0];
-/** A retrograde, which must render no guidance block at all. */
-const retrogradeSlug = readdirSync("src/content/sky-events")
-  .filter((f) => /retrograde/.test(f))
+/** A published retrograde, which must render no guidance block at all. */
+const retrogradeSlug = readdirSync(SKY_DIR)
+  .filter((f) => /\.mdx?$/.test(f) && /retrograde/.test(f) && isPublished(f))
   .map((f) => f.replace(/\.mdx?$/, ""))
   .sort()
   .reverse()[0];
