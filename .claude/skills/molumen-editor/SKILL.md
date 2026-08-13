@@ -17,10 +17,12 @@ Keep wonder alive without overstating science. Mo's biology/natural-science back
 
 Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than verdict. Avoid deterministic planetary agency, doom, certainty, formulaic self-help endings, repeated slogans, therapy language, generic AI prose, interface narration, and belief/faith framing when practice/tool language works better. Do not introduce em dashes in reader-facing copy; rewrite them with other punctuation or sentence structure. Preserve verbatim testimonial punctuation, and keep en dashes where they correctly express ranges or paired terms.
 
+Treat signs and houses as separate interpretive layers. Do not infer house topics from a sign's ordinal position in the zodiac. Describe signs through their own character, element, modality, rulership, symbolism, and qualities; use houses for areas of life. In rising-sign guidance, actual whole-sign house topics are appropriate because the house has been calculated from the rising sign.
+
 For educational content, teach → contextualize → personalize. Free content should teach the grammar and limits of astrology without becoming a free automated personal astrologer.
 
 For page endings, respect the visitor's current intent. Learning pages should usually deepen learning or move to Current Sky before sales. Credibility pages should usually lead to How Readings Work or the Reading Finder. Do not send every page directly to Book.
 
-For future event dates, use reliable ephemerides/astronomy sources and cross-check important dates. Record sources. Clearly separate astronomical fact, astrological tradition/practice, and Mo's interpretation. Never invent business facts, astronomical facts, credentials, outcomes, quotations, or citations.
+For future event dates, use reliable ephemerides/astronomy sources and cross-check important dates. Record sources internally. Routine astronomical verification notes do not need to be rendered publicly. Clearly separate astronomical fact, astrological tradition/practice, and Mo's interpretation. Never invent business facts, astronomical facts, credentials, outcomes, quotations, or citations.
 
 Use `molumen-publisher` when the main task is schema, metadata, CMS structure, frontmatter, publication mechanics, or publication QA.

@@ -24,6 +24,21 @@ Preserve distinctions among astronomical fact, historical/traditional doctrine, 
 
 Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than command. Use “verdict” only when the judicial/finality metaphor is doing important work; do not use it as a default synonym for conclusion, interpretation, answer, or certainty. Avoid presenting planets as deterministic actors. Avoid doom, guarantees, certainty claims, and personal predictions unsupported by an individual chart and context.
 
+### Signs and houses are different layers
+Signs and houses are not interchangeable. Do not give a sign the topics of the numerically corresponding house simply because Aries through Pisces are first through twelfth in zodiacal order.
+
+Describe a sign through its own character, element, modality, rulership, symbolism, and qualities. Houses describe the area of life in which planets and signs are operating. When interpreting an opposition or sign axis, compare the qualities of the two signs rather than importing the subject matter of the corresponding house axis.
+
+Examples of shortcuts to avoid:
+- Scorpio does not automatically mean shared resources because it is the eighth sign.
+- Aquarius does not automatically mean groups, friendship, or belonging because it is the eleventh sign.
+- Libra does not automatically mean partnership because it is the seventh sign.
+- Cancer does not automatically mean home or family because it is the fourth sign.
+- Taurus does not automatically mean money or possessions because it is the second sign.
+- Capricorn does not automatically mean career or public status because it is the tenth sign.
+
+Rising-sign guidance is different because it deliberately calculates actual whole-sign houses from the rising sign. In that context, house topics are appropriate because the house placement is being interpreted as a house, not because a sign is being treated as its same-numbered house.
+
 ## Agency
 The emotional product is clarity without surrendering agency. Astrology gives another map; the client still drives.
 
@@ -77,6 +92,7 @@ The newsletter is a monthly note from Mo. "The Sky This Month" is one recurring 
 When outside research is authorized:
 - prefer primary or authoritative sources
 - cross-check dates and numbers that affect publication
-- record sources
+- record sources internally
+- keep routine astronomical verification notes out of public page copy unless attribution materially helps the reader understand a historical, scholarly, or disputed claim
 - synthesize rather than copy
 - never invent business facts, credentials, astronomical facts, outcomes, quotations, or citations
