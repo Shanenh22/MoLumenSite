@@ -17,6 +17,8 @@ I do not think that is a useful way to understand it.
 
 Mercury does not reverse its orbit. Retrograde motion is apparent motion: from our changing vantage point on Earth, Mercury appears to slow, station, move backward against the zodiac, station again, and resume direct motion.
 
+Mercury is not unusual in this respect. The other planets also have periods of apparent retrograde motion; the Sun and Moon do not.
+
 That observable pattern is the astronomical framework. Astrology then asks what meaning, if any, to assign to that change in apparent motion.
 
 Those are two different statements, and I like keeping them separate.

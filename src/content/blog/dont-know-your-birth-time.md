@@ -59,6 +59,6 @@ For many people, searching records first is simpler and more useful. If a reliab
 
 Do not choose a time because the resulting chart "sounds more like you" and then quietly treat that time as documented fact.
 
-A chart can be interpreted persuasively in more than one way. The cleaner practice is to keep the uncertainty visible and use only the techniques the available information supports.
+The cleaner practice is to keep the uncertainty visible and use only the techniques the available information supports.
 
 If you want to understand why birth time changes the chart in the first place, read [Why Your Exact Birth Time Matters](/blog/why-your-birth-time-matters/). If you are preparing for a session now, [How to Prepare for Your Reading](/prepare-for-your-reading/) explains what to send and what to do when some birth data is uncertain.

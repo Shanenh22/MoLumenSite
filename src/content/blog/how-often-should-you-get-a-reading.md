@@ -43,12 +43,6 @@ I also offer [Monthly Personal Transits](/readings/monthly-transits/) for establ
 
 It is not meant to turn every month into a new set of instructions.
 
-## A useful reason to wait
-
-If nothing has changed and you are hoping the chart will give you a different answer because the first one was uncomfortable, more astrology may not add more clarity.
-
-The same is true if you feel you cannot make a decision until you have checked it astrologically. I want the work to strengthen your ability to recognize patterns and make choices, not make the chart another authority you have to consult before you trust yourself.
-
 ## So how often?
 
 For one person, a natal reading followed by another session several years later may be plenty. Someone moving through a complex transition may benefit from several conversations in one year. Someone else may enjoy an annual solar return as a regular reflective practice.

@@ -17,6 +17,10 @@ cannot, and how you choose to use it.
 
 ## Start with the scale of the thing
 
+I spent more than two years ghostwriting weekly horoscopes for a well-known astrologer’s app, so I
+have spent a lot of time thinking about what can honestly be said to a large group of people who
+share only one part of a chart.
+
 A Sun-sign horoscope addresses a very large group of people through one shared placement. Everyone
 with the Sun in Scorpio, for example, still has a different Moon, rising sign, set of houses,
 planetary aspects, life history, and current circumstances.

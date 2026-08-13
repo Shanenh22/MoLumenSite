@@ -513,7 +513,7 @@ const crumbs = [{ label: 'Reading Finder', href: '/reading-finder/' }];
         ${
           when === 'exploring'
             ? `<p>If you're still deciding, there is no reason to rush into a reading. <a href="/current-sky/">Current Sky</a>, <a href="/explore/">Explore Astrology</a>, and the newsletter are all ways to spend more time with how I approach the subject first.</p>`
-            : `<p>This is a recommendation, not a verdict. The final choice is yours, with the eligibility requirements shown on each reading page.</p>`
+            : ''
         }`;
       const nurture = document.querySelector<HTMLElement>('[data-finder-nurture]');
       if (nurture) nurture.hidden = when !== 'exploring';

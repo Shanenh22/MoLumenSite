@@ -22,7 +22,7 @@ Mo's wonder must not require denial of complexity. Her candor must not extinguis
 ## Astrology framing
 Preserve distinctions among astronomical fact, historical/traditional doctrine, contemporary practice, and Mo's interpretation. Do not state planetary frequency, resonance, causation, or other scientific-sounding mechanisms as established fact.
 
-Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than verdict or command. Avoid presenting planets as deterministic actors. Avoid doom, guarantees, certainty claims, and personal predictions unsupported by an individual chart and context.
+Prefer astrology as perspective, pattern, timing, possibility, and interpretation rather than command. Use “verdict” only when the judicial/finality metaphor is doing important work; do not use it as a default synonym for conclusion, interpretation, answer, or certainty. Avoid presenting planets as deterministic actors. Avoid doom, guarantees, certainty claims, and personal predictions unsupported by an individual chart and context.
 
 ## Agency
 The emotional product is clarity without surrendering agency. Astrology gives another map; the client still drives.

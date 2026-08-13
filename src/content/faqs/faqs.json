@@ -58,21 +58,21 @@
   {
     "id": "birth-time",
     "question": "Why do you need my exact birth time?",
-    "answer": "The birth time establishes your rising sign and house structure, both of which are important parts of a natal chart. A reliable recorded time gives me more confidence in those parts of the chart. Check your birth certificate or another dependable record if you can; the birth-time guide walks through the search in more detail.",
+    "answer": "Your birth chart is calculated for the exact date, time, and place you were born. Birth time is especially important because it determines your rising sign and the house structure of the chart. The Ascendant moves continuously through the zodiac, often shifting about a degree every few minutes and, on average, into a new sign about every two hours. Even a small difference in time can matter when a planet is close to a house cusp, potentially placing it in the previous or next house and changing the area of life in which I would interpret that planetary influence. If you can, check your birth certificate or another reliable record rather than relying on memory. The birth-time guide shows where to look and how to assess the information you find.",
     "scope": "global",
     "order": 3
   },
   {
     "id": "no-birth-time",
     "question": "What if I don't know my birth time?",
-    "answer": "You still have options. Tell me when you book. An unknown birth time limits some techniques, especially those involving the rising sign and houses, but other parts of the chart do not depend on it. We can work with what is reliable and be clear about what remains uncertain. The preparation page shows where to look if you want to search for the time first.",
+    "answer": "You still have options, and you should not guess. If you want to look for your birth time before booking, the birth-time guide shows where to check, including birth records, hospital records, family documents, and relatives who may remember. When you book, enter the most accurate birth information you have on the intake form and let me know whether the time is exact, approximate, or unknown. An unknown time limits some techniques, especially those involving the rising sign and houses, but other parts of the chart remain useful. We can work with what is reliable and be clear about what remains uncertain.",
     "scope": "global",
     "order": 4
   },
   {
     "id": "which-reading",
     "question": "Which reading should I start with?",
-    "answer": "Most new clients start with the Natal Chart Reading because it establishes the chart and the lived context that later readings can build on. The Relationship Consultation is also open to new clients when the relationship itself is the reason you are coming. If you have already had your natal reading with me, follow-up options include Want More Clarity, Solar Return, Life Changes, Monthly Transits, and Quick Check-In. The Reading Finder can suggest a place to start in five questions.",
+    "answer": "First-time clients start with the Natal Chart Reading because it establishes the chart and the lived context that later readings can build on. The Relationship Consultation is also open to new clients when the relationship itself is the reason you are coming. If you have already had your natal reading with me, follow-up options include Want More Clarity, Solar Return, Life Changes, Monthly Transits, and Quick Check-In. The Reading Finder can suggest a place to start in five questions.",
     "scope": "global",
     "order": 5
   },

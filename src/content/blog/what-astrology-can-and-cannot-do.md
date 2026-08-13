@@ -32,7 +32,7 @@ That can be surprisingly clarifying. It is also important to know where the limi
 
 **Appropriate professional care.** Astrology is not a substitute for medical, psychological, legal, or financial advice. Questions that require those professionals belong with them. My [disclaimer](/disclaimer/) states that plainly.
 
-**The right to disagree with the interpretation.** I know the astrology. You know your life. If I describe a possibility that does not fit, tell me. That is useful information. A reading is stronger when the conversation can correct the first interpretation instead of forcing the person to fit it.
+**The right to disagree with the interpretation.** I know the astrology. You know your life. If I describe a possibility that does not fit, tell me. That is useful information. A reading is stronger when the conversation encourages a deeper look instead of forcing the person to fit the interpretation.
 
 ## What no single chart technique can do by itself
 

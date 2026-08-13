@@ -25,9 +25,9 @@ Essential dignity gives astrologers a technical vocabulary for that difference.
 
 ## Four conditions you will hear most often
 
-**Domicile** means a planet is in a sign it rules. Traditional texts generally treat this as a condition of familiarity or authority: the planet is working in territory associated with its own nature.
+**Domicile** means a planet is in a sign it rules. Traditional texts generally treat this as a condition of familiarity or authority, like a person in their own home, where the surroundings and resources are theirs to work with.
 
-**Exaltation** is another form of dignity. The planet is traditionally given special status in a particular sign, but exaltation is not simply "better than domicile." Different traditions and techniques weigh these conditions differently.
+**Exaltation** is another form of dignity. I think of it more like an honored guest: not in their own home, but welcomed into a place where their qualities are recognized and they are well supported.
 
 **Detriment** means the planet is in the sign opposite one of its domiciles. The symbolism can describe a planet having to operate through conditions less straightforward for its nature.
 
@@ -39,7 +39,7 @@ Those four are only part of the full traditional dignity system. Terms, faces, t
 
 A dignity label is easy to memorize and easy to misuse.
 
-A planet in domicile can still be under considerable pressure elsewhere in the chart. A planet in detriment or fall can be strongly placed in other ways, supported by aspects, prominent by house, or central to the person's life in ways a one-word label cannot explain.
+A planet in domicile can still be under considerable pressure from other interactions within the chart. A planet in detriment or fall can be strongly placed in other ways, supported by aspects, prominent by house, or central to the person's life in ways a one-word label cannot explain.
 
 This is why I do not read dignity as a personality score. I use it as one piece of evidence in a larger synthesis.
 
@@ -47,11 +47,11 @@ The question is not, _Is this planet good or bad?_ It is closer to: _What condit
 
 ## Why astrologers disagree about dignity
 
-Some astrologers use essential dignity heavily. Others use it lightly or not at all. Modern and contemporary approaches often place more emphasis on psychological symbolism, developmental potential, outer planets, or other frameworks that do not depend on the traditional dignity scheme.
-
 I have studied across approaches, so I would rather be explicit about the technique being used than pretend every school asks the same questions.
 
 The older dignity framework can be very useful when it is treated as a description of **condition**, not a judgment of human worth. The moment "detriment" becomes a sentence about what a person can or cannot become, the technique has been asked to do more than it can support.
+
+Modern and contemporary approaches often place more emphasis on psychological symbolism, developmental potential, outer planets, or other frameworks that do not depend on the traditional dignity scheme.
 
 ## How to use dignity if you are learning
 
