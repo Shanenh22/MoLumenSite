@@ -19,6 +19,7 @@ paths:
 - Avoid deterministic certainty, fear-based astrology, generic mystical tropes, guru language, fake urgency, guarantees, therapy-style copy, belief tests, scientific-sounding causation claims, and formulaic AI endings.
 - Use “verdict” only when the judicial/finality metaphor is doing important work. Do not use it as a default synonym for conclusion, interpretation, answer, or certainty.
 - Treat signs and houses as separate interpretive layers. Never give a sign the subject matter of the numerically corresponding house merely because Aries through Pisces are first through twelfth in zodiacal order. Describe a sign through its own character, element, modality, rulership, symbolism, and qualities. Houses describe areas of life. Rising-sign guidance may use house topics only because the actual whole-sign house has been calculated from the rising sign.
+- For Current Sky, do not reference a holiday or cultural observance merely because a sky event falls on the same date. Keep the interpretation centered on the sky unless Mo explicitly chooses the observance as the subject.
 - Do not quote, cite, link to, or otherwise reference Alan Oken in public site content.
 - Do not introduce em dashes in reader-facing copy. Rewrite them; preserve verbatim testimonial punctuation. En dashes remain valid for ranges and paired terms.
 - Preserve wonder without using science as proof of astrology.
