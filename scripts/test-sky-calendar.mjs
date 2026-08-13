@@ -213,12 +213,12 @@ const monthWithMixedTypes = await page.evaluate(() => {
         (e) => e.dataset.eventType,
       ),
     );
-    if (types.size > 1) return s.dataset.month;
+    if (types.has("retrograde") && types.size > 1) return s.dataset.month;
   }
   return null;
 });
 ok(
-  "a month with more than one event type exists to test",
+  "a month with a retrograde and another event type exists to test",
   !!monthWithMixedTypes,
 );
 await page.selectOption("[data-cal-jump]", monthWithMixedTypes);
