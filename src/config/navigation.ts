@@ -56,7 +56,7 @@ export const primaryNav: NavGroup[] = [
     href: "/current-sky/",
     children: [
       { label: "Current Sky", href: "/current-sky/" },
-      { label: "Horoscopes", href: "/horoscopes/" },
+      { label: "Rising Sign Guide", href: "/horoscopes/" },
       { label: "Sky Calendar", href: "/current-sky/calendar/" },
     ],
   },
@@ -96,7 +96,7 @@ export const footerNav: Record<string, NavLink[]> = {
   ],
   "Current Sky": [
     { label: "Current Sky", href: "/current-sky/" },
-    { label: "Horoscopes", href: "/horoscopes/" },
+    { label: "Rising Sign Guide", href: "/horoscopes/" },
     { label: "Sky Calendar", href: "/current-sky/calendar/" },
     { label: "The Sky in 2026", href: "/current-sky/the-sky-in-2026/" },
     { label: "Archive", href: "/current-sky/archive/" },
