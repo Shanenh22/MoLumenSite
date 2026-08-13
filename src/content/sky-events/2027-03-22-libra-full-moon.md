@@ -5,17 +5,15 @@ start: 2027-03-22
 timezone: "America/Chicago"
 planets: ["Sun", "Moon"]
 sign: "Libra"
-summary: "A full moon at 1° Libra opposes the early-Aries Sun, ten days before Mars turns direct. The Aries–Libra axis brings self-direction and relationship into the same frame, making balance a question to examine rather than a condition the lunation guarantees."
+summary: "A full moon at 1° Libra opposes the early-Aries Sun. Libra's diplomacy, proportion, fairness, and consideration meet Aries's directness, independence, courage, and initiative."
 featured: false
 sourceNote: "Dates, degrees and signs from cafeastrology.com 2027 moon phases (ET), cross-checked against astro-seek.com and truenortharts.com 2027 lunar calendars, 2026-08-07"
 lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A full moon at 1° Libra opposes the early-Aries Sun, with Mars still retrograde for another ten days. Full moons put an axis in front of us, and this one is especially clear: Aries begins from the self, while Libra becomes aware of the other.
+A full moon at 1° Libra opposes the early-Aries Sun, with Mars still retrograde for another ten days. Full moons place two opposite signs in view at once, and this one contrasts two different ways of responding.
 
-Libra is associated with reciprocity, fairness, negotiation, aesthetics, proportion, and the effort of holding more than one point of view. Aries brings initiative, separateness, directness, and the right to act from one's own center. Neither is the correction for the other. Relationship without a self becomes something very different from relationship between two people who can each stand somewhere of their own.
+Libra weighs, compares, seeks proportion, and considers more than one point of view. Aries is direct, independent, courageous, and willing to act before every variable is settled. Neither is the correction for the other.
 
-That makes "balance" too easy a word for this full moon. I am more interested in where consideration becomes compromise, where independence becomes isolation, and where an honest difference may actually make a relationship more real. Those possibilities cannot be sorted from a sign pair alone.
-
-A full moon does not automatically deliver a decision or culmination. If 1° Libra–Aries is prominent in the natal chart, the houses and close contacts show where the symbolism may be particularly alive. The opposition gives us the question. A person's circumstances determine what the question is asking.
+That makes "balance" more interesting than a perfectly even state. When is deliberation useful, and when has enough been considered? When does decisiveness clarify a situation, and when would another perspective improve the judgment? The natal houses and close contacts show where those sign qualities may become personally relevant.

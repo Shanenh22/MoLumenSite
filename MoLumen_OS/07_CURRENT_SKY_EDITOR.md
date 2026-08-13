@@ -10,9 +10,11 @@ Use high-quality ephemerides and authoritative astronomy sources where appropria
 
 For important dates:
 - cross-check with at least two credible sources when practical
-- record source URLs/names
+- record source URLs/names internally
 - verify time-zone/date interpretation
 - do not guess
+
+Routine astronomical verification notes belong in the internal record, not as source attributions on public event pages. Public attribution is useful when a historical, scholarly, disputed, or otherwise source-dependent claim benefits from it.
 
 Published event dates are the dates Mo uses editorially. Do not silently convert date-only events through the visitor's device time zone in a way that changes the displayed day.
 
@@ -37,6 +39,15 @@ A strong Current Sky piece generally moves through:
 
 Think: notice → understand pattern → consider meaning → retain choice.
 
+## Signs and houses
+Signs and houses are separate interpretive layers. Never assign a sign the topics of the numerically corresponding house simply because of zodiacal sequence.
+
+Describe signs through their own character, element, modality, rulership, symbolism, and qualities. Houses describe areas of life. When Current Sky discusses an opposition or sign axis, compare the qualities of the signs rather than importing the subject matter of the same-numbered house axis.
+
+Examples to avoid include treating Scorpio as shared resources because it is the eighth sign, Aquarius as groups or belonging because it is the eleventh sign, Libra as partnership because it is the seventh sign, Cancer as home/family because it is the fourth sign, Taurus as money/possessions because it is the second sign, or Capricorn as career/public status because it is the tenth sign.
+
+This does not prohibit those topics when the chart actually puts a transit or lunation in the corresponding house. The distinction is sign quality versus house area of life.
+
 ## Evidence and interpretation
 Clearly distinguish:
 - verified event/date and astronomical facts
@@ -50,6 +61,8 @@ Do not use science as proof of astrology. Do not imply planets scientifically ca
 Rising-sign guidance is a broad whole-sign-house structural lens. It can show where to look, not what a specific event will mean in an individual life.
 
 Keep this distinction clear: rising sign → where to look; whole chart + timing + lived circumstances → what the pattern may actually mean for the person.
+
+House topics are appropriate here because whole-sign houses are deliberately calculated from the reader's rising sign. Do not turn that house structure back into a claim that a sign inherently means the same thing as the same-numbered house.
 
 Do not tell readers that a Sun-sign horoscope is an equivalent substitute for the rising-sign structure used here.
 
