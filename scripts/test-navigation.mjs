@@ -15,7 +15,7 @@ const ok = (condition, label, detail = '') => {
 const expected = {
   Readings: ['Reading Finder', 'All Readings', 'How Readings Work', 'FAQs'],
   'Explore Astrology': ['Start Here', 'Explore All Topics', 'How a Chart Works', 'Interactive Chart Guide', 'Glossary'],
-  'Current Sky': ['Current Sky', 'Horoscopes', 'Sky Calendar'],
+  'Current Sky': ['Current Sky', 'Rising Sign Guide', 'Sky Calendar'],
   'From Mo': ['About Mo', 'Blog', 'Newsletter', 'Contact Mo'],
 };
 

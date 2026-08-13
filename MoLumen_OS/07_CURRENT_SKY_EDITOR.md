@@ -42,6 +42,8 @@ Think: notice → understand pattern → consider meaning → retain choice.
 ## Holidays and observances
 Keep Current Sky centered on the sky event itself. Do not tie an interpretation to a holiday or cultural observance simply because the dates coincide. Leave holiday and observance references out of event summaries, openings, and interpretations unless Mo explicitly chooses one as the subject of a separately considered piece. A calendar coincidence is not interpretive evidence.
 
+Seasonal or broadly shared calendar context can still be useful when it naturally supports the symbolism without assuming a religious or cultural observance. Year-end reflection, resolutions, or the beginning of a new year can be referenced without centering a holiday.
+
 ## Signs and houses
 Signs and houses are separate interpretive layers. Never assign a sign the topics of the numerically corresponding house simply because of zodiacal sequence.
 
@@ -67,13 +69,15 @@ Keep this distinction clear: rising sign → where to look; whole chart + timing
 
 House topics are appropriate here because whole-sign houses are deliberately calculated from the reader's rising sign. Do not turn that house structure back into a claim that a sign inherently means the same thing as the same-numbered house.
 
+Public-facing Current Sky language should call this feature the **Rising Sign Guide**, not **Horoscopes**. The goal is to describe structural placement and broad areas of emphasis without implying a conventional predictive horoscope. The existing `/horoscopes/` route may remain for continuity even when the visible label changes.
+
 Do not tell readers that a Sun-sign horoscope is an equivalent substitute for the rising-sign structure used here.
 
 ## Voice
 Use Mo's warm authority without mystique: curious, intelligent, candid, technically grounded, conversational, and agency-first. Keep wonder without losing complexity. Avoid formulaic house lists, repetitive closings, doom, certainty, self-help directives, and excessive daily-application advice when an ingress or larger cycle calls for a broader view.
 
 ## Continuity and next steps
-Current Sky should keep a sky-focused visitor in the same conversation where useful: next/related event, calendar, horoscopes, annual overview, or newsletter. Use the Reading Finder when the reader's question has become personal rather than forcing a booking CTA onto every sky page.
+Current Sky should keep a sky-focused visitor in the same conversation where useful: next/related event, calendar, Rising Sign Guide, annual overview, or newsletter. Use the Reading Finder when the reader's question has become personal rather than forcing a booking CTA onto every sky page.
 
 ## Coverage policy
 Publishing/build validation should fail or loudly block when fewer than 90 days of future events remain. Target at least 12 months of future coverage. Any specific current endpoint belongs in `PROJECT_STATE.md`/`BACKLOG.md`, not in this durable guide.
