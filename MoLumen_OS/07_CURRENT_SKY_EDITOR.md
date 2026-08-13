@@ -39,6 +39,9 @@ A strong Current Sky piece generally moves through:
 
 Think: notice → understand pattern → consider meaning → retain choice.
 
+## Holidays and observances
+Keep Current Sky centered on the sky event itself. Do not tie an interpretation to a holiday or cultural observance simply because the dates coincide. Leave holiday and observance references out of event summaries, openings, and interpretations unless Mo explicitly chooses one as the subject of a separately considered piece. A calendar coincidence is not interpretive evidence.
+
 ## Signs and houses
 Signs and houses are separate interpretive layers. Never assign a sign the topics of the numerically corresponding house simply because of zodiacal sequence.
 
