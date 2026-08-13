@@ -5,15 +5,15 @@ start: 2026-12-24
 timezone: "America/Chicago"
 planets: ["Sun", "Moon"]
 sign: "Cancer"
-summary: "The Moon is full in Cancer opposite the Sun in Capricorn on Christmas Eve, bringing private needs, care, belonging, responsibility, and public expectations into the same symbolic conversation."
+summary: "The Moon is full in Cancer opposite the Sun in Capricorn on Christmas Eve, bringing Cancer's sensitivity, care, protectiveness, and memory into contrast with Capricorn's discipline, structure, responsibility, and endurance."
 featured: false
 sourceNote: "Dates/signs verified via truenortharts.com 2026 lunar calendar, 2026-08-02"
 lastVerified: 2026-08-02
 ownerReview: true
 ---
 
-The Moon is full in Cancer opposite the Sun in Capricorn on Christmas Eve, which makes the symbolism easy to recognize without pretending everyone is living the same holiday story. Cancer is associated with care, home, memory, belonging, and what feels private. Capricorn is associated with responsibility, structure, obligation, and what has to function in the larger world.
+The Moon is full in Cancer opposite the Sun in Capricorn on Christmas Eve. Cancer brings sensitivity, care, protectiveness, memory, and receptivity. Capricorn brings discipline, structure, responsibility, restraint, time, and endurance.
 
-That axis can become especially visible at a time of year when expectations around family, tradition, work, travel, and togetherness are already heightened. For some people the question may be how much care they can realistically give. For others it may be what home means now, or which obligations still deserve their loyalty. There is no single correct expression of the symbolism.
+The contrast is not simply emotion versus practicality. Cancer can be tenacious about what it cares for, and Capricorn can carry deep feeling beneath a controlled surface. I am interested in what becomes visible when responsiveness and structure, tenderness and discipline, are asked to coexist rather than cancel one another.
 
 A full moon does not guarantee a family revelation or emotional climax. Its personal significance depends on where Cancer and Capricorn fall in your chart, what the lunation contacts, and what is already happening in your life.
