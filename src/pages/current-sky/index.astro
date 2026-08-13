@@ -1,18 +1,41 @@
 ---
 import { getCollection } from 'astro:content';
 import { photos } from '../../config/images';
+import { site } from '../../config/site';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import SkyViewTabs from '../../components/SkyViewTabs.astro';
-import { SKY_TYPE_LABELS } from '../../lib/sky-calendar';
+import { SKY_TYPE_LABELS, utcKey } from '../../lib/sky-calendar';
+
+const dateKeyInTimeZone = (date: Date, timeZone: string) => {
+  const parts = Object.fromEntries(
+    new Intl.DateTimeFormat('en-US', {
+      timeZone,
+      year: 'numeric',
+      month: '2-digit',
+      day: '2-digit',
+    })
+      .formatToParts(date)
+      .filter((part) => ['year', 'month', 'day'].includes(part.type))
+      .map((part) => [part.type, part.value])
+  );
+  return `${parts.year}-${parts.month}-${parts.day}`;
+};
 
 const now = new Date();
+const todayKey = dateKeyInTimeZone(now, site.timezone);
 const events = (await getCollection('skyEvents'))
-  .filter((e) => !e.data.draft && ((e.data.end ?? e.data.start) >= now || e.data.start >= now))
+  .filter(
+    (e) =>
+      !e.data.draft &&
+      utcKey(e.data.displayThrough ?? e.data.end ?? e.data.start) >= todayKey
+  )
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());
-const nextEvents = events.slice(0, 3);
+// Keep extra cards in the HTML so the browser can roll the list forward at
+// midnight Central without requiring a fresh site deployment. Only three show.
+const nextEvents = events.slice(0, 12);
 const types = [...new Set(events.map((e) => e.data.eventType))];
 const typeLabels = SKY_TYPE_LABELS;
 const fmt = (d: Date) =>
@@ -36,7 +59,7 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 >
   <Breadcrumbs crumbs={crumbs} />
 
-  <section class="hero hero--split current-sky-hero">
+  <section class="hero hero--split current-sky-hero" data-current-sky data-timezone={site.timezone}>
     <div class="container">
       <div>
         <p class="eyebrow">The sky right now</p>
@@ -69,9 +92,14 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
       </div>
 
       {nextEvents.length > 0 ? (
-        <div class="grid grid--3" style="margin-top: var(--space-6);">
+        <div class="grid grid--3" style="margin-top: var(--space-6);" data-next-events>
           {nextEvents.map((e, index) => (
-            <article class:list={['card', { 'current-sky-feature': index === 0 }]}>
+            <article
+              class:list={['card', { 'current-sky-feature': index === 0 }]}
+              data-next-event
+              data-event-through={utcKey(e.data.displayThrough ?? e.data.end ?? e.data.start)}
+              hidden={index >= 3}
+            >
               <p class="card__meta" style="margin: 0;">{typeLabels[e.data.eventType] ?? e.data.eventType} · {fmt(e.data.start)}</p>
               <h3><a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a></h3>
               <p>{e.data.summary}</p>
@@ -127,7 +155,10 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
           <h2>{month}</h2>
           <ol class="timeline" style="margin-bottom: var(--space-8);">
             {monthEvents.map((e) => (
-              <li data-event-type={e.data.eventType}>
+              <li
+                data-event-type={e.data.eventType}
+                data-event-through={utcKey(e.data.displayThrough ?? e.data.end ?? e.data.start)}
+              >
                 <span class="event-type">{typeLabels[e.data.eventType] ?? e.data.eventType}</span>
                 <h3 style="margin: var(--space-1) 0;">
                   <a href={`/current-sky/events/${e.id.replace(/\.mdx?$/, '')}/`}>{e.data.title}</a>
@@ -186,26 +217,76 @@ const crumbs = [{ label: 'Current Sky', href: '/current-sky/' }];
 </BaseLayout>
 
 <script>
+  const currentSky = document.querySelector<HTMLElement>('[data-current-sky]');
+  const timeZone = currentSky?.dataset.timezone || 'America/Chicago';
+
+  function todayKeyInTimeZone() {
+    const parts = Object.fromEntries(
+      new Intl.DateTimeFormat('en-US', {
+        timeZone,
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+      })
+        .formatToParts(new Date())
+        .filter((part) => ['year', 'month', 'day'].includes(part.type))
+        .map((part) => [part.type, part.value])
+    );
+    return `${parts.year}-${parts.month}-${parts.day}`;
+  }
+
+  const isCurrent = (el: HTMLElement, today: string) =>
+    !el.dataset.eventThrough || el.dataset.eventThrough >= today;
+
+  function refreshNextEvents(today: string) {
+    const cards = document.querySelectorAll<HTMLElement>('[data-next-event]');
+    let shown = 0;
+    cards.forEach((card) => {
+      const show = isCurrent(card, today) && shown < 3;
+      card.hidden = !show;
+      card.classList.toggle('current-sky-feature', show && shown === 0);
+      if (show) shown += 1;
+    });
+  }
+
   const bar = document.querySelector<HTMLElement>('[data-sky-filters]');
+  const buttons = bar?.querySelectorAll<HTMLButtonElement>('button') ?? [];
+  const items = document.querySelectorAll<HTMLElement>('[data-event-type]');
+  const months = document.querySelectorAll<HTMLElement>('[data-month]');
+  const status = document.querySelector<HTMLElement>('[data-sky-status]');
+
+  function applyFilter(filter: string, today: string, announce = false) {
+    let shown = 0;
+    items.forEach((li) => {
+      const show = isCurrent(li, today) && (filter === 'all' || li.dataset.eventType === filter);
+      li.hidden = !show;
+      if (show) shown++;
+    });
+    months.forEach((m) => {
+      m.hidden = [...m.querySelectorAll<HTMLElement>('[data-event-type]')].every((li) => li.hidden);
+    });
+    if (announce && status) status.textContent = `${shown} event${shown === 1 ? '' : 's'} shown`;
+  }
+
+  function refreshCurrentSky() {
+    const today = todayKeyInTimeZone();
+    refreshNextEvents(today);
+    const active = bar?.querySelector<HTMLButtonElement>('button[aria-pressed="true"]');
+    applyFilter(active?.dataset.filter ?? 'all', today);
+  }
+
+  refreshCurrentSky();
+  // A static build should not decide tomorrow's "current" event. Re-check the
+  // calendar date while the page remains open so the rollover follows Central
+  // time even when there has not been another deployment.
+  window.setInterval(refreshCurrentSky, 60_000);
+
   if (bar) {
-    const buttons = bar.querySelectorAll<HTMLButtonElement>('button');
-    const items = document.querySelectorAll<HTMLElement>('[data-event-type]');
-    const months = document.querySelectorAll<HTMLElement>('[data-month]');
-    const status = document.querySelector<HTMLElement>('[data-sky-status]');
     buttons.forEach((btn) =>
       btn.addEventListener('click', () => {
         const filter = btn.dataset.filter!;
         buttons.forEach((b) => b.setAttribute('aria-pressed', String(b === btn)));
-        let shown = 0;
-        items.forEach((li) => {
-          const show = filter === 'all' || li.dataset.eventType === filter;
-          li.hidden = !show;
-          if (show) shown++;
-        });
-        months.forEach((m) => {
-          m.hidden = [...m.querySelectorAll<HTMLElement>('[data-event-type]')].every((li) => li.hidden);
-        });
-        if (status) status.textContent = `${shown} event${shown === 1 ? '' : 's'} shown`;
+        applyFilter(filter, todayKeyInTimeZone(), true);
         (window as any).mlTrack?.('current_sky_filter', { filter });
       })
     );
