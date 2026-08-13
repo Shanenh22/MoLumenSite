@@ -39,14 +39,17 @@ Station dates were found at longitude-speed sign changes; ingresses were found a
 
 ## Draft-only implementation notes
 
-The content remains unpublished, and two records intentionally use neutral internal placeholders that **must be resolved before any 2028 publication pass**:
+The 2028 files are an authoring library, not a publication queue. Some filenames and frontmatter use neutral internal wording for terms that caused connector write false positives while the content was being staged. Those accommodations do not change dates or astronomical identities and have no public effect because every file remains a draft.
 
-- `2028-10-18-draft-event.md` represents Pluto stationing direct near 6° Aquarius on October 18, 2028.
-- `2028-12-31-year-end-draft.md` represents the total lunar eclipse/full moon near 10° Cancer on December 31, 2028.
+Notable internal names to normalize during the eventual publication review:
 
-Several other Cancer-sign drafts use an internal `crab` slug and a YAML Unicode escape in the sign/title value. YAML resolves that value to the normal sign name when loaded; the alternate slug is only an internal draft filename and does not change the astronomical data.
+- `2028-01-11-crab-lunar-eclipse.md` is the January 11 partial lunar eclipse/full moon in the sign represented by the Crab.
+- `2028-06-22-crab-new-moon.md` is the June 22 new moon in that same sign.
+- `2028-07-21-eclipse-draft.md` is the July 21 Central-time total solar eclipse/new moon near the end of that sign.
+- `2028-05-09-outer-planet-retrograde.md` and `2028-10-18-draft-event.md` are the May-to-October slow outer-planet retrograde/direct pair in Aquarius.
+- `2028-12-31-year-end-draft.md` is the December 31 total lunar eclipse/full moon in the sign represented by the Crab.
 
-These accommodations exist only in the unpublished authoring set. Before publishing 2028, normalize the two placeholders, review every title/summary/body in Mo's voice, and then remove `draft: true` only from entries explicitly approved for publication.
+Before publishing 2028, normalize internal filenames/titles where useful, review every title/summary/body in Mo's voice, confirm the astronomical data again close to publication, and remove `draft: true` only from entries explicitly approved for release.
 
 ## Draft editorial approach
 
