@@ -18,11 +18,11 @@ const recent = allLunations
   .slice(0, 4);
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
-const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
+const crumbs = [{ label: 'Rising Sign Guide', href: '/horoscopes/' }];
 ---
 
 <BaseLayout
-  title="Horoscopes by rising sign: a lens on each lunation"
+  title="Rising Sign Guide: a lens on each lunation"
   description="Mo Lumen offers rising-sign guidance with new moons and eclipses: a whole-sign-house lens on where to look, without pretending to predict what will happen."
   path="/horoscopes/"
   breadcrumbs={crumbs}
@@ -32,11 +32,11 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
     <div class="container">
       <div>
         <p class="eyebrow">A rising-sign lens</p>
-        <h1>Horoscopes</h1>
+        <h1>Rising Sign Guide</h1>
         <p class="lede">
           Use your rising sign to see which broad area of the chart a new moon or eclipse is moving
           through. I will give you somewhere useful to look and questions worth considering, without
-          pretending a general horoscope knows what will happen to you.
+          pretending a general guide knows what will happen to you.
         </p>
       </div>
       <img
@@ -57,7 +57,7 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   <section class="section section--sea">
     <div class="container">
       <div class="prose flow" style="margin-bottom: var(--space-6);">
-        <p class="eyebrow">How to use these</p>
+        <p class="eyebrow">How to use this guide</p>
         <h2>Keep the lens broad on purpose.</h2>
       </div>
       <div class="grid grid--3">
@@ -67,7 +67,7 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
         </article>
         <article class="card">
           <h3>Treat the result as a place to look</h3>
-          <p>The horoscope can suggest an area of attention. It cannot know whether this lunation is especially important in your natal chart.</p>
+          <p>The guide can suggest an area of attention. It cannot know whether this lunation is especially important in your natal chart.</p>
         </article>
         <article class="card">
           <h3>Leave room for the rest of the chart</h3>
@@ -110,12 +110,12 @@ const crumbs = [{ label: 'Horoscopes', href: '/horoscopes/' }];
   <section class="section section--alt">
     <div class="container grid grid--2" style="align-items: start;">
       <div class="prose flow">
-        <p class="eyebrow">What this is and is not</p>
-        <h2>A horoscope is not a miniature personal reading.</h2>
+        <p class="eyebrow">Why the scope stays broad</p>
+        <h2>Where to look, not what will happen.</h2>
         <p>
-          It is useful precisely because its job is narrower. It locates a lunation by whole-sign
-          house and offers a broad interpretive frame. A personal reading adds the rest of your
-          chart, the timing around it, and the life you are actually living.
+          The guide locates a lunation by whole-sign house and offers a broad interpretive frame.
+          That broad scope leaves room for your own circumstances. A personal reading adds the rest
+          of your chart, the timing around it, and the life you are actually living.
         </p>
         <FurtherReading />
       </div>
