@@ -5,15 +5,15 @@ start: 2027-08-02
 timezone: "America/Chicago"
 planets: ["Sun", "Moon"]
 sign: "Leo"
-summary: "A total solar eclipse at 10° Leo, with more than six minutes of totality along parts of its path across southern Spain, North Africa, Egypt, and the Arabian Peninsula. The astronomical spectacle is extraordinary; astrologically the Leo–Aquarius axis continues a longer conversation about individual expression and collective context."
+summary: "A total solar eclipse at 10° Leo. Astrologically, Leo's warmth, generosity, creativity, and personal leadership remain in conversation with Aquarius's independence, objectivity, reform-mindedness, and humanitarian perspective."
 featured: true
 sourceNote: "Eclipse types and magnitudes from NASA GSFC eclipse catalogue and timeanddate.com 2027 eclipse list; degrees/signs from cafeastrology.com 2027 moon phases (ET), 2026-08-07"
 lastVerified: 2026-08-07
 ownerReview: true
 ---
 
-A total solar eclipse occurs at 10° Leo, with more than six minutes of totality along parts of its path across southern Spain, North Africa, Egypt, and the Arabian Peninsula. Before we assign it any meaning, that is worth sitting with. The geometry alone produces one of the most extraordinary sights nature offers.
+A total solar eclipse occurs at 10° Leo. Before assigning it any meaning, the astronomical event is worth noticing on its own.
 
-Astrologically, eclipses are given more weight than ordinary lunations, and this one continues the Leo–Aquarius story active through 2027. Leo brings authorship, creativity, visibility, heart, and the desire to express something distinctly one's own. Aquarius widens the frame to groups, systems, friendship, shared ideals, and collective participation. Neither side cancels the other.
+Astrologically, this eclipse continues the Leo–Aquarius sign relationship active through 2027. Leo brings warmth, generosity, creative expression, pride, and personal leadership. Aquarius brings independence, objectivity, reform-mindedness, and a humanitarian, inclusive perspective. Neither side cancels the other.
 
-I would not assume that a visually dramatic eclipse must produce an equally dramatic personal event. Its importance depends on whether 10° Leo closely contacts natal planets or angles, which houses are involved, and what is already unfolding there. The sky can be spectacular without prescribing the story.
+I am interested in how individual expression can contribute to something larger without losing its distinct character, and how a broader perspective can remain inclusive without flattening difference. Personal importance depends on the natal houses involved, close contacts to 10° Leo or Aquarius, and the wider timing picture.
