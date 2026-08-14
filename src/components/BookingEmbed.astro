@@ -219,6 +219,31 @@ const configured = calUser.trim().length > 0;
   let successBound = false;
 
   /**
+   * The payment form can be much taller than Cal.com's success view. When Cal
+   * replaces it with "This meeting is scheduled", the iframe shrinks but the
+   * parent page otherwise keeps the visitor's old scroll position. That can
+   * leave the confirmation above the viewport, which looks as if the page has
+   * landed halfway through the success screen.
+   *
+   * Cal officially exposes bookingSuccessfulV2 for a fresh completed booking,
+   * so use that public event rather than inspecting or messaging the
+   * cross-origin iframe. A short delay gives Cal time to swap the route and
+   * resize the inline embed before we bring its top back into view.
+   */
+  function revealBookingConfirmation() {
+    const mount = document.querySelector<HTMLElement>('[data-cal-mount]');
+    if (!mount) return;
+    const behavior: ScrollBehavior = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+      ? 'auto'
+      : 'smooth';
+    window.setTimeout(() => {
+      window.requestAnimationFrame(() => {
+        mount.scrollIntoView({ block: 'start', behavior });
+      });
+    }, 180);
+  }
+
+  /**
    * Close the funnel: fire booking_complete when Cal.com confirms a booking.
    *
    * Until this existed the funnel was measured from arrival all the way to
@@ -249,6 +274,7 @@ const configured = calUser.trim().length > 0;
       action: 'bookingSuccessfulV2',
       callback: function () {
         track('booking_complete', { service: selectedKey() });
+        revealBookingConfirmation();
       },
     });
     successBound = true;
@@ -364,3 +390,9 @@ const configured = calUser.trim().length > 0;
   document.querySelector('[data-load-embed]')?.addEventListener('click', () => mountEmbed());
   fallback?.addEventListener('click', () => track('booking_external_fallback'));
 </script>
+
+<style>
+  [data-cal-mount] {
+    scroll-margin-top: 6rem;
+  }
+</style>
