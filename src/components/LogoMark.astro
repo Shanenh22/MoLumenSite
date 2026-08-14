@@ -1,31 +1,36 @@
 ---
 /**
- * Mo Lumen Astrology logo lockup using the owner-supplied SVG artwork.
+ * Mo Lumen Astrology logo lockup using the owner-supplied artwork.
  *
- * The source artwork arrived on a large transparent square. The committed SVG
- * uses a tight viewBox, so the same visual height takes substantially less
- * horizontal space in the sticky header and remains comfortable on phones.
+ * The committed SVG is tightly cropped and uses the site's exact teal and gold
+ * tokens: teal for the Mo Lumen signature, gold for ASTROLOGY and the sun rays.
+ * A separate mobile height can be supplied when the header needs a larger
+ * desktop lockup without changing the phone layout.
  */
 interface Props {
   /** Overall rendered height in px of the lockup */
   height?: number;
+  /** Optional rendered height below the desktop navigation breakpoint */
+  mobileHeight?: number;
   tone?: 'ink' | 'gold' | 'ivory';
   class?: string;
 }
-const { height = 48, tone = 'ink', class: className } = Astro.props;
-const aspectRatio = 175 / 69;
+const { height = 48, mobileHeight, tone = 'ink', class: className } = Astro.props;
+const aspectRatio = 661 / 261;
 const width = Math.round(height * aspectRatio);
+const mobileWidth = mobileHeight ? Math.round(mobileHeight * aspectRatio) : undefined;
 ---
 
 <span
   class:list={['logo-lockup', `logo-lockup--${tone}`, className]}
-  style={`--logo-width: ${width}px; --logo-height: ${height}px;`}
+  data-mobile-size={mobileHeight ? 'true' : undefined}
+  style={`--logo-width: ${width}px; --logo-height: ${height}px;${mobileHeight ? ` --logo-mobile-width: ${mobileWidth}px; --logo-mobile-height: ${mobileHeight}px;` : ''}`}
 >
   <img
     src="/images/mo-lumen-logo.svg"
     alt="Mo Lumen Astrology"
-    width={175}
-    height={69}
+    width={661}
+    height={261}
     decoding="async"
   />
 </span>
@@ -45,9 +50,19 @@ const width = Math.round(height * aspectRatio);
     max-height: var(--logo-height);
   }
 
-  /* The supplied blue artwork belongs on the light site header. On the dark
-     mobile menu and footer, a neutral ivory treatment keeps the same artwork
-     legible without introducing a new visual accent or changing those surfaces. */
+  @media (max-width: 1023px) {
+    .logo-lockup[data-mobile-size='true'] {
+      width: var(--logo-mobile-width);
+    }
+
+    .logo-lockup[data-mobile-size='true'] img {
+      max-height: var(--logo-mobile-height);
+    }
+  }
+
+  /* The two-tone artwork belongs on the light site header. On the dark mobile
+     menu and footer, a neutral ivory treatment keeps the same mark legible and
+     preserves the site's existing dark-surface treatment. */
   .logo-lockup--gold img,
   .logo-lockup--ivory img {
     filter: brightness(0) invert(1);
