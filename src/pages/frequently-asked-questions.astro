@@ -121,3 +121,37 @@ const schema = [
     secondaryHref="/how-readings-work/"
   />
 </BaseLayout>
+
+<style>
+  /* Use an in-row disclosure marker instead of the browser's outside marker.
+     Safari can place the native marker beyond the prose container on narrow
+     screens, which clips the triangle at the viewport edge. */
+  details.faq summary {
+    position: relative;
+    list-style: none;
+    padding-inline-start: calc(var(--space-2) + 1.25rem);
+  }
+
+  details.faq summary::-webkit-details-marker {
+    display: none;
+  }
+
+  details.faq summary::before {
+    content: '';
+    position: absolute;
+    inset-inline-start: var(--space-2);
+    top: 50%;
+    width: 0;
+    height: 0;
+    border-block-start: 0.32rem solid transparent;
+    border-block-end: 0.32rem solid transparent;
+    border-inline-start: 0.46rem solid currentColor;
+    transform: translateY(-50%);
+    transform-origin: 35% 50%;
+    transition: transform var(--duration-fast) var(--ease);
+  }
+
+  details.faq[open] summary::before {
+    transform: translateY(-50%) rotate(90deg);
+  }
+</style>
