@@ -32,6 +32,11 @@
   # inline scripts that are load-bearing.
   Content-Security-Policy-Report-Only: default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; form-action 'self' https://app.cal.com https://molumen.kit.com https://app.convertkit.com; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://molumen.kit.com https://f.convertkit.com https://app.cal.com https://www.youtube-nocookie.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://i.ytimg.com https://www.googletagmanager.com https://www.google-analytics.com; font-src 'self' data:; connect-src 'self' https://www.google-analytics.com https://region1.google-analytics.com https://app.convertkit.com https://f.convertkit.com https://app.cal.com; frame-src https://app.cal.com https://www.youtube-nocookie.com; media-src 'self' https://*.googlevideo.com; upgrade-insecure-requests
 
+# The workers.dev hostname is a public review origin, not the canonical site.
+# Keep it crawlable for link discovery but out of search results.
+https://molumen.shanenh.workers.dev/*
+  X-Robots-Tag: noindex
+
 # HTML documents must revalidate, or visitors keep seeing an old page after Mo publishes.
 /
   Cache-Control: public, max-age=0, must-revalidate

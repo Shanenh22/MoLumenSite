@@ -26,7 +26,7 @@ Priority labels: **P0** production blocker · **P1** high-value launch improveme
 - Continue migrating recurring handwritten inline styles when relevant pages are touched.
 
 ## P2 — post-launch / growth
-- Maintain the rolling Current Sky horizon; present coverage currently extends through December 2027.
+- Maintain the rolling Current Sky horizon. Public coverage currently extends through December 2027; owner-reviewed 2028 material is staged behind the July 1, 2027 publication gate and will enter the static site on the scheduled rebuild.
 - Decide when to create the 2027 annual Current Sky overview; do not invent it merely because 2027 event entries already exist.
 - Expand blog clusters using Search Console and real query performance.
 - After real funnel traffic exists, use Reading Finder step data and `booking_complete` attribution to decide whether any question, homepage section, or CTA needs simplification; do not optimize by page length alone.
