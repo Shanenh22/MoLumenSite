@@ -178,16 +178,27 @@ const navIcons: Record<string, string> = {
 
   // Mobile nav uses <dialog>. Keep it accordion-like so opening Current Sky,
   // Explore, or Readings does not turn a phone menu into several screens of
-  // simultaneous submenus. The current section still opens by default.
+  // simultaneous submenus. The current section can open on the first visit,
+  // but closing the dialog clears every expanded group so reopening starts clean.
   const dialog = document.querySelector<HTMLDialogElement>('.mobile-nav');
   const opener = document.querySelector<HTMLButtonElement>('[data-open-mobile-nav]');
   if (dialog && opener) {
+    const mobileGroups = [...dialog.querySelectorAll<HTMLButtonElement>('.mobile-group')];
+    const resetMobileGroups = () => {
+      mobileGroups.forEach((btn) => {
+        btn.setAttribute('aria-expanded', 'false');
+        const panel = document.getElementById(btn.getAttribute('aria-controls')!);
+        if (panel) panel.hidden = true;
+      });
+    };
+
     opener.addEventListener('click', () => {
       dialog.showModal();
       dialog.scrollTop = 0;
       document.documentElement.style.overflow = 'hidden';
     });
     dialog.addEventListener('close', () => {
+      resetMobileGroups();
       document.documentElement.style.overflow = '';
       opener.focus();
     });
@@ -197,7 +208,6 @@ const navIcons: Record<string, string> = {
     });
     dialog.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => dialog.close()));
 
-    const mobileGroups = [...dialog.querySelectorAll<HTMLButtonElement>('.mobile-group')];
     mobileGroups.forEach((btn) => {
       btn.addEventListener('click', () => {
         const expanded = btn.getAttribute('aria-expanded') === 'true';
