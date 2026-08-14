@@ -8,6 +8,7 @@ import CTABand from '../../components/CTABand.astro';
 import NewsletterForm from '../../components/NewsletterForm.astro';
 import SkyViewTabs from '../../components/SkyViewTabs.astro';
 import { SKY_TYPE_LABELS, utcKey } from '../../lib/sky-calendar';
+import { isSkyEventPublished } from '../../lib/sky-publishing';
 
 const dateKeyInTimeZone = (date: Date, timeZone: string) => {
   const parts = Object.fromEntries(
@@ -29,7 +30,7 @@ const todayKey = dateKeyInTimeZone(now, site.timezone);
 const events = (await getCollection('skyEvents'))
   .filter(
     (e) =>
-      !e.data.draft &&
+      isSkyEventPublished(e.data, now) &&
       utcKey(e.data.displayThrough ?? e.data.end ?? e.data.start) >= todayKey
   )
   .sort((a, b) => a.data.start.valueOf() - b.data.start.valueOf());

@@ -14,9 +14,11 @@ import SkyCalendar from '../../components/SkyCalendar.astro';
 import SkyViewTabs from '../../components/SkyViewTabs.astro';
 import { photos } from '../../config/images';
 import type { CalendarEvent } from '../../lib/sky-calendar';
+import { isSkyEventPublished } from '../../lib/sky-publishing';
 
+const now = new Date();
 const events: CalendarEvent[] = (await getCollection('skyEvents'))
-  .filter((e) => !e.data.draft)
+  .filter((e) => isSkyEventPublished(e.data, now))
   .map((e) => ({
     slug: e.id.replace(/\.mdx?$/, ''),
     title: e.data.title,

@@ -7,11 +7,14 @@ import Breadcrumbs from '../components/Breadcrumbs.astro';
 import CTABand from '../components/CTABand.astro';
 import NewsletterForm from '../components/NewsletterForm.astro';
 import NextLunations from '../components/NextLunations.astro';
+import { isSkyEventPublished } from '../lib/sky-publishing';
 
-const allLunations = (await getCollection('skyEvents')).filter(
-  (e) => e.data.eventType === 'lunation' || e.data.eventType === 'eclipse'
-);
 const now = new Date();
+const allLunations = (await getCollection('skyEvents')).filter(
+  (e) =>
+    isSkyEventPublished(e.data, now) &&
+    (e.data.eventType === 'lunation' || e.data.eventType === 'eclipse')
+);
 const recent = allLunations
   .filter((e) => e.data.start < now)
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf())
