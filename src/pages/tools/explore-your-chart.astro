@@ -273,6 +273,7 @@ const explainData = {
               <p data-result-mo></p>
               <p class="explorer-result__link"><a href="/explore/" data-result-link>Read the full reference page →</a></p>
             </div>
+            <button class="return-to-wheel" type="button" data-return-wheel hidden>← Back to chart wheel</button>
             <button class="next-step" type="button" data-next-step hidden>Next: choose a sign</button>
           </div>
 
@@ -295,7 +296,7 @@ const explainData = {
           <div class="wheel-visual__heading">
             <p class="eyebrow">Visual map</p>
             <h3 id="wheel-heading">See the layers on a chart wheel</h3>
-            <p>Tap a sign or house here if you prefer the diagram. Your selection stays in sync with the lesson.</p>
+            <p>Tap a sign or house to explore it. Your selection stays in sync with the lesson.</p>
           </div>
           <svg class="chart-wheel" viewBox="0 0 600 600" role="group" aria-label="Teaching chart wheel with 12 zodiac signs in the outer ring and 12 houses in the inner ring">
             {signSegs.map((s) => (
@@ -354,6 +355,7 @@ const explainData = {
       Array.from(root.querySelectorAll<HTMLElement>('[data-selected]')).map((el) => [el.dataset.selected!, el])
     );
 
+    const resultPanel = root.querySelector<HTMLElement>('[data-panel]')!;
     const resultKind = root.querySelector<HTMLElement>('[data-result-kind]')!;
     const resultGlyph = root.querySelector<HTMLElement>('[data-result-glyph]')!;
     const resultName = root.querySelector<HTMLElement>('[data-result-name]')!;
@@ -362,12 +364,17 @@ const explainData = {
     const resultText = root.querySelector<HTMLElement>('[data-result-text]')!;
     const resultMo = root.querySelector<HTMLElement>('[data-result-mo]')!;
     const resultLink = root.querySelector<HTMLAnchorElement>('[data-result-link]')!;
+    const returnToWheel = root.querySelector<HTMLButtonElement>('[data-return-wheel]')!;
     const nextStep = root.querySelector<HTMLButtonElement>('[data-next-step]')!;
     const synthesis = root.querySelector<HTMLElement>('[data-synthesis]')!;
+    const wheel = root.querySelector<SVGElement>('.chart-wheel')!;
+    const mobileLayout = window.matchMedia('(max-width: 899px)');
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
     const selections: Record<string, any> = { planets: null, signs: null, houses: null };
     let activeKind = 'planets';
     let started = false;
+    let lastWheelTarget: HTMLElement | null = null;
 
     const track = (event: string, params: Record<string, string> = {}) =>
       (window as any).mlTrack?.(event, params);
@@ -420,11 +427,29 @@ const explainData = {
       }
     }
 
+    function resultIsVisible() {
+      const rect = resultPanel.getBoundingClientRect();
+      return rect.bottom > 16 && rect.top < window.innerHeight - 16;
+    }
+
+    function revealResult(fromWheel: boolean) {
+      returnToWheel.hidden = !(fromWheel && mobileLayout.matches);
+      requestAnimationFrame(() => {
+        if (!fromWheel && resultIsVisible()) return;
+        resultPanel.scrollIntoView({
+          behavior: reducedMotion.matches ? 'auto' : 'smooth',
+          block: mobileLayout.matches ? 'start' : 'nearest',
+        });
+      });
+    }
+
     function select(el: HTMLElement) {
       const kind = el.dataset.kind!;
       const key = el.dataset.key!;
       const item = content[kind]?.[key];
       if (!item) return;
+      const fromWheel = !!el.closest('.chart-wheel');
+      if (fromWheel) lastWheelTarget = el;
       if (!started) { started = true; track('chart_explorer_start'); }
       selections[kind] = item;
       updatePressedState(kind, key);
@@ -444,10 +469,14 @@ const explainData = {
       resultLink.textContent = `Read the full ${item.shortName} page →`;
       configureNextStep(kind);
       updateSynthesis();
+      revealResult(fromWheel);
     }
 
     tabs.forEach((tab, index) => {
-      tab.addEventListener('click', () => activateCategory(tab.dataset.tab!));
+      tab.addEventListener('click', () => {
+        returnToWheel.hidden = true;
+        activateCategory(tab.dataset.tab!);
+      });
       tab.addEventListener('keydown', (event) => {
         if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
         event.preventDefault();
@@ -456,6 +485,7 @@ const explainData = {
         if (event.key === 'ArrowLeft') nextIndex = (index - 1 + tabs.length) % tabs.length;
         if (event.key === 'Home') nextIndex = 0;
         if (event.key === 'End') nextIndex = tabs.length - 1;
+        returnToWheel.hidden = true;
         activateCategory(tabs[nextIndex].dataset.tab!, true);
       });
     });
@@ -467,17 +497,30 @@ const explainData = {
       });
     });
 
+    returnToWheel.addEventListener('click', () => {
+      const target = lastWheelTarget ?? wheel;
+      target.scrollIntoView({
+        behavior: reducedMotion.matches ? 'auto' : 'smooth',
+        block: 'center',
+      });
+      lastWheelTarget?.focus({ preventScroll: true });
+    });
+
+    mobileLayout.addEventListener('change', (event) => {
+      if (!event.matches) returnToWheel.hidden = true;
+    });
+
     nextStep.addEventListener('click', () => {
+      returnToWheel.hidden = true;
       const nextKind = nextStep.dataset.nextKind;
       if (!nextKind) return;
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       if (nextKind === 'synthesis') {
-        synthesis.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+        synthesis.scrollIntoView({ behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start' });
         return;
       }
       activateCategory(nextKind, true);
       root.querySelector<HTMLElement>(`[data-choice-group="${nextKind}"]`)?.scrollIntoView({
-        behavior: reducedMotion ? 'auto' : 'smooth',
+        behavior: reducedMotion.matches ? 'auto' : 'smooth',
         block: 'nearest',
       });
     });
@@ -530,7 +573,10 @@ const explainData = {
   .explorer-result__glyph { display: inline-flex; align-items: center; justify-content: center; flex: 0 0 auto; width: 2.5rem; height: 2.5rem; border-radius: 999px; background: var(--color-teal-tint); color: var(--color-teal); font-family: var(--font-sans); }
   .result-label { margin: var(--space-4) 0 var(--space-1); color: var(--color-teal); font-size: var(--text-sm); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
   .explorer-result__link { margin: var(--space-4) 0 0; }
-  .next-step { width: 100%; min-height: 48px; margin-top: var(--space-4); padding: var(--space-2) var(--space-4); border: 0; border-radius: var(--radius-md); background: var(--color-navy); color: var(--color-ivory); font: inherit; font-weight: 700; cursor: pointer; }
+  .return-to-wheel, .next-step { width: 100%; min-height: 48px; margin-top: var(--space-4); padding: var(--space-2) var(--space-4); border-radius: var(--radius-md); font: inherit; font-weight: 700; cursor: pointer; }
+  .return-to-wheel { border: 1px solid var(--color-navy); background: transparent; color: var(--color-navy); }
+  .return-to-wheel:hover { background: var(--color-parchment); }
+  .next-step { border: 0; background: var(--color-navy); color: var(--color-ivory); }
   .synthesis-panel { margin-top: var(--space-6); padding: var(--space-5); border: 1px solid rgb(15 110 107 / 0.28); border-inline-start: 4px solid var(--color-teal); border-radius: var(--radius-lg); background: var(--color-teal-tint); }
   .synthesis-pieces { display: grid; gap: var(--space-3); margin: var(--space-5) 0; }
   .synthesis-pieces article { padding: var(--space-4); border: var(--border-hairline); border-radius: var(--radius-md); background: var(--surface); }

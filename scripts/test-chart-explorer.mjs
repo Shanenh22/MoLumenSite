@@ -28,6 +28,12 @@ const firstPartyErrors = (page) => {
   return errors;
 };
 
+const isInViewport = async (page, selector) =>
+  page.$eval(selector, (el) => {
+    const rect = el.getBoundingClientRect();
+    return rect.bottom > 0 && rect.top < window.innerHeight;
+  });
+
 console.log("\nChart explorer — mobile guided flow");
 const mobile = await browser.newPage({ viewport: { width: 390, height: 844 } });
 const mobileErrors = firstPartyErrors(mobile);
@@ -90,6 +96,27 @@ const mobilePressed = await mobile.evaluate(() => ({
   tenth: document.querySelector('#house-choices [data-key="tenth-house"]')?.getAttribute("aria-pressed"),
 }));
 ok(Object.values(mobilePressed).every((value) => value === "true"), "each layer keeps its own selected state");
+
+await mobile.$eval(".chart-wheel", (el) => el.scrollIntoView({ block: "center" }));
+await mobile.click('.chart-wheel [data-kind="signs"][data-key="gemini"]');
+await mobile.waitForFunction(() => {
+  const rect = document.querySelector("[data-panel]")?.getBoundingClientRect();
+  return !!rect && rect.bottom > 0 && rect.top < window.innerHeight;
+});
+ok(await isInViewport(mobile, "[data-panel]"), "mobile wheel selection brings its explanation into view");
+ok((await mobile.textContent('[data-result-name]'))?.trim() === "Gemini", "mobile wheel selection updates the visible explanation");
+ok(!(await mobile.$eval('[data-return-wheel]', (el) => el.hidden)), "mobile wheel selection offers a return to the chart wheel");
+
+await mobile.click("[data-return-wheel]");
+await mobile.waitForFunction(() => {
+  const rect = document.querySelector(".chart-wheel")?.getBoundingClientRect();
+  return !!rect && rect.bottom > 0 && rect.top < window.innerHeight;
+});
+ok(await isInViewport(mobile, ".chart-wheel"), "return control brings the chart wheel back into view");
+ok(
+  (await mobile.getAttribute('.chart-wheel [data-kind="signs"][data-key="gemini"]', "aria-pressed")) === "true",
+  "returning to the wheel preserves the selected segment",
+);
 ok(mobileErrors.length === 0, "mobile flow throws no first-party script errors", mobileErrors[0] ?? "");
 
 console.log("\nChart explorer — desktop wheel and keyboard");
@@ -158,11 +185,17 @@ ok(
 );
 
 await desktop.click('.chart-wheel [data-kind="signs"][data-key="taurus"]');
+await desktop.waitForFunction(() => {
+  const rect = document.querySelector("[data-panel]")?.getBoundingClientRect();
+  return !!rect && rect.bottom > 0 && rect.top < window.innerHeight;
+});
 ok((await desktop.textContent('[data-selected="signs"]'))?.trim() === "Taurus", "wheel selection synchronizes with the guided lesson");
 ok(
   (await desktop.getAttribute('#sign-choices [data-key="taurus"]', "aria-pressed")) === "true",
   "matching sign button reflects a wheel selection",
 );
+ok(await isInViewport(desktop, "[data-panel]"), "desktop wheel selection keeps the explanation visible");
+ok(await desktop.$eval('[data-return-wheel]', (el) => el.hidden), "desktop avoids a redundant return-to-wheel control");
 
 await desktop.focus('.chart-wheel [data-kind="houses"][data-key="tenth-house"]');
 await desktop.keyboard.press("Enter");
