@@ -10,13 +10,14 @@
  */
 import { getCollection } from 'astro:content';
 import { guidanceForEvent, ordinal } from '../data/lunation-guidance';
+import { isSkyEventPublished } from '../lib/sky-publishing';
 import RisingSignPicker from './RisingSignPicker.astro';
 
 const now = new Date();
 const upcoming = (await getCollection('skyEvents'))
   .filter(
     (e) =>
-      !e.data.draft &&
+      isSkyEventPublished(e.data, now) &&
       (e.data.eventType === 'lunation' || e.data.eventType === 'eclipse') &&
       e.data.start >= now
   )
