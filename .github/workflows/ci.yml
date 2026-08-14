@@ -48,39 +48,6 @@ jobs:
         run: |
           npm run audit:install
           npx playwright install --with-deps chromium
-      - name: Capture logo preview screenshots
-        run: |
-          mkdir -p pr-preview
-          python3 -m http.server 4321 --directory dist >/tmp/pr-preview-server.log 2>&1 &
-          SERVER_PID=$!
-          trap 'kill $SERVER_PID' EXIT
-          sleep 2
-          node --input-type=module <<'EOF'
-          import { chromium } from 'playwright';
-
-          const browser = await chromium.launch({ headless: true });
-
-          const desktop = await browser.newPage({ viewport: { width: 1440, height: 900 } });
-          await desktop.goto('http://127.0.0.1:4321/', { waitUntil: 'networkidle' });
-          await desktop.screenshot({ path: 'pr-preview/desktop-home.png' });
-          await desktop.locator('.site-footer').scrollIntoViewIfNeeded();
-          await desktop.locator('.site-footer').screenshot({ path: 'pr-preview/desktop-footer.png' });
-
-          const mobile = await browser.newPage({ viewport: { width: 390, height: 844 }, isMobile: true });
-          await mobile.goto('http://127.0.0.1:4321/', { waitUntil: 'networkidle' });
-          await mobile.screenshot({ path: 'pr-preview/mobile-home.png' });
-          await mobile.locator('[data-open-mobile-nav]').click();
-          await mobile.waitForTimeout(250);
-          await mobile.screenshot({ path: 'pr-preview/mobile-menu.png' });
-
-          await browser.close();
-          EOF
-      - name: Upload logo preview screenshots
-        uses: actions/upload-artifact@v4
-        with:
-          name: logo-preview-screenshots
-          path: pr-preview/*.png
-          if-no-files-found: error
       - name: Booking handoff
         run: npm run test:booking
       - name: Reading Finder handoff
