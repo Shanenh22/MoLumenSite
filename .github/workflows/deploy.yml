@@ -4,6 +4,12 @@ on:
   push:
     branches: [main]
   workflow_dispatch:
+  # Future Current Sky years can be owner-reviewed in advance while remaining
+  # hidden behind the publishing gate. This annual July 1 rebuild lets a
+  # scheduled year enter the static site, sitemap, search index and calendar
+  # without requiring a content edit that morning. 11:15 UTC is 6:15 AM CDT.
+  schedule:
+    - cron: '15 11 1 7 *'
 
 concurrency:
   group: deploy-${{ github.ref }}
