@@ -120,6 +120,43 @@ ok(
 );
 ok(desktopLayout.wheelWidth >= 400, "desktop wheel remains large enough to read", `${Math.round(desktopLayout.wheelWidth)}px`);
 
+const houseGeometry = await desktop.evaluate(() => {
+  const labels = [...document.querySelectorAll('.chart-wheel text[data-house-number]')].map((label) => {
+    const number = Number(label.getAttribute('data-house-number'));
+    const x = Number(label.getAttribute('x'));
+    const y = Number(label.getAttribute('y'));
+    const angle = (Math.atan2(-(y - 300), x - 300) * 180 / Math.PI + 360) % 360;
+    return { number, x, y, angle };
+  }).sort((a, b) => a.number - b.number);
+  const steps = labels.map((label, index) => {
+    const next = labels[(index + 1) % labels.length];
+    return (next.angle - label.angle + 360) % 360;
+  });
+  return { labels, steps };
+});
+const firstHouse = houseGeometry.labels.find((label) => label.number === 1);
+const twelfthHouse = houseGeometry.labels.find((label) => label.number === 12);
+ok(
+  houseGeometry.labels.length === 12,
+  "wheel renders all 12 numbered house labels",
+  `${houseGeometry.labels.length} labels`,
+);
+ok(
+  firstHouse && firstHouse.x < 300 && firstHouse.y > 300,
+  "1st house begins below the left-hand Ascendant side of the wheel",
+  firstHouse ? `x=${Math.round(firstHouse.x)}, y=${Math.round(firstHouse.y)}` : "missing",
+);
+ok(
+  twelfthHouse && twelfthHouse.x < 300 && twelfthHouse.y < 300,
+  "12th house sits above the left-hand Ascendant side of the wheel",
+  twelfthHouse ? `x=${Math.round(twelfthHouse.x)}, y=${Math.round(twelfthHouse.y)}` : "missing",
+);
+ok(
+  houseGeometry.steps.length === 12 && houseGeometry.steps.every((step) => Math.abs(step - 30) < 0.2),
+  "house numbers proceed counter-clockwise in 30-degree order",
+  houseGeometry.steps.map((step) => step.toFixed(1)).join(", "),
+);
+
 await desktop.click('.chart-wheel [data-kind="signs"][data-key="taurus"]');
 ok((await desktop.textContent('[data-selected="signs"]'))?.trim() === "Taurus", "wheel selection synchronizes with the guided lesson");
 ok(
