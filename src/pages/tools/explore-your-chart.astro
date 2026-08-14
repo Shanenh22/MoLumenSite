@@ -26,8 +26,12 @@ const signSegs = signs.map((s, i) => {
   const [lx, ly] = pt((rOuter + rSignInner) / 2, a0 + 15);
   return { ...s, d: ringSeg(rSignInner, rOuter, a0, a1), lx, ly };
 });
-const houseSegs = houses.map((h, i) => {
-  const a0 = i * 30, a1 = (i + 1) * 30;
+const houseSegs = houses.map((h) => {
+  // In a conventional chart wheel, the 1st house begins below the left-hand
+  // Ascendant cusp and the houses proceed counter-clockwise. The 12th house
+  // therefore sits immediately above the Ascendant.
+  const positionIndex = (9 - h.number + 12) % 12;
+  const a0 = positionIndex * 30, a1 = (positionIndex + 1) * 30;
   const [lx, ly] = pt((rSignInner + rHouseInner) / 2, a0 + 15);
   return { ...h, d: ringSeg(rHouseInner, rSignInner, a0, a1), lx, ly };
 });
@@ -301,7 +305,7 @@ const explainData = {
               <path class="seg" d={h.d} tabindex="0" role="button" aria-pressed="false" aria-label={`${h.name}, house`} data-kind="houses" data-key={h.slug} style="fill: var(--color-ivory);" />
             ))}
             {signSegs.map((s) => (<text x={s.lx} y={s.ly} text-anchor="middle" dominant-baseline="central" font-size="22">{s.glyph}</text>))}
-            {houseSegs.map((h) => (<text x={h.lx} y={h.ly} text-anchor="middle" dominant-baseline="central" font-size="16">{h.number}</text>))}
+            {houseSegs.map((h) => (<text x={h.lx} y={h.ly} data-house-number={h.number} text-anchor="middle" dominant-baseline="central" font-size="16">{h.number}</text>))}
             <circle cx="300" cy="300" r="150" fill="var(--color-parchment)" stroke="var(--color-brown)" stroke-width="0.6" />
             <text x="300" y="286" text-anchor="middle" font-size="15">SIGN · HOW</text>
             <text x="300" y="309" text-anchor="middle" font-size="15">HOUSE · WHERE</text>
