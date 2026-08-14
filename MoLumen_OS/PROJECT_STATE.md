@@ -1,6 +1,6 @@
 # MoLumen Project State
 
-Last reviewed: 2026-08-11
+Last reviewed: 2026-08-14
 
 Read for cross-session status only. Code/config is authoritative for implementation facts.
 
@@ -8,7 +8,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 - Astro 5 static site: **Mo Lumen Astrology**; legal name **Mo Lumen Astrological Services**.
 - Seven readings, Reading Finder, and service-aware booking are implemented. `src/config/booking.ts` owns reading order, eligibility, actions, bare `/book/`, and event mappings.
 - Pages CMS handles routine content; Explore remains code-managed. `src/content.config.ts` + `.pages.yml` are the live content/CMS contract.
-- Current Sky extends through Dec. 2027; maintain a rolling horizon. No 2027 annual overview exists.
+- Current Sky public coverage extends through Dec. 2027. Owner-reviewed 2028 entries are staged as drafts and become publishable beginning July 1, 2027 through the centralized publication gate; a scheduled July 1 rebuild refreshes the static site. A 2028 draft without `ownerReview: true` remains private. No 2027 annual overview exists.
 - Birth Time guide/toolkit/PDF, sky calendar, Birth Time Confidence, and rising-sign preference are implemented.
 - Newsletter = **a monthly note from Mo**; “The Sky This Month” is one section. Welcome-video UI/schema requires real metadata.
 - Courses, Guides, and Videos stay out of navigation while they lack a mature content job. Courses/Guides are noindexed; Videos is noindexed while empty.
@@ -34,7 +34,7 @@ Read for cross-session status only. Code/config is authoritative for implementat
 - `src/content/services/*.json` and `src/content/sky-events/*.md` — service and Current Sky facts.
 
 ## Release posture / owner gates
-- Staging canonicals/sitemap intentionally point at molumen.com; read `docs/deployment.md` before changing indexing behavior.
+- Staging canonicals/sitemap intentionally point at molumen.com; the workers.dev review hostname is protected with a host-specific `X-Robots-Tag: noindex`. Read `docs/deployment.md` before changing indexing behavior.
 - Production `molumen.com` cutover is owner-gated. Repo checks prove code readiness, not external-account readiness.
 - Cal.com Zoom + attendee phone locations are live. Remaining: intake/label/description checks plus one full booking/payment/confirmation/intake test.
 - Verify newsletter delivery and GA4 reception/consent events; complete owner/legal/accessibility items in `BACKLOG.md`.
