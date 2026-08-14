@@ -6,8 +6,9 @@ import Breadcrumbs from '../../components/Breadcrumbs.astro';
 import CTABand from '../../components/CTABand.astro';
 
 const now = new Date();
+const archiveStart = new Date('2026-01-01T00:00:00.000Z');
 const events = (await getCollection('skyEvents'))
-  .filter((e) => !e.data.draft && e.data.start < now)
+  .filter((e) => !e.data.draft && e.data.start >= archiveStart && e.data.start < now)
   .sort((a, b) => b.data.start.valueOf() - a.data.start.valueOf());
 const fmt = (d: Date) =>
   d.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
